@@ -400,6 +400,9 @@ final class RootViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // disable buttons, app just started, so there's no transmittter
+        self.changeButtonsStatusTo(enabled: false)
+
         // set up the clock view
         clockDateFormatter.dateStyle = .none
         clockDateFormatter.timeStyle = .short
@@ -771,7 +774,10 @@ final class RootViewController: UIViewController {
                 
                 // reassign calibrator, even if the type of calibrator would not change
                 self.calibrator = self.getCalibrator(cgmTransmitter: cgmTransmitter)
-                
+
+                // enable or disable buttons, depending if weboop enabled or not
+                self.changeButtonsStatusTo(enabled: !cgmTransmitter.isWebOOPEnabled())
+
                 // check if webOOPEnabled changed and if yes stop the sensor
                 if let webOOPEnabled = self.webOOPEnabled, webOOPEnabled != cgmTransmitter.isWebOOPEnabled() {
                     
@@ -812,7 +818,13 @@ final class RootViewController: UIViewController {
                 // eg a bubble or mm, not necessarily (better not) installed on a sensor
                 // CGMMiaoMiaoTransmitter.testRange(cGMTransmitterDelegate: self)
                 
+            } else {
+
+                // disable buttons, because there's no cgm transmitter
+                self.changeButtonsStatusTo(enabled: false)
+
             }
+            
             
         }
         
