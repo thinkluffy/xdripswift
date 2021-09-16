@@ -909,7 +909,7 @@ final class RootViewController: UIViewController {
             // this value is also used to verify that glucoseData Array has enough readings
             var timeStampToDelete = Date(timeIntervalSinceNow: -60.0 * (Double)(ConstantsLibreSmoothing.readingsToDeleteInMinutes))
             
-            trace("timeStampToDelete =  %{public}@", log: self.log, category: ConstantsLog.categoryRootView, type: .debug, timeStampToDelete.toString(timeStyle: .long, dateStyle: .none))
+            trace("timeStampToDelete 1 =  %{public}@", log: self.log, category: ConstantsLog.categoryRootView, type: .debug, timeStampToDelete.toString(timeStyle: .long, dateStyle: .none))
             
             // now check if we'll delete readings
             // there must be a glucoseData.last, here assigning lastGlucoseData just to unwrap it
@@ -923,10 +923,14 @@ final class RootViewController: UIViewController {
                     timeStampToDelete = max(timeStampToDelete, last.timeStamp)
                 }
                 
+                trace("timeStampToDelete 2 =  %{public}@", log: self.log, category: ConstantsLog.categoryRootView, type: .debug, timeStampToDelete.toString(timeStyle: .long, dateStyle: .none))
+
                 // older than the timestamp of the latest calibration (would only be applicable if recalibration is used)
                 if let lastCalibrationForActiveSensor = lastCalibrationForActiveSensor {
                     timeStampToDelete = max(timeStampToDelete, lastCalibrationForActiveSensor.timeStamp)
                 }
+                
+                trace("timeStampToDelete 3 =  %{public}@", log: self.log, category: ConstantsLog.categoryRootView, type: .debug, timeStampToDelete.toString(timeStyle: .long, dateStyle: .none))
                 
                 // there should be one reading per minute for the period that we want to delete readings, otherwise we may not be able to fill up a gap that is created by deleting readings, because the next readings are per 15 minutes. This will typically happen the first time the app runs (or reruns), the first range of readings is only 16 readings not enough to fill up a gap of more than 20 minutes
                 // we calculate the number of minutes between timeStampToDelete and now, use the result as index in glucoseData, the timestamp of that element is a number of minutes away from now, that number should be equal to index (as we expect one reading per minute)
@@ -937,6 +941,8 @@ final class RootViewController: UIViewController {
                     // just to avoid infinite loop
                     if timeStampToDelete > Date() {return true}
                     
+                    trace("in checkTimeStampToDelete 1", log: self.log, category: ConstantsLog.categoryRootView, type: .debug, timeStampToDelete.toString(timeStyle: .long, dateStyle: .none))
+
                     let minutes = Int(abs(timeStampToDelete.timeIntervalSince(Date())/60.0))
                     
                     if minutes < glucoseData.count {
@@ -944,18 +950,21 @@ final class RootViewController: UIViewController {
                         if abs(glucoseData[minutes].timeStamp.timeIntervalSince(timeStampToDelete)) > 1.0 {
                             // increase timeStampToDelete with 5 minutes, this is in the assumption that ConstantsSmoothing.readingsToDeleteInMinutes is not more than 21, by reducing to 16 we should never have a gap because there's always minimum 16 values per minute
                             timeStampToDelete = timeStampToDelete.addingTimeInterval(1.0 * 60)
-                            
+                            trace("in checkTimeStampToDelete 2", log: self.log, category: ConstantsLog.categoryRootView, type: .debug, timeStampToDelete.toString(timeStyle: .long, dateStyle: .none))
+
                             return false
                             
                         }
-                        
+                        trace("in checkTimeStampToDelete 3", log: self.log, category: ConstantsLog.categoryRootView, type: .debug, timeStampToDelete.toString(timeStyle: .long, dateStyle: .none))
+
                         return true
                         
                     } else {
                         // should never come here
                         // increase timeStampToDelete with 5 minutes
                         timeStampToDelete = timeStampToDelete.addingTimeInterval(1.0 * 60)
-                        
+                        trace("in checkTimeStampToDelete 4", log: self.log, category: ConstantsLog.categoryRootView, type: .debug, timeStampToDelete.toString(timeStyle: .long, dateStyle: .none))
+
                         return false
                     }
                     

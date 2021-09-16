@@ -147,15 +147,25 @@ class Libre2BLEUtilities {
             temperatureAdjustmentValues[index] = temperatureAdjustment
             
         }
+          
+        trace("=====in parseBLEData %{public}@", log: log, category: ConstantsLog.categoryLibreDataParser, type: .debug, Date().toString(timeStyle: .long, dateStyle: .long))
         
+        if UserDefaults.standard.addDebugLevelLogsInTraceFileAndNSLog {
+            trace("=====in parseBLEData; rawGlucoseValues before appending previous values =  %{public}@", log: log, category: ConstantsLog.categoryLibreDataParser, type: .debug, rawGlucoseValues.reduce("", { $0 + "; " + $1.description.replacingOccurrences(of: ".", with: ",")}))
+        }
+
         // append previous rawvalues
         appendPreviousValues(to: &rawGlucoseValues, rawTemperatureValues: &rawTemperatureValues, temperatureAdjustmentValues: &temperatureAdjustmentValues)
+
+        if UserDefaults.standard.addDebugLevelLogsInTraceFileAndNSLog {
+            trace("=====in parseBLEData; rawGlucoseValues after appending previous values =   %{public}@", log: log, category: ConstantsLog.categoryLibreDataParser, type: .debug, rawGlucoseValues.reduce("", { $0 + "; " + $1.description.replacingOccurrences(of: ".", with: ",") }))
+        }
 
         // check if the rawGlucoseValues and the previousRawGlucoseValues have at least 5 equal values, if so this is an expired sensor that keeps sending the same values, in that case no further processing
         if let previousRawGlucoseValues = UserDefaults.standard.previousRawGlucoseValues {
             if rawGlucoseValues.hasEqualValues(howManyToCheck: 5, otherArray: previousRawGlucoseValues) {
                 
-                trace("in parseBLEData, did detect flat values, returning empty GlucoseData array", log: log, category: ConstantsLog.categoryLibreDataParser, type: .info)
+                trace("=====in parseBLEData; did detect flat values, returning empty GlucoseData array", log: log, category: ConstantsLog.categoryLibreDataParser, type: .info)
                 
                 return ([GlucoseData](), wearTimeMinutes)
                 
@@ -167,6 +177,10 @@ class Libre2BLEUtilities {
         UserDefaults.standard.previousTemperatureAdjustmentValues = Array(temperatureAdjustmentValues[0..<(min(rawGlucoseValues.count, ConstantsLibreSmoothing.amountOfPreviousReadingsToStore))])
         UserDefaults.standard.previousRawTemperatureValues = Array(rawTemperatureValues[0..<(min(rawGlucoseValues.count, ConstantsLibreSmoothing.amountOfPreviousReadingsToStore))])
 
+        if UserDefaults.standard.addDebugLevelLogsInTraceFileAndNSLog {
+            trace("=====in parseBLEData; UserDefaults.standard.previousRawGlucoseValues =     %{public}@", log: log, category: ConstantsLog.categoryLibreDataParser, type: .debug, UserDefaults.standard.previousRawGlucoseValues!.reduce("", { $0 + "; " + $1.description.replacingOccurrences(of: ".", with: ",") }))
+        }
+
         // create glucosedata for each known rawglucose and add to returnvallue
         for (index, _) in rawGlucoseValues.enumerated() {
             
@@ -177,23 +191,17 @@ class Libre2BLEUtilities {
 
         }
         
-        trace("in parseBLEData, bleGlucose before filling gaps", log: log, category: ConstantsLog.categoryLibreDataParser, type: .debug)
-        for value in bleGlucose {
-
-            trace("    timestamp = %{public}@, glucoseLevelRaw = %{public}@, value to be smoothed = %{public}@", log: log, category: ConstantsLog.categoryLibreDataParser, type: .debug, value.timeStamp.toString(timeStyle: .full, dateStyle: .none), value.glucoseLevelRaw.description, value.value.description)
-            
+        if UserDefaults.standard.addDebugLevelLogsInTraceFileAndNSLog {
+            trace("=====in parseBLEData; bleGlucose before filling gaps =                     %{public}@", log: log, category: ConstantsLog.categoryLibreDataParser, type: .debug, bleGlucose.reduce("", { $0 + "; " + $1.glucoseLevelRaw.description.replacingOccurrences(of: ".", with: ",") }))
         }
-        
+
         // sensor gives values only every 1 minute but it gives only 4 readings for the last 8 minutes, ie with a gap of 1 minute, we try to fill those gaps using previous sessions, but this may not always be successful, (eg if there's been a disconnection of 2 minutes). So let's fill missing gaps of maximum 1 value
         bleGlucose.fill0Gaps(maxGapWidth: 1)
 
-        trace("in parseBLEData, bleGlucose after filling gaps", log: log, category: ConstantsLog.categoryLibreDataParser, type: .debug)
-        for value in bleGlucose {
-            
-            trace("    timestamp = %{public}@, glucoseLevelRaw = %{public}@, value to be smoothed = %{public}@", log: log, category: ConstantsLog.categoryLibreDataParser, type: .debug, value.timeStamp.toString(timeStyle: .full, dateStyle: .none), value.glucoseLevelRaw.description, value.value.description)
-
+        if UserDefaults.standard.addDebugLevelLogsInTraceFileAndNSLog {
+            trace("=====in parseBLEData; bleGlucose after filling gaps =                      %{public}@", log: log, category: ConstantsLog.categoryLibreDataParser, type: .debug, bleGlucose.reduce("", { $0 + "; " + $1.glucoseLevelRaw.description.replacingOccurrences(of: ".", with: ",") }))
         }
-        
+
         // if first (most recent) value has rawGlucose 0.0 then return empty array
         if let first = bleGlucose.first {
             if first.glucoseLevelRaw == 0.0 {
@@ -208,29 +216,19 @@ class Libre2BLEUtilities {
             LibreSmoothing.smooth(trend: &bleGlucose, repeatPerMinuteSmoothingSavitzkyGolay: ConstantsLibreSmoothing.libreSmoothingRepeatPerMinuteSmoothing, filterWidthPerMinuteValuesSavitzkyGolay: ConstantsLibreSmoothing.filterWidthPerMinuteValues, filterWidthPer5MinuteValuesSavitzkyGolay: ConstantsLibreSmoothing.filterWidthPer5MinuteValues, repeatPer5MinuteSmoothingSavitzkyGolay: ConstantsLibreSmoothing.repeatPer5MinuteSmoothing)
             
         }
-        
-        trace("in parseBLEData, after smoothing", log: log, category: ConstantsLog.categoryLibreDataParser, type: .debug)
-        for value in bleGlucose {
-            
-            trace("    timestamp = %{public}@, glucoseLevelRaw = %{public}@, value to be smoothed = %{public}@", log: log, category: ConstantsLog.categoryLibreDataParser, type: .debug, value.timeStamp.toString(timeStyle: .full, dateStyle: .none), value.glucoseLevelRaw.description, value.value.description)
 
+        if UserDefaults.standard.addDebugLevelLogsInTraceFileAndNSLog {
+            trace("=====in parseBLEData; bleGlucose after smoothing =                         %{public}@", log: log, category: ConstantsLog.categoryLibreDataParser, type: .debug, bleGlucose.reduce("", { $0 + "; " + $1.glucoseLevelRaw.description.replacingOccurrences(of: ".", with: ",") }))
         }
-        
 
-        
         // there's still possibly 0 values, eg first or last
         // filter out readings with glucoseLevelRaw = 0, if any
         bleGlucose = bleGlucose.filter({return $0.glucoseLevelRaw > 0.0})
 
-        trace("in parseBLEData, after filtering out 0 values", log: log, category: ConstantsLog.categoryLibreDataParser, type: .debug)
-        for value in bleGlucose {
-            
-            trace("    timestamp = %{public}@, glucoseLevelRaw = %{public}@, value to be smoothed = %{public}@", log: log, category: ConstantsLog.categoryLibreDataParser, type: .debug, value.timeStamp.toString(timeStyle: .full, dateStyle: .none), value.glucoseLevelRaw.description, value.value.description)
-
+        if UserDefaults.standard.addDebugLevelLogsInTraceFileAndNSLog {
+            trace("=====in parseBLEData; bleGlucose after filtering out 0 values =            %{public}@", log: log, category: ConstantsLog.categoryLibreDataParser, type: .debug, bleGlucose.reduce("", { $0 + "; " + $1.glucoseLevelRaw.description.replacingOccurrences(of: ".", with: ",") }))
         }
-        
 
-        
         return (bleGlucose, wearTimeMinutes)
         
     }
