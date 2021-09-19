@@ -154,9 +154,9 @@ class Libre2BLEUtilities {
             trace("=====in parseBLEData; rawGlucoseValues before appending previous values =  %{public}@", log: log, category: ConstantsLog.categoryLibreDataParser, type: .debug, rawGlucoseValues.reduce("", { $0 + "; " + $1.description.replacingOccurrences(of: ".", with: ",")}))
         }
 
-      /*  if UserDefaults.standard.addDebugLevelLogsInTraceFileAndNSLog {
+        if UserDefaults.standard.addDebugLevelLogsInTraceFileAndNSLog {
             trace("=====in parseBLEData; UserDefaults.standard.previousRawGlucoseValues =     %{public}@", log: log, category: ConstantsLog.categoryLibreDataParser, type: .debug, UserDefaults.standard.previousRawGlucoseValues!.reduce("", { $0 + "; " + $1.description.replacingOccurrences(of: ".", with: ",") }))
-        }*/
+        }
         
         // append previous rawvalues
         appendPreviousValues(to: &rawGlucoseValues, rawTemperatureValues: &rawTemperatureValues, temperatureAdjustmentValues: &temperatureAdjustmentValues)
@@ -181,9 +181,9 @@ class Libre2BLEUtilities {
         UserDefaults.standard.previousTemperatureAdjustmentValues = Array(temperatureAdjustmentValues[0..<(min(rawGlucoseValues.count, ConstantsLibreSmoothing.amountOfPreviousReadingsToStore))])
         UserDefaults.standard.previousRawTemperatureValues = Array(rawTemperatureValues[0..<(min(rawGlucoseValues.count, ConstantsLibreSmoothing.amountOfPreviousReadingsToStore))])
 
-/*        if UserDefaults.standard.addDebugLevelLogsInTraceFileAndNSLog {
+        if UserDefaults.standard.addDebugLevelLogsInTraceFileAndNSLog {
             trace("=====in parseBLEData; UserDefaults.standard.previousRawGlucoseValues after setting =     %{public}@", log: log, category: ConstantsLog.categoryLibreDataParser, type: .debug, UserDefaults.standard.previousRawGlucoseValues!.reduce("", { $0 + "; " + $1.description.replacingOccurrences(of: ".", with: ",") }))
-        }*/
+        }
 
         // create glucosedata for each known rawglucose and add to returnvallue
         for (index, _) in rawGlucoseValues.enumerated() {
