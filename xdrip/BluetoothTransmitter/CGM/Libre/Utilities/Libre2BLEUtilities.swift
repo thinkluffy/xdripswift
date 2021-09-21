@@ -154,8 +154,8 @@ class Libre2BLEUtilities {
             trace("=====in parseBLEData; rawGlucoseValues before appending previous values =  %{public}@", log: log, category: ConstantsLog.categoryLibreDataParser, type: .debug, rawGlucoseValues.reduce("", { $0 + "; " + $1.description.replacingOccurrences(of: ".", with: ",")}))
         }
 
-        if UserDefaults.standard.addDebugLevelLogsInTraceFileAndNSLog {
-            trace("=====in parseBLEData; UserDefaults.standard.previousRawGlucoseValues =     %{public}@", log: log, category: ConstantsLog.categoryLibreDataParser, type: .debug, UserDefaults.standard.previousRawGlucoseValues!.reduce("", { $0 + "; " + $1.description.replacingOccurrences(of: ".", with: ",") }))
+        if UserDefaults.standard.addDebugLevelLogsInTraceFileAndNSLog, let previousRawGlucoseValues = UserDefaults.standard.previousRawGlucoseValues {
+            trace("=====in parseBLEData; UserDefaults.standard.previousRawGlucoseValues =     %{public}@", log: log, category: ConstantsLog.categoryLibreDataParser, type: .debug, previousRawGlucoseValues.reduce("", { $0 + "; " + $1.description.replacingOccurrences(of: ".", with: ",") }))
         }
         
         // append previous rawvalues
@@ -176,13 +176,13 @@ class Libre2BLEUtilities {
             }
         }
 
-        // store current values (appended with previous values) in userdefaults prevous values
+        // store current values (appended with previous values) in userdefaults previous values
         UserDefaults.standard.previousRawGlucoseValues = Array(rawGlucoseValues[0..<(min(rawGlucoseValues.count, ConstantsLibreSmoothing.amountOfPreviousReadingsToStore))])
         UserDefaults.standard.previousTemperatureAdjustmentValues = Array(temperatureAdjustmentValues[0..<(min(rawGlucoseValues.count, ConstantsLibreSmoothing.amountOfPreviousReadingsToStore))])
         UserDefaults.standard.previousRawTemperatureValues = Array(rawTemperatureValues[0..<(min(rawGlucoseValues.count, ConstantsLibreSmoothing.amountOfPreviousReadingsToStore))])
 
-        if UserDefaults.standard.addDebugLevelLogsInTraceFileAndNSLog {
-            trace("=====in parseBLEData; UserDefaults.standard.previousRawGlucoseValues after setting =     %{public}@", log: log, category: ConstantsLog.categoryLibreDataParser, type: .debug, UserDefaults.standard.previousRawGlucoseValues!.reduce("", { $0 + "; " + $1.description.replacingOccurrences(of: ".", with: ",") }))
+        if UserDefaults.standard.addDebugLevelLogsInTraceFileAndNSLog, let previousRawGlucoseValues = UserDefaults.standard.previousRawGlucoseValues {
+            trace("=====in parseBLEData; UserDefaults.standard.previousRawGlucoseValues after setting =     %{public}@", log: log, category: ConstantsLog.categoryLibreDataParser, type: .debug, previousRawGlucoseValues.reduce("", { $0 + "; " + $1.description.replacingOccurrences(of: ".", with: ",") }))
         }
 
         // create glucosedata for each known rawglucose and add to returnvallue
@@ -273,25 +273,48 @@ class Libre2BLEUtilities {
                     if rawGlucoseValues[index] == previousRawGlucoseValues[indexStored] && rawTemperatureValues[index] == previousRawTemperatureValues[indexStored] {
                         
                         // possibly matching value found, but to be sure, let's check 2 more values
-                        // do this per two values
-                        let maxAdditionalValuesToCheck = 2 + 1 // actual max is 3
-                        var additionalIndexOffset = 1
-                        while additionalIndexOffset <  maxAdditionalValuesToCheck
-                                &&
-                              indexStored + additionalIndexOffset < previousRawGlucoseValues.count
-                                &&
-                              index + additionalIndexOffset < rawGlucoseValues.count
-                                &&
-                              rawGlucoseValues[index + additionalIndexOffset] == previousRawGlucoseValues[indexStored + additionalIndexOffset]
-                                &&
-                              rawTemperatureValues[index + additionalIndexOffset] == previousRawTemperatureValues[indexStored + additionalIndexOffset] {
+                        // do this per two values, because Libre 2 only gives every 2 readings
+                        let maxAdditionalValuesToCheck = 3 + 1 // actual max is 4
+                        var additionalIndexOffset = 2
+                        
+                        // if previousRawGlucoseValues.count < 9, then don't further check, consider this as a match, otherwise we never get out of the next loop
+                        if previousRawGlucoseValues.count >= 9 {
                             
-                            additionalIndexOffset += additionalIndexOffset
+                            trace("=====parseBLEData; in appendPreviousValues, rawGlucoseValues[index + additionalIndexOffset] =  %{public}@ ", log: log, category: ConstantsLog.categoryCGMLibre2, type: .debug, rawGlucoseValues[index + additionalIndexOffset].description)
+                            
+                            trace("=====parseBLEData; in appendPreviousValues, previousRawGlucoseValues[indexStored + additionalIndexOffset] =  %{public}@ ", log: log, category: ConstantsLog.categoryCGMLibre2, type: .debug, previousRawGlucoseValues[indexStored + additionalIndexOffset].description)
+
+                            trace("=====parseBLEData; in appendPreviousValues, previousRawGlucoseValues[indexStored + additionalIndexOffset] =  %{public}@ ", log: log, category: ConstantsLog.categoryCGMLibre2, type: .debug, previousRawGlucoseValues[indexStored + additionalIndexOffset].description)
+                            
+                            trace("=====parseBLEData; in appendPreviousValues, rawTemperatureValues[index + additionalIndexOffset] =  %{public}@ ", log: log, category: ConstantsLog.categoryCGMLibre2, type: .debug, rawTemperatureValues[index + additionalIndexOffset].description)
+                            
+                            trace("=====parseBLEData; in appendPreviousValues, previousRawTemperatureValues[indexStored + additionalIndexOffset] =  %{public}@ ", log: log, category: ConstantsLog.categoryCGMLibre2, type: .debug, previousRawTemperatureValues[indexStored + additionalIndexOffset].description)
+                            
+                            while additionalIndexOffset <  maxAdditionalValuesToCheck
+                                    &&
+                                    indexStored + additionalIndexOffset < previousRawGlucoseValues.count
+                                    &&
+                                    index + additionalIndexOffset < rawGlucoseValues.count
+                                    &&
+                                    rawGlucoseValues[index + additionalIndexOffset] == previousRawGlucoseValues[indexStored + additionalIndexOffset]
+                                    &&
+                                    rawTemperatureValues[index + additionalIndexOffset] == previousRawTemperatureValues[indexStored + additionalIndexOffset] {
+                                
+                                trace("=====parseBLEData; in appendPreviousValues, increase additionalIndexOffset to %{public}@ ", log: log, category: ConstantsLog.categoryCGMLibre2, type: .debug, additionalIndexOffset.description)
+                                
+                                additionalIndexOffset += 2
+                                
+                            }
+
+                        } else {
+                            
+                            // consider this as a match
+                            additionalIndexOffset = maxAdditionalValuesToCheck
                             
                         }
                         
-                        // if additionalIndexOffset < maxAdditionalValuesToCheck that means, we found at least 3 indexes where previousRawGlucoseValues matches the value in previousRawGlucoseValues
-                        if additionalIndexOffset < maxAdditionalValuesToCheck {
+                        // if additionalIndexOffset == maxAdditionalValuesToCheck that means, we found at least 3 indexes where previousRawGlucoseValues matches the value in previousRawGlucoseValues
+                        if additionalIndexOffset >= maxAdditionalValuesToCheck {
                             
                             // matching value found
                             indexOffset = indexStored - index

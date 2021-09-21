@@ -394,7 +394,8 @@ final class RootViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        UserDefaults.standard.previousRawTemperatureValues = nil
+        UserDefaults.standard.previousRawGlucoseValues = nil
         // set up the clock view
         clockDateFormatter.dateStyle = .none
         clockDateFormatter.timeStyle = .short
