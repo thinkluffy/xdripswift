@@ -9,6 +9,17 @@ class LibreSmoothing {
     /// - then per 5 minutes : using values of 5 minutes before , 10 minutes before, 5 minutes after and 10 minutes after, ... the number of values taken into account depends on the filterWidth
     public static func smooth(trend: inout [GlucoseData], repeatPerMinuteSmoothingSavitzkyGolay: Int, filterWidthPerMinuteValuesSavitzkyGolay: Int, filterWidthPer5MinuteValuesSavitzkyGolay: Int, repeatPer5MinuteSmoothingSavitzkyGolay:Int) {
         
+        // do not apply smoothing if any of the values in trend is 0
+        for trendValue in trend {
+            
+            if trendValue.glucoseLevelRaw == 0 {
+                
+                return
+                
+            }
+            
+        }
+        
         // smooth the trend values, filterWidth 5, 2 iterations
         for _ in 1...repeatPerMinuteSmoothingSavitzkyGolay {
             
