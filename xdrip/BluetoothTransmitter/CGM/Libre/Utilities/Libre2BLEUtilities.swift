@@ -280,15 +280,21 @@ class Libre2BLEUtilities {
                         // if previousRawGlucoseValues.count < 9, then don't further check, consider this as a match, otherwise we never get out of the next loop
                         if previousRawGlucoseValues.count >= 9 {
                             
-                            trace("=====parseBLEData; in appendPreviousValues, rawGlucoseValues[index + additionalIndexOffset] =  %{public}@ ", log: log, category: ConstantsLog.categoryCGMLibre2, type: .debug, rawGlucoseValues[index + additionalIndexOffset].description)
-                            
-                            trace("=====parseBLEData; in appendPreviousValues, previousRawGlucoseValues[indexStored + additionalIndexOffset] =  %{public}@ ", log: log, category: ConstantsLog.categoryCGMLibre2, type: .debug, previousRawGlucoseValues[indexStored + additionalIndexOffset].description)
+                            if indexStored + additionalIndexOffset < previousRawGlucoseValues.count
+                                &&
+                                index + additionalIndexOffset < rawGlucoseValues.count {
 
-                            trace("=====parseBLEData; in appendPreviousValues, previousRawGlucoseValues[indexStored + additionalIndexOffset] =  %{public}@ ", log: log, category: ConstantsLog.categoryCGMLibre2, type: .debug, previousRawGlucoseValues[indexStored + additionalIndexOffset].description)
-                            
-                            trace("=====parseBLEData; in appendPreviousValues, rawTemperatureValues[index + additionalIndexOffset] =  %{public}@ ", log: log, category: ConstantsLog.categoryCGMLibre2, type: .debug, rawTemperatureValues[index + additionalIndexOffset].description)
-                            
-                            trace("=====parseBLEData; in appendPreviousValues, previousRawTemperatureValues[indexStored + additionalIndexOffset] =  %{public}@ ", log: log, category: ConstantsLog.categoryCGMLibre2, type: .debug, previousRawTemperatureValues[indexStored + additionalIndexOffset].description)
+                                trace("=====parseBLEData; in appendPreviousValues, rawGlucoseValues[index + additionalIndexOffset] =  %{public}@ ", log: log, category: ConstantsLog.categoryCGMLibre2, type: .debug, rawGlucoseValues[index + additionalIndexOffset].description)
+                                
+                                trace("=====parseBLEData; in appendPreviousValues, previousRawGlucoseValues[indexStored + additionalIndexOffset] =  %{public}@ ", log: log, category: ConstantsLog.categoryCGMLibre2, type: .debug, previousRawGlucoseValues[indexStored + additionalIndexOffset].description)
+                                
+                                trace("=====parseBLEData; in appendPreviousValues, previousRawGlucoseValues[indexStored + additionalIndexOffset] =  %{public}@ ", log: log, category: ConstantsLog.categoryCGMLibre2, type: .debug, previousRawGlucoseValues[indexStored + additionalIndexOffset].description)
+                                
+                                trace("=====parseBLEData; in appendPreviousValues, rawTemperatureValues[index + additionalIndexOffset] =  %{public}@ ", log: log, category: ConstantsLog.categoryCGMLibre2, type: .debug, rawTemperatureValues[index + additionalIndexOffset].description)
+                                
+                                trace("=====parseBLEData; in appendPreviousValues, previousRawTemperatureValues[indexStored + additionalIndexOffset] =  %{public}@ ", log: log, category: ConstantsLog.categoryCGMLibre2, type: .debug, previousRawTemperatureValues[indexStored + additionalIndexOffset].description)
+
+                            }
                             
                             while additionalIndexOffset <  maxAdditionalValuesToCheck
                                     &&
