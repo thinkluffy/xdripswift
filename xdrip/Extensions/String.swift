@@ -1,4 +1,3 @@
-import UIKit
 import CryptoSwift
 
 extension String {

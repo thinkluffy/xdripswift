@@ -2,7 +2,6 @@ import Foundation
 import os
 import CoreBluetooth
 import CoreData
-import UIKit
 
 class BluetoothPeripheralManager: NSObject {
     

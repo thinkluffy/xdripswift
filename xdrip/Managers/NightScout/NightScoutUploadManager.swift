@@ -1,6 +1,5 @@
 import Foundation
 import os
-import UIKit
 
 public class NightScoutUploadManager:NSObject {
     

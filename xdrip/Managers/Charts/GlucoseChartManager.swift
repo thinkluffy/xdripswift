@@ -2,7 +2,6 @@ import Foundation
 import HealthKit
 import SwiftCharts
 import os.log
-import UIKit
 import CoreData
 
 public final class GlucoseChartManager {

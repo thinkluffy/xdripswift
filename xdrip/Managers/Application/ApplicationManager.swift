@@ -1,5 +1,3 @@
-import UIKit
-
 /// class defines methods to allow running of closures when app comes to foreground or to background
 class ApplicationManager {
 

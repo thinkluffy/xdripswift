@@ -24,5 +24,4 @@ XDRIP_DEVELOPMENT_TEAM = RNX44PP998
 
 
 // Optional overrides
-#include? "xDripOverride.xcconfig"
 #include? "../xDripConfigOverride.xcconfig"
