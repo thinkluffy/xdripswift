@@ -58,6 +58,9 @@ class CGMLibre2Transmitter:BluetoothTransmitter, CGMTransmitter {
     // it will be casted to LibreNFC when needed
     private var libreNFC: NSObject?
     
+    /// sensor type
+    private var libreSensorType: LibreSensorType?
+    
     // MARK: - Initialization
     /// - parameters:
     ///     - address: if already connected before, then give here the address that was received during previous connect, if not give nil
@@ -182,6 +185,17 @@ class CGMLibre2Transmitter:BluetoothTransmitter, CGMTransmitter {
             return
             
         }
+            
+        // logging libreSensorUID and libre1DerivedAlgorithmParameters just in case it's needed for debugging purposes
+        var libre1DerivedAlgorithmParametersAsString: String!
+        if let libre1DerivedAlgorithmParameters = UserDefaults.standard.libre1DerivedAlgorithmParameters {
+            libre1DerivedAlgorithmParametersAsString = libre1DerivedAlgorithmParameters.description
+        } else {
+            libre1DerivedAlgorithmParametersAsString = "unknown"
+        }
+        
+        trace("in peripheral didUpdateValueFor libreSensorUID = %{public}@, libre1DerivedAlgorithmParameters = %{public}@", log: log, category: ConstantsLog.categoryCGMLibre2, type: .info, libreSensorUID.toHexString(), libre1DerivedAlgorithmParametersAsString)
+
         
         if let value = characteristic.value {
             
@@ -335,6 +349,12 @@ class CGMLibre2Transmitter:BluetoothTransmitter, CGMTransmitter {
         // not supported for Libre 2
     }
     
+    func maxSensorAgeInDays() -> Int? {
+        
+        return libreSensorType?.maxSensorAgeInDays()
+        
+    }
+    
 }
 
 #else
@@ -357,6 +377,8 @@ extension CGMLibre2Transmitter: LibreNFCDelegate {
         // if we already know the patchinfo (which we should because normally received(sensorUID: Data, patchInfo: Data) gets called before received(fram: Data), then patchInfo should not be nil
         // same for sensorUID
         if let patchInfo =  UserDefaults.standard.librePatchInfo, let sensorUID = UserDefaults.standard.libreSensorUID, let libreSensorType = LibreSensorType.type(patchInfo: patchInfo.hexEncodedString().uppercased()), let serialNumber = self.sensorSerialNumber {
+            
+            self.libreSensorType = libreSensorType
             
             var framCopy = fram
             

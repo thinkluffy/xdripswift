@@ -12,8 +12,8 @@
 /// nightscout settings, port to use
 "nightScoutPort" = "Port (optional):";
 
-/// speak settings, where user can set the speak interval, speak each reading, each two readings ...
-"settingsviews_speakInterval" = "Interval:";
+/// When clicking the interval setting, a pop up asks for minimum number of minutes between two readings, this is the pop up title - this is used for setting the interval between two readings in BG notifications, Speak readings, Apple Watch
+"settingsviews_IntervalTitle" = "Interval:";
 
 /// home screen settings, urgent high value
 "settingsviews_urgentHighValue" = "Urgent High Value:";
@@ -45,8 +45,8 @@
 /// shown on top of the first settings screen, literally 'Settings'
 "settingsviews_settingstitle" = "Settings";
 
-/// When clicking the interval setting, a pop up asks for number of minutes between two spoken readings, this is the message displayed in the pop up
-"settingsviews_speakIntervalMessage" = "Minimum interval between two readings, in minutes";
+/// When clicking the interval setting, a pop up asks for minimum number of minutes between two readings, this is the pop up message - this is used for setting the interval between two readings in BG notifications, Speak readings, Apple Watch
+"settingsviews_IntervalMessage" = "Minimum interval between two readings, in minutes";
 
 /// Apple Watch Settings - text in row where create event is enabled or disabled 
 "createCalendarEvent" = "Create Calendar Events?";
@@ -55,7 +55,7 @@
 "displayUnitInCalendarEvent" = "Display Unit?";
 
 /// about settings, section title
-"settingsviews_sectiontitleAbout" = "About xDrip4iOS";
+"settingsviews_sectiontitleAbout" = "About %@";
 
 /// Apple Watch Settings - text in row where user needs to say if delta should be displayed or not
 "displayDeltaInCalendarEvent" = "Display Delta?";
@@ -70,7 +70,7 @@
 "settingsviews_sectiontitlespeak" = "Voice";
 
 /// general settings, should reading be shown in notification yes or no
-"showReadingInNotification" = "Show BG in Notifications?";
+"settingsviews_showReadingInNotification" = "Show BG in Notifications?";
 
 /// 
 "settingsviews_urgentLowValue" = "Urgent Low Value:";
@@ -172,7 +172,7 @@
 "settingsviews_resettransmitter" = "Reset Transmitter";
 
 /// general settings, should reading be multiplied with 10 yes or no
-"multipleAppBadgeValueWith10" = "Multiply App Badge Reading by 10?";
+"settingsviews_multipleAppBadgeValueWith10" = "Multiply App Badge Reading by 10?";
 
 /// non fixed settings, title of the section
 "settingsviews_labelNonFixed" = "Multi-point Calibration";
@@ -184,7 +184,7 @@
 "testUrlAndAPIKey" = "Test Connection?";
 
 /// If user is not allowed to give any app access to the Calendar, due to restrictions. And then tries to activate creation of events in calendar, this message will be shown
-"infoCalendarAccessRestricted" = "You cannot give authorization to xDrip4iOS to access your calendar. This is possibly due to active restrictions such as parental controls being in place.";
+"infoCalendarAccessRestricted" = "You cannot give authorization to %@ to access your calendar. This is possibly due to active restrictions such as parental controls being in place.";
 
 /// default text in email body, when user wants to send trace file.
 "emailbodyText" = "Problem Description: ";
@@ -199,7 +199,7 @@
 "settingsviews_follower" = "Follower";
 
 /// general settings, should reading be shown in app badge yes or no
-"labelShowReadingInAppBadge" = "Show BG in the App Badge?";
+"settingsviews_labelShowReadingInAppBadge" = "Show BG in the App Badge?";
 
 /// healthkit settings, literally 'healthkit'
 "settingsviews_healthkit" = "Write Data to Apple Health?";
@@ -226,7 +226,7 @@
 "settingsviews_sectiontitledexcomshare" = "Dexcom Share";
 
 /// Text in pop up shown when user wants to send the trace file
-"describeProblem" = "Explain why you need to send the trace file with as much detail as possible. If you have already reported your problem in the Facebook support group 'xDrip4iOS', then mention your facebook name in the e-mail";
+"describeProblem" = "Explain why you need to send the trace file with as much detail as possible. If you have already reported your problem in the Facebook support group '%@', then mention your facebook name in the e-mail";
 
 /// general settings, when switching from master to follower, if confirmation is asked, this message will be shown.
 "warningChangeFromMasterToFollower" = "Switching from master to follower will stop your current sensor. Do you want to continue?";
@@ -268,7 +268,7 @@
 "settingsviews_useobjectives" = "Show Objectives in Graph?";
 
 /// Apple Watch Settings - text in row where user needs to say if trend should be displayed or not
-"displayTrendInCalendarEvent" = "Display Trend?";
+"settingsviews_displayTrendInCalendarEvent" = "Display Trend?";
 
 /// 
 "settingsviews_showcoloredobjectives" = "Show Colored Lines?";
@@ -291,3 +291,46 @@
 
 /// Developer Settings, section title
 "developerSettings" = "Developer Settings";
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////   Translation needed - remove this header after translation                       /////
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+/// home screen settings, section title
+"settingsviews_sectiontitlehomescreen" = "Home Screen";
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////   Translation needed - remove this header after translation                       /////
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+/// transmitter settings, this is for the button, when clicked then user will be requested to give transmitter id. The only difference with settingsviews_transmitterid is that ':' is not added
+"settingsviews_transmitterid_text_for_button" = "Transmitter ID";
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////   Translation needed - remove this header after translation                       /////
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+/// statistics settings, how many days to use for calculations
+"settingsviews_daysToUseStatisticsMessage" = "Maximum days we should try to use to calculate the statistics?\n\n(Enter 0 to calculate today since midnight)";
+
+/// statistics settings, section title
+"settingsviews_sectiontitlestatistics" = "Statistics";
+
+/// statistics settings, use standard range?
+"settingsviews_useStandardStatisticsRange" = "Use Standard Range?";
+
+/// statistics settings, use IFCC method for HbA1c?
+"settingsviews_useIFCCA1C" = "Show HbA1c in mmols/mol?";
+
+/// statistics settings, show statistics on home screen
+"settingsviews_showStatistics" = "Show Statistics?";
+
+/// statistics settings, how many days to use for calculations
+"settingsviews_daysToUseStatisticsTitle" = "Days to Calculate?";
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////   Translation needed - remove this header after translation                       /////
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+/// general settings, should the clock also be displayed when the screen is locked?
+"settingsviews_showClockWhenScreenIsLocked" = "Show Clock when Locked?";

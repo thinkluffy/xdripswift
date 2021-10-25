@@ -32,16 +32,20 @@ class Texts_SettingsView {
         return NSLocalizedString("settingsviews_follower", tableName: filename, bundle: Bundle.main, value: "Follower", comment: "general settings, literally follower")
     }()
     
-    static let labelShowReadingInNotification: String = {
-        return NSLocalizedString("showReadingInNotification", tableName: filename, bundle: Bundle.main, value: "Show BG in Notifications?", comment: "general settings, should reading be shown in notification yes or no")
+    static let showReadingInNotification: String = {
+        return NSLocalizedString("settingsviews_showReadingInNotification", tableName: filename, bundle: Bundle.main, value: "Show BG in Notifications?", comment: "general settings, should reading be shown in notification yes or no")
     }()
     
     static let labelShowReadingInAppBadge: String = {
-        return NSLocalizedString("labelShowReadingInAppBadge", tableName: filename, bundle: Bundle.main, value: "Show BG in the App Badge?", comment: "general settings, should reading be shown in app badge yes or no")
+        return NSLocalizedString("settingsviews_labelShowReadingInAppBadge", tableName: filename, bundle: Bundle.main, value: "Show BG in the App Badge?", comment: "general settings, should reading be shown in app badge yes or no")
     }()
     
     static let multipleAppBadgeValueWith10: String = {
-        return NSLocalizedString("multipleAppBadgeValueWith10", tableName: filename, bundle: Bundle.main, value: "Multiply App Badge Reading by 10?", comment: "general settings, should reading be multiplied with 10 yes or no")
+        return NSLocalizedString("settingsviews_multipleAppBadgeValueWith10", tableName: filename, bundle: Bundle.main, value: "Multiply App Badge Reading by 10?", comment: "general settings, should reading be multiplied with 10 yes or no")
+    }()
+    
+    static let showClockWhenScreenIsLocked: String = {
+        return NSLocalizedString("settingsviews_showClockWhenScreenIsLocked", tableName: filename, bundle: Bundle.main, value: "Show Clock when Locked?", comment: "general settings, should the clock also be displayed when the screen is locked?")
     }()
     
     static let warningChangeFromMasterToFollower: String = {
@@ -82,6 +86,46 @@ class Texts_SettingsView {
         return NSLocalizedString("settingsviews_showtarget", tableName: filename, bundle: Bundle.main, value: "Show Target Line?", comment: "home screen settings, show target line")
     }()
     
+    // MARK: - Section Statistics
+    
+    static let sectionTitleStatistics: String = {
+        return NSLocalizedString("settingsviews_sectiontitlestatistics", tableName: filename, bundle: Bundle.main, value: "Statistics", comment: "statistics settings, section title")
+    }()
+
+    static let labelShowStatistics: String = {
+        return NSLocalizedString("settingsviews_showStatistics", tableName: filename, bundle: Bundle.main, value: "Show Statistics?", comment: "statistics settings, show statistics on home screen")
+    }()
+
+    static let labelDaysToUseStatisticsTitle: String = {
+        return NSLocalizedString("settingsviews_daysToUseStatisticsTitle", tableName: filename, bundle: Bundle.main, value: "Days to Calculate?", comment: "statistics settings, how many days to use for calculations")
+    }()
+    
+    static let labelDaysToUseStatisticsMessage: String = {
+        return NSLocalizedString("settingsviews_daysToUseStatisticsMessage", tableName: filename, bundle: Bundle.main, value: "How many days should we use to calculate the statistics? (Enter 0 to calculate today since midnight)", comment: "statistics settings, how many days to use for calculations")
+    }()
+    
+    static let labelUseStandardStatisticsRange: String = {
+        return NSLocalizedString("settingsviews_useStandardStatisticsRange", tableName: filename, bundle: Bundle.main, value: "Use Standard Range?", comment: "statistics settings, use standard range?")
+    }()
+    
+    static let labelUseIFFCA1C: String = {
+        return NSLocalizedString("settingsviews_useIFCCA1C", tableName: filename, bundle: Bundle.main, value: "Show HbA1c in mmols/mol?", comment: "statistics settings, use IFCC method for HbA1c?")
+    }()
+    
+    // MARK: - Section Sensor Countdown
+    
+    static let sectionTitleSensorCountdown: String = {
+        return NSLocalizedString("settingsviews_sectiontitlesensorcountdown", tableName: filename, bundle: Bundle.main, value: "Sensor Countdown", comment: "sensor countdown settings, section title")
+    }()
+
+    static let labelShowSensorCountdown: String = {
+        return NSLocalizedString("settingsviews_showSensorCountdown", tableName: filename, bundle: Bundle.main, value: "Show Sensor Countdown?", comment: "sensor countdown settings, show sensor countdown graphic on home screen")
+    }()
+    
+    static let labelShowSensorCountdownAlternativeGraphics: String = {
+        return NSLocalizedString("settingsviews_showSensorCountdownAlternativeGraphics", tableName: filename, bundle: Bundle.main, value: "Use Alternative Graphics?", comment: "sensor countdown settings, use alternative sensor countdown graphics on home screen")
+    }()
+    
     
     // MARK: - Section Transmitter
     
@@ -95,6 +139,10 @@ class Texts_SettingsView {
 
     static let labelTransmitterId:String = {
         return NSLocalizedString("settingsviews_transmitterid", tableName: filename, bundle: Bundle.main, value: "Transmitter ID:", comment: "transmitter settings, just the words that explain that the settings is about transmitter id")
+    }()
+    
+    static let labelTransmitterIdTextForButton:String = {
+        return NSLocalizedString("settingsviews_transmitterid_text_for_button", tableName: filename, bundle: Bundle.main, value: "Transmitter ID", comment: "transmitter settings, this is for the button, when clicked then user will be requested to give transmitter id. The only difference with settingsviews_transmitterid is that ':' is not added")
     }()
     
     static let labelGiveTransmitterId:String = {
@@ -263,18 +311,18 @@ class Texts_SettingsView {
         return NSLocalizedString("settingsviews_speakDelta", tableName: filename, bundle: Bundle.main, value: "Speak Delta?", comment: "speak settings, where user can enable or disable speak delta")
     }()
 
-    static let labelSpeakInterval = {
-        return NSLocalizedString("settingsviews_speakInterval", tableName: filename, bundle: Bundle.main, value: "Interval:", comment: "speak settings, where user can set the speak interval, speak each reading, each two readings ...")
+    static let settingsviews_IntervalTitle = {
+        return NSLocalizedString("settingsviews_IntervalTitle", tableName: filename, bundle: Bundle.main, value: "Interval:", comment: "When clicking the interval setting, a pop up asks for minimum number of minutes between two readings, this is the pop up message - this is used for setting the interval between two readings in BG notifications, Speak readings, Apple Watch")
     }()
     
-    static let speakIntervalMessage = {
-        return NSLocalizedString("settingsviews_speakIntervalMessage", tableName: filename, bundle: Bundle.main, value: "Minimum interval between two readings (mins)", comment: "When clicking the interval setting, a pop up asks for number of minutes between two spoken readings, this is the message displayed in the pop up")
+    static let settingsviews_IntervalMessage = {
+        return NSLocalizedString("settingsviews_IntervalMessage", tableName: filename, bundle: Bundle.main, value: "Minimum interval between two readings (mins)", comment: "When clicking the interval setting, a pop up asks for minimum number of minutes between two readings, this is the pop up message - this is used for setting the interval between two readings in BG notifications, Speak readings, Apple Watch")
     }()
     
     // MARK: - Section About Info
     
     static let sectionTitleAbout: String = {
-        return NSLocalizedString("settingsviews_sectiontitleAbout", tableName: filename, bundle: Bundle.main, value: "About xDrip4iOS", comment: "about settings, section title")
+        return String(format: NSLocalizedString("settingsviews_sectiontitleAbout", tableName: filename, bundle: Bundle.main, value: "About %@", comment: "about settings, section title"), ConstantsHomeView.applicationName)
     }()
     
     static let version = {
@@ -334,7 +382,7 @@ class Texts_SettingsView {
     }()
 
     static let displayTrendInCalendarEvent: String = {
-        return NSLocalizedString("displayTrendInCalendarEvent", tableName: filename, bundle: Bundle.main, value: "Display Trend?", comment: "Apple Watch Settings - text in row where user needs to say if trend should be displayed or not")
+        return NSLocalizedString("settingsviews_displayTrendInCalendarEvent", tableName: filename, bundle: Bundle.main, value: "Display Trend?", comment: "Apple Watch Settings - text in row where user needs to say if trend should be displayed or not")
     }()
     
     static let displayUnitInCalendarEvent: String = {
@@ -350,7 +398,7 @@ class Texts_SettingsView {
     }()
     
     static let infoCalendarAccessRestricted: String = {
-        return NSLocalizedString("infoCalendarAccessRestricted", tableName: filename, bundle: Bundle.main, value: "You cannot give authorization to xDrip4iOS to access your calendar. This is possibly due to active restrictions such as parental controls being in place.", comment: "If user is not allowed to give any app access to the Calendar, due to restrictions. And then tries to activate creation of events in calendar, this message will be shown")
+        return String(format: NSLocalizedString("infoCalendarAccessRestricted", tableName: filename, bundle: Bundle.main, value: "You cannot give authorization to %@ to access your calendar. This is possibly due to active restrictions such as parental controls being in place.", comment: "If user is not allowed to give any app access to the Calendar, due to restrictions. And then tries to activate creation of events in calendar, this message will be shown"), ConstantsHomeView.applicationName)
     }()
     
     static let sectionTitleTrace: String = {
@@ -366,7 +414,7 @@ class Texts_SettingsView {
     }()
     
     static let describeProblem: String = {
-        return NSLocalizedString("describeProblem", tableName: filename, bundle: Bundle.main, value: "Explain why you need to send the trace file with as much detail as possible. If you have already reported your problem in the Facebook support group 'xDrip4iOS', then mention your facebook name in the e-mail", comment: "Text in pop up shown when user wants to send the trace file")
+        return String(format: NSLocalizedString("describeProblem", tableName: filename, bundle: Bundle.main, value: "Explain why you need to send the trace file with as much detail as possible. If you have already reported your problem in the Facebook support group '%@', then mention your facebook name in the e-mail", comment: "Text in pop up shown when user wants to send the trace file"), ConstantsHomeView.applicationName)
     }()
     
     static let emailNotConfigured: String = {

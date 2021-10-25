@@ -173,7 +173,7 @@ class BluetoothPeripheralViewController: UIViewController {
             // if needs transmitterId, but no transmitterId is given by user, then button allows to set transmitter id, row text = "needs transmitter id"
             if let expectedBluetoothPeripheralType = expectedBluetoothPeripheralType, expectedBluetoothPeripheralType.needsTransmitterId(), transmitterId == nil {
                 
-                connectButtonOutlet?.setTitle(Texts_SettingsView.labelTransmitterId, for: .normal)
+                connectButtonOutlet?.setTitle(Texts_SettingsView.labelTransmitterIdTextForButton, for: .normal)
                 
                 return Texts_BluetoothPeripheralView.needsTransmitterId
                 
@@ -215,23 +215,44 @@ class BluetoothPeripheralViewController: UIViewController {
         
         guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {return}
         
-        // device should not automaticaly connect in future, which means, each time the app restarts, it will not try to connect to this bluetoothPeripheral
-        bluetoothPeripheral.blePeripheral.shouldconnect = false
+        // create uialertcontroller to ask the user if they really want to disconnect
+        let confirmDisconnectAlertController = UIAlertController(title: Texts_BluetoothPeripheralView.confirmDisconnectTitle , message: Texts_BluetoothPeripheralView.confirmDisconnectMessage, preferredStyle: .alert)
+
+        // create buttons for uialertcontroller
+        let OKAction = UIAlertAction(title: Texts_BluetoothPeripheralView.disconnect, style: .default) {
+            (action:UIAlertAction!) in
+            
+            // device should not automaticaly connect in future, which means, each time the app restarts, it will not try to connect to this bluetoothPeripheral
+            bluetoothPeripheral.blePeripheral.shouldconnect = false
+            
+            // save in coredata
+            self.coreDataManager?.saveChanges()
+            
+            // connect button label text needs to change because shouldconnect value has changed
+            _ = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: bluetoothPeripheral, isScanning: self.isScanning, connectButtonOutlet: self.connectButtonOutlet, expectedBluetoothPeripheralType: self.expectedBluetoothPeripheralType, transmitterId: self.transmitterIdTempValue, bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
+            
+            // this will set bluetoothTransmitter to nil which will result in disconnecting also
+            bluetoothPeripheralManager.setBluetoothTransmitterToNil(forBluetoothPeripheral: bluetoothPeripheral)
+            
+            // as transmitter is now set to nil, call again configure. Maybe not necessary, but it can't hurt
+            self.bluetoothPeripheralViewModel?.configure(bluetoothPeripheral: bluetoothPeripheral, bluetoothPeripheralManager: bluetoothPeripheralManager, tableView: self.tableView, bluetoothPeripheralViewController: self)
+            
+            // delegate doesn't work here anymore, because the delegate is set to zero, so reset the row with the connection status by calling reloadRows
+            self.tableView.reloadRows(at: [IndexPath(row: Setting.connectionStatus.rawValue, section: 0)], with: .none)
+            
+        }
         
-        // save in coredata
-        coreDataManager?.saveChanges()
-        
-        // connect button label text needs to change because shouldconnect value has changed
-        _ = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: bluetoothPeripheral, isScanning: isScanning, connectButtonOutlet: connectButtonOutlet, expectedBluetoothPeripheralType: expectedBluetoothPeripheralType, transmitterId: transmitterIdTempValue, bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
-        
-        // this will set bluetoothTransmitter to nil which will result in disconnecting also
-        bluetoothPeripheralManager.setBluetoothTransmitterToNil(forBluetoothPeripheral: bluetoothPeripheral)
-        
-        // as transmitter is now set to nil, call again configure. Maybe not necessary, but it can't hurt
-        bluetoothPeripheralViewModel?.configure(bluetoothPeripheral: bluetoothPeripheral, bluetoothPeripheralManager: bluetoothPeripheralManager, tableView: tableView, bluetoothPeripheralViewController: self)
-        
-        // delegate doesn't work here anymore, because the delegate is set to zero, so reset the row with the connection status by calling reloadRows
-        tableView.reloadRows(at: [IndexPath(row: Setting.connectionStatus.rawValue, section: 0)], with: .none)
+        // create a cancel button. If the user clicks it then we will just return directly
+        let cancelAction = UIAlertAction(title: Texts_Common.Cancel, style: .cancel) {
+            (action:UIAlertAction!) in
+        }
+
+        // add buttons to the alert
+        confirmDisconnectAlertController.addAction(OKAction)
+        confirmDisconnectAlertController.addAction(cancelAction)
+
+        // show alert
+        present(confirmDisconnectAlertController, animated: true, completion:nil)
         
     }
     
@@ -703,6 +724,16 @@ class BluetoothPeripheralViewController: UIViewController {
 
 extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        
+        if let view = view as? UITableViewHeaderFooterView {
+            
+            view.textLabel?.textColor = ConstantsUI.tableViewHeaderTextColor
+            
+        }
+        
+    }
+
     func numberOfSections(in tableView: UITableView) -> Int {
         
         // there is one general section with settings applicable for all peripheral types, one or more specific section(s) with settings specific to type of bluetooth peripheral
@@ -821,7 +852,11 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
            
         // default value for accessoryView is nil
         cell.accessoryView = nil
-        
+ 
+        // create disclosureIndicator in color ConstantsUI.disclosureIndicatorColor
+        // will be used whenever accessoryType is to be set to disclosureIndicator
+        let disclosureAaccessoryView = DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor)
+
         //it's a Setting defined here in BluetoothPeripheralViewController
         // is it a bluetooth setting or web oop setting ?
         
@@ -848,6 +883,7 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
                     cell.accessoryType = .none
                 } else {
                     cell.accessoryType = .disclosureIndicator
+                    cell.accessoryView = disclosureAaccessoryView
                 }
                 
             case .connectionStatus:
@@ -864,6 +900,7 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
                     cell.accessoryType = .none
                 } else {
                     cell.accessoryType = .disclosureIndicator
+                    cell.accessoryView = disclosureAaccessoryView
                 }
                 
             case .transmitterId:
@@ -873,6 +910,9 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
                 
                 // if transmitterId already has a value, then it can't be changed anymore. To change it, user must delete the transmitter and recreate one.
                 cell.accessoryType = transmitterIdTempValue == nil ? .disclosureIndicator : .none
+                if (transmitterIdTempValue == nil) {
+                    cell.accessoryView = disclosureAaccessoryView
+                }
                 
             case .connectOrDisconnectTimeStamp:
                 
@@ -894,6 +934,8 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
                     cell.textLabel?.text = Texts_BluetoothPeripheralView.connectedAt
                     cell.detailTextLabel?.text = ""
                 }
+                
+                cell.accessoryType = .none
 
             }
 
@@ -972,9 +1014,6 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
                         
                         bluetoothPeripheralManager.receivedNewValue(webOOPEnabled: isOn, for: bluetoothPeripheral)
                         
-                        tableView.reloadSections(IndexSet(integer: self.webOOPSettingsSectionNumber), with: .none)
-                        
-                        
                         // if user switches on web oop, then we need to force also use of non-fixed slopes to off
                         if isOn {
 
@@ -985,7 +1024,8 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
                         }
 
                         // reload the section for nonFixedSettingsSectionNumber, even though the value may not have changed, because possibly isUserInteractionEnabled needs to be set to false for the nonFixedSettingsSectionNumber UISwitch
-                        tableView.reloadSections(IndexSet(integer: self.nonFixedSettingsSectionNumber), with: .none)
+                        // also reload webOOPSettingsSectionNumber
+                        tableView.reloadSections(IndexSet(arrayLiteral: self.nonFixedSettingsSectionNumber, self.webOOPSettingsSectionNumber), with: .none)
 
                     }
                     
@@ -1188,11 +1228,8 @@ extension BluetoothPeripheralViewController: BluetoothTransmitterDelegate {
         // handled in BluetoothPeripheralManager
         bluetoothPeripheralManager?.didConnectTo(bluetoothTransmitter: bluetoothTransmitter)
         
-        // refresh row with status
-        tableView.reloadRows(at: [IndexPath(row: Setting.connectionStatus.rawValue, section: 0)], with: .none)
-        
-        // refresh row with connection timestamp
-        tableView.reloadRows(at: [IndexPath(row: Setting.connectOrDisconnectTimeStamp.rawValue, section: 0)], with: .none)
+        // refresh complete first section (only status and connection timestamp changed but reload complete section)
+        tableView.reloadSections(IndexSet(integer: 0), with: .none)
         
     }
     
@@ -1201,12 +1238,9 @@ extension BluetoothPeripheralViewController: BluetoothTransmitterDelegate {
         // handled in BluetoothPeripheralManager
         bluetoothPeripheralManager?.didDisconnectFrom(bluetoothTransmitter: bluetoothTransmitter)
         
-        // refresh row with status
-        tableView.reloadRows(at: [IndexPath(row: Setting.connectionStatus.rawValue, section: 0)], with: .none)
+        // refresh complete first section (only status and connection timestamp changed but reload complete section)
+        tableView.reloadSections(IndexSet(integer: 0), with: .none)
 
-        // refresh row with connection timestamp
-         tableView.reloadRows(at: [IndexPath(row: Setting.connectOrDisconnectTimeStamp.rawValue, section: 0)], with: .none)
-        
     }
     
     func deviceDidUpdateBluetoothState(state: CBManagerState, bluetoothTransmitter: BluetoothTransmitter) {
@@ -1216,10 +1250,8 @@ extension BluetoothPeripheralViewController: BluetoothTransmitterDelegate {
         
         // when bluetooth status changes to powered off, the device, if connected, will disconnect, however didDisConnect doesn't get call (looks like an error in iOS) - so let's reload the cell that shows the connection status, this will refresh the cell
         // do this whenever the bluetooth status changes
-        tableView.reloadRows(at: [IndexPath(row: Setting.connectionStatus.rawValue, section: 0)], with: .none)
-        
-        // same explanation for connection timestamp
-        tableView.reloadRows(at: [IndexPath(row: Setting.connectOrDisconnectTimeStamp.rawValue, section: 0)], with: .none)
+        // refresh complete first section (only status and connection timestamp changed but reload complete section)
+        tableView.reloadSections(IndexSet(integer: 0), with: .none)
 
     }
     

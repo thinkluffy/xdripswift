@@ -4,9 +4,10 @@
 "settingsviews_masterorfollower" = "Master o Seguidor?";
 "settingsviews_master" = "Master";
 "settingsviews_follower" = "Seguidor";
-"showReadingInNotification" = "Mostrar en Notificaciones?";
-"labelShowReadingInAppBadge" = "Mostrar en el icono de la app?";
-"multipleAppBadgeValueWith10" = "Multiplicar valor por 10 en el icono de la app?";
+"settingsviews_showReadingInNotification" = "Mostrar en Notificaciones?";
+"settingsviews_labelShowReadingInAppBadge" = "Mostrar en el icono de la app?";
+"settingsviews_multipleAppBadgeValueWith10" = "Multiplicar valor por 10 en el icono de la app?";
+"settingsviews_showClockWhenScreenIsLocked" = "Mostrar reloj al bloquear?";
 "settingsviews_urgentHighValue" = "Valor de Glucemia Alta (Urgente):";
 "settingsviews_highValue" = "Valor de Glucemia Alta:";
 "settingsviews_targetValue" = "Valor Objectivo:";
@@ -15,9 +16,19 @@
 "settingsviews_useobjectives" = "Mostrar Objetivos?";
 "settingsviews_showcoloredobjectives" = "Mostrar Colores?";
 "settingsviews_showtarget" = "Mostrar Línea Target?";
+"settingsviews_sectiontitlestatistics" = "Estadísticas";
+"settingsviews_showStatistics" = "Mostrar Estadísticas?";
+"settingsviews_daysToUseStatisticsTitle" = "Días a Calcular?";
+"settingsviews_daysToUseStatisticsMessage" = "Máximos días a intentar usar para calcular las estadísticas?\n\n(Entrar 0 para calcular el día de hoy desde las 00:00hrs)";
+"settingsviews_useStandardStatisticsRange" = "Usar Rango Estándar?";
+"settingsviews_useIFCCA1C" = "Ver HbA1c en mmols/mol?";
+"settingsviews_sectiontitlesensorcountdown" = "Días Restantes del Sensor";
+"settingsviews_showSensorCountdown" = "Mostrar días restantes?";
+"settingsviews_showSensorCountdownAlternativeGraphics" = "Usar gráficas alternativas?";
 "settingsviews_sectiontitletransmitter" = "Transmisor";
 "settingsviews_transmittertype" = "Tipo de Transmisor:";
 "settingsviews_transmitterid" = "ID del Transmisor:";
+"settingsviews_transmitterid_text_for_button" = "ID del Transmisor";
 "settingsviews_givetransmitterid" = "ID del Transmisor";
 "settingsviews_resettransmitter" = "Resetear Transmisor";
 "settingsviews_webooptransmitter" = "Usar Algoritmo Libre?";
@@ -54,8 +65,8 @@
 "settingsviews_speakreadingslanguageselection" = "Seleccionar Idioma";
 "settingsviews_speakTrend" = "Anunciar Tendencia";
 "settingsviews_speakDelta" = "Anunciar Delta";
-"settingsviews_speakInterval" = "Intervalo";
-"settingsviews_speakIntervalMessage" = "Intervalo mínimo entre dos lecturas (mins)";
+"settingsviews_IntervalTitle" = "Intervalo";
+"settingsviews_IntervalMessage" = "Intervalo mínimo entre dos lecturas (mins)";
 "settingsviews_Version" = "Versión:";
 "settingsviews_license" = "Licencia";
 "settingsviews_build" = "Compilación:";
@@ -68,14 +79,14 @@
 "appleWatchSectionTitle" = "Apple Watch";
 "createCalendarEvent" = "Crear Eventos en el Calendario?";
 "calenderId" = "Qué calendario se debe usar?";
-"displayTrendInCalendarEvent" = "Mostrar Tendencia?";
+"settingsviews_displayTrendInCalendarEvent" = "Mostrar Tendencia?";
 "displayUnitInCalendarEvent" = "Mostrar Unidad?";
 "displayDeltaInCalendarEvent" = "Mostrar Delta?";
 "infoCalendarAccessDeniedByUser" = "Has denegado previamente permiso para acceder al calendario.\n\nPara habilitarlo de nuevo, ir a Configuración en tu iPhone, Privacidad, Calendarios y habilitarlo.";
-"infoCalendarAccessRestricted" = "No se puede autorizar a que xDrip4iOS tenga acceso a tu calendario. Podría ser debido a que restricciones tipo Controles Parentales o similares lo están impidiendo.";
+"infoCalendarAccessRestricted" = "No se puede autorizar a que %@ tenga acceso a tu calendario. Podría ser debido a que restricciones tipo Controles Parentales o similares lo están impidiendo.";
 "sectionTitleTrace" = "Rastrear/Issue Reporting";
 "sendTraceFile" = "Enviar Archivo de Rastreo";
-"describeProblem" = "Explicar en detalle porqué es necesario enviar este archivo de rastreo. Si ya has reportando previamente este problema en el grupo de Facebook 'xDrip4iOS', confirmar tu Nombre en Facebook dentro del cuerpo del correo";
+"describeProblem" = "Explicar en detalle porqué es necesario enviar este archivo de rastreo. Si ya has reportando previamente este problema en el grupo de Facebook '%@', confirmar tu Nombre en Facebook dentro del cuerpo del correo";
 "emailNotConfigured" = "Deberías tener configurado una cuenta de correo antes de enviar el archivo.";
 "emailbodyText" = "Problem Description: ";
 "failedToSendEmail" = "Error al Enviar Correo";
@@ -84,39 +95,13 @@
 "debugLevel" = "Incluir Datos Nivel Debug";
 "warningChangeFromMasterToFollower" = "Si cambias el modo de Master a Seguidor se parará la sesión del sensor actual. Quieres continuar?";
 "nightScoutPort" = "Puerto (opcional):";
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-/////   Translation needed - remove this header after translation                       /////
-/////////////////////////////////////////////////////////////////////////////////////////////
-
-/// In Settings, Alerts section, there's an option to test the volume settings, this is text explaining the test when clicking the row - this is for sound player volume test
-"volumeTestSoundPlayerExplanation" = "An alarm sound is now being played with the same volume that will be used for an Alarm Type with 'Override Mute' = On\n\n(Used for all alarms except Missed Reading alerts which always use the iOS volume.)\n\nChange the volume with the volume buttons and press OK when done.";
-
-/// nightscout settings, where user can set the nightscout api key
+"volumeTestSoundPlayerExplanation" = "Se está reproduciendo una alamra con el mismo volumen que usar un Tipo de Alarma con la opción de 'Ignorar Mode Silencio?' habilitado\n\nCambiar el volume con los botones del iPhone y apretar OK para confirmar";
 "settingsviews_nightScoutAPIKey" = "API_SECRET:";
-
-/// nightscout settings, where user can set the nightscout url
 "settingsviews_nightScoutUrl" = "URL:";
-
-/// about settings, section title
-"settingsviews_sectiontitleAbout" = "About xDrip4iOS";
-
-/// In Settings, Alerts section, there's an option to test the volume settings, this is text explaining the test when clicking the row - this is for ios sound volume test
-"volumeTestiOSSoundExplanation" = "An alarm sound is now being played with the same volume that will be used for an Alarm Type with 'Override Mute' = Off\n\n(Also used always for Missed Reading alarms which use the iOS volume.)\n\nPress one of the volume buttons to stop the sound, then change the volume with the volume buttons to the desired volume and test again.";
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-/////   Translation needed - remove this header after translation                       /////
-/////////////////////////////////////////////////////////////////////////////////////////////
-
-/// deloper settings, row title for 'Smooth Libre Values?'
-"smoothLibreValues" = "Smooth Libre Values?";
-
-/// deloper settings, row title for OSLog - with OSLog enabled, a developer can view log information as explained here https://developer.apple.com/documentation/os/oslog
+"settingsviews_sectiontitleAbout" = "Sobre %@";
+"volumeTestiOSSoundExplanation" = "Se está reproduciendo una alamra con el mismo volumen que usar un Tipo de Alarma con la opción de 'Ignorar Mode Silencio?' deshabilitado\n\nCambiar el volume con los botones del iPhone y apretar OK para confirmar";
+"smoothLibreValues" = "Suavizar valores Libre?";
 "oslog" = "OSLog";
-
-/// deloper settings, row title for NSLog - with NSLog enabled, a developer can view log information as explained here https://github.com/JohanDegraeve/xdripswift/wiki/NSLog
 "nslog" = "NSLog";
-
-/// Developer Settings, section title
-"developerSettings" = "Developer Settings";
+"developerSettings" = "Opciones de Desarrollo";
+"settingsviews_sectiontitlehomescreen" = "Inicio";

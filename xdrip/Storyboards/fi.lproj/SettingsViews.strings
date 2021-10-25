@@ -9,12 +9,13 @@
 "settingsviews_masterorfollower" = "Isäntä vai seuraaja?";
 "settingsviews_master" = "Isäntä";
 "settingsviews_follower" = "Seuraaja";
-"showReadingInNotification" = "Näytä lukema ilmoituksissa?";
-"labelShowReadingInAppBadge" = "Näytä lukema kuvakkeessa?";
-"multipleAppBadgeValueWith10" = "Kerrotaanko kuvake lukemat 10:llä?";
+"settingsviews_showReadingInNotification" = "Näytä lukema ilmoituksissa?";
+"settingsviews_labelShowReadingInAppBadge" = "Näytä lukema kuvakkeessa?";
+"settingsviews_multipleAppBadgeValueWith10" = "Kerrotaanko kuvake lukemat 10:llä?";
 "settingsviews_sectiontitletransmitter" = "Lähetin";
 "settingsviews_transmittertype" = "Lähettimen tyyppi:";
 "settingsviews_transmitterid" = "Lähettimen ID:";
+"settingsviews_transmitterid_text_for_button" = "Lähettimen ID";
 "settingsviews_givetransmitterid" = "Anna lähetettimen ID";
 "settingsviews_resettransmitter" = "Nollaa lähetin";
 "settingsviews_webooptransmitter" = "Käytä Libre algorithmiä?";
@@ -53,9 +54,9 @@
 "settingsviews_speakreadingslanguageselection" = "Valitse kieli";
 "settingsviews_speakTrend" = "Puhu suunta?";
 "settingsviews_speakDelta" = "Puhu erotus?";
-"settingsviews_speakInterval" = "Intervalli:";
-"settingsviews_speakIntervalMessage" = "Kahden lukeman välinen vähimmäisväli minuutteina";
-"settingsviews_sectiontitleAbout" = "xDrip4iOS info";
+"settingsviews_IntervalTitle" = "Intervalli:";
+"settingsviews_IntervalMessage" = "Kahden lukeman välinen vähimmäisväli minuutteina";
+"settingsviews_sectiontitleAbout" = "%@ info";
 "settingsviews_Version" = "Versio:";
 "settingsviews_license" = "Lisenssi";
 "settingsviews_build" = "Build:";
@@ -68,14 +69,14 @@
 "appleWatchSectionTitle" = "Apple Watch";
 "createCalendarEvent" = "Luo kalenteritapahtumat?";
 "calenderId" = "Käytettävä kalenteri?";
-"displayTrendInCalendarEvent" = "Näytä suunta?";
+"settingsviews_displayTrendInCalendarEvent" = "Näytä suunta?";
 "displayUnitInCalendarEvent" = "Näytä yksikkö?";
 "displayDeltaInCalendarEvent" = "Näytä erotus?";
 "infoCalendarAccessDeniedByUser" = "Olet aiemmin kieltänyt pääsyn kalenteriin.\n\nOttaaksesi sen käyttöön, siirry laitteen asetuksiin, tietosuojaan, kalentereihin ja ota käyttöön.";
-"infoCalendarAccessRestricted" = "Et voi antaa xDrip4iOS:lle valtuutusta käyttää kalenteriasi. Tämä johtuu mahdollisesti aktiivisista rajoituksista, kuten vanhempien valvonnasta";
+"infoCalendarAccessRestricted" = "Et voi antaa %@:lle valtuutusta käyttää kalenteriasi. Tämä johtuu mahdollisesti aktiivisista rajoituksista, kuten vanhempien valvonnasta";
 "sectionTitleTrace" = "Ongelmien raportointi";
-"sendTraceFile" = "Lähetä ongelmaraportti";
-"describeProblem" = "Selitä mahdollisimman yksityiskohtaisesti, miksi sinun on lähetettävä jäljitystiedosto. Jos olet jo ilmoittanut ongelmastasi Facebook-tukiryhmässä 'xDrip4iOS', mainitse facebook-nimesi sähköpostissa";
+"sendTraceFile" = "Lähetä ongelmaraportti";	
+"describeProblem" = "Selitä mahdollisimman yksityiskohtaisesti, miksi sinun on lähetettävä jäljitystiedosto. Jos olet jo ilmoittanut ongelmastasi Facebook-tukiryhmässä '%@', mainitse facebook-nimesi sähköpostissa";
 "emailNotConfigured" = "Sinun on määritettävä sähköpostitili iOS-laitteellasi.";
 "emailbodyText" = "Ongelman kuvaus: ";
 "failedToSendEmail" = "Sähköpostin lähetys epäonnistui";
@@ -106,3 +107,32 @@
 
 /// Developer Settings, section title
 "developerSettings" = "Developer Settings";
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////   Translation needed - remove this header after translation                       /////
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+/// statistics settings, how many days to use for calculations
+"settingsviews_daysToUseStatisticsMessage" = "Maximum days we should try to use to calculate the statistics?\n\n(Enter 0 to calculate today since midnight)";
+
+/// statistics settings, section title
+"settingsviews_sectiontitlestatistics" = "Statistics";
+
+/// statistics settings, use standard range?
+"settingsviews_useStandardStatisticsRange" = "Use Standard Range?";
+
+/// statistics settings, use IFCC method for HbA1c?
+"settingsviews_useIFCCA1C" = "Show HbA1c in mmols/mol?";
+
+/// statistics settings, show statistics on home screen
+"settingsviews_showStatistics" = "Show Statistics?";
+
+/// statistics settings, how many days to use for calculations
+"settingsviews_daysToUseStatisticsTitle" = "Days to Calculate?";
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////   Translation needed - remove this header after translation                       /////
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+/// general settings, should the clock also be displayed when the screen is locked?
+"settingsviews_showClockWhenScreenIsLocked" = "Show Clock when Locked?";

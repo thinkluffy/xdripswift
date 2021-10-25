@@ -266,8 +266,13 @@ public class NightScoutUploadManager:NSObject {
             
             // sensor successfully uploaded, change value in coredata
             trace("in uploadActiveSensorToNightScout, activeSensor uploaded to NS", log: self.oslog, category: ConstantsLog.categoryNightScoutUploadManager, type: .info)
-            sensor.uploadedToNS = true
-            self.coreDataManager.saveChanges()
+            
+            DispatchQueue.main.async {
+                
+                sensor.uploadedToNS = true
+                self.coreDataManager.saveChanges()
+
+            }
             
         })
         
@@ -291,10 +296,22 @@ public class NightScoutUploadManager:NSObject {
         }
         
         // get latest readings, filter : minimiumTimeBetweenTwoReadingsInMinutes beteen two readings, except for the first if a dis/reconnect occured since the latest reading
-        let bgReadingsToUpload = bgReadingsAccessor.getLatestBgReadings(limit: nil, fromDate: timeStamp, forSensor: nil, ignoreRawData: true, ignoreCalculatedValue: false).filter(minimumTimeBetweenTwoReadingsInMinutes: ConstantsNightScout.minimiumTimeBetweenTwoReadingsInMinutes, lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp, timeStampLastProcessedBgReading: timeStamp)
+        var bgReadingsToUpload = bgReadingsAccessor.getLatestBgReadings(limit: nil, fromDate: timeStamp, forSensor: nil, ignoreRawData: true, ignoreCalculatedValue: false).filter(minimumTimeBetweenTwoReadingsInMinutes: ConstantsNightScout.minimiumTimeBetweenTwoReadingsInMinutes, lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp, timeStampLastProcessedBgReading: timeStamp)
         
         if bgReadingsToUpload.count > 0 {
             trace("    number of readings to upload : %{public}@", log: self.oslog, category: ConstantsLog.categoryNightScoutUploadManager, type: .info, bgReadingsToUpload.count.description)
+            
+            // there's a limit of payload size to upload to NightScout
+            // if size is > maximum, then we'll have to call the upload function again, this variable will be used in completionHandler
+            let callAgainNeeded = bgReadingsToUpload.count > ConstantsNightScout.maxReadingsToUpload
+            
+            if callAgainNeeded {
+                trace("    restricting readings to upload to %{public}@", log: self.oslog, category: ConstantsLog.categoryNightScoutUploadManager, type: .info, ConstantsNightScout.maxReadingsToUpload.description)
+            }
+
+            // limit the amount of readings to upload to avoid passing this limit
+            // we start with the oldest readings
+            bgReadingsToUpload = bgReadingsToUpload.suffix(ConstantsNightScout.maxReadingsToUpload)
             
             // map readings to dictionaryRepresentation
             let bgReadingsDictionaryRepresentation = bgReadingsToUpload.map({$0.dictionaryRepresentationForNightScoutUpload})
@@ -310,6 +327,19 @@ public class NightScoutUploadManager:NSObject {
                     trace("    in uploadBgReadingsToNightScout, upload succeeded, setting timeStampLatestNightScoutUploadedBgReading to %{public}@", log: self.oslog, category: ConstantsLog.categoryNightScoutUploadManager, type: .info, timeStampLastReadingToUpload.description(with: .current))
                     
                     UserDefaults.standard.timeStampLatestNightScoutUploadedBgReading = timeStampLastReadingToUpload
+                    
+                    // callAgainNeeded means we've limit the amount of readings because size was too big
+                    // if so a new upload is needed
+                    if callAgainNeeded {
+                        
+                        // do this in the main thread because the readings are fetched with the main mainManagedObjectContext
+                        DispatchQueue.main.async {
+                        
+                            self.uploadBgReadingsToNightScout(siteURL: siteURL, apiKey: apiKey, lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp)
+                            
+                        }
+                        
+                    }
                     
                 }
                 
@@ -349,12 +379,18 @@ public class NightScoutUploadManager:NSObject {
             // 2 records are uploaded to nightscout for each calibration: a cal record and a mbg record
             let calibrationsDictionaryRepresentation = calibrationsToUpload.map({$0.dictionaryRepresentationForCalRecordNightScoutUpload}) + calibrationsToUpload.map({$0.dictionaryRepresentationForMbgRecordNightScoutUpload})
             
+            // store the timestamp of the last calibration to upload, here in the main thread, because we use a Calibration for it, which is retrieved in the main mangedObjectContext
+            let timeStampLastCalibrationToUpload = calibrationsToUpload.first != nil ? calibrationsToUpload.first!.timeStamp : nil
+
             uploadData(dataToUpload: calibrationsDictionaryRepresentation, traceString: "uploadCalibrationsToNightScout", siteURL: siteURL, path: nightScoutEntriesPath, apiKey: apiKey, completionHandler: {
                 
                 // change timeStampLatestNightScoutUploadedCalibration
-                if let lastCalibration = calibrationsToUpload.first {
-                    trace("    in uploadCalibrationsToNightScout, upload succeeded, setting timeStampLatestNightScoutUploadedCalibration to %{public}@", log: self.oslog, category: ConstantsLog.categoryNightScoutUploadManager, type: .info, lastCalibration.timeStamp.description(with: .current))
-                    UserDefaults.standard.timeStampLatestNightScoutUploadedCalibration = lastCalibration.timeStamp
+                if let timeStampLastCalibrationToUpload = timeStampLastCalibrationToUpload {
+                    
+                    trace("    in uploadCalibrationsToNightScout, upload succeeded, setting timeStampLatestNightScoutUploadedCalibration to %{public}@", log: self.oslog, category: ConstantsLog.categoryNightScoutUploadManager, type: .info, timeStampLastCalibrationToUpload.description(with: .current))
+                    
+                    UserDefaults.standard.timeStampLatestNightScoutUploadedCalibration = timeStampLastCalibrationToUpload
+                    
                 }
                 
             })
@@ -380,6 +416,8 @@ public class NightScoutUploadManager:NSObject {
             
             // transform dataToUpload to json
             let dateToUploadAsJSON = try JSONSerialization.data(withJSONObject: dataToUpload, options: [])
+
+            trace("    size of data to upload : %{public}@", log: self.oslog, category: ConstantsLog.categoryNightScoutUploadManager, type: .info, dateToUploadAsJSON.count.description)
 
             if let url = URL(string: siteURL), var uRLComponents = URLComponents(url: url.appendingPathComponent(path), resolvingAgainstBaseURL: false) {
 

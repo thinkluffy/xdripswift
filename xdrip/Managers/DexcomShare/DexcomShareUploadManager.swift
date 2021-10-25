@@ -71,18 +71,30 @@ class DexcomShareUploadManager:NSObject {
     public func upload(lastConnectionStatusChangeTimeStamp: Date?) {
         
         // check if dexcomShare is enabled
-        guard UserDefaults.standard.uploadReadingstoDexcomShare else {return}
+        guard UserDefaults.standard.uploadReadingstoDexcomShare else {
+            trace("in upload, uploadReadingstoDexcomShare not enabled", log: self.log, category: ConstantsLog.categoryDexcomShareUploadManager, type: .info)
+            return
+        }
         
         // check if master is enabled
-        guard UserDefaults.standard.isMaster else {return}
+        guard UserDefaults.standard.isMaster else {
+            trace("in upload, not master, no upload", log: self.log, category: ConstantsLog.categoryDexcomShareUploadManager, type: .info)
+            return
+        }
         
         // check if accountname and password and serial number exist
-        guard UserDefaults.standard.dexcomShareSerialNumber != nil, UserDefaults.standard.dexcomShareAccountName != nil, UserDefaults.standard.dexcomSharePassword != nil else {return}
+        guard UserDefaults.standard.dexcomShareSerialNumber != nil, UserDefaults.standard.dexcomShareAccountName != nil, UserDefaults.standard.dexcomSharePassword != nil else {
+            trace("in upload, dexcomShareSerialNumber or dexcomShareAccountName or dexcomSharePassword is nil", log: self.log, category: ConstantsLog.categoryDexcomShareUploadManager, type: .info)
+            return
+        }
         
         // if schedule is on, check if upload is needed according to schedule
         if UserDefaults.standard.dexcomShareUseSchedule {
             if let schedule = UserDefaults.standard.dexcomShareSchedule {
                 if !schedule.indicatesOn(forWhen: Date()) {
+                    
+                    trace("in upload, schedule indicates not on", log: self.log, category: ConstantsLog.categoryDexcomShareUploadManager, type: .info)
+                    
                     return
                 }
             }
@@ -598,7 +610,16 @@ class DexcomShareUploadManager:NSObject {
                         
                         //there's no error, means decoded should now have the value of the new sessionid
                         if let dexcomShareSessionId = decoded as? String {
-                            
+
+                            // when giving random username/password, there's no error but dexcomShareSessionId equals "00000000-0000-0000-0000-000000000000", in that case create errorCode "SSO_AuthenticatePasswordInvalid"
+                            guard dexcomShareSessionId != "00000000-0000-0000-0000-000000000000" else {
+                                
+                                completion(false, NSError(domain: "", code: response.statusCode, userInfo: [NSLocalizedDescriptionKey: "SSO_AuthenticatePasswordInvalid"]))
+                                
+                                return
+                                
+                            }
+
                             // success is a JSON-encoded string containing the dexcomShareSessionId
                             trace("    successful login", log: self.log, category: ConstantsLog.categoryDexcomShareUploadManager, type: .info)
                             self.dexcomShareSessionId = dexcomShareSessionId
@@ -679,9 +700,9 @@ class DexcomShareUploadManager:NSObject {
         guard let errorText = errorText else {return nil}
         
         if errorText.uppercased() == "SSO_AuthenticateAccountNotFound".uppercased() {
-            return Texts_DexcomShareTestResult.authenticateAccountNotFound
+            return Texts_Common.invalidAccountOrPassword
         } else if errorText.uppercased() == "SSO_AuthenticatePasswordInvalid".uppercased() {
-            return Texts_DexcomShareTestResult.authenticatePasswordInvalid
+            return Texts_Common.invalidAccountOrPassword
         } else if errorText.uppercased() == "SSO_AuthenticateMaxAttemptsExceeed".uppercased() {
             return Texts_DexcomShareTestResult.authenticateMaxAttemptsExceeded
         } else {

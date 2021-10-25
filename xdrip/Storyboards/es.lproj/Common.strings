@@ -13,7 +13,12 @@
 "common_minutes" = "mins";
 "common_minute" = "min";
 "common_day" = "día";
+"common_days" = "días";
+"common_today" = "Hoy";
 "common_week" = "semana";
+"common_hourshort" = "h";
+"common_dayshort" = "d";
+"common_todayshort" = "Hoy";
 "warning" ="Aviso!";
 "update" = "Editar";
 "add" = "Añadir";
@@ -22,41 +27,22 @@
 "name" = "Nombre:";
 "delete" = "Borrar";
 "unknown" = "Desconocido";
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-/////   Translation needed - remove this header after translation                       /////
-/////////////////////////////////////////////////////////////////////////////////////////////
-
-/// red
-"red" = "red";
-
-/// green
-"green" = "green";
-
-/// for settings row, literally hardware
+"red" = "rojo";
+"green" = "verde";
 "hardware" = "Hardware";
-
-/// WiFi
 "WiFi" = "WiFi";
-
-/// whenever invalid value is given by user somewhere in a field
-"invalidValue" = "Invalid Value";
-
-/// for settings row, literally firmware
+"invalidValue" = "Valor Erroneo Value";
 "firmware" = "Firmware";
-
-/// white
-"white" = "white";
-
-/// to show the sensor status
-"sensorStatus" = "Sensor status:";
-
-/// on
+"white" = "blanco";
+"sensorStatus" = "Estado Sensor:";
 "on" = "On";
-
-/// yellow
-"yellow" = "yellow";
-
-/// 
+"yellow" = "amarillo";
 "off" = "Off";
+"invalidAccountOrPassword" = "Cuenta y/o contraseña incorrecta";
+"common_statistics_low" = "Baja";
+"common_statistics_inRange" = "En Rango";
+"common_statistics_high" = "Alta";
+"common_statistics_average" = "Promedio";
+"common_statistics_a1c" = "HbA1c";
+"common_statistics_cv" = "CV";
+"common_dontshowagain" = "No Volver a Mostrar";

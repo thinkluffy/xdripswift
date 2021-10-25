@@ -16,6 +16,22 @@ enum Texts_HomeView {
         return NSLocalizedString("calibrate", tableName: filename, bundle: Bundle.main, value: "Calibrate", comment: "Text in button on home screen")
     }()
     
+    static let lockButton:String = {
+        return NSLocalizedString("lock", tableName: filename, bundle: Bundle.main, value: "Lock", comment: "Text in button on home screen")
+    }()
+    
+    static let unlockButton:String = {
+        return NSLocalizedString("unlock", tableName: filename, bundle: Bundle.main, value: "Unlock", comment: "Text in button on home screen")
+    }()
+    
+    static let screenLockTitle:String = {
+        return NSLocalizedString("screenlocktitle", tableName: filename, bundle: Bundle.main, value: "Screen Lock Enabled", comment: "Screen Lock Title")
+    }()
+    
+    static let screenLockInfo:String = {
+        return NSLocalizedString("screenlockinfo", tableName: filename, bundle: Bundle.main, value: "This will keep the screen awake until you move to another app or click Unlock.\r\n\nIt is recommended that you keep the phone plugged into a charger to prevent battery drain.", comment: "Info message to explain screen lock function")
+    }()
+    
     static let statusActionTitle:String = {
         return NSLocalizedString("statusactiontitle", tableName: filename, bundle: Bundle.main, value: "Status", comment: "when user clicks transmitterButton, this is the first action, to show the status")
     }()
@@ -49,11 +65,11 @@ enum Texts_HomeView {
     }()
     
     static let bluetoothIsNotAuthorized: String = {
-        return NSLocalizedString("bluetoothIsNotAuthorized", tableName: filename, bundle: Bundle.main, value: "You did not give bluetooth permission for xDrip4iOS. Go to the settings, find the xDrip4iOS app, and enable Bluetooth.", comment: "when user starts scanning for bluetooth device, but bluetooth is not authorized")
+        return String(format: NSLocalizedString("bluetoothIsNotAuthorized", tableName: filename, bundle: Bundle.main, value: "You did not give bluetooth permission for %@. Go to the settings, find the %@ app, and enable Bluetooth.", comment: "when user starts scanning for bluetooth device, but bluetooth is not authorized"), ConstantsHomeView.applicationName, ConstantsHomeView.applicationName)
     }()
     
     static let startScanningInfo: String = {
-        return NSLocalizedString("startScanningInfo", tableName: filename, bundle: Bundle.main, value: "Scanning Started.\n\nKeep xDrip4iOS open in the foreground until a connection is made.\n\n(There's no need to turn off Auto-Lock. Just don't press the home button and don't lock your iPhone)", comment: "After clicking scan button, this message will appear")
+        return String(format: NSLocalizedString("startScanningInfo", tableName: filename, bundle: Bundle.main, value: "Scanning Started.\n\nKeep %@ open in the foreground until a connection is made.\n\n(There's no need to turn off Auto-Lock. Just don't press the home button and don't lock your iPhone)", comment: "After clicking scan button, this message will appear"), ConstantsHomeView.applicationName)
     }()
    
     static let sensorStart:String = {
@@ -81,7 +97,7 @@ enum Texts_HomeView {
     }()
 
     static let licenseInfo:String = {
-        return NSLocalizedString("licenseinfo", tableName: filename, bundle: Bundle.main, value: "This program is free software distributed under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.\r\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY.\r\n\nSee http://www.gnu.org/licenses/gpl.txt for more details.\r\n\r\nInfo: ", comment: "for home view, license info")
+        return String(format: NSLocalizedString("licenseinfo", tableName: filename, bundle: Bundle.main, value: "This program is free software distributed under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.\r\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY.\r\n\nSee http://www.gnu.org/licenses/gpl.txt for more details.\r\n\r\nInfo: ", comment: "for home view, license info"), ConstantsHomeView.applicationName, ConstantsHomeView.applicationName)
     }()
 
     static let info:String = {

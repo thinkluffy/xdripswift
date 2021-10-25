@@ -28,6 +28,9 @@ protocol CGMTransmitter:AnyObject {
     /// only applicable for Libre transmitters. To request a new reading.
     func requestNewReading()
     
+    /// maximum sensor age in minutes, nil if no maximum
+    func maxSensorAgeInDays() -> Int?
+    
 }
 
 /// cgm transmitter types
@@ -60,6 +63,9 @@ enum CGMTransmitterType:String, CaseIterable {
     /// BlueReader
     case blueReader = "BlueReader"
     
+    /// Atom
+    case Atom = "Atom"
+    
     /// watlaa
     case watlaa = "Watlaa"
     
@@ -74,7 +80,7 @@ enum CGMTransmitterType:String, CaseIterable {
         case .dexcomG4, .dexcomG5, .dexcomG6 :
             return .Dexcom
             
-        case .miaomiao, .Bubble, .GNSentry, .Droplet1, .blueReader, .watlaa, .Blucon, .Libre2:
+        case .miaomiao, .Bubble, .GNSentry, .Droplet1, .blueReader, .watlaa, .Blucon, .Libre2, .Atom:
             return .Libre
             
         }
@@ -117,6 +123,9 @@ enum CGMTransmitterType:String, CaseIterable {
         case .Libre2:
             return true
             
+        case .Atom:
+            return true
+            
         }
     }
     
@@ -130,7 +139,7 @@ enum CGMTransmitterType:String, CaseIterable {
         case .dexcomG4, .dexcomG5, .dexcomG6, .GNSentry, .Droplet1, .blueReader, .watlaa:
             return true
             
-        case .miaomiao, .Bubble, .Blucon, .Libre2:
+        case .miaomiao, .Bubble, .Blucon, .Libre2, .Atom:
             return true
         
         
@@ -171,6 +180,9 @@ enum CGMTransmitterType:String, CaseIterable {
         case .Libre2:
             return ConstantsDefaultAlertLevels.defaultBatteryAlertLevelLibre2
             
+        case .Atom:
+            return ConstantsDefaultAlertLevels.defaultBatteryAlertLevelAtom
+            
         }
     }
     
@@ -203,6 +215,9 @@ enum CGMTransmitterType:String, CaseIterable {
             return "%"
             
         case .Libre2:
+            return "%"
+            
+        case .Atom:
             return "%"
             
         }

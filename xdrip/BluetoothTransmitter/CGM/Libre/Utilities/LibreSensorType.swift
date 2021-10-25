@@ -117,7 +117,7 @@ public enum LibreSensorType: String {
         
         guard patchInfo.count > 1 else {return nil}
         
-        let firstTwoChars = patchInfo[0..<2]
+        let firstTwoChars = patchInfo[0..<2].uppercased()
         
         switch firstTwoChars {
             
@@ -142,6 +142,32 @@ public enum LibreSensorType: String {
         }
             
     }
+    
+    /// maximum sensor age in days, nil if no maximum
+    func maxSensorAgeInDays() -> Int? {
+        
+        switch self {
+        
+        case .libre1:
+            return 14
+            
+        case .libre1A2:
+            return 14
+
+        case .libre2:
+            return 14
+
+        case .libreUS:
+            return nil
+
+        case .libreProH:
+            return nil
+
+        }
+        
+    }
+    
+
     
 }
 

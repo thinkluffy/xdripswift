@@ -32,6 +32,12 @@ final class SettingsViewController: UIViewController {
         ///Home Screen settings - urgent high, high, target, low and urgent low values for guidelines
         case homescreen
         
+        /// statistics settings
+        case statistics
+        
+        /// sensor countdown settings
+        case sensorCountdown
+        
         /// alarms
         case alarms
         
@@ -69,6 +75,10 @@ final class SettingsViewController: UIViewController {
                 return SettingsViewGeneralSettingsViewModel(coreDataManager: coreDataManager)
             case .homescreen:
                 return SettingsViewHomeScreenSettingsViewModel()
+            case .statistics:
+                return SettingsViewStatisticsSettingsViewModel()
+            case .sensorCountdown:
+                return SettingsViewSensorCountdownSettingsViewModel()
             case .alarms:
                 return SettingsViewAlertSettingsViewModel()
             case .nightscout:
@@ -103,7 +113,38 @@ final class SettingsViewController: UIViewController {
         
         self.coreDataManager = coreDataManager
         self.soundPlayer = soundPlayer
-        
+       
+        // create messageHandler
+        messageHandler = {
+            (title, message) in
+            
+            // piece of code that we need two times
+            let createAndPresentMessageHandlerUIAlertController = {
+                
+                self.messageHandlerUiAlertController = UIAlertController(title: title, message: message, actionHandler: nil)
+                
+                if let messageHandlerUiAlertController = self.messageHandlerUiAlertController {
+                    self.present(messageHandlerUiAlertController, animated: true, completion: nil)
+                }
+                
+            }
+            
+            // first check if messageHandlerUiAlertController is not nil and is presenting. If it is, dismiss it and when completed call createAndPresentMessageHandlerUIAlertController
+            if let messageHandlerUiAlertController = self.messageHandlerUiAlertController {
+                if messageHandlerUiAlertController.isBeingPresented {
+                    
+                    messageHandlerUiAlertController.dismiss(animated: true, completion: createAndPresentMessageHandlerUIAlertController)
+                    
+                    return
+                    
+                }
+            }
+            
+            // we're here which means there wasn't a messageHandlerUiAlertController being presented, so present it now
+            createAndPresentMessageHandlerUIAlertController()
+            
+        }
+
         // initialize viewModels
         for section in Section.allCases {
 
@@ -122,42 +163,11 @@ final class SettingsViewController: UIViewController {
             viewModel.storeRowReloadClosure(rowReloadClosure: {row in
                 
                 self.tableView.reloadRows(at: [IndexPath(row: row, section: section.rawValue)], with: .none)
-                
+                    
             })
 
             // store the viewModel
             self.viewModels.append(viewModel)
-            
-        }
-        
-        // create messageHandler
-        messageHandler = {
-            (title, message) in
-             
-            // piece of code that we need two times
-            let createAndPresentMessageHandlerUIAlertController = {
-                
-                self.messageHandlerUiAlertController = UIAlertController(title: title, message: message, actionHandler: nil)
-                
-                if let messageHandlerUiAlertController = self.messageHandlerUiAlertController {
-                    self.present(messageHandlerUiAlertController, animated: true, completion: nil)
-                }
-                
-            }
-
-            // first check if messageHandlerUiAlertController is not nil and is presenting. If it is, dismiss it and when completed call createAndPresentMessageHandlerUIAlertController
-            if let messageHandlerUiAlertController = self.messageHandlerUiAlertController {
-                if messageHandlerUiAlertController.isBeingPresented {
-
-                    messageHandlerUiAlertController.dismiss(animated: true, completion: createAndPresentMessageHandlerUIAlertController)
-                    
-                    return
-                    
-                }
-            }
-            
-            // we're here which means there wasn't a messageHandlerUiAlertController being presented, so present it now
-            createAndPresentMessageHandlerUIAlertController()
             
         }
         
@@ -230,6 +240,16 @@ final class SettingsViewController: UIViewController {
 extension SettingsViewController:UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - UITableViewDataSource protocol Methods
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        
+        if let view = view as? UITableViewHeaderFooterView {
+            
+            view.textLabel?.textColor = ConstantsUI.tableViewHeaderTextColor
+            
+        }
+        
+    }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         

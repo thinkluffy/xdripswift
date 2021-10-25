@@ -5,6 +5,7 @@ final class SnoozeViewController: UIViewController {
     // MARK: - Properties
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var titleLabel: UILabel!
     
     // reference to alertManager
     private var alertManager:AlertManager?
@@ -20,7 +21,7 @@ final class SnoozeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = Texts_Alerts.alertsScreenTitle
+        titleLabel.text = Texts_HomeView.snoozeButton
         setupView()
     }
     
@@ -85,8 +86,13 @@ extension SnoozeViewController: UITableViewDataSource {
                 fatalError("In SnoozeViewController, remainingSeconds is nil but alert is snoozed")
             }
 
-            // if snooze period longer than 24 hours then show data and time when it ends, if less than only show time
-            cell.textLabel?.text = TextsSnooze.snoozed_until + " " + Date(timeIntervalSinceNow: Double(remainingSeconds)).toString(timeStyle: .short, dateStyle: remainingSeconds > 24 * 60 * 60 ? .short : .none)
+            // till when snoozed, as Date
+            let snoozedTillDate = Date(timeIntervalSinceNow: Double(remainingSeconds))
+            
+            // if snoozed till after 00:00 then show date and time when it ends, else only show time
+            let showDate = snoozedTillDate.toMidnight() > Date()
+            
+            cell.textLabel?.text = TextsSnooze.snoozed_until + " " + snoozedTillDate.toString(timeStyle: .short, dateStyle: showDate ? .short : .none)
             
         } else {
 
@@ -143,6 +149,16 @@ extension SnoozeViewController: UITableViewDataSource {
 
 extension SnoozeViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        
+        if let view = view as? UITableViewHeaderFooterView {
+            
+            view.textLabel?.textColor = ConstantsUI.tableViewHeaderTextColor
+            
+        }
+        
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)

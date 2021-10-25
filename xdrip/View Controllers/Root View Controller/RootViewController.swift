@@ -6,15 +6,28 @@ import UserNotifications
 import SwiftCharts
 import HealthKitUI
 import AVFoundation
+import PieCharts
 
 /// viewcontroller for the home screen
 final class RootViewController: UIViewController {
     
     // MARK: - Properties - Outlets and Actions for buttons and labels in home screen
     
-    @IBOutlet weak var calibrateButtonOutlet: UIButton!
+    @IBOutlet weak var preSnoozeToolbarButtonOutlet: UIBarButtonItem!
     
-    @IBAction func calibrateButtonAction(_ sender: UIButton) {
+    @IBAction func preSnoozeToolbarButtonAction(_ sender: UIBarButtonItem) {
+        // opens the SnoozeViewController, see storyboard
+    }
+    
+    @IBOutlet weak var sensorToolbarButtonOutlet: UIBarButtonItem!
+    
+    @IBAction func sensorToolbarButtonAction(_ sender: UIBarButtonItem) {
+        createAndPresentSensorButtonActionSheet()
+    }
+    
+    @IBOutlet weak var calibrateToolbarButtonOutlet: UIBarButtonItem!
+    
+    @IBAction func calibrateToolbarButtonAction(_ sender: UIBarButtonItem) {
         
         if let cgmTransmitter = self.bluetoothPeripheralManager?.getCGMTransmitter(), cgmTransmitter.isWebOOPEnabled() {
             
@@ -24,24 +37,21 @@ final class RootViewController: UIViewController {
             
         } else {
             
-            trace("calibration : user clicks calibrate button", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
+            trace("calibration : user clicked the calibrate button", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
             
             requestCalibration(userRequested: true)
         }
         
     }
     
-    @IBOutlet weak var sensorButtonOutlet: UIButton!
+    /// outlet for the lock button - it will change text based upon whether they screen is locked or not
+    @IBOutlet weak var screenLockToolbarButtonOutlet: UIBarButtonItem!
     
-    @IBAction func sensorButtonAction(_ sender: UIButton) {
-        createAndPresentSensorButtonActionSheet()
+    /// call the screen lock alert when the button is pressed
+    @IBAction func screenLockToolbarButtonAction(_ sender: UIBarButtonItem) {
+        screenLockAlert(showClock: true)
     }
     
-    @IBOutlet weak var preSnoozeButtonOutlet: UIButton!
-    
-    @IBAction func preSnoozeButtonAction(_ sender: UIButton) {
-        // opens the SnoozeViewController, see storyboard
-    }
     
     /// outlet for label that shows how many minutes ago and so on
     @IBOutlet weak var minutesLabelOutlet: UILabel!
@@ -52,13 +62,94 @@ final class RootViewController: UIViewController {
     /// outlet for label that shows the current reading
     @IBOutlet weak var valueLabelOutlet: UILabel!
     
+    @IBAction func valueLabelLongPressGestureRecognizerAction(_ sender: UILongPressGestureRecognizer) {
+        
+        valueLabelLongPressed(sender)
+        
+    }
+    
+    
     /// outlet for chart
     @IBOutlet weak var chartOutlet: BloodGlucoseChartView!
     
-    /// user long pressed the value label
-    @IBAction func valueLabelLongPressGestureRecognizerAction(_ sender: UILongPressGestureRecognizer) {
-        valueLabelLongPressed(sender)
+    @IBOutlet weak var segmentedControlsView: UIView!
+    
+    /// outlets for chart time period selector
+    @IBOutlet weak var segmentedControlChartHours: UISegmentedControl!
+    
+    @IBAction func chartHoursChanged(_ sender: Any) {
+        
+        // update the chart period in hours
+        switch segmentedControlChartHours.selectedSegmentIndex
+            {
+            case 0:
+                UserDefaults.standard.chartWidthInHours = 3
+            case 1:
+                UserDefaults.standard.chartWidthInHours = 5
+            case 2:
+                UserDefaults.standard.chartWidthInHours = 12
+            case 3:
+                UserDefaults.standard.chartWidthInHours = 24
+            default:
+                break
+            }
+        
     }
+    
+    // create a view outlet (with the statistics day control inside) so that we can show/hide it as necessary
+    @IBOutlet weak var segmentedControlStatisticsDaysView: UIView!
+    
+    @IBOutlet weak var segmentedControlStatisticsDays: UISegmentedControl!
+    
+    @IBAction func statisticsDaysChanged(_ sender: Any) {
+        
+        // update the days to use for statistics calculations
+        switch segmentedControlStatisticsDays.selectedSegmentIndex
+            {
+            case 0:
+                UserDefaults.standard.daysToUseStatistics = 0
+            case 1:
+                UserDefaults.standard.daysToUseStatistics = 1
+            case 2:
+                UserDefaults.standard.daysToUseStatistics = 7
+            case 3:
+                UserDefaults.standard.daysToUseStatistics = 30
+            case 4:
+                UserDefaults.standard.daysToUseStatistics = 90
+            default:
+                break
+            }
+        
+    }
+        
+    /// outlets for statistics view
+    @IBOutlet weak var statisticsView: UIView!
+    @IBOutlet weak var pieChartOutlet: PieChart!
+    @IBOutlet weak var lowStatisticLabelOutlet: UILabel!
+    @IBOutlet weak var inRangeStatisticLabelOutlet: UILabel!
+    @IBOutlet weak var highStatisticLabelOutlet: UILabel!
+    @IBOutlet weak var averageStatisticLabelOutlet: UILabel!
+    @IBOutlet weak var a1CStatisticLabelOutlet: UILabel!
+    @IBOutlet weak var cVStatisticLabelOutlet: UILabel!
+    @IBOutlet weak var lowTitleLabelOutlet: UILabel!
+    @IBOutlet weak var inRangeTitleLabelOutlet: UILabel!
+    @IBOutlet weak var highTitleLabelOutlet: UILabel!
+    @IBOutlet weak var averageTitleLabelOutlet: UILabel!
+    @IBOutlet weak var a1cTitleLabelOutlet: UILabel!
+    @IBOutlet weak var cvTitleLabelOutlet: UILabel!
+    @IBOutlet weak var lowLabelOutlet: UILabel!
+    @IBOutlet weak var highLabelOutlet: UILabel!
+    @IBOutlet weak var pieChartLabelOutlet: UILabel!
+    @IBOutlet weak var timePeriodLabelOutlet: UILabel!
+    @IBOutlet weak var activityMonitorOutlet: UIActivityIndicatorView!
+    
+    
+    /// clock view
+    @IBOutlet weak var clockView: UIView!
+    @IBOutlet weak var clockLabelOutlet: UILabel!
+        
+    @IBOutlet weak var sensorCountdownOutlet: UIImageView!
+    
     
     @IBAction func chartPanGestureRecognizerAction(_ sender: UIPanGestureRecognizer) {
         
@@ -150,6 +241,9 @@ final class RootViewController: UIViewController {
     /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground - to initialize the glucoseChartManager and update labels and chart
     private let applicationManagerKeyUpdateLabelsAndChart = "applicationManagerKeyUpdateLabelsAndChart"
     
+    /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground - to dismiss screenLockAlertController
+    private let applicationManagerKeyDismissScreenLockAlertController = "applicationManagerKeyDismissScreenLockAlertController"
+    
     // MARK: - Properties - other private properties
     
     /// for logging
@@ -208,6 +302,9 @@ final class RootViewController: UIViewController {
     /// - will be reinitialized each time the app comes to the foreground
     private var glucoseChartManager: GlucoseChartManager?
     
+    /// statisticsManager instance
+    private var statisticsManager: StatisticsManager?
+    
     /// dateformatter for minutesLabelOutlet, when user is panning the chart
     private let dateTimeFormatterForMinutesLabelWhenPanning: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -234,6 +331,18 @@ final class RootViewController: UIViewController {
     /// when was the last notification created with bgreading, setting to 1 1 1970 initially to avoid having to unwrap it
     private var timeStampLastBGNotification = Date(timeIntervalSince1970: 0)
     
+    /// to hold the current state of the screen keep-alive
+    private var screenIsLocked: Bool = false
+    
+    /// date formatter for the clock view
+    private var clockDateFormatter = DateFormatter()
+    
+    /// initiate a Timer object that we will use later to keep the clock view updated if the user activates the screen lock
+    private var clockTimer: Timer?
+    
+    /// UIAlertController to use when user chooses to lock the screen. Defined here so we can dismiss it when app goes to the background
+    private var screenLockAlertController: UIAlertController?
+    
     // MARK: - overriden functions
     
     // set the status bar content colour to light to match new darker theme
@@ -248,12 +357,31 @@ final class RootViewController: UIViewController {
         
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
         
         // viewWillAppear when user switches eg from Settings Tab to Home Tab - latest reading value needs to be shown on the view, and also update minutes ago etc.
         updateLabelsAndChart(overrideApplicationState: true)
+        
+        // show the statistics view as required. If not, hide it and show the spacer view to keep segmentedControlChartHours separated a bit more away from the main Tab bar
+        if !screenIsLocked {
+            statisticsView.isHidden = !UserDefaults.standard.showStatistics
+        }
+        segmentedControlStatisticsDaysView.isHidden = !UserDefaults.standard.showStatistics
+        
+        if inRangeStatisticLabelOutlet.text == "-" {
+            activityMonitorOutlet.isHidden = true
+        } else {
+            activityMonitorOutlet.isHidden = false
+        }
+        
+        // display the sensor countdown graphics if applicable
+        updateSensorCountdown()
+        
+        // update statistics related outlets
+        updateStatistics(animatePieChart: true, overrideApplicationState: true)
         
     }
     
@@ -267,6 +395,17 @@ final class RootViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // set up the clock view
+        clockDateFormatter.dateStyle = .none
+        clockDateFormatter.timeStyle = .short
+        clockDateFormatter.dateFormat = "HH:mm"
+        clockLabelOutlet.font = ConstantsUI.clockLabelFontSize
+        clockLabelOutlet.textColor = ConstantsUI.clockLabelColor
+        
+        
+        // ensure the screen layout
+        screenLockUpdate(enabled: false)
+                
         // this is to force update of userdefaults that are also stored in the shared user defaults
         // these are used by the today widget. After a year or so (september 2021) this can all be deleted
         UserDefaults.standard.urgentLowMarkValueInUserChosenUnit = UserDefaults.standard.urgentLowMarkValueInUserChosenUnit
@@ -274,6 +413,107 @@ final class RootViewController: UIViewController {
         UserDefaults.standard.lowMarkValueInUserChosenUnit = UserDefaults.standard.lowMarkValueInUserChosenUnit
         UserDefaults.standard.highMarkValueInUserChosenUnit = UserDefaults.standard.highMarkValueInUserChosenUnit
         UserDefaults.standard.bloodGlucoseUnitIsMgDl = UserDefaults.standard.bloodGlucoseUnitIsMgDl
+        
+        
+        // set the localized text of the segmented controls
+        segmentedControlChartHours.setTitle("3" + Texts_Common.hourshort, forSegmentAt: 0)
+        segmentedControlChartHours.setTitle("6" + Texts_Common.hourshort, forSegmentAt: 1)
+        segmentedControlChartHours.setTitle("12" + Texts_Common.hourshort, forSegmentAt: 2)
+        segmentedControlChartHours.setTitle("24" + Texts_Common.hourshort, forSegmentAt:3)
+        
+        segmentedControlStatisticsDays.setTitle(Texts_Common.todayshort, forSegmentAt: 0)
+        segmentedControlStatisticsDays.setTitle("24" + Texts_Common.hourshort, forSegmentAt: 1)
+        segmentedControlStatisticsDays.setTitle("7" + Texts_Common.dayshort, forSegmentAt: 2)
+        segmentedControlStatisticsDays.setTitle("30" + Texts_Common.dayshort, forSegmentAt:3)
+        segmentedControlStatisticsDays.setTitle("90" + Texts_Common.dayshort, forSegmentAt:4)
+               
+        // update the segmented control of the chart hours
+        switch UserDefaults.standard.chartWidthInHours
+            {
+            case 3:
+                segmentedControlChartHours.selectedSegmentIndex = 0
+            case 6:
+                segmentedControlChartHours.selectedSegmentIndex = 1
+            case 12:
+                segmentedControlChartHours.selectedSegmentIndex = 2
+            case 24:
+                segmentedControlChartHours.selectedSegmentIndex = 3
+            default:
+                break
+            }
+        
+        
+        // update the segmented control of the statistics days
+         switch UserDefaults.standard.daysToUseStatistics
+             {
+             case 0:
+                segmentedControlStatisticsDays.selectedSegmentIndex = 0
+             case 1:
+                segmentedControlStatisticsDays.selectedSegmentIndex = 1
+             case 7:
+                segmentedControlStatisticsDays.selectedSegmentIndex = 2
+             case 30:
+                segmentedControlStatisticsDays.selectedSegmentIndex = 3
+             case 90:
+                segmentedControlStatisticsDays.selectedSegmentIndex = 4
+             default:
+                 break
+             }
+        
+                
+        // format the segmented control of the chart hours if possible (should normally be ok)
+        if #available(iOS 13.0, *) {
+            
+            // set the basic formatting. We basically want it to dissapear into the background
+            segmentedControlChartHours.backgroundColor = ConstantsUI.segmentedControlBackgroundColor
+            segmentedControlChartHours.tintColor = ConstantsUI.segmentedControlBackgroundColor
+            segmentedControlChartHours.layer.borderWidth = ConstantsUI.segmentedControlBorderWidth
+
+            
+            // format the unselected segments
+            segmentedControlChartHours.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: ConstantsUI.segmentedControlNormalTextColor, NSAttributedString.Key.font: ConstantsUI.segmentedControlFont], for:.normal)
+            
+            // format the selected segment
+            segmentedControlChartHours.selectedSegmentTintColor = ConstantsUI.segmentedControlSelectedTintColor
+            
+            segmentedControlChartHours.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: ConstantsUI.segmentedControlSelectedTextColor, NSAttributedString.Key.font: ConstantsUI.segmentedControlFont], for:.selected)
+        
+        }
+        
+        
+        // format the segmented control of the chart hours if possible (should normally be ok)
+        if #available(iOS 13.0, *) {
+            
+            // set the basic formatting. We basically want it to dissapear into the background
+            segmentedControlStatisticsDays.backgroundColor = ConstantsUI.segmentedControlBackgroundColor
+            
+            segmentedControlStatisticsDays.tintColor = ConstantsUI.segmentedControlBackgroundColor
+            
+            segmentedControlStatisticsDays.layer.borderWidth = ConstantsUI.segmentedControlBorderWidth
+
+            
+            // format the unselected segments
+            segmentedControlStatisticsDays.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: ConstantsUI.segmentedControlNormalTextColor, NSAttributedString.Key.font: ConstantsUI.segmentedControlFont], for:.normal)
+            
+            // format the selected segment
+            segmentedControlStatisticsDays.selectedSegmentTintColor = ConstantsUI.segmentedControlSelectedTintColor
+            
+            segmentedControlStatisticsDays.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: ConstantsUI.segmentedControlSelectedTextColor, NSAttributedString.Key.font: ConstantsUI.segmentedControlFont], for:.selected)
+            
+        }
+        
+        // if a RTL localization is in use (such as arabic), then correctly align the low (<x) and high (>x) label outlets towards the centre of the (now reversed) horizontal stack views
+        if UIView.userInterfaceLayoutDirection(for: view.semanticContentAttribute) == UIUserInterfaceLayoutDirection.rightToLeft {
+            lowLabelOutlet.textAlignment = .right
+            lowTitleLabelOutlet.textAlignment = .left
+            highLabelOutlet.textAlignment = .right
+            highTitleLabelOutlet.textAlignment = .left
+        } else {
+            lowLabelOutlet.textAlignment = .left
+            lowTitleLabelOutlet.textAlignment = .right
+            highLabelOutlet.textAlignment = .left
+            highTitleLabelOutlet.textAlignment = .right
+        }
         
         
         // enable or disable the buttons 'sensor' and 'calibrate' on top, depending on master or follower
@@ -290,6 +530,12 @@ final class RootViewController: UIViewController {
             
             // update label texts, minutes ago, diff and value
             self.updateLabelsAndChart(overrideApplicationState: true)
+            
+            // update sensor countdown
+            self.updateSensorCountdown()
+            
+            // update statistics related outlets
+            self.updateStatistics(animatePieChart: true, overrideApplicationState: true)
             
             // create badge counter
             self.createBgReadingNotificationAndSetAppBadge(overrideShowReadingInNotification: true)
@@ -320,8 +566,13 @@ final class RootViewController: UIViewController {
         
         // observe setting changes
         // changing from follower to master or vice versa
-        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.isMaster.rawValue, options: .new
-                                          , context: nil)
+        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.isMaster.rawValue, options: .new, context: nil)
+
+        // see if the user has changed the chart x axis timescale
+        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.KeysCharts.chartWidthInHours.rawValue, options: .new, context: nil)
+        
+        // see if the user has changed the statistic days to use
+        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.daysToUseStatistics.rawValue, options: .new, context: nil)
         
         // bg reading notification and badge, and multiplication factor
         UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.showReadingInNotification.rawValue, options: .new, context: nil)
@@ -329,6 +580,9 @@ final class RootViewController: UIViewController {
         UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.multipleAppBadgeValueWith10.rawValue, options: .new, context: nil)
         // also update of unit requires update of badge
         UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.bloodGlucoseUnitIsMgDl.rawValue, options: .new, context: nil)
+        // update show clock value for the screen lock function
+        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.showClockWhenScreenIsLocked.rawValue, options: .new, context: nil)
+        
         
         // high mark , low mark , urgent high mark, urgent low mark. change requires redraw of graph
         UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.urgentLowMarkValue.rawValue, options: .new, context: nil)
@@ -353,7 +607,7 @@ final class RootViewController: UIViewController {
             }
         }
         
-        // setup self as delegate for tabbarcontrolelr
+        // setup self as delegate for tabbarcontroller
         self.tabBarController?.delegate = self
         
         // setup the timer logic for updating the view regularly
@@ -362,9 +616,13 @@ final class RootViewController: UIViewController {
         // setup AVAudioSession
         setupAVAudioSession()
         
-        // user may have long pressed the value label, so the screen will not lock, when going back to background, set isIdleTimerDisabled back to false
+        // user may have activated the screen lock function so that the screen stays open, when going back to background, set isIdleTimerDisabled back to false and update the UI so that it's ready to come to foreground when required.
         ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground(key: applicationManagerKeyIsIdleTimerDisabled, closure: {
+            
             UIApplication.shared.isIdleTimerDisabled = false
+            
+            self.screenLockUpdate(enabled: false)
+            
         })
         
         // add tracing when app goes from foreground to background
@@ -386,6 +644,19 @@ final class RootViewController: UIViewController {
         ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: applicationManagerKeyUpdateLabelsAndChart, closure: {
             
             self.updateLabelsAndChart(overrideApplicationState: true)
+            
+            
+            self.updateSensorCountdown()
+            
+            // update statistics related outlets
+            self.updateStatistics(animatePieChart: false)
+            
+        })
+        
+        
+        ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: applicationManagerKeyDismissScreenLockAlertController, closure: {
+
+            self.dismissScreenLockAlertController()
             
         })
         
@@ -559,6 +830,9 @@ final class RootViewController: UIViewController {
         // initialize glucoseChartManager
         glucoseChartManager = GlucoseChartManager(chartLongPressGestureRecognizer: chartLongPressGestureRecognizerOutlet, coreDataManager: coreDataManager)
         
+        // initialize statisticsManager
+        statisticsManager = StatisticsManager(coreDataManager: coreDataManager)
+        
         // initialize chartGenerator in chartOutlet
         self.chartOutlet.chartGenerator = { [weak self] (frame) in
             return self?.glucoseChartManager?.glucoseChartWithFrame(frame)?.view
@@ -635,11 +909,15 @@ final class RootViewController: UIViewController {
             // this value is also used to verify that glucoseData Array has enough readings
             var timeStampToDelete = Date(timeIntervalSinceNow: -60.0 * (Double)(ConstantsLibreSmoothing.readingsToDeleteInMinutes))
             
+            trace("timeStampToDelete =  %{public}@", log: self.log, category: ConstantsLog.categoryRootView, type: .debug, timeStampToDelete.toString(timeStyle: .long, dateStyle: .none))
+            
             // now check if we'll delete readings
             // there must be a glucoseData.last, here assigning lastGlucoseData just to unwrap it
             // checking lastGlucoseData.timeStamp < timeStampToDelete guarantees the oldest reading is older than the one we'll delete, so we're sur we have enough readings in glucoseData to refill the BgReadings
             if let lastGlucoseData = glucoseData.last, lastGlucoseData.timeStamp < timeStampToDelete, UserDefaults.standard.smoothLibreValues {
-                
+
+                trace("lastGlucoseData =  %{public}@", log: self.log, category: ConstantsLog.categoryRootView, type: .debug, lastGlucoseData.timeStamp.toString(timeStyle: .long, dateStyle: .none))
+
                 // older than the timestamp of the latest reading
                 if let last = glucoseData.last {
                     timeStampToDelete = max(timeStampToDelete, last.timeStamp)
@@ -692,7 +970,11 @@ final class RootViewController: UIViewController {
                 // delete them
                 for reading in lastBgReadings {
                     
+                    trace("reading being deleted with timestamp =  %{public}@", log: self.log, category: ConstantsLog.categoryRootView, type: .debug, reading.timeStamp.toString(timeStyle: .long, dateStyle: .none))
+                    
                     coreDataManager.mainManagedObjectContext.delete(reading)
+                    
+                    coreDataManager.saveChanges()
                     
                 }
                 
@@ -778,6 +1060,13 @@ final class RootViewController: UIViewController {
                     
                     // update all text in  first screen
                     updateLabelsAndChart(overrideApplicationState: false)
+                    
+                    // update statistics related outlets
+                    updateStatistics(animatePieChart: false)
+                    
+                    // update sensor countdown graphic
+                    updateSensorCountdown()
+                    
                 }
                 
                 nightScoutUploadManager?.upload(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp())
@@ -813,18 +1102,45 @@ final class RootViewController: UIViewController {
         
     }
     
-    // MARK:- observe function
+    /// used by observevalue for UserDefaults.KeysCharts
+    private func evaluateUserDefaultsChange(keyPathEnumCharts: UserDefaults.KeysCharts) {
+        
+        // first check keyValueObserverTimeKeeper
+        switch keyPathEnumCharts {
+        
+        case UserDefaults.KeysCharts.chartWidthInHours, UserDefaults.KeysCharts.chartTimeAxisLabelFormat :
+            
+            if !keyValueObserverTimeKeeper.verifyKey(forKey: keyPathEnumCharts.rawValue, withMinimumDelayMilliSeconds: 200) {
+                return
+            }
+            
+        }
+        
+        switch keyPathEnumCharts {
+        
+        case UserDefaults.KeysCharts.chartWidthInHours:
+            
+            // redraw chart is necessary
+            if let glucoseChartManager = glucoseChartManager {
+                
+                glucoseChartManager.updateChartPoints(endDate: glucoseChartManager.endDate, startDate: glucoseChartManager.endDate.addingTimeInterval(.hours(-UserDefaults.standard.chartWidthInHours)), chartOutlet: chartOutlet, completionHandler: nil)
+
+            }
+            
+        default:
+            break
+            
+        }
+        
+    }
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        
-        guard let keyPath = keyPath else {return}
-        
-        guard let keyPathEnum = UserDefaults.Key(rawValue: keyPath) else {return}
+    /// used by observevalue for UserDefaults.Key
+    private func evaluateUserDefaultsChange(keyPathEnum: UserDefaults.Key) {
         
         // first check keyValueObserverTimeKeeper
         switch keyPathEnum {
         
-        case UserDefaults.Key.isMaster, UserDefaults.Key.multipleAppBadgeValueWith10, UserDefaults.Key.showReadingInAppBadge, UserDefaults.Key.bloodGlucoseUnitIsMgDl :
+        case UserDefaults.Key.isMaster, UserDefaults.Key.multipleAppBadgeValueWith10, UserDefaults.Key.showReadingInAppBadge, UserDefaults.Key.bloodGlucoseUnitIsMgDl, UserDefaults.Key.daysToUseStatistics :
             
             // transmittertype change triggered by user, should not be done within 200 ms
             if !keyValueObserverTimeKeeper.verifyKey(forKey: keyPathEnum.rawValue, withMinimumDelayMilliSeconds: 200) {
@@ -844,7 +1160,7 @@ final class RootViewController: UIViewController {
             
             // no sensor needed in follower mode, stop it
             stopSensor()
-
+            
         case UserDefaults.Key.showReadingInNotification:
             if !UserDefaults.standard.showReadingInNotification {
                 // remove existing notification if any
@@ -869,9 +1185,39 @@ final class RootViewController: UIViewController {
             
             // redraw chart is necessary
             updateChartWithResetEndDate()
+
+        case UserDefaults.Key.daysToUseStatistics:
             
+            // refresh statistics calculations/view is necessary
+            updateStatistics(animatePieChart: true, overrideApplicationState: false)
+            
+        case UserDefaults.Key.showClockWhenScreenIsLocked:
+            
+            // refresh screenLock function if it is currently activated in order to show/hide the clock as requested
+            if screenIsLocked {
+                screenLockUpdate(enabled: true)
+            }
+
         default:
             break
+            
+        }
+    }
+    
+    // MARK:- observe function
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        guard let keyPath = keyPath else {return}
+        
+        if let keyPathEnum = UserDefaults.Key(rawValue: keyPath) {
+            
+            evaluateUserDefaultsChange(keyPathEnum: keyPathEnum)
+            
+        } else if let keyPathEnumCharts = UserDefaults.KeysCharts(rawValue: keyPath) {
+            
+            evaluateUserDefaultsChange(keyPathEnumCharts: keyPathEnumCharts)
+            
         }
         
     }
@@ -883,11 +1229,12 @@ final class RootViewController: UIViewController {
         
         // remove titles from tabbar items
         self.tabBarController?.cleanTitles()
-        
+        	
         // set texts for buttons on top
-        calibrateButtonOutlet.setTitle(Texts_HomeView.calibrationButton, for: .normal)
-        preSnoozeButtonOutlet.setTitle(Texts_HomeView.snoozeButton, for: .normal)
-        sensorButtonOutlet.setTitle(Texts_HomeView.sensor, for: .normal)
+        preSnoozeToolbarButtonOutlet.title = Texts_HomeView.snoozeButton
+        sensorToolbarButtonOutlet.title = Texts_HomeView.sensor
+        calibrateToolbarButtonOutlet.title = Texts_HomeView.calibrationButton
+        screenLockToolbarButtonOutlet.title = screenIsLocked ? Texts_HomeView.unlockButton : Texts_HomeView.lockButton
         
         chartLongPressGestureRecognizerOutlet.delegate = self
         chartPanGestureRecognizerOutlet.delegate = self
@@ -935,7 +1282,7 @@ final class RootViewController: UIViewController {
     /// will update the chart with endDate = currentDate
     private func updateChartWithResetEndDate() {
         
-        glucoseChartManager?.updateGlucoseChartPoints(endDate: Date(), startDate: nil, chartOutlet: chartOutlet, completionHandler: nil)
+        glucoseChartManager?.updateChartPoints(endDate: Date(), startDate: nil, chartOutlet: chartOutlet, completionHandler: nil)
         
     }
     
@@ -1046,6 +1393,9 @@ final class RootViewController: UIViewController {
                 return
             }
             
+            // store the calibration value entered by the user into the log
+            trace("calibration : value %{public}@ entered by user", log: self.log, category: ConstantsLog.categoryRootView, type: .info, text.description)
+            
             let valueAsDoubleConvertedToMgDl = valueAsDouble.mmolToMgdl(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
             
             var latestReadings = bgReadingsAccessor.getLatestBgReadings(limit: 36, howOld: nil, forSensor: activeSensor, ignoreRawData: false, ignoreCalculatedValue: true)
@@ -1122,7 +1472,7 @@ final class RootViewController: UIViewController {
             
             return DexcomCalibrator()
             
-        case .miaomiao, .GNSentry, .Blucon, .Bubble, .Droplet1, .blueReader, .watlaa, .Libre2:
+        case .miaomiao, .GNSentry, .Blucon, .Bubble, .Droplet1, .blueReader, .watlaa, .Libre2, .Atom:
             
             if cgmTransmitter.isWebOOPEnabled() {
                 
@@ -1242,8 +1592,8 @@ final class RootViewController: UIViewController {
         if readingValueForBadge <= 40.0 {readingValueForBadge = 40.0}
         
         // check if notification on home screen is enabled in the settings
-        // and also if last notification was long enough ago (longer than ConstantsNotifications.minimiumTimeBetweenTwoReadingsInMinutes), except if there would have been a disconnect since previous notification (simply because I like getting a new reading with a notification by disabling/reenabling bluetooth
-        if UserDefaults.standard.showReadingInNotification && !overrideShowReadingInNotification && (abs(timeStampLastBGNotification.timeIntervalSince(Date())) > ConstantsNotifications.minimiumTimeBetweenTwoReadingsInMinutes * 60.0 || lastConnectionStatusChangeTimeStamp().timeIntervalSince(timeStampLastBGNotification) > 0) {
+        // and also if last notification was long enough ago (longer than UserDefaults.standard.notificationInterval), except if there would have been a disconnect since previous notification (simply because I like getting a new reading with a notification by disabling/reenabling bluetooth
+        if UserDefaults.standard.showReadingInNotification && !overrideShowReadingInNotification && (abs(timeStampLastBGNotification.timeIntervalSince(Date())) > Double(UserDefaults.standard.notificationInterval) * 60.0 || lastConnectionStatusChangeTimeStamp().timeIntervalSince(timeStampLastBGNotification) > 0) {
             
             // Create Notification Content
             let notificationContent = UNMutableNotificationContent()
@@ -1335,12 +1685,18 @@ final class RootViewController: UIViewController {
         // get latest reading, doesn't matter if it's for an active sensor or not, but it needs to have calculatedValue > 0 / which means, if user would have started a new sensor, but didn't calibrate yet, and a reading is received, then there's not going to be a latestReading
         let latestReadings = bgReadingsAccessor.get2LatestBgReadings(minimumTimeIntervalInMinutes: 4.0)
         
-        // if there's no readings, then give empty fields
+        // if there's no readings, then give empty fields and make sure the text isn't styled with strikethrough
         guard latestReadings.count > 0 else {
-            valueLabelOutlet.text = "---"
+            
             valueLabelOutlet.textColor = UIColor.darkGray
             minutesLabelOutlet.text = ""
             diffLabelOutlet.text = ""
+                
+            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "---")
+            attributeString.addAttribute(.strikethroughStyle, value: 0, range: NSMakeRange(0, attributeString.length))
+            
+            valueLabelOutlet.attributedText = attributeString
+            
             return
         }
         
@@ -1412,31 +1768,44 @@ final class RootViewController: UIViewController {
     private func createAndPresentSensorButtonActionSheet() {
         
         // initialize list of actions
-        var listOfActions = [String : ((UIAlertAction) -> Void)]()
+        var listOfActions = [UIAlertAction]()
         
         // first action is to show the status
-        listOfActions[Texts_HomeView.statusActionTitle] = {(UIAlertAction) in self.showStatus()}
+        let sensorStatusAction = UIAlertAction(title: Texts_HomeView.statusActionTitle, style: .default) { (UIAlertAction) in
+            self.showStatus()
+        }
+        listOfActions.append(sensorStatusAction)
         
         // next action is to start or stop the sensor, can also be omitted depending on type of device - also not applicable for follower mode
         if let cgmTransmitter = self.bluetoothPeripheralManager?.getCGMTransmitter() {
             if cgmTransmitter.cgmTransmitterType().allowManualSensorStart() && UserDefaults.standard.isMaster {
                 // user needs to start and stop the sensor manually
+                var startStopAction: UIAlertAction
+                
                 if activeSensor != nil {
-                    listOfActions[Texts_HomeView.stopSensorActionTitle] = {(UIAlertAction) in
-                        
+                    startStopAction = UIAlertAction(title: Texts_HomeView.stopSensorActionTitle, style: .default) { (UIAlertAction) in
                         trace("in createAndPresentSensorButtonActionSheet, user clicked stop sensor, will stop the sensor", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
                         
                         self.stopSensor()
-                        
                     }
                 } else {
-                    listOfActions[Texts_HomeView.startSensorActionTitle] = {(UIAlertAction) in self.startSensorAskUserForStarttime()}
+                    startStopAction = UIAlertAction(title: Texts_HomeView.startSensorActionTitle, style: .default) { (UIAlertAction) in
+                        self.startSensorAskUserForStarttime()
+                    }
                 }
+                
+                listOfActions.append(startStopAction)
             }
         }
+
+        let cancelAction = UIAlertAction(title: Texts_Common.Cancel, style: .cancel, handler: nil)
+        listOfActions.append(cancelAction)
         
         // create and present new alertController of type actionsheet
-        let actionSheet = UIAlertController(title: nil, message: nil, actions: listOfActions, cancelAction: (Texts_Common.Cancel, nil))
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        for action in listOfActions {
+            actionSheet.addAction(action)
+        }
         
         // following is required for iPad, as explained here https://stackoverflow.com/questions/28089898/actionsheet-not-working-ipad
         // otherwise it crashes on iPad when clicking transmitter button
@@ -1489,6 +1858,9 @@ final class RootViewController: UIViewController {
         
         activeSensor = nil
         
+        // now that the activeSensor object has been destroyed, update (hide) the sensor countdown graphic
+        updateSensorCountdown()
+        
     }
     
     /// start a new sensor, ask user for starttime
@@ -1528,17 +1900,16 @@ final class RootViewController: UIViewController {
         }
         
     }
-    
+
     private func valueLabelLongPressed(_ sender: UILongPressGestureRecognizer) {
+        
         if sender.state == .began {
-            
-            // vibrate so that user knows the long press is detected
-            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-            
-            // prevent screen lock
-            UIApplication.shared.isIdleTimerDisabled = true
+
+            // call the UIAlert but assume that the user wants a simple screen lock, not the full lock mode
+            screenLockAlert(overrideScreenIsLocked: true, showClock: false)
             
         }
+        
     }
     
     private func getCGMTransmitterDeviceName(for cgmTransmitter: CGMTransmitter) -> String? {
@@ -1555,11 +1926,11 @@ final class RootViewController: UIViewController {
     private func changeButtonsStatusTo(enabled: Bool) {
         
         if enabled {
-            sensorButtonOutlet.enable()
-            calibrateButtonOutlet.enable()
+            sensorToolbarButtonOutlet.enable()
+            calibrateToolbarButtonOutlet.enable()
         } else {
-            sensorButtonOutlet.disable()
-            calibrateButtonOutlet.disable()
+            sensorToolbarButtonOutlet.disable()
+            calibrateToolbarButtonOutlet.disable()
         }
         
     }
@@ -1603,7 +1974,445 @@ final class RootViewController: UIViewController {
         
     }
     
+    
+    // helper function to calculate the statistics and update the pie chart and label outlets
+    private func updateStatistics(animatePieChart: Bool = false, overrideApplicationState: Bool = false) {
+        
+        // don't calculate statis if app is not running in the foreground
+        guard UIApplication.shared.applicationState == .active || overrideApplicationState else {return}
+        
+        // if the user doesn't want to see the statistics, then just return without doing anything
+        if !UserDefaults.standard.showStatistics {
+            return
+        }
+        
+        // declare constants/variables
+        let isMgDl: Bool = UserDefaults.standard.bloodGlucoseUnitIsMgDl
+        var daysToUseStatistics: Int = 0
+        var fromDate: Date = Date()
+        
+        // get the maximum number of calculation days requested by the user
+        daysToUseStatistics = UserDefaults.standard.daysToUseStatistics
+        
+        // if the user has selected 0 (to chose "today") then set the fromDate to the previous midnight
+        if daysToUseStatistics == 0 {
+            fromDate = Calendar(identifier: .gregorian).startOfDay(for: Date())
+        } else {
+            fromDate = Date(timeIntervalSinceNow: -3600.0 * 24.0 * Double(daysToUseStatistics))
+        }
+        
+        
+        // let's clean up statistics UI before calling the Statistics Manager
+        // we'll also show the activity monitor and change the statistics label colors to gray
+        if self.averageStatisticLabelOutlet.text == "-" {
+            self.activityMonitorOutlet.isHidden = true
+        } else {
+            self.activityMonitorOutlet.isHidden = false
+        }
+        
+        self.pieChartOutlet.clear()
+        self.pieChartLabelOutlet.text = ""
+        
+        self.lowStatisticLabelOutlet.textColor = UIColor.lightGray
+        self.lowStatisticLabelOutlet.text = "-"
+        self.inRangeStatisticLabelOutlet.textColor = UIColor.lightGray
+        self.inRangeStatisticLabelOutlet.text = "-"
+        self.highStatisticLabelOutlet.textColor = UIColor.lightGray
+        self.highStatisticLabelOutlet.text = "-"
+        self.averageStatisticLabelOutlet.text = "-"
+        self.a1CStatisticLabelOutlet.text = "-"
+        self.cVStatisticLabelOutlet.text = "-"
+        self.timePeriodLabelOutlet.text = "- - -"
+        
+        
+        // statisticsManager will calculate the statistics in background thread and call the callback function in the main thread
+        statisticsManager?.calculateStatistics(fromDate: fromDate, toDate: nil, callback: { statistics in
+            
+            // set the title labels to their correct localization
+            self.lowTitleLabelOutlet.text = Texts_Common.lowStatistics
+            self.inRangeTitleLabelOutlet.text = Texts_Common.inRangeStatistics
+            self.highTitleLabelOutlet.text = Texts_Common.highStatistics
+            self.averageTitleLabelOutlet.text = Texts_Common.averageStatistics
+            self.a1cTitleLabelOutlet.text = Texts_Common.a1cStatistics
+            self.cvTitleLabelOutlet.text = Texts_Common.cvStatistics
+            
+            
+            // set the low/high "label" labels with the low/high user values that the user has chosen to use
+            self.lowLabelOutlet.text = "(<" + (isMgDl ? Int(statistics.lowLimitForTIR).description : statistics.lowLimitForTIR.round(toDecimalPlaces: 1).description) + ")"
+            self.highLabelOutlet.text = "(>" + (isMgDl ? Int(statistics.highLimitForTIR).description : statistics.highLimitForTIR.round(toDecimalPlaces: 1).description) + ")"
+            
+            
+            // set all label outlets with the correctly formatted calculated values
+            self.lowStatisticLabelOutlet.textColor = ConstantsStatistics.labelLowColor
+            self.lowStatisticLabelOutlet.text = Int(statistics.lowStatisticValue.round(toDecimalPlaces: 0)).description + "%"
+            
+            self.inRangeStatisticLabelOutlet.textColor = ConstantsStatistics.labelInRangeColor
+            self.inRangeStatisticLabelOutlet.text = Int(statistics.inRangeStatisticValue.round(toDecimalPlaces: 0)).description + "%"
+            
+            self.highStatisticLabelOutlet.textColor = ConstantsStatistics.labelHighColor
+            self.highStatisticLabelOutlet.text = Int(statistics.highStatisticValue.round(toDecimalPlaces: 0)).description + "%"
+            
+            // if there are no values returned (new sensor?) then just leave the default "-" showing
+            if statistics.averageStatisticValue.value > 0 {
+                self.averageStatisticLabelOutlet.text = (isMgDl ? Int(statistics.averageStatisticValue.round(toDecimalPlaces: 0)).description : statistics.averageStatisticValue.round(toDecimalPlaces: 1).description) + (isMgDl ? " mg/dl" : " mmol/l")
+            }
+            
+            // if there are no values returned (new sensor?) then just leave the default "-" showing
+            if statistics.a1CStatisticValue.value > 0 {
+                if UserDefaults.standard.useIFCCA1C {
+                    self.a1CStatisticLabelOutlet.text = Int(statistics.a1CStatisticValue.round(toDecimalPlaces: 0)).description + " mmol"
+                } else {
+                    self.a1CStatisticLabelOutlet.text = statistics.a1CStatisticValue.round(toDecimalPlaces: 1).description + "%"
+                }
+            }
+            
+            // if there are no values returned (new sensor?) then just leave the default "-" showing
+            if statistics.cVStatisticValue.value > 0 {
+                self.cVStatisticLabelOutlet.text = Int(statistics.cVStatisticValue.round(toDecimalPlaces: 0)).description + "%"
+            }
+            
+            // show number of days calculated under the pie chart
+            switch daysToUseStatistics {
+            case 0:
+                self.timePeriodLabelOutlet.text = Texts_Common.today
+                
+            case 1:
+                self.timePeriodLabelOutlet.text = "24 " + Texts_Common.hours
+                
+            default:
+                self.timePeriodLabelOutlet.text = statistics.numberOfDaysUsed.description + " " + Texts_Common.days
+            }
+            
+            
+            // disable the chart animation if it's just a normal update, enable it if the call comes from didAppear()
+            if animatePieChart {
+                self.pieChartOutlet.animDuration = ConstantsStatistics.pieChartAnimationSpeed
+            } else {
+                self.pieChartOutlet.animDuration = 0
+            }
+            
+            // we want to calculate how many hours have passed since midnight so that we can decide if we should show the easter egg. The user will almost always be in range at 01hrs in the morning so we don't want to show it until mid-morning or midday so that there is some sense of achievement
+            let currentHoursSinceMidnight = Calendar.current.dateComponents([.hour], from: Calendar(identifier: .gregorian).startOfDay(for: Date()), to: Date()).hour!
+            
+            
+            self.activityMonitorOutlet.isHidden = true
+            
+            // if the user is 100% in range, show the easter egg and make them smile
+            if statistics.inRangeStatisticValue < 100 {
+                
+                // set the reference angle of the pie chart to ensure that the in range slice is centered
+                self.pieChartOutlet.referenceAngle = 90.0 - (1.8 * CGFloat(statistics.inRangeStatisticValue))
+                
+                self.pieChartOutlet.innerRadius = 0
+                self.pieChartOutlet.models = [
+                    PieSliceModel(value: Double(statistics.inRangeStatisticValue), color: ConstantsStatistics.pieChartInRangeSliceColor),
+                    PieSliceModel(value: Double(statistics.lowStatisticValue), color: ConstantsStatistics.pieChartLowSliceColor),
+                    PieSliceModel(value: Double(statistics.highStatisticValue), color: ConstantsStatistics.pieChartHighSliceColor)
+                ]
+                
+                self.pieChartLabelOutlet.text = ""
+                
+            } else if ConstantsStatistics.showInRangeEasterEgg && ((Double(currentHoursSinceMidnight) >= ConstantsStatistics.minimumHoursInDayBeforeShowingEasterEgg) || (UserDefaults.standard.daysToUseStatistics > 0)) {
+                
+                // if we want to show easter eggs check if one of the following two conditions is true:
+                //      - at least 16 hours (for example) have passed since midnight if the user is showing only Today and is still 100% in range
+                //      - if the user is showing >= 1 full days and they are still 100% in range
+                // the idea is to avoid that the easter egg appears after just a few minutes of being in range (at 00:15hrs for example) as this has no merit.
+                
+                // open up the inside of the chart so that we can fit the smiley face in
+                self.pieChartOutlet.innerRadius = 16
+                self.pieChartOutlet.models = [
+                    PieSliceModel(value: 1, color: ConstantsStatistics.pieChartInRangeSliceColor)
+                ]
+                
+                self.pieChartLabelOutlet.font = UIFont.boldSystemFont(ofSize: 26)
+                self.pieChartLabelOutlet.text = "😎"
+                
+            } else {
+                
+                // the easter egg isn't wanted so just show a green circle at 100%
+                self.pieChartOutlet.innerRadius = 0
+                self.pieChartOutlet.models = [
+                    PieSliceModel(value: 1, color: ConstantsStatistics.pieChartInRangeSliceColor)
+                ]
+                
+                self.pieChartLabelOutlet.text = ""
+                
+            }
+            
+        })
+    }
+    
+    /// swaps status from locked to unlocked or vice versa, and creates alert to inform user
+    /// - parameters:
+    ///     - overrideScreenIsLocked : if true, then screen will be locked even if it's already locked. If false, then status swaps from locked to unlocked or unlocked to locked
+    ///     - showClock : when true this parameter will be passed to the screeLockUpdate function and this will lock the screen in the full lock mode adjusting font sizes and showing the clock as required.
+    private func screenLockAlert(overrideScreenIsLocked: Bool = false, showClock: Bool = true) {
+        
+        if !screenIsLocked || overrideScreenIsLocked {
+            
+            trace("screen lock : user clicked the lock button or long pressed the value", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
+            
+            // lock and update the screen
+            self.screenLockUpdate(enabled: true, showClock: showClock)
+            
+            // only trigger the UIAlert if the user hasn't previously asked to not show it again
+            if !UserDefaults.standard.lockScreenDontShowAgain {
+                
+                // create uialertcontroller to inform user
+                screenLockAlertController = UIAlertController(title: Texts_HomeView.screenLockTitle, message: Texts_HomeView.screenLockInfo, preferredStyle: .alert)
+
+                // create "don't show again" button for uialertcontroller
+                let dontShowAgainAction = UIAlertAction(title: Texts_Common.dontShowAgain, style: .destructive) {
+                    (action:UIAlertAction!) in
+                    
+                    // if clicked set the user default key to false so that the next time the user locks the screen, the UIAlert isn't triggered
+                    UserDefaults.standard.lockScreenDontShowAgain = true
+                    
+                }
+                
+                // create OK button for uialertcontroller
+                let OKAction = UIAlertAction(title: Texts_Common.Ok, style: .default) {
+                    (action:UIAlertAction!) in
+                    
+                    // set screenLockAlertController to nil because this variable is used when app comes to foreground, to check if alert is still presented
+                    self.screenLockAlertController = nil
+                    
+                }
+
+                // add buttons to the alert
+                screenLockAlertController!.addAction(dontShowAgainAction)
+                screenLockAlertController!.addAction(OKAction)
+
+                // show alert
+                self.present(screenLockAlertController!, animated: true, completion:nil)
+                
+            }
+            
+            
+            // schedule timer to dismiss the uialert controller after some time, in case user doesn't click ok
+            Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(dismissScreenLockAlertController), userInfo: nil, repeats:false)
+            
+        } else {
+            
+            trace("screen lock : user clicked the unlock button", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
+            
+            // this means the user has clicked the button whilst the screen look in already in place so let's turn the function off
+            self.screenLockUpdate(enabled: false, showClock: showClock)
+            
+        }
+        
+    }
+    
+    
+    /// this function will run when the user wants the screen to lock, or whenever the view appears and it will set up the screen correctly for each mode
+    /// - parameters :
+    ///     - enabled : when true this will force the screen to lock
+    ///     - showClock : when false, this will enable a simple screen lock without changing the UI - useful for keeping the screen open on your desk
+    private func screenLockUpdate(enabled: Bool = true, showClock: Bool = true) {
+
+        if enabled {
+            
+            // set the toolbar button text to "Unlock"
+            screenLockToolbarButtonOutlet.title = Texts_HomeView.unlockButton
+            
+            screenLockToolbarButtonOutlet.tintColor = UIColor.red
+            
+            // vibrate so that user knows that the screen lock has been activated
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+            
+            // check if iOS13 or newer is being used. If it is, then take advantage of SF Symbols to fill in the lock icon to make it stand out more
+            if #available(iOS 13.0, *) {
+
+                screenLockToolbarButtonOutlet.image = UIImage(systemName: "lock.fill")
+            
+            }
+            
+            if showClock {
+                
+                // set the value label font size to big
+                valueLabelOutlet.font = ConstantsUI.valueLabelFontSizeScreenLock
+                
+                // de-clutter the screen. Hide the statistics view, controls and show the clock view
+                statisticsView.isHidden = true
+                segmentedControlsView.isHidden = true
+                
+                if UserDefaults.standard.showClockWhenScreenIsLocked {
+                    
+                    // set the clock label font size to big (force ConstantsUI implementation)
+                    clockLabelOutlet.font = ConstantsUI.clockLabelFontSize
+                    
+                    // set clock label color
+                    clockLabelOutlet.textColor = ConstantsUI.clockLabelColor
+                    
+                    clockView.isHidden = false
+                    
+                    // set the format for the clock view and update it to show the current time
+                    updateClockView()
+                    
+                    // set a timer instance to update the clock view label every second
+                    clockTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateClockView), userInfo: nil, repeats:true)
+                    
+                } else {
+                    
+                    clockView.isHidden = true
+                    
+                }
+            
+            }
+
+            // prevent screen dim/lock
+            UIApplication.shared.isIdleTimerDisabled = true
+            
+            // set the private var so that we can track the screen lock activation within the RootViewController
+            screenIsLocked = true
+            
+            trace("screen lock : screen lock / keep-awake enabled", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
+            
+        } else {
+            
+            // set the toolbar button text to "Lock"
+            screenLockToolbarButtonOutlet.title = Texts_HomeView.lockButton
+            
+            screenLockToolbarButtonOutlet.tintColor = nil
+            
+            // check if iOS13 or newer is being used. If it is, then set the lock icon back to the standard SF Symbol
+            if #available(iOS 13.0, *) {
+                
+                screenLockToolbarButtonOutlet.image = UIImage(systemName: "lock")
+            
+            }
+
+            valueLabelOutlet.font = ConstantsUI.valueLabelFontSizeNormal
+            
+            // hide
+            statisticsView.isHidden = !UserDefaults.standard.showStatistics
+            segmentedControlsView.isHidden = false
+            
+            clockView.isHidden = true
+            
+            if showClock {
+                
+                // destroy the timer instance so that it doesn't keep using resources
+                clockTimer?.invalidate()
+                
+            }
+            
+            // make sure that the screen lock is deactivated
+            UIApplication.shared.isIdleTimerDisabled = false
+            
+            trace("screen lock / keep-awake disabled", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
+
+            screenIsLocked = false
+            
+        }
+        
+    }
+    
+    
+    /// update the label in the clock view every time this function is called
+    @objc private func updateClockView() {
+        self.clockLabelOutlet.text = clockDateFormatter.string(from: Date())
+    }
+
+    /// checks if screenLockAlertController is not nil and if not dismisses the presentedViewController
+    @objc private func dismissScreenLockAlertController() {
+        
+        // possibly screenLockAlertController is still on the screen which would happen if user chooses to lock the screen but brings the app to the background before clicking ok
+        if self.screenLockAlertController != nil {
+            
+            self.presentedViewController?.dismiss(animated: false, completion: nil)
+            
+            self.screenLockAlertController = nil
+            
+        }
+
+    }
+    
+    
+    /// this function will check if the user is using a time-sensitive sensor (such as a 14 day Libre, calculate the days remaining and then update the imageUI with the relevant svg image from the project assets.
+    private func updateSensorCountdown() {
+        
+        // if the user has chosen not to display the countdown graphic, then make sure the graphic is hidden and just return back without doing anything
+        if !UserDefaults.standard.showSensorCountdown {
+            sensorCountdownOutlet.isHidden = true
+            return
+        }
+        
+        // if there's no active sensor, there's nothing to do or show
+        guard activeSensor != nil else {
+            sensorCountdownOutlet.isHidden = true
+            return
+        }
+        
+        // check that the sensor start date is not nil before unwrapping it
+        guard activeSensor?.startDate != nil else {
+            return
+        }
+        
+        // check if there is a transmitter connected (needed as Dexcom will only connect briefly every 5 minutes)
+        // if there is a transmitter connected, pull the current maxSensorAgeInDays and store in in UserDefaults
+        if let cgmTransmitter = self.bluetoothPeripheralManager?.getCGMTransmitter(), let maxDays = cgmTransmitter.maxSensorAgeInDays() {
+            UserDefaults.standard.maxSensorAgeInDays = maxDays
+        }
+        
+        // pull the boolean value from UserDefaults to see if you user prefers the alternative graphics (count-up instead of count-down)
+        let showSensorCountdownAlternativeGraphics = UserDefaults.standard.showSensorCountdownAlternativeGraphics
+
+        // check if the sensor type has a hard coded maximum sensor life previously stored.
+        if let maxSensorAgeInDays = UserDefaults.standard.maxSensorAgeInDays as Int?, maxSensorAgeInDays > 0 {
+        
+            // calculate how many hours the sensor has been used for since starting. We need to use hours instead of days because during the last day we need to see how many hours are left so that we can display the warning and urgent status graphics.
+            let currentSensorAgeInHours: Int = Calendar.current.dateComponents([.hour], from: activeSensor!.startDate - 5 * 60, to: Date()).hour!
+            
+            // we need to calculate the hours so that we can see if we need to show the yellow (<12hrs remaining) or red (<6hrs remaining) graphics
+            let sensorCountdownHoursRemaining: Int = (maxSensorAgeInDays * 24) - currentSensorAgeInHours
+            
+            // start programatically creating the asset name that we will loaded. This is based upon the max sensor days and the days "remaining". To get the full days, we need to round up the currentSensorAgeInHours to the nearest 24 hour block
+            var sensorCountdownAssetName: String = "sensor" +  String(maxSensorAgeInDays) + "_"
+
+            // find the amount of days remaining and add it to the asset name string. If there is less than 12 hours, add the corresponding warning/urgent label. If the sensor hours remaining is 0 or less, then the sensor is either expired or in the last 12 hours of "overtime" (e.g Libre sensors have an extra 12 hours before the stop working). If this happens, then instead of appending the days left, always show the "00" graphic.
+            if sensorCountdownHoursRemaining > 0 {
+                
+                sensorCountdownAssetName += String(format: "%02d", maxSensorAgeInDays - Int(round(Double(currentSensorAgeInHours / 24)) * 24) / 24)
+                
+                switch sensorCountdownHoursRemaining {
+
+                    case 7...12:
+                        sensorCountdownAssetName += "_warning"
+                    case 1...6:
+                        sensorCountdownAssetName += "_urgent"
+                    default: break
+
+                }
+                
+            } else {
+                
+                sensorCountdownAssetName += "00"
+                
+            }
+            
+            // if the user prefers the alternative graphics (count-up), then append this to the end of the string
+            if showSensorCountdownAlternativeGraphics {
+                sensorCountdownAssetName += "_alt"
+            }
+            
+            // update the UIImage
+            sensorCountdownOutlet.image = UIImage(named: sensorCountdownAssetName)
+            
+            // show the sensor countdown image
+            sensorCountdownOutlet.isHidden = false
+            
+        } else {
+
+            // this must be a sensor without a maxSensorAge , so just make sure to hide the sensor countdown image and do nothing
+            sensorCountdownOutlet.isHidden = true
+
+        }
+        
+    }
 }
+
 
 // MARK: - conform to CGMTransmitter protocol
 
@@ -1806,6 +2615,12 @@ extension RootViewController:NightScoutFollowerDelegate {
                 
                 // update all text in  first screen
                 updateLabelsAndChart(overrideApplicationState: false)
+                
+                // update statistics related outlets
+                updateStatistics(animatePieChart: false)
+                
+                // update sensor countdown
+                updateSensorCountdown()
                 
                 // check alerts, create notification, set app badge
                 checkAlertsCreateNotificationAndSetAppBadge()

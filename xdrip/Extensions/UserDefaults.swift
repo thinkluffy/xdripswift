@@ -21,7 +21,7 @@ extension UserDefaults {
         
         // General
         
-        /// bloodglucose  unit
+        /// bloodglucose unit
         case bloodGlucoseUnitIsMgDl = "bloodGlucoseUnit"
         /// urgent high value
         case isMaster = "isMaster"
@@ -31,8 +31,12 @@ extension UserDefaults {
         case showReadingInAppBadge = "showReadingInAppBadge"
         /// should reading by multiplied by 10
         case multipleAppBadgeValueWith10 = "multipleAppBadgeValueWith10"
+        /// should the clock view be shown when the screen is locked?
+        case showClockWhenScreenIsLocked = "showClockWhenScreenIsLocked"
+        /// minimum time between two notifications, set by user
+        case notificationInterval = "notificationInterval"
         
-        // Home Screen and graph settings
+        // Home Screen and main chart settings
         
         /// show the objectives and make them display on the graph? Or just hide it all because it's too complicated to waste time with?
         case useObjectives = "useObjectives"
@@ -48,6 +52,27 @@ extension UserDefaults {
         case showTarget = "showTarget"
         /// target value
         case targetMarkValue = "targetMarkValue"
+        
+        // Statistics settings
+        
+        /// show the statistics? How many days should we use for the calculations?
+        case showStatistics = "showStatistics"
+        /// show the objective lines in color or grey?
+        case daysToUseStatistics = "daysToUseStatistics"
+        /// use IFCC way to show A1C?
+        case useIFCCA1C = "useIFCCA1C"
+        /// use the "standard" range of 70-180mg/dl to calculate the statistics?
+        case useStandardStatisticsRange = "useStandardStatisticsRange"
+        
+        // Sensor Countdown settings
+        
+        /// show the sensor countdown graphic where applicable?
+        case showSensorCountdown = "showSensorCountdown"
+        /// does the user prefer the alternative "count up" graphics?
+        case showSensorCountdownAlternativeGraphics = "showSensorCountdownAlternativeGraphics"
+        /// store the max sensor age in days if applicable to the active sensor type
+        case maxSensorAgeInDays = "maxSensorAgeInDays"
+        
         
         // Transmitter
         
@@ -116,6 +141,9 @@ extension UserDefaults {
         /// license info accepted by user yes or no
         case licenseInfoAccepted = "licenseInfoAccepted"
         
+        /// used to allow the user to dismiss the lock screen warning forever
+        case lockScreenDontShowAgain = "lockScreenDontShowAgain"
+        
         // M5Stack
         
         /// M5Stack blepassword, needed for authenticating App to M5Stack
@@ -161,6 +189,9 @@ extension UserDefaults {
         
         /// should units be displayed yes or no
         case displayUnitInCalendarEvent = "displayUnits"
+        
+        /// calendar interval
+        case calendarInterval = "calendarInterval"
         
         // Other Settings (not user configurable)
         
@@ -302,6 +333,16 @@ extension UserDefaults {
             set(!newValue, forKey: Key.showReadingInNotification.rawValue)
         }
     }
+    
+    /// speak readings interval in minutes
+    @objc dynamic var notificationInterval: Int {
+        get {
+            return integer(forKey: Key.notificationInterval.rawValue)
+        }
+        set {
+            set(newValue, forKey: Key.notificationInterval.rawValue)
+        }
+    }
 
     /// should reading be shown in app badge yes or no
     @objc dynamic var showReadingInAppBadge: Bool {
@@ -322,6 +363,17 @@ extension UserDefaults {
         }
         set {
             set(!newValue, forKey: Key.multipleAppBadgeValueWith10.rawValue)
+        }
+    }
+    
+    /// should the clock view be shown when the screen is locked?
+    @objc dynamic var showClockWhenScreenIsLocked: Bool {
+        // default value for bool in userdefaults is false, as default we want the clock to show when the screen is locked
+        get {
+            return !bool(forKey: Key.showClockWhenScreenIsLocked.rawValue)
+        }
+        set {
+            set(!newValue, forKey: Key.showClockWhenScreenIsLocked.rawValue)
         }
     }
     
@@ -604,6 +656,77 @@ extension UserDefaults {
         }
     }
     
+    // MARK: Statistics Settings
+    
+    
+    /// should the statistics view be shown on the home screen?
+    @objc dynamic var showStatistics: Bool {
+        // default value for bool in userdefaults is false, by default we want the statistics view to show (true)
+        get {
+            return !bool(forKey: Key.showStatistics.rawValue)
+        }
+        set {
+            set(!newValue, forKey: Key.showStatistics.rawValue)
+        }
+    }
+
+    /// days to use for the statistics calculations
+    @objc dynamic var daysToUseStatistics: Int {
+        get {
+            return integer(forKey: Key.daysToUseStatistics.rawValue)
+        }
+        set {
+            set(newValue, forKey: Key.daysToUseStatistics.rawValue)
+        }
+    }
+    
+    /// should the statistics view be shown on the home screen?
+    @objc dynamic var useIFCCA1C: Bool {
+        // default value for bool in userdefaults is false, by default we want the HbA1c to be calculated in "not IFCC" way (false)
+        get {
+            return bool(forKey: Key.useIFCCA1C.rawValue)
+        }
+        set {
+            set(newValue, forKey: Key.useIFCCA1C.rawValue)
+        }
+    }
+    
+    /// should the statistics view be shown on the home screen?
+    @objc dynamic var useStandardStatisticsRange: Bool {
+        // default value for bool in userdefaults is false, by default we want the statistics view to calculate using the user low+high values (false)
+        get {
+            return bool(forKey: Key.useStandardStatisticsRange.rawValue)
+        }
+        set {
+            set(newValue, forKey: Key.useStandardStatisticsRange.rawValue)
+        }
+    }
+    
+    
+    // MARK: Sensor Countdown Settings
+    
+    /// should the countdown graphic be shown in the applicable for the sensor type being used?
+    @objc dynamic var showSensorCountdown: Bool {
+        // default value for bool in userdefaults is false, as default we want the sensor countdown to show when a compatible sensor is started
+        get {
+            return !bool(forKey: Key.showSensorCountdown.rawValue)
+        }
+        set {
+            set(!newValue, forKey: Key.showSensorCountdown.rawValue)
+        }
+    }
+    
+    /// does the user prefer to use the alternative countdown graphic? This would show a "count-up" and not the standard "count-down"
+    @objc dynamic var showSensorCountdownAlternativeGraphics: Bool {
+        // default value for bool in userdefaults is false, as default we want the show the normal countdown graphics so leave as false
+        get {
+            return bool(forKey: Key.showSensorCountdownAlternativeGraphics.rawValue)
+        }
+        set {
+            set(newValue, forKey: Key.showSensorCountdownAlternativeGraphics.rawValue)
+        }
+    }
+    
     
     // MARK: Transmitter Settings
     
@@ -869,6 +992,16 @@ extension UserDefaults {
         }
     }
     
+    /// did the user ask to not show the lock screen warning dialog again?
+    var lockScreenDontShowAgain:Bool {
+        get {
+            return bool(forKey: Key.lockScreenDontShowAgain.rawValue)
+        }
+        set {
+            set(newValue, forKey: Key.lockScreenDontShowAgain.rawValue)
+        }
+    }
+    
     // MARK: M5Stack
 
     /// M5StackBlePassword, used for authenticating xdrip app towards M5Stack
@@ -1009,6 +1142,18 @@ extension UserDefaults {
         }
     }
     
+    /// speak readings interval in minutes
+    @objc dynamic var calendarInterval: Int {
+        get {
+            return integer(forKey: Key.calendarInterval.rawValue)
+        }
+        set {
+            set(newValue, forKey: Key.calendarInterval.rawValue)
+        }
+    }
+    
+
+    
     // MARK: - =====  Other Settings ======
     
     /// - in case missed reading alert settings are changed by user, this value will be set to true
@@ -1109,6 +1254,17 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: Key.timeStampLatestDexcomShareUploadedBgReading.rawValue)
+        }
+    }
+    
+    
+    /// store the maximum sensor life if applicable
+    var maxSensorAgeInDays: Int {
+        get {
+            return integer(forKey: Key.maxSensorAgeInDays.rawValue)
+        }
+        set {
+            set(newValue, forKey: Key.maxSensorAgeInDays.rawValue)
         }
     }
     

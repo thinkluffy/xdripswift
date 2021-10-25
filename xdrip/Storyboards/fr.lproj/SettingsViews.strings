@@ -6,12 +6,23 @@
 "settingsviews_masterorfollower" = "Utilisation Maitre ou Suiveur?";
 "settingsviews_master" = "Maitre";
 "settingsviews_follower" = "Suiveur";
-"showReadingInNotification" = "Afficher Glyc dans notification?";
-"labelShowReadingInAppBadge" = "Afficher Glyc dans le badge?";
-"multipleAppBadgeValueWith10" = "Multiplier par 10 dans le badge?";
+"settingsviews_showReadingInNotification" = "Afficher Glyc dans notification?";
+"settingsviews_labelShowReadingInAppBadge" = "Afficher Glyc dans le badge?";
+"settingsviews_multipleAppBadgeValueWith10" = "Multiplier par 10 dans le badge?";
+"settingsviews_showClockWhenScreenIsLocked" = "Visualiser l'heure sur écran verrouillé?";
+"settingsviews_sectiontitlestatistics" = "Statistiques";
+"settingsviews_showStatistics" = "Visualiser les statistiques?";
+"settingsviews_daysToUseStatisticsTitle" = "Nombre de jours?";
+"settingsviews_daysToUseStatisticsMessage" = "Nombre maximum de jours utilisés pour le calcul des statistiques?\n\n(Saisir 0 pour aujourd'hui depuis minuit)";
+"settingsviews_useStandardStatisticsRange" = "Utiliser la gamme standard?";
+"settingsviews_useIFCCA1C" = "Visualiser HbA1c en mmol/mol?";
+"settingsviews_sectiontitlesensorcountdown" = "Durée de vie du capteur";
+"settingsviews_showSensorCountdown" = "Montrer l'age du capteur?";
+"settingsviews_showSensorCountdownAlternativeGraphics" = "Autre représentation graphique?";
 "settingsviews_sectiontitletransmitter" = "Transmetteur";
 "settingsviews_transmittertype" = "Type de Transmetteur";
 "settingsviews_transmitterid" = "Transmetteur ID";
+"settingsviews_transmitterid_text_for_button" = "Transmetteur ID";
 "settingsviews_givetransmitterid" = "Entrer Transmetteur ID";
 "settingsviews_resettransmitter" = "Réinitialiser Transmetteur";
 "settingsviews_webooptransmitter" = "Utiliser l'algorithme Libre?";
@@ -48,8 +59,8 @@
 "settingsviews_speakreadingslanguageselection" = "Sélectionner la langue";
 "settingsviews_speakTrend" = "Lire la tendance?";
 "settingsviews_speakDelta" = "Lire la variation?";
-"settingsviews_speakInterval" = "Intervalle";
-"settingsviews_speakIntervalMessage" = "Intervalle minimum entre deux lectures, en minutes";
+"settingsviews_IntervalTitle" = "Intervalle";
+"settingsviews_IntervalMessage" = "Intervalle minimum entre deux lectures, en minutes";
 "settingsviews_Version" = "Version";
 "settingsviews_license" = "License";
 "settingsviews_build" = "Build";
@@ -62,14 +73,14 @@
 "appleWatchSectionTitle" = "Apple Watch";
 "createCalendarEvent" = "Créer un calendrier?";
 "calenderId" = "Utiliser le calendrier?";
-"displayTrendInCalendarEvent" = "Afficher Tendance?";
+"settingsviews_displayTrendInCalendarEvent" = "Afficher Tendance?";
 "displayUnitInCalendarEvent" = "Afficher Unité?";
 "displayDeltaInCalendarEvent" = "Afficher Variation?";
 "infoCalendarAccessDeniedByUser" = "Vous avez refusé l'accès au calendrier.\n\nPour permettre cette fonctionnalités, modifiez les autorissations dans les réglages de votre iPhone.";
-"infoCalendarAccessRestricted" = "Vous n'avez pas donné les autorisations à xDrip4IOS pour accéder à votre calendrier. Cela peut aussi être du à une restriction parentale.";
+"infoCalendarAccessRestricted" = "Vous n'avez pas donné les autorisations à %@ pour accéder à votre calendrier. Cela peut aussi être du à une restriction parentale.";
 "sectionTitleTrace" = "Trace";
 "sendTraceFile" = "Envoyer le fichier Trace";
-"describeProblem" = "Décrire la raison de l'envoi du fichier de trace avec un maximum de détail. Si vous avez déjà reporté un probème via Facebook - dans le groupe'xDrip4iOS'-, merci de mentionner votre nom facebook dans l'email";
+"describeProblem" = "Décrire la raison de l'envoi du fichier de trace avec un maximum de détail. Si vous avez déjà reporté un probème via Facebook - dans le groupe'%@'-, merci de mentionner votre nom facebook dans l'email";
 "emailNotConfigured" = "Vous devez configurer un email sur votre compte IOS.";
 "emailbodyText" = "Description du problème";
 "failedToSendEmail" = "Echec d'envoi du Email";
@@ -90,7 +101,7 @@
 "debugLevel" = "Inclure le mode Debug";
 
 /// about settings, section title
-"settingsviews_sectiontitleAbout" = "A propos xDrip4iOS";
+"settingsviews_sectiontitleAbout" = "A propos %@";
 
 /// 
 "settingsviews_urgentLowValue" = "Urgent Valeur Faible";
@@ -122,6 +133,12 @@
 /// In Settings, Alerts section, there's an option to test the volume of ios sound, this is the title of the row
 "volumeTestiOSSound" = "Test Volume (Volume actuel iPhone)";
 
+/// Developer Settings, section title
+"developerSettings" = "Paramètres Développeur";
+
+/// home screen settings, section title
+"settingsviews_sectiontitlehomescreen" = "Ecran d'accueil";
+
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////   Translation needed - remove this header after translation                       /////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -134,6 +151,3 @@
 
 /// deloper settings, row title for NSLog - with NSLog enabled, a developer can view log information as explained here https://github.com/JohanDegraeve/xdripswift/wiki/NSLog
 "nslog" = "NSLog";
-
-/// Developer Settings, section title
-"developerSettings" = "Developer Settings";

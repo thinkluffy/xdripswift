@@ -2,20 +2,27 @@ import UIKit
 
 fileprivate enum Setting:Int, CaseIterable {
     
-    //blood glucose  unit
+    /// blood glucose  unit
     case bloodGlucoseUnit = 0
     
-    // choose between master and follower
+    /// choose between master and follower
     case masterFollower = 1
     
-    // should reading be shown in notification
-    case showReadingInNotification = 2
+    /// show a clock at the bottom of the home screen when the screen lock is activated?
+    case showClockWhenScreenIsLocked = 2
     
-    // show reading in app badge
-    case showReadingInAppBadge = 3
+    /// should reading be shown in notification
+    case showReadingInNotification = 3
     
-    // if reading is shown in app badge, should value be multiplied with 10 yes or no
-    case multipleAppBadgeValueWith10 = 4
+    /// - minimum time between two readings, for which notification should be created (in minutes)
+    /// - except if there's been a disconnect, in that case this value is not taken into account
+    case notificationInterval = 4
+    
+    /// show reading in app badge
+    case showReadingInAppBadge = 5
+    
+    /// if reading is shown in app badge, should value be multiplied with 10 yes or no
+    case multipleAppBadgeValueWith10 = 6
     
 }
 
@@ -108,8 +115,12 @@ class SettingsViewGeneralSettingsViewModel: SettingsViewModelProtocol {
 
             }
             
-        case .showReadingInNotification, .showReadingInAppBadge, .multipleAppBadgeValueWith10:
+        case .showReadingInNotification, .showReadingInAppBadge, .multipleAppBadgeValueWith10, .showClockWhenScreenIsLocked:
             return SettingsSelectedRowAction.nothing
+            
+        case .notificationInterval:
+            
+            return SettingsSelectedRowAction.askText(title: Texts_SettingsView.settingsviews_IntervalTitle, message: Texts_SettingsView.settingsviews_IntervalMessage, keyboardType: .numberPad, text: UserDefaults.standard.notificationInterval.description, placeHolder: "0", actionTitle: nil, cancelTitle: nil, actionHandler: {(interval:String) in if let interval = Int(interval) {UserDefaults.standard.notificationInterval = Int(interval)}}, cancelHandler: nil, inputValidator: nil)
             
         }
     }
@@ -141,8 +152,14 @@ class SettingsViewGeneralSettingsViewModel: SettingsViewModelProtocol {
         case .masterFollower:
             return Texts_SettingsView.labelMasterOrFollower
             
+        case .showClockWhenScreenIsLocked:
+            return Texts_SettingsView.showClockWhenScreenIsLocked
+            
         case .showReadingInNotification:
-            return Texts_SettingsView.labelShowReadingInNotification
+            return Texts_SettingsView.showReadingInNotification
+            
+        case .notificationInterval:
+            return Texts_SettingsView.settingsviews_IntervalTitle
             
         case .showReadingInAppBadge:
             return Texts_SettingsView.labelShowReadingInAppBadge
@@ -164,8 +181,11 @@ class SettingsViewGeneralSettingsViewModel: SettingsViewModelProtocol {
         case .masterFollower:
             return UITableViewCell.AccessoryType.none
             
-        case .showReadingInNotification, .showReadingInAppBadge, .multipleAppBadgeValueWith10:
+        case .showReadingInNotification, .showReadingInAppBadge, .multipleAppBadgeValueWith10, .showClockWhenScreenIsLocked:
             return UITableViewCell.AccessoryType.none
+            
+        case .notificationInterval:
+            return UITableViewCell.AccessoryType.disclosureIndicator
             
         }
     }
@@ -181,9 +201,11 @@ class SettingsViewGeneralSettingsViewModel: SettingsViewModelProtocol {
         case .masterFollower:
             return UserDefaults.standard.isMaster ? Texts_SettingsView.master:Texts_SettingsView.follower
             
-        case .showReadingInNotification, .showReadingInAppBadge, .multipleAppBadgeValueWith10:
+        case .showReadingInNotification, .showReadingInAppBadge, .multipleAppBadgeValueWith10, .showClockWhenScreenIsLocked:
             return nil
             
+        case .notificationInterval:
+            return UserDefaults.standard.notificationInterval.description
         }
     }
     
@@ -204,8 +226,15 @@ class SettingsViewGeneralSettingsViewModel: SettingsViewModelProtocol {
         case .multipleAppBadgeValueWith10:
 
             return UISwitch(isOn: UserDefaults.standard.multipleAppBadgeValueWith10, action: {(isOn:Bool) in UserDefaults.standard.multipleAppBadgeValueWith10 = isOn})
+            
+        case .showClockWhenScreenIsLocked:
+
+            return UISwitch(isOn: UserDefaults.standard.showClockWhenScreenIsLocked, action: {(isOn:Bool) in UserDefaults.standard.showClockWhenScreenIsLocked = isOn})
 
         case .bloodGlucoseUnit, .masterFollower:
+            return nil
+            
+        case .notificationInterval:
             return nil
             
         }

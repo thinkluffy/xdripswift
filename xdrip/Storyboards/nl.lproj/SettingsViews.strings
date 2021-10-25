@@ -1,5 +1,6 @@
 "settingsviews_transmittertype" = "Zender Type";
 "settingsviews_transmitterid" = "Zender-ID";
+"settingsviews_transmitterid_text_for_button" = "Zender-ID";
 
 "settingsviews_settingstitle" = "Instellingen";
 "settingsviews_sectiontitlegeneral" = "Algemeen";
@@ -7,9 +8,10 @@
 "settingsviews_masterorfollower" = "Master of Volger?";
 "settingsviews_master" = "Master";
 "settingsviews_follower" = "Volger";
-"showReadingInNotification" = "Toon BG in Notificaties?";
-"labelShowReadingInAppBadge" = "Toon BG in de App Badge?";
-"multipleAppBadgeValueWith10" = "Vermenigvuldig App Badge Meting met 10?";
+"settingsviews_showReadingInNotification" = "Toon BG in Notificaties?";
+"settingsviews_labelShowReadingInAppBadge" = "Toon BG in de App Badge?";
+"settingsviews_multipleAppBadgeValueWith10" = "Vermenigvuldig App Badge Meting met 10?";
+"settingsviews_showClockWhenScreenIsLocked" = "Toon klok indien gelockt?";
 "settingsviews_urgentHighValue" = "Urgent Hoge Waarde:";
 "settingsviews_highValue" = "Hoge Waarde:";
 "settingsviews_targetValue" = "Doel Waarde:";
@@ -18,9 +20,16 @@
 "settingsviews_useobjectives" = "Toon Doelen in Grafiek?";
 "settingsviews_showcoloredobjectives" = "Toon Gekleurde Lijnen?";
 "settingsviews_showtarget" = "Toon Doel Lijn?";
+"settingsviews_sectiontitlestatistics" = "Statistieken";
+"settingsviews_showStatistics" = "Toon Statistieken?";
+"settingsviews_daysToUseStatisticsTitle" = "Hoeveel dagen berekenen?";
+"settingsviews_daysToUseStatisticsMessage" = "Maximum aantal dagen te gebruiken om de statistieken te berekenen?\n\n(0 betekent vanaf vandaag 00:00)";
+"settingsviews_useStandardStatisticsRange" = "Standaard Range gebruiken?";
+"settingsviews_useIFCCA1C" = "Toon HbA1c in mmols/mol?";
+"settingsviews_sectiontitlesensorcountdown" = "Sensor Countdown";
+"settingsviews_showSensorCountdown" = "Toon Sensor ouderdom?";
+"settingsviews_showSensorCountdownAlternativeGraphics" = "Gebruik alternatieve countdown?";
 "settingsviews_sectiontitletransmitter" = "Transmitter";
-"settingsviews_transmittertype" = "Transmitter Type:";
-"settingsviews_transmitterid" = "Transmitter ID:";
 "settingsviews_givetransmitterid" = "Voer Transmitter ID In";
 "settingsviews_resettransmitter" = "Reset Transmitter";
 "settingsviews_webooptransmitter" = "Gebruik Libre Algoritme?";
@@ -59,9 +68,9 @@
 "settingsviews_speakreadingslanguageselection" = "Selecteer Taal";
 "settingsviews_speakTrend" = "Spreek Trend Uit?";
 "settingsviews_speakDelta" = "Spreek Delta Uit?";
-"settingsviews_speakInterval" = "Interval:";
-"settingsviews_speakIntervalMessage" = "Minimum interval tussen twee metingen, in minuten";
-"settingsviews_sectiontitleAbout" = "Over xDrip4iOS";
+"settingsviews_IntervalTitle" = "Interval:";
+"settingsviews_IntervalMessage" = "Minimum interval tussen twee metingen, in minuten";
+"settingsviews_sectiontitleAbout" = "Over %@";
 "settingsviews_Version" = "Versie:";
 "settingsviews_license" = "Licentie";
 "settingsviews_build" = "Build:";
@@ -74,14 +83,14 @@
 "appleWatchSectionTitle" = "Apple Watch";
 "createCalendarEvent" = "Creëer Agenda Activiteit?";
 "calenderId" = "Te Gebruiken Agenda?";
-"displayTrendInCalendarEvent" = "Toon Trend?";
+"settingsviews_displayTrendInCalendarEvent" = "Toon Trend?";
 "displayUnitInCalendarEvent" = "Toon Eenheid?";
 "displayDeltaInCalendarEvent" = "Toon Delta?";
 "infoCalendarAccessDeniedByUser" = "In het verleden heb je toegang geweigerd tot je Agenda.\n\nOm toestemming te geven, ga naar iPhone Instellingen, Privacy, Agenda's en schakel in.";
-"infoCalendarAccessRestricted" = "Geen toegang voor xDrip4iOS tot je agenda. Dit komt waarschijnlijk door actieve beperkingen zoals Ouderlijk Toezicht.";
+"infoCalendarAccessRestricted" = "Geen toegang voor %@ tot je agenda. Dit komt waarschijnlijk door actieve beperkingen zoals Ouderlijk Toezicht.";
 "sectionTitleTrace" = "Probleemrapportage";
 "sendTraceFile" = "Verstuur Probleemrapportage";
-"describeProblem" = "Leg uit waarom je de log bestanden verstuurd met zoveel mogelijk details als mogelijk (in het Engels). Als je het probleem ook in de Facebook support groep 'xDrip4iOS' hebt gerapporteerd, benoem dan ook je facebook naam in de e-mail.";
+"describeProblem" = "Leg uit waarom je de log bestanden verstuurd met zoveel mogelijk details als mogelijk (in het Engels). Als je het probleem ook in de Facebook support groep '%@' hebt gerapporteerd, benoem dan ook je facebook naam in de e-mail.";
 "emailNotConfigured" = "Je moet een e-mail account configureren op je iOS apparaat.";
 "emailbodyText" = "Probleembeschrijving: ";
 "failedToSendEmail" = "Email versturen mislukt";
@@ -108,3 +117,10 @@
 
 /// Developer Settings, section title
 "developerSettings" = "Developer Settings";
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////   Translation needed - remove this header after translation                       /////
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+/// home screen settings, section title
+"settingsviews_sectiontitlehomescreen" = "Home Screen";

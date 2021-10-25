@@ -9,8 +9,8 @@
 "startsensortimeinfo" = "Seuraavissa valintaikkunoissa sinun on asetettava päiväys ja aika, jolloin anturi on asetettu. On tärkeää, että asetat päivämäärän ja ajan mahdollisimman oikein. Tämä on tärkeää tarkkuuden kannalta.";
 "scanbluetoothdeviceongoing" = "Skannataan lähetintä...";
 "bluetoothisnoton" = "Bluetooth ei ole päällä. Kytke ensin bluetooth päälle ja yritä uudelleen.";
-"bluetoothIsNotAuthorized" = "Bluetoothia ei ole sallittu xDrip4iOS:lle. Mene asetuksiin, etsi xDrip4iOS sovellus ja salli Bluetooth.";
-"startScanningInfo" = "Scanning Started.\n\nKeep xDrip4iOS open in the foreground until a connection is made.\n\n(There's no need to turn off Auto-Lock. Just don't press the home button and don't lock your iPhone)";
+"bluetoothIsNotAuthorized" = "Bluetoothia ei ole sallittu %@:lle. Mene asetuksiin, etsi %@ sovellus ja salli Bluetooth.";
+"startScanningInfo" = "Scanning Started.\n\nKeep %@ open in the foreground until a connection is made.\n\n(There's no need to turn off Auto-Lock. Just don't press the home button and don't lock your iPhone)";
 "sensorstart" = "Sensori aloitus";
 "notstarted" = "Ei aloitettu";
 "notknown" = "Tuntematon";
@@ -32,3 +32,19 @@
 "failed" = "Epäonnistui";
 "calibrationNotNecessary" = "Libre sensorin kalibrointia ei tarvita kun OOPWeb on käytössä.";
 "dexcomBatteryTooLow" = "Lähettimen varaus on liian matala!";
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////   Translation needed - remove this header after translation                       /////
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+/// Text in button on home screen
+"unlock" = "Unlock";
+
+/// Text in button on home screen
+"lock" = "Lock";
+
+/// Screen Lock Title
+"screenlocktitle" = "Screen Lock Enabled";
+
+/// Info message to explain screen lock function
+"screenlockinfo" = "This will keep the screen awake until you move to another app or click Unlock.\r\n\nIt is recommended that you keep the phone plugged into a charger to prevent battery drain.";

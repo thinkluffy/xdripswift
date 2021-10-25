@@ -4,9 +4,9 @@
 "settingsviews_masterorfollower" = "Mestre ou Seguidor?";
 "settingsviews_master" = "Mestre";
 "settingsviews_follower" = "Seguidor";
-"showReadingInNotification" = "Mostrar Glicose nas Notificações?";
-"labelShowReadingInAppBadge" = "Mostrar Glicose no Distintivo da App?";
-"multipleAppBadgeValueWith10" = "Multiplicar Distintivo da App por 10?";
+"settingsviews_showReadingInNotification" = "Mostrar Glicose nas Notificações?";
+"settingsviews_labelShowReadingInAppBadge" = "Mostrar Glicose no Distintivo da App?";
+"settingsviews_multipleAppBadgeValueWith10" = "Multiplicar Distintivo da App por 10?";
 "settingsviews_urgentHighValue" = "Valor Hiper Urgente:";
 "settingsviews_highValue" = "Valor Hiper:";
 "settingsviews_targetValue" = "Valor Alvo:";
@@ -15,9 +15,19 @@
 "settingsviews_useobjectives" = "Mostra Objectivos no Gráfico?";
 "settingsviews_showcoloredobjectives" = "Mostrar Linhas Coloridas?";
 "settingsviews_showtarget" = "Mostrar Linha Alvo?";
+"settingsviews_sectiontitlestatistics" = "Estatísticas";
+"settingsviews_showStatistics" = "Mostrar Estatísticas?";
+"settingsviews_daysToUseStatisticsTitle" = "Dias para Calcular?";
+"settingsviews_daysToUseStatisticsMessage" = "Máximo de dias que devemos tentar usar para calcular as estatísticas?\n\n(Introduza 0 para calcular desde a meia-noite de hoje)";
+"settingsviews_useStandardStatisticsRange" = "Usar Intervalo Padrão?";
+"settingsviews_useIFCCA1C" = "Mostar A1C em mmols/mol";
+"settingsviews_sectiontitlesensorcountdown" = "Dias Restantes do Sensor";
+"settingsviews_showSensorCountdown" = "Mostrar Dias Restantes do Sensor?";
+"settingsviews_showSensorCountdownAlternativeGraphics" = "Utilizar Gráficos Alternativos?";
 "settingsviews_sectiontitletransmitter" = "Transmissor";
 "settingsviews_transmittertype" = "Tipo de Transmissor:";
 "settingsviews_transmitterid" = "ID de Transmissor:";
+"settingsviews_transmitterid_text_for_button" = "ID de Transmissor";
 "settingsviews_givetransmitterid" = "Introduzir ID Transmissor";
 "settingsviews_resettransmitter" = "Repor Transmissor:";
 "settingsviews_webooptransmitter" = "Utilizar Algoritmo do Libre?";
@@ -56,9 +66,9 @@
 "settingsviews_speakreadingslanguageselection" = "Escolher Idioma";
 "settingsviews_speakTrend" = "Falar Tendência?";
 "settingsviews_speakDelta" = "Falar Delta?";
-"settingsviews_speakInterval" = "Intervalo:";
-"settingsviews_speakIntervalMessage" = "Intervalo minímo entre duas leituras, em minutos";
-"settingsviews_sectiontitleAbout" = "Sobre xDrip4iOS";
+"settingsviews_IntervalTitle" = "Intervalo:";
+"settingsviews_IntervalMessage" = "Intervalo minímo entre duas leituras, em minutos";
+"settingsviews_sectiontitleAbout" = "Sobre %@";
 "settingsviews_Version" = "Versão:";
 "settingsviews_license" = "Licença";
 "settingsviews_build" = "Build:";
@@ -71,14 +81,14 @@
 "appleWatchSectionTitle" = "Apple Watch";
 "createCalendarEvent" = "Criar Eventos de Calendário?";
 "calenderId" = "Calendário a Utilizar?";
-"displayTrendInCalendarEvent" = "Mostrar Tendência?";
+"settingsviews_displayTrendInCalendarEvent" = "Mostrar Tendência?";
 "displayUnitInCalendarEvent" = "Mostrar Unidade?";
 "displayDeltaInCalendarEvent" = "Mostrar Delta?";
 "infoCalendarAccessDeniedByUser" = "Anteriormente negou accesso ao Calendário.\n\nPara activá-lo vá às definições do seu dispositivo, privacidade, calendários e active-o.";
-"infoCalendarAccessRestricted" = "Não pode autorizar xDrip4iOS para aceder ao calendário. Possivelmente por restrições activas tais como controlo parental.";
+"infoCalendarAccessRestricted" = "Não pode autorizar %@ para aceder ao calendário. Possivelmente por restrições activas tais como controlo parental.";
 "sectionTitleTrace" = "Reportar Problema";
 "sendTraceFile" = "Enviar Relatório de Problema";
-"describeProblem" = "Explique porque precisa de enviar o ficheiro de rastreio com o máximo de informação possível. Se já reportou o problema no grupo de Facebook 'xDrip4iOS', então mencione o seu nome utilizado no Facebook";
+"describeProblem" = "Explique porque precisa de enviar o ficheiro de rastreio com o máximo de informação possível. Se já reportou o problema no grupo de Facebook '%@', então mencione o seu nome utilizado no Facebook";
 "emailNotConfigured" = "Tem que configurar uma conta de e-mail no seu dispositivo iOS.";
 "emailbodyText" = "Descrição de Problema: ";
 "failedToSendEmail" = "Falha no Envio de e-mail";
@@ -89,19 +99,9 @@
 "debugLevel" = "Incluir Nível de Depuração";
 "warningChangeFromMasterToFollower" = "Aterar de Mestre para Seguidor vai parar o actual sensor. Deseja continuar?";
 "nightScoutPort" = "Porto (opcional):";
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-/////   Translation needed - remove this header after translation                       /////
-/////////////////////////////////////////////////////////////////////////////////////////////
-
-/// deloper settings, row title for 'Smooth Libre Values?'
-"smoothLibreValues" = "Smooth Libre Values?";
-
-/// deloper settings, row title for OSLog - with OSLog enabled, a developer can view log information as explained here https://developer.apple.com/documentation/os/oslog
+"smoothLibreValues" = "Suavizar Valores do Libre?";
 "oslog" = "OSLog";
-
-/// deloper settings, row title for NSLog - with NSLog enabled, a developer can view log information as explained here https://github.com/JohanDegraeve/xdripswift/wiki/NSLog
 "nslog" = "NSLog";
-
-/// Developer Settings, section title
-"developerSettings" = "Developer Settings";
+"developerSettings" = "Definições de Programador";
+"settingsviews_sectiontitlehomescreen" = "Ecrã Inicial";
+"settingsviews_showClockWhenScreenIsLocked" = "Mostrar Relógio quando Bloqueado?";
