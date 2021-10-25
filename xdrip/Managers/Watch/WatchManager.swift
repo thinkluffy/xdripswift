@@ -1,6 +1,7 @@
 import Foundation
 import os
 import EventKit
+import WatchConnectivity
 
 class WatchManager: NSObject {
     
@@ -41,6 +42,7 @@ class WatchManager: NSObject {
             createCalendarEvent(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp)
         }
         
+        sendDataToWatch()
     }
     
     // MARK: - private functions
@@ -176,5 +178,25 @@ class WatchManager: NSObject {
             }
         }
     }
-    
+ 
+    private func sendDataToWatch() {
+        trace("==> sendDataToWatch", log: log, category: ConstantsLog.categoryWatchManager, type: .info)
+        
+        guard WCSession.isSupported() else {
+            trace("WCSession is not supported", log: log, category: ConstantsLog.categoryWatchManager, type: .info)
+            return
+        }
+        
+        // get 2 last Readings, with a calculatedValue
+        let lastReading = bgReadingsAccessor.get2LatestBgReadings(minimumTimeIntervalInMinutes: 1)
+        
+        // there should be at least one reading
+        guard lastReading.count > 0 else {
+            trace("in sendDataToWatch, there are no new readings to process", log: log, category: ConstantsLog.categoryWatchManager, type: .info)
+            return
+        }
+        
+        trace("==> currentValue: %{public}@", log: log, category: ConstantsLog.categoryWatchManager, type: .info, lastReading[0].calculatedValue)
+        WCSession.default.transferUserInfo(["key0" : "value0"])
+    }
 }

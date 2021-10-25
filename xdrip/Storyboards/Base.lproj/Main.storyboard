@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="44" width="390" height="717"/>
                                 <subviews>
                                     <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tVG-ML-9xd">
-                                        <rect key="frame" x="0.0" y="0.0" width="390" height="58"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="390" height="106"/>
                                         <items>
                                             <barButtonItem title="Item" image="moon.zzz" catalog="system" id="f3E-Tt-LBV">
                                                 <connections>
@@ -54,7 +54,7 @@
                                         </items>
                                     </toolbar>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C16-NQ-F1Y">
-                                        <rect key="frame" x="0.0" y="58" width="390" height="381"/>
+                                        <rect key="frame" x="0.0" y="106" width="390" height="333"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="x mins ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uyn-2k-K74">
                                                 <rect key="frame" x="10" y="0.0" width="102" height="26.333333333333332"/>
@@ -69,7 +69,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="We3-bN-ffR">
-                                                <rect key="frame" x="20" y="25.000000000000007" width="350" height="107.66666666666669"/>
+                                                <rect key="frame" x="20" y="45.000000000000007" width="350" height="107.66666666666669"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <gestureRecognizers/>
                                                 <constraints>
@@ -83,7 +83,7 @@
                                                 </connections>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0nE-AX-r0w" customClass="BloodGlucoseChartView" customModule="xdrip" customModuleProvider="target">
-                                                <rect key="frame" x="10" y="132.66666666666663" width="380" height="248.33333333333337"/>
+                                                <rect key="frame" x="10" y="172.66666666666669" width="380" height="140.33333333333331"/>
                                                 <gestureRecognizers/>
                                                 <connections>
                                                     <outletCollection property="gestureRecognizers" destination="Fi5-iu-Usk" appends="YES" id="Rkv-hK-sLH"/>
@@ -94,7 +94,7 @@
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="7Wo-wd-80o" secondAttribute="trailing" constant="10" id="28x-56-97G"/>
                                             <constraint firstAttribute="trailing" secondItem="0nE-AX-r0w" secondAttribute="trailing" id="4Kt-zl-bbl"/>
-                                            <constraint firstAttribute="bottom" secondItem="0nE-AX-r0w" secondAttribute="bottom" id="C61-10-Kdo"/>
+                                            <constraint firstAttribute="bottom" secondItem="0nE-AX-r0w" secondAttribute="bottom" constant="20" id="C61-10-Kdo"/>
                                             <constraint firstItem="We3-bN-ffR" firstAttribute="leading" secondItem="C16-NQ-F1Y" secondAttribute="leading" constant="20" id="DjD-bz-O8N"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="We3-bN-ffR" secondAttribute="trailing" id="LWb-Rj-dfs"/>
                                             <constraint firstItem="uyn-2k-K74" firstAttribute="top" secondItem="C16-NQ-F1Y" secondAttribute="top" id="Luq-xy-Lzu"/>
@@ -102,9 +102,9 @@
                                             <constraint firstItem="0nE-AX-r0w" firstAttribute="leading" secondItem="C16-NQ-F1Y" secondAttribute="leading" constant="10" id="e97-Zw-ipJ"/>
                                             <constraint firstItem="7Wo-wd-80o" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="uyn-2k-K74" secondAttribute="trailing" symbolic="YES" id="hJM-6B-pjw"/>
                                             <constraint firstItem="uyn-2k-K74" firstAttribute="leading" secondItem="C16-NQ-F1Y" secondAttribute="leading" constant="10" id="mYE-7c-E2l"/>
-                                            <constraint firstItem="0nE-AX-r0w" firstAttribute="top" secondItem="We3-bN-ffR" secondAttribute="bottom" id="phj-5C-gvf"/>
+                                            <constraint firstItem="0nE-AX-r0w" firstAttribute="top" secondItem="We3-bN-ffR" secondAttribute="bottom" constant="20" id="phj-5C-gvf"/>
                                             <constraint firstItem="We3-bN-ffR" firstAttribute="centerX" secondItem="C16-NQ-F1Y" secondAttribute="centerX" id="vhA-TS-y2Z"/>
-                                            <constraint firstItem="We3-bN-ffR" firstAttribute="top" secondItem="C16-NQ-F1Y" secondAttribute="top" constant="25" id="xak-Qv-s0j"/>
+                                            <constraint firstItem="We3-bN-ffR" firstAttribute="top" secondItem="C16-NQ-F1Y" secondAttribute="top" constant="45" id="xak-Qv-s0j"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x9u-yg-PXE" userLabel="segmentControlsView">
@@ -503,7 +503,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="g4X-8R-g01">
-                                <rect key="frame" x="0.0" y="70" width="390" height="637"/>
+                                <rect key="frame" x="0.0" y="70" width="390" height="671"/>
                                 <color key="backgroundColor" white="0.10000000000000001" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsCell" textLabel="tIz-Hj-yxH" detailTextLabel="Tpl-mr-dqb" style="IBUITableViewCellStyleValue1" id="zQ9-Zy-4Lu" customClass="SettingsTableViewCell" customModule="xdrip" customModuleProvider="target">
@@ -815,7 +815,7 @@
                                 <color key="backgroundColor" white="0.10000000000000001" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SettingsCell" textLabel="goS-0m-pgb" detailTextLabel="cVj-Us-dOZ" style="IBUITableViewCellStyleValue1" id="FDQ-j1-PHb" customClass="SettingsTableViewCell" customModule="xdrip" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.333333969116211" width="390" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FDQ-j1-PHb" id="MjR-zz-9Ea">
                                             <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
@@ -1465,7 +1465,7 @@
                                     <color key="backgroundColor" white="0.10000000000000001" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <prototypes>
                                         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsCell" textLabel="7vO-nL-nIV" detailTextLabel="raE-D9-ezV" style="IBUITableViewCellStyleValue1" id="AIS-Dk-Hw0" customClass="SettingsTableViewCell" customModule="xdrip" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="24.333333969116211" width="390" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AIS-Dk-Hw0" id="TX7-lE-K3L">
                                                 <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
@@ -1559,7 +1559,7 @@
         <image name="Settings" width="30" height="30"/>
         <image name="link.circle" catalog="system" width="128" height="121"/>
         <image name="lock" catalog="system" width="128" height="128"/>
-        <image name="moon.zzz" catalog="system" width="121" height="128"/>
+        <image name="moon.zzz" catalog="system" width="115" height="128"/>
         <image name="scope" catalog="system" width="128" height="122"/>
         <image name="sensor14_14_alt" width="390" height="14"/>
         <systemColor name="systemGrayColor">
