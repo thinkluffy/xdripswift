@@ -118,7 +118,7 @@
 "settingsviews_targetValue" = "目标值";
 
 /// home screen settings, show target line
-"settingsviews_showtarget" = "Show Target Line?";
+"settingsviews_showtarget" = "显示目标线";
 
 /// used in settings, section Info, title of the license setting
 "settingsviews_license" = "License";
@@ -145,7 +145,7 @@
 "settingsviews_labelNonFixed" = "Multi-point Calibration";
 
 /// nightscout settings, when clicking the cell, test the url and api key
-"testUrlAndAPIKey" = "Test Connection?";
+"testUrlAndAPIKey" = "测试连接";
 
 /// If user is not allowed to give any app access to the Calendar, due to restrictions. And then tries to activate creation of events in calendar, this message will be shown
 "infoCalendarAccessRestricted" = "You cannot give authorization to %@ to access your calendar. This is possibly due to active restrictions such as parental controls being in place.";
@@ -166,7 +166,7 @@
 "volumeTestSoundPlayer" = "Test Volume (if Override Mute On)";
 
 /// healthkit settings, literally 'healthkit'
-"settingsviews_healthkit" = "Write Data to Apple Health?";
+"settingsviews_healthkit" = "数据写入苹果健康";
 
 /// bluetooth settings, section title - also used in bluetooth peripheral view, eg when viewing M5Stack details. This is the title of the first section
 "m5stack_settingsviews_sectiontitlebluetooth" = "Bluetooth";
@@ -196,7 +196,7 @@
 "volumeTestSoundPlayerExplanation" = "An alarm sound is now being played with the same volume that will be used for an Alarm Type with 'Override Mute' = On\n\n(Used for all alarms except Missed Reading alerts which always use the iOS volume.)\n\nChange the volume with the volume buttons and press OK when done.";
 
 /// home screen settings, use objectives in graph
-"settingsviews_useobjectives" = "Show Objectives in Graph?";
+"settingsviews_useobjectives" = "图表中显示目标";
 
 /// Apple Watch Settings - text in row where user needs to say if trend should be displayed or not
 "settingsviews_displayTrendInCalendarEvent" = "Display Trend?";
@@ -221,14 +221,14 @@
 "nslog" = "NSLog";
 
 /// Developer Settings, section title
-"developerSettings" = "Developer Settings";
+"developerSettings" = "开发者";
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////   Translation needed - remove this header after translation                       /////
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 /// home screen settings, section title
-"settingsviews_sectiontitlehomescreen" = "Home Screen";
+"settingsviews_sectiontitlehomescreen" = "主屏幕";
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////   Translation needed - remove this header after translation                       /////
@@ -238,7 +238,7 @@
 "settingsviews_daysToUseStatisticsMessage" = "Maximum days we should try to use to calculate the statistics?\n\n(Enter 0 to calculate today since midnight)";
 
 /// statistics settings, section title
-"settingsviews_sectiontitlestatistics" = "Statistics";
+"settingsviews_sectiontitlestatistics" = "统计";
 
 /// statistics settings, use standard range?
 "settingsviews_useStandardStatisticsRange" = "Use Standard Range?";
@@ -247,7 +247,7 @@
 "settingsviews_useIFCCA1C" = "Show HbA1c in mmols/mol?";
 
 /// statistics settings, show statistics on home screen
-"settingsviews_showStatistics" = "Show Statistics?";
+"settingsviews_showStatistics" = "显示统计";
 
 /// statistics settings, how many days to use for calculations
 "settingsviews_daysToUseStatisticsTitle" = "Days to Calculate?";
