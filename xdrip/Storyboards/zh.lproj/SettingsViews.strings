@@ -258,3 +258,7 @@
 
 /// general settings, should the clock also be displayed when the screen is locked?
 "settingsviews_showClockWhenScreenIsLocked" = "Show Clock when Locked?";
+
+
+"sectionTitleMore" = "更多";
+"moreSettings" = "更多设置";

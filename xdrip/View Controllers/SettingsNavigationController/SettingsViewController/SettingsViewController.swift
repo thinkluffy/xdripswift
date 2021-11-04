@@ -59,14 +59,8 @@ final class SettingsViewController: UIViewController {
         /// Apple Watch settings
         case AppleWatch
         
-        /// tracing
-        case trace
-        
-        /// info
-        case info
-        
-        /// developper settings
-        case developer
+        /// more settings
+        case more
         
         func viewModel(coreDataManager: CoreDataManager?) -> SettingsViewModelProtocol {
             switch self {
@@ -91,15 +85,10 @@ final class SettingsViewController: UIViewController {
                 return SettingsViewSpeakSettingsViewModel()
             case .M5stack:
                 return SettingsViewM5StackSettingsViewModel()
-            case .info:
-                return SettingsViewInfoViewModel()
-            case .developer:
-                return SettingsViewDevelopmentSettingsViewModel()
             case .AppleWatch:
                 return SettingsViewAppleWatchSettingsViewModel()
-            case .trace:
-                return SettingsViewTraceSettingsViewModel()
-                
+            case .more:
+                return SettingsViewMoreSettingsViewModel()
             }
         }
         
@@ -216,6 +205,8 @@ final class SettingsViewController: UIViewController {
                 vc.configure(timeSchedule: sender)
             }
             
+        case .settingsToMore:
+            break
         }
     }
 
@@ -321,6 +312,8 @@ extension SettingsViewController {
         /// to go from general settings to schedule screen
         case settingsToSchedule = "settingsToSchedule"
         
+        /// to go from general settings to more settings
+        case settingsToMore = "settingsToMore"
     }
 }
 

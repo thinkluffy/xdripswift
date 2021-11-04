@@ -106,3 +106,5 @@
 "oslog" = "OSLog";
 "settingsviews_sectiontitlehomescreen" = "Home Screen";
  
+"sectionTitleMore" = "More";
+"moreSettings" = "More Settings";

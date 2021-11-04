@@ -23,6 +23,12 @@
 		4E25062927269D47000C348D /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E25062827269D47000C348D /* ComplicationController.swift */; };
 		4E25062B27269D48000C348D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E25062A27269D48000C348D /* Assets.xcassets */; };
 		4E25063027269D48000C348D /* xDrip.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 4E25061227269D44000C348D /* xDrip.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4EE66F052733D96800548A46 /* SettingsViewMoreSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F042733D96800548A46 /* SettingsViewMoreSettingsViewModel.swift */; };
+		4EE66F082733E01500548A46 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F072733E01500548A46 /* R.generated.swift */; };
+		4EE66F0B2733EB0D00548A46 /* MoreSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F0A2733EB0D00548A46 /* MoreSettingsViewController.swift */; };
+		4EE66F0D2733FD0E00548A46 /* TableDataCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F0C2733FD0E00548A46 /* TableDataCreator.swift */; };
+		4EE66F0F2734064F00548A46 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F0E2734064F00548A46 /* Utils.swift */; };
+		4EE66F11273419CA00548A46 /* iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F10273419CA00548A46 /* iOS.swift */; };
 		533272967B05B378D81F6529 /* Pods_xdrip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB0736D7B1553FC8350324C /* Pods_xdrip.framework */; };
 		666E283A26F7E54C00ACE4DF /* xDrip.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 666E283826F7E54C00ACE4DF /* xDrip.xcconfig */; };
 		CE1B2FE025D0264B00F642F5 /* LaunchScreen.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B2FD125D0264900F642F5 /* LaunchScreen.strings */; };
@@ -275,8 +281,6 @@
 		F898EDF2234A8A0500BFB79B /* UInt8.swift in Sources */ = {isa = PBXBuildFile; fileRef = F898EDF1234A8A0500BFB79B /* UInt8.swift */; };
 		F898EDF4234A8A3200BFB79B /* UInt16.swift in Sources */ = {isa = PBXBuildFile; fileRef = F898EDF3234A8A3200BFB79B /* UInt16.swift */; };
 		F898EDF6234A8A5700BFB79B /* UInt32.swift in Sources */ = {isa = PBXBuildFile; fileRef = F898EDF5234A8A5700BFB79B /* UInt32.swift */; };
-		F8A1584D22ECA445007F5B5D /* SettingsViewDevelopmentSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A1584C22ECA445007F5B5D /* SettingsViewDevelopmentSettingsViewModel.swift */; };
-		F8A1584F22ECB281007F5B5D /* SettingsViewInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A1584E22ECB281007F5B5D /* SettingsViewInfoViewModel.swift */; };
 		F8A1585122EDB597007F5B5D /* ConstantsBGGraphBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A1585022EDB597007F5B5D /* ConstantsBGGraphBuilder.swift */; };
 		F8A1585322EDB602007F5B5D /* ConstantsBloodGlucose.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A1585222EDB602007F5B5D /* ConstantsBloodGlucose.swift */; };
 		F8A1585522EDB706007F5B5D /* ConstantsCalibrationAlgorithms.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A1585422EDB706007F5B5D /* ConstantsCalibrationAlgorithms.swift */; };
@@ -436,7 +440,6 @@
 		F8E51D63244B3386001C9E5A /* MiaoMiaoResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E51D62244B3386001C9E5A /* MiaoMiaoResponseType.swift */; };
 		F8E51D65244BA790001C9E5A /* WatlaaBluetoothPeripheralViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E51D64244BA790001C9E5A /* WatlaaBluetoothPeripheralViewModel.swift */; };
 		F8E51D67244BAE0E001C9E5A /* WatlaaBluetoothTransmitterMaster+CGMTransmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E51D66244BAE0E001C9E5A /* WatlaaBluetoothTransmitterMaster+CGMTransmitter.swift */; };
-		F8E51D6924549E2C001C9E5A /* SettingsViewTraceSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E51D6824549E2C001C9E5A /* SettingsViewTraceSettingsViewModel.swift */; };
 		F8E53FAB2517733700052CE5 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E53FAA2517733700052CE5 /* Double.swift */; };
 		F8E53FAF2517739700052CE5 /* ConstantsBloodGlucose.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E53FAE2517739700052CE5 /* ConstantsBloodGlucose.swift */; };
 		F8E53FB92517F79400052CE5 /* ConstantsBGGraphBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E53FB82517F79400052CE5 /* ConstantsBGGraphBuilder.swift */; };
@@ -638,6 +641,12 @@
 		4E25062A27269D48000C348D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4E25062C27269D48000C348D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E25062D27269D48000C348D /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		4EE66F042733D96800548A46 /* SettingsViewMoreSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewMoreSettingsViewModel.swift; sourceTree = "<group>"; };
+		4EE66F072733E01500548A46 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
+		4EE66F0A2733EB0D00548A46 /* MoreSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreSettingsViewController.swift; sourceTree = "<group>"; };
+		4EE66F0C2733FD0E00548A46 /* TableDataCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableDataCreator.swift; sourceTree = "<group>"; };
+		4EE66F0E2734064F00548A46 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		4EE66F10273419CA00548A46 /* iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS.swift; sourceTree = "<group>"; };
 		666E283826F7E54C00ACE4DF /* xDrip.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = xDrip.xcconfig; path = xdrip/xDrip.xcconfig; sourceTree = "<group>"; };
 		CE1B2FC825D0261500F642F5 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Alerts.strings; sourceTree = "<group>"; };
 		CE1B2FCD25D0264900F642F5 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AlertTypesSettingsView.strings; sourceTree = "<group>"; };
@@ -1092,8 +1101,6 @@
 		F898EDF1234A8A0500BFB79B /* UInt8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UInt8.swift; sourceTree = "<group>"; };
 		F898EDF3234A8A3200BFB79B /* UInt16.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UInt16.swift; sourceTree = "<group>"; };
 		F898EDF5234A8A5700BFB79B /* UInt32.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UInt32.swift; sourceTree = "<group>"; };
-		F8A1584C22ECA445007F5B5D /* SettingsViewDevelopmentSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewDevelopmentSettingsViewModel.swift; sourceTree = "<group>"; };
-		F8A1584E22ECB281007F5B5D /* SettingsViewInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewInfoViewModel.swift; sourceTree = "<group>"; };
 		F8A1585022EDB597007F5B5D /* ConstantsBGGraphBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsBGGraphBuilder.swift; sourceTree = "<group>"; };
 		F8A1585222EDB602007F5B5D /* ConstantsBloodGlucose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsBloodGlucose.swift; sourceTree = "<group>"; };
 		F8A1585422EDB706007F5B5D /* ConstantsCalibrationAlgorithms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsCalibrationAlgorithms.swift; sourceTree = "<group>"; };
@@ -1299,7 +1306,6 @@
 		F8E51D62244B3386001C9E5A /* MiaoMiaoResponseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiaoMiaoResponseType.swift; sourceTree = "<group>"; };
 		F8E51D64244BA790001C9E5A /* WatlaaBluetoothPeripheralViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatlaaBluetoothPeripheralViewModel.swift; sourceTree = "<group>"; };
 		F8E51D66244BAE0E001C9E5A /* WatlaaBluetoothTransmitterMaster+CGMTransmitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WatlaaBluetoothTransmitterMaster+CGMTransmitter.swift"; sourceTree = "<group>"; };
-		F8E51D6824549E2C001C9E5A /* SettingsViewTraceSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewTraceSettingsViewModel.swift; sourceTree = "<group>"; };
 		F8E53FAA2517733700052CE5 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		F8E53FAE2517739700052CE5 /* ConstantsBloodGlucose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsBloodGlucose.swift; sourceTree = "<group>"; };
 		F8E53FB82517F79400052CE5 /* ConstantsBGGraphBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsBGGraphBuilder.swift; sourceTree = "<group>"; };
@@ -1455,6 +1461,14 @@
 				4E25062D27269D48000C348D /* PushNotificationPayload.apns */,
 			);
 			path = "xDripWatch WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		4EE66F092733EADF00548A46 /* MoreSettingsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4EE66F0A2733EB0D00548A46 /* MoreSettingsViewController.swift */,
+			);
+			path = MoreSettingsViewController;
 			sourceTree = "<group>";
 		};
 		6933F5E98A8280DB39890854 /* Pods */ = {
@@ -2066,6 +2080,7 @@
 				F8BECB00235CE3E20060DAE1 /* Views */,
 				F8A54B0A22D9215500934E7A /* xdrip-Bridging-Header.h */,
 				F821CF9822AE589E005C1E43 /* xdrip.entitlements */,
+				4EE66F072733E01500548A46 /* R.generated.swift */,
 			);
 			path = xdrip;
 			sourceTree = "<group>";
@@ -2283,10 +2298,11 @@
 		F8B3A836227F090D004BA588 /* SettingsViewController */ = {
 			isa = PBXGroup;
 			children = (
+				F8B3A841227F090D004BA588 /* SettingsViewController.swift */,
 				F8B3A851227F2743004BA588 /* AlertsSettingsViewController */,
 				F8B3A84E227F26F8004BA588 /* AlertTypesSettingsViewController */,
 				F8A389CD232A6A6F0010F405 /* M5StackSettingsViewController */,
-				F8B3A841227F090D004BA588 /* SettingsViewController.swift */,
+				4EE66F092733EADF00548A46 /* MoreSettingsViewController */,
 				F8B3A837227F090D004BA588 /* SettingsViewModels */,
 				F8A389E6232ECE7E0010F405 /* SettingsViewUtilities.swift */,
 				F830990423B94ED7005741DF /* TimeScheduleViewController.swift */,
@@ -2300,17 +2316,15 @@
 				F8D0587B24BCB570008C8734 /* SettingsViewHomeScreenSettingsViewModel.swift */,
 				F8B3A838227F090D004BA588 /* SettingsViewAlertSettingsViewModel.swift */,
 				F8E3A2A423D78FBD00E5E98A /* SettingsViewAppleWatchSettingsViewModel.swift */,
-				F8A1584C22ECA445007F5B5D /* SettingsViewDevelopmentSettingsViewModel.swift */,
 				F8B3A839227F090D004BA588 /* SettingsViewDexcomSettingsViewModel.swift */,
 				F8B3A83E227F090D004BA588 /* SettingsViewGeneralSettingsViewModel.swift */,
 				F8B3A83C227F090D004BA588 /* SettingsViewHealthKitSettingsViewModel.swift */,
-				F8A1584E22ECB281007F5B5D /* SettingsViewInfoViewModel.swift */,
 				F8A389EA233175A10010F405 /* SettingsViewM5StackSettingsViewModel.swift */,
 				F8B3A83B227F090D004BA588 /* SettingsViewNightScoutSettingsViewModel.swift */,
 				F8B3A83D227F090D004BA588 /* SettingsViewSpeakSettingsViewModel.swift */,
-				F8E51D6824549E2C001C9E5A /* SettingsViewTraceSettingsViewModel.swift */,
 				4752B4052635878E0081D551 /* SettingsViewStatisticsSettingsViewModel.swift */,
 				470F021226DD515300C5D626 /* SettingsViewSensorCountdownSettingsViewModel.swift */,
+				4EE66F042733D96800548A46 /* SettingsViewMoreSettingsViewModel.swift */,
 			);
 			path = SettingsViewModels;
 			sourceTree = "<group>";
@@ -2521,6 +2535,9 @@
 				F8B3A7DD226E48C1004BA588 /* SoundPlayer */,
 				F8C5EBE622F38F0E00563B5F /* Trace.swift */,
 				F8EA6CA821BBE3010082976B /* UniqueId.swift */,
+				4EE66F0C2733FD0E00548A46 /* TableDataCreator.swift */,
+				4EE66F0E2734064F00548A46 /* Utils.swift */,
+				4EE66F10273419CA00548A46 /* iOS.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -2982,6 +2999,7 @@
 			buildConfigurationList = F8AC426E21ADEBD70078C348 /* Build configuration list for PBXNativeTarget "xdrip" */;
 			buildPhases = (
 				E95BFBBCCD8F2D55529701C3 /* [CP] Check Pods Manifest.lock */,
+				4EE66F062733DF7B00548A46 /* ShellScript */,
 				F8AC425621ADEBD60078C348 /* Sources */,
 				F8AC425721ADEBD60078C348 /* Frameworks */,
 				F8AC425821ADEBD60078C348 /* Resources */,
@@ -3272,6 +3290,25 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-xdrip/Pods-xdrip-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		4EE66F062733DF7B00548A46 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$TEMP_DIR/rswift-lastrun",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				$SRCROOT/R.generated.swift,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [ $ACTION != \"indexbuild\" ]; then\n  \"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R.generated.swift\"\nfi\n";
+		};
 		E95BFBBCCD8F2D55529701C3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3361,6 +3398,7 @@
 				F85FF3D7252FB1C0004E6FF1 /* SnoozeParametersAccessor.swift in Sources */,
 				F8C97856242AA86B00A09483 /* CGMMiaoMiaoTransmitterDelegate.swift in Sources */,
 				F898EDF6234A8A5700BFB79B /* UInt32.swift in Sources */,
+				4EE66F11273419CA00548A46 /* iOS.swift in Sources */,
 				F8B955B1258BEE9D00C06016 /* ConstantsSpeakReading.swift in Sources */,
 				F8F9723223A5915900C3F17D /* M5StackReadBlePassWordTxMessage.swift in Sources */,
 				F8A54AAF22D686CD00934E7A /* NightScoutBgReading.swift in Sources */,
@@ -3401,6 +3439,7 @@
 				F8F9721B23A5915900C3F17D /* CGMMiaoMiaoTransmitter.swift in Sources */,
 				F8F9721A23A5915900C3F17D /* CGMBubbleTransmitter.swift in Sources */,
 				4752B400263570DA0081D551 /* ConstantsStatistics.swift in Sources */,
+				4EE66F0B2733EB0D00548A46 /* MoreSettingsViewController.swift in Sources */,
 				F8A2BC3B25DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMBubbleTransmitterDelegate.swift in Sources */,
 				F8A2BC3A25DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMGNSEntryTransmitterDelegate.swift in Sources */,
 				F8EA6CA921BBE3010082976B /* UniqueId.swift in Sources */,
@@ -3418,6 +3457,7 @@
 				F8025E5421EE8D2100ECF0C0 /* Libre1Calibrator.swift in Sources */,
 				F81FA00A228F53680028C70F /* TextsHomeView.swift in Sources */,
 				F8E3C3AD21FE551C00907A04 /* DexcomCalibrator.swift in Sources */,
+				4EE66F0D2733FD0E00548A46 /* TableDataCreator.swift in Sources */,
 				F8F9723523A5915900C3F17D /* BluetoothTransmitter.swift in Sources */,
 				F8F9721323A5915900C3F17D /* BatteryStatusRxMessage.swift in Sources */,
 				F8A2BC3825DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMBluconTransmitterDelegate.swift in Sources */,
@@ -3534,12 +3574,12 @@
 				F8A5EEB2257CEC290085E660 /* LibreNFC.swift in Sources */,
 				F816E0F02433C31B009EE65B /* Blucon+CoreDataProperties.swift in Sources */,
 				F8A2BC3925DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMLibre2TransmitterDelegate.swift in Sources */,
+				4EE66F052733D96800548A46 /* SettingsViewMoreSettingsViewModel.swift in Sources */,
 				F8A5EEAE25791F370085E660 /* Libre2BLEUtilities.swift in Sources */,
 				F8E3C3AB21FE17B700907A04 /* StringProtocol.swift in Sources */,
 				F8F9720723A5915900C3F17D /* AuthChallengeTxMessage.swift in Sources */,
 				F8B3A78E22622954004BA588 /* AlertType+CoreDataClass.swift in Sources */,
 				F821CF5A229BF43A005C1E43 /* CoreDataManager.swift in Sources */,
-				F8E51D6924549E2C001C9E5A /* SettingsViewTraceSettingsViewModel.swift in Sources */,
 				F85DC2F321CFE3D400B9F74A /* Calibration+CoreDataClass.swift in Sources */,
 				F8AF361B245D93EE00B5977B /* Int16.swift in Sources */,
 				F8E3A2AB23DA520B00E5E98A /* ConstantsWatch.swift in Sources */,
@@ -3597,6 +3637,7 @@
 				F8E6C79024CEC22A007C1199 /* TextsSnooze.swift in Sources */,
 				F8F9722C23A5915900C3F17D /* GlucoseData.swift in Sources */,
 				F8A389E7232ECE7E0010F405 /* SettingsViewUtilities.swift in Sources */,
+				4EE66F0F2734064F00548A46 /* Utils.swift in Sources */,
 				F8A2BC3125DB0D6D001D1E78 /* BluetoothPeripheralManager+M5StackBluetoothTransmitterDelegate.swift in Sources */,
 				F8A2BC2D25DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMG5TransmitterDelegate.swift in Sources */,
 				F8FDFEA9260DE1A70047597D /* DTCustomColoredAccessory.m in Sources */,
@@ -3634,7 +3675,6 @@
 				F85DC2EF21CFE2F500B9F74A /* Sensor+CoreDataProperties.swift in Sources */,
 				F8297F5A238EE14E00D74D66 /* TextsBluetoothPeripheralView.swift in Sources */,
 				F8BECB02235CE3E20060DAE1 /* BloodGlucoseChartView.swift in Sources */,
-				F8A1584D22ECA445007F5B5D /* SettingsViewDevelopmentSettingsViewModel.swift in Sources */,
 				F816E12A2439DF3A009EE65B /* DexcomG4+CoreDataClass.swift in Sources */,
 				F8F9723E23A593C000C3F17D /* M5StickCBluetoothPeripheralViewModel.swift in Sources */,
 				F8A2BC3525DB0D6D001D1E78 /* BluetoothPeripheralManager+BluetoothTransmitterDelegate.swift in Sources */,
@@ -3644,11 +3684,11 @@
 				F8F9722923A5915900C3F17D /* CGMTransmitter.swift in Sources */,
 				F8A389ED23342EB10010F405 /* ConstantsNightScout.swift in Sources */,
 				F85FF3D1252F9FF9004E6FF1 /* SnoozeParameters+CoreDataClass.swift in Sources */,
+				4EE66F082733E01500548A46 /* R.generated.swift in Sources */,
 				F857A32A253E2D9E00951BB2 /* LibreAlgorithmThresholds.swift in Sources */,
 				F8A1850C25643B16000EF8A0 /* Double+Smoothable.swift in Sources */,
 				F890E07A247687AE008FB2EC /* URL.swift in Sources */,
 				F8B3A856227F28DC004BA588 /* AlertTypeSettingsViewController.swift in Sources */,
-				F8A1584F22ECB281007F5B5D /* SettingsViewInfoViewModel.swift in Sources */,
 				F8B3A845227F090E004BA588 /* SettingsViewDexcomSettingsViewModel.swift in Sources */,
 				F8F9720C23A5915900C3F17D /* SensorDataTxMessage.swift in Sources */,
 				F8DF766223E390D100063910 /* BLEPeripheral+CoreDataProperties.swift in Sources */,

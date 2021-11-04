@@ -17,4 +17,6 @@ target 'xdrip' do
   use_frameworks!
   pod 'PieCharts'
   
+  use_frameworks!
+  pod 'R.swift'
 end
