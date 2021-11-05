@@ -8395,13 +8395,13 @@ struct _R: Rswift.Validatable {
 
     #if os(iOS) || os(tvOS)
     struct launchScreen: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
-      typealias InitialController = UIKit.UITabBarController
+      typealias InitialController = UIKit.UIViewController
 
       let bundle = R.hostingBundle
       let name = "LaunchScreen"
 
       static func validate() throws {
-        if UIKit.UIImage(named: "Home", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'Home' is used in storyboard 'LaunchScreen', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "home", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'home' is used in storyboard 'LaunchScreen', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
       }
@@ -8412,7 +8412,7 @@ struct _R: Rswift.Validatable {
 
     #if os(iOS) || os(tvOS)
     struct main: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
-      typealias InitialController = UIKit.UITabBarController
+      typealias InitialController = MainTabBarController
 
       let bundle = R.hostingBundle
       let datePickerViewController = StoryboardViewControllerResource<DatePickerViewController>(identifier: "DatePickerViewController")

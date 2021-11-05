@@ -97,6 +97,7 @@ public struct TableConfigure {
     public fileprivate (set) var toggleButtonBgColorOn: UIColor?
     
     public fileprivate (set) var sectionVerticalMargin: CGFloat?
+    public fileprivate (set) var sectionHeaderColor: UIColor?
 }
 
 public class TableSection {
@@ -276,6 +277,12 @@ extension TableData: UITableViewDelegate, UITableViewDataSource {
         }
         return baseHeight
     }
+    
+    public func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let view = view as? UITableViewHeaderFooterView, let sectionHeaderColor = configure.sectionHeaderColor {
+            view.textLabel?.textColor = sectionHeaderColor
+        }
+    }
 
     private func applyCommon(cellView: BaseTableViewCell, cellData: TableCell, indexPath: IndexPath) {
         cellView.textLabel?.text = cellData.title
@@ -334,7 +341,8 @@ public class TableDataBuilder {
                           toggleButtonThumbColorOn: UIColor? = nil,
                           toggleButtonThumbColorOff: UIColor? = nil,
                           toggleButtonBgColorOn: UIColor?,
-                          sectionVerticalMargin: CGFloat? = 0) -> TableDataBuilder {
+                          sectionVerticalMargin: CGFloat? = 0,
+                          sectionHeaderColor: UIColor?) -> TableDataBuilder {
         data.configure.cellBackgroundColor = cellBackgroundColor
         
         data.configure.titleTextColor = titleTextColor
@@ -344,6 +352,7 @@ public class TableDataBuilder {
         data.configure.toggleButtonBgColorOn = toggleButtonBgColorOn
         
         data.configure.sectionVerticalMargin = sectionVerticalMargin
+        data.configure.sectionHeaderColor = sectionHeaderColor
 
         return self
     }

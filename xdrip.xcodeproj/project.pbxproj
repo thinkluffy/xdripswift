@@ -29,6 +29,7 @@
 		4EE66F0D2733FD0E00548A46 /* TableDataCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F0C2733FD0E00548A46 /* TableDataCreator.swift */; };
 		4EE66F0F2734064F00548A46 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F0E2734064F00548A46 /* Utils.swift */; };
 		4EE66F11273419CA00548A46 /* iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F10273419CA00548A46 /* iOS.swift */; };
+		4EE66F132735064E00548A46 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F122735064E00548A46 /* MainTabBarController.swift */; };
 		533272967B05B378D81F6529 /* Pods_xdrip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB0736D7B1553FC8350324C /* Pods_xdrip.framework */; };
 		666E283A26F7E54C00ACE4DF /* xDrip.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 666E283826F7E54C00ACE4DF /* xDrip.xcconfig */; };
 		CE1B2FE025D0264B00F642F5 /* LaunchScreen.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B2FD125D0264900F642F5 /* LaunchScreen.strings */; };
@@ -647,6 +648,7 @@
 		4EE66F0C2733FD0E00548A46 /* TableDataCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableDataCreator.swift; sourceTree = "<group>"; };
 		4EE66F0E2734064F00548A46 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		4EE66F10273419CA00548A46 /* iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS.swift; sourceTree = "<group>"; };
+		4EE66F122735064E00548A46 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		666E283826F7E54C00ACE4DF /* xDrip.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = xDrip.xcconfig; path = xdrip/xDrip.xcconfig; sourceTree = "<group>"; };
 		CE1B2FC825D0261500F642F5 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Alerts.strings; sourceTree = "<group>"; };
 		CE1B2FCD25D0264900F642F5 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/AlertTypesSettingsView.strings; sourceTree = "<group>"; };
@@ -1528,6 +1530,7 @@
 			children = (
 				F8AC425F21ADEBD60078C348 /* RootViewController.swift */,
 				F8E6C78B24CDDB83007C1199 /* SnoozeViewController.swift */,
+				4EE66F122735064E00548A46 /* MainTabBarController.swift */,
 			);
 			path = "Root View Controller";
 			sourceTree = "<group>";
@@ -3626,6 +3629,7 @@
 				F8A2BC3F25DB0D89001D1E78 /* BluetoothPeripheralManager+CGMAtomTransmitterDelegate.swift in Sources */,
 				F8BDD4242218790E006EAB84 /* UserDefaults.swift in Sources */,
 				F81D6D5222C27F18005EFAE2 /* BgReading+DexcomShare.swift in Sources */,
+				4EE66F132735064E00548A46 /* MainTabBarController.swift in Sources */,
 				F8F9723023A5915900C3F17D /* M5StackUtilities.swift in Sources */,
 				F8297F52238ECA3200D74D66 /* BluetoothPeripheralViewController.swift in Sources */,
 				F816E1312439E2DD009EE65B /* DexcomG4BluetoothPeripheralViewModel.swift in Sources */,

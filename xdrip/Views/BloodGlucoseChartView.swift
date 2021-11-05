@@ -6,6 +6,19 @@ import SwiftCharts
 /// a SwiftChart to be added 
 public class BloodGlucoseChartView: UIView {
     
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        initialize()
+    }
+    
+    init() {
+        super.init(frame: .zero)
+        initialize()
+    }
+    
+    private func initialize() {
+    }
+    
     // MARK: - public properties
     
     public var chartGenerator: ((CGRect) -> UIView?)? {

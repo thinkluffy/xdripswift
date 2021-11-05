@@ -35,12 +35,12 @@ final class BluetoothPeripheralNavigationController: UINavigationController {
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        
-        // remove titles from tabbar items
-        self.tabBarController?.cleanTitles()
-        
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//
+//        // remove titles from tabbar items
+//        self.tabBarController?.cleanTitles()
+//
+//    }
     
 }
 

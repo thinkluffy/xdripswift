@@ -3,6 +3,12 @@ import UIKit
 
 enum ConstantsUI {
     
+    static let tabBarBackgroundColor = UIColor.rgba(8, 12, 29)
+
+    static let mainBackgroundColor = UIColor.rgba(34, 39, 72)
+
+    static let contentBackgroundColor = UIColor.rgba(20, 24, 49)
+
     /// color for section titles in grouped table views, example in settings view
     static let tableViewHeaderTextColor = UIColor.lightGray
     

@@ -142,11 +142,7 @@ final class RootViewController: UIViewController {
     @IBOutlet weak var pieChartLabelOutlet: UILabel!
     @IBOutlet weak var timePeriodLabelOutlet: UILabel!
     @IBOutlet weak var activityMonitorOutlet: UIActivityIndicatorView!
-    
-    
-    /// clock view
-    @IBOutlet weak var clockView: UIView!
-    @IBOutlet weak var clockLabelOutlet: UILabel!
+    @IBOutlet weak var chartContainer: UIView!
         
     @IBOutlet weak var sensorCountdownOutlet: UIImageView!
     
@@ -388,7 +384,7 @@ final class RootViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         
         // remove titles from tabbar items
-        self.tabBarController?.cleanTitles()
+//        self.tabBarController?.cleanTitles()
         
     }
     
@@ -399,8 +395,6 @@ final class RootViewController: UIViewController {
         clockDateFormatter.dateStyle = .none
         clockDateFormatter.timeStyle = .short
         clockDateFormatter.dateFormat = "HH:mm"
-        clockLabelOutlet.font = ConstantsUI.clockLabelFontSize
-        clockLabelOutlet.textColor = ConstantsUI.clockLabelColor
         
         
         // ensure the screen layout
@@ -1228,7 +1222,7 @@ final class RootViewController: UIViewController {
     private func setupView() {
         
         // remove titles from tabbar items
-        self.tabBarController?.cleanTitles()
+//        self.tabBarController?.cleanTitles()
         	
         // set texts for buttons on top
         preSnoozeToolbarButtonOutlet.title = Texts_HomeView.snoozeButton
@@ -1238,6 +1232,9 @@ final class RootViewController: UIViewController {
         
         chartLongPressGestureRecognizerOutlet.delegate = self
         chartPanGestureRecognizerOutlet.delegate = self
+        
+        chartContainer.layer.cornerRadius = 10
+        chartContainer.layer.masksToBounds = true
         
         // at this moment, coreDataManager is not yet initialized, we're just calling here prerender and reloadChart to show the chart with x and y axis and gridlines, but without readings. The readings will be loaded once coreDataManager is setup, after which updateChart() will be called, which will initiate loading of readings from coredata
         self.chartOutlet.reloadChart()
@@ -2103,7 +2100,7 @@ final class RootViewController: UIViewController {
                 // set the reference angle of the pie chart to ensure that the in range slice is centered
                 self.pieChartOutlet.referenceAngle = 90.0 - (1.8 * CGFloat(statistics.inRangeStatisticValue))
                 
-                self.pieChartOutlet.innerRadius = 0
+                self.pieChartOutlet.innerRadius = 10
                 self.pieChartOutlet.models = [
                     PieSliceModel(value: Double(statistics.inRangeStatisticValue), color: ConstantsStatistics.pieChartInRangeSliceColor),
                     PieSliceModel(value: Double(statistics.lowStatisticValue), color: ConstantsStatistics.pieChartLowSliceColor),
@@ -2131,7 +2128,7 @@ final class RootViewController: UIViewController {
             } else {
                 
                 // the easter egg isn't wanted so just show a green circle at 100%
-                self.pieChartOutlet.innerRadius = 0
+                self.pieChartOutlet.innerRadius = 10
                 self.pieChartOutlet.models = [
                     PieSliceModel(value: 1, color: ConstantsStatistics.pieChartInRangeSliceColor)
                 ]
@@ -2227,39 +2224,6 @@ final class RootViewController: UIViewController {
                 screenLockToolbarButtonOutlet.image = UIImage(systemName: "lock.fill")
             
             }
-            
-            if showClock {
-                
-                // set the value label font size to big
-                valueLabelOutlet.font = ConstantsUI.valueLabelFontSizeScreenLock
-                
-                // de-clutter the screen. Hide the statistics view, controls and show the clock view
-                statisticsView.isHidden = true
-                segmentedControlsView.isHidden = true
-                
-                if UserDefaults.standard.showClockWhenScreenIsLocked {
-                    
-                    // set the clock label font size to big (force ConstantsUI implementation)
-                    clockLabelOutlet.font = ConstantsUI.clockLabelFontSize
-                    
-                    // set clock label color
-                    clockLabelOutlet.textColor = ConstantsUI.clockLabelColor
-                    
-                    clockView.isHidden = false
-                    
-                    // set the format for the clock view and update it to show the current time
-                    updateClockView()
-                    
-                    // set a timer instance to update the clock view label every second
-                    clockTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateClockView), userInfo: nil, repeats:true)
-                    
-                } else {
-                    
-                    clockView.isHidden = true
-                    
-                }
-            
-            }
 
             // prevent screen dim/lock
             UIApplication.shared.isIdleTimerDisabled = true
@@ -2288,9 +2252,7 @@ final class RootViewController: UIViewController {
             // hide
             statisticsView.isHidden = !UserDefaults.standard.showStatistics
             segmentedControlsView.isHidden = false
-            
-            clockView.isHidden = true
-            
+                        
             if showClock {
                 
                 // destroy the timer instance so that it doesn't keep using resources
@@ -2309,12 +2271,6 @@ final class RootViewController: UIViewController {
         
     }
     
-    
-    /// update the label in the clock view every time this function is called
-    @objc private func updateClockView() {
-        self.clockLabelOutlet.text = clockDateFormatter.string(from: Date())
-    }
-
     /// checks if screenLockAlertController is not nil and if not dismisses the presentedViewController
     @objc private func dismissScreenLockAlertController() {
         

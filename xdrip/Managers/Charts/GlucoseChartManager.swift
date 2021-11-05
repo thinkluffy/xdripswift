@@ -904,7 +904,7 @@ public final class GlucoseChartManager {
         // intialize chartlabelsettings - this is used for the standard grid labels
         if chartLabelSettings == nil {
             chartLabelSettings = ChartLabelSettings(
-                font: .systemFont(ofSize: 14),
+                font: .systemFont(ofSize: 12),
                 fontColor: ConstantsGlucoseChart.axisLabelColor
             )
         }
@@ -912,7 +912,7 @@ public final class GlucoseChartManager {
         // intialize chartlabelsettingsObjectives - this is used for the objective label
         if chartLabelSettingsObjectives == nil {
             chartLabelSettingsObjectives = ChartLabelSettings(
-                font: .boldSystemFont(ofSize: 15),
+                font: .boldSystemFont(ofSize: 13),
                 fontColor: ConstantsGlucoseChart.axisLabelColorObjectives
             )
         }
@@ -920,7 +920,7 @@ public final class GlucoseChartManager {
         // intialize chartlabelsettingsObjectivesSecondary - this is used for the high/low objective labels. Show in the same colour, but not bold
         if chartLabelSettingsObjectivesSecondary == nil {
             chartLabelSettingsObjectivesSecondary = ChartLabelSettings(
-                font: .systemFont(ofSize: 14),
+                font: .systemFont(ofSize: 12),
                 fontColor: ConstantsGlucoseChart.axisLabelColorObjectives
             )
         }
@@ -928,7 +928,7 @@ public final class GlucoseChartManager {
         // intialize chartlabelsettingsTarget - this is used for the target label (if needed)
         if chartLabelSettingsTarget == nil {
             chartLabelSettingsTarget = ChartLabelSettings(
-                font: .systemFont(ofSize: 14),
+                font: .systemFont(ofSize: 12),
                 fontColor: ConstantsGlucoseChart.axisLabelColorTarget
             )
         }
@@ -936,7 +936,7 @@ public final class GlucoseChartManager {
         // intialize chartlabelsettingsDimmed - used for secondary values that aren't objectives
         if chartLabelSettingsDimmed == nil {
             chartLabelSettingsDimmed = ChartLabelSettings(
-                font: .systemFont(ofSize: 14),
+                font: .systemFont(ofSize: 12),
                 fontColor: ConstantsGlucoseChart.axisLabelColorDimmed
             )
         }
@@ -944,7 +944,7 @@ public final class GlucoseChartManager {
         // intialize chartlabelsettingsHidden - used to hide the first 38mg/dl value etc
         if chartLabelSettingsHidden == nil {
             chartLabelSettingsHidden = ChartLabelSettings(
-                font: .systemFont(ofSize: 14),
+                font: .systemFont(ofSize: 12),
                 fontColor: ConstantsGlucoseChart.axisLabelColorHidden
             )
         }
