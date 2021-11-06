@@ -523,8 +523,9 @@ public final class GlucoseChartManager {
                 yAxisValues += [ChartAxisValueDouble(unitIsMgDl ? 40 : 2.2, labelSettings: data().chartLabelSettingsDimmed) as ChartAxisValue]
             }
             
+            // do not show urgent low line and mark
             // start by adding the objective values as the axis values
-            yAxisValues += [ChartAxisValueDouble(UserDefaults.standard.urgentLowMarkValueInUserChosenUnit.bgValueRounded(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl), labelSettings: data().chartLabelSettingsObjectivesSecondary) as ChartAxisValue]
+//            yAxisValues += [ChartAxisValueDouble(UserDefaults.standard.urgentLowMarkValueInUserChosenUnit.bgValueRounded(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl), labelSettings: data().chartLabelSettingsObjectivesSecondary) as ChartAxisValue]
             
             yAxisValues += [ChartAxisValueDouble(UserDefaults.standard.lowMarkValueInUserChosenUnit.bgValueRounded(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl), labelSettings: data().chartLabelSettingsObjectives) as ChartAxisValue]
             
@@ -605,7 +606,7 @@ public final class GlucoseChartManager {
         // now that we know innerFrame we can set innerFrameWidth
         innerFrameWidth = Double(innerFrame.width)
         
-        chartGuideLinesLayerSettings = ChartGuideLinesLayerSettings(linesColor: UserDefaults.standard.useObjectives ? ConstantsGlucoseChart.gridColorObjectives : ConstantsGlucoseChart.gridColor,  linesWidth: 0.5)
+        chartGuideLinesLayerSettings = ChartGuideLinesLayerSettings(linesColor: UserDefaults.standard.useObjectives ? ConstantsGlucoseChart.gridColorObjectives : ConstantsGlucoseChart.gridColor,  linesWidth: 1)
         
         // Grid lines
         let gridLayer = ChartGuideLinesForValuesLayer(xAxis: xAxisLayer.axis, yAxis: yAxisLayer.axis, settings: data().chartGuideLinesLayerSettings, axisValuesX: Array(xAxisValues.dropFirst().dropLast()), axisValuesY: yAxisValues)
@@ -626,23 +627,25 @@ public final class GlucoseChartManager {
         
         let lowLineLayer = ChartGuideLinesForValuesDottedLayer(xAxis: xAxisLayer.axis, yAxis: yAxisLayer.axis, settings: highLowLineLayerSettings, axisValuesX: [ChartAxisValueDouble(0)], axisValuesY: [ChartAxisValueDouble(UserDefaults.standard.lowMarkValueInUserChosenUnit)])
         
-        let urgentLowLineLayer = ChartGuideLinesForValuesDottedLayer(xAxis: xAxisLayer.axis, yAxis: yAxisLayer.axis, settings: urgentHighLowLineLayerSettings, axisValuesX: [ChartAxisValueDouble(0)], axisValuesY: [ChartAxisValueDouble(UserDefaults.standard.urgentLowMarkValueInUserChosenUnit)])
+//        let urgentLowLineLayer = ChartGuideLinesForValuesDottedLayer(xAxis: xAxisLayer.axis, yAxis: yAxisLayer.axis, settings: urgentHighLowLineLayerSettings, axisValuesX: [ChartAxisValueDouble(0)], axisValuesY: [ChartAxisValueDouble(UserDefaults.standard.urgentLowMarkValueInUserChosenUnit)])
         
         
         // as the user can modify the chart width in hours, we should slightly reduce the size of the glucose points so that the chart isn't crowded when using 12h or 24h options
         var glucoseCircleDiameter: CGFloat = 0
             
         switch UserDefaults.standard.chartWidthInHours {
-            case 3:
-                glucoseCircleDiameter = ConstantsGlucoseChart.glucoseCircleDiameter3h
-            case 6:
-                glucoseCircleDiameter = ConstantsGlucoseChart.glucoseCircleDiameter6h
-            case 12:
-                glucoseCircleDiameter = ConstantsGlucoseChart.glucoseCircleDiameter12h
-            case 24:
-                glucoseCircleDiameter = ConstantsGlucoseChart.glucoseCircleDiameter24h
-            default:
-                glucoseCircleDiameter = ConstantsGlucoseChart.glucoseCircleDiameter6h
+        case 1:
+            glucoseCircleDiameter = ConstantsGlucoseChart.glucoseCircleDiameter1h
+        case 3:
+            glucoseCircleDiameter = ConstantsGlucoseChart.glucoseCircleDiameter3h
+        case 6:
+            glucoseCircleDiameter = ConstantsGlucoseChart.glucoseCircleDiameter6h
+        case 12:
+            glucoseCircleDiameter = ConstantsGlucoseChart.glucoseCircleDiameter12h
+        case 24:
+            glucoseCircleDiameter = ConstantsGlucoseChart.glucoseCircleDiameter24h
+        default:
+            glucoseCircleDiameter = ConstantsGlucoseChart.glucoseCircleDiameter3h
         }
         
         // calibration points circle layers - we'll create two circles, one on top of the other to give a white border as per Nightscout calibrations. We'll make the inner circle UIColor.red to make it slightly different to the UIColor.systemRed used by the glucoseChartPoints. Both circles will be scaled as per the current glucoseCircleDiameter but bigger so that they stand out
@@ -668,7 +671,7 @@ public final class GlucoseChartManager {
             highLineLayer,
             targetLineLayer,
             lowLineLayer,
-            urgentLowLineLayer,
+//            urgentLowLineLayer,
             // calibrationPoint layers
             calibrationCirclesOuter,
             calibrationCirclesInner,

@@ -3185,6 +3185,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static let firmware = Rswift.StringResource(key: "firmware", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fi", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// en translation: H
+      ///
+      /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
+      static let common_hourshort = Rswift.StringResource(key: "common_hourshort", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fi", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: HIGH
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
@@ -3289,10 +3293,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static let green = Rswift.StringResource(key: "green", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fi", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: h
-      ///
-      /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
-      static let common_hourshort = Rswift.StringResource(key: "common_hourshort", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fi", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: hour
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
@@ -3497,6 +3497,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("firmware", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: H
+      ///
+      /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
+      static func common_hourshort(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("common_hourshort", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "common_hourshort"
+        }
+
+        return NSLocalizedString("common_hourshort", tableName: "Common", bundle: bundle, comment: "")
       }
 
       /// en translation: HIGH
@@ -3887,21 +3902,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("green", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: h
-      ///
-      /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
-      static func common_hourshort(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_hourshort", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_hourshort"
-        }
-
-        return NSLocalizedString("common_hourshort", tableName: "Common", bundle: bundle, comment: "")
       }
 
       /// en translation: hour
@@ -8432,7 +8432,6 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "Home", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'Home' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "Settings", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'Settings' is used in storyboard 'Main', but couldn't be loaded.") }
         if #available(iOS 13.0, *) { if UIKit.UIImage(systemName: "link.circle") == nil { throw Rswift.ValidationError(description: "[R.swift] System image named 'link.circle' is used in storyboard 'Main', but couldn't be loaded.") } }
-        if #available(iOS 13.0, *) { if UIKit.UIImage(systemName: "lock") == nil { throw Rswift.ValidationError(description: "[R.swift] System image named 'lock' is used in storyboard 'Main', but couldn't be loaded.") } }
         if #available(iOS 13.0, *) { if UIKit.UIImage(systemName: "moon.zzz") == nil { throw Rswift.ValidationError(description: "[R.swift] System image named 'moon.zzz' is used in storyboard 'Main', but couldn't be loaded.") } }
         if #available(iOS 13.0, *) { if UIKit.UIImage(systemName: "scope") == nil { throw Rswift.ValidationError(description: "[R.swift] System image named 'scope' is used in storyboard 'Main', but couldn't be loaded.") } }
         if UIKit.UIImage(named: "sensor14_14_alt", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'sensor14_14_alt' is used in storyboard 'Main', but couldn't be loaded.") }

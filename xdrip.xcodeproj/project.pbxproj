@@ -23,6 +23,7 @@
 		4E25062927269D47000C348D /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E25062827269D47000C348D /* ComplicationController.swift */; };
 		4E25062B27269D48000C348D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E25062A27269D48000C348D /* Assets.xcassets */; };
 		4E25063027269D48000C348D /* xDrip.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 4E25061227269D44000C348D /* xDrip.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4E2C95A627367B540073D692 /* SimpleSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95A527367B540073D692 /* SimpleSegmentedControl.swift */; };
 		4EE66F052733D96800548A46 /* SettingsViewMoreSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F042733D96800548A46 /* SettingsViewMoreSettingsViewModel.swift */; };
 		4EE66F082733E01500548A46 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F072733E01500548A46 /* R.generated.swift */; };
 		4EE66F0B2733EB0D00548A46 /* MoreSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F0A2733EB0D00548A46 /* MoreSettingsViewController.swift */; };
@@ -237,7 +238,6 @@
 		F8297F52238ECA3200D74D66 /* BluetoothPeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8297F51238ECA3200D74D66 /* BluetoothPeripheralViewController.swift */; };
 		F8297F59238EE14E00D74D66 /* TextsBluetoothPeripheralsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8297F57238EE14E00D74D66 /* TextsBluetoothPeripheralsView.swift */; };
 		F8297F5A238EE14E00D74D66 /* TextsBluetoothPeripheralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8297F58238EE14E00D74D66 /* TextsBluetoothPeripheralView.swift */; };
-		F83098FE23AD3F84005741DF /* UITabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83098FD23AD3F84005741DF /* UITabBarController.swift */; };
 		F830990523B94ED7005741DF /* TimeScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F830990423B94ED7005741DF /* TimeScheduleViewController.swift */; };
 		F830991C23C2909E005741DF /* Watlaa+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F830991A23C2909E005741DF /* Watlaa+CoreDataClass.swift */; };
 		F830991D23C2909E005741DF /* Watlaa+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F830991B23C2909E005741DF /* Watlaa+CoreDataProperties.swift */; };
@@ -642,6 +642,7 @@
 		4E25062A27269D48000C348D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4E25062C27269D48000C348D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E25062D27269D48000C348D /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		4E2C95A527367B540073D692 /* SimpleSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSegmentedControl.swift; sourceTree = "<group>"; };
 		4EE66F042733D96800548A46 /* SettingsViewMoreSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewMoreSettingsViewModel.swift; sourceTree = "<group>"; };
 		4EE66F072733E01500548A46 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		4EE66F0A2733EB0D00548A46 /* MoreSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreSettingsViewController.swift; sourceTree = "<group>"; };
@@ -1025,7 +1026,6 @@
 		F8297F51238ECA3200D74D66 /* BluetoothPeripheralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheralViewController.swift; sourceTree = "<group>"; };
 		F8297F57238EE14E00D74D66 /* TextsBluetoothPeripheralsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextsBluetoothPeripheralsView.swift; sourceTree = "<group>"; };
 		F8297F58238EE14E00D74D66 /* TextsBluetoothPeripheralView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextsBluetoothPeripheralView.swift; sourceTree = "<group>"; };
-		F83098FD23AD3F84005741DF /* UITabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarController.swift; sourceTree = "<group>"; };
 		F830990423B94ED7005741DF /* TimeScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeScheduleViewController.swift; sourceTree = "<group>"; };
 		F830991A23C2909E005741DF /* Watlaa+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Watlaa+CoreDataClass.swift"; sourceTree = "<group>"; };
 		F830991B23C2909E005741DF /* Watlaa+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Watlaa+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -1508,7 +1508,6 @@
 				F8BDD4232218790E006EAB84 /* UserDefaults.swift */,
 				F80859282364D61B00F3829D /* UserDefaults+charts.swift */,
 				F808592C23677D6A00F3829D /* ChartPoint.swift */,
-				F83098FD23AD3F84005741DF /* UITabBarController.swift */,
 				F8E51D602448E695001C9E5A /* Bundle.swift */,
 				F8AF361A245D93ED00B5977B /* Int16.swift */,
 				F890E079247687AE008FB2EC /* URL.swift */,
@@ -2397,6 +2396,7 @@
 			isa = PBXGroup;
 			children = (
 				F8BECB01235CE3E20060DAE1 /* BloodGlucoseChartView.swift */,
+				4E2C95A527367B540073D692 /* SimpleSegmentedControl.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3379,7 +3379,6 @@
 				F816E0F724367137009EE65B /* GNSEntry+CoreDataClass.swift in Sources */,
 				F8F9721923A5915900C3F17D /* CGMGNSEntryTransmitter.swift in Sources */,
 				F8B3A84A227F090E004BA588 /* SettingsViewGeneralSettingsViewModel.swift in Sources */,
-				F83098FE23AD3F84005741DF /* UITabBarController.swift in Sources */,
 				F816E11A243923B2009EE65B /* Droplet+CoreDataClass.swift in Sources */,
 				F80D916D24F82A17006840B5 /* CGMLibre2TransmitterDelegate.swift in Sources */,
 				F8B955EB2591355200C06016 /* CGMLibre2Transmitter+TestData.swift in Sources */,
@@ -3399,6 +3398,7 @@
 				F8C97853242AA70D00A09483 /* MiaoMiao+CoreDataClass.swift in Sources */,
 				F8F9720D23A5915900C3F17D /* ResetMessage.swift in Sources */,
 				F85FF3D7252FB1C0004E6FF1 /* SnoozeParametersAccessor.swift in Sources */,
+				4E2C95A627367B540073D692 /* SimpleSegmentedControl.swift in Sources */,
 				F8C97856242AA86B00A09483 /* CGMMiaoMiaoTransmitterDelegate.swift in Sources */,
 				F898EDF6234A8A5700BFB79B /* UInt32.swift in Sources */,
 				4EE66F11273419CA00548A46 /* iOS.swift in Sources */,

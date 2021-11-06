@@ -33,15 +33,6 @@ final class SettingsNavigationController: UINavigationController {
         
         delegate = self
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        
-        // remove titles from tabbar items
-//        self.tabBarController?.cleanTitles()
-        
-    }
-    
-
 }
 
 extension SettingsNavigationController:UINavigationControllerDelegate {

@@ -12,24 +12,24 @@ class MainTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         tabBar.tintColor = .white
-        
-        removeTabbarItemsText()
     }
-    
-    func removeTabbarItemsText() {
+}
 
-        var offset: CGFloat = 6.0
+class OnlyImageTabBar: UITabBar {
 
-        if #available(iOS 11.0, *), traitCollection.horizontalSizeClass == .regular {
-            offset = 0.0
-        }
+    override func layoutSubviews() {
+        super.layoutSubviews()
 
-        if let items = tabBar.items {
-            for item in items {
-                item.title = ""
-                item.imageInsets = UIEdgeInsets(top: offset, left: 0, bottom: -offset, right: 0)
+        subviews.forEach { subview in
+            if subview is UIControl {
+                subview.subviews.forEach {
+                    if $0 is UILabel {
+                        $0.isHidden = true
+                        subview.frame.origin.y = $0.frame.height / 2.0
+                    }
+                }
             }
         }
     }

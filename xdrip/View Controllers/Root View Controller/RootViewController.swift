@@ -44,14 +44,6 @@ final class RootViewController: UIViewController {
         
     }
     
-    /// outlet for the lock button - it will change text based upon whether they screen is locked or not
-    @IBOutlet weak var screenLockToolbarButtonOutlet: UIBarButtonItem!
-    
-    /// call the screen lock alert when the button is pressed
-    @IBAction func screenLockToolbarButtonAction(_ sender: UIBarButtonItem) {
-        screenLockAlert(showClock: true)
-    }
-    
     
     /// outlet for label that shows how many minutes ago and so on
     @IBOutlet weak var minutesLabelOutlet: UILabel!
@@ -62,18 +54,10 @@ final class RootViewController: UIViewController {
     /// outlet for label that shows the current reading
     @IBOutlet weak var valueLabelOutlet: UILabel!
     
-    @IBAction func valueLabelLongPressGestureRecognizerAction(_ sender: UILongPressGestureRecognizer) {
-        
-        valueLabelLongPressed(sender)
-        
-    }
-    
     
     /// outlet for chart
     @IBOutlet weak var chartOutlet: BloodGlucoseChartView!
-    
-    @IBOutlet weak var segmentedControlsView: UIView!
-    
+        
     /// outlets for chart time period selector
     @IBOutlet weak var segmentedControlChartHours: UISegmentedControl!
     
@@ -81,23 +65,22 @@ final class RootViewController: UIViewController {
         
         // update the chart period in hours
         switch segmentedControlChartHours.selectedSegmentIndex
-            {
-            case 0:
-                UserDefaults.standard.chartWidthInHours = 3
-            case 1:
-                UserDefaults.standard.chartWidthInHours = 5
-            case 2:
-                UserDefaults.standard.chartWidthInHours = 12
-            case 3:
-                UserDefaults.standard.chartWidthInHours = 24
-            default:
-                break
-            }
+        {
+        case 0:
+            UserDefaults.standard.chartWidthInHours = 1
+        case 1:
+            UserDefaults.standard.chartWidthInHours = 3
+        case 2:
+            UserDefaults.standard.chartWidthInHours = 5
+        case 3:
+            UserDefaults.standard.chartWidthInHours = 12
+        case 4:
+            UserDefaults.standard.chartWidthInHours = 24
+        default:
+            break
+        }
         
     }
-    
-    // create a view outlet (with the statistics day control inside) so that we can show/hide it as necessary
-    @IBOutlet weak var segmentedControlStatisticsDaysView: UIView!
     
     @IBOutlet weak var segmentedControlStatisticsDays: UISegmentedControl!
     
@@ -143,10 +126,10 @@ final class RootViewController: UIViewController {
     @IBOutlet weak var timePeriodLabelOutlet: UILabel!
     @IBOutlet weak var activityMonitorOutlet: UIActivityIndicatorView!
     @IBOutlet weak var chartContainer: UIView!
-        
+    @IBOutlet weak var statisticsContainer: UIView!
+
     @IBOutlet weak var sensorCountdownOutlet: UIImageView!
-    
-    
+        
     @IBAction func chartPanGestureRecognizerAction(_ sender: UIPanGestureRecognizer) {
         
         guard let glucoseChartManager = glucoseChartManager else {return}
@@ -327,18 +310,6 @@ final class RootViewController: UIViewController {
     /// when was the last notification created with bgreading, setting to 1 1 1970 initially to avoid having to unwrap it
     private var timeStampLastBGNotification = Date(timeIntervalSince1970: 0)
     
-    /// to hold the current state of the screen keep-alive
-    private var screenIsLocked: Bool = false
-    
-    /// date formatter for the clock view
-    private var clockDateFormatter = DateFormatter()
-    
-    /// initiate a Timer object that we will use later to keep the clock view updated if the user activates the screen lock
-    private var clockTimer: Timer?
-    
-    /// UIAlertController to use when user chooses to lock the screen. Defined here so we can dismiss it when app goes to the background
-    private var screenLockAlertController: UIAlertController?
-    
     // MARK: - overriden functions
     
     // set the status bar content colour to light to match new darker theme
@@ -361,12 +332,6 @@ final class RootViewController: UIViewController {
         // viewWillAppear when user switches eg from Settings Tab to Home Tab - latest reading value needs to be shown on the view, and also update minutes ago etc.
         updateLabelsAndChart(overrideApplicationState: true)
         
-        // show the statistics view as required. If not, hide it and show the spacer view to keep segmentedControlChartHours separated a bit more away from the main Tab bar
-        if !screenIsLocked {
-            statisticsView.isHidden = !UserDefaults.standard.showStatistics
-        }
-        segmentedControlStatisticsDaysView.isHidden = !UserDefaults.standard.showStatistics
-        
         if inRangeStatisticLabelOutlet.text == "-" {
             activityMonitorOutlet.isHidden = true
         } else {
@@ -381,25 +346,9 @@ final class RootViewController: UIViewController {
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        
-        // remove titles from tabbar items
-//        self.tabBarController?.cleanTitles()
-        
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // set up the clock view
-        clockDateFormatter.dateStyle = .none
-        clockDateFormatter.timeStyle = .short
-        clockDateFormatter.dateFormat = "HH:mm"
-        
-        
-        // ensure the screen layout
-        screenLockUpdate(enabled: false)
-                
         // this is to force update of userdefaults that are also stored in the shared user defaults
         // these are used by the today widget. After a year or so (september 2021) this can all be deleted
         UserDefaults.standard.urgentLowMarkValueInUserChosenUnit = UserDefaults.standard.urgentLowMarkValueInUserChosenUnit
@@ -410,10 +359,11 @@ final class RootViewController: UIViewController {
         
         
         // set the localized text of the segmented controls
-        segmentedControlChartHours.setTitle("3" + Texts_Common.hourshort, forSegmentAt: 0)
-        segmentedControlChartHours.setTitle("6" + Texts_Common.hourshort, forSegmentAt: 1)
-        segmentedControlChartHours.setTitle("12" + Texts_Common.hourshort, forSegmentAt: 2)
-        segmentedControlChartHours.setTitle("24" + Texts_Common.hourshort, forSegmentAt:3)
+        segmentedControlChartHours.setTitle("1H", forSegmentAt: 0)
+        segmentedControlChartHours.setTitle("3H", forSegmentAt: 1)
+        segmentedControlChartHours.setTitle("6H", forSegmentAt: 2)
+        segmentedControlChartHours.setTitle("12H", forSegmentAt: 3)
+        segmentedControlChartHours.setTitle("24H", forSegmentAt: 4)
         
         segmentedControlStatisticsDays.setTitle(Texts_Common.todayshort, forSegmentAt: 0)
         segmentedControlStatisticsDays.setTitle("24" + Texts_Common.hourshort, forSegmentAt: 1)
@@ -423,92 +373,38 @@ final class RootViewController: UIViewController {
                
         // update the segmented control of the chart hours
         switch UserDefaults.standard.chartWidthInHours
-            {
-            case 3:
-                segmentedControlChartHours.selectedSegmentIndex = 0
-            case 6:
-                segmentedControlChartHours.selectedSegmentIndex = 1
-            case 12:
-                segmentedControlChartHours.selectedSegmentIndex = 2
-            case 24:
-                segmentedControlChartHours.selectedSegmentIndex = 3
-            default:
-                break
-            }
+        {
+        case 1:
+            segmentedControlChartHours.selectedSegmentIndex = 0
+        case 3:
+            segmentedControlChartHours.selectedSegmentIndex = 1
+        case 6:
+            segmentedControlChartHours.selectedSegmentIndex = 2
+        case 12:
+            segmentedControlChartHours.selectedSegmentIndex = 3
+        case 24:
+            segmentedControlChartHours.selectedSegmentIndex = 4
+        default:
+            break
+        }
         
         
         // update the segmented control of the statistics days
-         switch UserDefaults.standard.daysToUseStatistics
-             {
-             case 0:
-                segmentedControlStatisticsDays.selectedSegmentIndex = 0
-             case 1:
-                segmentedControlStatisticsDays.selectedSegmentIndex = 1
-             case 7:
-                segmentedControlStatisticsDays.selectedSegmentIndex = 2
-             case 30:
-                segmentedControlStatisticsDays.selectedSegmentIndex = 3
-             case 90:
-                segmentedControlStatisticsDays.selectedSegmentIndex = 4
-             default:
-                 break
-             }
-        
-                
-        // format the segmented control of the chart hours if possible (should normally be ok)
-        if #available(iOS 13.0, *) {
-            
-            // set the basic formatting. We basically want it to dissapear into the background
-            segmentedControlChartHours.backgroundColor = ConstantsUI.segmentedControlBackgroundColor
-            segmentedControlChartHours.tintColor = ConstantsUI.segmentedControlBackgroundColor
-            segmentedControlChartHours.layer.borderWidth = ConstantsUI.segmentedControlBorderWidth
-
-            
-            // format the unselected segments
-            segmentedControlChartHours.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: ConstantsUI.segmentedControlNormalTextColor, NSAttributedString.Key.font: ConstantsUI.segmentedControlFont], for:.normal)
-            
-            // format the selected segment
-            segmentedControlChartHours.selectedSegmentTintColor = ConstantsUI.segmentedControlSelectedTintColor
-            
-            segmentedControlChartHours.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: ConstantsUI.segmentedControlSelectedTextColor, NSAttributedString.Key.font: ConstantsUI.segmentedControlFont], for:.selected)
-        
+        switch UserDefaults.standard.daysToUseStatistics
+        {
+        case 0:
+           segmentedControlStatisticsDays.selectedSegmentIndex = 0
+        case 1:
+           segmentedControlStatisticsDays.selectedSegmentIndex = 1
+        case 7:
+           segmentedControlStatisticsDays.selectedSegmentIndex = 2
+        case 30:
+           segmentedControlStatisticsDays.selectedSegmentIndex = 3
+        case 90:
+           segmentedControlStatisticsDays.selectedSegmentIndex = 4
+        default:
+            break
         }
-        
-        
-        // format the segmented control of the chart hours if possible (should normally be ok)
-        if #available(iOS 13.0, *) {
-            
-            // set the basic formatting. We basically want it to dissapear into the background
-            segmentedControlStatisticsDays.backgroundColor = ConstantsUI.segmentedControlBackgroundColor
-            
-            segmentedControlStatisticsDays.tintColor = ConstantsUI.segmentedControlBackgroundColor
-            
-            segmentedControlStatisticsDays.layer.borderWidth = ConstantsUI.segmentedControlBorderWidth
-
-            
-            // format the unselected segments
-            segmentedControlStatisticsDays.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: ConstantsUI.segmentedControlNormalTextColor, NSAttributedString.Key.font: ConstantsUI.segmentedControlFont], for:.normal)
-            
-            // format the selected segment
-            segmentedControlStatisticsDays.selectedSegmentTintColor = ConstantsUI.segmentedControlSelectedTintColor
-            
-            segmentedControlStatisticsDays.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: ConstantsUI.segmentedControlSelectedTextColor, NSAttributedString.Key.font: ConstantsUI.segmentedControlFont], for:.selected)
-            
-        }
-        
-        // if a RTL localization is in use (such as arabic), then correctly align the low (<x) and high (>x) label outlets towards the centre of the (now reversed) horizontal stack views
-        if UIView.userInterfaceLayoutDirection(for: view.semanticContentAttribute) == UIUserInterfaceLayoutDirection.rightToLeft {
-            lowLabelOutlet.textAlignment = .right
-            lowTitleLabelOutlet.textAlignment = .left
-            highLabelOutlet.textAlignment = .right
-            highTitleLabelOutlet.textAlignment = .left
-        } else {
-            lowLabelOutlet.textAlignment = .left
-            lowTitleLabelOutlet.textAlignment = .right
-            highLabelOutlet.textAlignment = .left
-            highTitleLabelOutlet.textAlignment = .right
-        }
-        
         
         // enable or disable the buttons 'sensor' and 'calibrate' on top, depending on master or follower
         changeButtonsStatusTo(enabled: UserDefaults.standard.isMaster)
@@ -574,8 +470,6 @@ final class RootViewController: UIViewController {
         UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.multipleAppBadgeValueWith10.rawValue, options: .new, context: nil)
         // also update of unit requires update of badge
         UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.bloodGlucoseUnitIsMgDl.rawValue, options: .new, context: nil)
-        // update show clock value for the screen lock function
-        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.showClockWhenScreenIsLocked.rawValue, options: .new, context: nil)
         
         
         // high mark , low mark , urgent high mark, urgent low mark. change requires redraw of graph
@@ -614,9 +508,7 @@ final class RootViewController: UIViewController {
         ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground(key: applicationManagerKeyIsIdleTimerDisabled, closure: {
             
             UIApplication.shared.isIdleTimerDisabled = false
-            
-            self.screenLockUpdate(enabled: false)
-            
+                        
         })
         
         // add tracing when app goes from foreground to background
@@ -646,14 +538,6 @@ final class RootViewController: UIViewController {
             self.updateStatistics(animatePieChart: false)
             
         })
-        
-        
-        ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: applicationManagerKeyDismissScreenLockAlertController, closure: {
-
-            self.dismissScreenLockAlertController()
-            
-        })
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -1184,14 +1068,7 @@ final class RootViewController: UIViewController {
             
             // refresh statistics calculations/view is necessary
             updateStatistics(animatePieChart: true, overrideApplicationState: false)
-            
-        case UserDefaults.Key.showClockWhenScreenIsLocked:
-            
-            // refresh screenLock function if it is currently activated in order to show/hide the clock as requested
-            if screenIsLocked {
-                screenLockUpdate(enabled: true)
-            }
-
+    
         default:
             break
             
@@ -1220,15 +1097,10 @@ final class RootViewController: UIViewController {
     
     /// Configure View, only stuff that is independent of coredata
     private func setupView() {
-        
-        // remove titles from tabbar items
-//        self.tabBarController?.cleanTitles()
-        	
         // set texts for buttons on top
         preSnoozeToolbarButtonOutlet.title = Texts_HomeView.snoozeButton
         sensorToolbarButtonOutlet.title = Texts_HomeView.sensor
         calibrateToolbarButtonOutlet.title = Texts_HomeView.calibrationButton
-        screenLockToolbarButtonOutlet.title = screenIsLocked ? Texts_HomeView.unlockButton : Texts_HomeView.lockButton
         
         chartLongPressGestureRecognizerOutlet.delegate = self
         chartPanGestureRecognizerOutlet.delegate = self
@@ -1236,6 +1108,9 @@ final class RootViewController: UIViewController {
         chartContainer.layer.cornerRadius = 10
         chartContainer.layer.masksToBounds = true
         
+        statisticsContainer.layer.cornerRadius = 10
+        statisticsContainer.layer.masksToBounds = true
+                
         // at this moment, coreDataManager is not yet initialized, we're just calling here prerender and reloadChart to show the chart with x and y axis and gridlines, but without readings. The readings will be loaded once coreDataManager is setup, after which updateChart() will be called, which will initiate loading of readings from coredata
         self.chartOutlet.reloadChart()
         
@@ -1897,17 +1772,6 @@ final class RootViewController: UIViewController {
         }
         
     }
-
-    private func valueLabelLongPressed(_ sender: UILongPressGestureRecognizer) {
-        
-        if sender.state == .began {
-
-            // call the UIAlert but assume that the user wants a simple screen lock, not the full lock mode
-            screenLockAlert(overrideScreenIsLocked: true, showClock: false)
-            
-        }
-        
-    }
     
     private func getCGMTransmitterDeviceName(for cgmTransmitter: CGMTransmitter) -> String? {
         
@@ -2139,152 +2003,6 @@ final class RootViewController: UIViewController {
             
         })
     }
-    
-    /// swaps status from locked to unlocked or vice versa, and creates alert to inform user
-    /// - parameters:
-    ///     - overrideScreenIsLocked : if true, then screen will be locked even if it's already locked. If false, then status swaps from locked to unlocked or unlocked to locked
-    ///     - showClock : when true this parameter will be passed to the screeLockUpdate function and this will lock the screen in the full lock mode adjusting font sizes and showing the clock as required.
-    private func screenLockAlert(overrideScreenIsLocked: Bool = false, showClock: Bool = true) {
-        
-        if !screenIsLocked || overrideScreenIsLocked {
-            
-            trace("screen lock : user clicked the lock button or long pressed the value", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
-            
-            // lock and update the screen
-            self.screenLockUpdate(enabled: true, showClock: showClock)
-            
-            // only trigger the UIAlert if the user hasn't previously asked to not show it again
-            if !UserDefaults.standard.lockScreenDontShowAgain {
-                
-                // create uialertcontroller to inform user
-                screenLockAlertController = UIAlertController(title: Texts_HomeView.screenLockTitle, message: Texts_HomeView.screenLockInfo, preferredStyle: .alert)
-
-                // create "don't show again" button for uialertcontroller
-                let dontShowAgainAction = UIAlertAction(title: Texts_Common.dontShowAgain, style: .destructive) {
-                    (action:UIAlertAction!) in
-                    
-                    // if clicked set the user default key to false so that the next time the user locks the screen, the UIAlert isn't triggered
-                    UserDefaults.standard.lockScreenDontShowAgain = true
-                    
-                }
-                
-                // create OK button for uialertcontroller
-                let OKAction = UIAlertAction(title: Texts_Common.Ok, style: .default) {
-                    (action:UIAlertAction!) in
-                    
-                    // set screenLockAlertController to nil because this variable is used when app comes to foreground, to check if alert is still presented
-                    self.screenLockAlertController = nil
-                    
-                }
-
-                // add buttons to the alert
-                screenLockAlertController!.addAction(dontShowAgainAction)
-                screenLockAlertController!.addAction(OKAction)
-
-                // show alert
-                self.present(screenLockAlertController!, animated: true, completion:nil)
-                
-            }
-            
-            
-            // schedule timer to dismiss the uialert controller after some time, in case user doesn't click ok
-            Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(dismissScreenLockAlertController), userInfo: nil, repeats:false)
-            
-        } else {
-            
-            trace("screen lock : user clicked the unlock button", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
-            
-            // this means the user has clicked the button whilst the screen look in already in place so let's turn the function off
-            self.screenLockUpdate(enabled: false, showClock: showClock)
-            
-        }
-        
-    }
-    
-    
-    /// this function will run when the user wants the screen to lock, or whenever the view appears and it will set up the screen correctly for each mode
-    /// - parameters :
-    ///     - enabled : when true this will force the screen to lock
-    ///     - showClock : when false, this will enable a simple screen lock without changing the UI - useful for keeping the screen open on your desk
-    private func screenLockUpdate(enabled: Bool = true, showClock: Bool = true) {
-
-        if enabled {
-            
-            // set the toolbar button text to "Unlock"
-            screenLockToolbarButtonOutlet.title = Texts_HomeView.unlockButton
-            
-            screenLockToolbarButtonOutlet.tintColor = UIColor.red
-            
-            // vibrate so that user knows that the screen lock has been activated
-            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-            
-            // check if iOS13 or newer is being used. If it is, then take advantage of SF Symbols to fill in the lock icon to make it stand out more
-            if #available(iOS 13.0, *) {
-
-                screenLockToolbarButtonOutlet.image = UIImage(systemName: "lock.fill")
-            
-            }
-
-            // prevent screen dim/lock
-            UIApplication.shared.isIdleTimerDisabled = true
-            
-            // set the private var so that we can track the screen lock activation within the RootViewController
-            screenIsLocked = true
-            
-            trace("screen lock : screen lock / keep-awake enabled", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
-            
-        } else {
-            
-            // set the toolbar button text to "Lock"
-            screenLockToolbarButtonOutlet.title = Texts_HomeView.lockButton
-            
-            screenLockToolbarButtonOutlet.tintColor = nil
-            
-            // check if iOS13 or newer is being used. If it is, then set the lock icon back to the standard SF Symbol
-            if #available(iOS 13.0, *) {
-                
-                screenLockToolbarButtonOutlet.image = UIImage(systemName: "lock")
-            
-            }
-
-            valueLabelOutlet.font = ConstantsUI.valueLabelFontSizeNormal
-            
-            // hide
-            statisticsView.isHidden = !UserDefaults.standard.showStatistics
-            segmentedControlsView.isHidden = false
-                        
-            if showClock {
-                
-                // destroy the timer instance so that it doesn't keep using resources
-                clockTimer?.invalidate()
-                
-            }
-            
-            // make sure that the screen lock is deactivated
-            UIApplication.shared.isIdleTimerDisabled = false
-            
-            trace("screen lock / keep-awake disabled", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
-
-            screenIsLocked = false
-            
-        }
-        
-    }
-    
-    /// checks if screenLockAlertController is not nil and if not dismisses the presentedViewController
-    @objc private func dismissScreenLockAlertController() {
-        
-        // possibly screenLockAlertController is still on the screen which would happen if user chooses to lock the screen but brings the app to the background before clicking ok
-        if self.screenLockAlertController != nil {
-            
-            self.presentedViewController?.dismiss(animated: false, completion: nil)
-            
-            self.screenLockAlertController = nil
-            
-        }
-
-    }
-    
     
     /// this function will check if the user is using a time-sensitive sensor (such as a 14 day Libre, calculate the days remaining and then update the imageUI with the relevant svg image from the project assets.
     private func updateSensorCountdown() {

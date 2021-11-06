@@ -86,10 +86,10 @@
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 /// the word today
-"common_todayshort" = "Today";
+"common_todayshort" = "今天";
 
 /// the word high
-"common_statistics_high" = "High";
+"common_statistics_high" = "高";
 
 /// phrase HbA1c
 "common_statistics_a1c" = "HbA1c";
@@ -98,22 +98,22 @@
 "common_statistics_cv" = "CV";
 
 /// the word low
-"common_statistics_low" = "Low";
+"common_statistics_low" = "低";
 
 /// literal translation needed
 "common_days" = "days";
 
 /// the word average
-"common_statistics_average" = "Average";
+"common_statistics_average" = "平均血糖";
 
 /// literal translation needed
-"common_dayshort" = "d";
+"common_dayshort" = "天";
 
 /// the word today
-"common_today" = "Today";
+"common_today" = "今天";
 
 /// the words in range
-"common_statistics_inRange" = "In Range";
+"common_statistics_inRange" = "达标";
 
 /// literal translation needed
-"common_hourshort" = "h";
+"common_hourshort" = "小时";

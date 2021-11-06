@@ -33,7 +33,7 @@ enum ConstantsGlucoseChart {
     static let thirdGlucoseValueRangeInMmol = [21.0, 23.0]
     
     /// axis line color
-    static let axisLineColor = UIColor.gray
+    static let axisLineColor = ConstantsUI.mainBackgroundColor
     
     /// axis line label
     static let axisLabelColor = UIColor.white
@@ -54,7 +54,7 @@ enum ConstantsGlucoseChart {
     static let gridColor = UIColor.darkGray
     
     /// grid color to use if useObjectives is enabled
-    static let gridColorObjectives = UIColor.darkGray.withAlphaComponent(0.5)
+    static let gridColorObjectives = ConstantsUI.mainBackgroundColor
     
     // objective/target range guidelines. Will use either standard gray or colored lines
     // make use alpha components to make the perceived brightness of each line be the same to the user (otherwise red appears washed out)
@@ -69,13 +69,13 @@ enum ConstantsGlucoseChart {
     static let guidelineTargetColor = UIColor.green.withAlphaComponent(0.3)
     
     /// glucose colors - for values in range
-    static let glucoseInRangeColor = UIColor.green
+    static let glucoseInRangeColor = ConstantsUI.glucoseInRangeColor
     
     /// glucose colors - for values higher than urgentHighMarkValue or lower than urgent LowMarkValue
-    static let glucoseUrgentRangeColor = UIColor.red
+    static let glucoseUrgentRangeColor = ConstantsUI.accentRed
 
     /// glucose colors - for values between highMarkValue and urgentHighMarkValue or between urgentLowMarkValue and lowMarkValue
-    static let glucoseNotUrgentRangeColor = UIColor.yellow
+    static let glucoseNotUrgentRangeColor = ConstantsUI.glucoseLowColor
     
     /// calibration circle color (inside circle)
     static let calibrationInsideColor = UIColor.red
@@ -105,6 +105,7 @@ enum ConstantsGlucoseChart {
     static let axisTitleLabelsToLabelsSpacing: CGFloat = 0
     
     /// diameter of the circle for blood glucose readings. The more hours on the chart, the smaller the circles should be
+    static let glucoseCircleDiameter1h: CGFloat = 5
     static let glucoseCircleDiameter3h: CGFloat = 3
     static let glucoseCircleDiameter6h: CGFloat = 3
     static let glucoseCircleDiameter12h: CGFloat = 3

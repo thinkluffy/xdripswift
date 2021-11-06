@@ -16,18 +16,18 @@ enum ConstantsStatistics {
     static let pieChartAnimationSpeed = 0.3
     
     /// label colors for the statistics
-    static let labelLowColor = UIColor.systemRed
-    static let labelInRangeColor = UIColor.systemGreen
-    static let labelHighColor = UIColor.systemYellow
+    static let labelLowColor = ConstantsUI.glucoseLowColor
+    static let labelInRangeColor = ConstantsUI.glucoseInRangeColor
+    static let labelHighColor = ConstantsUI.glucoseHigholor
     
     /// pie slice color for low
-    static let pieChartLowSliceColor = UIColor.systemRed
+    static let pieChartLowSliceColor = labelLowColor
     
     /// pie slice color for in range
-    static let pieChartInRangeSliceColor = UIColor.init(red: 0.0, green: 0.6, blue: 0.0, alpha: 1)
+    static let pieChartInRangeSliceColor = labelInRangeColor
     
     /// pie slice color for high
-    static let pieChartHighSliceColor = UIColor.systemYellow
+    static let pieChartHighSliceColor = labelHighColor
     
     // contstants to define the standardised TIR values in case the user prefers to use them
     // published values from here: https://care.diabetesjournals.org/content/42/8/1593
