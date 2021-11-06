@@ -14,6 +14,8 @@ class MainTabBarController: UITabBarController {
         super.viewDidLoad()
 
         tabBar.tintColor = .white
+        // workaround to avoid color change when scroll vertically
+        tabBar.barTintColor = ConstantsUI.tabBarBackgroundColor
     }
 }
 
@@ -22,6 +24,7 @@ class OnlyImageTabBar: UITabBar {
     override func layoutSubviews() {
         super.layoutSubviews()
 
+        // remove text titles
         subviews.forEach { subview in
             if subview is UIControl {
                 subview.subviews.forEach {
