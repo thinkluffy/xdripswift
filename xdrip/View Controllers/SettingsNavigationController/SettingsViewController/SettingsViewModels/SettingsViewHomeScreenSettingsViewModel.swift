@@ -22,19 +22,16 @@ fileprivate enum Setting:Int, CaseIterable {
     //urgent low value
     case urgentLowMarkValue = 3
     
-    //use objectives in graph?
-    case useObjectives = 4
-    
     //show target line?
-    case showTarget = 5
+    case showTarget = 4
     
     //target value
-    case targetMarkValue = 6
+    case targetMarkValue = 5
     
 }
 
 /// conforms to SettingsViewModelProtocol for all general settings in the first sections screen
-struct SettingsViewHomeScreenSettingsViewModel:SettingsViewModelProtocol {
+struct SettingsViewHomeScreenSettingsViewModel: SettingsViewModelProtocol {
     
     func uiView(index: Int) -> UIView? {
         
@@ -42,13 +39,10 @@ struct SettingsViewHomeScreenSettingsViewModel:SettingsViewModelProtocol {
         
         switch setting {
 
-        case .useObjectives:
-            return UISwitch(isOn: UserDefaults.standard.useObjectives, action: {(isOn:Bool) in UserDefaults.standard.useObjectives = isOn})
-                        
         case .showTarget :
             return UISwitch(isOn: UserDefaults.standard.showTarget, action: {(isOn:Bool) in UserDefaults.standard.showTarget = isOn})
             
-        case  .urgentHighMarkValue, .highMarkValue, .targetMarkValue, .lowMarkValue, .urgentLowMarkValue:
+        case .urgentHighMarkValue, .highMarkValue, .targetMarkValue, .lowMarkValue, .urgentLowMarkValue:
             return nil
             
         }
@@ -57,7 +51,6 @@ struct SettingsViewHomeScreenSettingsViewModel:SettingsViewModelProtocol {
     func completeSettingsViewRefreshNeeded(index: Int) -> Bool {
         return false
     }
-    
     
     func storeRowReloadClosure(rowReloadClosure: ((Int) -> Void)) {}
     
@@ -87,15 +80,6 @@ struct SettingsViewHomeScreenSettingsViewModel:SettingsViewModelProtocol {
 
             case .urgentLowMarkValue:
                 return SettingsSelectedRowAction.askText(title: Texts_SettingsView.labelUrgentLowValue, message: nil, keyboardType: UserDefaults.standard.bloodGlucoseUnitIsMgDl ? .numberPad:.decimalPad, text: UserDefaults.standard.urgentLowMarkValueInUserChosenUnitRounded, placeHolder: ConstantsBGGraphBuilder.defaultUrgentLowMarkInMgdl.description, actionTitle: nil, cancelTitle: nil, actionHandler: {(urgentLowMarkValue:String) in UserDefaults.standard.urgentLowMarkValueInUserChosenUnitRounded = urgentLowMarkValue}, cancelHandler: nil, inputValidator: nil)
-
-            case .useObjectives:
-                return SettingsSelectedRowAction.callFunction(function: {
-                    if UserDefaults.standard.useObjectives {
-                        UserDefaults.standard.useObjectives = false
-                    } else {
-                        UserDefaults.standard.useObjectives = true
-                    }
-                })
             
             case .showTarget:
                 return SettingsSelectedRowAction.callFunction(function: {
@@ -116,15 +100,7 @@ struct SettingsViewHomeScreenSettingsViewModel:SettingsViewModelProtocol {
     }
     
     func numberOfRows() -> Int {
-        
-        // if the user doesn't want to see the objectives on the graph, then hide the options, the same applies to the Show Target option
-        if UserDefaults.standard.useObjectives && UserDefaults.standard.showTarget {
-            return Setting.allCases.count
-        } else if UserDefaults.standard.useObjectives && !UserDefaults.standard.showTarget {
-            return Setting.allCases.count - 1
-        } else {
-            return Setting.allCases.count - 2
-        }
+        return Setting.allCases.count
     }
     
     func settingsRowText(index: Int) -> String {
@@ -144,9 +120,6 @@ struct SettingsViewHomeScreenSettingsViewModel:SettingsViewModelProtocol {
             case .urgentLowMarkValue:
                 return Texts_SettingsView.labelUrgentLowValue
                 
-            case .useObjectives:
-                return Texts_SettingsView.labelUseObjectives
-            
             case .showTarget:
                 return Texts_SettingsView.labelShowTarget
 
@@ -171,9 +144,6 @@ struct SettingsViewHomeScreenSettingsViewModel:SettingsViewModelProtocol {
         
         case .urgentLowMarkValue:
             return UITableViewCell.AccessoryType.disclosureIndicator
-
-        case .useObjectives:
-            return UITableViewCell.AccessoryType.none
 
         case .showTarget:
             return UITableViewCell.AccessoryType.none
@@ -204,7 +174,7 @@ struct SettingsViewHomeScreenSettingsViewModel:SettingsViewModelProtocol {
         case .targetMarkValue:
             return UserDefaults.standard.targetMarkValueInUserChosenUnit.bgValuetoString(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
             
-        case .useObjectives, .showTarget:
+        case .showTarget:
             return nil
             
         }

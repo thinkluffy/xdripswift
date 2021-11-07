@@ -451,7 +451,7 @@ class Trace {
                         }
                         
                     case .Libre2Type:
-                        if let libre2 = blePeripheral.libre2 {
+                        if blePeripheral.libre2 != nil {
                             
                             traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
                             

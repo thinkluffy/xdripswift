@@ -618,17 +618,6 @@ extension UserDefaults {
         }
     }
     
-    /// should we use objectives for the BG values and graph lines etc?
-    @objc dynamic var useObjectives: Bool {
-        // default value for bool in userdefaults is false, by default we want the objective-based graph to be disabled so as not to scare anybody. They can enable it when they have time to understand it.
-        get {
-            return !bool(forKey: Key.useObjectives.rawValue)
-        }
-        set {
-            set(!newValue, forKey: Key.useObjectives.rawValue)
-        }
-    }
-    
     /// should the target line (always shown in green) be shown on the graph?
     @objc dynamic var showTarget: Bool {
         // default value for bool in userdefaults is false, by default we will hide the target line as it could confuse users
