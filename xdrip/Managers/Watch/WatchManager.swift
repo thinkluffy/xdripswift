@@ -91,7 +91,8 @@ class WatchManager: NSObject {
         
         // compose the event title
         // start with the reading in correct unit
-        var title = lastReading[0].unitizedString(unitIsMgDl: UserDefaults.standard.bloodGlucoseUnitIsMgDl).description
+        var title = BgReading.unitizedString(calculatedValue: lastReading[0].calculatedValue,
+                                             unitIsMgDl: UserDefaults.standard.bloodGlucoseUnitIsMgDl).description
         
         // add trend if needed and available
         if (!lastReading[0].hideSlope && UserDefaults.standard.displayTrendInCalendarEvent) {

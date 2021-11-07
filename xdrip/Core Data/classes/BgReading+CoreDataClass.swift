@@ -110,7 +110,7 @@ public class BgReading: NSManagedObject {
     }
     
     /// creates string with bg value in correct unit or "HIGH" or "LOW", or other like ???
-    func unitizedString(unitIsMgDl:Bool) -> String {
+    static func unitizedString(calculatedValue: Double, unitIsMgDl:Bool) -> String {
         var returnValue:String
         if (calculatedValue >= 400) {
             returnValue = Texts_Common.HIGH
@@ -193,11 +193,11 @@ public class BgReading: NSManagedObject {
         }
     }
     
-    func currentSlope(previousBgReading:BgReading?) -> Double {
-        
+    func currentSlope(previousBgReading: BgReading?) -> Double {
         if let previousBgReading = previousBgReading {
             let (slope,_) = calculateSlope(lastBgReading: previousBgReading);
             return slope
+            
         } else {
             return 0.0
         }
@@ -211,7 +211,7 @@ public class BgReading: NSManagedObject {
     ///     - lastBgReading : last reading result of call to BgReadings.getLatestBgReadings(1, sensor) sensor the current sensor and ignore calculatedValue and ignoreRawData both set to false
     /// - returns:
     ///     - calculated slope and hideSlope
-    func calculateSlope(lastBgReading:BgReading) -> (Double, Bool) {
+    func calculateSlope(lastBgReading: BgReading) -> (Double, Bool) {
         if timeStamp == lastBgReading.timeStamp
             ||
             timeStamp.toMillisecondsAsDouble() - lastBgReading.timeStamp.toMillisecondsAsDouble() > Double(ConstantsBGGraphBuilder.maxSlopeInMinutes * 60 * 1000) {

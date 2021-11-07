@@ -109,7 +109,8 @@ class BGReadingSpeaker:NSObject {
         
         //Glucose
         // create reading value
-        var currentBgReadingFormatted = bgReadingToSpeak.unitizedString(unitIsMgDl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
+        var currentBgReadingFormatted = BgReading.unitizedString(calculatedValue: bgReadingToSpeak.calculatedValue,
+                                                                 unitIsMgDl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
         // copied from Spike
         if !UserDefaults.standard.bloodGlucoseUnitIsMgDl {
             currentBgReadingFormatted = assertFractionalDigits(number: currentBgReadingFormatted)

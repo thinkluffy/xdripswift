@@ -24,6 +24,9 @@
 		4E25062B27269D48000C348D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E25062A27269D48000C348D /* Assets.xcassets */; };
 		4E25063027269D48000C348D /* xDrip.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 4E25061227269D44000C348D /* xDrip.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4E2C95A627367B540073D692 /* SimpleSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95A527367B540073D692 /* SimpleSegmentedControl.swift */; };
+		4E2C95A827375E110073D692 /* OnlyImageTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95A727375E110073D692 /* OnlyImageTabbar.swift */; };
+		4E2C95AA27375E570073D692 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95A927375E570073D692 /* Card.swift */; };
+		4E2C95AC27376D770073D692 /* GlucoseIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95AB27376D770073D692 /* GlucoseIndicator.swift */; };
 		4EE66F052733D96800548A46 /* SettingsViewMoreSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F042733D96800548A46 /* SettingsViewMoreSettingsViewModel.swift */; };
 		4EE66F082733E01500548A46 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F072733E01500548A46 /* R.generated.swift */; };
 		4EE66F0B2733EB0D00548A46 /* MoreSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F0A2733EB0D00548A46 /* MoreSettingsViewController.swift */; };
@@ -643,6 +646,9 @@
 		4E25062C27269D48000C348D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E25062D27269D48000C348D /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		4E2C95A527367B540073D692 /* SimpleSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSegmentedControl.swift; sourceTree = "<group>"; };
+		4E2C95A727375E110073D692 /* OnlyImageTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlyImageTabbar.swift; sourceTree = "<group>"; };
+		4E2C95A927375E570073D692 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		4E2C95AB27376D770073D692 /* GlucoseIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseIndicator.swift; sourceTree = "<group>"; };
 		4EE66F042733D96800548A46 /* SettingsViewMoreSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewMoreSettingsViewModel.swift; sourceTree = "<group>"; };
 		4EE66F072733E01500548A46 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		4EE66F0A2733EB0D00548A46 /* MoreSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreSettingsViewController.swift; sourceTree = "<group>"; };
@@ -1394,6 +1400,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1D046F68414FB67142D29B9E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4E25061A27269D47000C348D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -2397,6 +2410,9 @@
 			children = (
 				F8BECB01235CE3E20060DAE1 /* BloodGlucoseChartView.swift */,
 				4E2C95A527367B540073D692 /* SimpleSegmentedControl.swift */,
+				4E2C95A727375E110073D692 /* OnlyImageTabbar.swift */,
+				4E2C95A927375E570073D692 /* Card.swift */,
+				4E2C95AB27376D770073D692 /* GlucoseIndicator.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2952,6 +2968,7 @@
 			buildPhases = (
 				4E25061027269D44000C348D /* Resources */,
 				4E25063427269D48000C348D /* Embed App Extensions */,
+				1D046F68414FB67142D29B9E /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3306,7 +3323,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				$SRCROOT/R.generated.swift,
+				"$SRCROOT/R.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3389,6 +3406,7 @@
 				F897E24B23FC86CF0075E0E8 /* CGMG5TransmitterDelegate.swift in Sources */,
 				F816E0F12433C31B009EE65B /* Blucon+CoreDataClass.swift in Sources */,
 				F8F9723323A5915900C3F17D /* M5StackBluetoothTransmitterDelegate.swift in Sources */,
+				4E2C95AA27375E570073D692 /* Card.swift in Sources */,
 				F8B3A81B227DEC92004BA588 /* SensorsAccessor.swift in Sources */,
 				F8F9721E23A5915900C3F17D /* LibreSensorState.swift in Sources */,
 				F8B3A85D22821BB6004BA588 /* Int.swift in Sources */,
@@ -3525,6 +3543,7 @@
 				F897AAFB2201018800CDDD10 /* String.swift in Sources */,
 				F8B3A847227F090E004BA588 /* SettingsViewNightScoutSettingsViewModel.swift in Sources */,
 				F8B3A79622635A25004BA588 /* AlertEntry+CoreDataClass.swift in Sources */,
+				4E2C95AC27376D770073D692 /* GlucoseIndicator.swift in Sources */,
 				F8A2BC3725DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMMiaoMiaoTransmitterDelegate.swift in Sources */,
 				F8F7B8E6259A6EBF00C47B04 /* LibreSmoothing.swift in Sources */,
 				F808D2CA240325E40084B5DB /* CGMBubbleTransmitterDelegate.swift in Sources */,
@@ -3570,6 +3589,7 @@
 				F8A1586D22EDB9BE007F5B5D /* ConstantsDexcomFollower.swift in Sources */,
 				F8F9720923A5915900C3F17D /* AESCrypt.m in Sources */,
 				F80ED2ED236F68F90005C035 /* SettingsViewM5StackGeneralSettingsViewModel.swift in Sources */,
+				4E2C95A827375E110073D692 /* OnlyImageTabbar.swift in Sources */,
 				F816E10A2437E7B8009EE65B /* CGMBlueReaderTransmitterDelegate.swift in Sources */,
 				F8B3A850227F26F8004BA588 /* AlertTypesSettingsViewController.swift in Sources */,
 				F816E0FE24367338009EE65B /* GNSEntry+BluetoothPeripheral.swift in Sources */,

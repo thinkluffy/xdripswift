@@ -54,7 +54,8 @@ final class RootViewController: UIViewController {
     /// outlet for label that shows the current reading
     @IBOutlet weak var valueLabelOutlet: UILabel!
     
-    
+    @IBOutlet weak var glucoseIndicator: GlucoseIndicator!
+
     /// outlet for chart
     @IBOutlet weak var chartOutlet: BloodGlucoseChartView!
         
@@ -122,11 +123,7 @@ final class RootViewController: UIViewController {
     @IBOutlet weak var cvTitleLabelOutlet: UILabel!
     @IBOutlet weak var lowLabelOutlet: UILabel!
     @IBOutlet weak var highLabelOutlet: UILabel!
-    @IBOutlet weak var pieChartLabelOutlet: UILabel!
     @IBOutlet weak var timePeriodLabelOutlet: UILabel!
-    @IBOutlet weak var activityMonitorOutlet: UIActivityIndicatorView!
-    @IBOutlet weak var chartContainer: UIView!
-    @IBOutlet weak var statisticsContainer: UIView!
 
     @IBOutlet weak var sensorCountdownOutlet: UIImageView!
         
@@ -161,22 +158,28 @@ final class RootViewController: UIViewController {
                     // don't show anything in diff outlet
                     self.diffLabelOutlet.text = ""
                     
+                    let readingValue: Double
+                    if UserDefaults.standard.bloodGlucoseUnitIsMgDl {
+                        readingValue = lastChartPointEarlierThanEndDate.y.scalar
+                        
+                    } else {
+                        readingValue = lastChartPointEarlierThanEndDate.y.scalar.mmolToMgdl()
+                    }
+                    self.glucoseIndicator.reading = (valueInMgDl: readingValue,
+                                                     showAsMgDl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
+
                 } else {
+                    self.glucoseIndicator.reading = nil
                     
                     // this would only be the case if there's no readings withing the shown timeframe
                     self.updateLabelsAndChart(overrideApplicationState: false)
-                    
                 }
                 
             } else {
-                
                 // chart is not panned, update labels is necessary
                 self.updateLabelsAndChart(overrideApplicationState: false)
-                
             }
-            
         })
-        
     }
     
     @IBOutlet var chartPanGestureRecognizerOutlet: UIPanGestureRecognizer!
@@ -331,12 +334,6 @@ final class RootViewController: UIViewController {
         
         // viewWillAppear when user switches eg from Settings Tab to Home Tab - latest reading value needs to be shown on the view, and also update minutes ago etc.
         updateLabelsAndChart(overrideApplicationState: true)
-        
-        if inRangeStatisticLabelOutlet.text == "-" {
-            activityMonitorOutlet.isHidden = true
-        } else {
-            activityMonitorOutlet.isHidden = false
-        }
         
         // display the sensor countdown graphics if applicable
         updateSensorCountdown()
@@ -1104,16 +1101,11 @@ final class RootViewController: UIViewController {
         
         chartLongPressGestureRecognizerOutlet.delegate = self
         chartPanGestureRecognizerOutlet.delegate = self
-        
-        chartContainer.layer.cornerRadius = 10
-        chartContainer.layer.masksToBounds = true
-        
-        statisticsContainer.layer.cornerRadius = 10
-        statisticsContainer.layer.masksToBounds = true
                 
         // at this moment, coreDataManager is not yet initialized, we're just calling here prerender and reloadChart to show the chart with x and y axis and gridlines, but without readings. The readings will be loaded once coreDataManager is setup, after which updateChart() will be called, which will initiate loading of readings from coredata
         self.chartOutlet.reloadChart()
         
+        valueLabelOutlet.isHidden = true
     }
     
     // MARK: - private helper functions
@@ -1485,7 +1477,8 @@ final class RootViewController: UIViewController {
             }
             
             // Configure notificationContent title, which is bg value in correct unit, add also slopeArrow if !hideSlope and finally the difference with previous reading, if there is one
-            var calculatedValueAsString = lastReading[0].unitizedString(unitIsMgDl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
+            var calculatedValueAsString = BgReading.unitizedString(calculatedValue: lastReading[0].calculatedValue,
+                                                                   unitIsMgDl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
             if !lastReading[0].hideSlope {
                 calculatedValueAsString = calculatedValueAsString + " " + lastReading[0].slopeArrow()
             }
@@ -1569,6 +1562,8 @@ final class RootViewController: UIViewController {
             
             valueLabelOutlet.attributedText = attributeString
             
+            glucoseIndicator.reading = nil
+            
             return
         }
         
@@ -1578,8 +1573,11 @@ final class RootViewController: UIViewController {
         // assign last but one reading
         let lastButOneReading = latestReadings.count > 1 ? latestReadings[1]:nil
         
+        let isMgDl = UserDefaults.standard.bloodGlucoseUnitIsMgDl
+
         // start creating text for valueLabelOutlet, first the calculated value
-        var calculatedValueAsString = lastReading.unitizedString(unitIsMgDl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
+        var calculatedValueAsString = BgReading.unitizedString(calculatedValue: lastReading.calculatedValue,
+                                                               unitIsMgDl: isMgDl)
         
         // if latestReading is older than 11 minutes, then it should be strikethrough
         if lastReading.timeStamp < Date(timeIntervalSinceNow: -60.0 * 11) {
@@ -1603,18 +1601,19 @@ final class RootViewController: UIViewController {
             
         }
         
-        // to make follow code a bit more readable
-        let mgdl = UserDefaults.standard.bloodGlucoseUnitIsMgDl
+        glucoseIndicator.reading = (valueInMgDl: lastReading.calculatedValue,
+                                    showAsMgDl: isMgDl)
         
+                
         // if data is stale (over 11 minutes old), show it as gray colour to indicate that it isn't current
         // if not, then set color, depending on value lower than low mark or higher than high mark
         // set both HIGH and LOW BG values to red as previous yellow for hig is now not so obvious due to in-range colour of green.
         if lastReading.timeStamp < Date(timeIntervalSinceNow: -60 * 11) {
             valueLabelOutlet.textColor = UIColor.lightGray
-        } else if lastReading.calculatedValue.bgValueRounded(mgdl: mgdl) >= UserDefaults.standard.urgentHighMarkValueInUserChosenUnit.mmolToMgdl(mgdl: mgdl).bgValueRounded(mgdl: mgdl) || lastReading.calculatedValue.bgValueRounded(mgdl: mgdl) <= UserDefaults.standard.urgentLowMarkValueInUserChosenUnit.mmolToMgdl(mgdl: mgdl).bgValueRounded(mgdl: mgdl) {
+        } else if lastReading.calculatedValue.bgValueRounded(mgdl: isMgDl) >= UserDefaults.standard.urgentHighMarkValueInUserChosenUnit.mmolToMgdl(mgdl: isMgDl).bgValueRounded(mgdl: isMgDl) || lastReading.calculatedValue.bgValueRounded(mgdl: isMgDl) <= UserDefaults.standard.urgentLowMarkValueInUserChosenUnit.mmolToMgdl(mgdl: isMgDl).bgValueRounded(mgdl: isMgDl) {
             // BG is higher than urgentHigh or lower than urgentLow objectives
             valueLabelOutlet.textColor = UIColor.red
-        } else if lastReading.calculatedValue.bgValueRounded(mgdl: mgdl) >= UserDefaults.standard.highMarkValueInUserChosenUnit.mmolToMgdl(mgdl: mgdl).bgValueRounded(mgdl: mgdl) || lastReading.calculatedValue.bgValueRounded(mgdl: mgdl) <= UserDefaults.standard.lowMarkValueInUserChosenUnit.mmolToMgdl(mgdl: mgdl).bgValueRounded(mgdl: mgdl) {
+        } else if lastReading.calculatedValue.bgValueRounded(mgdl: isMgDl) >= UserDefaults.standard.highMarkValueInUserChosenUnit.mmolToMgdl(mgdl: isMgDl).bgValueRounded(mgdl: isMgDl) || lastReading.calculatedValue.bgValueRounded(mgdl: isMgDl) <= UserDefaults.standard.lowMarkValueInUserChosenUnit.mmolToMgdl(mgdl: isMgDl).bgValueRounded(mgdl: isMgDl) {
             // BG is between urgentHigh/high and low/urgentLow objectives
             valueLabelOutlet.textColor = UIColor.yellow
         } else {
@@ -1862,17 +1861,9 @@ final class RootViewController: UIViewController {
             fromDate = Date(timeIntervalSinceNow: -3600.0 * 24.0 * Double(daysToUseStatistics))
         }
         
-        
-        // let's clean up statistics UI before calling the Statistics Manager
-        // we'll also show the activity monitor and change the statistics label colors to gray
-        if self.averageStatisticLabelOutlet.text == "-" {
-            self.activityMonitorOutlet.isHidden = true
-        } else {
-            self.activityMonitorOutlet.isHidden = false
-        }
-        
         self.pieChartOutlet.clear()
-        self.pieChartLabelOutlet.text = ""
+        self.pieChartOutlet.outerRadius = 40
+        self.pieChartOutlet.innerRadius = 15
         
         self.lowStatisticLabelOutlet.textColor = UIColor.lightGray
         self.lowStatisticLabelOutlet.text = "-"
@@ -1952,53 +1943,23 @@ final class RootViewController: UIViewController {
                 self.pieChartOutlet.animDuration = 0
             }
             
-            // we want to calculate how many hours have passed since midnight so that we can decide if we should show the easter egg. The user will almost always be in range at 01hrs in the morning so we don't want to show it until mid-morning or midday so that there is some sense of achievement
-            let currentHoursSinceMidnight = Calendar.current.dateComponents([.hour], from: Calendar(identifier: .gregorian).startOfDay(for: Date()), to: Date()).hour!
-            
-            
-            self.activityMonitorOutlet.isHidden = true
-            
             // if the user is 100% in range, show the easter egg and make them smile
             if statistics.inRangeStatisticValue < 100 {
                 
                 // set the reference angle of the pie chart to ensure that the in range slice is centered
                 self.pieChartOutlet.referenceAngle = 90.0 - (1.8 * CGFloat(statistics.inRangeStatisticValue))
                 
-                self.pieChartOutlet.innerRadius = 10
                 self.pieChartOutlet.models = [
                     PieSliceModel(value: Double(statistics.inRangeStatisticValue), color: ConstantsStatistics.pieChartInRangeSliceColor),
                     PieSliceModel(value: Double(statistics.lowStatisticValue), color: ConstantsStatistics.pieChartLowSliceColor),
                     PieSliceModel(value: Double(statistics.highStatisticValue), color: ConstantsStatistics.pieChartHighSliceColor)
                 ]
-                
-                self.pieChartLabelOutlet.text = ""
-                
-            } else if ConstantsStatistics.showInRangeEasterEgg && ((Double(currentHoursSinceMidnight) >= ConstantsStatistics.minimumHoursInDayBeforeShowingEasterEgg) || (UserDefaults.standard.daysToUseStatistics > 0)) {
-                
-                // if we want to show easter eggs check if one of the following two conditions is true:
-                //      - at least 16 hours (for example) have passed since midnight if the user is showing only Today and is still 100% in range
-                //      - if the user is showing >= 1 full days and they are still 100% in range
-                // the idea is to avoid that the easter egg appears after just a few minutes of being in range (at 00:15hrs for example) as this has no merit.
-                
-                // open up the inside of the chart so that we can fit the smiley face in
-                self.pieChartOutlet.innerRadius = 16
-                self.pieChartOutlet.models = [
-                    PieSliceModel(value: 1, color: ConstantsStatistics.pieChartInRangeSliceColor)
-                ]
-                
-                self.pieChartLabelOutlet.font = UIFont.boldSystemFont(ofSize: 26)
-                self.pieChartLabelOutlet.text = "😎"
-                
+                            
             } else {
-                
-                // the easter egg isn't wanted so just show a green circle at 100%
-                self.pieChartOutlet.innerRadius = 10
+                // show a green circle at 100%
                 self.pieChartOutlet.models = [
                     PieSliceModel(value: 1, color: ConstantsStatistics.pieChartInRangeSliceColor)
                 ]
-                
-                self.pieChartLabelOutlet.text = ""
-                
             }
             
         })

@@ -18,22 +18,3 @@ class MainTabBarController: UITabBarController {
         tabBar.barTintColor = ConstantsUI.tabBarBackgroundColor
     }
 }
-
-class OnlyImageTabBar: UITabBar {
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        // remove text titles
-        subviews.forEach { subview in
-            if subview is UIControl {
-                subview.subviews.forEach {
-                    if $0 is UILabel {
-                        $0.isHidden = true
-                        subview.frame.origin.y = $0.frame.height / 2.0
-                    }
-                }
-            }
-        }
-    }
-}
