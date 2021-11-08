@@ -131,7 +131,9 @@ extension AlertSettingsViewControllerData {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsTableViewCell.reuseIdentifier, for: indexPath) as? SettingsTableViewCell else { fatalError("AlertSettingsViewControllerData cellforrowat, Unexpected Table View Cell ") }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "tableCell") ?? UITableViewCell(style: .value1, reuseIdentifier: "tableCell")
+        cell.textLabel?.textColor = ConstantsUI.tableTitleColor
+        cell.detailTextLabel?.textColor = ConstantsUI.tableDetailTextColor
         
         guard let setting = Setting(rawValue: indexPath.row) else { fatalError("AlertSettingsViewControllerData cellForRowAt, Unexpected setting") }
         

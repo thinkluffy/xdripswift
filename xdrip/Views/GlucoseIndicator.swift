@@ -33,12 +33,14 @@ class GlucoseIndicator: UIView {
                     innerCircleBgLayer.fillColor = ConstantsGlucoseChart.glucoseInRangeColor.cgColor
                 }
                 slopPointerInnerLayer.backgroundColor = innerCircleBgLayer.fillColor
-                
+                slopPointerLayer.isHidden = false
+
             } else {
                 valueLabel.text = "---"
                 unitLabel.text = "---"
                 innerCircleBgLayer.fillColor = GlucoseIndicator.InnerCircleBgNoValueColor.cgColor
                 slopPointerInnerLayer.backgroundColor = innerCircleBgLayer.fillColor
+                slopPointerLayer.isHidden = true
             }
         }
     }
@@ -104,6 +106,7 @@ class GlucoseIndicator: UIView {
         
         slopPointerLayer.anchorPoint = .zero
         slopPointerLayer.transform = CATransform3DMakeRotation(-45 / 180.0 * .pi, 0, 0, 1)
+        slopPointerLayer.isHidden = true
         
         var circlePathArea = CGRect(origin: .zero, size: CGSize(width: outerCircleRadius * 2, height: outerCircleRadius * 2))
         outerCircleBgLayer.path = UIBezierPath(ovalIn: circlePathArea).cgPath

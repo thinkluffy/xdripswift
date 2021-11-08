@@ -16,10 +16,12 @@ enum ConstantsUI {
     static let glucoseHighColor = ConstantsUI.accentRed
 
     /// color for section titles in grouped table views, example in settings view
-    static let tableViewHeaderTextColor = UIColor.lightGray
-    
+    static let tableViewHeaderTextColor = UIColor.lightText
+    static let tableTitleColor = UIColor.white
+    static let tableDetailTextColor = UIColor.lightText
+
     /// color to use as background when a row is selected
-    static let tableRowSelectedBackGroundColor = UIColor.darkGray
+    static let tableRowSelectedBackgroundColor = UIColor.hex(0xff1A1F3D)
     
     /// color to use for disclosure indicator in settings views
     static let disclosureIndicatorColor = UIColor.gray

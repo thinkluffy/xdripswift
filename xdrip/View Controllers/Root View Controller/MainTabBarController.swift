@@ -16,5 +16,14 @@ class MainTabBarController: UITabBarController {
         tabBar.tintColor = .white
         // workaround to avoid color change when scroll vertically
         tabBar.barTintColor = ConstantsUI.tabBarBackgroundColor
+        
+        setupAppearence()
+    }
+    
+    private func setupAppearence() {
+        let backgroundColorView = UIView()
+        backgroundColorView.backgroundColor = ConstantsUI.tableRowSelectedBackgroundColor
+        UITableViewCell.appearance().selectedBackgroundView = backgroundColorView
+        UITableViewCell.appearance().backgroundColor = ConstantsUI.contentBackgroundColor
     }
 }

@@ -91,6 +91,7 @@ public struct TableConfigure {
     public fileprivate (set) var cellBackgroundColor: UIColor?
 
     public fileprivate (set) var titleTextColor: UIColor?
+    public fileprivate (set) var detailTextColor: UIColor?
 
     public fileprivate (set) var toggleButtonThumbColorOn: UIColor?
     public fileprivate (set) var toggleButtonThumbColorOff: UIColor?
@@ -231,7 +232,7 @@ extension TableData: UITableViewDelegate, UITableViewDataSource {
         let cell = sections[indexPath.section].cells[indexPath.row]
         if cell.cellType == .operation {
             let operation = cell as! TableCellOperation
-            let row = tableView.dequeueReusableCell(withIdentifier: TableCell.CELL_ID_OPERATION)  as? TableViewCellOperation ??
+            let row = tableView.dequeueReusableCell(withIdentifier: TableCell.CELL_ID_OPERATION) as? TableViewCellOperation ??
                 TableViewCellOperation(style: .value1, reuseIdentifier: TableCell.CELL_ID_OPERATION)
             
             applyCommon(cellView: row, cellData: cell, indexPath: indexPath)
@@ -296,6 +297,10 @@ extension TableData: UITableViewDelegate, UITableViewDataSource {
             cellView.textLabel?.textColor = titleTextColor
         }
         
+        if let detailTextColor = configure.detailTextColor {
+            cellView.detailTextLabel?.textColor = detailTextColor
+        }
+        
         if let sectionVerticalMargin = configure.sectionVerticalMargin {
             if indexPath.row == 0 {
                 cellView.marginTop = sectionVerticalMargin / 2
@@ -338,6 +343,7 @@ public class TableDataBuilder {
     
     public func configure(cellBackgroundColor: UIColor? = nil,
                           titleTextColor: UIColor? = nil,
+                          detailTextColor: UIColor? = nil,
                           toggleButtonThumbColorOn: UIColor? = nil,
                           toggleButtonThumbColorOff: UIColor? = nil,
                           toggleButtonBgColorOn: UIColor?,
@@ -346,7 +352,8 @@ public class TableDataBuilder {
         data.configure.cellBackgroundColor = cellBackgroundColor
         
         data.configure.titleTextColor = titleTextColor
-        
+        data.configure.detailTextColor = detailTextColor
+
         data.configure.toggleButtonThumbColorOn = toggleButtonThumbColorOn
         data.configure.toggleButtonThumbColorOff = toggleButtonThumbColorOff
         data.configure.toggleButtonBgColorOn = toggleButtonBgColorOn

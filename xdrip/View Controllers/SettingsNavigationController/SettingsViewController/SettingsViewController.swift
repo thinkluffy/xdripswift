@@ -259,12 +259,14 @@ extension SettingsViewController:UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        guard var cell = tableView.dequeueReusableCell(withIdentifier: SettingsTableViewCell.reuseIdentifier, for: indexPath) as? SettingsTableViewCell else { fatalError("Unexpected Table View Cell") }
+        var cell = tableView.dequeueReusableCell(withIdentifier: "tableCell") ?? UITableViewCell(style: .value1, reuseIdentifier: "tableCell")
         
         // Configure Cell
-
-        SettingsViewUtilities.configureSettingsCell(cell: &cell, forRowWithIndex: indexPath.row, forSectionWithIndex: indexPath.section, withViewModel: viewModels[indexPath.section], tableView: tableView)
+        SettingsViewUtilities.configureSettingsCell(cell: &cell,
+                                                    forRowWithIndex: indexPath.row,
+                                                    forSectionWithIndex: indexPath.section,
+                                                    withViewModel: viewModels[indexPath.section],
+                                                    tableView: tableView)
         
         return cell
     }

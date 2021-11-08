@@ -329,7 +329,6 @@ final class RootViewController: UIViewController {
     
     
     override func viewWillAppear(_ animated: Bool) {
-        
         super.viewWillAppear(animated)
         
         // viewWillAppear when user switches eg from Settings Tab to Home Tab - latest reading value needs to be shown on the view, and also update minutes ago etc.
@@ -340,7 +339,6 @@ final class RootViewController: UIViewController {
         
         // update statistics related outlets
         updateStatistics(animatePieChart: true, overrideApplicationState: true)
-        
     }
     
     override func viewDidLoad() {

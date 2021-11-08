@@ -115,8 +115,8 @@ extension M5StackSettingsViewController: UITableViewDataSource {
         
         guard let section = Section(rawValue: indexPath.section) else { fatalError("Unexpected Section") }
         
-        guard var cell = tableView.dequeueReusableCell(withIdentifier: SettingsTableViewCell.reuseIdentifier, for: indexPath) as? SettingsTableViewCell else { fatalError("Unexpected Table View Cell") }
-        
+        var cell = tableView.dequeueReusableCell(withIdentifier: "tableCell") ?? UITableViewCell(style: .value1, reuseIdentifier: "tableCell")
+
         let viewModel = section.viewModel(coreDataManager: nil)
         
         // Configure Cell

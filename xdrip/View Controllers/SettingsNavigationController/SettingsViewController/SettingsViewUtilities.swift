@@ -9,15 +9,17 @@ class SettingsViewUtilities {
     }
     
     /// for cell at cellIndex and SectionIndex, configures the cell according to viewModel. tableView is needed because if UISwitch is in the list of settings, then a reload must be done whenever the switch changes value
-    static func configureSettingsCell(cell: inout SettingsTableViewCell, forRowWithIndex rowIndex: Int, forSectionWithIndex sectionIndex: Int, withViewModel viewModel: SettingsViewModelProtocol, tableView: UITableView) {
-        
+    static func configureSettingsCell(cell: inout UITableViewCell, forRowWithIndex rowIndex: Int, forSectionWithIndex sectionIndex: Int, withViewModel viewModel: SettingsViewModelProtocol, tableView: UITableView) {
+
         // first the two textfields
         cell.textLabel?.text = viewModel.settingsRowText(index: rowIndex)
         cell.detailTextLabel?.text = viewModel.detailedText(index: rowIndex)
 
         // if not enabled, then no need to adding anything else
         if viewModel.isEnabled(index: rowIndex) {
-
+            cell.textLabel?.textColor = ConstantsUI.tableTitleColor
+            cell.detailTextLabel?.textColor = ConstantsUI.tableDetailTextColor
+            
             // get accessoryView
             cell.accessoryView = viewModel.uiView(index: rowIndex)
 

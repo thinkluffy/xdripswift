@@ -383,7 +383,6 @@
 		F8B3A81F227DEC92004BA588 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F8B3A819227DEC92004BA588 /* README.md */; };
 		F8B3A820227DEC92004BA588 /* AlertTypesAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A81A227DEC92004BA588 /* AlertTypesAccessor.swift */; };
 		F8B3A82D227F07D6004BA588 /* SettingsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A82C227F07D6004BA588 /* SettingsNavigationController.swift */; };
-		F8B3A830227F085A004BA588 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A82F227F085A004BA588 /* SettingsTableViewCell.swift */; };
 		F8B3A834227F08AC004BA588 /* PickerViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A832227F08AC004BA588 /* PickerViewData.swift */; };
 		F8B3A835227F08AC004BA588 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A833227F08AC004BA588 /* PickerViewController.swift */; };
 		F8B3A844227F090E004BA588 /* SettingsViewAlertSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A838227F090D004BA588 /* SettingsViewAlertSettingsViewModel.swift */; };
@@ -1213,7 +1212,6 @@
 		F8B3A819227DEC92004BA588 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F8B3A81A227DEC92004BA588 /* AlertTypesAccessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertTypesAccessor.swift; sourceTree = "<group>"; };
 		F8B3A82C227F07D6004BA588 /* SettingsNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsNavigationController.swift; sourceTree = "<group>"; };
-		F8B3A82F227F085A004BA588 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		F8B3A832227F08AC004BA588 /* PickerViewData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewData.swift; sourceTree = "<group>"; };
 		F8B3A833227F08AC004BA588 /* PickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
 		F8B3A838227F090D004BA588 /* SettingsViewAlertSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewAlertSettingsViewModel.swift; sourceTree = "<group>"; };
@@ -2262,7 +2260,6 @@
 			children = (
 				F821CF8C22AB08F6005C1E43 /* Date Picker View Controller */,
 				F8B3A831227F08AC004BA588 /* Picker View Controller */,
-				F8B3A82E227F085A004BA588 /* SettingsTableViewCell */,
 				F8B3A7F22278E0E7004BA588 /* SettingsViewModelProtocol.swift */,
 				F8B3A807227A2933004BA588 /* SettingsSelectedRowAction.swift */,
 			);
@@ -2291,14 +2288,6 @@
 				F8B3A836227F090D004BA588 /* SettingsViewController */,
 			);
 			path = SettingsNavigationController;
-			sourceTree = "<group>";
-		};
-		F8B3A82E227F085A004BA588 /* SettingsTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				F8B3A82F227F085A004BA588 /* SettingsTableViewCell.swift */,
-			);
-			path = SettingsTableViewCell;
 			sourceTree = "<group>";
 		};
 		F8B3A831227F08AC004BA588 /* Picker View Controller */ = {
@@ -3323,7 +3312,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/R.generated.swift",
+				$SRCROOT/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3520,7 +3509,6 @@
 				F8C97850242A9FD500A09483 /* MiaoMiaoBluetoothPeripheralViewModel.swift in Sources */,
 				F8A2BC3325DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMDexcomG4TransmitterDelegate.swift in Sources */,
 				F816E10E2437EAC9009EE65B /* BlueReader+CoreDataProperties.swift in Sources */,
-				F8B3A830227F085A004BA588 /* SettingsTableViewCell.swift in Sources */,
 				F82436FC24BE014000BED341 /* TextsLibreStates.swift in Sources */,
 				F8F7B8EB259A7B1C00C47B04 /* SavitzkyGolaySmoothableArray.swift in Sources */,
 				F830991C23C2909E005741DF /* Watlaa+CoreDataClass.swift in Sources */,

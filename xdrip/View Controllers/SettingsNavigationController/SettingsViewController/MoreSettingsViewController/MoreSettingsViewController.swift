@@ -30,14 +30,10 @@ class MoreSettingsViewController: UIViewController {
     }
     
     private func buildData() {
-//        var sectionVerticalMargin: CGFloat? = nil
-//        if #available(iOS 13, *) {
-//            sectionVerticalMargin = 10
-//        }
-        
         let tableDataBuilder = TableDataBuilder()
-            .configure(cellBackgroundColor: ConstantsUI.contentBackgroundColor,
-                       titleTextColor: .white,
+            .configure(cellBackgroundColor: nil,
+                       titleTextColor: ConstantsUI.tableTitleColor,
+                       detailTextColor: ConstantsUI.tableDetailTextColor,
                        toggleButtonThumbColorOn: nil,
                        toggleButtonBgColorOn: nil,
                        sectionVerticalMargin: nil,
