@@ -144,9 +144,8 @@ final class RootViewController: UIViewController {
                     // set value to value of latest chartPoint
                     self.valueLabelOutlet.text = lastChartPointEarlierThanEndDate.y.scalar.bgValuetoString(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
                     
-                    // set timestamp to timestamp of latest chartPoint, in red so user can notice this is an old value
+                    // set timestamp to timestamp of latest chartPoint
                     self.minutesLabelOutlet.text =  self.dateTimeFormatterForMinutesLabelWhenPanning.string(from: chartAxisValueDate.date)
-                    self.minutesLabelOutlet.textColor = UIColor.red
                     self.valueLabelOutlet.textColor = UIColor.lightGray
                     
                     // apply strikethrough to the BG value text format
@@ -170,6 +169,7 @@ final class RootViewController: UIViewController {
 
                 } else {
                     self.glucoseIndicator.reading = nil
+                    self.minutesLabelOutlet.text = nil
                     
                     // this would only be the case if there's no readings withing the shown timeframe
                     self.updateLabelsAndChart(overrideApplicationState: false)
@@ -1561,6 +1561,7 @@ final class RootViewController: UIViewController {
             valueLabelOutlet.attributedText = attributeString
             
             glucoseIndicator.reading = nil
+            minutesLabelOutlet.text = nil
             
             return
         }
