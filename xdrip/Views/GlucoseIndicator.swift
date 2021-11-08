@@ -32,19 +32,23 @@ class GlucoseIndicator: UIView {
                     // BG is between high and low objectives so considered "in range"
                     innerCircleBgLayer.fillColor = ConstantsGlucoseChart.glucoseInRangeColor.cgColor
                 }
+                slopPointerInnerLayer.backgroundColor = innerCircleBgLayer.fillColor
                 
             } else {
                 valueLabel.text = "---"
                 unitLabel.text = "---"
                 innerCircleBgLayer.fillColor = GlucoseIndicator.InnerCircleBgNoValueColor.cgColor
+                slopPointerInnerLayer.backgroundColor = innerCircleBgLayer.fillColor
             }
         }
     }
     
     private static let InnerCircleBgNoValueColor = UIColor.lightGray
     
+    private let slopPointerLayer = CAShapeLayer()
+    private let slopPointerInnerLayer = CAShapeLayer()
+    private let outerCircleBgLayer = CAShapeLayer()
     private let innerCircleBgLayer = CAShapeLayer()
-    private let outerRingLayer = CAShapeLayer()
 
     private let valueLabel: UILabel = {
         let label = UILabel()
@@ -80,21 +84,42 @@ class GlucoseIndicator: UIView {
     private func initialize() {
         let boundsCenter = CGPoint(x: bounds.midX, y: bounds.midY)
         
-        let circlePathArea = CGRect(center: boundsCenter, radius: 60)
+        let outerCircleRadius: CGFloat = 70
+
+        slopPointerLayer.path = UIBezierPath(roundedRect: CGRect(origin: .zero,
+                                                                 size: CGSize(width: outerCircleRadius,
+                                                                              height: outerCircleRadius)),
+                                             cornerRadius: 5).cgPath
+        slopPointerLayer.fillColor = ConstantsUI.contentBackgroundColor.cgColor
+        slopPointerLayer.frame = CGRect(origin: boundsCenter, size: CGSize(width: outerCircleRadius, height: outerCircleRadius))
+        
+        slopPointerInnerLayer.backgroundColor = GlucoseIndicator.InnerCircleBgNoValueColor.cgColor
+        slopPointerInnerLayer.cornerRadius = 5
+        let slopPointerLineWidth: CGFloat = 8
+        slopPointerInnerLayer.frame = CGRect(origin: CGPoint(x: slopPointerLineWidth, y: slopPointerLineWidth),
+                                             size: CGSize(width: outerCircleRadius - slopPointerLineWidth * 2,
+                                                          height: outerCircleRadius - slopPointerLineWidth * 2))
+        slopPointerLayer.addSublayer(slopPointerInnerLayer)
+        layer.addSublayer(slopPointerLayer)
+        
+        slopPointerLayer.anchorPoint = .zero
+        slopPointerLayer.transform = CATransform3DMakeRotation(-45 / 180.0 * .pi, 0, 0, 1)
+        
+        var circlePathArea = CGRect(origin: .zero, size: CGSize(width: outerCircleRadius * 2, height: outerCircleRadius * 2))
+        outerCircleBgLayer.path = UIBezierPath(ovalIn: circlePathArea).cgPath
+        outerCircleBgLayer.fillColor = ConstantsUI.contentBackgroundColor.cgColor
+        outerCircleBgLayer.frame = CGRect(center: boundsCenter, radius: outerCircleRadius)
+        layer.addSublayer(outerCircleBgLayer)
+        
+        let innerCircleRadius: CGFloat = 60
+        circlePathArea = CGRect(origin: .zero, size: CGSize(width: innerCircleRadius * 2, height: innerCircleRadius * 2))
         innerCircleBgLayer.path = UIBezierPath(ovalIn: circlePathArea).cgPath
         innerCircleBgLayer.fillColor = GlucoseIndicator.InnerCircleBgNoValueColor.cgColor
+        innerCircleBgLayer.strokeColor = ConstantsUI.mainBackgroundColor.cgColor
+        innerCircleBgLayer.lineWidth = 3
+        innerCircleBgLayer.frame = CGRect(center: boundsCenter, radius: innerCircleRadius)
         layer.addSublayer(innerCircleBgLayer)
 
-        outerRingLayer.path = UIBezierPath(arcCenter: boundsCenter,
-                                           radius: 68,
-                                           startAngle: -CGFloat.pi * 0.5,
-                                           endAngle: CGFloat.pi * 1.5,
-                                           clockwise: true).cgPath
-        outerRingLayer.strokeColor = ConstantsUI.contentBackgroundColor.cgColor
-        outerRingLayer.lineWidth = 10
-        outerRingLayer.fillColor = UIColor.clear.cgColor
-        layer.addSublayer(outerRingLayer)
-        
         addSubview(valueLabel)
         addSubview(unitLabel)
         
@@ -111,15 +136,13 @@ class GlucoseIndicator: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         let boundsCenter = CGPoint(x: bounds.midX, y: bounds.midY)
         
-        let circlePathArea = CGRect(center: boundsCenter, radius: 60)
-        innerCircleBgLayer.path = UIBezierPath(ovalIn: circlePathArea).cgPath
-        
-        outerRingLayer.path = UIBezierPath(arcCenter: boundsCenter,
-                                           radius: 68,
-                                           startAngle: -CGFloat.pi * 0.5,
-                                           endAngle: CGFloat.pi * 1.5,
-                                           clockwise: true).cgPath
+        slopPointerLayer.frame.origin = boundsCenter
+        outerCircleBgLayer.frame.origin = CGPoint(x: boundsCenter.x - outerCircleBgLayer.bounds.size.width / 2,
+                                                  y: boundsCenter.y - outerCircleBgLayer.bounds.size.height / 2)
+        innerCircleBgLayer.frame.origin = CGPoint(x: boundsCenter.x - innerCircleBgLayer.bounds.size.width / 2,
+                                                  y: boundsCenter.y - innerCircleBgLayer.bounds.size.height / 2)
     }
 }
