@@ -346,13 +346,9 @@ public final class GlucoseChartManager {
     }
     
     private func handleUiLongPressGestureRecognizer(uiLongPressGestureRecognizer: UILongPressGestureRecognizer, chartOutlet: BloodGlucoseChartView) {
-        
         if uiLongPressGestureRecognizer.state == .began {
-            
             stopDeceleration()
-            
         }
-        
     }
     
     private func handleUiPanGestureRecognizer(uiPanGestureRecognizer: UIPanGestureRecognizer, chartOutlet: BloodGlucoseChartView, completionHandler: (() -> ())?) {

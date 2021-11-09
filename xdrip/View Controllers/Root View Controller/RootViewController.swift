@@ -189,7 +189,10 @@ final class RootViewController: UIViewController {
         // this one needs trigger in case user has panned, chart is decelerating, user clicks to stop the decleration, call to handleUIGestureRecognizer will stop the deceleration
         // there's no completionhandler needed because the call in chartPanGestureRecognizerAction to handleUIGestureRecognizer already includes a completionhandler
         glucoseChartManager?.handleUIGestureRecognizer(recognizer: sender, chartOutlet: chartOutlet, completionHandler: nil)
-        
+    }
+    
+    @IBAction func showChartDetailsButtonClicked(_ sender: UIButton) {
+        performSegue(withIdentifier: R.segue.rootViewController.chartDetails, sender: self)
     }
     
     @IBOutlet var chartLongPressGestureRecognizerOutlet: UILongPressGestureRecognizer!
@@ -541,23 +544,21 @@ final class RootViewController: UIViewController {
             fatalError("In RootViewController, prepare for segue, Segue had no identifier")
         }
         
-        guard let segueIdentifierAsCase = SnoozeViewController.SegueIdentifiers(rawValue: segueIdentifier) else {
-            fatalError("In RootViewController, segueIdentifierAsCase could not be initialized")
-        }
-        
-        switch segueIdentifierAsCase {
-        
-        case SnoozeViewController.SegueIdentifiers.RootViewToSnoozeView:
+        if let segueIdentifierAsCase = SnoozeViewController.SegueIdentifiers(rawValue: segueIdentifier) {
+            switch segueIdentifierAsCase {
             
-            guard let vc = segue.destination as? SnoozeViewController else {
+            case SnoozeViewController.SegueIdentifiers.RootViewToSnoozeView:
                 
-                fatalError("In RootViewController, prepare for segue, viewcontroller is not SnoozeViewController" )
+                guard let vc = segue.destination as? SnoozeViewController else {
+                    
+                    fatalError("In RootViewController, prepare for segue, viewcontroller is not SnoozeViewController" )
+                    
+                }
+                
+                // configure view controller
+                vc.configure(alertManager: alertManager)
                 
             }
-            
-            // configure view controller
-            vc.configure(alertManager: alertManager)
-            
         }
     }
     
@@ -1101,7 +1102,7 @@ final class RootViewController: UIViewController {
         chartPanGestureRecognizerOutlet.delegate = self
                 
         // at this moment, coreDataManager is not yet initialized, we're just calling here prerender and reloadChart to show the chart with x and y axis and gridlines, but without readings. The readings will be loaded once coreDataManager is setup, after which updateChart() will be called, which will initiate loading of readings from coredata
-        self.chartOutlet.reloadChart()
+        chartOutlet.reloadChart()
         
         valueLabelOutlet.isHidden = true
     }

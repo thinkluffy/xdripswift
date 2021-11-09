@@ -27,6 +27,7 @@
 		4E2C95A827375E110073D692 /* OnlyImageTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95A727375E110073D692 /* OnlyImageTabbar.swift */; };
 		4E2C95AA27375E570073D692 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95A927375E570073D692 /* Card.swift */; };
 		4E2C95AC27376D770073D692 /* GlucoseIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95AB27376D770073D692 /* GlucoseIndicator.swift */; };
+		4E9D7978273A983600B666C5 /* ChartDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D7977273A983600B666C5 /* ChartDetailsViewController.swift */; };
 		4EE66F052733D96800548A46 /* SettingsViewMoreSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F042733D96800548A46 /* SettingsViewMoreSettingsViewModel.swift */; };
 		4EE66F082733E01500548A46 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F072733E01500548A46 /* R.generated.swift */; };
 		4EE66F0B2733EB0D00548A46 /* MoreSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F0A2733EB0D00548A46 /* MoreSettingsViewController.swift */; };
@@ -648,6 +649,7 @@
 		4E2C95A727375E110073D692 /* OnlyImageTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlyImageTabbar.swift; sourceTree = "<group>"; };
 		4E2C95A927375E570073D692 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		4E2C95AB27376D770073D692 /* GlucoseIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseIndicator.swift; sourceTree = "<group>"; };
+		4E9D7977273A983600B666C5 /* ChartDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDetailsViewController.swift; sourceTree = "<group>"; };
 		4EE66F042733D96800548A46 /* SettingsViewMoreSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewMoreSettingsViewModel.swift; sourceTree = "<group>"; };
 		4EE66F072733E01500548A46 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		4EE66F0A2733EB0D00548A46 /* MoreSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreSettingsViewController.swift; sourceTree = "<group>"; };
@@ -1931,6 +1933,7 @@
 				F8B3A806227A28F9004BA588 /* Helpers */,
 				F8025E5921F7861200ECF0C0 /* Root View Controller */,
 				F8B3A823227E4B7D004BA588 /* SettingsNavigationController */,
+				4E9D7977273A983600B666C5 /* ChartDetailsViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -3374,6 +3377,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E9D7978273A983600B666C5 /* ChartDetailsViewController.swift in Sources */,
 				F8BDD450221CAA64006EAB84 /* TextsCommon.swift in Sources */,
 				F81D6D4E22BFC762005EFAE2 /* TextsDexcomShareTestResult.swift in Sources */,
 				F8A5EEC2257D18DC0085E660 /* LibreNFCDelegate.swift in Sources */,
