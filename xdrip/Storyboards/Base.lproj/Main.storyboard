@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -49,33 +49,6 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C16-NQ-F1Y" userLabel="Upper Area">
                                                 <rect key="frame" x="0.0" y="0.0" width="428" height="749"/>
                                                 <subviews>
-                                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tVG-ML-9xd">
-                                                        <rect key="frame" x="0.0" y="0.0" width="428" height="50"/>
-                                                        <color key="backgroundColor" red="0.1384946406" green="0.1503256261" blue="0.2745223343" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="50" id="0AI-PA-zd9"/>
-                                                        </constraints>
-                                                        <items>
-                                                            <barButtonItem title="Item" image="moon.zzz" catalog="system" id="f3E-Tt-LBV">
-                                                                <connections>
-                                                                    <action selector="preSnoozeToolbarButtonAction:" destination="9pv-A4-QxB" id="IDv-ho-TZ2"/>
-                                                                    <segue destination="NvR-Zh-2Zn" kind="show" identifier="RootViewToSnoozeView" id="VtQ-ZG-btn"/>
-                                                                </connections>
-                                                            </barButtonItem>
-                                                            <barButtonItem title="Item" image="link.circle" catalog="system" id="ZIM-Wf-bUy">
-                                                                <connections>
-                                                                    <action selector="sensorToolbarButtonAction:" destination="9pv-A4-QxB" id="2vd-6L-ifa"/>
-                                                                </connections>
-                                                            </barButtonItem>
-                                                            <barButtonItem title="Item" image="scope" catalog="system" id="u4d-bZ-Kw8">
-                                                                <connections>
-                                                                    <action selector="calibrateToolbarButtonAction:" destination="9pv-A4-QxB" id="qNA-1R-UK5"/>
-                                                                </connections>
-                                                            </barButtonItem>
-                                                        </items>
-                                                        <color key="tintColor" red="0.91764705882352937" green="0.1764705882352941" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <color key="barTintColor" red="0.1384946406" green="0.1503256261" blue="0.2745223343" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    </toolbar>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B9A-0Y-PhM" customClass="GlucoseIndicator" customModule="xdrip" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="428" height="447"/>
                                                     </view>
@@ -166,6 +139,35 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
+                                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tVG-ML-9xd">
+                                                        <rect key="frame" x="0.0" y="0.0" width="428" height="50"/>
+                                                        <color key="backgroundColor" red="0.1384946406" green="0.1503256261" blue="0.2745223343" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="0AI-PA-zd9"/>
+                                                        </constraints>
+                                                        <items>
+                                                            <barButtonItem title="Item" image="moon.zzz" catalog="system" id="f3E-Tt-LBV">
+                                                                <connections>
+                                                                    <action selector="preSnoozeToolbarButtonAction:" destination="9pv-A4-QxB" id="IDv-ho-TZ2"/>
+                                                                    <segue destination="NvR-Zh-2Zn" kind="popoverPresentation" identifier="RootViewToSnoozeView" popoverAnchorBarButtonItem="f3E-Tt-LBV" id="VtQ-ZG-btn">
+                                                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                                    </segue>
+                                                                </connections>
+                                                            </barButtonItem>
+                                                            <barButtonItem title="Item" image="link.circle" catalog="system" id="ZIM-Wf-bUy">
+                                                                <connections>
+                                                                    <action selector="sensorToolbarButtonAction:" destination="9pv-A4-QxB" id="2vd-6L-ifa"/>
+                                                                </connections>
+                                                            </barButtonItem>
+                                                            <barButtonItem title="Item" image="scope" catalog="system" id="u4d-bZ-Kw8">
+                                                                <connections>
+                                                                    <action selector="calibrateToolbarButtonAction:" destination="9pv-A4-QxB" id="qNA-1R-UK5"/>
+                                                                </connections>
+                                                            </barButtonItem>
+                                                        </items>
+                                                        <color key="tintColor" red="0.91764705882352937" green="0.1764705882352941" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <color key="barTintColor" red="0.1384946406" green="0.1503256261" blue="0.2745223343" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    </toolbar>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -535,11 +537,11 @@
             <objects>
                 <viewController id="NvR-Zh-2Zn" userLabel="Snooze View Controller" customClass="SnoozeViewController" customModule="xdrip" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LVP-4l-G8E">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="843"/>
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="872"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="g4X-8R-g01">
-                                <rect key="frame" x="0.0" y="114" width="428" height="680"/>
+                                <rect key="frame" x="0.0" y="70" width="428" height="753"/>
                                 <color key="backgroundColor" red="0.1333333333" green="0.1529411765" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsCell" textLabel="tIz-Hj-yxH" detailTextLabel="Tpl-mr-dqb" style="IBUITableViewCellStyleValue1" id="zQ9-Zy-4Lu">
@@ -570,7 +572,7 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Snooze Alarms" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LzM-bz-Cnv">
-                                <rect key="frame" x="15" y="59" width="217.33333333333334" height="40.666666666666657"/>
+                                <rect key="frame" x="15" y="15" width="217.33333333333334" height="40.666666666666657"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="34"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
