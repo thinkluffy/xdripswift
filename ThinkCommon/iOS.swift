@@ -94,15 +94,15 @@ public class iOS {
     
     public static var idfa: String? {
         // check if advertising tracking is enabled in user’s setting
-        if #available(iOS 14, *) {
-            if .authorized == ATTrackingManager.trackingAuthorizationStatus {
-                return ASIdentifierManager.shared().advertisingIdentifier.uuidString
-            }
-        }
-        else if ASIdentifierManager.shared().isAdvertisingTrackingEnabled {
-            return ASIdentifierManager.shared().advertisingIdentifier.uuidString
-        }
-        return nil
+		if #available(iOS 14, *) {
+			if .authorized == ATTrackingManager.trackingAuthorizationStatus {
+				return ASIdentifierManager.shared().advertisingIdentifier.uuidString
+			}
+		}
+		else if ASIdentifierManager.shared().isAdvertisingTrackingEnabled {
+			return ASIdentifierManager.shared().advertisingIdentifier.uuidString
+		}
+		return nil
     }
     
     public static var isPhone: Bool {

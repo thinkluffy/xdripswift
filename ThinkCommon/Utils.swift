@@ -6,12 +6,15 @@
 //  Copyright © 2020 thinkyeah. All rights reserved.
 //
 import UIKit
+import SwiftyJSON
 import CommonCrypto
 import AdSupport
 import StoreKit
 
 public class Utils {
-        
+    
+    private static let log = Log(type: Utils.self)
+    
     private init() {
         
     }
@@ -39,10 +42,34 @@ public class Utils {
             return true
             
         } catch {
+            Utils.log.e("Fail to parepare dir, \(error)")
             return false
         }
     }
     
+    
+    public static func jsonFromFile(_ fileUrl: URL) -> JSON? {
+        do {
+            let data = try Data(contentsOf: fileUrl)
+            return try JSON(data: data)
+            
+        } catch {
+            Utils.log.e("Fail to load data from json, \(fileUrl), error: \(error)")
+            return nil
+        }
+    }
+    
+    public static func jsonToFile(json: JSON, fileUrl: URL) -> Bool {
+        do {
+            let data = try json.rawData(options: [.prettyPrinted])
+            try data.write(to: fileUrl, options: [.atomicWrite])
+            
+        } catch {
+            Utils.log.e("Fail to write json to file, \(fileUrl), error: \(error)")
+            return false
+        }
+        return true
+    }
     
     public static func lastModifiedTimeOfFile(fileUrl: URL) -> Date? {
         do {
@@ -50,6 +77,7 @@ public class Utils {
             return attr[FileAttributeKey.modificationDate] as? Date
             
         } catch {
+            Utils.log.e("Fail to get modified time, path: \(fileUrl), error: \(error)")
             return nil
         }
     }
@@ -75,6 +103,7 @@ public class Utils {
             }
             
         } catch {
+            Utils.log.e("Fail to remove file, \(error)")
             ret = false
         }
         return ret
@@ -120,7 +149,9 @@ public class Utils {
 }
 
 extension UIColor {
-        
+    
+    private static let log = Log(type: UIColor.self)
+    
     public var rgba: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
         var red: CGFloat = 0
         var green: CGFloat = 0
@@ -170,6 +201,7 @@ extension UIColor {
         }
         
         guard str.count == 8 else {
+            log.e("Unexpected hex string: \(hexStr)")
             return nil
         }
         
@@ -194,10 +226,10 @@ extension Date {
     public static var dayInSeconds: Double {
         hourInSeconds * 24
     }
-    
-    public static var halfDayInSeconds: Double {
-        hourInSeconds * 12
-    }
+	
+	public static var halfDayInSeconds: Double {
+		hourInSeconds * 12
+	}
 }
 
 extension URL {

@@ -17,7 +17,7 @@ class MoreSettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         title = R.string.settingsViews.moreSettings()
 
         setupView()

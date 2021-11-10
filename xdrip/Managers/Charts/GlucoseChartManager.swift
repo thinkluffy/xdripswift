@@ -648,12 +648,14 @@ public final class GlucoseChartManager {
             urgentRangeGlucoseCircles
         ]
         
-        return Chart(
+        let chart = Chart(
             frame: frame,
             innerFrame: innerFrame,
             settings: data().chartSettings,
             layers: layers.compactMap { $0 }
         )
+        chart.delegate = self
+        return chart
     }
     
     private func generateXAxisValues() -> [ChartAxisValue] {
@@ -976,5 +978,22 @@ public final class GlucoseChartManager {
         }
 
     }
+    
+}
+ 
+extension GlucoseChartManager: ChartDelegate {
+    
+    public func onZoom(scaleX: CGFloat, scaleY: CGFloat, deltaX: CGFloat, deltaY: CGFloat, centerX: CGFloat, centerY: CGFloat, isGesture: Bool) {
+        
+    }
+    
+    public func onPan(transX: CGFloat, transY: CGFloat, deltaX: CGFloat, deltaY: CGFloat, isGesture: Bool, isDeceleration: Bool) {
+        
+    }
+    
+    public func onTap(_ models: [TappedChartPointLayerModels<ChartPoint>]) {
+        print("====> onTap, \(models.count)")
+    }
+    
     
 }

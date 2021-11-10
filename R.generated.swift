@@ -342,7 +342,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.file` struct is generated, and contains static references to 126 files.
+  /// This `R.file` struct is generated, and contains static references to 125 files.
   struct file {
     /// Resource file `1-millisecond-of-silence.mp3`.
     static let millisecondOfSilenceMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "1-millisecond-of-silence", pathExtension: "mp3")
@@ -400,8 +400,6 @@ struct R: Rswift.Validatable {
     static let computer_MagicCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Computer_Magic", pathExtension: "caf")
     /// Resource file `Cuckoo_Clock.caf`.
     static let cuckoo_ClockCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Cuckoo_Clock", pathExtension: "caf")
-    /// Resource file `Default-568h@2x.png`.
-    static let default568h2xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "Default-568h@2x", pathExtension: "png")
     /// Resource file `Dhol_Shuffleloop.caf`.
     static let dhol_ShuffleloopCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Dhol_Shuffleloop", pathExtension: "caf")
     /// Resource file `Discreet.caf`.
@@ -762,12 +760,6 @@ struct R: Rswift.Validatable {
     /// `bundle.url(forResource: "Cuckoo_Clock", withExtension: "caf")`
     static func cuckoo_ClockCaf(_: Void = ()) -> Foundation.URL? {
       let fileResource = R.file.cuckoo_ClockCaf
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Default-568h@2x", withExtension: "png")`
-    static func default568h2xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.default568h2xPng
       return fileResource.bundle.url(forResource: fileResource)
     }
 
@@ -1356,10 +1348,8 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 42 images.
+  /// This `R.image` struct is generated, and contains static references to 41 images.
   struct image {
-    /// Image `Default-568h`.
-    static let default568h = Rswift.ImageResource(bundle: R.hostingBundle, name: "Default-568h")
     /// Image `ic_search`.
     static let ic_search = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_search")
     /// Image `ic_tab_bloodsugar_h`.
@@ -1442,13 +1432,6 @@ struct R: Rswift.Validatable {
     static let sensor14_14_alt = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_14_alt")
     /// Image `sensor14_14`.
     static let sensor14_14 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_14")
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "Default-568h", bundle: ..., traitCollection: ...)`
-    static func default568h(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.default568h, compatibleWith: traitCollection)
-    }
-    #endif
 
     #if os(iOS) || os(tvOS)
     /// `UIImage(named: "ic_search", bundle: ..., traitCollection: ...)`
