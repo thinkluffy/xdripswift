@@ -1647,7 +1647,6 @@
 			children = (
 				F8AC425F21ADEBD60078C348 /* RootViewController.swift */,
 				F8E6C78B24CDDB83007C1199 /* SnoozeViewController.swift */,
-				4EE66F122735064E00548A46 /* MainTabBarController.swift */,
 			);
 			path = "Root View Controller";
 			sourceTree = "<group>";
@@ -2034,6 +2033,7 @@
 		F85DC2FA21D2CD3000B9F74A /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4EE66F122735064E00548A46 /* MainTabBarController.swift */,
 				F8297F47238DCAD800D74D66 /* BluetoothPeripheralsNavigationController */,
 				F8B3A806227A28F9004BA588 /* Helpers */,
 				F8025E5921F7861200ECF0C0 /* Root View Controller */,

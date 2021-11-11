@@ -109,6 +109,10 @@ public class BgReading: NSManagedObject {
         return ordinal
     }
     
+    static func isNormalValue(_ valueInMg: Double) -> Bool {
+        return valueInMg < 400 && valueInMg >= 40
+    }
+    
     /// creates string with bg value in correct unit or "HIGH" or "LOW", or other like ???
     static func unitizedString(calculatedValue: Double, unitIsMgDl:Bool) -> String {
         var returnValue:String

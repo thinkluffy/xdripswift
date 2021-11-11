@@ -14,8 +14,27 @@ class GlucoseIndicator: UIView {
     var reading: (valueInMgDl: Double, showAsMgDl: Bool)? {
         didSet {
             if let reading = reading {
-                valueLabel.text = BgReading.unitizedString(calculatedValue: reading.valueInMgDl,
-                                                           unitIsMgDl: reading.showAsMgDl)
+                if !BgReading.isNormalValue(reading.valueInMgDl) {
+                    valueLabelMgDl.text = BgReading.unitizedString(calculatedValue: reading.valueInMgDl,
+                                                                   unitIsMgDl: reading.showAsMgDl)
+                    valueLabelMgDl.isHidden = false
+                    valueLabelInMmol.isHidden = true
+                    
+                } else {
+                    if reading.showAsMgDl {
+                        valueLabelMgDl.text = BgReading.unitizedString(calculatedValue: reading.valueInMgDl,
+                                                                       unitIsMgDl: true)
+                        valueLabelMgDl.isHidden = false
+                        valueLabelInMmol.isHidden = true
+                        
+                    } else {
+                        let valueInMmol = reading.valueInMgDl.mgdlToMmol()
+                        valueLabelInMmol.bgValueInMmol = valueInMmol
+                        
+                        valueLabelMgDl.isHidden = true
+                        valueLabelInMmol.isHidden = false
+                    }
+                }
                 unitLabel.text = reading.showAsMgDl ? "mg/dL" : "mmol/L"
                 
                 if reading.valueInMgDl >= UserDefaults.standard.urgentHighMarkValue ||
@@ -36,7 +55,9 @@ class GlucoseIndicator: UIView {
                 slopPointerLayer.isHidden = false
 
             } else {
-                valueLabel.text = "---"
+                valueLabelMgDl.text = "---"
+                valueLabelMgDl.isHidden = false
+                valueLabelInMmol.isHidden = true
                 unitLabel.text = "---"
                 innerCircleBgLayer.fillColor = GlucoseIndicator.InnerCircleBgNoValueColor.cgColor
                 slopPointerInnerLayer.backgroundColor = innerCircleBgLayer.fillColor
@@ -52,13 +73,15 @@ class GlucoseIndicator: UIView {
     private let outerCircleBgLayer = CAShapeLayer()
     private let innerCircleBgLayer = CAShapeLayer()
 
-    private let valueLabel: UILabel = {
+    private let valueLabelMgDl: UILabel = {
         let label = UILabel()
         label.textColor = ConstantsUI.contentBackgroundColor
         label.font = .systemFont(ofSize: 45)
         label.text = "---"
         return label
     }()
+    
+    private let valueLabelInMmol = BgLabelInMmol()
     
     private let unitLabel: UILabel = {
         let label = UILabel()
@@ -122,15 +145,21 @@ class GlucoseIndicator: UIView {
         innerCircleBgLayer.lineWidth = 3
         innerCircleBgLayer.frame = CGRect(center: boundsCenter, radius: innerCircleRadius)
         layer.addSublayer(innerCircleBgLayer)
-
-        addSubview(valueLabel)
+        
+        addSubview(valueLabelMgDl)
+        addSubview(valueLabelInMmol)
         addSubview(unitLabel)
         
-        valueLabel.snp.makeConstraints { (make) in
+        valueLabelMgDl.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.snp.centerX)
             make.centerY.equalTo(self.snp.centerY).offset(-10)
         }
         
+        valueLabelInMmol.snp.makeConstraints { make in
+            make.centerX.equalTo(self.snp.centerX)
+            make.centerY.equalTo(self.snp.centerY).offset(-10)
+        }
+                
         unitLabel.snp.makeConstraints { (make) in
             make.centerX.equalTo(self.snp.centerX)
             make.centerY.equalTo(self.snp.centerY).offset(25)
@@ -147,5 +176,74 @@ class GlucoseIndicator: UIView {
                                                   y: boundsCenter.y - outerCircleBgLayer.bounds.size.height / 2)
         innerCircleBgLayer.frame.origin = CGPoint(x: boundsCenter.x - innerCircleBgLayer.bounds.size.width / 2,
                                                   y: boundsCenter.y - innerCircleBgLayer.bounds.size.height / 2)
+    }
+}
+
+class BgLabelInMmol: UIView {
+ 
+    private let valueLabelMmolInt: UILabel = {
+        let label = UILabel()
+        label.textColor = ConstantsUI.contentBackgroundColor
+        label.font = .boldSystemFont(ofSize: 50)
+        return label
+    }()
+    
+    private let valueLabelMmolFraction: UILabel = {
+        let label = UILabel()
+        label.textColor = ConstantsUI.contentBackgroundColor
+        label.font = .systemFont(ofSize: 30)
+        return label
+    }()
+    
+    var bgValueInMmol: Double? {
+        didSet {
+            if let bgValueInMmol = bgValueInMmol {
+                let intValue = Int(bgValueInMmol.rounded(.down))
+                let fractionValue = Int((bgValueInMmol * 10).rounded()) % 10
+                
+                valueLabelMmolInt.text = "\(intValue)."
+                valueLabelMmolFraction.text = "\(fractionValue)"
+                
+            } else {
+                valueLabelMmolInt.text = nil
+                valueLabelMmolFraction.text = nil
+            }
+            invalidateIntrinsicContentSize()
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        initialize()
+    }
+    
+    init() {
+        super.init(frame: .zero)
+        initialize()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        initialize()
+    }
+    
+    private func initialize() {
+        addSubview(valueLabelMmolInt)
+        addSubview(valueLabelMmolFraction)
+        
+        valueLabelMmolInt.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+        }
+        
+        valueLabelMmolFraction.snp.makeConstraints { make in
+            make.left.equalTo(valueLabelMmolInt.snp.right)
+            make.bottom.equalTo(valueLabelMmolInt).offset(-5)
+        }
+    }
+    
+    public override var intrinsicContentSize: CGSize {
+        let width = valueLabelMmolInt.intrinsicContentSize.width + valueLabelMmolFraction.intrinsicContentSize.width
+        let height = valueLabelMmolInt.intrinsicContentSize.height
+        return CGSize(width: width, height: height)
     }
 }
