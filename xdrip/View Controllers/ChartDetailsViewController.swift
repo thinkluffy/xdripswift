@@ -16,7 +16,19 @@ class ChartDetailsViewController: UIViewController {
     }
     
     @IBAction func exitButtonClicked(_ sender: UIButton) {
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: false)
     }
 
+    // make the ViewController landscape mode
+    override public var shouldAutorotate: Bool {
+        return false
+    }
+    
+    override public var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .landscapeLeft
+    }
+    
+    override public var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .landscapeLeft
+    }
 }

@@ -11,6 +11,8 @@ import PieCharts
 /// viewcontroller for the home screen
 final class RootViewController: UIViewController {
     
+    @IBOutlet weak var calendarTitle: CalendarTitle!
+
     // MARK: - Properties - Outlets and Actions for buttons and labels in home screen
     
     @IBOutlet weak var preSnoozeToolbarButtonOutlet: UIBarButtonItem!
@@ -126,7 +128,7 @@ final class RootViewController: UIViewController {
     @IBOutlet weak var timePeriodLabelOutlet: UILabel!
 
     @IBOutlet weak var sensorCountdownOutlet: UIImageView!
-        
+    
     @IBAction func chartPanGestureRecognizerAction(_ sender: UIPanGestureRecognizer) {
         
         guard let glucoseChartManager = glucoseChartManager else {return}
@@ -146,6 +148,8 @@ final class RootViewController: UIViewController {
                     
                     // set timestamp to timestamp of latest chartPoint
                     self.minutesLabelOutlet.text =  self.dateTimeFormatterForMinutesLabelWhenPanning.string(from: chartAxisValueDate.date)
+                    self.calendarTitle.bgTime = chartAxisValueDate.date
+                    
                     self.valueLabelOutlet.textColor = UIColor.lightGray
                     
                     // apply strikethrough to the BG value text format
@@ -169,7 +173,8 @@ final class RootViewController: UIViewController {
 
                 } else {
                     self.glucoseIndicator.reading = nil
-                    self.minutesLabelOutlet.text = nil
+                    self.minutesLabelOutlet.text = "--:--"
+                    self.calendarTitle.bgTime = nil
                     
                     // this would only be the case if there's no readings withing the shown timeframe
                     self.updateLabelsAndChart(overrideApplicationState: false)
@@ -993,12 +998,13 @@ final class RootViewController: UIViewController {
         switch keyPathEnumCharts {
         
         case UserDefaults.KeysCharts.chartWidthInHours:
-            
             // redraw chart is necessary
             if let glucoseChartManager = glucoseChartManager {
-                
-                glucoseChartManager.updateChartPoints(endDate: glucoseChartManager.endDate, startDate: glucoseChartManager.endDate.addingTimeInterval(.hours(-UserDefaults.standard.chartWidthInHours)), chartOutlet: chartOutlet, completionHandler: nil)
-
+                let startDate = glucoseChartManager.endDate.addingTimeInterval(.hours(-UserDefaults.standard.chartWidthInHours))
+                glucoseChartManager.updateChartPoints(endDate: glucoseChartManager.endDate,
+                                                      startDate: startDate,
+                                                      chartOutlet: chartOutlet,
+                                                      completionHandler: nil)
             }
             
         default:
@@ -1093,6 +1099,10 @@ final class RootViewController: UIViewController {
     
     /// Configure View, only stuff that is independent of coredata
     private func setupView() {
+        calendarTitle.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+        
         // set texts for buttons on top
         preSnoozeToolbarButtonOutlet.title = Texts_HomeView.snoozeButton
         sensorToolbarButtonOutlet.title = Texts_HomeView.sensor
@@ -1553,7 +1563,6 @@ final class RootViewController: UIViewController {
         guard latestReadings.count > 0 else {
             
             valueLabelOutlet.textColor = UIColor.darkGray
-            minutesLabelOutlet.text = ""
             diffLabelOutlet.text = ""
                 
             let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "---")
@@ -1562,7 +1571,8 @@ final class RootViewController: UIViewController {
             valueLabelOutlet.attributedText = attributeString
             
             glucoseIndicator.reading = nil
-            minutesLabelOutlet.text = nil
+            minutesLabelOutlet.text = "--:--"
+            calendarTitle.bgTime = nil
             
             return
         }
@@ -1626,6 +1636,7 @@ final class RootViewController: UIViewController {
         let minutesAgoText = minutesAgo.description + " " + (minutesAgo == 1 ? Texts_Common.minute:Texts_Common.minutes) + " " + Texts_HomeView.ago
         
         minutesLabelOutlet.text = minutesAgoText
+        calendarTitle.bgTime = lastReading.timeStamp
         
         // create delta text
         diffLabelOutlet.text = lastReading.unitizedDeltaString(previousBgReading: lastButOneReading, showUnit: true, highGranularity: true, mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)

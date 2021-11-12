@@ -16,15 +16,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home" translatesAutoresizingMaskIntoConstraints="NO" id="UDO-EB-2GL">
-                                <rect key="frame" x="143" y="389" width="128" height="128"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-launchScreen.png" translatesAutoresizingMaskIntoConstraints="NO" id="UDO-EB-2GL">
+                                <rect key="frame" x="147" y="257" width="120" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="0W3-Es-Wtk"/>
+                                    <constraint firstAttribute="width" constant="120" id="blA-q6-pw7"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.13333333333333333" green="0.15294117647058825" blue="0.28235294117647058" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="UDO-EB-2GL" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="2i4-Ql-pP4"/>
-                            <constraint firstItem="UDO-EB-2GL" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="I3m-8e-6eZ"/>
+                            <constraint firstItem="UDO-EB-2GL" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="0.7" id="I3m-8e-6eZ"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -34,6 +38,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="home" width="128" height="128"/>
+        <image name="logo-launchScreen.png" width="120" height="120"/>
     </resources>
 </document>

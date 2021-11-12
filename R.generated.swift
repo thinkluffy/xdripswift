@@ -342,7 +342,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.file` struct is generated, and contains static references to 125 files.
+  /// This `R.file` struct is generated, and contains static references to 126 files.
   struct file {
     /// Resource file `1-millisecond-of-silence.mp3`.
     static let millisecondOfSilenceMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "1-millisecond-of-silence", pathExtension: "mp3")
@@ -568,6 +568,8 @@ struct R: Rswift.Validatable {
     static let betterwakeupMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "betterwakeup", pathExtension: "mp3")
     /// Resource file `bruteforce.mp3`.
     static let bruteforceMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "bruteforce", pathExtension: "mp3")
+    /// Resource file `logo-launchScreen@3x.png`.
+    static let logoLaunchScreen3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "logo-launchScreen@3x", pathExtension: "png")
     /// Resource file `modern2.mp3`.
     static let modern2Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "modern2", pathExtension: "mp3")
     /// Resource file `modernalarm.mp3`.
@@ -1267,6 +1269,12 @@ struct R: Rswift.Validatable {
       return fileResource.bundle.url(forResource: fileResource)
     }
 
+    /// `bundle.url(forResource: "logo-launchScreen@3x", withExtension: "png")`
+    static func logoLaunchScreen3xPng(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.logoLaunchScreen3xPng
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
     /// `bundle.url(forResource: "modern2", withExtension: "mp3")`
     static func modern2Mp3(_: Void = ()) -> Foundation.URL? {
       let fileResource = R.file.modern2Mp3
@@ -1348,8 +1356,10 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 41 images.
+  /// This `R.image` struct is generated, and contains static references to 43 images.
   struct image {
+    /// Image `ic_clock`.
+    static let ic_clock = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_clock")
     /// Image `ic_search`.
     static let ic_search = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_search")
     /// Image `ic_tab_bloodsugar_h`.
@@ -1364,6 +1374,8 @@ struct R: Rswift.Validatable {
     static let ic_tab_settings_h = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_settings_h")
     /// Image `ic_tab_settings`.
     static let ic_tab_settings = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_settings")
+    /// Image `logo-launchScreen`.
+    static let logoLaunchScreen = Rswift.ImageResource(bundle: R.hostingBundle, name: "logo-launchScreen")
     /// Image `sensor14_00_alt`.
     static let sensor14_00_alt = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_00_alt")
     /// Image `sensor14_00`.
@@ -1434,6 +1446,13 @@ struct R: Rswift.Validatable {
     static let sensor14_14 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_14")
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_clock", bundle: ..., traitCollection: ...)`
+    static func ic_clock(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_clock, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "ic_search", bundle: ..., traitCollection: ...)`
     static func ic_search(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ic_search, compatibleWith: traitCollection)
@@ -1479,6 +1498,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ic_tab_settings_h", bundle: ..., traitCollection: ...)`
     static func ic_tab_settings_h(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ic_tab_settings_h, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "logo-launchScreen", bundle: ..., traitCollection: ...)`
+    static func logoLaunchScreen(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.logoLaunchScreen, compatibleWith: traitCollection)
     }
     #endif
 
@@ -8431,7 +8457,7 @@ struct _R: Rswift.Validatable {
       let name = "LaunchScreen"
 
       static func validate() throws {
-        if UIKit.UIImage(named: "home", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'home' is used in storyboard 'LaunchScreen', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "logo-launchScreen.png", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'logo-launchScreen.png' is used in storyboard 'LaunchScreen', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
       }
@@ -8458,6 +8484,7 @@ struct _R: Rswift.Validatable {
       }
 
       static func validate() throws {
+        if UIKit.UIImage(named: "ic_clock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_clock' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_search", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_search' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_bloodsugar", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_bloodsugar' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_bloodsugar_h", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_bloodsugar_h' is used in storyboard 'Main', but couldn't be loaded.") }

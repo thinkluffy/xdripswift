@@ -58,6 +58,8 @@
 		4E9D79CE273BF04400B666C5 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D79AF273BF04400B666C5 /* RoundedButton.swift */; };
 		4E9D79CF273BF04400B666C5 /* VerticalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D79B0273BF04400B666C5 /* VerticalButton.swift */; };
 		4E9D79D1273BF04400B666C5 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D79B2273BF04400B666C5 /* Toast.swift */; };
+		4E9D79D7273E683100B666C5 /* logo-launchScreen@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E9D79D6273E683100B666C5 /* logo-launchScreen@3x.png */; };
+		4E9D79D9273E695C00B666C5 /* CalendarTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D79D8273E695C00B666C5 /* CalendarTitle.swift */; };
 		4EE66F052733D96800548A46 /* SettingsViewMoreSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F042733D96800548A46 /* SettingsViewMoreSettingsViewModel.swift */; };
 		4EE66F082733E01500548A46 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F072733E01500548A46 /* R.generated.swift */; };
 		4EE66F0B2733EB0D00548A46 /* MoreSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F0A2733EB0D00548A46 /* MoreSettingsViewController.swift */; };
@@ -706,6 +708,8 @@
 		4E9D79AF273BF04400B666C5 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		4E9D79B0273BF04400B666C5 /* VerticalButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalButton.swift; sourceTree = "<group>"; };
 		4E9D79B2273BF04400B666C5 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		4E9D79D6273E683100B666C5 /* logo-launchScreen@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-launchScreen@3x.png"; sourceTree = "<group>"; };
+		4E9D79D8273E695C00B666C5 /* CalendarTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTitle.swift; sourceTree = "<group>"; };
 		4EE66F042733D96800548A46 /* SettingsViewMoreSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewMoreSettingsViewModel.swift; sourceTree = "<group>"; };
 		4EE66F072733E01500548A46 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		4EE66F0A2733EB0D00548A46 /* MoreSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreSettingsViewController.swift; sourceTree = "<group>"; };
@@ -2201,6 +2205,7 @@
 				F8BECB00235CE3E20060DAE1 /* Views */,
 				F8A54B0A22D9215500934E7A /* xdrip-Bridging-Header.h */,
 				F821CF9822AE589E005C1E43 /* xdrip.entitlements */,
+				4E9D79D6273E683100B666C5 /* logo-launchScreen@3x.png */,
 				4EE66F072733E01500548A46 /* R.generated.swift */,
 			);
 			path = xdrip;
@@ -2510,6 +2515,7 @@
 				4E2C95A727375E110073D692 /* OnlyImageTabbar.swift */,
 				4E2C95A927375E570073D692 /* Card.swift */,
 				4E2C95AB27376D770073D692 /* GlucoseIndicator.swift */,
+				4E9D79D8273E695C00B666C5 /* CalendarTitle.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3274,6 +3280,7 @@
 				F82437CB24CB7A9900BED341 /* Orchestral_Horns.caf in Resources */,
 				F82437AA24CB7A9900BED341 /* Discreet.caf in Resources */,
 				F82437BF24CB7A9900BED341 /* Good_Morning.caf in Resources */,
+				4E9D79D7273E683100B666C5 /* logo-launchScreen@3x.png in Resources */,
 				F82437B824CB7A9900BED341 /* Cuckoo_Clock.caf in Resources */,
 				F82437A224CB7A9900BED341 /* Sci-Fi_Eerie_Alarm.caf in Resources */,
 				F824379524CB7A9900BED341 /* Pager_Beeps.caf in Resources */,
@@ -3489,6 +3496,7 @@
 				F8E3A2A523D78FBD00E5E98A /* SettingsViewAppleWatchSettingsViewModel.swift in Sources */,
 				4E9D79C9273BF04400B666C5 /* PaddingLabel.swift in Sources */,
 				F81FA006228E09D40028C70F /* TextsCalibration.swift in Sources */,
+				4E9D79D9273E695C00B666C5 /* CalendarTitle.swift in Sources */,
 				F816E0F724367137009EE65B /* GNSEntry+CoreDataClass.swift in Sources */,
 				4E9D79B9273BF04400B666C5 /* BadgeView.swift in Sources */,
 				F8F9721923A5915900C3F17D /* CGMGNSEntryTransmitter.swift in Sources */,
