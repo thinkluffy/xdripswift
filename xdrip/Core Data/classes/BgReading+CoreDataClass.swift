@@ -271,13 +271,34 @@ public class BgReading: NSManagedObject {
         return arrow
     }
 
-    enum SlopeArrow: Int {
-        case doubleDown
-        case singleDown
-        case fortyFiveDown
-        case flat
-        case fortyFiveUp
-        case singleUp
-        case doubleUp
+    enum SlopeArrow: Int, CustomStringConvertible {
+        case doubleDown = 1
+        case singleDown = 2
+        case fortyFiveDown = 3
+        case flat = 4
+        case fortyFiveUp = 5
+        case singleUp = 6
+        case doubleUp = 7
+        
+        var description: String {
+            let str: String
+            switch self {
+            case .doubleDown:
+                str = "\u{2193}\u{2193}"
+            case .singleDown:
+                str =  "\u{2193}"
+            case .fortyFiveDown:
+                str = "\u{2198}"
+            case .flat:
+                str = "\u{2192}"
+            case .fortyFiveUp:
+                str =  "\u{2197}"
+            case .singleUp:
+                str = "\u{2191}"
+            case .doubleUp:
+                str = "\u{2191}\u{2191}"
+            }
+            return str
+        }
     }
 }

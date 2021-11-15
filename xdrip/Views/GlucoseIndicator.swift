@@ -10,10 +10,14 @@ import UIKit
 import SnapKit
 
 class GlucoseIndicator: UIView {
+    
+    private static let log = Log(type: GlucoseIndicator.self)
 
     var reading: (valueInMgDl: Double, showAsMgDl: Bool, slopeArrow: BgReading.SlopeArrow?)? {
         didSet {
             if let reading = reading {
+                GlucoseIndicator.log.d("valueInMg: \(reading.valueInMgDl), asMg: \(reading.showAsMgDl), slope: \(reading.slopeArrow?.description ?? "nil")")
+
                 if !BgReading.isNormalValue(reading.valueInMgDl) {
                     valueLabelMgDl.text = BgReading.unitizedString(calculatedValue: reading.valueInMgDl,
                                                                    unitIsMgDl: reading.showAsMgDl)
