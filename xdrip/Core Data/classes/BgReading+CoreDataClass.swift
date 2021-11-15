@@ -67,6 +67,27 @@ public class BgReading: NSManagedObject {
         return r
     }
     
+    var slopArrow: SlopeArrow {
+        var arrow: SlopeArrow
+        let slope_by_minute = calculatedValueSlope * 60000
+        if (slope_by_minute <= (-3.5)) {
+            arrow = SlopeArrow.doubleDown
+        } else if (slope_by_minute <= (-2)) {
+            arrow = SlopeArrow.singleDown
+        } else if (slope_by_minute <= (-1)) {
+            arrow = SlopeArrow.fortyFiveDown
+        } else if (slope_by_minute <= (1)) {
+            arrow = SlopeArrow.flat
+        } else if (slope_by_minute <= (2)) {
+            arrow = SlopeArrow.fortyFiveUp
+        } else if (slope_by_minute <= (3.5)) {
+            arrow = SlopeArrow.singleUp
+        } else {
+            arrow = SlopeArrow.doubleUp
+        }
+        return arrow
+    }
+    
     func slopeArrow() -> String {
         let slope_by_minute = calculatedValueSlope * 60000
         if (slope_by_minute <= (-3.5)) {
@@ -250,5 +271,13 @@ public class BgReading: NSManagedObject {
         return arrow
     }
 
-
+    enum SlopeArrow: Int {
+        case doubleDown
+        case singleDown
+        case fortyFiveDown
+        case flat
+        case fortyFiveUp
+        case singleUp
+        case doubleUp
+    }
 }

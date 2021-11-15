@@ -11,7 +11,7 @@ import SnapKit
 
 class GlucoseIndicator: UIView {
 
-    var reading: (valueInMgDl: Double, showAsMgDl: Bool)? {
+    var reading: (valueInMgDl: Double, showAsMgDl: Bool, slopeArrow: BgReading.SlopeArrow?)? {
         didSet {
             if let reading = reading {
                 if !BgReading.isNormalValue(reading.valueInMgDl) {
@@ -51,9 +51,27 @@ class GlucoseIndicator: UIView {
                     // BG is between high and low objectives so considered "in range"
                     innerCircleBgLayer.fillColor = ConstantsGlucoseChart.glucoseInRangeColor.cgColor
                 }
-                slopPointerInnerLayer.backgroundColor = innerCircleBgLayer.fillColor
-                slopPointerLayer.isHidden = false
-
+                
+                if let slopeArrow = reading.slopeArrow {
+                    slopPointerLayer.isHidden = false
+                    slopPointerInnerLayer.backgroundColor = innerCircleBgLayer.fillColor
+                    switch slopeArrow {
+                    case .doubleDown, .singleDown:
+                        slopPointerLayer.transform = CATransform3DMakeRotation(45 / 180.0 * .pi, 0, 0, 1)
+                    case .fortyFiveDown:
+                        slopPointerLayer.transform = CATransform3DMakeRotation(0 / 180.0 * .pi, 0, 0, 1)
+                    case .flat:
+                        slopPointerLayer.transform = CATransform3DMakeRotation(-45 / 180.0 * .pi, 0, 0, 1)
+                    case .fortyFiveUp:
+                        slopPointerLayer.transform = CATransform3DMakeRotation(-90 / 180.0 * .pi, 0, 0, 1)
+                    case .singleUp, .doubleUp:
+                        slopPointerLayer.transform = CATransform3DMakeRotation(-135 / 180.0 * .pi, 0, 0, 1)
+                    }
+                    
+                } else {
+                    slopPointerLayer.isHidden = true
+                }
+                
             } else {
                 valueLabelMgDl.text = "---"
                 valueLabelMgDl.isHidden = false

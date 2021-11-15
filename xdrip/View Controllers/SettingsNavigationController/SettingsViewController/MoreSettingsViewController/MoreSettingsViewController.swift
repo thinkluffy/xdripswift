@@ -96,6 +96,12 @@ class MoreSettingsViewController: UIViewController {
             })
             .toggleCell(title: R.string.settingsViews.oslog(), isOn: UserDefaults.standard.OSLogEnabled, icon: nil, toggleDidChange: { from, to in
                 UserDefaults.standard.OSLogEnabled = to
+                if to {
+                    Log.level = Log.Level.verbose
+                    
+                } else {
+                    Log.level = Log.Level.warning
+                }
             })
             .toggleCell(title: R.string.settingsViews.smoothLibreValues(), isOn: UserDefaults.standard.smoothLibreValues, icon: nil, toggleDidChange: { from, to in
                 UserDefaults.standard.smoothLibreValues = to

@@ -14,8 +14,8 @@ class WatchManager: NSObject {
     private let bgReadingsAccessor:BgReadingsAccessor
 
     /// for logging
-    private var log = OSLog(subsystem: ConstantsLog.subSystem, category: ConstantsLog.categoryWatchManager)
-    
+    private static let log = Log(type: WatchManager.self)
+
     /// to create and delete events
     private let eventStore = EKEventStore()
     
@@ -51,13 +51,13 @@ class WatchManager: NSObject {
         
         // check that access to calendar is authorized by the user
         guard EKEventStore.authorizationStatus(for: .event) == .authorized else {
-            trace("in createCalendarEvent, createCalendarEvent is enabled but access to calendar is not authorized, setting UserDefaults.standard.createCalendarEvent to false", log: log, category: ConstantsLog.categoryWatchManager, type: .info)
+            WatchManager.log.i("in createCalendarEvent, createCalendarEvent is enabled but access to calendar is not authorized, setting UserDefaults.standard.createCalendarEvent to false")
             return
         }
         
         // check that there is a calendar (should be)
         guard let calendar = getCalendar() else {
-            trace("in createCalendarEvent, there's no calendar", log: log, category: ConstantsLog.categoryWatchManager, type: .info)
+            WatchManager.log.i("in createCalendarEvent, there's no calendar")
             return
         }
         
@@ -65,9 +65,7 @@ class WatchManager: NSObject {
         // substract 10 seconds, because user will probably select a multiple of 5, and also readings usually arrive every 5 minutes
         // example user selects 10 minutes interval, next reading will arrive in exactly 10 minutes, time interval to be checked will be 590 seconds
         if Int(Date().timeIntervalSince(timeStampLastProcessedReading)) < (UserDefaults.standard.calendarInterval * 60 - 10) {
-            
-            trace("in createCalendarEvent, less than %{public}@ minutes since last event, will not create a new event", log: log, category: ConstantsLog.categoryWatchManager, type: .info, UserDefaults.standard.calendarInterval.description)
-            
+            WatchManager.log.i("in createCalendarEvent, less than \(UserDefaults.standard.calendarInterval.description) minutes since last event, will not create a new event")
             return
             
         }
@@ -77,13 +75,13 @@ class WatchManager: NSObject {
         
         // there should be at least one reading
         guard lastReading.count > 0 else {
-            trace("in createCalendarEvent, there are no new readings to process", log: log, category: ConstantsLog.categoryWatchManager, type: .info)
+            WatchManager.log.i("in createCalendarEvent, there are no new readings to process")
             return
         }
         
         // latest reading should be less than 5 minutes old
         guard abs(lastReading[0].timeStamp.timeIntervalSinceNow) < 5 * 60 else {
-            trace("in createCalendarEvent, the latest reading is older than 5 minutes", log: log, category: ConstantsLog.categoryWatchManager, type: .info)
+            WatchManager.log.i("in createCalendarEvent, the latest reading is older than 5 minutes")
             return        }
         
         // time to delete any existing events
@@ -126,9 +124,7 @@ class WatchManager: NSObject {
             timeStampLastProcessedReading = lastReading[0].timeStamp
             
         } catch let error {
-            
-            trace("in createCalendarEvent, error while saving : %{public}@", log: log, category: ConstantsLog.categoryWatchManager, type: .error, error.localizedDescription)
-            
+            WatchManager.log.e("in createCalendarEvent, error while saving : \(error.localizedDescription)")
         }
 
     }
@@ -173,7 +169,7 @@ class WatchManager: NSObject {
                     do{
                         try eventStore.remove(event, span: .thisEvent)
                     } catch let error {
-                        trace("in deleteAllEvents, error while removing : %{public}@", log: log, category: ConstantsLog.categoryWatchManager, type: .error, error.localizedDescription)
+                        WatchManager.log.e("in deleteAllEvents, error while removing : \(error.localizedDescription)")
                     }
                 }
             }
@@ -181,10 +177,10 @@ class WatchManager: NSObject {
     }
  
     private func sendDataToWatch() {
-        trace("==> sendDataToWatch", log: log, category: ConstantsLog.categoryWatchManager, type: .info)
+        WatchManager.log.d("==> sendDataToWatch")
         
         guard WCSession.isSupported() else {
-            trace("WCSession is not supported", log: log, category: ConstantsLog.categoryWatchManager, type: .info)
+            WatchManager.log.i("WCSession is not supported")
             return
         }
         
@@ -193,11 +189,11 @@ class WatchManager: NSObject {
         
         // there should be at least one reading
         guard lastReading.count > 0 else {
-            trace("in sendDataToWatch, there are no new readings to process", log: log, category: ConstantsLog.categoryWatchManager, type: .info)
+            WatchManager.log.i("in sendDataToWatch, there are no new readings to process")
             return
         }
         
-        trace("==> currentValue: %{public}@", log: log, category: ConstantsLog.categoryWatchManager, type: .info, lastReading[0].calculatedValue)
+        WatchManager.log.d("==> currentValue: \(lastReading[0].calculatedValue)")
         WCSession.default.transferUserInfo(["key0" : "value0"])
     }
 }

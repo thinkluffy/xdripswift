@@ -169,7 +169,8 @@ final class RootViewController: UIViewController {
                         readingValue = lastChartPointEarlierThanEndDate.y.scalar.mmolToMgdl()
                     }
                     self.glucoseIndicator.reading = (valueInMgDl: readingValue,
-                                                     showAsMgDl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
+                                                     showAsMgDl: UserDefaults.standard.bloodGlucoseUnitIsMgDl,
+                                                     slopeArrow: nil)
 
                 } else {
                     self.glucoseIndicator.reading = nil
@@ -1611,8 +1612,11 @@ final class RootViewController: UIViewController {
             
         }
         
-        glucoseIndicator.reading = (valueInMgDl: lastReading.calculatedValue,
-                                    showAsMgDl: isMgDl)
+        glucoseIndicator.reading = (
+            valueInMgDl: lastReading.calculatedValue,
+            showAsMgDl: isMgDl,
+            slopeArrow: lastReading.hideSlope ? nil : lastReading.slopArrow
+        )
         
                 
         // if data is stale (over 11 minutes old), show it as gray colour to indicate that it isn't current

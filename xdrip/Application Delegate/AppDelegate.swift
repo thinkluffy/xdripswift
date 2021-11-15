@@ -14,7 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Application Life Cycle
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+        Log.setup(level: UserDefaults.standard.OSLogEnabled ? .verbose : .warning)
+
         trace("in didFinishLaunchingWithOptions", log: log, category: ConstantsLog.categoryAppDelegate, type: .info)
         
         return true
