@@ -106,7 +106,7 @@ enum ConstantsGlucoseChart {
     
     /// diameter of the circle for blood glucose readings. The more hours on the chart, the smaller the circles should be
     static let glucoseCircleDiameter1h: CGFloat = 5
-    static let glucoseCircleDiameter3h: CGFloat = 3
+    static let glucoseCircleDiameter3h: CGFloat = 4
     static let glucoseCircleDiameter6h: CGFloat = 3
     static let glucoseCircleDiameter12h: CGFloat = 3
     static let glucoseCircleDiameter24h: CGFloat = 3

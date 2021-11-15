@@ -220,7 +220,7 @@ class BgLabelInMmol: UIView {
     var bgValueInMmol: Double? {
         didSet {
             if let bgValueInMmol = bgValueInMmol {
-                let intValue = Int(bgValueInMmol.rounded(.down))
+                let intValue = Int((bgValueInMmol * 10).rounded()) / 10
                 let fractionValue = Int((bgValueInMmol * 10).rounded()) % 10
                 
                 valueLabelMmolInt.text = "\(intValue)."
