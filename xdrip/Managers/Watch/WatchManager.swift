@@ -33,6 +33,10 @@ class WatchManager: NSObject {
     
     // MARK: - public functions
     
+	public func getLatest() -> BgReading? {
+		return bgReadingsAccessor.last(forSensor: nil)
+	}
+	
     /// process new readings
     ///     - lastConnectionStatusChangeTimeStamp : when was the last transmitter dis/reconnect - if nil then  1 1 1970 is used
     public func processNewReading(lastConnectionStatusChangeTimeStamp: Date?) {
@@ -196,4 +200,6 @@ class WatchManager: NSObject {
         WatchManager.log.d("==> currentValue: \(lastReading[0].calculatedValue)")
         WCSession.default.transferUserInfo(["key0" : "value0"])
     }
+	
+	
 }

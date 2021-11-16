@@ -342,7 +342,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.file` struct is generated, and contains static references to 126 files.
+  /// This `R.file` struct is generated, and contains static references to 125 files.
   struct file {
     /// Resource file `1-millisecond-of-silence.mp3`.
     static let millisecondOfSilenceMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "1-millisecond-of-silence", pathExtension: "mp3")
@@ -592,8 +592,6 @@ struct R: Rswift.Validatable {
     static let shortlow4Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "shortlow4", pathExtension: "mp3")
     /// Resource file `spaceship.mp3`.
     static let spaceshipMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "spaceship", pathExtension: "mp3")
-    /// Resource file `xDrip.xcconfig`.
-    static let xDripXcconfig = Rswift.FileResource(bundle: R.hostingBundle, name: "xDrip", pathExtension: "xcconfig")
     /// Resource file `xdripalert.aif`.
     static let xdripalertAif = Rswift.FileResource(bundle: R.hostingBundle, name: "xdripalert", pathExtension: "aif")
 
@@ -1338,12 +1336,6 @@ struct R: Rswift.Validatable {
     /// `bundle.url(forResource: "spaceship", withExtension: "mp3")`
     static func spaceshipMp3(_: Void = ()) -> Foundation.URL? {
       let fileResource = R.file.spaceshipMp3
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "xDrip", withExtension: "xcconfig")`
-    static func xDripXcconfig(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.xDripXcconfig
       return fileResource.bundle.url(forResource: fileResource)
     }
 

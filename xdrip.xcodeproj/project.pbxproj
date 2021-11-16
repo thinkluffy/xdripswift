@@ -58,22 +58,27 @@
 		4EE66F0B2733EB0D00548A46 /* MoreSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F0A2733EB0D00548A46 /* MoreSettingsViewController.swift */; };
 		4EE66F132735064E00548A46 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F122735064E00548A46 /* MainTabBarController.swift */; };
 		533272967B05B378D81F6529 /* Pods_xdrip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB0736D7B1553FC8350324C /* Pods_xdrip.framework */; };
-		666E283A26F7E54C00ACE4DF /* xDrip.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 666E283826F7E54C00ACE4DF /* xDrip.xcconfig */; };
 		CE1B2FE025D0264B00F642F5 /* LaunchScreen.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B2FD125D0264900F642F5 /* LaunchScreen.strings */; };
 		CE1B2FE125D0264B00F642F5 /* Main.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B2FD425D0264900F642F5 /* Main.strings */; };
 		E53D045327438C5F00CA548E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E53D045227438C5F00CA548E /* Assets.xcassets */; };
 		E53D045927438C5F00CA548E /* xDripWatch WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E53D045827438C5F00CA548E /* xDripWatch WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		E53D046B27438C6100CA548E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E53D046A27438C6100CA548E /* Preview Assets.xcassets */; };
 		E53D047027438C6100CA548E /* xDripWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = E53D045027438C5D00CA548E /* xDripWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E53D047927438CED00CA548E /* xdripApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D047827438CEC00CA548E /* xdripApp.swift */; };
 		E53D048027438D0100CA548E /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = E53D047A27438D0000CA548E /* PushNotificationPayload.apns */; };
-		E53D048127438D0100CA548E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E53D047B27438D0000CA548E /* Info.plist */; };
-		E53D048227438D0100CA548E /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D047C27438D0000CA548E /* NotificationView.swift */; };
 		E53D048327438D0100CA548E /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D047D27438D0000CA548E /* ComplicationController.swift */; };
 		E53D048427438D0100CA548E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D047E27438D0000CA548E /* ContentView.swift */; };
 		E53D048527438D0100CA548E /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D047F27438D0100CA548E /* NotificationController.swift */; };
 		E53D048727438D1900CA548E /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D048627438D1900CA548E /* NotificationView.swift */; };
 		E53D048B27438D3B00CA548E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E53D048A27438D3B00CA548E /* Assets.xcassets */; };
+		E53D048E27438EE100CA548E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E53D048D27438EE000CA548E /* Preview Assets.xcassets */; };
+		E53D0491274390E000CA548E /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D0490274390E000CA548E /* Common.swift */; };
+		E53D0492274390E000CA548E /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D0490274390E000CA548E /* Common.swift */; };
+		E53D0494274391C400CA548E /* WatchCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D0493274391C400CA548E /* WatchCommunicator.swift */; };
+		E53D0496274391DE00CA548E /* WatchExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D0495274391DE00CA548E /* WatchExtensionDelegate.swift */; };
+		E53D049B274391F000CA548E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D0497274391EF00CA548E /* Constants.swift */; };
+		E53D049C274391F000CA548E /* PhoneCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D0498274391EF00CA548E /* PhoneCommunicator.swift */; };
+		E53D049D274391F000CA548E /* WatchChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D0499274391F000CA548E /* WatchChartView.swift */; };
+		E53D049E274391F000CA548E /* UsefulData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D049A274391F000CA548E /* UsefulData.swift */; };
 		F51B9F7D24B216CD00FC0643 /* Libre1NonFixedSlopeCalibrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51B9F7C24B216CD00FC0643 /* Libre1NonFixedSlopeCalibrator.swift */; };
 		F8025C0A21D94FD700ECF0C0 /* CBManagerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8025C0921D94FD700ECF0C0 /* CBManagerState.swift */; };
 		F8025C1321DA683400ECF0C0 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8025C1221DA683400ECF0C0 /* Data.swift */; };
@@ -734,7 +739,6 @@
 		E53D045027438C5D00CA548E /* xDripWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xDripWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E53D045227438C5F00CA548E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E53D045827438C5F00CA548E /* xDripWatch WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "xDripWatch WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E53D046A27438C6100CA548E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E53D047827438CEC00CA548E /* xdripApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = xdripApp.swift; sourceTree = "<group>"; };
 		E53D047A27438D0000CA548E /* PushNotificationPayload.apns */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		E53D047B27438D0000CA548E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -744,6 +748,15 @@
 		E53D047F27438D0100CA548E /* NotificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		E53D048627438D1900CA548E /* NotificationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		E53D048A27438D3B00CA548E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E53D048D27438EE000CA548E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E53D048F274390DF00CA548E /* xDripWatch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "xDripWatch-Bridging-Header.h"; sourceTree = "<group>"; };
+		E53D0490274390E000CA548E /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		E53D0493274391C400CA548E /* WatchCommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchCommunicator.swift; sourceTree = "<group>"; };
+		E53D0495274391DE00CA548E /* WatchExtensionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchExtensionDelegate.swift; sourceTree = "<group>"; };
+		E53D0497274391EF00CA548E /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E53D0498274391EF00CA548E /* PhoneCommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneCommunicator.swift; sourceTree = "<group>"; };
+		E53D0499274391F000CA548E /* WatchChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchChartView.swift; sourceTree = "<group>"; };
+		E53D049A274391F000CA548E /* UsefulData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsefulData.swift; sourceTree = "<group>"; };
 		F51B9F7C24B216CD00FC0643 /* Libre1NonFixedSlopeCalibrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Libre1NonFixedSlopeCalibrator.swift; sourceTree = "<group>"; };
 		F8025C0921D94FD700ECF0C0 /* CBManagerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBManagerState.swift; sourceTree = "<group>"; };
 		F8025C1221DA683400ECF0C0 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
@@ -1613,10 +1626,15 @@
 			isa = PBXGroup;
 			children = (
 				E53D047827438CEC00CA548E /* xdripApp.swift */,
+				E53D047E27438D0000CA548E /* ContentView.swift */,
+				E53D0499274391F000CA548E /* WatchChartView.swift */,
 				E53D047F27438D0100CA548E /* NotificationController.swift */,
 				E53D048627438D1900CA548E /* NotificationView.swift */,
 				E53D047D27438D0000CA548E /* ComplicationController.swift */,
-				E53D047E27438D0000CA548E /* ContentView.swift */,
+				E53D0495274391DE00CA548E /* WatchExtensionDelegate.swift */,
+				E53D0497274391EF00CA548E /* Constants.swift */,
+				E53D0498274391EF00CA548E /* PhoneCommunicator.swift */,
+				E53D049A274391F000CA548E /* UsefulData.swift */,
 				E53D047B27438D0000CA548E /* Info.plist */,
 				E53D047C27438D0000CA548E /* NotificationView.swift */,
 				E53D048A27438D3B00CA548E /* Assets.xcassets */,
@@ -1629,7 +1647,7 @@
 		E53D046927438C6100CA548E /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				E53D046A27438C6100CA548E /* Preview Assets.xcassets */,
+				E53D048D27438EE000CA548E /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -2197,6 +2215,7 @@
 		F8AC425121ADEBD60078C348 = {
 			isa = PBXGroup;
 			children = (
+				E53D0490274390E000CA548E /* Common.swift */,
 				4E9D7979273BEC1F00B666C5 /* ThinkCommon */,
 				F870D3D425126A49008967B0 /* xDrip4iOS Widget */,
 				E53D045127438C5D00CA548E /* xDripWatch */,
@@ -2207,6 +2226,7 @@
 				6933F5E98A8280DB39890854 /* Pods */,
 				48C0E851274A3BB6D42C6F20 /* Frameworks */,
 				666E283826F7E54C00ACE4DF /* xDrip.xcconfig */,
+				E53D048F274390DF00CA548E /* xDripWatch-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2631,6 +2651,7 @@
 			isa = PBXGroup;
 			children = (
 				F8E3A2A823D906C200E5E98A /* WatchManager.swift */,
+				E53D0493274391C400CA548E /* WatchCommunicator.swift */,
 			);
 			path = Watch;
 			sourceTree = "<group>";
@@ -3184,11 +3205,12 @@
 			attributes = {
 				DefaultBuildSystemTypeForWorkspace = Latest;
 				LastSwiftUpdateCheck = 1310;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1310;
 				ORGANIZATIONNAME = "Johan Degraeve";
 				TargetAttributes = {
 					E53D044F27438C5D00CA548E = {
 						CreatedOnToolsVersion = 13.1;
+						LastSwiftMigration = 1310;
 					};
 					E53D045727438C5F00CA548E = {
 						CreatedOnToolsVersion = 13.1;
@@ -3257,8 +3279,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E53D048127438D0100CA548E /* Info.plist in Resources */,
-				E53D046B27438C6100CA548E /* Preview Assets.xcassets in Resources */,
+				E53D048E27438EE100CA548E /* Preview Assets.xcassets in Resources */,
 				E53D048027438D0100CA548E /* PushNotificationPayload.apns in Resources */,
 				E53D048B27438D3B00CA548E /* Assets.xcassets in Resources */,
 			);
@@ -3351,7 +3372,6 @@
 				F824379624CB7A9900BED341 /* Oringz.caf in Resources */,
 				F824377D24CB7A9800BED341 /* Open_Your_Eyes_And_See.caf in Resources */,
 				F82437A624CB7A9900BED341 /* Siri_Glucose_Rising_Fast.caf in Resources */,
-				666E283A26F7E54C00ACE4DF /* xDrip.xcconfig in Resources */,
 				F81F370825C1584A00520946 /* LibreStates.strings in Resources */,
 				F82437B724CB7A9900BED341 /* Cartoon_Tip_Toe_Sneaky_Walk.caf in Resources */,
 				F824379A24CB7A9900BED341 /* Siri_Alert_Device_Muted.caf in Resources */,
@@ -3501,9 +3521,14 @@
 				E53D048427438D0100CA548E /* ContentView.swift in Sources */,
 				E53D048727438D1900CA548E /* NotificationView.swift in Sources */,
 				E53D048327438D0100CA548E /* ComplicationController.swift in Sources */,
+				E53D049D274391F000CA548E /* WatchChartView.swift in Sources */,
 				E53D048527438D0100CA548E /* NotificationController.swift in Sources */,
+				E53D0496274391DE00CA548E /* WatchExtensionDelegate.swift in Sources */,
+				E53D0492274390E000CA548E /* Common.swift in Sources */,
+				E53D049C274391F000CA548E /* PhoneCommunicator.swift in Sources */,
+				E53D049E274391F000CA548E /* UsefulData.swift in Sources */,
 				E53D047927438CED00CA548E /* xdripApp.swift in Sources */,
-				E53D048227438D0100CA548E /* NotificationView.swift in Sources */,
+				E53D049B274391F000CA548E /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3632,6 +3657,7 @@
 				F8B955B7258D5E2000C06016 /* ConstantsHealthKit.swift in Sources */,
 				F8B3A7B2226A0878004BA588 /* TextsAlerts.swift in Sources */,
 				F80D917024F85C7A006840B5 /* Libre2+BluetoothPeripheral.swift in Sources */,
+				E53D0494274391C400CA548E /* WatchCommunicator.swift in Sources */,
 				F8F9721423A5915900C3F17D /* AuthChallengeRxMessage.swift in Sources */,
 				F8025E5421EE8D2100ECF0C0 /* Libre1Calibrator.swift in Sources */,
 				F81FA00A228F53680028C70F /* TextsHomeView.swift in Sources */,
@@ -3825,6 +3851,7 @@
 				F8F9722423A5915900C3F17D /* LibreMeasurement.swift in Sources */,
 				F869188C23A044340065B607 /* TextsM5StackView.swift in Sources */,
 				F8F9722D23A5915900C3F17D /* M5StackBluetoothTransmitter.swift in Sources */,
+				E53D0491274390E000CA548E /* Common.swift in Sources */,
 				F808D2C8240323CA0084B5DB /* BubbleBluetoothPeripheralViewModel.swift in Sources */,
 				F8E6C79024CEC22A007C1199 /* TextsSnooze.swift in Sources */,
 				F8F9722C23A5915900C3F17D /* GlucoseData.swift in Sources */,
@@ -4479,6 +4506,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "$(XDRIP_CODE_SIGN_IDENTITY_DEBUG)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -4488,12 +4516,19 @@
 				INFOPLIST_KEY_CFBundleDisplayName = xDripWatch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = yb.xd.plus;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = yb.xd.plus.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "xDripWatch-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 8.0;
@@ -4507,6 +4542,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "$(XDRIP_CODE_SIGN_IDENTITY_RELEASE)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -4516,12 +4552,18 @@
 				INFOPLIST_KEY_CFBundleDisplayName = xDripWatch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = yb.xd.plus;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = yb.xd.plus.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "xDripWatch-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 8.0;
