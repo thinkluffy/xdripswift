@@ -2,29 +2,28 @@
 //  NotificationController.swift
 //  xDripWatch WatchKit Extension
 //
-//  Created by Yuanbin Cai on 2021/10/25.
+//  Created by Liu Xudong on 2021/11/16.
 //  Copyright © 2021 Johan Degraeve. All rights reserved.
 //
 
 import WatchKit
-import Foundation
+import SwiftUI
 import UserNotifications
 
-class NotificationController: WKUserNotificationInterfaceController {
+class NotificationController: WKUserNotificationHostingController<NotificationView> {
 
-    override init() {
-        // Initialize variables here.
-        super.init()
-        
-        // Configure interface objects here.
+    override var body: NotificationView {
+        return NotificationView()
     }
 
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
+        super.willActivate()
     }
 
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
+        super.didDeactivate()
     }
 
     override func didReceive(_ notification: UNNotification) {
