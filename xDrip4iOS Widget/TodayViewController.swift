@@ -266,7 +266,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         var deltaSign:String = ""
         if (value > 0) { deltaSign = "+"; }
         
-        // quickly check "value" and prevent "-0mg/dl" or "-0.0mmol/l" being displayed
+        // quickly check "value" and prevent "-0mg/dL" or "-0.0mmol/L" being displayed
         if (mgdl) {
             if (value > -1) && (value < 1) {
                 return "0" + " " + Texts.mgdl;

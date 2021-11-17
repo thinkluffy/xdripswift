@@ -3357,7 +3357,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static let common_hours = Rswift.StringResource(key: "common_hours", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fi", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: mg/dl
+      /// en translation: mg/dL
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static let common_mgdl = Rswift.StringResource(key: "common_mgdl", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fi", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -3369,7 +3369,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static let common_minutes = Rswift.StringResource(key: "common_minutes", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fi", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: mmol/l
+      /// en translation: mmol/L
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static let common_mmol = Rswift.StringResource(key: "common_mmol", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fi", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -3990,7 +3990,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("common_hours", tableName: "Common", bundle: bundle, comment: "")
       }
 
-      /// en translation: mg/dl
+      /// en translation: mg/dL
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static func common_mgdl(preferredLanguages: [String]? = nil) -> String {
@@ -4035,7 +4035,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("common_minutes", tableName: "Common", bundle: bundle, comment: "")
       }
 
-      /// en translation: mmol/l
+      /// en translation: mmol/L
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static func common_mmol(preferredLanguages: [String]? = nil) -> String {
