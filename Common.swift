@@ -28,19 +28,19 @@ class Common {
 		var description: String {
 			switch self {
 			case .downDouble:
-				return "↘︎↘︎"
+				return "\u{2193}\u{2193}"//"↘︎↘︎"
 			case .down:
-				return "↘︎"
+				return "\u{2193}"//"↘︎"
 			case .downHalf:
-				return "⇣"
+				return "\u{2198}"//"⇣"
 			case .flat:
-				return "→→"
+				return "\u{2192}"//"→→"
 			case .upHalf:
-				return "⇡"
+				return "\u{2197}"//"⇡"
 			case .up:
-				return "↑"
+				return "\u{2191}"//"↑"
 			case .upDouble:
-				return "↑↑"
+				return "\u{2191}\u{2191}"//"↑↑"
 			}
 		}
 	}
@@ -207,15 +207,16 @@ class Common {
 		
 		func toDic() -> [String: Any] {
 			var result: [String: Any] = ["slope": slope.rawValue]
+			if let config = config {
+				result["config"] = config.toDic()
+			} else {
+				fatalError("Date formatter Error")
+			}
 			if let latest = latest {
 				result["latest"] = latest.toDic()
 			}
 			if let recently = recently {
 				result["recently"] = recently.map{ $0.toDic() }
-				if config == nil {
-					fatalError("Date formatter Error")
-				}
-				result["config"] = config!.toDic()
 			}
 			return result
 		}

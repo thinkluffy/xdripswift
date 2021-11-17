@@ -37,6 +37,16 @@ class WatchManager: NSObject {
 		return bgReadingsAccessor.last(forSensor: nil)
 	}
 	
+	public func getRecently(_ hours: Int) -> [BgReading] {
+		return bgReadingsAccessor
+			.getLatestBgReadings(
+				limit: nil,
+				fromDate: Date().addingTimeInterval(-Double(hours * 60 * 60)),
+				forSensor: nil,
+				ignoreRawData: true,
+				ignoreCalculatedValue: false)
+	}
+	
     /// process new readings
     ///     - lastConnectionStatusChangeTimeStamp : when was the last transmitter dis/reconnect - if nil then  1 1 1970 is used
     public func processNewReading(lastConnectionStatusChangeTimeStamp: Date?) {

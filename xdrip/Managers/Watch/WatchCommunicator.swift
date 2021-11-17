@@ -81,26 +81,37 @@ extension WatchCommunicator: WCSessionDelegate {
 		let message = Common.DataTransformToPhone.init(dic: message)
 		let type = message.type
 		var data: Common.DataTransformToWatch?
+		let config = WatchCommunicator.getConfig()
 		if type == Common.MessageValues.latest {
 			if let latestBg = dataManager.getLatest() {
-				let c = latestBg.value(forKey: "calibration")
-				print(c)
-				if let calibration = latestBg.calibration {
-					let info = Common.BgInfo(date: calibration.timeStamp, value: calibration.bg)
-					let slope: Common.BgSlope = latestBg.slopArrow == .singleUp ? .up : .down
-					data = Common.DataTransformToWatch.init(slope: slope,
-															latest: info,
-															recently: nil,
-															config: nil)
-				}
+				let info = Common.BgInfo(date: latestBg.timeStamp,
+										 value: latestBg.calculatedValue.mgdlToMmol(mgdl: config.showAsMgDl))
+				let slope: Common.BgSlope = WatchCommunicator.convertSlope(of: latestBg.slopArrow)
+				data = Common.DataTransformToWatch.init(slope: slope,
+														latest: info,
+														recently: nil,
+														config: config)
 			}
 		}
 		else if type == Common.MessageValues.recently {
-			let list = WatchCommunicator.fakeRecently()
-			data = Common.DataTransformToWatch.init(slope: .up,
-													latest: list.last,
-													recently: list,
-													config: WatchCommunicator.fakeConfig())
+			let list = dataManager.getRecently(6).sorted { a, b in
+				a.timeStamp < b.timeStamp
+			}
+			var recently = [Common.BgInfo]()
+			for item in list {
+				let info = Common.BgInfo(date: item.timeStamp,
+										 value: item.calculatedValue.mgdlToMmol(mgdl: config.showAsMgDl))
+				recently.append(info)
+			}
+			let latest = list.last
+			var slope = Common.BgSlope.flat
+			if latest != nil {
+				slope = WatchCommunicator.convertSlope(of: latest!.slopArrow)
+			}
+			data = Common.DataTransformToWatch.init(slope: slope,
+													latest: recently.last,
+													recently: recently,
+													config: config)
 		}
 		replyHandler(data?.toDic() ?? [:])
 		}
@@ -108,6 +119,37 @@ extension WatchCommunicator: WCSessionDelegate {
 }
 
 extension WatchCommunicator {
+	static func getConfig() -> Common.BgConfig {
+		let showAsMgDl = UserDefaults.standard.bloodGlucoseUnitIsMgDl
+		return Common.BgConfig(
+			showAsMgDl: showAsMgDl,
+			min: (40).mgdlToMmol(mgdl: showAsMgDl),
+			max: (300).mgdlToMmol(mgdl: showAsMgDl),
+			urgentMin: UserDefaults.standard.urgentLowMarkValue.mgdlToMmol(mgdl: showAsMgDl),
+			urgentMax: UserDefaults.standard.urgentHighMarkValue.mgdlToMmol(mgdl: showAsMgDl),
+			suggestMin: UserDefaults.standard.lowMarkValue.mgdlToMmol(mgdl: showAsMgDl),
+			suggestMax: UserDefaults.standard.highMarkValue.mgdlToMmol(mgdl: showAsMgDl))
+	}
+	
+	static func convertSlope(of arrow: BgReading.SlopeArrow) -> Common.BgSlope {
+		switch arrow {
+		case .doubleUp:
+			return .upDouble
+		case .singleUp:
+			return .up
+		case .fortyFiveUp:
+			return .upHalf
+		case .flat:
+			return .flat
+		case .fortyFiveDown:
+			return .downHalf
+		case .singleDown:
+			return .down
+		case .doubleDown:
+			return .downDouble
+		}
+	}
+	
 	static func fakeConfig() -> Common.BgConfig {
 		Common.BgConfig(showAsMgDl: true, min: 2.2, max: 16.6, urgentMin: 3.9, urgentMax: 10, suggestMin: 4.5, suggestMax: 7.8)
 	}

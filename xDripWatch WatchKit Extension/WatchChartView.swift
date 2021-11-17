@@ -48,7 +48,6 @@ struct WatchChartView: View {
 		 urgentMin: Double, urgentMax: Double,
 		 suggestMin: Double, suggestMax: Double,
 		 values: [ChartPoint]) {
-		print("- init -")
 		self.pointDigit = pointDigit
 		self.minY = min
 		self.maxY = max
@@ -93,12 +92,12 @@ struct WatchChartView: View {
 					let font = Font.system(size: 12)
 					let textWidth: CGFloat = RightLabelWidth
 					let textHeight: CGFloat = 20
-					let suggestMinY = reader.size.height * CGFloat((self.maxY - self.suggestMin) / (self.maxY - self.minY)) + textHeight/2
-					let suggestMaxY = reader.size.height * CGFloat((self.maxY - self.suggestMax) / (self.maxY - self.minY)) - textHeight/2
+					let suggestMinY = reader.size.height * CGFloat((self.maxY - self.suggestMin) / (self.maxY - self.minY))// + textHeight/2
+					let suggestMaxY = reader.size.height * CGFloat((self.maxY - self.suggestMax) / (self.maxY - self.minY))// - textHeight/2
 					Text(timeRange.rawValue)
 						.font(.system(size: 14))
 						.frame(width: 40, height: textHeight)
-						.position(x: 22, y: textHeight/2) // 顺序不能变
+						.position(x: 20, y: textHeight/2) // 顺序不能变
 					Text(String(format: "%.\(self.pointDigit)f", self.suggestMax))
 						.font(font)
 						.frame(width: textWidth, height: textHeight)
@@ -119,10 +118,10 @@ struct WatchChartView: View {
 						Path { p in
 							// 低线
 							p.move(to: CGPoint(x: minX, y: minY))
-							p.addLine(to: CGPoint(x: maxX, y: minY))
+							p.addLine(to: CGPoint(x: verticalMaxX, y: minY))
 							// 高线
 							p.move(to: CGPoint(x: minX, y: maxY))
-							p.addLine(to: CGPoint(x: maxX, y: maxY))
+							p.addLine(to: CGPoint(x: verticalMaxX, y: maxY))
 						}.stroke(style: StrokeStyle(dash: [2,3]))
 						Path { p in
 							// 竖线
@@ -169,7 +168,7 @@ struct WatchChartView: View {
 				}
 			}
 			.frame(height: 120)
-			.background(Color.init(.sRGB, white: 1, opacity: 0.1) )
+			.background(Color.init(red: 19/255, green: 24/255, blue: 51/255))
 			.onTapGesture {
 				switch timeRange {
 				case .hour1:

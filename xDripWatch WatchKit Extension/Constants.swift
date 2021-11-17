@@ -11,6 +11,6 @@ class Constants {
 	
 	static let RefreshComplicationBackgroundTaskName: String = "RefreshComplicationBackgroundTaskName"
 	
-	static let UpdateTimeInterval = 30.0 // Senconds
-	static let DataValidTimeInterval = 60.0 // Senconds
+	static let UpdateTimeInterval = 60.0 // Senconds
+	static let DataValidTimeInterval = 50.0 // Senconds
 }

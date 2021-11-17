@@ -28,10 +28,7 @@ class PhoneCommunicator: NSObject {
 	static func register() {
 		_ = self.shared
 	}
-	
-	deinit {
-		print("PhoneCommunicator deinit")
-	}
+
 	static let shared = PhoneCommunicator()
 	
 	private let session = WCSession.default
@@ -52,7 +49,7 @@ class PhoneCommunicator: NSObject {
 	func startRequestChart() {
 		guard self.session.activationState == .activated else { return }
 		requestTimer?.invalidate()
-		requestTimer = Timer.scheduledTimer(withTimeInterval: Constants.UpdateTimeInterval, repeats: true, block: { [weak self] timer in
+		requestTimer = Timer(timeInterval: Constants.UpdateTimeInterval, repeats: true, block: { [weak self] timer in
 			self?.requestRecentlyChart()
 		})
 		RunLoop.main.add(requestTimer!, forMode: .common)
@@ -64,27 +61,26 @@ class PhoneCommunicator: NSObject {
 		requestTimer = nil
 	}
 	
-	func requestLatest(completion: @escaping ((String?) -> Void)) {
+	func requestLatest(completion: @escaping ((Date, String)?) -> Void) {
 		
 		if let old = lastest,
 			Date().timeIntervalSince(old.date) < Constants.DataValidTimeInterval,
-		   let value = old.value as? String
+		   let oldValue = old.value as? String
 		{
 			DispatchQueue.main.async {
 				print("requestLatest reuse old value")
-				completion(value)
+				completion((old.date, oldValue))
 			}
 			return
 		}
 		guard session.isReady else {
 			DispatchQueue.main.async {
-				print("requestLatest false")
 				completion(nil)
 			}
 			return
 		}
 		let message = Common.DataTransformToPhone.init(type: .latest).toDic()
-		print("requestLatest will sendMessage")
+		print("will requestLatest")
 		session.sendMessage(message) { reply in
 			DispatchQueue.main.async {
 				if reply.keys.count == 0 {
@@ -92,19 +88,22 @@ class PhoneCommunicator: NSObject {
 					return
 				}
 				let data = Common.DataTransformToWatch.init(dic: reply)
-				if let value = data.latest?.value
+				if let latest = data.latest
 				{
-					self.lastest = ObjectWithDate(date: Date(), value: value)
 					print("requestLatest reply: \(reply)")
-					completion("\(value)")
+					let showAsMgDl = data.config?.showAsMgDl ?? true
+					let slope = data.slope
+					let trendStr = String(format: "%.\(showAsMgDl ? 0 : 1)f %@",
+										  latest.value,
+										  slope.description)
+					self.lastest = ObjectWithDate(date: latest.date, value: trendStr)
+					completion((latest.date, trendStr))
 				} else {
-					// TODO
-					print("requestLatest  formatter error reply: \(reply)")
+					print("requestLatest formatter error reply: \(reply)")
 					completion(nil)
 				}
 			}
 		} errorHandler: { error in
-			// TODO
 			DispatchQueue.main.async {
 				print("requestLatest failed: \(error.localizedDescription)")
 				completion(nil)
@@ -113,22 +112,18 @@ class PhoneCommunicator: NSObject {
 	}
 	
 	func requestRecentlyChart() {
-//		DispatchQueue.main.async {
-//			self.usefulData.bgInfoList = PhoneCommunicator.fakeRecently()
-//			self.usefulData.bgLatest = self.usefulData.bgInfoList.last
-//			self.usefulData.bgConfig = PhoneCommunicator.fakeConfig()
-//			self.usefulData.slope = .up
-//		}
-//		return
 		guard session.isReady else {
-			print("requestRecentlyChart false")
 			return
 		}
 		let message = Common.DataTransformToPhone.init(type: .recently).toDic()
 		print(message)
-		session.sendMessage(message) { reply in
+		session.sendMessage(message) { [unowned self] reply in
+			print("requestLatest reply: \(reply)")
+			if reply.keys.count == 0 {
+				self.requestTimer?.fire()
+				return
+			}
 			let data = Common.DataTransformToWatch.init(dic: reply)
-			print(reply)
 			DispatchQueue.main.async {
 				self.usefulData.bgLatest = data.latest
 				self.usefulData.bgInfoList = data.recently ?? []
@@ -140,7 +135,6 @@ class PhoneCommunicator: NSObject {
 //				}
 			}
 		} errorHandler: { error in
-			// TODO
 			print("requestRecentlyChart failed: \(error.localizedDescription)")
 		}
 	}

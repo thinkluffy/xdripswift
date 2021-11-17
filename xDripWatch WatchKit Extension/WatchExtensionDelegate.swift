@@ -22,7 +22,6 @@ class WatchExtensionDelegate: NSObject, ObservableObject, WKExtensionDelegate {
 	func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>) {
 		print(Date(), #function, backgroundTasks.count)
 		for task in backgroundTasks {
-			print("task userInfo", task.userInfo)
 			
 			ComplicationController.reload()
 			WatchExtensionDelegate.fireBackgroundTasks()

@@ -11,7 +11,6 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
 	
 	static func reload() {
 		let server = CLKComplicationServer.sharedInstance()
-		print("reload complications, count = ", server.activeComplications?.count ?? "nil")
 		for complication in server.activeComplications ?? [] {
 			server.reloadTimeline(for: complication)
 		}
@@ -19,7 +18,6 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
 	// MARK: - Complication Configuration
 
 	func getComplicationDescriptors(handler: @escaping ([CLKComplicationDescriptor]) -> Void) {
-		print("Descriptors")
 		let descriptors = [
 			CLKComplicationDescriptor(identifier: "complication_text", displayName: "Latest", supportedFamilies: [.circularSmall, .modularSmall, .modularLarge, .utilitarianSmall, .utilitarianLarge, .extraLarge, .graphicCorner, .graphicCircular, .graphicBezel, .graphicExtraLarge]),
 			CLKComplicationDescriptor(identifier: "complication_graphicRectangular", displayName: "Recently Chart", supportedFamilies: [.graphicRectangular])
@@ -34,13 +32,11 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
 	
 	func getTimelineEndDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void) {
 		// Call the handler with the last entry date you can currently provide or nil if you can't support future timelines
-		print("EndDate", complication.identifier, Date())
 		handler(Date().addingTimeInterval(Constants.DataValidTimeInterval))
 	}
 	// MARK: - Timeline Population
 	
 	func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
-		print("Current", complication.identifier, Date())
 		// Call the handler with the current timeline entry
 		createTimelineEntry(for: complication, date: Date()) { entry in
 			handler(entry)
@@ -49,7 +45,6 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
 	
 	func getTimelineEntries(for complication: CLKComplication, after date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
 		// Call the handler with the timeline entries after the given date
-		print("Entries", complication.identifier, date, limit, Date())
 		handler(nil)
 	}
 
@@ -60,10 +55,10 @@ extension ComplicationController {
 	func createTimelineEntry(for complication: CLKComplication, date: Date, completion: @escaping ((CLKComplicationTimelineEntry?) -> Void)) {
 		PhoneCommunicator.shared.requestLatest { result in
 			if let result = result {
-				let dateProvider = CLKTimeTextProvider(date: date)
-				let textProvider = CLKSimpleTextProvider(text: result, shortText: result)
+				let dateProvider = CLKTimeTextProvider(date: result.0)
+				let textProvider = CLKSimpleTextProvider(text: result.1, shortText: result.1)
 				
-				let imageProvider = CLKFullColorImageProvider(fullColorImage: self.getImage(from: result) ?? UIImage(named: "128")!)
+				let imageProvider = CLKFullColorImageProvider(fullColorImage: self.getImage(from: result.1) ?? UIImage(named: "128")!)
 
 				var template: CLKComplicationTemplate?
 				switch complication.family {
