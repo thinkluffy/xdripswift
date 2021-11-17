@@ -706,7 +706,8 @@ final class RootViewController: UIViewController {
         
         // setup watchmanager
         watchManager = WatchManager(coreDataManager: coreDataManager)
-        
+//		WatchCommunicator.shared.dataManager = watchManager
+		
         // initialize glucoseChartManager
         glucoseChartManager = GlucoseChartManager(chartLongPressGestureRecognizer: chartLongPressGestureRecognizerOutlet, coreDataManager: coreDataManager)
         

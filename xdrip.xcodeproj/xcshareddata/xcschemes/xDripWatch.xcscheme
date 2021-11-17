@@ -14,6 +14,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "E53D044F27438C5D00CA548E"
+               BuildableName = "xDripWatch.app"
+               BlueprintName = "xDripWatch"
+               ReferencedContainer = "container:xdrip.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "F8AC425921ADEBD60078C348"
                BuildableName = "xdrip.app"
                BlueprintName = "xdrip"
@@ -27,15 +41,6 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F8AC425921ADEBD60078C348"
-            BuildableName = "xdrip.app"
-            BlueprintName = "xdrip"
-            ReferencedContainer = "container:xdrip.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <Testables>
       </Testables>
    </TestAction>
@@ -43,7 +48,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      enableAddressSanitizer = "YES"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -54,18 +58,12 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F8AC425921ADEBD60078C348"
-            BuildableName = "xdrip.app"
-            BlueprintName = "xdrip"
+            BlueprintIdentifier = "E53D044F27438C5D00CA548E"
+            BuildableName = "xDripWatch.app"
+            BlueprintName = "xDripWatch"
             ReferencedContainer = "container:xdrip.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <CommandLineArguments>
-         <CommandLineArgument
-            argument = "-com.apple.CoreData.ConcurrencyDebug 1"
-            isEnabled = "YES">
-         </CommandLineArgument>
-      </CommandLineArguments>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -77,9 +75,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F8AC425921ADEBD60078C348"
-            BuildableName = "xdrip.app"
-            BlueprintName = "xdrip"
+            BlueprintIdentifier = "E53D044F27438C5D00CA548E"
+            BuildableName = "xDripWatch.app"
+            BlueprintName = "xDripWatch"
             ReferencedContainer = "container:xdrip.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

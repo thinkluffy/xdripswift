@@ -1,0 +1,81 @@
+//
+//  ContentView.swift
+//  WatchApp WatchKit Extension
+//
+//  Created by Liu Xudong on 2021/10/29.
+//
+
+import SwiftUI
+
+
+struct ContentView: View {
+
+	@EnvironmentObject var usefulData: UsefulData
+	
+	var body: some View {
+		VStack(alignment: .leading) {
+//				Button("Request") {
+//					PhoneCommunicator.shared.requestRecentlyChart()
+//				}
+			if let config = usefulData.bgConfig {
+				if let bgLatest = usefulData.bgLatest {
+					HStack(alignment: .lastTextBaseline) {
+						let isDataInvalid = Date().timeIntervalSince(bgLatest.date) > Constants.DataValidTimeInterval
+						let trendStr = usefulData.slope.description
+						let color = self.getColor(of: bgLatest.value, config: config)
+						if config.showAsMgDl {
+							Text(String(format: "%.0f", bgLatest.value))
+								.font(.title)
+								.foregroundColor(color)
+						} else {
+							let number = Int(round(bgLatest.value * 10))
+							let int = floor(Double(number/10))
+							let point = number - Int(int * 10)
+							Text(String(format: "%.0f.",int))
+								.font(.title)
+								.foregroundColor(color)
+								.strikethrough(isDataInvalid)
+							Text(String(point))
+								.font(.title3)
+								.foregroundColor(color)
+						}
+						if !isDataInvalid {
+							// 有效期内
+							Text(trendStr)
+								.font(.title)
+								.foregroundColor(color)
+						}
+					}
+				}
+				Text(config.showAsMgDl ? "mg/dL" : "mmol/L")
+					.font(.footnote)
+				if usefulData.bgInfoList.count > 0 {
+					let list = usefulData.bgInfoList.map {
+						ChartPoint(x: Int($0.date.timeIntervalSince1970), y: $0.value)
+					}
+					WatchChartView(pointDigit: config.showAsMgDl ? 0 : 1,
+							  min: config.min, max: config.max, urgentMin: config.urgentMin, urgentMax: config.urgentMax, suggestMin: config.suggestMin, suggestMax: config.suggestMax,
+							  values: list)
+				}
+				Spacer(minLength: 1)
+			}
+		}
+	}
+}
+
+struct ContentView_Previews: PreviewProvider {
+	static var previews: some View {
+		ContentView()
+	}
+}
+extension ContentView {
+	private func getColor(of value: Double, config: Common.BgConfig) -> Color {
+		if value > config.urgentMax || value < config.urgentMin {
+			return Color.red
+		}
+		else if value > config.suggestMax || value < config.suggestMin {
+			return Color.yellow
+		}
+		return Color.white
+	}
+}
