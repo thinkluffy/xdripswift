@@ -56,9 +56,10 @@ extension ComplicationController {
 		PhoneCommunicator.shared.requestLatest { result in
 			if let result = result {
 				let dateProvider = CLKTimeTextProvider(date: result.0)
-				let textProvider = CLKSimpleTextProvider(text: result.1, shortText: result.1)
+				let text = Date().timeIntervalSince(result.0) > Constants.DataValidTimeInterval ? "--" : result.1
+				let textProvider = CLKSimpleTextProvider(text: text, shortText: text)
 				
-				let imageProvider = CLKFullColorImageProvider(fullColorImage: self.getImage(from: result.1) ?? UIImage(named: "128")!)
+				let imageProvider = CLKFullColorImageProvider(fullColorImage: self.getImage(from: text) ?? UIImage(named: "128")!)
 
 				var template: CLKComplicationTemplate?
 				switch complication.family {

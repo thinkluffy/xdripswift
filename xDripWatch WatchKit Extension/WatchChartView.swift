@@ -85,101 +85,98 @@ struct WatchChartView: View {
 		case .hour6:
 			values =  last6hour + last3hour + last1hour
 		}
-		return VStack(alignment: .leading) {
-			ZStack {
-				// 说明性文字
-				GeometryReader { reader in
-					let font = Font.system(size: 12)
-					let textWidth: CGFloat = RightLabelWidth
-					let textHeight: CGFloat = 20
-					let suggestMinY = reader.size.height * CGFloat((self.maxY - self.suggestMin) / (self.maxY - self.minY))// + textHeight/2
-					let suggestMaxY = reader.size.height * CGFloat((self.maxY - self.suggestMax) / (self.maxY - self.minY))// - textHeight/2
-					Text(timeRange.rawValue)
-						.font(.system(size: 14))
-						.frame(width: 40, height: textHeight)
-						.position(x: 20, y: textHeight/2) // 顺序不能变
-					Text(String(format: "%.\(self.pointDigit)f", self.suggestMax))
-						.font(font)
-						.frame(width: textWidth, height: textHeight)
-						.position(x: reader.size.width - textWidth/2, y: suggestMaxY)
-					Text(String(format: "%.\(self.pointDigit)f", self.suggestMin))
-						.font(font)
-						.frame(width: textWidth, height: textHeight)
-						.position(x: reader.size.width - textWidth/2, y: suggestMinY)
-				}
-				// 绘制两支横向辅导线,一支竖线辅导线
-				GeometryReader { reader in
-					let minY = reader.size.height * CGFloat((self.maxY - self.suggestMin) / (self.maxY - self.minY))
-					let maxY = reader.size.height * CGFloat((self.maxY - self.suggestMax) / (self.maxY - self.minY))
-					let minX: CGFloat = 0
-					let maxX = reader.size.width
-					let verticalMaxX = maxX - RightLabelWidth
-					Group {
-						Path { p in
-							// 低线
-							p.move(to: CGPoint(x: minX, y: minY))
-							p.addLine(to: CGPoint(x: verticalMaxX, y: minY))
-							// 高线
-							p.move(to: CGPoint(x: minX, y: maxY))
-							p.addLine(to: CGPoint(x: verticalMaxX, y: maxY))
-						}.stroke(style: StrokeStyle(dash: [2,3]))
-						Path { p in
-							// 竖线
-							p.move(to: CGPoint(x: verticalMaxX, y: 0))
-							p.addLine(to: CGPoint(x: verticalMaxX, y: reader.size.height))
-						}.stroke(Color.gray)
-					}
-				}
-				// 曲线
-				GeometryReader { reader in
-					if values.count == 1 {
-						let value = values.first!
-						let radius: CGFloat = 10
-						Path { p in
-							let height = reader.size.height * CGFloat((self.maxY - value.y) / (self.maxY - self.minY))
-							p.addEllipse(in: CGRect(x: reader.size.width/2 - radius/2,
-											   y: height - radius/2,
-											   width: radius,
-											   height: radius))
-						}.fill(self.getColor(of: value.y))
-					}
-					else if values.count > 1 {
-						// https://stackoverflow.com/questions/57244713/get-index-in-foreach-in-swiftui
-						ForEach(values.indices, id: \.self) { i in
-							let first: ChartPoint = values.first!
-							let maxTimeInterval: CGFloat = CGFloat(Int(Date().timeIntervalSince1970) - first.x)
-							let pathWidth = reader.size.width - RightLabelWidth
-							let radius: CGFloat = min(6, pathWidth * 5 * 60 / maxTimeInterval)
-							let value = values[i]
-							
-							if value.y <= self.maxY && value.y >= self.minY {
-								let x = (pathWidth - radius) * CGFloat(value.x - first.x) / maxTimeInterval
-								let height = reader.size.height * CGFloat((self.maxY - value.y) / (self.maxY - self.minY))
-								Path { p in
-									p.addEllipse(in:
-													CGRect(x: x,
-														   y: height - radius/2,
-														   width: radius,
-														   height: radius))
-								}.fill(self.getColor(of: value.y))
-							}
-						}
-					}
-				}
-			}
-			.frame(height: 120)
-			.background(Color.init(red: 19/255, green: 24/255, blue: 51/255))
-			.onTapGesture {
-				switch timeRange {
-				case .hour1:
-					timeRange = .hour3
-				case .hour3:
-					timeRange = .hour6
-				case .hour6:
-					timeRange = .hour1
-				}
-			}
-			Spacer().frame(height: 20)
+		return ZStack {
+			// 说明性文字
+			GeometryReader { reader in
+			   let font = Font.system(size: 12)
+			   let textWidth: CGFloat = RightLabelWidth
+			   let textHeight: CGFloat = 20
+			   let suggestMinY = reader.size.height * CGFloat((self.maxY - self.suggestMin) / (self.maxY - self.minY))// + textHeight/2
+			   let suggestMaxY = reader.size.height * CGFloat((self.maxY - self.suggestMax) / (self.maxY - self.minY))// - textHeight/2
+			   Text(timeRange.rawValue)
+				   .font(.system(size: 14))
+				   .frame(width: 40, height: textHeight)
+				   .position(x: 20, y: textHeight/2) // 顺序不能变
+			   Text(String(format: "%.\(self.pointDigit)f", self.suggestMax))
+				   .font(font)
+				   .frame(width: textWidth, height: textHeight)
+				   .position(x: reader.size.width - textWidth/2, y: suggestMaxY)
+			   Text(String(format: "%.\(self.pointDigit)f", self.suggestMin))
+				   .font(font)
+				   .frame(width: textWidth, height: textHeight)
+				   .position(x: reader.size.width - textWidth/2, y: suggestMinY)
+		   }
+		   // 绘制两支横向辅导线,一支竖线辅导线
+		   GeometryReader { reader in
+			   let minY = reader.size.height * CGFloat((self.maxY - self.suggestMin) / (self.maxY - self.minY))
+			   let maxY = reader.size.height * CGFloat((self.maxY - self.suggestMax) / (self.maxY - self.minY))
+			   let minX: CGFloat = 0
+			   let maxX = reader.size.width
+			   let verticalMaxX = maxX - RightLabelWidth
+			   Group {
+				   Path { p in
+					   // 低线
+					   p.move(to: CGPoint(x: minX, y: minY))
+					   p.addLine(to: CGPoint(x: verticalMaxX, y: minY))
+					   // 高线
+					   p.move(to: CGPoint(x: minX, y: maxY))
+					   p.addLine(to: CGPoint(x: verticalMaxX, y: maxY))
+				   }.stroke(style: StrokeStyle(dash: [2,3]))
+				   Path { p in
+					   // 竖线
+					   p.move(to: CGPoint(x: verticalMaxX, y: 0))
+					   p.addLine(to: CGPoint(x: verticalMaxX, y: reader.size.height))
+				   }.stroke(Color(white: 1, opacity: 0.5),
+							lineWidth: 0.5)
+			   }
+		   }
+		   // 曲线
+		   GeometryReader { reader in
+			   if values.count == 1 {
+				   let value = values.first!
+				   let radius: CGFloat = 10
+				   Path { p in
+					   let height = reader.size.height * CGFloat((self.maxY - value.y) / (self.maxY - self.minY))
+					   p.addEllipse(in: CGRect(x: reader.size.width/2 - radius/2,
+										  y: height - radius/2,
+										  width: radius,
+										  height: radius))
+				   }.fill(self.getColor(of: value.y))
+			   }
+			   else if values.count > 1 {
+				   // https://stackoverflow.com/questions/57244713/get-index-in-foreach-in-swiftui
+				   ForEach(values.indices, id: \.self) { i in
+					   let first: ChartPoint = values.first!
+					   let maxTimeInterval: CGFloat = CGFloat(Int(Date().timeIntervalSince1970) - first.x)
+					   let pathWidth = reader.size.width - RightLabelWidth
+					   let radius: CGFloat = min(6, pathWidth * 5 * 60 / maxTimeInterval)
+					   let value = values[i]
+					   
+					   if value.y <= self.maxY && value.y >= self.minY {
+						   let x = (pathWidth - radius) * CGFloat(value.x - first.x) / maxTimeInterval
+						   let height = reader.size.height * CGFloat((self.maxY - value.y) / (self.maxY - self.minY))
+						   Path { p in
+							   p.addEllipse(in:
+											   CGRect(x: x,
+													  y: height - radius/2,
+													  width: radius,
+													  height: radius))
+						   }.fill(self.getColor(of: value.y))
+					   }
+				   }
+			   }
+		   }
+		}
+		.background(Color.init(red: 19/255, green: 24/255, blue: 51/255))
+		.onTapGesture {
+		   switch timeRange {
+		   case .hour1:
+			   timeRange = .hour3
+		   case .hour3:
+			   timeRange = .hour6
+		   case .hour6:
+			   timeRange = .hour1
+		   }
 		}
 	}
 }

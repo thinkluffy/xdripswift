@@ -8,6 +8,7 @@
 import Foundation
 import WatchConnectivity
 import SwiftUI
+import CryptoKit
 
 extension WCSession {
 	
@@ -37,7 +38,7 @@ class PhoneCommunicator: NSObject {
 
 	var usefulData = UsefulData()
 	
-	var lastest: ObjectWithDate?
+	var previousOne: ObjectWithDate?
 	
 	fileprivate override init() {
 		super.init()
@@ -62,20 +63,15 @@ class PhoneCommunicator: NSObject {
 	}
 	
 	func requestLatest(completion: @escaping ((Date, String)?) -> Void) {
-		
-		if let old = lastest,
-			Date().timeIntervalSince(old.date) < Constants.DataValidTimeInterval,
-		   let oldValue = old.value as? String
-		{
-			DispatchQueue.main.async {
-				print("requestLatest reuse old value")
-				completion((old.date, oldValue))
-			}
-			return
-		}
+//		completion((Date(timeIntervalSinceNow: -12 * 60), "5.6>"))
+//		return
 		guard session.isReady else {
 			DispatchQueue.main.async {
-				completion(nil)
+				if let lastest = self.previousOne {
+					completion((lastest.date, lastest.value as! String))
+				} else {
+					completion(nil)
+				}
 			}
 			return
 		}
@@ -84,7 +80,11 @@ class PhoneCommunicator: NSObject {
 		session.sendMessage(message) { reply in
 			DispatchQueue.main.async {
 				if reply.keys.count == 0 {
-					completion(nil)
+					if let lastest = self.previousOne {
+						completion((lastest.date, lastest.value as! String))
+					} else {
+						completion(nil)
+					}
 					return
 				}
 				let data = Common.DataTransformToWatch.init(dic: reply)
@@ -96,7 +96,7 @@ class PhoneCommunicator: NSObject {
 					let trendStr = String(format: "%.\(showAsMgDl ? 0 : 1)f %@",
 										  latest.value,
 										  slope.description)
-					self.lastest = ObjectWithDate(date: latest.date, value: trendStr)
+					self.previousOne = ObjectWithDate(date: latest.date, value: trendStr)
 					completion((latest.date, trendStr))
 				} else {
 					print("requestLatest formatter error reply: \(reply)")
@@ -106,12 +106,24 @@ class PhoneCommunicator: NSObject {
 		} errorHandler: { error in
 			DispatchQueue.main.async {
 				print("requestLatest failed: \(error.localizedDescription)")
-				completion(nil)
+				if let lastest = self.previousOne {
+					completion((lastest.date, lastest.value as! String))
+				} else {
+					completion(nil)
+				}
 			}
 		}
 	}
 	
 	func requestRecentlyChart() {
+//		DispatchQueue.main.async {
+//			let fake = PhoneCommunicator.fakeRecently()
+//			self.usefulData.bgLatest = fake.last
+//			self.usefulData.bgInfoList = fake
+//			self.usefulData.bgConfig = PhoneCommunicator.fakeConfig()
+//			self.usefulData.slope = Common.BgSlope.flat
+//		}
+//		return
 		guard session.isReady else {
 			return
 		}
@@ -129,10 +141,9 @@ class PhoneCommunicator: NSObject {
 				self.usefulData.bgInfoList = data.recently ?? []
 				self.usefulData.bgConfig = data.config
 				self.usefulData.slope = data.slope
-//				if let latest = data.latest {
-//					self.lastest = ObjectWithDate(date: latest.date, value: latest.value)
-//					ComplicationController.reload()
-//				}
+				if let latest = data.latest {
+					self.previousOne = ObjectWithDate(date: latest.date, value: latest.value)
+				}
 			}
 		} errorHandler: { error in
 			print("requestRecentlyChart failed: \(error.localizedDescription)")
@@ -163,7 +174,7 @@ extension PhoneCommunicator: WCSessionDelegate {
 }
 extension PhoneCommunicator {
 	static func fakeConfig() -> Common.BgConfig {
-		Common.BgConfig(showAsMgDl: true, min: 2.2, max: 16.6, urgentMin: 3.9, urgentMax: 10, suggestMin: 4.5, suggestMax: 7.8)
+		Common.BgConfig(showAsMgDl: false, min: 2.2, max: 16.6, urgentMin: 3.9, urgentMax: 10, suggestMin: 4.5, suggestMax: 7.8)
 	}
 	
 	static func fakeRecently() -> [Common.BgInfo] {
@@ -172,9 +183,9 @@ extension PhoneCommunicator {
 		let now = Date()
 		// 六小时前 - 现在
 		let start = Int(now.addingTimeInterval(-6*60*60).timeIntervalSince1970)
-		let end = Int(now.timeIntervalSince1970)
+		let end = Int(now.addingTimeInterval(-1*60*60).timeIntervalSince1970)
 		for i in stride(from: start, to: end + 1, by: 5*60) {
-			last = last + Double.random(in: -0.4...0.4)
+			last = last + Double.random(in: -0.6...0.6)
 			last = min(16.6, max(2.2, last))
 			if Int.random(in: 0..<100) > 90{
 				// 模拟90%的几率没数据
