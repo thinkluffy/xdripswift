@@ -651,16 +651,24 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="spV-Wq-MSW" userLabel="Card" customClass="Card" customModule="xdrip" customModuleProvider="target">
                                 <rect key="frame" x="10" y="104" width="906" height="280"/>
                                 <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oJs-dA-XMT" userLabel="BgLabel">
+                                        <rect key="frame" x="20" y="10" width="23" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SY5-Dp-dbs" userLabel="ChartView" customClass="ScatterChartView" customModule="Charts">
-                                        <rect key="frame" x="10" y="10" width="886" height="260"/>
+                                        <rect key="frame" x="10" y="50" width="886" height="220"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.078431372549019607" green="0.094117647058823528" blue="0.19215686274509802" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="SY5-Dp-dbs" firstAttribute="leading" secondItem="spV-Wq-MSW" secondAttribute="leading" constant="10" id="ADp-uj-PnC"/>
+                                    <constraint firstItem="oJs-dA-XMT" firstAttribute="top" secondItem="spV-Wq-MSW" secondAttribute="top" constant="10" id="RW7-Om-FAK"/>
                                     <constraint firstAttribute="trailing" secondItem="SY5-Dp-dbs" secondAttribute="trailing" constant="10" id="YCN-Ke-YNq"/>
-                                    <constraint firstItem="SY5-Dp-dbs" firstAttribute="top" secondItem="spV-Wq-MSW" secondAttribute="top" constant="10" id="dh7-YF-qQE"/>
+                                    <constraint firstItem="SY5-Dp-dbs" firstAttribute="top" secondItem="spV-Wq-MSW" secondAttribute="top" constant="50" id="dh7-YF-qQE"/>
+                                    <constraint firstItem="oJs-dA-XMT" firstAttribute="leading" secondItem="spV-Wq-MSW" secondAttribute="leading" constant="20" id="khe-TJ-9lp"/>
                                     <constraint firstAttribute="bottom" secondItem="SY5-Dp-dbs" secondAttribute="bottom" constant="10" id="vNa-aS-6Jm"/>
                                 </constraints>
                             </view>
@@ -680,6 +688,7 @@
                     <navigationItem key="navigationItem" id="L12-oe-mlb"/>
                     <size key="freeformSize" width="926" height="428"/>
                     <connections>
+                        <outlet property="bgLabel" destination="oJs-dA-XMT" id="Aaf-IQ-lgg"/>
                         <outlet property="chartCard" destination="spV-Wq-MSW" id="pKD-VV-eul"/>
                         <outlet property="chartView" destination="SY5-Dp-dbs" id="PyF-dR-Z2C"/>
                         <outlet property="titieBar" destination="9T5-Iq-CgP" id="m4R-NG-I8c"/>
