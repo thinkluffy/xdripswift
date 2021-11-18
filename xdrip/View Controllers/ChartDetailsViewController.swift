@@ -73,14 +73,16 @@ class ChartDetailsViewController: UIViewController {
         chartView.legend.enabled = false
         
         let xAxis = chartView.xAxis
-        xAxis.labelFont = .systemFont(ofSize: 10, weight: .light)
+        xAxis.labelFont = .systemFont(ofSize: 12)
         xAxis.labelTextColor = .white
         xAxis.valueFormatter = HourAxisValueFormatter()
         xAxis.labelPosition = .bottom
         xAxis.gridColor = ConstantsUI.mainBackgroundColor
-        xAxis.gridLineWidth = 1
+        xAxis.gridLineWidth = 2
         xAxis.axisLineColor = ConstantsUI.mainBackgroundColor
+        xAxis.axisLineWidth = 2
         xAxis.granularity = Date.hourInSeconds
+        xAxis.labelCount = 13 // make the x labels step by 1 hour, do not know why
         
         chartView.leftAxis.enabled = false
 
@@ -90,7 +92,7 @@ class ChartDetailsViewController: UIViewController {
         yAxis.labelTextColor = .white
         yAxis.drawGridLinesEnabled = false
         yAxis.axisLineColor = ConstantsUI.mainBackgroundColor
-        yAxis.axisLineWidth = 1
+        yAxis.axisLineWidth = 2
 
         let showAsMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
         let urgentHigh = UserDefaults.standard.urgentHighMarkValue.mgdlToMmol(mgdl: showAsMg)
@@ -144,10 +146,10 @@ extension ChartDetailsViewController: ChartDetailsV {
         
         let showAsMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
         
-        let urgentHigh = UserDefaults.standard.urgentHighMarkValue
-        let high = UserDefaults.standard.highMarkValue
-        let low = UserDefaults.standard.lowMarkValue
-        let urgentLow = UserDefaults.standard.urgentLowMarkValue
+        let urgentHighInMg = UserDefaults.standard.urgentHighMarkValue
+        let highInMg = UserDefaults.standard.highMarkValue
+        let lowInMg = UserDefaults.standard.lowMarkValue
+        let urgentLowInMg = UserDefaults.standard.urgentLowMarkValue
         
         var urgentHighValues = [ChartDataEntry]()
         var highValues = [ChartDataEntry]()
@@ -158,16 +160,16 @@ extension ChartDetailsViewController: ChartDetailsV {
         for r in readings {
             let bgValue = showAsMg ? r.calculatedValue : r.calculatedValue.mgdlToMmol()
             let chartDataEntry = ChartDataEntry(x: r.timeStamp.timeIntervalSince1970, y: bgValue, data: r)
-            if r.calculatedValue >= urgentHigh {
+            if r.calculatedValue >= urgentHighInMg {
                 urgentHighValues.append(chartDataEntry)
                 
-            } else if r.calculatedValue >= high {
+            } else if r.calculatedValue >= highInMg {
                 highValues.append(chartDataEntry)
                 
-            } else if r.calculatedValue > low {
+            } else if r.calculatedValue > lowInMg {
                 inRangeValues.append(chartDataEntry)
                 
-            } else if r.calculatedValue > urgentLow {
+            } else if r.calculatedValue > urgentLowInMg {
                 lowValues.append(chartDataEntry)
                 
             } else {
@@ -220,7 +222,7 @@ extension ChartDetailsViewController: ChartViewDelegate {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         let timestamp = dateFormatter.string(from: Date(timeIntervalSince1970: entry.x))
-        ChartDetailsViewController.log.d("====> chartValueSelected, (\(timestamp), \(entry.y))")
+        ChartDetailsViewController.log.d("==> chartValueSelected, (\(timestamp), \(entry.y))")
         
         bgLabel.text = "\(timestamp) \(entry.y.bgValuetoString(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl))"
     }
