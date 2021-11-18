@@ -19,8 +19,8 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
 
 	func getComplicationDescriptors(handler: @escaping ([CLKComplicationDescriptor]) -> Void) {
 		let descriptors = [
-			CLKComplicationDescriptor(identifier: "complication_text", displayName: "Latest", supportedFamilies: [.circularSmall, .modularSmall, .modularLarge, .utilitarianSmall, .utilitarianLarge, .extraLarge, .graphicCorner, .graphicCircular, .graphicBezel, .graphicExtraLarge]),
-			CLKComplicationDescriptor(identifier: "complication_graphicRectangular", displayName: "Recently Chart", supportedFamilies: [.graphicRectangular])
+			CLKComplicationDescriptor(identifier: "complication_text", displayName: Constants.DisplayName, supportedFamilies: [.circularSmall, .modularSmall, .modularLarge, .utilitarianSmall, .utilitarianLarge, .extraLarge, .graphicCorner, .graphicCircular, .graphicBezel, .graphicExtraLarge]),
+			CLKComplicationDescriptor(identifier: "complication_graphicRectangular", displayName: Constants.DisplayName, supportedFamilies: [.graphicRectangular])
 			// Multiple complication support can be added here with more descriptors
 		]
 		

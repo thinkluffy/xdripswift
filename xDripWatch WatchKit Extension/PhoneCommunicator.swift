@@ -183,7 +183,7 @@ extension PhoneCommunicator {
 		let now = Date()
 		// 六小时前 - 现在
 		let start = Int(now.addingTimeInterval(-6*60*60).timeIntervalSince1970)
-		let end = Int(now.addingTimeInterval(-1*60*60).timeIntervalSince1970)
+		let end = Int(now.addingTimeInterval(-1*60*60).timeIntervalSince1970)//
 		for i in stride(from: start, to: end + 1, by: 5*60) {
 			last = last + Double.random(in: -0.6...0.6)
 			last = min(16.6, max(2.2, last))

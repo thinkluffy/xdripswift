@@ -16,12 +16,15 @@ struct xdripApp: App {
 	@Environment(\.scenePhase) private var scenePhase
 	
     @SceneBuilder var body: some Scene {
-        WindowGroup {
+		WindowGroup() {
             NavigationView {
-                ContentView()
+				ContentView()
 					.environmentObject(PhoneCommunicator.shared.usefulData)
-            }
-        }
+					.ignoresSafeArea(.container, edges: .bottom)
+					.navigationTitle(Constants.DisplayName)
+					.navigationBarTitleDisplayMode(.inline)
+			}
+		}
 		.onChange(of: scenePhase) { newScenePhase in
 			if newScenePhase == .active {
 				print("onChange active")
