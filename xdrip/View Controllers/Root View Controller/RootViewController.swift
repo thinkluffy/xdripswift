@@ -1922,7 +1922,7 @@ final class RootViewController: UIViewController {
             
             // if there are no values returned (new sensor?) then just leave the default "-" showing
             if statistics.averageStatisticValue.value > 0 {
-                self.averageStatisticLabelOutlet.text = (isMgDl ? Int(statistics.averageStatisticValue.round(toDecimalPlaces: 0)).description : statistics.averageStatisticValue.round(toDecimalPlaces: 1).description) + (isMgDl ? " mg/dl" : " mmol/l")
+                self.averageStatisticLabelOutlet.text = (isMgDl ? Int(statistics.averageStatisticValue.round(toDecimalPlaces: 0)).description : statistics.averageStatisticValue.round(toDecimalPlaces: 1).description) + (isMgDl ? " mg/dL" : " mmol/L")
             }
             
             // if there are no values returned (new sensor?) then just leave the default "-" showing

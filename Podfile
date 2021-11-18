@@ -23,5 +23,6 @@ target 'xdrip' do
   pod 'SnapKit', '~> 5.0.0'
   pod 'CocoaLumberjack/Swift', '3.7.0'
   pod 'SwiftyJSON', '4.3.0'
-
+  pod 'Charts', '3.6.0'
+  
 end

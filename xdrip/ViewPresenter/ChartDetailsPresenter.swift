@@ -42,13 +42,14 @@ class ChartDetailsPresenter: ChartDetailsP {
         }
         
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
-            let startDate = NSDate(timeIntervalSinceNow: -3600)
-            let readings = self?.bgReadingAccessor!.getBgReadings(from: startDate as Date,
-                                                                  to: Date(),
+            let fromDate = NSDate(timeIntervalSinceNow: -Date.hourInSeconds * 6) as Date
+            let toDate = Date()
+            let readings = self?.bgReadingAccessor!.getBgReadings(from: fromDate,
+                                                                  to: toDate,
                                                                   on: coreDataManager.mainManagedObjectContext)
            
             DispatchQueue.main.async {
-                self?.view?.showReadings(readings)
+                self?.view?.showReadings(readings, from: fromDate, to: toDate)
             }
         }
     }

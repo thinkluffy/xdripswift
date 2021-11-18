@@ -1,5 +1,8 @@
 PODS:
   - ActionClosurable (2.0.0)
+  - Charts (3.6.0):
+    - Charts/Core (= 3.6.0)
+  - Charts/Core (3.6.0)
   - CocoaLumberjack/Core (3.7.0)
   - CocoaLumberjack/Swift (3.7.0):
     - CocoaLumberjack/Core
@@ -14,6 +17,7 @@ PODS:
 
 DEPENDENCIES:
   - ActionClosurable (from `https://github.com/takasek/ActionClosurable.git`)
+  - Charts (= 3.6.0)
   - CocoaLumberjack/Swift (= 3.7.0)
   - CryptoSwift (~> 1.4.0)
   - PieCharts
@@ -24,6 +28,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Charts
     - CocoaLumberjack
     - CryptoSwift
     - PieCharts
@@ -44,6 +49,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   ActionClosurable: 92729a0f0bb4b38d2744319ea8282a3ce8fb1e0a
+  Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   CocoaLumberjack: e8955b9d337ac307103b0a34fd141c32f27e53c5
   CryptoSwift: 7cc902df1784de3b389a387756c7d710f197730c
   PieCharts: 30e50dfa7dc19e5b84e9878d32089673ef5d0453
@@ -53,6 +59,6 @@ SPEC CHECKSUMS:
   SwiftCharts: 2e755ea292f0b87d3e4b2c1eb5afc080a20cdc15
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: b022bd46421d84e3b94ab49bd4db7f813fa94dd6
+PODFILE CHECKSUM: 822d06bee112206905df9b3dc27fb6e0b9ce4701
 
 COCOAPODS: 1.11.2

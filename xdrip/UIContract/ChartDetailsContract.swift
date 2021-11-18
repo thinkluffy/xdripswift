@@ -10,7 +10,7 @@ import UIKit
 
 protocol ChartDetailsV: MVPV {
     
-    func showReadings(_ readings: [BgReading]?)
+    func showReadings(_ readings: [BgReading]?, from fromDate: Date, to toDate: Date)
 }
 
 protocol ChartDetailsP: MVPP {
