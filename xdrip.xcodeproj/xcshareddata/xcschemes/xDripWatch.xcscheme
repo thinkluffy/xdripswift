@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E53D044F27438C5D00CA548E"
-               BuildableName = "xDripWatch.app"
+               BuildableName = "zDrip.app"
                BlueprintName = "xDripWatch"
                ReferencedContainer = "container:xdrip.xcodeproj">
             </BuildableReference>
@@ -59,7 +59,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E53D044F27438C5D00CA548E"
-            BuildableName = "xDripWatch.app"
+            BuildableName = "zDrip.app"
             BlueprintName = "xDripWatch"
             ReferencedContainer = "container:xdrip.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E53D044F27438C5D00CA548E"
-            BuildableName = "xDripWatch.app"
+            BuildableName = "zDrip.app"
             BlueprintName = "xDripWatch"
             ReferencedContainer = "container:xdrip.xcodeproj">
          </BuildableReference>
