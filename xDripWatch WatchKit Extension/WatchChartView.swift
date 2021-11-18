@@ -94,15 +94,18 @@ struct WatchChartView: View {
 			   let suggestMinY = reader.size.height * CGFloat((self.maxY - self.suggestMin) / (self.maxY - self.minY))// + textHeight/2
 			   let suggestMaxY = reader.size.height * CGFloat((self.maxY - self.suggestMax) / (self.maxY - self.minY))// - textHeight/2
 			   Text(timeRange.rawValue)
-				   .font(.system(size: 14))
+				   .font(font)
+				   .foregroundColor(Color.secondary)
 				   .frame(width: 40, height: textHeight)
 				   .position(x: 20, y: textHeight/2) // 顺序不能变
 			   Text(String(format: "%.\(self.pointDigit)f", self.suggestMax))
 				   .font(font)
+				   .foregroundColor(Color.secondary)
 				   .frame(width: textWidth, height: textHeight)
 				   .position(x: reader.size.width - textWidth/2, y: suggestMaxY)
 			   Text(String(format: "%.\(self.pointDigit)f", self.suggestMin))
 				   .font(font)
+				   .foregroundColor(Color.secondary)
 				   .frame(width: textWidth, height: textHeight)
 				   .position(x: reader.size.width - textWidth/2, y: suggestMinY)
 		   }
@@ -121,7 +124,7 @@ struct WatchChartView: View {
 					   // 高线
 					   p.move(to: CGPoint(x: minX, y: maxY))
 					   p.addLine(to: CGPoint(x: verticalMaxX, y: maxY))
-				   }.stroke(style: StrokeStyle(dash: [2,3]))
+				   }.stroke(Color.secondary, style: StrokeStyle(dash: [2,4]))
 				   Path { p in
 					   // 竖线
 					   p.move(to: CGPoint(x: verticalMaxX, y: 0))
@@ -149,7 +152,7 @@ struct WatchChartView: View {
 					   let first: ChartPoint = values.first!
 					   let maxTimeInterval: CGFloat = CGFloat(Int(Date().timeIntervalSince1970) - first.x)
 					   let pathWidth = reader.size.width - RightLabelWidth
-					   let radius: CGFloat = min(6, pathWidth * 5 * 60 / maxTimeInterval)
+					   let radius: CGFloat = min(5, pathWidth * 5 * 60 / maxTimeInterval)
 					   let value = values[i]
 					   
 					   if value.y <= self.maxY && value.y >= self.minY {
@@ -168,6 +171,7 @@ struct WatchChartView: View {
 		   }
 		}
 		.background(Color.init(red: 19/255, green: 24/255, blue: 51/255))
+		.cornerRadius(10)
 		.onTapGesture {
 		   switch timeRange {
 		   case .hour1:
@@ -184,18 +188,17 @@ struct WatchChartView: View {
 extension WatchChartView {
 	private func getColor(of value: Double) -> Color {
 		if value > self.urgentMax || value < self.urgentMin {
-			return Color.red
+			return Constants.glucoseRed
 		}
 		else if value > self.suggestMax || value < self.suggestMin {
-			return Color.yellow
+			return Constants.glucoseYellow
 		}
-		return Color.green
+		return Constants.glucoseGreen
 	}
 }
 
 struct ChartView_Previews: PreviewProvider {
     static var previews: some View {
-//		ChartView(min: 2.2, max: 16.6, urgentMin: 3.9, urgentMax: 10, suggestMin: 4.5, suggestMax: 7.8, values: ChartView.fakeValues())
 		WatchChartView(pointDigit: 0, min: 2.2 * 18, max: 16.6*18, urgentMin: 3.9*18, urgentMax: 10*18, suggestMin: 4.5*18, suggestMax: 7.8*18, values: WatchChartView.fakeValues().map{ ChartPoint(x: $0.x, y: $0.y * 18)})
     }
 }
