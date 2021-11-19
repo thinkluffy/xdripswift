@@ -28,7 +28,7 @@ struct ContentView: View {
 							let number = Int(round(bgLatest.value * 10))
 							let int = floor(Double(number/10))
 							let point = number - Int(int * 10)
-							HStack(alignment: .lastTextBaseline) {
+							HStack(alignment: .lastTextBaseline, spacing: 0) {
 								Text(String(format: "%.0f.",int))
 									.font(.title)
 									.foregroundColor(color)

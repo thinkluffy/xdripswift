@@ -18,10 +18,31 @@ struct ChartPoint {
 	}
 }
 
-enum TimeRange: String {
-	case hour1 = "1 HR"
-	case hour3 = "3 HR"
-	case hour6 = "6 HR"
+enum TimeRange {
+	case hour1
+	case hour3
+	case hour6
+	
+	var shortTitle: String {
+		switch self {
+		case .hour1:
+			return "1 HR"
+		case .hour3:
+			return "3 HR"
+		case .hour6:
+			return "6 HR"
+		}
+	}
+	var chartPointRadius: CGFloat {
+		switch self {
+		case .hour1:
+			return 6
+		case .hour3:
+			return 3
+		case .hour6:
+			return 2
+		}
+	}
 }
 
 struct WatchChartView: View {
@@ -93,7 +114,7 @@ struct WatchChartView: View {
 			   let textHeight: CGFloat = 20
 			   let suggestMinY = reader.size.height * CGFloat((self.maxY - self.suggestMin) / (self.maxY - self.minY))// + textHeight/2
 			   let suggestMaxY = reader.size.height * CGFloat((self.maxY - self.suggestMax) / (self.maxY - self.minY))// - textHeight/2
-			   Text(timeRange.rawValue)
+			   Text(timeRange.shortTitle)
 				   .font(font)
 				   .foregroundColor(Color.secondary)
 				   .frame(width: 40, height: textHeight)
@@ -152,7 +173,8 @@ struct WatchChartView: View {
 					   let first: ChartPoint = values.first!
 					   let maxTimeInterval: CGFloat = CGFloat(Int(Date().timeIntervalSince1970) - first.x)
 					   let pathWidth = reader.size.width - RightLabelWidth
-					   let radius: CGFloat = min(5, pathWidth * 5 * 60 / maxTimeInterval)
+//					   var radius: CGFloat = pathWidth * 5 * 60 / maxTimeInterval
+					   let radius: CGFloat = timeRange.chartPointRadius
 					   let value = values[i]
 					   
 					   if value.y <= self.maxY && value.y >= self.minY {

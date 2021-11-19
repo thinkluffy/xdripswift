@@ -47,6 +47,17 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
 		// Call the handler with the timeline entries after the given date
 		handler(nil)
 	}
+	
+	func getPlaceholderTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
+		let dateProvider = CLKTimeTextProvider(date: Date())
+		let text = "--"
+		let textProvider = CLKSimpleTextProvider(text: text, shortText: text)
+		
+		let imageProvider = CLKFullColorImageProvider(fullColorImage: self.getImage(from: text) ?? UIImage(named: "128")!)
+
+		let template = getTemplate(for: complication, dateProvider: dateProvider, textProvider: textProvider, imageProvider: imageProvider)
+		handler(template)
+	}
 
 }
 
@@ -61,34 +72,7 @@ extension ComplicationController {
 				
 				let imageProvider = CLKFullColorImageProvider(fullColorImage: self.getImage(from: text) ?? UIImage(named: "128")!)
 
-				var template: CLKComplicationTemplate?
-				switch complication.family {
-				case .circularSmall:
-					template = CLKComplicationTemplateCircularSmallSimpleText(textProvider: textProvider)
-				case .modularSmall:
-					template = CLKComplicationTemplateModularSmallSimpleText(textProvider: textProvider)
-				case .modularLarge:
-					template = CLKComplicationTemplateModularLargeTallBody(headerTextProvider: dateProvider, bodyTextProvider: textProvider)
-				case .utilitarianSmall:
-					template = CLKComplicationTemplateUtilitarianSmallFlat(textProvider: textProvider, imageProvider: nil)
-				case .utilitarianLarge:
-					template = CLKComplicationTemplateUtilitarianLargeFlat(textProvider: textProvider)
-				case .extraLarge:
-					template = CLKComplicationTemplateExtraLargeSimpleText(textProvider: textProvider)
-				case .graphicCorner:
-					template = CLKComplicationTemplateGraphicCornerStackText(innerTextProvider: dateProvider, outerTextProvider: textProvider)
-				case .graphicCircular:
-					template = CLKComplicationTemplateGraphicCircularStackText(line1TextProvider: dateProvider, line2TextProvider: textProvider)
-				case .graphicBezel:
-					let circular = CLKComplicationTemplateGraphicCircularStackText(line1TextProvider: CLKSimpleTextProvider(text: ""), line2TextProvider: textProvider)
-					template = CLKComplicationTemplateGraphicBezelCircularText(circularTemplate: circular, textProvider: dateProvider)
-				case .graphicRectangular: // ?
-					template = CLKComplicationTemplateGraphicRectangularLargeImage(textProvider: dateProvider, imageProvider: imageProvider)
-				case .graphicExtraLarge:
-					template = CLKComplicationTemplateGraphicExtraLargeCircularStackText(line1TextProvider: dateProvider, line2TextProvider: textProvider)
-				default:
-					break
-				}
+				let template: CLKComplicationTemplate? = self.getTemplate(for: complication, dateProvider: dateProvider, textProvider: textProvider, imageProvider: imageProvider)
 				if let template = template {
 					completion(CLKComplicationTimelineEntry(date: date, complicationTemplate: template))
 				} else {
@@ -98,6 +82,41 @@ extension ComplicationController {
 				completion(nil)
 			}
 		}
+	}
+	func getTemplate(for complication: CLKComplication,
+					 dateProvider: CLKTimeTextProvider,
+					 textProvider: CLKSimpleTextProvider,
+					 imageProvider: CLKFullColorImageProvider
+	) -> CLKComplicationTemplate? {
+		var template: CLKComplicationTemplate?
+		switch complication.family {
+		case .circularSmall:
+			template = CLKComplicationTemplateCircularSmallSimpleText(textProvider: textProvider)
+		case .modularSmall:
+			template = CLKComplicationTemplateModularSmallSimpleText(textProvider: textProvider)
+		case .modularLarge:
+			template = CLKComplicationTemplateModularLargeTallBody(headerTextProvider: dateProvider, bodyTextProvider: textProvider)
+		case .utilitarianSmall:
+			template = CLKComplicationTemplateUtilitarianSmallFlat(textProvider: textProvider, imageProvider: nil)
+		case .utilitarianLarge:
+			template = CLKComplicationTemplateUtilitarianLargeFlat(textProvider: textProvider)
+		case .extraLarge:
+			template = CLKComplicationTemplateExtraLargeSimpleText(textProvider: textProvider)
+		case .graphicCorner:
+			template = CLKComplicationTemplateGraphicCornerStackText(innerTextProvider: dateProvider, outerTextProvider: textProvider)
+		case .graphicCircular:
+			template = CLKComplicationTemplateGraphicCircularStackText(line1TextProvider: dateProvider, line2TextProvider: textProvider)
+		case .graphicBezel:
+			let circular = CLKComplicationTemplateGraphicCircularStackText(line1TextProvider: CLKSimpleTextProvider(text: ""), line2TextProvider: textProvider)
+			template = CLKComplicationTemplateGraphicBezelCircularText(circularTemplate: circular, textProvider: dateProvider)
+		case .graphicRectangular: // ?
+			template = CLKComplicationTemplateGraphicRectangularLargeImage(textProvider: dateProvider, imageProvider: imageProvider)
+		case .graphicExtraLarge:
+			template = CLKComplicationTemplateGraphicExtraLargeCircularStackText(line1TextProvider: dateProvider, line2TextProvider: textProvider)
+		default:
+			break
+		}
+		return template
 	}
 }
 
