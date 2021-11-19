@@ -152,7 +152,19 @@ struct WatchChartView: View {
 					   let first: ChartPoint = values.first!
 					   let maxTimeInterval: CGFloat = CGFloat(Int(Date().timeIntervalSince1970) - first.x)
 					   let pathWidth = reader.size.width - RightLabelWidth
-					   let radius: CGFloat = min(5, pathWidth * 5 * 60 / maxTimeInterval)
+//					   var radius: CGFloat = pathWidth * 5 * 60 / maxTimeInterval
+					   let radius: CGFloat = {
+						   switch self.timeRange {
+						   case .hour1:
+							   return 6
+						   case .hour3:
+							   return 3
+						   case .hour6:
+							   return 2
+						   default:
+							   return pathWidth * 5 * 60 / maxTimeInterval
+						   }
+					   }()
 					   let value = values[i]
 					   
 					   if value.y <= self.maxY && value.y >= self.minY {
