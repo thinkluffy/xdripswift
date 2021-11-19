@@ -21,9 +21,20 @@ class ChartDetailsViewController: UIViewController {
 
     private var presenter: ChartDetailsP!
 
+    private lazy var exitButton: UIButton = {
+        let view = UIButton()
+        view.setImage(R.image.ic_to_portrait(), for: .normal)
+        return view
+    }()
+    
     private lazy var calendarTitle: CalendarTitle = {
         let calendarTitle = CalendarTitle()
         return calendarTitle
+    }()
+    
+    private lazy var singleSelection: SingleSelection = {
+        let singleSelection = SingleSelection()
+        return singleSelection
     }()
     
     private var showingDate: Date?
@@ -49,10 +60,6 @@ class ChartDetailsViewController: UIViewController {
         super.viewWillDisappear(animated)
     }
     
-    @IBAction func exitButtonClicked(_ sender: UIButton) {
-        dismiss(animated: false)
-    }
-    
     // make the ViewController landscape mode
     override public var shouldAutorotate: Bool {
         return false
@@ -71,12 +78,35 @@ class ChartDetailsViewController: UIViewController {
     }
     
     private func setupView() {
+        titleBar.addSubview(exitButton)
         titleBar.addSubview(calendarTitle)
+        titleBar.addSubview(singleSelection)
+        
+        exitButton.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalToSuperview().offset(20)
+        }
+        exitButton.addTarget(self, action: #selector(exitButtonDidClick(_:)), for: .touchUpInside)
         
         calendarTitle.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
         calendarTitle.delegate = self
+        
+        singleSelection.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().offset(10)
+        }
+        
+        var selectionItems = [SingleSelectionItem]()
+        selectionItems.append(SingleSelectionItem(title: "1H"))
+        selectionItems.append(SingleSelectionItem(title: "3H"))
+        selectionItems.append(SingleSelectionItem(title: "6H"))
+        selectionItems.append(SingleSelectionItem(title: "12H"))
+        selectionItems.append(SingleSelectionItem(title: "24H"))
+
+        singleSelection.show(items: selectionItems)
+        singleSelection.backgroundColor = .red
         
         setupChart()
     }
@@ -152,6 +182,10 @@ class ChartDetailsViewController: UIViewController {
         yAxis.addLimitLine(highLine)
         yAxis.addLimitLine(lowLine)
         yAxis.addLimitLine(rangeTopLine)
+    }
+    
+    @objc private func exitButtonDidClick(_ button: UIButton) {
+        dismiss(animated: false)
     }
 }
 
