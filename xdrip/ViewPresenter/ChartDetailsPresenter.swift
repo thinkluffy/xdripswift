@@ -21,18 +21,18 @@ class ChartDetailsPresenter: ChartDetailsP {
         self.view = view
     }
     
-    func loadData() {
+    func loadData(date: Date) {
         if coreDataManager != nil {
-            doLoadData()
+            doLoadData(date: date)
             
         } else {
             coreDataManager = CoreDataManager(modelName: ConstantsCoreData.modelName) { [weak self] in
-                self?.doLoadData()
+                self?.doLoadData(date: date)
             }
         }
     }
     
-    private func doLoadData() {
+    private func doLoadData(date: Date) {
         guard let coreDataManager = coreDataManager else {
             return
         }
@@ -42,8 +42,10 @@ class ChartDetailsPresenter: ChartDetailsP {
         }
         
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
-            let fromDate = NSDate(timeIntervalSinceNow: -Date.hourInSeconds * 24) as Date
-            let toDate = Date()
+            let fromDate = Calendar.current.startOfDay(for: date)
+            let components = DateComponents(hour: 23, minute: 59, second: 59)
+            let toDate = Calendar.current.date(byAdding: components, to: fromDate)!
+            
             let readings = self?.bgReadingAccessor!.getBgReadings(from: fromDate,
                                                                   to: toDate,
                                                                   on: coreDataManager.mainManagedObjectContext)

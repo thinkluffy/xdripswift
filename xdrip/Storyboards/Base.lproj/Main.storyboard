@@ -628,14 +628,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9T5-Iq-CgP" userLabel="TitleBar">
-                                <rect key="frame" x="0.0" y="44" width="926" height="50"/>
+                                <rect key="frame" x="0.0" y="54" width="926" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UjA-hF-3h4" userLabel="ExitButton">
-                                        <rect key="frame" x="9.9999999999999964" y="9.6666666666666643" width="47.666666666666657" height="31"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Exit">
-                                            <color key="baseForegroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </buttonConfiguration>
+                                        <rect key="frame" x="10" y="6" width="48" height="38"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="ic_to_portrait"/>
                                         <connections>
                                             <action selector="exitButtonClicked:" destination="e8k-N5-VC0" eventType="touchUpInside" id="x4Q-6a-vo4"/>
                                         </connections>
@@ -651,9 +648,22 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="spV-Wq-MSW" userLabel="Card" customClass="Card" customModule="xdrip" customModuleProvider="target">
                                 <rect key="frame" x="10" y="104" width="906" height="280"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oJs-dA-XMT" userLabel="BgLabel">
-                                        <rect key="frame" x="20" y="10" width="23" height="21"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_clock" translatesAutoresizingMaskIntoConstraints="NO" id="eyY-zN-0mj" userLabel="Clock">
+                                        <rect key="frame" x="20" y="15" width="15" height="15"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="15" id="Iw2-vg-ONR"/>
+                                            <constraint firstAttribute="width" constant="15" id="R6d-YY-eCx"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--:--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oJs-dA-XMT" userLabel="BgTime">
+                                        <rect key="frame" x="45" y="12.333333333333327" width="35" height="20.333333333333329"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EAM-NR-qaI" userLabel="BgValue">
+                                        <rect key="frame" x="435.66666666666669" y="9.9999999999999982" width="34.666666666666686" height="31.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -664,23 +674,27 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.078431372549019607" green="0.094117647058823528" blue="0.19215686274509802" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="eyY-zN-0mj" firstAttribute="leading" secondItem="spV-Wq-MSW" secondAttribute="leading" constant="20" id="5cR-sZ-qIy"/>
                                     <constraint firstItem="SY5-Dp-dbs" firstAttribute="leading" secondItem="spV-Wq-MSW" secondAttribute="leading" constant="10" id="ADp-uj-PnC"/>
-                                    <constraint firstItem="oJs-dA-XMT" firstAttribute="top" secondItem="spV-Wq-MSW" secondAttribute="top" constant="10" id="RW7-Om-FAK"/>
+                                    <constraint firstItem="eyY-zN-0mj" firstAttribute="top" secondItem="spV-Wq-MSW" secondAttribute="top" constant="15" id="I3b-TS-yjy"/>
+                                    <constraint firstItem="EAM-NR-qaI" firstAttribute="top" secondItem="spV-Wq-MSW" secondAttribute="top" constant="10" id="T2d-kc-61o"/>
                                     <constraint firstAttribute="trailing" secondItem="SY5-Dp-dbs" secondAttribute="trailing" constant="10" id="YCN-Ke-YNq"/>
+                                    <constraint firstItem="oJs-dA-XMT" firstAttribute="leading" secondItem="eyY-zN-0mj" secondAttribute="trailing" constant="10" id="aQJ-sY-h82"/>
                                     <constraint firstItem="SY5-Dp-dbs" firstAttribute="top" secondItem="spV-Wq-MSW" secondAttribute="top" constant="50" id="dh7-YF-qQE"/>
-                                    <constraint firstItem="oJs-dA-XMT" firstAttribute="leading" secondItem="spV-Wq-MSW" secondAttribute="leading" constant="20" id="khe-TJ-9lp"/>
+                                    <constraint firstItem="EAM-NR-qaI" firstAttribute="centerX" secondItem="spV-Wq-MSW" secondAttribute="centerX" id="rGZ-Wq-Adc"/>
                                     <constraint firstAttribute="bottom" secondItem="SY5-Dp-dbs" secondAttribute="bottom" constant="10" id="vNa-aS-6Jm"/>
+                                    <constraint firstItem="oJs-dA-XMT" firstAttribute="centerY" secondItem="eyY-zN-0mj" secondAttribute="centerY" id="xBb-8P-YPE"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Qvw-Tb-H8v"/>
                         <color key="backgroundColor" red="0.13333333333333333" green="0.15294117647058825" blue="0.28235294117647058" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="spV-Wq-MSW" firstAttribute="top" secondItem="9T5-Iq-CgP" secondAttribute="bottom" constant="10" id="H5I-54-ARI"/>
+                            <constraint firstItem="spV-Wq-MSW" firstAttribute="top" secondItem="9T5-Iq-CgP" secondAttribute="bottom" id="H5I-54-ARI"/>
                             <constraint firstItem="spV-Wq-MSW" firstAttribute="leading" secondItem="hiy-35-yfi" secondAttribute="leading" constant="10" id="OoK-gQ-VYV"/>
-                            <constraint firstItem="9T5-Iq-CgP" firstAttribute="leading" secondItem="Qvw-Tb-H8v" secondAttribute="leading" id="ZZL-p1-VKl"/>
-                            <constraint firstAttribute="trailing" secondItem="9T5-Iq-CgP" secondAttribute="trailing" id="fml-KM-4ro"/>
-                            <constraint firstItem="Qvw-Tb-H8v" firstAttribute="top" secondItem="9T5-Iq-CgP" secondAttribute="top" id="kh6-gI-yIX"/>
+                            <constraint firstItem="9T5-Iq-CgP" firstAttribute="leading" secondItem="hiy-35-yfi" secondAttribute="leading" id="ZZL-p1-VKl"/>
+                            <constraint firstItem="Qvw-Tb-H8v" firstAttribute="trailing" secondItem="9T5-Iq-CgP" secondAttribute="trailing" id="fml-KM-4ro"/>
+                            <constraint firstItem="Qvw-Tb-H8v" firstAttribute="top" secondItem="9T5-Iq-CgP" secondAttribute="top" constant="-10" id="kh6-gI-yIX"/>
                             <constraint firstItem="Qvw-Tb-H8v" firstAttribute="trailing" secondItem="spV-Wq-MSW" secondAttribute="trailing" constant="10" id="mJf-8G-fid"/>
                             <constraint firstItem="Qvw-Tb-H8v" firstAttribute="bottom" secondItem="spV-Wq-MSW" secondAttribute="bottom" constant="10" id="oh9-MH-IGk"/>
                         </constraints>
@@ -688,10 +702,11 @@
                     <navigationItem key="navigationItem" id="L12-oe-mlb"/>
                     <size key="freeformSize" width="926" height="428"/>
                     <connections>
-                        <outlet property="bgLabel" destination="oJs-dA-XMT" id="Aaf-IQ-lgg"/>
+                        <outlet property="bgTimeLabel" destination="oJs-dA-XMT" id="Gm9-7P-EOh"/>
+                        <outlet property="bgValueLabel" destination="EAM-NR-qaI" id="vbZ-vv-DVg"/>
                         <outlet property="chartCard" destination="spV-Wq-MSW" id="pKD-VV-eul"/>
                         <outlet property="chartView" destination="SY5-Dp-dbs" id="PyF-dR-Z2C"/>
-                        <outlet property="titieBar" destination="9T5-Iq-CgP" id="m4R-NG-I8c"/>
+                        <outlet property="titleBar" destination="9T5-Iq-CgP" id="m4R-NG-I8c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cGQ-yy-XSU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1764,6 +1779,7 @@
         <image name="ic_tab_bluetooth_h" width="24" height="24"/>
         <image name="ic_tab_settings" width="24" height="24"/>
         <image name="ic_tab_settings_h" width="24" height="24"/>
+        <image name="ic_to_portrait" width="24" height="24"/>
         <image name="link.circle" catalog="system" width="128" height="121"/>
         <image name="moon.zzz" catalog="system" width="115" height="128"/>
         <image name="scope" catalog="system" width="128" height="122"/>

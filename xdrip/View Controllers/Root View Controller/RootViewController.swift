@@ -148,7 +148,7 @@ final class RootViewController: UIViewController {
                     
                     // set timestamp to timestamp of latest chartPoint
                     self.minutesLabelOutlet.text =  self.dateTimeFormatterForMinutesLabelWhenPanning.string(from: chartAxisValueDate.date)
-                    self.calendarTitle.bgTime = chartAxisValueDate.date
+                    self.calendarTitle.dateTime = chartAxisValueDate.date
                     
                     self.valueLabelOutlet.textColor = UIColor.lightGray
                     
@@ -175,7 +175,7 @@ final class RootViewController: UIViewController {
                 } else {
                     self.glucoseIndicator.reading = nil
                     self.minutesLabelOutlet.text = "--:--"
-                    self.calendarTitle.bgTime = nil
+                    self.calendarTitle.dateTime = nil
                     
                     // this would only be the case if there's no readings withing the shown timeframe
                     self.updateLabelsAndChart(overrideApplicationState: false)
@@ -1104,6 +1104,8 @@ final class RootViewController: UIViewController {
         calendarTitle.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
+        calendarTitle.showLeftArrow = false
+        calendarTitle.showRightArrow = false
         
         // set texts for buttons on top
         preSnoozeToolbarButtonOutlet.title = Texts_HomeView.snoozeButton
@@ -1574,7 +1576,7 @@ final class RootViewController: UIViewController {
             
             glucoseIndicator.reading = nil
             minutesLabelOutlet.text = "--:--"
-            calendarTitle.bgTime = nil
+            calendarTitle.dateTime = nil
             
             return
         }
@@ -1641,7 +1643,7 @@ final class RootViewController: UIViewController {
         let minutesAgoText = minutesAgo.description + " " + (minutesAgo == 1 ? Texts_Common.minute:Texts_Common.minutes) + " " + Texts_HomeView.ago
         
         minutesLabelOutlet.text = minutesAgoText
-        calendarTitle.bgTime = lastReading.timeStamp
+        calendarTitle.dateTime = lastReading.timeStamp
         
         // create delta text
         diffLabelOutlet.text = lastReading.unitizedDeltaString(previousBgReading: lastButOneReading, showUnit: true, highGranularity: true, mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)

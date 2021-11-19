@@ -1348,8 +1348,12 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 43 images.
+  /// This `R.image` struct is generated, and contains static references to 46 images.
   struct image {
+    /// Image `ic_arrow_left`.
+    static let ic_arrow_left = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_arrow_left")
+    /// Image `ic_arrow_right`.
+    static let ic_arrow_right = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_arrow_right")
     /// Image `ic_clock`.
     static let ic_clock = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_clock")
     /// Image `ic_search`.
@@ -1366,6 +1370,8 @@ struct R: Rswift.Validatable {
     static let ic_tab_settings_h = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_settings_h")
     /// Image `ic_tab_settings`.
     static let ic_tab_settings = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_settings")
+    /// Image `ic_to_portrait`.
+    static let ic_to_portrait = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_to_portrait")
     /// Image `logo-launchScreen`.
     static let logoLaunchScreen = Rswift.ImageResource(bundle: R.hostingBundle, name: "logo-launchScreen")
     /// Image `sensor14_00_alt`.
@@ -1438,6 +1444,20 @@ struct R: Rswift.Validatable {
     static let sensor14_14 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_14")
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_arrow_left", bundle: ..., traitCollection: ...)`
+    static func ic_arrow_left(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_arrow_left, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_arrow_right", bundle: ..., traitCollection: ...)`
+    static func ic_arrow_right(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_arrow_right, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "ic_clock", bundle: ..., traitCollection: ...)`
     static func ic_clock(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ic_clock, compatibleWith: traitCollection)
@@ -1490,6 +1510,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ic_tab_settings_h", bundle: ..., traitCollection: ...)`
     static func ic_tab_settings_h(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ic_tab_settings_h, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_to_portrait", bundle: ..., traitCollection: ...)`
+    static func ic_to_portrait(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_to_portrait, compatibleWith: traitCollection)
     }
     #endif
 
@@ -8484,6 +8511,7 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "ic_tab_bluetooth_h", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_bluetooth_h' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_settings", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_settings' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_settings_h", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_settings_h' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ic_to_portrait", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_to_portrait' is used in storyboard 'Main', but couldn't be loaded.") }
         if #available(iOS 13.0, *) { if UIKit.UIImage(systemName: "link.circle") == nil { throw Rswift.ValidationError(description: "[R.swift] System image named 'link.circle' is used in storyboard 'Main', but couldn't be loaded.") } }
         if #available(iOS 13.0, *) { if UIKit.UIImage(systemName: "moon.zzz") == nil { throw Rswift.ValidationError(description: "[R.swift] System image named 'moon.zzz' is used in storyboard 'Main', but couldn't be loaded.") } }
         if #available(iOS 13.0, *) { if UIKit.UIImage(systemName: "scope") == nil { throw Rswift.ValidationError(description: "[R.swift] System image named 'scope' is used in storyboard 'Main', but couldn't be loaded.") } }

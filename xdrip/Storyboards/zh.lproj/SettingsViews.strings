@@ -31,7 +31,7 @@
 "settingsviews_speakTrend" = "语音播报趋势";
 "settingsviews_speakDelta" = "语音播报偏移量";
 "settingsviews_IntervalTitle" = "间隔时间";
-"settingsviews_masterorfollower" = "主控端或者关注者 ?";
+"settingsviews_masterorfollower" = "主控端/关注者";
 "settingsviews_master" = "主控端";
 "settingsviews_follower" = "关注者";
 
@@ -85,13 +85,13 @@
 "settingsviews_sectiontitleAbout" = "关于 %@";
 
 /// general settings, should reading be shown in notification yes or no
-"settingsviews_showReadingInNotification" = "Show BG in Notifications?";
+"settingsviews_showReadingInNotification" = "通知中显示血糖";
 
 /// 
 "settingsviews_urgentLowValue" = "紧急低值";
 
 /// weboop settings, title of the dialogs where site and token are asked - also used when viewing bluetoothperipheral settings, the title of the section
-"settingsviews_labelWebOOP" = "xDrip or Libre Algorithm";
+"settingsviews_labelWebOOP" = "zDrip or Libre Algorithm";
 
 /// nightscout or dexcom share settings, where user can select to edit the schedule
 "schedule" = "Schedule:";
@@ -154,13 +154,13 @@
 "emailbodyText" = "Problem Description: ";
 
 /// speak settings, where user can select the language
-"settingsviews_speakBgReadingslanguage" = "Language:";
+"settingsviews_speakBgReadingslanguage" = "语言";
 
 /// speak reading settings, text in pop up where user can select the language
-"settingsviews_speakreadingslanguageselection" = "Select Language";
+"settingsviews_speakreadingslanguageselection" = "选择语言";
 
 /// general settings, should reading be shown in app badge yes or no
-"settingsviews_labelShowReadingInAppBadge" = "Show BG in the App Badge?";
+"settingsviews_labelShowReadingInAppBadge" = "角标显示血糖";
 
 /// In Settings, Alerts section, there's an option to test the volume of the sound player, this is the title of the row
 "volumeTestSoundPlayer" = "Test Volume (if Override Mute On)";
@@ -169,7 +169,7 @@
 "settingsviews_healthkit" = "数据写入苹果健康";
 
 /// bluetooth settings, section title - also used in bluetooth peripheral view, eg when viewing M5Stack details. This is the title of the first section
-"m5stack_settingsviews_sectiontitlebluetooth" = "Bluetooth";
+"m5stack_settingsviews_sectiontitlebluetooth" = "蓝牙";
 
 /// Apple Watch Settings - section title
 "appleWatchSectionTitle" = "Apple Watch";

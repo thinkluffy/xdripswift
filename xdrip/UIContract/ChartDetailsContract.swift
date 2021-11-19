@@ -15,6 +15,6 @@ protocol ChartDetailsV: MVPV {
 
 protocol ChartDetailsP: MVPP {
     
-    func loadData()
+    func loadData(date: Date)
     
 }
