@@ -130,7 +130,7 @@ class ChartDetailsViewController: UIViewController {
         yAxis.axisMaximum = showAsMg ? 300 : 16.6
         yAxis.axisMinimum = showAsMg ? 40 : 2.2
         
-        yAxis.drawLabelsEnabled = false
+        yAxis.drawLabelsEnabled = true
         yAxis.drawTopYLabelEntryEnabled = true
     }
 }
@@ -213,6 +213,7 @@ extension ChartDetailsViewController: ChartDetailsV {
         dataSet.setScatterShape(.circle)
         dataSet.drawValuesEnabled = false
         dataSet.drawHorizontalHighlightIndicatorEnabled = false
+        dataSet.axisDependency = .right
     }
 }
 

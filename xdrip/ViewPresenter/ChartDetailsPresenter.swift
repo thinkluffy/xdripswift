@@ -42,7 +42,7 @@ class ChartDetailsPresenter: ChartDetailsP {
         }
         
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
-            let fromDate = NSDate(timeIntervalSinceNow: -Date.hourInSeconds * 12) as Date
+            let fromDate = NSDate(timeIntervalSinceNow: -Date.hourInSeconds * 24) as Date
             let toDate = Date()
             let readings = self?.bgReadingAccessor!.getBgReadings(from: fromDate,
                                                                   to: toDate,
