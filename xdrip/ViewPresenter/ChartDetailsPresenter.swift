@@ -43,8 +43,7 @@ class ChartDetailsPresenter: ChartDetailsP {
         
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             let fromDate = Calendar.current.startOfDay(for: date)
-            let components = DateComponents(hour: 23, minute: 59, second: 59)
-            let toDate = Calendar.current.date(byAdding: components, to: fromDate)!
+            let toDate = Date(timeInterval: Date.dayInSeconds, since: fromDate)
             
             let readings = self?.bgReadingAccessor!.getBgReadings(from: fromDate,
                                                                   to: toDate,

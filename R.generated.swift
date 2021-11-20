@@ -1348,7 +1348,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 46 images.
+  /// This `R.image` struct is generated, and contains static references to 48 images.
   struct image {
     /// Image `ic_arrow_left`.
     static let ic_arrow_left = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_arrow_left")
@@ -1356,6 +1356,10 @@ struct R: Rswift.Validatable {
     static let ic_arrow_right = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_arrow_right")
     /// Image `ic_clock`.
     static let ic_clock = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_clock")
+    /// Image `ic_radio_button_on`.
+    static let ic_radio_button_on = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_radio_button_on")
+    /// Image `ic_radio_button`.
+    static let ic_radio_button = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_radio_button")
     /// Image `ic_search`.
     static let ic_search = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_search")
     /// Image `ic_tab_bloodsugar_h`.
@@ -1461,6 +1465,20 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ic_clock", bundle: ..., traitCollection: ...)`
     static func ic_clock(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ic_clock, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_radio_button", bundle: ..., traitCollection: ...)`
+    static func ic_radio_button(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_radio_button, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_radio_button_on", bundle: ..., traitCollection: ...)`
+    static func ic_radio_button_on(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_radio_button_on, compatibleWith: traitCollection)
     }
     #endif
 

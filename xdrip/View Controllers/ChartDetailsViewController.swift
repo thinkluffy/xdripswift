@@ -21,6 +21,14 @@ class ChartDetailsViewController: UIViewController {
 
     private var presenter: ChartDetailsP!
 
+    private static let ChartHoursIdH1 = 0
+    private static let ChartHoursIdH3 = 1
+    private static let ChartHoursIdH6 = 2
+    private static let ChartHoursIdH12 = 3
+    private static let ChartHoursIdH24 = 4
+    
+    private var selectedChartHoursId = ChartDetailsViewController.ChartHoursIdH3
+    
     private lazy var exitButton: UIButton = {
         let view = UIButton()
         view.setImage(R.image.ic_to_portrait(), for: .normal)
@@ -32,7 +40,7 @@ class ChartDetailsViewController: UIViewController {
         return calendarTitle
     }()
     
-    private lazy var singleSelection: SingleSelection = {
+    private lazy var chartHoursSelection: SingleSelection = {
         let singleSelection = SingleSelection()
         return singleSelection
     }()
@@ -80,46 +88,64 @@ class ChartDetailsViewController: UIViewController {
     private func setupView() {
         titleBar.addSubview(exitButton)
         titleBar.addSubview(calendarTitle)
-        titleBar.addSubview(singleSelection)
+        titleBar.addSubview(chartHoursSelection)
         
         exitButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview().offset(20)
         }
-        exitButton.addTarget(self, action: #selector(exitButtonDidClick(_:)), for: .touchUpInside)
         
         calendarTitle.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-        }
-        calendarTitle.delegate = self
-        
-        singleSelection.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(10)
+            make.leading.equalTo(exitButton.snp.trailing).offset(20)
         }
         
-        var selectionItems = [SingleSelectionItem]()
-        selectionItems.append(SingleSelectionItem(title: "1H"))
-        selectionItems.append(SingleSelectionItem(title: "3H"))
-        selectionItems.append(SingleSelectionItem(title: "6H"))
-        selectionItems.append(SingleSelectionItem(title: "12H"))
-        selectionItems.append(SingleSelectionItem(title: "24H"))
-
-        singleSelection.show(items: selectionItems)
-        singleSelection.backgroundColor = .red
+        chartHoursSelection.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-10)
+            make.height.equalToSuperview()
+        }
         
+        exitButton.addTarget(self, action: #selector(exitButtonDidClick(_:)), for: .touchUpInside)
+        calendarTitle.delegate = self
+
+        var selectionItems = [SingleSelectionItem]()
+        selectionItems.append(SingleSelectionItem(id: ChartDetailsViewController.ChartHoursIdH1, title: "1H"))
+        selectionItems.append(SingleSelectionItem(id: ChartDetailsViewController.ChartHoursIdH3, title: "3H"))
+        selectionItems.append(SingleSelectionItem(id: ChartDetailsViewController.ChartHoursIdH6, title: "6H"))
+        selectionItems.append(SingleSelectionItem(id: ChartDetailsViewController.ChartHoursIdH12, title: "12H"))
+        selectionItems.append(SingleSelectionItem(id: ChartDetailsViewController.ChartHoursIdH24, title: "24H"))
+
+        chartHoursSelection.show(items: selectionItems)
+        chartHoursSelection.delegate = self
+        
+        switch UserDefaults.standard.chartWidthInHours
+        {
+        case 1:
+            selectedChartHoursId = ChartDetailsViewController.ChartHoursIdH1
+        case 3:
+            selectedChartHoursId = ChartDetailsViewController.ChartHoursIdH3
+        case 6:
+            selectedChartHoursId = ChartDetailsViewController.ChartHoursIdH6
+        case 12:
+            selectedChartHoursId = ChartDetailsViewController.ChartHoursIdH12
+        case 24:
+            selectedChartHoursId = ChartDetailsViewController.ChartHoursIdH24
+        default:
+            selectedChartHoursId = ChartDetailsViewController.ChartHoursIdH6
+        }
+        chartHoursSelection.select(id: selectedChartHoursId, triggerCallback: false)
+
         setupChart()
     }
     
     private func setupChart() {
         chartView.delegate = self
 
-        chartView.chartDescription?.enabled = false
-        
         chartView.dragEnabled = true
-        chartView.setScaleEnabled(true)
-//        chartView.maxVisibleCount = 200
-        chartView.pinchZoomEnabled = true
+        chartView.chartDescription?.enabled = false
+        chartView.setScaleEnabled(false)
+        chartView.pinchZoomEnabled = false
         chartView.legend.enabled = false
         
         let xAxis = chartView.xAxis
@@ -131,7 +157,12 @@ class ChartDetailsViewController: UIViewController {
         xAxis.gridLineWidth = 2
         xAxis.axisLineColor = ConstantsUI.mainBackgroundColor
         xAxis.axisLineWidth = 2
-        xAxis.granularity = Date.hourInSeconds
+        if selectedChartHoursId == ChartDetailsViewController.ChartHoursIdH24 {
+            xAxis.granularity = Date.hourInSeconds * 3 // 2 hours do not work, why?
+            
+        } else {
+            xAxis.granularity = Date.hourInSeconds
+        }
         xAxis.labelCount = 13 // make the x labels step by 1 hour, do not know why
         
         chartView.leftAxis.enabled = false
@@ -182,6 +213,8 @@ class ChartDetailsViewController: UIViewController {
         yAxis.addLimitLine(highLine)
         yAxis.addLimitLine(lowLine)
         yAxis.addLimitLine(rangeTopLine)
+        
+        yAxis.drawLimitLinesBehindDataEnabled = true
     }
     
     @objc private func exitButtonDidClick(_ button: UIButton) {
@@ -265,29 +298,57 @@ extension ChartDetailsViewController: ChartDetailsV {
         chartView.xAxis.axisMinimum = fromDate.timeIntervalSince1970
         chartView.xAxis.axisMaximum = toDate.timeIntervalSince1970
         
-        let data = ScatterChartData(dataSets: [urgentHighDataSet, highDataSet, inRangeDataSet, lowDataSet, urgentLowDataSet])
+        let data = ScatterChartData(dataSets: [
+            urgentHighDataSet,
+            highDataSet,
+            inRangeDataSet,
+            lowDataSet,
+            urgentLowDataSet
+        ])
         chartView.data = data
-            
-        chartView.setVisibleXRange(minXRange: Date.hourInSeconds * 6, maxXRange: Date.hourInSeconds * 6)
         
+        let xRange = calChartHoursSeconds(chartHoursId: selectedChartHoursId)
+        chartView.setVisibleXRange(minXRange: xRange, maxXRange: xRange)
+
         // move current time to centerX
         if isToday && showingDate == nil {
-            chartView.moveViewToX(min(Date().timeIntervalSince1970 - Date.hourInSeconds * 3,
-                                      toDate.timeIntervalSince1970 - Date.hourInSeconds * 6))
+            chartView.moveViewToX(min(Date().timeIntervalSince1970 - xRange/2,
+                                      toDate.timeIntervalSince1970 - xRange))
         }
-        
+
         showingDate = fromDate
         
         // reset selected bg time and value
+        chartView.highlightValues(nil)
         bgTimeLabel.text = "--:--"
         bgValueLabel.text = "---"
         bgValueLabel.textColor = .white
+    }
+    
+    private func calChartHoursSeconds(chartHoursId: Int) -> Double {
+        let xRange: Double
+        switch chartHoursId {
+        case ChartDetailsViewController.ChartHoursIdH1:
+            xRange = Date.hourInSeconds
+        case ChartDetailsViewController.ChartHoursIdH3:
+            xRange = Date.hourInSeconds * 3
+        case ChartDetailsViewController.ChartHoursIdH6:
+            xRange = Date.hourInSeconds * 6
+        case ChartDetailsViewController.ChartHoursIdH12:
+            xRange = Date.hourInSeconds * 12
+        case ChartDetailsViewController.ChartHoursIdH24:
+            xRange = Date.hourInSeconds * 24
+        default:
+            xRange = Date.hourInSeconds * 6
+        }
+        return xRange
     }
     
     private func applyDataSetStyle(dataSet: ScatterChartDataSet) {
         dataSet.setScatterShape(.circle)
         dataSet.drawValuesEnabled = false
         dataSet.drawHorizontalHighlightIndicatorEnabled = false
+        dataSet.highlightColor = .white
         dataSet.axisDependency = .right
     }
 }
@@ -303,13 +364,19 @@ extension ChartDetailsViewController: ChartViewDelegate {
         bgTimeLabel.text = timestamp
         bgValueLabel.text = entry.y.bgValuetoString(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
         
-        // hard code, so ugly and so work
-        if highlight.dataSetIndex == 0 || highlight.dataSetIndex == 4 {
+        let showAsMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
+        
+        let urgentHighInMg = UserDefaults.standard.urgentHighMarkValue.mgdlToMmol(mgdl: showAsMg)
+        let highInMg = UserDefaults.standard.highMarkValue.mgdlToMmol(mgdl: showAsMg)
+        let lowInMg = UserDefaults.standard.lowMarkValue.mgdlToMmol(mgdl: showAsMg)
+        let urgentLowInMg = UserDefaults.standard.urgentLowMarkValue.mgdlToMmol(mgdl: showAsMg)
+        
+        if entry.y >= urgentHighInMg || entry.y <= urgentLowInMg {
             bgValueLabel.textColor = ConstantsGlucoseChart.glucoseUrgentRangeColor
-            
-        } else if highlight.dataSetIndex == 1 || highlight.dataSetIndex == 3 {
+
+        } else if entry.y >= highInMg || entry.y <= lowInMg {
             bgValueLabel.textColor = ConstantsGlucoseChart.glucoseNotUrgentRangeColor
-            
+
         } else {
             bgValueLabel.textColor = ConstantsGlucoseChart.glucoseInRangeColor
         }
@@ -332,6 +399,27 @@ extension ChartDetailsViewController: CalendarTitleDelegate {
     
     func calendarTitleDidClick(_ calendarTitle: CalendarTitle) {
         
+    }
+}
+
+extension ChartDetailsViewController: SingleSelectionDelegate {
+    
+    func singleSelectionItemWillSelect(_ singleSelecton: SingleSelection, item: SingleSelectionItem) -> Bool {
+        return true
+    }
+    
+    func singleSelectionItemDidSelect(_ singleSelecton: SingleSelection, item: SingleSelectionItem) {
+        selectedChartHoursId = item.id
+        let xRange = calChartHoursSeconds(chartHoursId: selectedChartHoursId)
+        chartView.setVisibleXRange(minXRange: xRange, maxXRange: xRange)
+        
+        if selectedChartHoursId == ChartDetailsViewController.ChartHoursIdH24 {
+            chartView.xAxis.granularity = Date.hourInSeconds * 3 // 2 hours do not work, why?
+            
+        } else {
+            chartView.xAxis.granularity = Date.hourInSeconds
+        }
+        chartView.notifyDataSetChanged()
     }
 }
 

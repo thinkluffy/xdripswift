@@ -61,52 +61,8 @@ final class RootViewController: UIViewController {
     /// outlet for chart
     @IBOutlet weak var chartOutlet: BloodGlucoseChartView!
         
-    /// outlets for chart time period selector
-    @IBOutlet weak var segmentedControlChartHours: UISegmentedControl!
-    
-    @IBAction func chartHoursChanged(_ sender: Any) {
-        
-        // update the chart period in hours
-        switch segmentedControlChartHours.selectedSegmentIndex
-        {
-        case 0:
-            UserDefaults.standard.chartWidthInHours = 1
-        case 1:
-            UserDefaults.standard.chartWidthInHours = 3
-        case 2:
-            UserDefaults.standard.chartWidthInHours = 5
-        case 3:
-            UserDefaults.standard.chartWidthInHours = 12
-        case 4:
-            UserDefaults.standard.chartWidthInHours = 24
-        default:
-            break
-        }
-        
-    }
-    
-    @IBOutlet weak var segmentedControlStatisticsDays: UISegmentedControl!
-    
-    @IBAction func statisticsDaysChanged(_ sender: Any) {
-        
-        // update the days to use for statistics calculations
-        switch segmentedControlStatisticsDays.selectedSegmentIndex
-            {
-            case 0:
-                UserDefaults.standard.daysToUseStatistics = 0
-            case 1:
-                UserDefaults.standard.daysToUseStatistics = 1
-            case 2:
-                UserDefaults.standard.daysToUseStatistics = 7
-            case 3:
-                UserDefaults.standard.daysToUseStatistics = 30
-            case 4:
-                UserDefaults.standard.daysToUseStatistics = 90
-            default:
-                break
-            }
-        
-    }
+    @IBOutlet weak var chartHoursSelection: SingleSelection!
+    @IBOutlet weak var statisticsDaysSelection: SingleSelection!
         
     /// outlets for statistics view
     @IBOutlet weak var statisticsView: UIView!
@@ -322,6 +278,18 @@ final class RootViewController: UIViewController {
     /// when was the last notification created with bgreading, setting to 1 1 1970 initially to avoid having to unwrap it
     private var timeStampLastBGNotification = Date(timeIntervalSince1970: 0)
     
+    private static let ChartHoursIdH1 = 0
+    private static let ChartHoursIdH3 = 1
+    private static let ChartHoursIdH6 = 2
+    private static let ChartHoursIdH12 = 3
+    private static let ChartHoursIdH24 = 4
+
+    private static let StatisticsDaysToday = 0
+    private static let StatisticsDays7D = 1
+    private static let StatisticsDays14D = 2
+    private static let StatisticsDays30D = 3
+    private static let StatisticsDays90D = 4
+    
     // MARK: - overriden functions
     
     // set the status bar content colour to light to match new darker theme
@@ -361,54 +329,67 @@ final class RootViewController: UIViewController {
         UserDefaults.standard.highMarkValueInUserChosenUnit = UserDefaults.standard.highMarkValueInUserChosenUnit
         UserDefaults.standard.bloodGlucoseUnitIsMgDl = UserDefaults.standard.bloodGlucoseUnitIsMgDl
         
-        
-        // set the localized text of the segmented controls
-        segmentedControlChartHours.setTitle("1H", forSegmentAt: 0)
-        segmentedControlChartHours.setTitle("3H", forSegmentAt: 1)
-        segmentedControlChartHours.setTitle("6H", forSegmentAt: 2)
-        segmentedControlChartHours.setTitle("12H", forSegmentAt: 3)
-        segmentedControlChartHours.setTitle("24H", forSegmentAt: 4)
-        
-        segmentedControlStatisticsDays.setTitle(Texts_Common.todayshort, forSegmentAt: 0)
-        segmentedControlStatisticsDays.setTitle("24" + Texts_Common.hourshort, forSegmentAt: 1)
-        segmentedControlStatisticsDays.setTitle("7" + Texts_Common.dayshort, forSegmentAt: 2)
-        segmentedControlStatisticsDays.setTitle("30" + Texts_Common.dayshort, forSegmentAt:3)
-        segmentedControlStatisticsDays.setTitle("90" + Texts_Common.dayshort, forSegmentAt:4)
-               
-        // update the segmented control of the chart hours
+        // chart hours
+        var chartHoursItems = [SingleSelectionItem]()
+        chartHoursItems.append(SingleSelectionItem(id: RootViewController.ChartHoursIdH1, title: "1H"))
+        chartHoursItems.append(SingleSelectionItem(id: RootViewController.ChartHoursIdH3, title: "3H"))
+        chartHoursItems.append(SingleSelectionItem(id: RootViewController.ChartHoursIdH6, title: "6H"))
+        chartHoursItems.append(SingleSelectionItem(id: RootViewController.ChartHoursIdH12, title: "12H"))
+        chartHoursItems.append(SingleSelectionItem(id: RootViewController.ChartHoursIdH24, title: "24H"))
+        chartHoursSelection.show(items: chartHoursItems)
+        chartHoursSelection.delegate = self
+                
+        let selectedChartHoursId: Int
         switch UserDefaults.standard.chartWidthInHours
         {
         case 1:
-            segmentedControlChartHours.selectedSegmentIndex = 0
+            selectedChartHoursId = RootViewController.ChartHoursIdH1
         case 3:
-            segmentedControlChartHours.selectedSegmentIndex = 1
+            selectedChartHoursId = RootViewController.ChartHoursIdH3
         case 6:
-            segmentedControlChartHours.selectedSegmentIndex = 2
+            selectedChartHoursId = RootViewController.ChartHoursIdH6
         case 12:
-            segmentedControlChartHours.selectedSegmentIndex = 3
+            selectedChartHoursId = RootViewController.ChartHoursIdH12
         case 24:
-            segmentedControlChartHours.selectedSegmentIndex = 4
+            selectedChartHoursId = RootViewController.ChartHoursIdH24
         default:
-            break
+            selectedChartHoursId = RootViewController.ChartHoursIdH6
         }
+        chartHoursSelection.select(id: selectedChartHoursId, triggerCallback: false)
         
         
-        // update the segmented control of the statistics days
+        // statistics time range
+        var daysToUseStatisticsItems = [SingleSelectionItem]()
+        daysToUseStatisticsItems.append(SingleSelectionItem(id: RootViewController.StatisticsDaysToday,
+                                                            title: R.string.common.common_todayshort()))
+        daysToUseStatisticsItems.append(SingleSelectionItem(id: RootViewController.StatisticsDays7D,
+                                                            title: "7D"))
+        daysToUseStatisticsItems.append(SingleSelectionItem(id: RootViewController.StatisticsDays14D,
+                                                            title: "14D"))
+        daysToUseStatisticsItems.append(SingleSelectionItem(id: RootViewController.StatisticsDays30D,
+                                                            title: "30D"))
+        daysToUseStatisticsItems.append(SingleSelectionItem(id: RootViewController.StatisticsDays90D,
+                                                            title: "90D"))
+        statisticsDaysSelection.show(items: daysToUseStatisticsItems)
+        statisticsDaysSelection.delegate = self
+                
+        let statisticsDays: Int
         switch UserDefaults.standard.daysToUseStatistics
         {
         case 0:
-           segmentedControlStatisticsDays.selectedSegmentIndex = 0
-        case 1:
-           segmentedControlStatisticsDays.selectedSegmentIndex = 1
+            statisticsDays = RootViewController.StatisticsDaysToday
         case 7:
-           segmentedControlStatisticsDays.selectedSegmentIndex = 2
+            statisticsDays = RootViewController.StatisticsDays7D
+        case 14:
+            statisticsDays = RootViewController.StatisticsDays14D
         case 30:
-           segmentedControlStatisticsDays.selectedSegmentIndex = 3
+            statisticsDays = RootViewController.StatisticsDays30D
         case 90:
-           segmentedControlStatisticsDays.selectedSegmentIndex = 4
+            statisticsDays = RootViewController.StatisticsDays90D
         default:
-            break
+            statisticsDays = RootViewController.StatisticsDaysToday
         }
+        statisticsDaysSelection.select(id: statisticsDays, triggerCallback: false)
         
         // enable or disable the buttons 'sensor' and 'calibrate' on top, depending on master or follower
         changeButtonsStatusTo(enabled: UserDefaults.standard.isMaster)
@@ -2225,7 +2206,7 @@ extension RootViewController: UNUserNotificationCenterDelegate {
 
 // MARK: - conform to NightScoutFollowerDelegate protocol
 
-extension RootViewController:NightScoutFollowerDelegate {
+extension RootViewController: NightScoutFollowerDelegate {
     
     func nightScoutFollowerInfoReceived(followGlucoseDataArray: inout [NightScoutBgReading]) {
         
@@ -2315,4 +2296,48 @@ extension RootViewController: UIGestureRecognizerDelegate {
         
     }
     
+}
+
+extension RootViewController: SingleSelectionDelegate {
+    
+    func singleSelectionItemWillSelect(_ singleSelecton: SingleSelection, item: SingleSelectionItem) -> Bool {
+        return true
+    }
+    
+    func singleSelectionItemDidSelect(_ singleSelecton: SingleSelection, item: SingleSelectionItem) {
+        if singleSelecton == chartHoursSelection {
+            switch item.id
+            {
+            case RootViewController.ChartHoursIdH1:
+                UserDefaults.standard.chartWidthInHours = 1
+            case RootViewController.ChartHoursIdH3:
+                UserDefaults.standard.chartWidthInHours = 3
+            case RootViewController.ChartHoursIdH6:
+                UserDefaults.standard.chartWidthInHours = 6
+            case RootViewController.ChartHoursIdH12:
+                UserDefaults.standard.chartWidthInHours = 12
+            case RootViewController.ChartHoursIdH24:
+                UserDefaults.standard.chartWidthInHours = 24
+            default:
+                break
+            }
+            
+        } else if singleSelecton == statisticsDaysSelection {
+            switch item.id
+            {
+            case RootViewController.StatisticsDaysToday:
+                UserDefaults.standard.daysToUseStatistics = 0
+            case RootViewController.StatisticsDays7D:
+                UserDefaults.standard.daysToUseStatistics = 7
+            case RootViewController.StatisticsDays14D:
+                UserDefaults.standard.daysToUseStatistics = 14
+            case RootViewController.StatisticsDays30D:
+                UserDefaults.standard.daysToUseStatistics = 30
+            case RootViewController.StatisticsDays90D:
+                UserDefaults.standard.daysToUseStatistics = 90
+            default:
+                break
+            }
+        }
+    }
 }

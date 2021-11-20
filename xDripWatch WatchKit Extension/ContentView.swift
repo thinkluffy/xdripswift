@@ -80,6 +80,7 @@ struct ContentView_Previews: PreviewProvider {
 		return ContentView().environmentObject(usefulData)
 	}
 }
+
 extension ContentView {
 	private func getColor(of value: Double, config: Common.BgConfig) -> Color {
 		if value > config.urgentMax || value < config.urgentMin {
