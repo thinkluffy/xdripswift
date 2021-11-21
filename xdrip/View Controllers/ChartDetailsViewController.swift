@@ -139,13 +139,13 @@ class ChartDetailsViewController: UIViewController {
         chartHoursSelection.select(id: selectedChartHoursId, triggerCallback: false)
 
         lockMoveButton.onTap { [unowned self] btn in
-            if chartView.dragEnabled {
-                lockMoveButton.setTitle("Locked", for: .normal)
-                chartView.dragEnabled = false
+            if chartView.dragMoveHighlightFirst {
+                lockMoveButton.setTitle("Unocked", for: .normal)
+                chartView.dragMoveHighlightFirst = false
 
             } else {
-                lockMoveButton.setTitle("Unlocked", for: .normal)
-                chartView.dragEnabled = true
+                lockMoveButton.setTitle("Locked", for: .normal)
+                chartView.dragMoveHighlightFirst = true
             }
         }
         
