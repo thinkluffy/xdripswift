@@ -20,6 +20,7 @@
 		4E2C95A827375E110073D692 /* OnlyImageTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95A727375E110073D692 /* OnlyImageTabbar.swift */; };
 		4E2C95AA27375E570073D692 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95A927375E570073D692 /* Card.swift */; };
 		4E2C95AC27376D770073D692 /* GlucoseIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95AB27376D770073D692 /* GlucoseIndicator.swift */; };
+		4E2C95AE274A54FA0073D692 /* WholeDayChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95AD274A54FA0073D692 /* WholeDayChart.swift */; };
 		4E9D7978273A983600B666C5 /* ChartDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D7977273A983600B666C5 /* ChartDetailsViewController.swift */; };
 		4E9D7986273BEC5500B666C5 /* BaseAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D797B273BEC5500B666C5 /* BaseAppDelegate.swift */; };
 		4E9D7987273BEC5500B666C5 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D797C273BEC5500B666C5 /* Log.swift */; };
@@ -679,6 +680,7 @@
 		4E2C95A727375E110073D692 /* OnlyImageTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlyImageTabbar.swift; sourceTree = "<group>"; };
 		4E2C95A927375E570073D692 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		4E2C95AB27376D770073D692 /* GlucoseIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseIndicator.swift; sourceTree = "<group>"; };
+		4E2C95AD274A54FA0073D692 /* WholeDayChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WholeDayChart.swift; sourceTree = "<group>"; };
 		4E9D7977273A983600B666C5 /* ChartDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDetailsViewController.swift; sourceTree = "<group>"; };
 		4E9D797B273BEC5500B666C5 /* BaseAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseAppDelegate.swift; sourceTree = "<group>"; };
 		4E9D797C273BEC5500B666C5 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
@@ -2586,6 +2588,7 @@
 				4E2C95A927375E570073D692 /* Card.swift */,
 				4E2C95AB27376D770073D692 /* GlucoseIndicator.swift */,
 				4E9D79D8273E695C00B666C5 /* CalendarTitle.swift */,
+				4E2C95AD274A54FA0073D692 /* WholeDayChart.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3913,6 +3916,7 @@
 				F8F9723E23A593C000C3F17D /* M5StickCBluetoothPeripheralViewModel.swift in Sources */,
 				F8A2BC3525DB0D6D001D1E78 /* BluetoothPeripheralManager+BluetoothTransmitterDelegate.swift in Sources */,
 				F8F9722323A5915900C3F17D /* LibreDataParser.swift in Sources */,
+				4E2C95AE274A54FA0073D692 /* WholeDayChart.swift in Sources */,
 				F8E51D5F2448E2E8001C9E5A /* ConstantsShareWithLoop.swift in Sources */,
 				F816E0ED2432A55F009EE65B /* BluconBluetoothPeripheralViewModel.swift in Sources */,
 				F8F9722923A5915900C3F17D /* CGMTransmitter.swift in Sources */,
