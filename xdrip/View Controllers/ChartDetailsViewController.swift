@@ -180,6 +180,9 @@ class ChartDetailsViewController: UIViewController {
         
         chartView.leftAxis.enabled = false
 
+        // leave space for limit labels outside viewport
+        chartView.setExtraOffsets(left: 0, top: 0, right: 30, bottom: 0)
+        
         let showAsMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
 
         let yAxis = chartView.rightAxis
@@ -197,7 +200,7 @@ class ChartDetailsViewController: UIViewController {
         let urgentHighLine = ChartLimitLine(limit: urgentHigh, label: urgentHigh.bgValuetoString(mgdl: showAsMg))
         urgentHighLine.lineWidth = 1
         urgentHighLine.lineDashLengths = [5, 5]
-        urgentHighLine.labelPosition = .topRight
+        urgentHighLine.labelPosition = .right
         urgentHighLine.valueFont = .systemFont(ofSize: 12)
         urgentHighLine.lineColor = .gray
         urgentHighLine.valueTextColor = .white
@@ -205,23 +208,28 @@ class ChartDetailsViewController: UIViewController {
         let highLine = ChartLimitLine(limit: high, label: high.bgValuetoString(mgdl: showAsMg))
         highLine.lineWidth = 1
         highLine.lineDashLengths = [5, 5]
-        highLine.labelPosition = .topRight
-        highLine.valueFont = .systemFont(ofSize: 12)
+        highLine.labelPosition = .right
+        highLine.valueFont = .boldSystemFont(ofSize: 14)
         highLine.lineColor = .gray
         highLine.valueTextColor = .white
         
         let lowLine = ChartLimitLine(limit: low, label: low.bgValuetoString(mgdl: showAsMg))
         lowLine.lineWidth = 1
         lowLine.lineDashLengths = [5, 5]
-        lowLine.labelPosition = .topRight
-        lowLine.valueFont = .systemFont(ofSize: 12)
+        lowLine.labelPosition = .right
+        lowLine.valueFont = .boldSystemFont(ofSize: 14)
         lowLine.lineColor = .gray
         lowLine.valueTextColor = .white
         
-        let rangeTopLine = ChartLimitLine(limit: yAxis.axisMaximum)
+        let rangeTopLine = ChartLimitLine(limit: yAxis.axisMaximum,
+                                          label: yAxis.axisMaximum.bgValuetoString(mgdl: showAsMg))
         rangeTopLine.lineWidth = 2
         rangeTopLine.lineColor = ConstantsUI.mainBackgroundColor
-        
+        rangeTopLine.labelPosition = .right
+        rangeTopLine.valueFont = .systemFont(ofSize: 12)
+        rangeTopLine.valueTextColor = .gray
+
+        yAxis.removeAllLimitLines()
         yAxis.addLimitLine(urgentHighLine)
         yAxis.addLimitLine(highLine)
         yAxis.addLimitLine(lowLine)
@@ -393,6 +401,12 @@ extension ChartDetailsViewController: ChartViewDelegate {
         } else {
             bgValueLabel.textColor = ConstantsGlucoseChart.glucoseInRangeColor
         }
+    }
+    
+    @objc func chartValueNothingSelected(_ chartView: ChartViewBase) {
+        bgTimeLabel.text = "--:--"
+        bgValueLabel.text = "---"
+        bgValueLabel.textColor = .white
     }
 }
 
