@@ -17,6 +17,8 @@ class ChartDetailsViewController: UIViewController {
     @IBOutlet weak var chartCard: UIView!
     @IBOutlet weak var bgTimeLabel: UILabel!
     @IBOutlet weak var bgValueLabel: UILabel!
+    @IBOutlet weak var lockMoveButton: UIButton!
+
     @IBOutlet weak var chartView: ScatterChartView!
 
     private var presenter: ChartDetailsP!
@@ -136,6 +138,17 @@ class ChartDetailsViewController: UIViewController {
         }
         chartHoursSelection.select(id: selectedChartHoursId, triggerCallback: false)
 
+        lockMoveButton.onTap { [unowned self] btn in
+            if chartView.dragEnabled {
+                lockMoveButton.setTitle("Locked", for: .normal)
+                chartView.dragEnabled = false
+
+            } else {
+                lockMoveButton.setTitle("Unlocked", for: .normal)
+                chartView.dragEnabled = true
+            }
+        }
+        
         setupChart()
     }
     
@@ -410,6 +423,9 @@ extension ChartDetailsViewController: SingleSelectionDelegate {
     
     func singleSelectionItemDidSelect(_ singleSelecton: SingleSelection, item: SingleSelectionItem) {
         selectedChartHoursId = item.id
+        
+        let centerVisibleX = (chartView.highestVisibleX - chartView.lowestVisibleX) / 2 + chartView.lowestVisibleX
+
         let xRange = calChartHoursSeconds(chartHoursId: selectedChartHoursId)
         chartView.setVisibleXRange(minXRange: xRange, maxXRange: xRange)
         
@@ -420,6 +436,9 @@ extension ChartDetailsViewController: SingleSelectionDelegate {
             chartView.xAxis.granularity = Date.hourInSeconds
         }
         chartView.notifyDataSetChanged()
+        
+        // keep center still center
+        chartView.moveViewToX(centerVisibleX - xRange / 2)
     }
 }
 

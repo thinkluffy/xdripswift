@@ -3232,7 +3232,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.common` struct is generated, and contains static references to 48 localization keys.
+    /// This `R.string.common` struct is generated, and contains static references to 50 localization keys.
     struct common {
       /// en translation: Add
       ///
@@ -3342,10 +3342,18 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static let common_password = Rswift.StringResource(key: "common_password", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fi", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// en translation: Readings
+      ///
+      /// Locales: en, zh
+      static let common_statistics_bgReadingsCount = Rswift.StringResource(key: "common_statistics_bgReadingsCount", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Sensor status:
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static let sensorStatus = Rswift.StringResource(key: "sensorStatus", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fi", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// en translation: Std Deviation
+      ///
+      /// Locales: en, zh
+      static let common_statistics_stdDeviation = Rswift.StringResource(key: "common_statistics_stdDeviation", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Today
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
@@ -3832,6 +3840,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("common_password", tableName: "Common", bundle: bundle, comment: "")
       }
 
+      /// en translation: Readings
+      ///
+      /// Locales: en, zh
+      static func common_statistics_bgReadingsCount(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("common_statistics_bgReadingsCount", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "common_statistics_bgReadingsCount"
+        }
+
+        return NSLocalizedString("common_statistics_bgReadingsCount", tableName: "Common", bundle: bundle, comment: "")
+      }
+
       /// en translation: Sensor status:
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
@@ -3845,6 +3868,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("sensorStatus", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Std Deviation
+      ///
+      /// Locales: en, zh
+      static func common_statistics_stdDeviation(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("common_statistics_stdDeviation", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "common_statistics_stdDeviation"
+        }
+
+        return NSLocalizedString("common_statistics_stdDeviation", tableName: "Common", bundle: bundle, comment: "")
       }
 
       /// en translation: Today

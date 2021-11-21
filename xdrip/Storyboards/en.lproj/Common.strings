@@ -45,4 +45,6 @@
 "common_statistics_average" = "Average";
 "common_statistics_a1c" = "HbA1c";
 "common_statistics_cv" = "CV";
+"common_statistics_bgReadingsCount" = "Readings";
+"common_statistics_stdDeviation" = "Std Deviation";
 "common_dontshowagain" = "Don't Show Again";

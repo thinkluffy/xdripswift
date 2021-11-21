@@ -82,7 +82,11 @@ final class RootViewController: UIViewController {
     @IBOutlet weak var lowLabelOutlet: UILabel!
     @IBOutlet weak var highLabelOutlet: UILabel!
     @IBOutlet weak var timePeriodLabelOutlet: UILabel!
-
+    @IBOutlet weak var bgReadingsCountTitleLabelOutlet: UILabel!
+    @IBOutlet weak var bgReadingsCountStatisticLabelOutlet: UILabel!
+    @IBOutlet weak var stdDeviationTitleLabelOutlet: UILabel!
+    @IBOutlet weak var stdDeviationStatisticLabelOutlet: UILabel!
+    
     @IBOutlet weak var sensorCountdownOutlet: UIImageView!
     
     @IBAction func chartPanGestureRecognizerAction(_ sender: UIPanGestureRecognizer) {
@@ -1864,18 +1868,6 @@ final class RootViewController: UIViewController {
         self.pieChartOutlet.outerRadius = 40
         self.pieChartOutlet.innerRadius = 15
         
-        self.lowStatisticLabelOutlet.textColor = UIColor.lightGray
-        self.lowStatisticLabelOutlet.text = "-"
-        self.inRangeStatisticLabelOutlet.textColor = UIColor.lightGray
-        self.inRangeStatisticLabelOutlet.text = "-"
-        self.highStatisticLabelOutlet.textColor = UIColor.lightGray
-        self.highStatisticLabelOutlet.text = "-"
-        self.averageStatisticLabelOutlet.text = "-"
-        self.a1CStatisticLabelOutlet.text = "-"
-        self.cVStatisticLabelOutlet.text = "-"
-        self.timePeriodLabelOutlet.text = "- - -"
-        
-        
         // statisticsManager will calculate the statistics in background thread and call the callback function in the main thread
         statisticsManager?.calculateStatistics(fromDate: fromDate, toDate: nil, callback: { statistics in
             
@@ -1886,7 +1878,8 @@ final class RootViewController: UIViewController {
             self.averageTitleLabelOutlet.text = Texts_Common.averageStatistics
             self.a1cTitleLabelOutlet.text = Texts_Common.a1cStatistics
             self.cvTitleLabelOutlet.text = Texts_Common.cvStatistics
-            
+            self.bgReadingsCountTitleLabelOutlet.text = R.string.common.common_statistics_bgReadingsCount()
+            self.stdDeviationTitleLabelOutlet.text = R.string.common.common_statistics_stdDeviation()
             
             // set the low/high "label" labels with the low/high user values that the user has chosen to use
             self.lowLabelOutlet.text = "(<" + (isMgDl ? Int(statistics.lowLimitForTIR).description : statistics.lowLimitForTIR.round(toDecimalPlaces: 1).description) + ")"
@@ -1902,6 +1895,19 @@ final class RootViewController: UIViewController {
             
             self.highStatisticLabelOutlet.textColor = ConstantsStatistics.labelHighColor
             self.highStatisticLabelOutlet.text = Int(statistics.highStatisticValue.round(toDecimalPlaces: 0)).description + "%"
+            
+            if statistics.readingsCount > 0 {
+                self.bgReadingsCountStatisticLabelOutlet.text = "\(statistics.readingsCount)"
+            }
+            
+            if statistics.stdDeviation > 0 {
+                if isMgDl {
+                    self.stdDeviationStatisticLabelOutlet.text = Int(statistics.stdDeviation.round(toDecimalPlaces: 0)).description + " mg/dL"
+                    
+                } else {
+                    self.stdDeviationStatisticLabelOutlet.text = statistics.stdDeviation.round(toDecimalPlaces: 1).description + " mmol/L"
+                }
+            }
             
             // if there are no values returned (new sensor?) then just leave the default "-" showing
             if statistics.averageStatisticValue.value > 0 {

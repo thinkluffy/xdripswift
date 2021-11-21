@@ -98,6 +98,9 @@
 /// coefficient of variation
 "common_statistics_cv" = "CV";
 
+"common_statistics_bgReadingsCount" = "血糖读数";
+"common_statistics_stdDeviation" = "标准偏差";
+
 /// the word low
 "common_statistics_low" = "低";
 

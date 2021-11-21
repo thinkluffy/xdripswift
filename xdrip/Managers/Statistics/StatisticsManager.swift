@@ -67,7 +67,9 @@ public final class StatisticsManager {
             var lowLimitForTIR: Double = 0
             var highLimitForTIR: Double = 0
             var numberOfDaysUsed: Int = 0
-            
+            var readingsCount: Int = 0
+            var stdDeviation: Double = 0
+
             self.coreDataManager.privateManagedObjectContext.performAndWait {
 
                 // lets get the readings from the bgReadingsAccessor
@@ -77,6 +79,8 @@ public final class StatisticsManager {
                 if readings.count == 0 {
                     return
                 }
+                
+                readingsCount = readings.count
                 
                 // let's calculate the actual first day of readings in bgReadings. Although the user wants to use 60 days to calculate, maybe we only have 4 days of data. This will be returned from the method and used in the UI. To ensure we calculate the whole days used, we should subtract 5 minutes from the fromDate
                 numberOfDaysUsed = Calendar.current.dateComponents([.day], from: readings.first!.timeStamp - 5 * 60, to: Date()).day!
@@ -163,18 +167,18 @@ public final class StatisticsManager {
                     }
                     
                     
-                    // calculate standard deviation (we won't show this but we need it to calculate CV)
+                    // calculate standard deviation
                     var sum: Double = 0;
                     
                     for glucoseValue in glucoseValues {
                         sum += (Double(glucoseValue.value) - averageStatisticValue) * (Double(glucoseValue.value) - averageStatisticValue)
                     }
                     
-                    let stdDeviationStatisticValue: Double = sqrt(sum / Double(glucoseValues.count))
+                    stdDeviation = sqrt(sum / Double(glucoseValues.count))
                     
                     
                     // calculate Coeffecient of Variation
-                    cVStatisticValue = ((stdDeviationStatisticValue) / averageStatisticValue) * 100
+                    cVStatisticValue = ((stdDeviation) / averageStatisticValue) * 100
                 
                 } else {
                 
@@ -185,7 +189,8 @@ public final class StatisticsManager {
                     averageStatisticValue = 0
                     cVStatisticValue = 0
                     a1CStatisticValue = 0
-                
+                    readingsCount = 0
+                    stdDeviation = 0
                 }
 
             }
@@ -193,7 +198,17 @@ public final class StatisticsManager {
             // call callback in main thread, this callback will only update the UI when the user hasn't requested more statistics updates in the meantime (this will only apply if they are reaaaallly quick at tapping the segmented control)
             if self.operationQueue.operations.count <= 1 {
                 DispatchQueue.main.async {
-                    callback( Statistics(lowStatisticValue: lowStatisticValue, highStatisticValue: highStatisticValue, inRangeStatisticValue: inRangeStatisticValue, averageStatisticValue: averageStatisticValue, a1CStatisticValue: a1CStatisticValue, cVStatisticValue: cVStatisticValue, lowLimitForTIR: lowLimitForTIR, highLimitForTIR: highLimitForTIR, numberOfDaysUsed: numberOfDaysUsed))
+                    callback(Statistics(lowStatisticValue: lowStatisticValue,
+                                        highStatisticValue: highStatisticValue,
+                                        inRangeStatisticValue: inRangeStatisticValue,
+                                        averageStatisticValue: averageStatisticValue,
+                                        a1CStatisticValue: a1CStatisticValue,
+                                        cVStatisticValue: cVStatisticValue,
+                                        lowLimitForTIR: lowLimitForTIR,
+                                        highLimitForTIR: highLimitForTIR,
+                                        numberOfDaysUsed: numberOfDaysUsed,
+                                        readingsCount: readingsCount,
+                                        stdDeviation: stdDeviation))
                 }
             }
 
@@ -203,9 +218,6 @@ public final class StatisticsManager {
         operationQueue.addOperation {
             operation.start()
         }
-        
-
-        
     }
     
     /// can store rresult off calculations in calculateStatistics,  to be used in UI
@@ -220,6 +232,8 @@ public final class StatisticsManager {
         var lowLimitForTIR: Double
         var highLimitForTIR: Double
         var numberOfDaysUsed: Int
+        var readingsCount: Int
+        var stdDeviation: Double
         
     }
      
