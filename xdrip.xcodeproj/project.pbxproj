@@ -21,6 +21,8 @@
 		4E2C95AA27375E570073D692 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95A927375E570073D692 /* Card.swift */; };
 		4E2C95AC27376D770073D692 /* GlucoseIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95AB27376D770073D692 /* GlucoseIndicator.swift */; };
 		4E2C95AE274A54FA0073D692 /* WholeDayChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95AD274A54FA0073D692 /* WholeDayChart.swift */; };
+		4E2C95B6274BEC120073D692 /* RootContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95B5274BEC120073D692 /* RootContract.swift */; };
+		4E2C95B8274BEC3F0073D692 /* RootPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95B7274BEC3F0073D692 /* RootPresenter.swift */; };
 		4E9D7978273A983600B666C5 /* ChartDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D7977273A983600B666C5 /* ChartDetailsViewController.swift */; };
 		4E9D7986273BEC5500B666C5 /* BaseAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D797B273BEC5500B666C5 /* BaseAppDelegate.swift */; };
 		4E9D7987273BEC5500B666C5 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D797C273BEC5500B666C5 /* Log.swift */; };
@@ -681,6 +683,8 @@
 		4E2C95A927375E570073D692 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		4E2C95AB27376D770073D692 /* GlucoseIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseIndicator.swift; sourceTree = "<group>"; };
 		4E2C95AD274A54FA0073D692 /* WholeDayChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WholeDayChart.swift; sourceTree = "<group>"; };
+		4E2C95B5274BEC120073D692 /* RootContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootContract.swift; sourceTree = "<group>"; };
+		4E2C95B7274BEC3F0073D692 /* RootPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPresenter.swift; sourceTree = "<group>"; };
 		4E9D7977273A983600B666C5 /* ChartDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDetailsViewController.swift; sourceTree = "<group>"; };
 		4E9D797B273BEC5500B666C5 /* BaseAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseAppDelegate.swift; sourceTree = "<group>"; };
 		4E9D797C273BEC5500B666C5 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
@@ -1544,6 +1548,7 @@
 			isa = PBXGroup;
 			children = (
 				4E01B1442742572300D00935 /* ChartDetailsContract.swift */,
+				4E2C95B5274BEC120073D692 /* RootContract.swift */,
 			);
 			path = UIContract;
 			sourceTree = "<group>";
@@ -1552,6 +1557,7 @@
 			isa = PBXGroup;
 			children = (
 				4E01B1462742575400D00935 /* ChartDetailsPresenter.swift */,
+				4E2C95B7274BEC3F0073D692 /* RootPresenter.swift */,
 			);
 			path = ViewPresenter;
 			sourceTree = "<group>";
@@ -3733,6 +3739,7 @@
 				F8DF765C23E350B100063910 /* DexcomG5+BluetoothPeripheral.swift in Sources */,
 				4E9D798F273BEC5500B666C5 /* PThreadReadWriteLock.swift in Sources */,
 				F8F9720323A5915900C3F17D /* CGMG5Transmitter.swift in Sources */,
+				4E2C95B6274BEC120073D692 /* RootContract.swift in Sources */,
 				F85FF3C4252D0C32004E6FF1 /* xdrip.xcdatamodeld in Sources */,
 				F8B3A81C227DEC92004BA588 /* AlertEntriesAccessor.swift in Sources */,
 				4E9D79B5273BF04400B666C5 /* TableViewDataCreator.swift in Sources */,
@@ -3796,6 +3803,7 @@
 				F80ED2ED236F68F90005C035 /* SettingsViewM5StackGeneralSettingsViewModel.swift in Sources */,
 				4E2C95A827375E110073D692 /* OnlyImageTabbar.swift in Sources */,
 				F816E10A2437E7B8009EE65B /* CGMBlueReaderTransmitterDelegate.swift in Sources */,
+				4E2C95B8274BEC3F0073D692 /* RootPresenter.swift in Sources */,
 				F8B3A850227F26F8004BA588 /* AlertTypesSettingsViewController.swift in Sources */,
 				F816E0FE24367338009EE65B /* GNSEntry+BluetoothPeripheral.swift in Sources */,
 				F8B3A808227A2933004BA588 /* SettingsSelectedRowAction.swift in Sources */,

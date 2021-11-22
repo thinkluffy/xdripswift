@@ -3,7 +3,7 @@ import Foundation
 extension UserDefaults {
     
     /// keys for settings and user defaults. For reading and writing settings, the keys should not be used, the specific functions kan be used.
-    public enum KeysCharts: String {
+    private enum KeysCharts: String {
         
         /// chart width in hours
         case chartWidthInHours = "chartWidthInHours"
@@ -14,7 +14,7 @@ extension UserDefaults {
     }
     
     /// chart width in hours
-    @objc dynamic var chartWidthInHours:Double {
+    @objc dynamic var chartWidthInHours: Double {
         get {
 
             var returnValue = double(forKey: KeysCharts.chartWidthInHours.rawValue)
@@ -32,7 +32,7 @@ extension UserDefaults {
     }
 
     /// timeformat for labels in chart, time axis
-    @objc dynamic var chartTimeAxisLabelFormat:String {
+    @objc dynamic var chartTimeAxisLabelFormat: String {
         get {
             if let returnValue = string(forKey: KeysCharts.chartTimeAxisLabelFormat.rawValue) {
                 return returnValue

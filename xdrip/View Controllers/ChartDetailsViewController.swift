@@ -83,7 +83,7 @@ class ChartDetailsViewController: UIViewController {
         return .landscapeLeft
     }
     
-    func instancePresenter() {
+    private func instancePresenter() {
         presenter = ChartDetailsPresenter(view: self)
     }
     

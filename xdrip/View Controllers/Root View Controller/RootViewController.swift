@@ -237,13 +237,13 @@ final class RootViewController: UIViewController {
     private var watchManager: WatchManager?
     
     /// healthkit manager instance
-    private var healthKitManager:HealthKitManager?
+    private var healthKitManager: HealthKitManager?
     
     /// reference to activeSensor
-    private var activeSensor:Sensor?
+    private var activeSensor: Sensor?
     
     /// reference to bgReadingSpeaker
-    private var bgReadingSpeaker:BGReadingSpeaker?
+    private var bgReadingSpeaker: BGReadingSpeaker?
     
     /// manages bluetoothPeripherals that this app knows
     private var bluetoothPeripheralManager: BluetoothPeripheralManager?
@@ -294,6 +294,8 @@ final class RootViewController: UIViewController {
     private static let StatisticsDays30D = 3
     private static let StatisticsDays90D = 4
     
+    private var presenter: RootP!
+
     // MARK: - overriden functions
     
     // set the status bar content colour to light to match new darker theme
@@ -305,9 +307,7 @@ final class RootViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // never seen it triggered, copied that from Loop
         glucoseChartManager?.cleanUpMemory()
-        
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -322,17 +322,21 @@ final class RootViewController: UIViewController {
         updateStatistics(animatePieChart: true, overrideApplicationState: true)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        presenter.onViewDidAppear()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        presenter.onViewWillDisappear()
+        super.viewWillDisappear(animated)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // this is to force update of userdefaults that are also stored in the shared user defaults
-        // these are used by the today widget. After a year or so (september 2021) this can all be deleted
-        UserDefaults.standard.urgentLowMarkValueInUserChosenUnit = UserDefaults.standard.urgentLowMarkValueInUserChosenUnit
-        UserDefaults.standard.urgentHighMarkValueInUserChosenUnit = UserDefaults.standard.urgentHighMarkValueInUserChosenUnit
-        UserDefaults.standard.lowMarkValueInUserChosenUnit = UserDefaults.standard.lowMarkValueInUserChosenUnit
-        UserDefaults.standard.highMarkValueInUserChosenUnit = UserDefaults.standard.highMarkValueInUserChosenUnit
-        UserDefaults.standard.bloodGlucoseUnitIsMgDl = UserDefaults.standard.bloodGlucoseUnitIsMgDl
-        
+        instancePresenter()
+
         // chart hours
         var chartHoursItems = [SingleSelectionItem]()
         chartHoursItems.append(SingleSelectionItem(id: RootViewController.ChartHoursIdH1, title: "1H"))
@@ -446,12 +450,6 @@ final class RootViewController: UIViewController {
         // observe setting changes
         // changing from follower to master or vice versa
         UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.isMaster.rawValue, options: .new, context: nil)
-
-        // see if the user has changed the chart x axis timescale
-        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.KeysCharts.chartWidthInHours.rawValue, options: .new, context: nil)
-        
-        // see if the user has changed the statistic days to use
-        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.daysToUseStatistics.rawValue, options: .new, context: nil)
         
         // bg reading notification and badge, and multiplication factor
         UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.showReadingInNotification.rawValue, options: .new, context: nil)
@@ -527,6 +525,10 @@ final class RootViewController: UIViewController {
             self.updateStatistics(animatePieChart: false)
             
         })
+    }
+    
+    private func instancePresenter() {
+        presenter = RootPresenter(view: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -968,46 +970,13 @@ final class RootViewController: UIViewController {
         
     }
     
-    /// used by observevalue for UserDefaults.KeysCharts
-    private func evaluateUserDefaultsChange(keyPathEnumCharts: UserDefaults.KeysCharts) {
-        
-        // first check keyValueObserverTimeKeeper
-        switch keyPathEnumCharts {
-        
-        case UserDefaults.KeysCharts.chartWidthInHours, UserDefaults.KeysCharts.chartTimeAxisLabelFormat :
-            
-            if !keyValueObserverTimeKeeper.verifyKey(forKey: keyPathEnumCharts.rawValue, withMinimumDelayMilliSeconds: 200) {
-                return
-            }
-            
-        }
-        
-        switch keyPathEnumCharts {
-        
-        case UserDefaults.KeysCharts.chartWidthInHours:
-            // redraw chart is necessary
-            if let glucoseChartManager = glucoseChartManager {
-                let startDate = glucoseChartManager.endDate.addingTimeInterval(.hours(-UserDefaults.standard.chartWidthInHours))
-                glucoseChartManager.updateChartPoints(endDate: glucoseChartManager.endDate,
-                                                      startDate: startDate,
-                                                      chartOutlet: chartOutlet,
-                                                      completionHandler: nil)
-            }
-            
-        default:
-            break
-            
-        }
-        
-    }
-    
     /// used by observevalue for UserDefaults.Key
     private func evaluateUserDefaultsChange(keyPathEnum: UserDefaults.Key) {
         
         // first check keyValueObserverTimeKeeper
         switch keyPathEnum {
         
-        case UserDefaults.Key.isMaster, UserDefaults.Key.multipleAppBadgeValueWith10, UserDefaults.Key.showReadingInAppBadge, UserDefaults.Key.bloodGlucoseUnitIsMgDl, UserDefaults.Key.daysToUseStatistics :
+        case UserDefaults.Key.isMaster, UserDefaults.Key.multipleAppBadgeValueWith10, UserDefaults.Key.showReadingInAppBadge, UserDefaults.Key.bloodGlucoseUnitIsMgDl:
             
             // transmittertype change triggered by user, should not be done within 200 ms
             if !keyValueObserverTimeKeeper.verifyKey(forKey: keyPathEnum.rawValue, withMinimumDelayMilliSeconds: 200) {
@@ -1052,11 +1021,6 @@ final class RootViewController: UIViewController {
             
             // redraw chart is necessary
             updateChartWithResetEndDate()
-
-        case UserDefaults.Key.daysToUseStatistics:
-            
-            // refresh statistics calculations/view is necessary
-            updateStatistics(animatePieChart: true, overrideApplicationState: false)
     
         default:
             break
@@ -1071,15 +1035,8 @@ final class RootViewController: UIViewController {
         guard let keyPath = keyPath else {return}
         
         if let keyPathEnum = UserDefaults.Key(rawValue: keyPath) {
-            
             evaluateUserDefaultsChange(keyPathEnum: keyPathEnum)
-            
-        } else if let keyPathEnumCharts = UserDefaults.KeysCharts(rawValue: keyPath) {
-            
-            evaluateUserDefaultsChange(keyPathEnumCharts: keyPathEnumCharts)
-            
         }
-        
     }
     
     // MARK: - View Methods
@@ -1948,15 +1905,10 @@ final class RootViewController: UIViewController {
                 self.pieChartOutlet.animDuration = 0
             }
             
-            // if the user is 100% in range, show the easter egg and make them smile
             if statistics.inRangeStatisticValue < 100 {
-                
-                // set the reference angle of the pie chart to ensure that the in range slice is centered
-                self.pieChartOutlet.referenceAngle = 90.0 - (1.8 * CGFloat(statistics.inRangeStatisticValue))
-                
                 self.pieChartOutlet.models = [
-                    PieSliceModel(value: Double(statistics.inRangeStatisticValue), color: ConstantsStatistics.pieChartInRangeSliceColor),
                     PieSliceModel(value: Double(statistics.lowStatisticValue), color: ConstantsStatistics.pieChartLowSliceColor),
+                    PieSliceModel(value: Double(statistics.inRangeStatisticValue), color: ConstantsStatistics.pieChartInRangeSliceColor),
                     PieSliceModel(value: Double(statistics.highStatisticValue), color: ConstantsStatistics.pieChartHighSliceColor)
                 ]
                             
@@ -2068,11 +2020,10 @@ extension RootViewController: CGMTransmitterDelegate {
         trace("sensor not detected", log: log, category: ConstantsLog.categoryRootView, type: .info)
         
         createNotification(title: Texts_Common.warning, body: Texts_HomeView.sensorNotDetected, identifier: ConstantsNotifications.NotificationIdentifierForSensorNotDetected.sensorNotDetected, sound: nil)
-        
     }
     
     func cgmTransmitterInfoReceived(glucoseData: inout [GlucoseData], transmitterBatteryInfo: TransmitterBatteryInfo?, sensorTimeInMinutes: Int?) {
-        
+    
         trace("transmitterBatteryInfo %{public}@", log: log, category: ConstantsLog.categoryRootView, type: .debug, transmitterBatteryInfo?.description ?? "not received")
         trace("sensor time in minutes %{public}@", log: log, category: ConstantsLog.categoryRootView, type: .debug, sensorTimeInMinutes?.description ?? "not received")
         trace("glucoseData size = %{public}@", log: log, category: ConstantsLog.categoryRootView, type: .debug, glucoseData.count.description)
@@ -2084,18 +2035,13 @@ extension RootViewController: CGMTransmitterDelegate {
         
         // process new readings
         processNewGlucoseData(glucoseData: &glucoseData, sensorTimeInMinutes: sensorTimeInMinutes)
-        
     }
     
     func errorOccurred(xDripError: XdripError) {
-        
         if xDripError.priority == .HIGH {
-            
             createNotification(title: Texts_Common.warning, body: xDripError.errorDescription, identifier: ConstantsNotifications.notificationIdentifierForxCGMTransmitterDelegatexDripError, sound: nil)
-            
         }
     }
-    
 }
 
 // MARK: - conform to UITabBarControllerDelegate protocol
@@ -2104,7 +2050,6 @@ extension RootViewController: CGMTransmitterDelegate {
 extension RootViewController: UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        
         // check which tab is being clicked
         if let navigationController = viewController as? SettingsNavigationController, let coreDataManager = coreDataManager, let soundPlayer = soundPlayer {
             
@@ -2113,10 +2058,8 @@ extension RootViewController: UITabBarControllerDelegate {
         } else if let navigationController = viewController as? BluetoothPeripheralNavigationController, let bluetoothPeripheralManager = bluetoothPeripheralManager, let coreDataManager = coreDataManager {
             
             navigationController.configure(coreDataManager: coreDataManager, bluetoothPeripheralManager: bluetoothPeripheralManager)
-            
         }
     }
-    
 }
 
 // MARK: - conform to UNUserNotificationCenterDelegate protocol
@@ -2215,7 +2158,6 @@ extension RootViewController: UNUserNotificationCenterDelegate {
 extension RootViewController: NightScoutFollowerDelegate {
     
     func nightScoutFollowerInfoReceived(followGlucoseDataArray: inout [NightScoutBgReading]) {
-        
         if let coreDataManager = coreDataManager, let bgReadingsAccessor = bgReadingsAccessor, let nightScoutFollowManager = nightScoutFollowManager {
             
             // assign value of timeStampLastBgReading
@@ -2231,9 +2173,7 @@ extension RootViewController: NightScoutFollowerDelegate {
             
             // iterate through array, elements are ordered by timestamp, first is the youngest, let's create first the oldest, although it shouldn't matter in what order the readings are created
             for (_, followGlucoseData) in followGlucoseDataArray.enumerated().reversed() {
-                
                 if followGlucoseData.timeStamp > timeStampLastBgReading {
-                    
                     // creata a new reading
                     _ = nightScoutFollowManager.createBgReading(followGlucoseData: followGlucoseData)
                     
@@ -2242,18 +2182,16 @@ extension RootViewController: NightScoutFollowerDelegate {
                     
                     // set timeStampLastBgReading to new timestamp
                     timeStampLastBgReading = followGlucoseData.timeStamp
-                    
                 }
             }
             
             if newReadingCreated {
-                
                 trace("nightScoutFollowerInfoReceived, new reading(s) received", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
                 
                 // save in core data
                 coreDataManager.saveChanges()
                 
-                // update all text in  first screen
+                // update all text in first screen
                 updateLabelsAndChart(overrideApplicationState: false)
                 
                 // update statistics related outlets
@@ -2265,13 +2203,9 @@ extension RootViewController: NightScoutFollowerDelegate {
                 // check alerts, create notification, set app badge
                 checkAlertsCreateNotificationAndSetAppBadge()
                 
-                if let healthKitManager = healthKitManager {
-                    healthKitManager.storeBgReadings()
-                }
+                healthKitManager?.storeBgReadings()
                 
-                if let bgReadingSpeaker = bgReadingSpeaker {
-                    bgReadingSpeaker.speakNewReading(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp())
-                }
+                bgReadingSpeaker?.speakNewReading(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp())
                 
                 bluetoothPeripheralManager?.sendLatestReading()
                 
@@ -2279,8 +2213,7 @@ extension RootViewController: NightScoutFollowerDelegate {
                 watchManager?.processNewReading(lastConnectionStatusChangeTimeStamp: nil)
                 
                 // send also to loopmanager, not interesting for loop probably, but the data is also used for today widget
-                self.loopManager?.share()
-                
+                loopManager?.share()
             }
         }
     }
@@ -2288,7 +2221,8 @@ extension RootViewController: NightScoutFollowerDelegate {
 
 extension RootViewController: UIGestureRecognizerDelegate {
     
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         
         if gestureRecognizer.view != chartOutlet {
             return false
@@ -2299,9 +2233,10 @@ extension RootViewController: UIGestureRecognizerDelegate {
         }
         
         return true
-        
     }
-    
+}
+
+extension RootViewController: RootV {
 }
 
 extension RootViewController: SingleSelectionDelegate {
@@ -2328,6 +2263,15 @@ extension RootViewController: SingleSelectionDelegate {
                 break
             }
             
+            if let glucoseChartManager = glucoseChartManager {
+                let startDate = glucoseChartManager.endDate
+                    .addingTimeInterval(.hours(-UserDefaults.standard.chartWidthInHours))
+                glucoseChartManager.updateChartPoints(endDate: glucoseChartManager.endDate,
+                                                      startDate: startDate,
+                                                      chartOutlet: chartOutlet,
+                                                      completionHandler: nil)
+            }
+            
         } else if singleSelecton == statisticsDaysSelection {
             switch item.id
             {
@@ -2344,6 +2288,8 @@ extension RootViewController: SingleSelectionDelegate {
             default:
                 break
             }
+            
+            updateStatistics(animatePieChart: true, overrideApplicationState: false)
         }
     }
 }
