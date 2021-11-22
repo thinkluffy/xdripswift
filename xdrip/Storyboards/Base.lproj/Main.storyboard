@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -704,12 +704,10 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OLV-8i-eaU">
-                                        <rect key="frame" x="811" y="10.333333333333329" width="85" height="31"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Unlocked">
-                                            <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </buttonConfiguration>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OLV-8i-eaU">
+                                        <rect key="frame" x="854" y="13.666666666666671" width="24" height="24"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="ic_pushpin_unlock"/>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SY5-Dp-dbs" userLabel="ChartView" customClass="ScatterChartView" customModule="Charts">
                                         <rect key="frame" x="10" y="50" width="886" height="220"/>
@@ -719,7 +717,7 @@
                                 <color key="backgroundColor" red="0.078431372549019607" green="0.094117647058823528" blue="0.19215686274509802" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="eyY-zN-0mj" firstAttribute="leading" secondItem="spV-Wq-MSW" secondAttribute="leading" constant="20" id="5cR-sZ-qIy"/>
-                                    <constraint firstAttribute="trailing" secondItem="OLV-8i-eaU" secondAttribute="trailing" constant="10" id="86U-8f-cre"/>
+                                    <constraint firstAttribute="trailing" secondItem="OLV-8i-eaU" secondAttribute="trailing" constant="28" id="86U-8f-cre"/>
                                     <constraint firstItem="SY5-Dp-dbs" firstAttribute="leading" secondItem="spV-Wq-MSW" secondAttribute="leading" constant="10" id="ADp-uj-PnC"/>
                                     <constraint firstItem="eyY-zN-0mj" firstAttribute="top" secondItem="spV-Wq-MSW" secondAttribute="top" constant="15" id="I3b-TS-yjy"/>
                                     <constraint firstItem="EAM-NR-qaI" firstAttribute="top" secondItem="spV-Wq-MSW" secondAttribute="top" constant="10" id="T2d-kc-61o"/>
@@ -1819,6 +1817,7 @@
     <color key="tintColor" red="0.077760688960000005" green="0.092910580340000007" blue="0.192109853" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>
         <image name="ic_clock" width="25" height="25"/>
+        <image name="ic_pushpin_unlock" width="24" height="24"/>
         <image name="ic_search" width="25" height="25"/>
         <image name="ic_tab_bloodsugar" width="24" height="24"/>
         <image name="ic_tab_bloodsugar_h" width="24" height="24"/>

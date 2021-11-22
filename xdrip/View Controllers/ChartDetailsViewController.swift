@@ -139,13 +139,15 @@ class ChartDetailsViewController: UIViewController {
         chartHoursSelection.select(id: selectedChartHoursId, triggerCallback: false)
 
         lockMoveButton.onTap { [unowned self] btn in
-            if chartView.dragMoveHighlightFirst {
-                lockMoveButton.setTitle("Unocked", for: .normal)
-                chartView.dragMoveHighlightFirst = false
+            if self.chartView.dragMoveHighlightFirst {
+                btn.setImage(R.image.ic_pushpin_unlock(), for: .normal)
+                btn.tintColor = .white
+                self.chartView.dragMoveHighlightFirst = false
 
             } else {
-                lockMoveButton.setTitle("Locked", for: .normal)
-                chartView.dragMoveHighlightFirst = true
+                btn.setImage(R.image.ic_pushpin_lock()?.withRenderingMode(.alwaysTemplate), for: .normal)
+                btn.tintColor = ConstantsUI.accentRed
+                self.chartView.dragMoveHighlightFirst = true
             }
         }
         

@@ -1348,7 +1348,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 48 images.
+  /// This `R.image` struct is generated, and contains static references to 50 images.
   struct image {
     /// Image `ic_arrow_left`.
     static let ic_arrow_left = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_arrow_left")
@@ -1356,6 +1356,10 @@ struct R: Rswift.Validatable {
     static let ic_arrow_right = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_arrow_right")
     /// Image `ic_clock`.
     static let ic_clock = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_clock")
+    /// Image `ic_pushpin_lock`.
+    static let ic_pushpin_lock = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_pushpin_lock")
+    /// Image `ic_pushpin_unlock`.
+    static let ic_pushpin_unlock = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_pushpin_unlock")
     /// Image `ic_radio_button_on`.
     static let ic_radio_button_on = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_radio_button_on")
     /// Image `ic_radio_button`.
@@ -1465,6 +1469,20 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ic_clock", bundle: ..., traitCollection: ...)`
     static func ic_clock(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ic_clock, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_pushpin_lock", bundle: ..., traitCollection: ...)`
+    static func ic_pushpin_lock(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_pushpin_lock, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_pushpin_unlock", bundle: ..., traitCollection: ...)`
+    static func ic_pushpin_unlock(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_pushpin_unlock, compatibleWith: traitCollection)
     }
     #endif
 
@@ -8560,6 +8578,7 @@ struct _R: Rswift.Validatable {
 
       static func validate() throws {
         if UIKit.UIImage(named: "ic_clock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_clock' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ic_pushpin_unlock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_pushpin_unlock' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_search", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_search' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_bloodsugar", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_bloodsugar' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_bloodsugar_h", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_bloodsugar_h' is used in storyboard 'Main', but couldn't be loaded.") }
