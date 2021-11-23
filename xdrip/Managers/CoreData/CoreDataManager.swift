@@ -124,33 +124,29 @@ public final class CoreDataManager {
         
         // when app goes to background, call saveChanges, just in case that somewhere in the code saveChanges is not called when needed
         ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground(key: applicationManagerKeySaveChangesWhenAppGoesToBackground, closure: {self.saveChanges()})
-        
     }
 
     // MARK: -
     
     public func saveChanges() {
-
         mainManagedObjectContext.performAndWait {
             do {
                 if self.mainManagedObjectContext.hasChanges {
                     try self.mainManagedObjectContext.save()
                 }
+                
             } catch {
                 trace("in savechanges,  Unable to Save Changes of Main Managed Object Context, error.localizedDescription  = %{public}@", log: log, category: ConstantsLog.categoryCoreDataManager, type: .info, error.localizedDescription)
                 
                 let error = error as NSError
-                for (key,errors) in error.userInfo {
+                for (key, errors) in error.userInfo {
                     if key == "NSDetailedErrors" {
                         if let errors = (errors as? NSArray) {
                             for error in errors {
                                 if let error = (error as? NSError) {
-                                    
-                                    trace("   error.localizedDescription = %{public}@", log: log, category: ConstantsLog.categoryCoreDataManager, type: .info, error.localizedDescription)
-                                    
+                                    trace("error.localizedDescription = %{public}@", log: log, category: ConstantsLog.categoryCoreDataManager, type: .info, error.localizedDescription)
                                 }
                             }
-                            
                         }
                     }
                 }
@@ -158,27 +154,25 @@ public final class CoreDataManager {
         }
         
         privateManagedObjectContext.perform {
-            
             do {
                 if self.privateManagedObjectContext.hasChanges {
                     try self.privateManagedObjectContext.save()
                 }
+                
             } catch {
                 trace("in savechanges,  Unable to Save Changes of Private Managed Object Context, error.localizedDescription  = %{public}@", log: self.log, category: ConstantsLog.categoryCoreDataManager, type: .info, error.localizedDescription)
             }
-            
         }
-        
     }
 
     /// to be used when app terminates, difference with savechanges is that it calls privateManagedObjectContext.save synchronously
     private func saveChangesAtTermination() {
-        
         mainManagedObjectContext.performAndWait {
             do {
                 if self.mainManagedObjectContext.hasChanges {
                     try self.mainManagedObjectContext.save()
                 }
+                
             } catch {
                 trace("in saveChangesAtTermination,  Unable to Save Changes of Main Managed Object Context, error.localizedDescription  = %{public}@", log: log, category: ConstantsLog.categoryCoreDataManager, type: .info, error.localizedDescription)
             }
@@ -189,10 +183,10 @@ public final class CoreDataManager {
                 if self.privateManagedObjectContext.hasChanges {
                     try self.privateManagedObjectContext.save()
                 }
+                
             } catch {
                 trace("in saveChangesAtTermination,  Unable to Save Changes of Private Managed Object Context, error.localizedDescription  = %{public}@", log: self.log, category: ConstantsLog.categoryCoreDataManager, type: .info, error.localizedDescription)
             }
         }
     }
-
 }

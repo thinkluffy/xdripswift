@@ -227,9 +227,6 @@ final class RootViewController: UIViewController {
     /// SoundPlayer instance
     private var soundPlayer:SoundPlayer?
     
-    /// nightScoutFollowManager instance
-    private var nightScoutFollowManager:NightScoutFollowManager?
-    
     /// dexcomShareUploadManager instance
     private var dexcomShareUploadManager:DexcomShareUploadManager?
     
@@ -405,7 +402,6 @@ final class RootViewController: UIViewController {
         // Setup Core Data Manager - setting up coreDataManager happens asynchronously
         // completion handler is called when finished. This gives the app time to already continue setup which is independent of coredata, like initializing the views
         coreDataManager = CoreDataManager(modelName: ConstantsCoreData.modelName, completion: {
-            
             self.setupApplicationData()
             
             // housekeeper should be non nil here, kall housekeeper
@@ -422,26 +418,6 @@ final class RootViewController: UIViewController {
             
             // create badge counter
             self.createBgReadingNotificationAndSetAppBadge(overrideShowReadingInNotification: true)
-            
-            // if licenseinfo not yet accepted, show license info with only ok button
-            if !UserDefaults.standard.licenseInfoAccepted {
-                
-                let alert = UIAlertController(title: ConstantsHomeView.applicationName, message: Texts_HomeView.licenseInfo + ConstantsHomeView.infoEmailAddress, actionHandler: {
-                    
-                    // set licenseInfoAccepted to true
-                    UserDefaults.standard.licenseInfoAccepted = true
-                    
-                    // create info screen about transmitters
-                    let infoScreenAlert = UIAlertController(title: Texts_HomeView.info, message: Texts_HomeView.transmitterInfo, actionHandler: nil)
-                    
-                    self.present(infoScreenAlert, animated: true, completion: nil)
-                    
-                })
-                
-                self.present(alert, animated: true, completion: nil)
-                
-            }
-            
         })
         
         // Setup View
@@ -483,7 +459,7 @@ final class RootViewController: UIViewController {
         }
         
         // setup self as delegate for tabbarcontroller
-        self.tabBarController?.delegate = self
+        tabBarController?.delegate = self
         
         // setup the timer logic for updating the view regularly
         setupUpdateLabelsAndChartTimer()
@@ -607,9 +583,6 @@ final class RootViewController: UIViewController {
         // setup FollowManager
         guard let soundPlayer = soundPlayer else { fatalError("In setupApplicationData, this looks very in appropriate, shame")}
         
-        // setup nightscoutmanager
-        nightScoutFollowManager = NightScoutFollowManager(coreDataManager: coreDataManager, nightScoutFollowerDelegate: self)
-        
         // setup healthkitmanager
         healthKitManager = HealthKitManager(coreDataManager: coreDataManager)
         
@@ -706,6 +679,13 @@ final class RootViewController: UIViewController {
             return self?.glucoseChartManager?.glucoseChartWithFrame(frame)?.view
         }
         
+        presenter.setup(coreDataManager: coreDataManager,
+                        bgReadingsAccessor: bgReadingsAccessor,
+                        healthKitManager: healthKitManager!,
+                        bgReadingSpeaker: bgReadingSpeaker!,
+                        watchManager: watchManager!,
+                        bluetoothPeripheralManager: bluetoothPeripheralManager!,
+                        loopManager: loopManager!)
     }
     
     /// process new glucose data received from transmitter.
@@ -1160,7 +1140,7 @@ final class RootViewController: UIViewController {
     /// opens an alert, that requests user to enter a calibration value, and calibrates
     /// - parameters:
     ///     - userRequested : if true, it's a requestCalibration initiated by user clicking on the calibrate button in the homescreen
-    private func requestCalibration(userRequested:Bool) {
+    private func requestCalibration(userRequested: Bool) {
         
         // unwrap calibrationsAccessor, coreDataManager , bgReadingsAccessor
         guard let calibrationsAccessor = calibrationsAccessor, let coreDataManager = self.coreDataManager, let bgReadingsAccessor = self.bgReadingsAccessor else {
@@ -2095,7 +2075,6 @@ extension RootViewController: UNUserNotificationCenterDelegate {
             // this will verify if it concerns an alert notification, if not pickerviewData will be nil
         } else if let pickerViewData = alertManager?.userNotificationCenter(center, willPresent: notification, withCompletionHandler: completionHandler) {
             
-            
             PickerViewController.displayPickerViewController(pickerViewData: pickerViewData, parentController: self)
             
         }  else if notification.request.identifier == ConstantsNotifications.notificationIdentifierForVolumeTest {
@@ -2153,77 +2132,10 @@ extension RootViewController: UNUserNotificationCenterDelegate {
     }
 }
 
-// MARK: - conform to NightScoutFollowerDelegate protocol
-
-extension RootViewController: NightScoutFollowerDelegate {
-    
-    func nightScoutFollowerInfoReceived(followGlucoseDataArray: inout [NightScoutBgReading]) {
-        if let coreDataManager = coreDataManager, let bgReadingsAccessor = bgReadingsAccessor, let nightScoutFollowManager = nightScoutFollowManager {
-            
-            // assign value of timeStampLastBgReading
-            var timeStampLastBgReading = Date(timeIntervalSince1970: 0)
-
-            // get lastReading, ignore sensor as this should be nil because this is follower mode
-            if let lastReading = bgReadingsAccessor.last(forSensor: nil) {
-                timeStampLastBgReading = lastReading.timeStamp
-            }
-            
-            // was a new reading created or not
-            var newReadingCreated = false
-            
-            // iterate through array, elements are ordered by timestamp, first is the youngest, let's create first the oldest, although it shouldn't matter in what order the readings are created
-            for (_, followGlucoseData) in followGlucoseDataArray.enumerated().reversed() {
-                if followGlucoseData.timeStamp > timeStampLastBgReading {
-                    // creata a new reading
-                    _ = nightScoutFollowManager.createBgReading(followGlucoseData: followGlucoseData)
-                    
-                    // a new reading was created
-                    newReadingCreated = true
-                    
-                    // set timeStampLastBgReading to new timestamp
-                    timeStampLastBgReading = followGlucoseData.timeStamp
-                }
-            }
-            
-            if newReadingCreated {
-                trace("nightScoutFollowerInfoReceived, new reading(s) received", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
-                
-                // save in core data
-                coreDataManager.saveChanges()
-                
-                // update all text in first screen
-                updateLabelsAndChart(overrideApplicationState: false)
-                
-                // update statistics related outlets
-                updateStatistics(animatePieChart: false)
-                
-                // update sensor countdown
-                updateSensorCountdown()
-                
-                // check alerts, create notification, set app badge
-                checkAlertsCreateNotificationAndSetAppBadge()
-                
-                healthKitManager?.storeBgReadings()
-                
-                bgReadingSpeaker?.speakNewReading(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp())
-                
-                bluetoothPeripheralManager?.sendLatestReading()
-                
-                // ask watchManager to process new reading, ignore last connection change timestamp because this is follower mode, there is no connection to a transmitter
-                watchManager?.processNewReading(lastConnectionStatusChangeTimeStamp: nil)
-                
-                // send also to loopmanager, not interesting for loop probably, but the data is also used for today widget
-                loopManager?.share()
-            }
-        }
-    }
-}
-
 extension RootViewController: UIGestureRecognizerDelegate {
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
                            shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        
         if gestureRecognizer.view != chartOutlet {
             return false
         }
@@ -2231,12 +2143,25 @@ extension RootViewController: UIGestureRecognizerDelegate {
         if gestureRecognizer.view != otherGestureRecognizer.view {
             return false
         }
-        
         return true
     }
 }
 
 extension RootViewController: RootV {
+    
+    func showNewReading() {
+        // update all text in first screen
+        updateLabelsAndChart(overrideApplicationState: false)
+        
+        // update statistics related outlets
+        updateStatistics(animatePieChart: false)
+        
+        // update sensor countdown
+        updateSensorCountdown()
+        
+        // check alerts, create notification, set app badge
+        checkAlertsCreateNotificationAndSetAppBadge()
+    }
 }
 
 extension RootViewController: SingleSelectionDelegate {

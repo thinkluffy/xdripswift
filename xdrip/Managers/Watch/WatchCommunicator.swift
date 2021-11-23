@@ -23,7 +23,6 @@ extension WCSession {
 		}
 		return true
 	}
-	
 }
 
 class WatchCommunicator: NSObject {
@@ -50,8 +49,8 @@ class WatchCommunicator: NSObject {
 	}
 }
 
-
 extension WatchCommunicator: WCSessionDelegate {
+    
 	func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
 		print("activationDidCompleteWith \(activationState.rawValue), error: \(error?.localizedDescription ?? "nil")")
 	}
@@ -76,49 +75,51 @@ extension WatchCommunicator: WCSessionDelegate {
 			replyHandler([:])
 			return
 		}
+        
 		DispatchQueue.main.async {
-			
-		let message = Common.DataTransformToPhone.init(dic: message)
-		let type = message.type
-		var data: Common.DataTransformToWatch?
-		let config = WatchCommunicator.getConfig()
-		if type == Common.MessageValues.latest {
-			if let latestBg = dataManager.getLatest() {
-				let info = Common.BgInfo(date: latestBg.timeStamp,
-										 value: latestBg.calculatedValue.mgdlToMmol(mgdl: config.showAsMgDl))
-				let slope: Common.BgSlope = WatchCommunicator.convertSlope(of: latestBg.slopArrow)
-				data = Common.DataTransformToWatch.init(slope: slope,
-														latest: info,
-														recently: nil,
-														config: config)
-			}
-		}
-		else if type == Common.MessageValues.recently {
-			let list = dataManager.getRecently(6).sorted { a, b in
-				a.timeStamp < b.timeStamp
-			}
-			var recently = [Common.BgInfo]()
-			for item in list {
-				let info = Common.BgInfo(date: item.timeStamp,
-										 value: item.calculatedValue.mgdlToMmol(mgdl: config.showAsMgDl))
-				recently.append(info)
-			}
-			let latest = list.last
-			var slope = Common.BgSlope.flat
-			if latest != nil {
-				slope = WatchCommunicator.convertSlope(of: latest!.slopArrow)
-			}
-			data = Common.DataTransformToWatch.init(slope: slope,
-													latest: recently.last,
-													recently: recently,
-													config: config)
-		}
-		replyHandler(data?.toDic() ?? [:])
+            let message = Common.DataTransformToPhone.init(dic: message)
+            let type = message.type
+            var data: Common.DataTransformToWatch?
+            let config = WatchCommunicator.getConfig()
+                
+            if type == Common.MessageValues.latest {
+                if let latestBg = dataManager.getLatest() {
+                    let info = Common.BgInfo(date: latestBg.timeStamp,
+                                             value: latestBg.calculatedValue.mgdlToMmol(mgdl: config.showAsMgDl))
+                    let slope: Common.BgSlope = WatchCommunicator.convertSlope(of: latestBg.slopArrow)
+                    data = Common.DataTransformToWatch.init(slope: slope,
+                                                            latest: info,
+                                                            recently: nil,
+                                                            config: config)
+                }
+                
+            } else if type == Common.MessageValues.recently {
+                let list = dataManager.getRecently(6).sorted { a, b in
+                    a.timeStamp < b.timeStamp
+                }
+                var recently = [Common.BgInfo]()
+                for item in list {
+                    let info = Common.BgInfo(date: item.timeStamp,
+                                             value: item.calculatedValue.mgdlToMmol(mgdl: config.showAsMgDl))
+                    recently.append(info)
+                }
+                let latest = list.last
+                var slope = Common.BgSlope.flat
+                if latest != nil {
+                    slope = WatchCommunicator.convertSlope(of: latest!.slopArrow)
+                }
+                data = Common.DataTransformToWatch.init(slope: slope,
+                                                        latest: recently.last,
+                                                        recently: recently,
+                                                        config: config)
+            }
+            replyHandler(data?.toDic() ?? [:])
 		}
 	}
 }
 
 extension WatchCommunicator {
+    
 	static func getConfig() -> Common.BgConfig {
 		let showAsMgDl = UserDefaults.standard.bloodGlucoseUnitIsMgDl
 		return Common.BgConfig(
@@ -161,6 +162,7 @@ extension WatchCommunicator {
 		// 六小时前 - 现在
 		let start = Int(now.addingTimeInterval(-6*60*60).timeIntervalSince1970)
 		let end = Int(now.timeIntervalSince1970)
+        
 		for i in stride(from: start, to: end, by: 5*60) {
 			last = last + Double.random(in: -0.4...0.4)
 			last = min(16.6, max(2.2, last))

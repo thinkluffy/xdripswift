@@ -11,7 +11,7 @@ final class SettingsNavigationController: UINavigationController {
     // MARK:- private properties
     
     /// coredatamanager
-    private var coreDataManager:CoreDataManager?
+    private var coreDataManager: CoreDataManager?
     
     /// reference to soundPlayer
     private var soundPlayer:SoundPlayer?
@@ -19,7 +19,7 @@ final class SettingsNavigationController: UINavigationController {
     // MARK:- public functions
     
     /// configure
-    public func configure(coreDataManager:CoreDataManager, soundPlayer:SoundPlayer) {
+    public func configure(coreDataManager: CoreDataManager, soundPlayer:SoundPlayer) {
         
         self.coreDataManager = coreDataManager
         self.soundPlayer = soundPlayer

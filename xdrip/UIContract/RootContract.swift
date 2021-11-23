@@ -10,8 +10,17 @@ import UIKit
 
 protocol RootV: MVPV {
     
+    func showNewReading()
 }
 
 protocol RootP: MVPP {
-        
+    
+    // temp used during refactoring
+    func setup(coreDataManager: CoreDataManager,
+               bgReadingsAccessor: BgReadingsAccessor,
+               healthKitManager: HealthKitManager,
+               bgReadingSpeaker: BGReadingSpeaker,
+               watchManager: WatchManager,
+               bluetoothPeripheralManager: BluetoothPeripheralManager,
+               loopManager: LoopManager)
 }
