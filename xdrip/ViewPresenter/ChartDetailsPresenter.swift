@@ -14,40 +14,20 @@ class ChartDetailsPresenter: ChartDetailsP {
 
     private weak var view: ChartDetailsV?
     
-    private var coreDataManager: CoreDataManager?
-    private var bgReadingAccessor: BgReadingsAccessor?
+    private let bgReadingAccessor = BgReadingsAccessor()
     
     init(view: ChartDetailsV) {
         self.view = view
     }
     
     func loadData(date: Date) {
-        if coreDataManager != nil {
-            doLoadData(date: date)
-            
-        } else {
-            coreDataManager = CoreDataManager(modelName: ConstantsCoreData.modelName) { [weak self] in
-                self?.doLoadData(date: date)
-            }
-        }
-    }
-    
-    private func doLoadData(date: Date) {
-        guard let coreDataManager = coreDataManager else {
-            return
-        }
-        
-        if bgReadingAccessor == nil {
-            bgReadingAccessor = BgReadingsAccessor(coreDataManager: coreDataManager)
-        }
-        
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             let fromDate = Calendar.current.startOfDay(for: date)
             let toDate = Date(timeInterval: Date.dayInSeconds, since: fromDate)
             
-            let readings = self?.bgReadingAccessor!.getBgReadings(from: fromDate,
+            let readings = self?.bgReadingAccessor.getBgReadings(from: fromDate,
                                                                   to: toDate,
-                                                                  on: coreDataManager.mainManagedObjectContext)
+                                                                  on: CoreDataManager.shared.mainManagedObjectContext)
            
             DispatchQueue.main.async {
                 self?.view?.showReadings(readings, from: fromDate, to: toDate)

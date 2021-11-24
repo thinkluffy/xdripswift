@@ -19,7 +19,7 @@ extension BluetoothPeripheralManager: CGMLibre2TransmitterDelegate {
         // store serial number in Libre2 object
         libre2.blePeripheral.sensorSerialNumber = serialNumber
         
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
     }
 

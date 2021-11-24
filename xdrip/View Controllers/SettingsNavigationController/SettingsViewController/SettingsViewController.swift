@@ -8,12 +8,9 @@ final class SettingsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Private Properties
-    
-    /// reference to coreDataManager
-    private var coreDataManager:CoreDataManager?
-    
+        
     /// reference to soundPlayer
-    private var soundPlayer:SoundPlayer?
+    private var soundPlayer: SoundPlayer?
     
     /// will show pop up with title and message
     private var messageHandler: ((String, String) -> Void)?
@@ -62,11 +59,11 @@ final class SettingsViewController: UIViewController {
         /// more settings
         case more
         
-        func viewModel(coreDataManager: CoreDataManager?) -> SettingsViewModelProtocol {
+        func viewModel() -> SettingsViewModelProtocol {
             switch self {
                 
             case .general:
-                return SettingsViewGeneralSettingsViewModel(coreDataManager: coreDataManager)
+                return SettingsViewGeneralSettingsViewModel()
             case .homescreen:
                 return SettingsViewHomeScreenSettingsViewModel()
             case .statistics:
@@ -98,9 +95,7 @@ final class SettingsViewController: UIViewController {
     // MARK:- public functions
     
     /// configure
-    public func configure(coreDataManager:CoreDataManager?, soundPlayer:SoundPlayer?) {
-        
-        self.coreDataManager = coreDataManager
+    public func configure(soundPlayer: SoundPlayer?) {
         self.soundPlayer = soundPlayer
        
         // create messageHandler
@@ -138,7 +133,7 @@ final class SettingsViewController: UIViewController {
         for section in Section.allCases {
 
             // get a viewModel for the section
-            let viewModel = section.viewModel(coreDataManager: coreDataManager)
+            let viewModel = section.viewModel()
             
             // unwrap messageHandler and store in the viewModel
             if let messageHandler = messageHandler {
@@ -190,11 +185,10 @@ final class SettingsViewController: UIViewController {
             
         case .settingsToAlertTypeSettings:
             let vc = segue.destination as! AlertTypesSettingsViewController
-            vc.configure(coreDataManager: coreDataManager, soundPlayer: soundPlayer)
+            vc.configure(soundPlayer: soundPlayer)
             
         case .settingsToAlertSettings:
-            let vc = segue.destination as! AlertsSettingsViewController
-            vc.configure(coreDataManager: coreDataManager)
+            break
             
         case .settingsToM5StackSettings:
             // nothing to configure

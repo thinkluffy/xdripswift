@@ -26,14 +26,6 @@ fileprivate enum Setting: Int, CaseIterable {
 /// conforms to SettingsViewModelProtocol for all general settings in the first sections screen
 class SettingsViewGeneralSettingsViewModel: SettingsViewModelProtocol {
     
-    private var coreDataManager: CoreDataManager?
-    
-    init(coreDataManager: CoreDataManager?) {
-        
-        self.coreDataManager = coreDataManager
-        
-    }
-    
     func storeRowReloadClosure(rowReloadClosure: ((Int) -> Void)) {}
     
     func storeUIViewController(uIViewController: UIViewController) {}
@@ -43,7 +35,6 @@ class SettingsViewGeneralSettingsViewModel: SettingsViewModelProtocol {
     }
     
     func completeSettingsViewRefreshNeeded(index: Int) -> Bool {
-        
         // changing follower to master or master to follower requires changing ui for nightscout settings and transmitter type settings
         // the same applies when changing bloodGlucoseUnit, because off the seperate section with bgObjectives
         if (index == Setting.masterFollower.rawValue || index == Setting.bloodGlucoseUnit.rawValue) {return true}
@@ -70,53 +61,33 @@ class SettingsViewGeneralSettingsViewModel: SettingsViewModelProtocol {
         case .masterFollower:
             
             // switching from master to follower will set cgm transmitter to nil and stop the sensor. If there's a sensor active then it's better to ask for a confirmation, if not then do the change without asking confirmation
-
             if UserDefaults.standard.isMaster {
-                
-                if let coreDataManager = coreDataManager {
-                    
-                    if SensorsAccessor(coreDataManager: coreDataManager).fetchActiveSensor() != nil {
-
-                        return .askConfirmation(title: Texts_Common.warning, message: Texts_SettingsView.warningChangeFromMasterToFollower, actionHandler: {
-                            
-                            UserDefaults.standard.isMaster = false
-                            
-                        }, cancelHandler: nil)
-
-                    } else {
+                if SensorsAccessor().fetchActiveSensor() != nil {
+                    return .askConfirmation(title: Texts_Common.warning, message: Texts_SettingsView.warningChangeFromMasterToFollower, actionHandler: {
                         
-                        // no sensor active
-                        // set to follower
-                        return SettingsSelectedRowAction.callFunction(function: {
-                            UserDefaults.standard.isMaster = false
-                        })
+                        UserDefaults.standard.isMaster = false
                         
-                    }
-                    
+                    }, cancelHandler: nil)
+
                 } else {
-                    
-                    // coredata manager is nil, should normally not be the case
+                    // no sensor active
+                    // set to follower
                     return SettingsSelectedRowAction.callFunction(function: {
                         UserDefaults.standard.isMaster = false
                     })
-
                 }
                 
-                
             } else {
-                
                 // switching from follower to master
                 return SettingsSelectedRowAction.callFunction(function: {
                     UserDefaults.standard.isMaster = true
                 })
-
             }
             
         case .showReadingInNotification, .showReadingInAppBadge, .multipleAppBadgeValueWith10:
             return SettingsSelectedRowAction.nothing
             
         case .notificationInterval:
-            
             return SettingsSelectedRowAction.askText(title: Texts_SettingsView.settingsviews_IntervalTitle, message: Texts_SettingsView.settingsviews_IntervalMessage, keyboardType: .numberPad, text: UserDefaults.standard.notificationInterval.description, placeHolder: "0", actionTitle: nil, cancelTitle: nil, actionHandler: {(interval:String) in if let interval = Int(interval) {UserDefaults.standard.notificationInterval = Int(interval)}}, cancelHandler: nil, inputValidator: nil)
             
         }
@@ -127,7 +98,6 @@ class SettingsViewGeneralSettingsViewModel: SettingsViewModelProtocol {
     }
 
     func numberOfRows() -> Int {
-        
         // if unit is mmol and if show value in app badge is on and if showReadingInNotification is not on, then show also if to be multiplied by 10 yes or no
         // (if showReadingInNotification is on, then badge counter will be set via notification, in this case we can use NSNumber so we don't need to multiply by 10)
         if !UserDefaults.standard.bloodGlucoseUnitIsMgDl && UserDefaults.standard.showReadingInAppBadge && !UserDefaults.standard.showReadingInNotification {

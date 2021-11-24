@@ -18,17 +18,11 @@ public final class StatisticsManager {
     
     /// used for calculating statistics on a background thread
     private let operationQueue: OperationQueue
-    
-    /// a coreDataManager
-    private var coreDataManager: CoreDataManager
-    
+        
     // MARK: - intializer
     
-    init(coreDataManager: CoreDataManager) {
-        
-        // set coreDataManager and bgReadingsAccessor
-        self.coreDataManager = coreDataManager
-        self.bgReadingsAccessor = BgReadingsAccessor(coreDataManager: coreDataManager)
+    init() {
+        bgReadingsAccessor = BgReadingsAccessor()
 
         // initialize operationQueue
         operationQueue = OperationQueue()
@@ -70,10 +64,10 @@ public final class StatisticsManager {
             var readingsCount: Int = 0
             var stdDeviation: Double = 0
 
-            self.coreDataManager.privateManagedObjectContext.performAndWait {
+            CoreDataManager.shared.privateManagedObjectContext.performAndWait {
 
                 // lets get the readings from the bgReadingsAccessor
-                let readings = self.bgReadingsAccessor.getBgReadings(from: fromDate, to: toDate, on: self.coreDataManager.privateManagedObjectContext)
+                let readings = self.bgReadingsAccessor.getBgReadings(from: fromDate, to: toDate, on:  CoreDataManager.shared.privateManagedObjectContext)
                 
                 //if there are no available readings, return without doing anything
                 if readings.count == 0 {

@@ -128,7 +128,7 @@ extension BluetoothPeripheralManager: BluetoothTransmitterDelegate {
         
         // before exiting save the changes
         defer {
-            coreDataManager.saveChanges()
+            CoreDataManager.shared.saveChanges()
         }
 
         /// helper function : if bluetoothTransmitter is a CGMTransmitter and if it's a new one (ie address is different than currentCgmTransmitterAddress then call cgmTransmitterChanged
@@ -220,7 +220,7 @@ extension BluetoothPeripheralManager: BluetoothTransmitterDelegate {
         trace("in didconnect to, going to create a new bluetoothperipheral", log: log, category: ConstantsLog.categoryBluetoothPeripheralManager, type: .info)
         
         // create bluetoothPeripheral
-        let newBluetoothPeripheral = getTransmitterType(for: tempBlueToothTransmitterWhileScanningForNewBluetoothPeripheral).createNewBluetoothPeripheral(withAddress: deviceAddressNewTransmitter, withName: deviceNameNewTransmitter, nsManagedObjectContext: coreDataManager.mainManagedObjectContext)
+        let newBluetoothPeripheral = getTransmitterType(for: tempBlueToothTransmitterWhileScanningForNewBluetoothPeripheral).createNewBluetoothPeripheral(withAddress: deviceAddressNewTransmitter, withName: deviceNameNewTransmitter, nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
 
         // bluetoothTransmitter has initially been created with webOOPEnabled = false (possibily it's not even a CGM transmitter
         // if it's a CGM transmitter being created here, then we need to reassign webOOPEnabled to the value in the blePeripheral
@@ -279,7 +279,7 @@ extension BluetoothPeripheralManager: BluetoothTransmitterDelegate {
             }
         }
         
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
     }
     
@@ -298,7 +298,7 @@ extension BluetoothPeripheralManager: BluetoothTransmitterDelegate {
             bluetoothPeripheral.blePeripheral.lastConnectionStatusChangeTimeStamp = Date()
         }
 
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
     }
     

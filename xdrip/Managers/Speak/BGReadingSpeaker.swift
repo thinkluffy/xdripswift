@@ -9,20 +9,17 @@ class BGReadingSpeaker:NSObject {
     // MARK: - public properties
     
     // MARK: - private properties
-    
-    /// reference to coreDataManager
-    private var coreDataManager:CoreDataManager
-    
+        
     /// a BgReadingsAccessor
-    private var bgReadingsAccessor:BgReadingsAccessor
+    private var bgReadingsAccessor: BgReadingsAccessor
     
     /// audioplayer used by app
     ///
     /// is used to verify if app happens to be playing a sound, in which case new readings shouldn't be spoken
-    private var sharedSoundPlayer:SoundPlayer
+    private var sharedSoundPlayer: SoundPlayer
     
     /// timestamp of last spoken reading, initially set to 1 jan 1970
-    private var timeStampLastSpokenReading:Date
+    private var timeStampLastSpokenReading: Date
     
     /// to solve problem that sometemes UserDefaults key value changes is triggered twice for just one change
     private let keyValueObserverTimeKeeper:KeyValueObserverTimeKeeper = KeyValueObserverTimeKeeper()
@@ -30,12 +27,10 @@ class BGReadingSpeaker:NSObject {
     // MARK: - initializer
     
     /// init is private, to avoid creation
-    init(sharedSoundPlayer:SoundPlayer, coreDataManager:CoreDataManager) {
-        
+    init(sharedSoundPlayer: SoundPlayer) {
         // initialize non optional private properties
         self.sharedSoundPlayer = sharedSoundPlayer
-        self.coreDataManager = coreDataManager
-        self.bgReadingsAccessor = BgReadingsAccessor(coreDataManager: coreDataManager)
+        self.bgReadingsAccessor = BgReadingsAccessor()
         
         // initialize timeStampLastSpokenReading
         timeStampLastSpokenReading = Date(timeIntervalSince1970: 0)

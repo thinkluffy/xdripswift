@@ -37,8 +37,8 @@ final class AlertTypeSettingsViewController: UIViewController {
         if let alertTypeAsNSObject = alertTypeAsNSObject {
             // first ask user if ok to delete and if yes delete
             let alert = UIAlertController(title: Texts_AlertTypeSettingsView.confirmDeletionAlertType + alertTypeAsNSObject.name + "?", message: nil, actionHandler: {
-                self.coreDataManager?.mainManagedObjectContext.delete(alertTypeAsNSObject)
-                self.coreDataManager?.saveChanges()
+                CoreDataManager.shared.mainManagedObjectContext.delete(alertTypeAsNSObject)
+                CoreDataManager.shared.saveChanges()
                 // go back to alerttypes settings screen
                 self.performSegue(withIdentifier: UnwindSegueIdentifiers.unwindToAlertTypesSettingsViewController.rawValue, sender: self)
                 }, cancelHandler: nil)
@@ -60,9 +60,6 @@ final class AlertTypeSettingsViewController: UIViewController {
     
     /// the alerttype being edited - will only be used initially to initialize the temp properties used locally, and in the end to update the alerttype - if nil then it's about creating a new alertType
     private var alertTypeAsNSObject:AlertType?
-
-    /// reference to coreDataManager
-    private var coreDataManager:CoreDataManager?
     
     // MARK:- alerttype temp properties
     
@@ -77,10 +74,8 @@ final class AlertTypeSettingsViewController: UIViewController {
     
     // MARK:- public functions
     
-    public func configure(alertType:AlertType?, coreDataManager:CoreDataManager, soundPlayer:SoundPlayer) {
-        
+    public func configure(alertType: AlertType?, soundPlayer: SoundPlayer) {
         self.alertTypeAsNSObject = alertType
-        self.coreDataManager = coreDataManager
         self.soundPlayer = soundPlayer
         
         // configure local temp alert type properties if alertType not nil - if alertType is nil then this viewcontroller is opened to create a ne alertType, in that case default values are used
@@ -132,20 +127,11 @@ final class AlertTypeSettingsViewController: UIViewController {
         }
     }
     
-    // helper function to transform the optional global variable coredatamanager in to a non-optional
-    private func getCoreDataManager() -> CoreDataManager {
-        if let coreDataManager = coreDataManager {
-            return coreDataManager
-        } else {
-            fatalError("in AlertTypeSettingsViewController, coreDataManager is nil")
-        }
-    }
-    
     /// to do when user cliks done button
     private func doneButtonAction() {
         
         // first check if name is a unique name
-        let alertTypesAccessor = AlertTypesAccessor(coreDataManager: getCoreDataManager())
+        let alertTypesAccessor = AlertTypesAccessor()
         for alertTypeAlreadyStored in alertTypesAccessor.getAllAlertTypes() {
             // if name == alertTypeAlreadyStored.name and alertTypeAlreadyStored is not the same object as alertTypeAsNSObject then not ok
             if alertTypeAlreadyStored.name == name && (alertTypeAsNSObject == nil || alertTypeAlreadyStored != alertTypeAsNSObject) {
@@ -169,11 +155,11 @@ final class AlertTypeSettingsViewController: UIViewController {
             alertTypeAsNSObject.vibrate = vibrate
             alertTypeAsNSObject.soundname = soundName
         } else {
-            alertTypeAsNSObject = AlertType(enabled: enabled, name: name, overrideMute: overrideMute, snooze: snooze, snoozePeriod: Int(snoozePeriod), vibrate: vibrate, soundName: soundName, alertEntries: nil, nsManagedObjectContext: getCoreDataManager().mainManagedObjectContext)
+            alertTypeAsNSObject = AlertType(enabled: enabled, name: name, overrideMute: overrideMute, snooze: snooze, snoozePeriod: Int(snoozePeriod), vibrate: vibrate, soundName: soundName, alertEntries: nil, nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
         }
         
         // save the alerttype
-        coreDataManager?.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
         // go back to alerttypes settings screen
         performSegue(withIdentifier: UnwindSegueIdentifiers.unwindToAlertTypesSettingsViewController.rawValue, sender: self)

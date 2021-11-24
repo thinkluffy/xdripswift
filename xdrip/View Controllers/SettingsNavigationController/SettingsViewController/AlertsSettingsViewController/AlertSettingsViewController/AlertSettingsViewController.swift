@@ -16,14 +16,13 @@ final class AlertSettingsViewController: UIViewController {
     
     /// done button, to confirm changes
     @IBAction func doneButtonAction(_ sender: UIBarButtonItem) {
-        
         alertEntryAsNSObject.alertkind = alertSettingsViewControllerData.alertKind
         alertEntryAsNSObject.alertType = alertSettingsViewControllerData.alertType
         alertEntryAsNSObject.start = alertSettingsViewControllerData.start
         alertEntryAsNSObject.value = alertSettingsViewControllerData.value
         
         // save the alertentry
-        alertSettingsViewControllerData.coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
         // if it's a missed reading alert, then set UserDefaults.standard.missedReadingAlertChanged
         // this will trigger the AlertManager to check if missed reading alert needs to be replanned
@@ -47,8 +46,8 @@ final class AlertSettingsViewController: UIViewController {
             
             // first ask user if ok to delete and if yes delete
             let alert = UIAlertController(title: Texts_Alerts.confirmDeletionAlert, message: nil, actionHandler: {
-                self.alertSettingsViewControllerData.coreDataManager.mainManagedObjectContext.delete(alertEntry)
-                self.alertSettingsViewControllerData.coreDataManager.saveChanges()
+                CoreDataManager.shared.mainManagedObjectContext.delete(alertEntry)
+                CoreDataManager.shared.saveChanges()
                 // go back to alerts settings screen
                 self.performSegue(withIdentifier: SegueIdentifiers.unwindToAlertsSettingsViewController.rawValue, sender: self)
                 // go back to alerts settings screen
@@ -82,7 +81,7 @@ final class AlertSettingsViewController: UIViewController {
     ///     - minimumStart : what's the minimum allowed value for the start
     ///     - maximumStart : what's the maximum allowed value for the start
     ///     - coreDataManager : reference to the coredatamanager
-    public func configure(alertEntry:AlertEntry, minimumStart:Int16, maximumStart:Int16, coreDataManager:CoreDataManager) {
+    public func configure(alertEntry:AlertEntry, minimumStart:Int16, maximumStart:Int16) {
         
         // alertEntryAsNSObject will be used in the end when user clicks Trash or Done button
         self.alertEntryAsNSObject = alertEntry
@@ -96,7 +95,7 @@ final class AlertSettingsViewController: UIViewController {
             self.addButtonOutlet.disable()
             self.doneButtonOutlet.enable()
             self.trashButtonOutlet.disable()
-        }, coreDataManager: coreDataManager)
+        })
     }
     
     // MARK: - View Life Cycle
@@ -155,7 +154,7 @@ final class AlertSettingsViewController: UIViewController {
             guard let alertKindAsAlertKind = AlertKind(rawValue: Int(alertKind)) else {fatalError("in AlertSettingsViewController, prepare for segue, failed to cretae AlertKind")}
             
             // configure view controller
-            vc.configure(alertKind: alertKindAsAlertKind, minimumStart: minimumStart, maximumStart: maximumStart, coreDataManager: alertSettingsViewControllerData.coreDataManager )
+            vc.configure(alertKind: alertKindAsAlertKind, minimumStart: minimumStart, maximumStart: maximumStart)
             
         default:
             break

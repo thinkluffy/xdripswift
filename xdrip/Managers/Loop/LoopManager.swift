@@ -8,37 +8,21 @@
 
 import Foundation
 
-public class LoopManager:NSObject {
+public class LoopManager: NSObject {
     
     // MARK: - private properties
-    
-    /// reference to coreDataManager
-    private var coreDataManager:CoreDataManager
-    
+        
     /// a BgReadingsAccessor
-    private var bgReadingsAccessor:BgReadingsAccessor
+    private var bgReadingsAccessor = BgReadingsAccessor()
     
     /// shared UserDefaults to publish data
     private let sharedUserDefaults = UserDefaults(suiteName: Bundle.main.appGroupSuiteName)
     
-    // MARK: - initializer
-    
-    init(coreDataManager:CoreDataManager) {
-        
-        // initialize non optional private properties
-        self.coreDataManager = coreDataManager
-        self.bgReadingsAccessor = BgReadingsAccessor(coreDataManager: coreDataManager)
-        
-        // call super.init
-        super.init()
-        
-    }
     
     // MARK: - public functions
     
     /// share latest readings with Loop
     public func share() {
-        
         // unwrap sharedUserDefaults
         guard let sharedUserDefaults = sharedUserDefaults else {return}
 

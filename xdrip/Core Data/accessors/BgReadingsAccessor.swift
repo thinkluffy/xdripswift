@@ -9,17 +9,6 @@ class BgReadingsAccessor {
     /// for logging
     private var log = OSLog(subsystem: ConstantsLog.subSystem, category: ConstantsLog.categoryApplicationDataBgReadings)
     
-    /// CoreDataManager to use
-    private let coreDataManager:CoreDataManager
-    
-    // MARK: - initializer
-    
-    init(coreDataManager:CoreDataManager) {
-        
-        self.coreDataManager = coreDataManager
-        
-    }
-    
     // MARK: - public functions
     
     /// - Gives 2 latest readings with calculatedValue != 0, minimum time between the two readings specified by minimumTimeIntervalInMinutes
@@ -182,24 +171,17 @@ class BgReadingsAccessor {
     ///     - bgReading : bgReading to delete
     ///     - managedObjectContext : the ManagedObjectContext to use
     func delete(bgReading: BgReading, on managedObjectContext: NSManagedObjectContext) {
-        
         managedObjectContext.performAndWait {
-            
             managedObjectContext.delete(bgReading)
             
             // save changes to coredata
             do {
-                
                 try managedObjectContext.save()
                 
             } catch {
-                
                 trace("in delete bgReading,  Unable to Save Changes, error.localizedDescription  = %{public}@", log: self.log, category: ConstantsLog.categoryApplicationDataBgReadings, type: .error, error.localizedDescription)
-                
             }
-
         }
-        
     }
     
     // MARK: - private helper functions
@@ -227,10 +209,11 @@ class BgReadingsAccessor {
         
         var bgReadings = [BgReading]()
         
-        coreDataManager.mainManagedObjectContext.performAndWait {
+        CoreDataManager.shared.mainManagedObjectContext.performAndWait {
             do {
                 // Execute Fetch Request
                 bgReadings = try fetchRequest.execute()
+                
             } catch {
                 let fetchError = error as NSError
                 trace("in fetchBgReadings, Unable to Execute BgReading Fetch Request : %{public}@", log: self.log, category: ConstantsLog.categoryApplicationDataBgReadings, type: .error, fetchError.localizedDescription)

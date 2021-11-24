@@ -9,7 +9,7 @@ extension BluetoothPeripheralManager: CGMBluconTransmitterDelegate {
         // store serial number in blucon object
         blucon.blePeripheral.sensorSerialNumber = serialNumber
         
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
 
     }
     

@@ -21,8 +21,7 @@ extension BluetoothPeripheralManager: CGMAtomTransmitterDelegate {
         atom.blePeripheral.libreSensorType = libreSensorType
         
         // coredatamanager savechanges needed because webOOPEnabled is stored in coredata
-        coreDataManager.saveChanges()
-        
+        CoreDataManager.shared.saveChanges()
     }
     
     func received(batteryLevel: Int, from cGMAtomTransmitter: CGMAtomTransmitter) {
@@ -44,7 +43,7 @@ extension BluetoothPeripheralManager: CGMAtomTransmitterDelegate {
         // store serial number in atom object
         atom.blePeripheral.sensorSerialNumber = serialNumber
         
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
     }
     
@@ -55,8 +54,7 @@ extension BluetoothPeripheralManager: CGMAtomTransmitterDelegate {
         // store firmware in atom object
         atom.firmware = firmware
         
-        coreDataManager.saveChanges()
-        
+        CoreDataManager.shared.saveChanges()
     }
     
     func received(hardware: String, from cGMAtomTransmitter: CGMAtomTransmitter) {
@@ -66,16 +64,12 @@ extension BluetoothPeripheralManager: CGMAtomTransmitterDelegate {
         // store hardware in atom object
         atom.hardware = hardware
         
-        coreDataManager.saveChanges()
-        
+        CoreDataManager.shared.saveChanges()
     }
     
     private func findTransmitter(cGMAtomTransmitter: CGMAtomTransmitter) -> Atom? {
-        
         guard let index = bluetoothTransmitters.firstIndex(of: cGMAtomTransmitter), let atom = bluetoothPeripherals[index] as? Atom else {return nil}
         
         return atom
-        
     }
-    
 }

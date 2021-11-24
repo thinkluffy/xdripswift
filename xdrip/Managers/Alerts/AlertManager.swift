@@ -46,10 +46,7 @@ public class AlertManager:NSObject {
     
     /// permanent reference to notificationcenter
     private let uNUserNotificationCenter:UNUserNotificationCenter
-    
-    // coredataManager instance
-    private var coreDataManager: CoreDataManager
-    
+        
     /// snooze times in minutes
     private let snoozeValueMinutes = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75, 90, 120, 150, 180, 240, 300, 360, 420, 480, 540, 600, 1440, 10080]
     
@@ -63,22 +60,21 @@ public class AlertManager:NSObject {
     
     // MARK: - initializer
     
-    init(coreDataManager:CoreDataManager, soundPlayer:SoundPlayer?) {
+    init(soundPlayer: SoundPlayer?) {
         // initialize properties
-        self.bgReadingsAccessor = BgReadingsAccessor(coreDataManager: coreDataManager)
-        self.alertTypesAccessor = AlertTypesAccessor(coreDataManager: coreDataManager)
-        self.alertEntriesAccessor = AlertEntriesAccessor(coreDataManager: coreDataManager)
-        self.calibrationsAccessor = CalibrationsAccessor(coreDataManager: coreDataManager)
-        self.sensorsAccessor = SensorsAccessor(coreDataManager: coreDataManager)
+        self.bgReadingsAccessor = BgReadingsAccessor()
+        self.alertTypesAccessor = AlertTypesAccessor()
+        self.alertEntriesAccessor = AlertEntriesAccessor()
+        self.calibrationsAccessor = CalibrationsAccessor()
+        self.sensorsAccessor = SensorsAccessor()
         self.soundPlayer = soundPlayer
         self.uNUserNotificationCenter = UNUserNotificationCenter.current()
-        self.coreDataManager = coreDataManager
         
         // call super.init
         super.init()
         
         // initialize snoozeparameters
-        snoozeParameters = SnoozeParametersAccessor(coreDataManager: coreDataManager).getSnoozeParameters()
+        snoozeParameters = SnoozeParametersAccessor().getSnoozeParameters()
         
         // in snoozeValueStrings, replace all occurrences of minutes, minute, etc... by language dependent value
         for (index, _) in snoozeValueStrings.enumerated() {
@@ -218,7 +214,7 @@ public class AlertManager:NSObject {
                     snooze(alertKind: alertKind, snoozePeriodInMinutes: Int(currentAlertEntry.alertType.snoozeperiod), response: response)
                     
                     // save changes in coredata
-                    coreDataManager.saveChanges()
+                    CoreDataManager.shared.saveChanges()
                     
                 case UNNotificationDefaultActionIdentifier:
                     
@@ -236,7 +232,7 @@ public class AlertManager:NSObject {
                     if alertKind == .missedreading {
                         snooze(alertKind: .missedreading, snoozePeriodInMinutes: 5, response: response)
                         // save changes in coredata
-                        coreDataManager.saveChanges()
+                        CoreDataManager.shared.saveChanges()
                     }
 
                 default:
@@ -291,7 +287,7 @@ public class AlertManager:NSObject {
         getSnoozeParameters(alertKind: alertKind).unSnooze()
         
         // save changes in coredata
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
     }
     
@@ -332,7 +328,7 @@ public class AlertManager:NSObject {
                                 self.getSnoozeParameters(alertKind: alertKind).snooze(snoozePeriodInMinutes: snoozePeriod)
 
                                 // save changes in coredata
-                                self.coreDataManager.saveChanges()
+                                CoreDataManager.shared.saveChanges()
 
                                 // if it's a missed reading alert, then cancel any planned missed reading alerts and reschedule
                                 // if content is not nil, then it means a missed reading alert went off, the user clicked it, app opens, user clicks snooze, snoozing must be set
@@ -713,7 +709,7 @@ public class AlertManager:NSObject {
             trace("Snoozing alert %{public}@ for %{public}@ minutes (2)", log: log, category: ConstantsLog.categoryAlertManager, type: .info, alertKind.descriptionForLogging(), snoozePeriodInMinutes.description)
             
             // save changes in coredata
-            coreDataManager.saveChanges()
+            CoreDataManager.shared.saveChanges()
             
         }
         

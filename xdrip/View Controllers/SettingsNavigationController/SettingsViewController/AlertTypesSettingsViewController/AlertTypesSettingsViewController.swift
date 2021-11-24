@@ -19,25 +19,17 @@ final class AlertTypesSettingsViewController: UIViewController {
     }
     
     // MARK: - Private Properties
-    
-    /// reference to coredatamanager
-    private var coreDataManager:CoreDataManager?
-    
+        
     /// reference to soundPlayer
-    private var soundPlayer:SoundPlayer?
+    private var soundPlayer: SoundPlayer?
     
-    private lazy var alertTypesAccessor:AlertTypesAccessor = {
-            return AlertTypesAccessor(coreDataManager: getCoreDataManager())
-    }()
+    private lazy var alertTypesAccessor = AlertTypesAccessor()
     
     // MARK:- public functions
     
     /// configure
-    public func configure(coreDataManager:CoreDataManager?, soundPlayer:SoundPlayer?) {
-        
-        self.coreDataManager = coreDataManager
+    public func configure(soundPlayer: SoundPlayer?) {
         self.soundPlayer = soundPlayer
-        
     }
 
     // MARK: overriden
@@ -63,23 +55,15 @@ final class AlertTypesSettingsViewController: UIViewController {
         switch segueIdentifierAsCase {
             
         case AlertTypeSettingsViewController.SegueIdentifiers.alertTypesToAlertTypeSettings:
-            guard let vc = segue.destination as? AlertTypeSettingsViewController, let coreDataManager = coreDataManager, let soundPlayer = soundPlayer else {
+            guard let vc = segue.destination as? AlertTypeSettingsViewController, let soundPlayer = soundPlayer else {
                 fatalError("In AlertTypesSettingsViewController, prepare for segue, viewcontroller is not AlertTypeSettingsViewController or coreDataManager is nil or soundPlayer is nil" )
             }
 
-            vc.configure(alertType: sender as? AlertType, coreDataManager: coreDataManager, soundPlayer: soundPlayer)
+            vc.configure(alertType: sender as? AlertType, soundPlayer: soundPlayer)
         }
     }
 
     // MARK: - Private Helper functions
-    
-    private func getCoreDataManager() -> CoreDataManager {
-        if let coreDataManager = coreDataManager {
-            return coreDataManager
-        } else {
-            fatalError("in AlertTypesSettingsViewController, coreDataManager is nil")
-        }
-    }
     
     private func setupView() {
         setupTableView()

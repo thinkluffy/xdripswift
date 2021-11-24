@@ -5,18 +5,10 @@ import os
 class SnoozeParametersAccessor {
     
     // MARK: - Properties
-    
-    /// CoreDataManager to use
-    private let coreDataManager:CoreDataManager
-    
+        
     /// for logging
     private var log = OSLog(subsystem: ConstantsLog.subSystem, category: ConstantsLog.categoryApplicationDataSnoozeParameter)
     
-    // MARK: - initializer
-    
-    init(coreDataManager:CoreDataManager) {
-        self.coreDataManager = coreDataManager
-    }
    
     // MARK: Public functions
     
@@ -33,7 +25,7 @@ class SnoozeParametersAccessor {
         
         // fetch the SnoozeParameterss
         var snoozeParameterArray = [SnoozeParameters]()
-        coreDataManager.mainManagedObjectContext.performAndWait {
+        CoreDataManager.shared.mainManagedObjectContext.performAndWait {
             do {
                 // Execute Fetch Request
                 snoozeParameterArray = try snoozeParametersFetchRequest.execute()
@@ -47,19 +39,15 @@ class SnoozeParametersAccessor {
         // but maybe some (or all) are missing
         // if some are missing, then it's either because it's the first time this app runs
         // or it's because new alertKind's have been added, in which case it's at the end of the range they are added
-        for index in snoozeParameterArray.count..<AlertKind.allCases.count {
-            
+        for index in snoozeParameterArray.count ..< AlertKind.allCases.count {
             if let alertKind = AlertKind(rawValue: index) {
-                
-                snoozeParameterArray.append(SnoozeParameters(alertKind: alertKind, snoozePeriodInMinutes: 0, snoozeTimeStamp: nil, nsManagedObjectContext: coreDataManager.mainManagedObjectContext))
+                snoozeParameterArray.append(SnoozeParameters(alertKind: alertKind,
+                                                             snoozePeriodInMinutes: 0,
+                                                             snoozeTimeStamp: nil,
+                                                             nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext))
                 
             }
-            
         }
-        
         return snoozeParameterArray
-        
     }
-
-
 }

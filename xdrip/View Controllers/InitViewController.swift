@@ -15,7 +15,7 @@ class InitViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DispatchQueue.main.asyncAfter(deadline:.now() + 3) { [unowned self] in
+        CoreDataManager.shared.initialize(modelName: ConstantsCoreData.modelName) {
             self.showMainViewController()
         }
     }

@@ -21,7 +21,7 @@ extension BluetoothPeripheralManager: CGMMiaoMiaoTransmitterDelegate {
         miaoMiao.blePeripheral.libreSensorType = libreSensorType
         
         // coredatamanager savechanges needed because webOOPEnabled is stored in coredata
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
     }
 
@@ -44,7 +44,7 @@ extension BluetoothPeripheralManager: CGMMiaoMiaoTransmitterDelegate {
         // store serial number in miaoMiao object
         miaoMiao.blePeripheral.sensorSerialNumber = serialNumber
         
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
     }
     
@@ -55,7 +55,7 @@ extension BluetoothPeripheralManager: CGMMiaoMiaoTransmitterDelegate {
         // store firmware in miaoMiao object
         miaoMiao.firmware = firmware
         
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
 
     }
     
@@ -66,7 +66,7 @@ extension BluetoothPeripheralManager: CGMMiaoMiaoTransmitterDelegate {
         // store hardware in miaoMiao object
         miaoMiao.hardware = hardware
         
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
     }
     

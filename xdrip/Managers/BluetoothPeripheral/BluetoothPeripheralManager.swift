@@ -51,10 +51,7 @@ class BluetoothPeripheralManager: NSObject {
     }
     
     // MARK: - private properties
-    
-    /// CoreDataManager to use
-    public let coreDataManager:CoreDataManager
-    
+        
     /// reference to BgReadingsAccessor
     private var bgReadingsAccessor: BgReadingsAccessor
     
@@ -72,14 +69,13 @@ class BluetoothPeripheralManager: NSObject {
     /// - parameters:
     ///     - cgmTransmitterInfoChanged : to be called when currently used cgmTransmitter changes
     ///     - uIViewController : used to present alert messages
-    init(coreDataManager: CoreDataManager, cgmTransmitterDelegate: CGMTransmitterDelegate, uIViewController: UIViewController, cgmTransmitterInfoChanged: @escaping () -> ()) {
+    init(cgmTransmitterDelegate: CGMTransmitterDelegate, uIViewController: UIViewController, cgmTransmitterInfoChanged: @escaping () -> ()) {
         
         // initialize properties
-        self.coreDataManager = coreDataManager
-        self.bgReadingsAccessor = BgReadingsAccessor(coreDataManager: coreDataManager)
+        self.bgReadingsAccessor = BgReadingsAccessor()
         self.cgmTransmitterDelegate = cgmTransmitterDelegate
         self.cgmTransmitterInfoChanged = cgmTransmitterInfoChanged
-        self.bLEPeripheralAccessor = BLEPeripheralAccessor(coreDataManager: coreDataManager)
+        self.bLEPeripheralAccessor = BLEPeripheralAccessor()
         self.uIViewController = uIViewController
         
         super.init()
@@ -531,7 +527,7 @@ class BluetoothPeripheralManager: NSObject {
         bluetoothPeripheral.blePeripheral.shouldconnect = false
         
         // save in coredata
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
         if let bluetoothTransmitter = getBluetoothTransmitter(for: bluetoothPeripheral, createANewOneIfNecesssary: false) {
             
@@ -1330,10 +1326,10 @@ extension BluetoothPeripheralManager: BluetoothPeripheralManaging {
         setTransmitterToNilAndCallcgmTransmitterInfoChangedIfNecessary(indexInBluetoothTransmittersArray: index)
         
         // delete in coredataManager
-        coreDataManager.mainManagedObjectContext.delete(bluetoothPeripherals[index] as! NSManagedObject)
+        CoreDataManager.shared.mainManagedObjectContext.delete(bluetoothPeripherals[index] as! NSManagedObject)
 
         // save in coredataManager
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
 
         // remove bluetoothTransmitter and bluetoothPeripheral entry from the two arrays
         bluetoothTransmitters.remove(at: index)

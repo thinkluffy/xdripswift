@@ -29,7 +29,7 @@ extension BluetoothPeripheralManager: M5StackBluetoothTransmitterDelegate {
             m5Stack.blePeripheral.shouldconnect = false
             
             // store in core data
-            coreDataManager.saveChanges()
+            CoreDataManager.shared.saveChanges()
             
             // disconnect
             disconnect(fromBluetoothPeripheral: m5Stack)
@@ -49,7 +49,7 @@ extension BluetoothPeripheralManager: M5StackBluetoothTransmitterDelegate {
         m5Stack.blePeripheral.shouldconnect = false
         
         // store in core data
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
         // disconnect
         disconnect(fromBluetoothPeripheral: m5Stack)
@@ -67,7 +67,7 @@ extension BluetoothPeripheralManager: M5StackBluetoothTransmitterDelegate {
         // possibily this is a new scanned m5stack, calling coreDataManager.saveChanges() but still the user may be in M5stackviewcontroller and decide not to save the m5stack, bad luck
         m5Stack.blepassword = newBlePassword
         
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
     }
     
@@ -81,7 +81,7 @@ extension BluetoothPeripheralManager: M5StackBluetoothTransmitterDelegate {
         
         // should not try to reconnect, wait till user decide to push the "always connect button"
         m5Stack.blePeripheral.shouldconnect = false
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
         // disconnect
         disconnect(fromBluetoothPeripheral: m5Stack)

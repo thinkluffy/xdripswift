@@ -50,7 +50,7 @@ extension M5StackSettingsViewController {
         /// bluetooth settings
         case bluetooth
         
-        func viewModel(coreDataManager: CoreDataManager?) -> SettingsViewModelProtocol {
+        func viewModel() -> SettingsViewModelProtocol {
             
             switch self {
                 
@@ -88,7 +88,7 @@ extension M5StackSettingsViewController: UITableViewDelegate {
         guard let section = Section(rawValue: indexPath.section) else { fatalError("Unexpected Section") }
         
         // coredatamanager not needed in this viewmodel
-        let viewModel = section.viewModel(coreDataManager: nil)
+        let viewModel = section.viewModel()
         
         if viewModel.isEnabled(index: indexPath.row) {
             
@@ -98,7 +98,6 @@ extension M5StackSettingsViewController: UITableViewDelegate {
             
         }
     }
-    
 }
 
 extension M5StackSettingsViewController: UITableViewDataSource {
@@ -107,7 +106,7 @@ extension M5StackSettingsViewController: UITableViewDataSource {
         
         guard let section = Section(rawValue: section) else { fatalError("Unexpected Section") }
         
-        return section.viewModel(coreDataManager: nil).numberOfRows()
+        return section.viewModel().numberOfRows()
         
     }
     
@@ -117,7 +116,7 @@ extension M5StackSettingsViewController: UITableViewDataSource {
         
         var cell = tableView.dequeueReusableCell(withIdentifier: "tableCell") ?? UITableViewCell(style: .value1, reuseIdentifier: "tableCell")
 
-        let viewModel = section.viewModel(coreDataManager: nil)
+        let viewModel = section.viewModel()
         
         // Configure Cell
         SettingsViewUtilities.configureSettingsCell(cell: &cell, forRowWithIndex: indexPath.row, forSectionWithIndex: indexPath.section, withViewModel: viewModel, tableView: tableView)
@@ -130,7 +129,7 @@ extension M5StackSettingsViewController: UITableViewDataSource {
         
         guard let section = Section(rawValue: section) else { fatalError("Unexpected Section") }
         
-        return section.viewModel(coreDataManager: nil).sectionTitle()
+        return section.viewModel().sectionTitle()
         
     }
     

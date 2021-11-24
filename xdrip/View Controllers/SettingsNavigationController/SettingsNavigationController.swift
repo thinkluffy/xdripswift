@@ -9,21 +9,15 @@ final class SettingsNavigationController: UINavigationController {
     }
     
     // MARK:- private properties
-    
-    /// coredatamanager
-    private var coreDataManager: CoreDataManager?
-    
+        
     /// reference to soundPlayer
     private var soundPlayer:SoundPlayer?
     
     // MARK:- public functions
     
     /// configure
-    public func configure(coreDataManager: CoreDataManager, soundPlayer:SoundPlayer) {
-        
-        self.coreDataManager = coreDataManager
+    public func configure(soundPlayer: SoundPlayer) {
         self.soundPlayer = soundPlayer
-        
     }
     
     // MARK: - View Life Cycle
@@ -35,11 +29,11 @@ final class SettingsNavigationController: UINavigationController {
     }
 }
 
-extension SettingsNavigationController:UINavigationControllerDelegate {
+extension SettingsNavigationController: UINavigationControllerDelegate {
+    
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-        
         if let settingsViewController = viewController as? SettingsViewController {
-            settingsViewController.configure(coreDataManager: coreDataManager, soundPlayer: soundPlayer)
+            settingsViewController.configure(soundPlayer: soundPlayer)
         }
     }
 }

@@ -62,7 +62,6 @@
 		4EE66F0B2733EB0D00548A46 /* MoreSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F0A2733EB0D00548A46 /* MoreSettingsViewController.swift */; };
 		4EE66F132735064E00548A46 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F122735064E00548A46 /* MainTabBarController.swift */; };
 		533272967B05B378D81F6529 /* Pods_xdrip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB0736D7B1553FC8350324C /* Pods_xdrip.framework */; };
-		CE1B2FE025D0264B00F642F5 /* LaunchScreen.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B2FD125D0264900F642F5 /* LaunchScreen.strings */; };
 		CE1B2FE125D0264B00F642F5 /* Main.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B2FD425D0264900F642F5 /* Main.strings */; };
 		E53D045327438C5F00CA548E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E53D045227438C5F00CA548E /* Assets.xcassets */; };
 		E53D045927438C5F00CA548E /* xDripWatch WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E53D045827438C5F00CA548E /* xDripWatch WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -3310,7 +3309,6 @@
 				F82437AF24CB7A9900BED341 /* Siri_Alert_Urgent_High_Glucose.caf in Resources */,
 				F82437CA24CB7A9900BED341 /* Marimba_Flutter_or_Shake.caf in Resources */,
 				F824377724CB7A9800BED341 /* Siri_Urgent_Low_Glucose.caf in Resources */,
-				CE1B2FE025D0264B00F642F5 /* LaunchScreen.strings in Resources */,
 				F82437D424CB7A9900BED341 /* Siri_Alert_Low_Glucose.caf in Resources */,
 				F8E6C79124CEC2E3007C1199 /* Snooze.strings in Resources */,
 				F824379B24CB7A9900BED341 /* Sci-Fi_Console_Alarm.caf in Resources */,

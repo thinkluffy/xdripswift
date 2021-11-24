@@ -128,9 +128,6 @@ final class RootViewController: UIViewController {
     /// for logging
     private var log = OSLog(subsystem: ConstantsLog.subSystem, category: ConstantsLog.categoryRootView)
     
-    /// coreDataManager to be used throughout the project
-    private var coreDataManager:CoreDataManager?
-    
     /// to solve problem that sometemes UserDefaults key value changes is triggered twice for just one change
     private let keyValueObserverTimeKeeper:KeyValueObserverTimeKeeper = KeyValueObserverTimeKeeper()
     
@@ -329,24 +326,22 @@ final class RootViewController: UIViewController {
         
         // Setup Core Data Manager - setting up coreDataManager happens asynchronously
         // completion handler is called when finished. This gives the app time to already continue setup which is independent of coredata, like initializing the views
-        coreDataManager = CoreDataManager(modelName: ConstantsCoreData.modelName, completion: {
-            self.setupApplicationData()
-            
-            // housekeeper should be non nil here, kall housekeeper
-            self.houseKeeper?.doAppStartUpHouseKeeping()
-            
-            // update label texts, minutes ago, diff and value
-            self.updateLabelsAndChart(overrideApplicationState: true)
-            
-            // update sensor countdown
-            self.updateSensorCountdown()
-            
-            // update statistics related outlets
-            self.updateStatistics(animatePieChart: true, overrideApplicationState: true)
-            
-            // create badge counter
-            self.createBgReadingNotificationAndSetAppBadge(overrideShowReadingInNotification: true)
-        })
+        setupApplicationData()
+        
+        // housekeeper should be non nil here, kall housekeeper
+        houseKeeper?.doAppStartUpHouseKeeping()
+        
+        // update label texts, minutes ago, diff and value
+        updateLabelsAndChart(overrideApplicationState: true)
+        
+        // update sensor countdown
+        updateSensorCountdown()
+        
+        // update statistics related outlets
+        updateStatistics(animatePieChart: true, overrideApplicationState: true)
+        
+        // create badge counter
+        createBgReadingNotificationAndSetAppBadge(overrideShowReadingInNotification: true)
         
         // Setup View
         setupView()
@@ -473,31 +468,23 @@ final class RootViewController: UIViewController {
     // creates activeSensor, bgreadingsAccessor, calibrationsAccessor, NightScoutUploadManager, soundPlayer, dexcomShareUploadManager, nightScoutFollowManager, alertManager, healthKitManager, bgReadingSpeaker, bluetoothPeripheralManager, watchManager, housekeeper
     private func setupApplicationData() {
         
-        // setup Trace
-        Trace.initialize(coreDataManager: coreDataManager)
-        
-        // if coreDataManager is nil then there's no reason to continue
-        guard let coreDataManager = coreDataManager else {
-            fatalError("In setupApplicationData but coreDataManager == nil")
-        }
-        
         // get currently active sensor
-        activeSensor = SensorsAccessor.init(coreDataManager: coreDataManager).fetchActiveSensor()
+        activeSensor = SensorsAccessor().fetchActiveSensor()
         
         // instantiate bgReadingsAccessor
-        bgReadingsAccessor = BgReadingsAccessor(coreDataManager: coreDataManager)
+        bgReadingsAccessor = BgReadingsAccessor()
         guard let bgReadingsAccessor = bgReadingsAccessor else {
             fatalError("In setupApplicationData, failed to initialize bgReadings")
         }
         
         // instantiate calibrations
-        calibrationsAccessor = CalibrationsAccessor(coreDataManager: coreDataManager)
+        calibrationsAccessor = CalibrationsAccessor()
         
         // instanstiate Housekeeper
-        houseKeeper = HouseKeeper(coreDataManager: coreDataManager)
+        houseKeeper = HouseKeeper()
         
         // setup nightscout synchronizer
-        nightScoutUploadManager = NightScoutUploadManager(coreDataManager: coreDataManager, messageHandler: { (title:String, message:String) in
+        nightScoutUploadManager = NightScoutUploadManager(messageHandler: { (title:String, message:String) in
             
             let alert = UIAlertController(title: title, message: message, actionHandler: nil)
             
@@ -512,13 +499,13 @@ final class RootViewController: UIViewController {
         guard let soundPlayer = soundPlayer else { fatalError("In setupApplicationData, this looks very in appropriate, shame")}
         
         // setup healthkitmanager
-        healthKitManager = HealthKitManager(coreDataManager: coreDataManager)
+        healthKitManager = HealthKitManager()
         
         // setup bgReadingSpeaker
-        bgReadingSpeaker = BGReadingSpeaker(sharedSoundPlayer: soundPlayer, coreDataManager: coreDataManager)
+        bgReadingSpeaker = BGReadingSpeaker(sharedSoundPlayer: soundPlayer)
         
         // setup loopManager
-        loopManager = LoopManager(coreDataManager: coreDataManager)
+        loopManager = LoopManager()
         
         // setup dexcomShareUploadManager
         dexcomShareUploadManager = DexcomShareUploadManager(bgReadingsAccessor: bgReadingsAccessor, messageHandler: { (title:String, message:String) in
@@ -584,31 +571,30 @@ final class RootViewController: UIViewController {
         }
         
         // setup bluetoothPeripheralManager
-        bluetoothPeripheralManager = BluetoothPeripheralManager(coreDataManager: coreDataManager, cgmTransmitterDelegate: self, uIViewController: self, cgmTransmitterInfoChanged: cgmTransmitterInfoChanged)
+        bluetoothPeripheralManager = BluetoothPeripheralManager(cgmTransmitterDelegate: self, uIViewController: self, cgmTransmitterInfoChanged: cgmTransmitterInfoChanged)
         
         // to initialize UserDefaults.standard.transmitterTypeAsString
         cgmTransmitterInfoChanged()
         
         // setup alertmanager
-        alertManager = AlertManager(coreDataManager: coreDataManager, soundPlayer: soundPlayer)
+        alertManager = AlertManager(soundPlayer: soundPlayer)
         
         // setup watchmanager
-        watchManager = WatchManager(coreDataManager: coreDataManager)
+        watchManager = WatchManager()
 //		WatchCommunicator.shared.dataManager = watchManager
 		
         // initialize glucoseChartManager
-        glucoseChartManager = GlucoseChartManager(coreDataManager: coreDataManager)
+        glucoseChartManager = GlucoseChartManager()
         
         // initialize statisticsManager
-        statisticsManager = StatisticsManager(coreDataManager: coreDataManager)
+        statisticsManager = StatisticsManager()
         
         // initialize chartGenerator in chartOutlet
         self.chartOutlet.chartGenerator = { [weak self] (frame) in
             return self?.glucoseChartManager?.glucoseChartWithFrame(frame)?.view
         }
         
-        presenter.setup(coreDataManager: coreDataManager,
-                        bgReadingsAccessor: bgReadingsAccessor,
+        presenter.setup(bgReadingsAccessor: bgReadingsAccessor,
                         healthKitManager: healthKitManager!,
                         bgReadingSpeaker: bgReadingSpeaker!,
                         watchManager: watchManager!,
@@ -623,7 +609,7 @@ final class RootViewController: UIViewController {
     private func processNewGlucoseData(glucoseData: inout [GlucoseData], sensorTimeInMinutes: Int?) {
         
         // unwrap calibrationsAccessor and coreDataManager and cgmTransmitter
-        guard let calibrationsAccessor = calibrationsAccessor, let coreDataManager = coreDataManager, let cgmTransmitter = bluetoothPeripheralManager?.getCGMTransmitter() else {
+        guard let calibrationsAccessor = calibrationsAccessor, let cgmTransmitter = bluetoothPeripheralManager?.getCGMTransmitter() else {
             
             trace("in processNewGlucoseData, calibrationsAccessor or coreDataManager or cgmTransmitter is nil", log: log, category: ConstantsLog.categoryRootView, type: .error)
             
@@ -635,7 +621,8 @@ final class RootViewController: UIViewController {
             
             if let sensorTimeInMinutes = sensorTimeInMinutes, cgmTransmitter.cgmTransmitterType().canDetectNewSensor() {
                 
-                activeSensor = Sensor(startDate: Date(timeInterval: -Double(sensorTimeInMinutes * 60), since: Date()),nsManagedObjectContext: coreDataManager.mainManagedObjectContext)
+                activeSensor = Sensor(startDate: Date(timeInterval: -Double(sensorTimeInMinutes * 60), since: Date()),
+                                      nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
                 if let activeSensor = activeSensor {
                     trace("created sensor with id : %{public}@ and startdate  %{public}@", log: log, category: ConstantsLog.categoryRootView, type: .info, activeSensor.id, activeSensor.startDate.description)
                 } else {
@@ -643,17 +630,13 @@ final class RootViewController: UIViewController {
                 }
                 
                 // save the newly created Sensor permenantly in coredata
-                coreDataManager.saveChanges()
+                CoreDataManager.shared.saveChanges()
             }
-            
         }
         
         guard glucoseData.count > 0 else {
-            
             trace("glucoseData.count = 0", log: log, category: ConstantsLog.categoryRootView, type: .info)
-            
             return
-            
         }
         
         // also for cases where calibration is not needed, we go through this code
@@ -748,9 +731,9 @@ final class RootViewController: UIViewController {
                     
                     trace("reading being deleted with timestamp =  %{public}@", log: self.log, category: ConstantsLog.categoryRootView, type: .debug, reading.timeStamp.toString(timeStyle: .long, dateStyle: .none))
                     
-                    coreDataManager.mainManagedObjectContext.delete(reading)
+                    CoreDataManager.shared.mainManagedObjectContext.delete(reading)
                     
-                    coreDataManager.saveChanges()
+                    CoreDataManager.shared.saveChanges()
                     
                 }
                 
@@ -784,7 +767,7 @@ final class RootViewController: UIViewController {
                         // get latest3BgReadings
                         var latest3BgReadings = bgReadingsAccessor.getLatestBgReadings(limit: 3, howOld: nil, forSensor: activeSensor, ignoreRawData: false, ignoreCalculatedValue: false)
                         
-                        let newReading = calibrator.createNewBgReading(rawData: glucose.glucoseLevelRaw, timeStamp: glucose.timeStamp, sensor: activeSensor, last3Readings: &latest3BgReadings, lastCalibrationsForActiveSensorInLastXDays: &lastCalibrationsForActiveSensorInLastXDays, firstCalibration: firstCalibrationForActiveSensor, lastCalibration: lastCalibrationForActiveSensor, deviceName: self.getCGMTransmitterDeviceName(for: cgmTransmitter), nsManagedObjectContext: coreDataManager.mainManagedObjectContext)
+                        let newReading = calibrator.createNewBgReading(rawData: glucose.glucoseLevelRaw, timeStamp: glucose.timeStamp, sensor: activeSensor, last3Readings: &latest3BgReadings, lastCalibrationsForActiveSensorInLastXDays: &lastCalibrationsForActiveSensorInLastXDays, firstCalibration: firstCalibrationForActiveSensor, lastCalibration: lastCalibrationForActiveSensor, deviceName: self.getCGMTransmitterDeviceName(for: cgmTransmitter), nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
                         
                         if UserDefaults.standard.addDebugLevelLogsInTraceFileAndNSLog {
                             
@@ -793,7 +776,7 @@ final class RootViewController: UIViewController {
                         }
                         
                         // save the newly created bgreading permenantly in coredata
-                        coreDataManager.saveChanges()
+                        CoreDataManager.shared.saveChanges()
                         
                         // a new reading was created
                         newReadingCreated = true
@@ -1062,7 +1045,7 @@ final class RootViewController: UIViewController {
     private func requestCalibration(userRequested: Bool) {
         
         // unwrap calibrationsAccessor, coreDataManager , bgReadingsAccessor
-        guard let calibrationsAccessor = calibrationsAccessor, let coreDataManager = self.coreDataManager, let bgReadingsAccessor = self.bgReadingsAccessor else {
+        guard let calibrationsAccessor = calibrationsAccessor, let bgReadingsAccessor = self.bgReadingsAccessor else {
             
             trace("in requestCalibration, calibrationsAccessor or coreDataManager or bgReadingsAccessor is nil, no further processing", log: log, category: ConstantsLog.categoryRootView, type: .error)
             
@@ -1127,7 +1110,7 @@ final class RootViewController: UIViewController {
                     trace("calibration : initial calibration, creating two calibrations", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
                     
                     // calling initialCalibration will create two calibrations, they are returned also but we don't need them
-                    _ = calibrator.initialCalibration(firstCalibrationBgValue: valueAsDoubleConvertedToMgDl, firstCalibrationTimeStamp: Date(timeInterval: -(5*60), since: Date()), secondCalibrationBgValue: valueAsDoubleConvertedToMgDl, sensor: activeSensor, lastBgReadingsWithCalculatedValue0AndForSensor: &latestReadings, deviceName: deviceName, nsManagedObjectContext: coreDataManager.mainManagedObjectContext)
+                    _ = calibrator.initialCalibration(firstCalibrationBgValue: valueAsDoubleConvertedToMgDl, firstCalibrationTimeStamp: Date(timeInterval: -(5*60), since: Date()), secondCalibrationBgValue: valueAsDoubleConvertedToMgDl, sensor: activeSensor, lastBgReadingsWithCalculatedValue0AndForSensor: &latestReadings, deviceName: deviceName, nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
                     
                 } else {
                     
@@ -1137,14 +1120,13 @@ final class RootViewController: UIViewController {
                         trace("calibration : creating calibrations", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
                         
                         // calling createNewCalibration will create a new  calibration, it is returned but we don't need it
-                        _ = calibrator.createNewCalibration(bgValue: valueAsDoubleConvertedToMgDl, lastBgReading: latestReadings[0], sensor: activeSensor, lastCalibrationsForActiveSensorInLastXDays: &latestCalibrations, firstCalibration: firstCalibrationForActiveSensor, deviceName: deviceName, nsManagedObjectContext: coreDataManager.mainManagedObjectContext)
+                        _ = calibrator.createNewCalibration(bgValue: valueAsDoubleConvertedToMgDl, lastBgReading: latestReadings[0], sensor: activeSensor, lastCalibrationsForActiveSensorInLastXDays: &latestCalibrations, firstCalibration: firstCalibrationForActiveSensor, deviceName: deviceName, nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
                         
                     }
-                    
                 }
                 
                 // this will store the newly created calibration(s) in coredata
-                coreDataManager.saveChanges()
+                CoreDataManager.shared.saveChanges()
                 
                 // initiate upload to NightScout, if needed
                 if let nightScoutUploadManager = self.nightScoutUploadManager {
@@ -1577,12 +1559,11 @@ final class RootViewController: UIViewController {
     /// stops the active sensor and sets sensorSerialNumber in UserDefaults to nil
     private func stopSensor() {
         
-        if let activeSensor = activeSensor, let coreDataManager = coreDataManager {
+        if let activeSensor = activeSensor {
             activeSensor.endDate = Date()
-            coreDataManager.saveChanges()
         }
         // save the changes
-        coreDataManager?.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
         activeSensor = nil
         
@@ -1595,17 +1576,22 @@ final class RootViewController: UIViewController {
     private func startSensorAskUserForStarttime() {
         
         // craete datePickerViewData
-        let datePickerViewData = DatePickerViewData(withMainTitle: Texts_HomeView.startSensorActionTitle, withSubTitle: nil, datePickerMode: .dateAndTime, date: Date(), minimumDate: nil, maximumDate: Date(), okButtonText: Texts_Common.Ok, cancelButtonText: Texts_Common.Cancel, onOkClick: {(date) in
-            if let coreDataManager = self.coreDataManager {
-                
-                // set sensorStartTime
-                let sensorStartTime = date
-                self.activeSensor = Sensor(startDate: sensorStartTime, nsManagedObjectContext: coreDataManager.mainManagedObjectContext)
+        let datePickerViewData = DatePickerViewData(withMainTitle: Texts_HomeView.startSensorActionTitle,
+                                                    withSubTitle: nil,
+                                                    datePickerMode: .dateAndTime,
+                                                    date: Date(),
+                                                    minimumDate: nil,
+                                                    maximumDate: Date(),
+                                                    okButtonText: Texts_Common.Ok,
+                                                    cancelButtonText: Texts_Common.Cancel,
+                                                    onOkClick: { (date) in
+            // set sensorStartTime
+            let sensorStartTime = date
+            self.activeSensor = Sensor(startDate: sensorStartTime, nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
                 
                 // save the newly created Sensor permenantly in coredata
-                coreDataManager.saveChanges()
-                
-            }
+            CoreDataManager.shared.saveChanges()
+            
         }, onCancelClick: nil)
         
         // if this is the first time user starts a sensor, give warning that time should be correct
@@ -1948,13 +1934,11 @@ extension RootViewController: UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         // check which tab is being clicked
-        if let navigationController = viewController as? SettingsNavigationController, let coreDataManager = coreDataManager, let soundPlayer = soundPlayer {
+        if let navigationController = viewController as? SettingsNavigationController, let soundPlayer = soundPlayer {
+            navigationController.configure(soundPlayer: soundPlayer)
             
-            navigationController.configure(coreDataManager: coreDataManager, soundPlayer: soundPlayer)
-            
-        } else if let navigationController = viewController as? BluetoothPeripheralNavigationController, let bluetoothPeripheralManager = bluetoothPeripheralManager, let coreDataManager = coreDataManager {
-            
-            navigationController.configure(coreDataManager: coreDataManager, bluetoothPeripheralManager: bluetoothPeripheralManager)
+        } else if let navigationController = viewController as? BluetoothPeripheralNavigationController, let bluetoothPeripheralManager = bluetoothPeripheralManager {
+            navigationController.configure(bluetoothPeripheralManager: bluetoothPeripheralManager)
         }
     }
 }

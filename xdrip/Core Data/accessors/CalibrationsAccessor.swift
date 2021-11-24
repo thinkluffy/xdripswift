@@ -8,18 +8,7 @@ class CalibrationsAccessor {
     
     /// for logging
     private var log = OSLog(subsystem: ConstantsLog.subSystem, category: ConstantsLog.categoryApplicationDataCalibrations)
-    
-    /// CoreDataManager to use
-    private let coreDataManager:CoreDataManager
-    
-    // MARK: - initializer
-    
-    init(coreDataManager:CoreDataManager) {
         
-        self.coreDataManager = coreDataManager
-        
-    }
-    
     // MARK: - functions
     
     /// get first calibration (ie oldest) for currently active sensor and with sensorconfidence and slopeconfidence != 0
@@ -70,10 +59,11 @@ class CalibrationsAccessor {
         var calibrations = [Calibration]()
         
         // fetch the calibrations
-        coreDataManager.mainManagedObjectContext.performAndWait {
+        CoreDataManager.shared.mainManagedObjectContext.performAndWait {
             do {
                 // Execute Fetch Request
                 calibrations = try fetchRequest.execute()
+                
             } catch {
                 let fetchError = error as NSError
                 trace("in getLatestCalibrations, Unable to Execute Fetch Request : %{public}@", log: log, category: ConstantsLog.categoryApplicationDataCalibrations, type: .error, fetchError.localizedDescription)
@@ -162,7 +152,7 @@ class CalibrationsAccessor {
         
         var calibrations = [Calibration]()
         
-        coreDataManager.mainManagedObjectContext.performAndWait {
+        CoreDataManager.shared.mainManagedObjectContext.performAndWait {
             do {
                 // Execute Fetch Request
                 calibrations = try fetchRequest.execute()

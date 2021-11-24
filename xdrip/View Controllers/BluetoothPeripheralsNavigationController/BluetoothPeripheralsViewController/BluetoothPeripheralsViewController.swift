@@ -13,25 +13,18 @@ final class BluetoothPeripheralsViewController: UIViewController {
     }
     
     // MARK:- private properties
-    
-    /// reference to coreDataManager
-    private var coreDataManager:CoreDataManager?
-    
+        
     /// a bluetoothPeripheralManager
     private weak var bluetoothPeripheralManager: BluetoothPeripheralManaging?
     
     // MARK: public functions
     
     /// configure
-    public func configure(coreDataManager: CoreDataManager, bluetoothPeripheralManager: BluetoothPeripheralManaging) {
-
-        // initalize private properties
-        self.coreDataManager = coreDataManager
+    public func configure(bluetoothPeripheralManager: BluetoothPeripheralManaging) {
         self.bluetoothPeripheralManager = bluetoothPeripheralManager
         
         // setup bluetoothperipherals
         initializeBluetoothTransmitterDelegates()
-        
     }
 
     /// - iterate through the known BluetoothPeripheral's.
@@ -118,7 +111,7 @@ final class BluetoothPeripheralsViewController: UIViewController {
             
         case BluetoothPeripheralViewController.SegueIdentifiers.BluetoothPeripheralsToBluetoothPeripheralSegueIdentifier:
             
-            guard let vc = segue.destination as? BluetoothPeripheralViewController, let coreDataManager = coreDataManager else {
+            guard let vc = segue.destination as? BluetoothPeripheralViewController else {
 
                 fatalError("In BluetoothPeripheralsViewController, prepare for segue, viewcontroller is not BluetoothPeripheralViewController or coreDataManager is nil" )
 
@@ -133,7 +126,7 @@ final class BluetoothPeripheralsViewController: UIViewController {
             // unwrap bluetoothPeripheralManager
             guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {return}
             
-            vc.configure(bluetoothPeripheral: sender as? BluetoothPeripheral, coreDataManager: coreDataManager, bluetoothPeripheralManager: bluetoothPeripheralManager, expectedBluetoothPeripheralType: expectedBluetoothPeripheralType)
+            vc.configure(bluetoothPeripheral: sender as? BluetoothPeripheral, bluetoothPeripheralManager: bluetoothPeripheralManager, expectedBluetoothPeripheralType: expectedBluetoothPeripheralType)
             
         }
     }

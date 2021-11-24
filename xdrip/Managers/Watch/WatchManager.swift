@@ -7,11 +7,8 @@ class WatchManager: NSObject {
     
     // MARK: - private properties
     
-    /// CoreDataManager to use
-    private let coreDataManager:CoreDataManager
-
     /// BgReadingsAccessor instance
-    private let bgReadingsAccessor:BgReadingsAccessor
+    private let bgReadingsAccessor = BgReadingsAccessor()
 
     /// for logging
     private static let log = Log(type: WatchManager.self)
@@ -21,15 +18,6 @@ class WatchManager: NSObject {
     
     /// timestamp of last reading for which calendar event is created, initially set to 1 jan 1970
     private var timeStampLastProcessedReading = Date(timeIntervalSince1970: 0.0)
-    
-    // MARK: - initializer
-    
-    init(coreDataManager: CoreDataManager) {
-        
-        self.coreDataManager = coreDataManager
-        self.bgReadingsAccessor = BgReadingsAccessor(coreDataManager: coreDataManager)
-        
-    }
     
     // MARK: - public functions
     
@@ -171,8 +159,7 @@ class WatchManager: NSObject {
     }
     
     // deletes all xdrip events in the calendar, for the last 24 hours
-    private func deleteAllEvents(in calendar:EKCalendar) {
-        
+    private func deleteAllEvents(in calendar: EKCalendar) {
         let predicate = eventStore.predicateForEvents(withStart: Date(timeIntervalSinceNow: -24*3600), end: Date(), calendars: [calendar])
         
         let events = eventStore.events(matching: predicate)
@@ -210,6 +197,4 @@ class WatchManager: NSObject {
         WatchManager.log.d("==> currentValue: \(lastReading[0].calculatedValue)")
         WCSession.default.transferUserInfo(["key0" : "value0"])
     }
-	
-	
 }

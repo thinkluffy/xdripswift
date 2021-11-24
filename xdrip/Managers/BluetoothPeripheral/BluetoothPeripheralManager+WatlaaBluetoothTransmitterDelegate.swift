@@ -9,7 +9,7 @@ extension BluetoothPeripheralManager: WatlaaBluetoothTransmitterDelegate {
         // store serial number in miaoMiao object
         watlaa.blePeripheral.sensorSerialNumber = serialNumber
         
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
 
     }
     
@@ -27,7 +27,7 @@ extension BluetoothPeripheralManager: WatlaaBluetoothTransmitterDelegate {
         
         watlaa.watlaaBatteryLevel = watlaaBatteryLevel
         
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
     }
     
@@ -37,7 +37,7 @@ extension BluetoothPeripheralManager: WatlaaBluetoothTransmitterDelegate {
         
         watlaa.transmitterBatteryLevel = transmitterBatteryLevel
         
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
     }
     

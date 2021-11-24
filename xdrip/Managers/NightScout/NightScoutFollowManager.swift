@@ -18,10 +18,7 @@ class NightScoutFollowManager:NSObject {
     
     /// when to do next download
     private var nextFollowDownloadTimeStamp:Date
-    
-    /// reference to coredatamanager
-    private var coreDataManager:CoreDataManager
-    
+        
     /// reference to BgReadingsAccessor
     private var bgReadingsAccessor:BgReadingsAccessor
     
@@ -46,14 +43,13 @@ class NightScoutFollowManager:NSObject {
     // MARK: - initializer
     
     /// initializer
-    public init(coreDataManager:CoreDataManager, nightScoutFollowerDelegate:NightScoutFollowerDelegate) {
+    public init(nightScoutFollowerDelegate:NightScoutFollowerDelegate) {
         
         // initialize nextFollowDownloadTimeStamp to now, which is at the moment FollowManager is instantiated
         nextFollowDownloadTimeStamp = Date()
         
         // initialize non optional private properties
-        self.coreDataManager = coreDataManager
-        self.bgReadingsAccessor = BgReadingsAccessor(coreDataManager: coreDataManager)
+        self.bgReadingsAccessor = BgReadingsAccessor()
         self.nightScoutFollowerDelegate = nightScoutFollowerDelegate
         
         // creat audioplayer
@@ -95,7 +91,7 @@ class NightScoutFollowManager:NSObject {
         
         // create new bgReading
         // using sgv as value for rawData because in some case these values are not available in NightScout
-        let bgReading = BgReading(timeStamp: followGlucoseData.timeStamp, sensor: nil, calibration: nil, rawData: followGlucoseData.sgv, deviceName: nil, nsManagedObjectContext: coreDataManager.mainManagedObjectContext)
+        let bgReading = BgReading(timeStamp: followGlucoseData.timeStamp, sensor: nil, calibration: nil, rawData: followGlucoseData.sgv, deviceName: nil, nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
 
         // set calculatedValue
         bgReading.calculatedValue = followGlucoseData.sgv

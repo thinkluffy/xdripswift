@@ -312,9 +312,9 @@ class Trace {
         if let coreDataManager = coreDataManager {
 
             // accessors
-            let bLEPeripheralAccessor = BLEPeripheralAccessor(coreDataManager: coreDataManager)
-            let alertEntriesAccessor = AlertEntriesAccessor(coreDataManager: coreDataManager)
-            let alertTypesAccessor = AlertTypesAccessor(coreDataManager: coreDataManager)
+            let bLEPeripheralAccessor = BLEPeripheralAccessor()
+            let alertEntriesAccessor = AlertEntriesAccessor()
+            let alertTypesAccessor = AlertTypesAccessor()
 
             // all bluetooth transmitters
             traceInfo.appendStringAndNewLine("List of bluetooth peripherals:\n")

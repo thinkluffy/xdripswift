@@ -8,15 +8,6 @@ class AlertEntriesAccessor {
     
     /// for logging
     private var log = OSLog(subsystem: ConstantsLog.subSystem, category: ConstantsLog.categoryApplicationDataAlertEntries)
-    
-    /// CoreDataManager to use
-    private let coreDataManager:CoreDataManager
-    
-    // MARK: - initializer
-    
-    init(coreDataManager:CoreDataManager) {
-        self.coreDataManager = coreDataManager
-    }
 
     // MARK: - functions
     
@@ -74,7 +65,7 @@ class AlertEntriesAccessor {
         
         // fetch the alert entries
         var alertEntries = [AlertEntry]()
-        coreDataManager.mainManagedObjectContext.performAndWait {
+        CoreDataManager.shared.mainManagedObjectContext.performAndWait {
             do {
                 // Execute Fetch Request
                 alertEntries = try fetchRequest.execute()
@@ -99,8 +90,11 @@ class AlertEntriesAccessor {
                 }
                 if (!entryFound) {
                     // there's no entry found for alertKindInCases, create one and save it in coredata
-                    let  newAlertEntry = AlertEntry(value: alertKindInCases.defaultAlertValue(), alertKind: alertKindInCases, start: 0, alertType: alertTypesAccessor.getDefaultAlertType(), nsManagedObjectContext: coreDataManager.mainManagedObjectContext)
-                    coreDataManager.saveChanges()
+                    let  newAlertEntry = AlertEntry(value: alertKindInCases.defaultAlertValue(),
+                                                    alertKind: alertKindInCases, start: 0,
+                                                    alertType: alertTypesAccessor.getDefaultAlertType(),
+                                                    nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
+                    CoreDataManager.shared.saveChanges()
                     // insert it at location 0, because it has a start 0, to keep it sorted correctly, at least per alertkind
                     alertEntries.insert(newAlertEntry, at: 0)
                 }

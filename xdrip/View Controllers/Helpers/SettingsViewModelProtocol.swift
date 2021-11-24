@@ -78,6 +78,6 @@ protocol SettingsViewModelProtocol {
 protocol SettingsProtocol {
     
     /// returns a SettingsViewModelProtocol
-    func viewModel(coreDataManager: CoreDataManager?) -> SettingsViewModelProtocol
+    func viewModel() -> SettingsViewModelProtocol
     
 }

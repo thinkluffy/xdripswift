@@ -14,8 +14,6 @@ class RootPresenter: RootP {
 
     private weak var view: RootV?
     
-    private var coreDataManager: CoreDataManager?
-    
     private var bgReadingsAccessor: BgReadingsAccessor?
     private var healthKitManager: HealthKitManager?
     private var bgReadingSpeaker: BGReadingSpeaker?
@@ -29,14 +27,12 @@ class RootPresenter: RootP {
         self.view = view
     }
     
-    func setup(coreDataManager: CoreDataManager,
-               bgReadingsAccessor: BgReadingsAccessor,
+    func setup(bgReadingsAccessor: BgReadingsAccessor,
                healthKitManager: HealthKitManager,
                bgReadingSpeaker: BGReadingSpeaker,
                watchManager: WatchManager,
                bluetoothPeripheralManager: BluetoothPeripheralManager,
                loopManager: LoopManager) {
-        self.coreDataManager = coreDataManager
         self.bgReadingsAccessor = bgReadingsAccessor
         self.healthKitManager = healthKitManager
         self.bgReadingSpeaker = bgReadingSpeaker
@@ -44,8 +40,7 @@ class RootPresenter: RootP {
         self.bluetoothPeripheralManager = bluetoothPeripheralManager
         self.loopManager = loopManager
         
-        nightScoutFollowManager = NightScoutFollowManager(coreDataManager: coreDataManager,
-                                                          nightScoutFollowerDelegate: self)
+        nightScoutFollowManager = NightScoutFollowManager(nightScoutFollowerDelegate: self)
     }
     
     // a long function just to get the timestamp of the last disconnect or reconnect. If not known then returns 1 1 1970
@@ -66,8 +61,7 @@ class RootPresenter: RootP {
 extension RootPresenter: NightScoutFollowerDelegate {
     
     func nightScoutFollowerInfoReceived(followGlucoseDataArray: inout [NightScoutBgReading]) {
-        guard let coreDataManager = coreDataManager,
-              let bgReadingsAccessor = bgReadingsAccessor,
+        guard let bgReadingsAccessor = bgReadingsAccessor,
               let nightScoutFollowManager = nightScoutFollowManager
         else {
             return
@@ -101,7 +95,7 @@ extension RootPresenter: NightScoutFollowerDelegate {
         if newReadingCreated {
             RootPresenter.log.d("nightScoutFollowerInfoReceived, new reading(s) received")
             
-            coreDataManager.saveChanges()
+            CoreDataManager.shared.saveChanges()
             
             healthKitManager?.storeBgReadings()
             bgReadingSpeaker?.speakNewReading(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp())

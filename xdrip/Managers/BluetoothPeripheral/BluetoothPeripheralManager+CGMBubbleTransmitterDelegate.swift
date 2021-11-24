@@ -32,7 +32,7 @@ extension BluetoothPeripheralManager: CGMBubbleTransmitterDelegate {
         bubble.blePeripheral.libreSensorType = libreSensorType
         
         // coredatamanager savechanges needed because webOOPEnabled is stored in coredata
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
     }
     
@@ -43,7 +43,7 @@ extension BluetoothPeripheralManager: CGMBubbleTransmitterDelegate {
         // store serial number in bubble object
         bubble.blePeripheral.sensorSerialNumber = serialNumber
         
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
     }
     
@@ -54,7 +54,7 @@ extension BluetoothPeripheralManager: CGMBubbleTransmitterDelegate {
         // store firmware in bubble object
         bubble.firmware = firmware
         
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
 
     }
     
@@ -65,7 +65,7 @@ extension BluetoothPeripheralManager: CGMBubbleTransmitterDelegate {
         // store hardware in bubble object
         bubble.hardware = hardware
         
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
     }
     

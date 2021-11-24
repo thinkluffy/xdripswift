@@ -9,7 +9,7 @@ extension BluetoothPeripheralManager: CGMGNSEntryTransmitterDelegate {
         // store bootLoader in gNSEntry object
         gNSEntry.bootLoader = bootLoader
         
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
     }
     
@@ -20,7 +20,7 @@ extension BluetoothPeripheralManager: CGMGNSEntryTransmitterDelegate {
         // store firmwareVersion in gNSEntry object
         gNSEntry.firmwareVersion = firmwareVersion
         
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
     }
     
@@ -31,7 +31,7 @@ extension BluetoothPeripheralManager: CGMGNSEntryTransmitterDelegate {
         // store serialNumber in gNSEntry object
         gNSEntry.serialNumber = serialNumber
         
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
     }
     

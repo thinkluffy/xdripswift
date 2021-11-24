@@ -16,10 +16,14 @@ final class NewAlertSettingsViewController:UIViewController {
     @IBAction func doneButtonAction(_ sender: UIBarButtonItem) {
         
         // initialize new alertentry, will be saved in coredata when calling coreDataManager.savechanges()
-        _ = AlertEntry(value: Int(alertSettingsViewControllerData.value), alertKind: AlertSettingsViewControllerData.getAlertKind(alertKind: alertSettingsViewControllerData.alertKind), start: Int(alertSettingsViewControllerData.start), alertType: alertSettingsViewControllerData.alertType, nsManagedObjectContext: alertSettingsViewControllerData.coreDataManager.mainManagedObjectContext)
+        _ = AlertEntry(value: Int(alertSettingsViewControllerData.value),
+                       alertKind: AlertSettingsViewControllerData.getAlertKind(alertKind: alertSettingsViewControllerData.alertKind),
+                       start: Int(alertSettingsViewControllerData.start),
+                       alertType: alertSettingsViewControllerData.alertType,
+                       nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
 
         // save the alertentry
-        alertSettingsViewControllerData.coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
         // go back to the alerts settings screen
         performSegue(withIdentifier: SegueIdentifiers.unwindToAlertsSettingsViewController.rawValue, sender: self)
@@ -32,16 +36,21 @@ final class NewAlertSettingsViewController:UIViewController {
     ///     - alertKind : used to create default alertentry
     ///     - minimumStart : what's the minimum allowed value for the start
     ///     - maximumStart : what's the maximum allowed value for the start
-    ///     - coreDataManager : reference to the coredatamanager
-    public func configure(alertKind:AlertKind, minimumStart:Int16, maximumStart:Int16, coreDataManager:CoreDataManager) {
-        
+    public func configure(alertKind: AlertKind, minimumStart: Int16, maximumStart: Int16) {
         // initialize alertSettingsViewControllerData
-        alertSettingsViewControllerData = AlertSettingsViewControllerData(start: minimumStart, value: Int16(alertKind.defaultAlertValue()), alertKind: Int16(alertKind.rawValue), alertType: AlertTypesAccessor(coreDataManager: coreDataManager).getDefaultAlertType(), minimumStart: minimumStart, maximumStart: maximumStart, uIViewController: self, toCallWhenUserResetsProperties: {
+        alertSettingsViewControllerData = AlertSettingsViewControllerData(start: minimumStart,
+                                                                          value: Int16(alertKind.defaultAlertValue()),
+                                                                          alertKind: Int16(alertKind.rawValue),
+                                                                          alertType: AlertTypesAccessor().getDefaultAlertType(),
+                                                                          minimumStart: minimumStart,
+                                                                          maximumStart: maximumStart,
+                                                                          uIViewController: self,
+                                                                          toCallWhenUserResetsProperties: {
             self.doneButtonOutlet.disable()
+            
         }, toCallWhenUserChangesProperties: {
             self.doneButtonOutlet.enable()
-        }, coreDataManager: coreDataManager)
-        
+        })
     }
     
     // MARK: - View Life Cycle

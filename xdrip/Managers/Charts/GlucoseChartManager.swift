@@ -81,9 +81,6 @@ public final class GlucoseChartManager {
     /// initialise CalibrationsAccessor
     private var calibrationsAccessor: CalibrationsAccessor?
     
-    /// a coreDataManager
-    private var coreDataManager: CoreDataManager
-    
     /// difference in seconds between two pixels (or x values, not sure if it's pixels)
     private var diffInSecondsBetweenTwoPoints: Double  {
         endDate.timeIntervalSince(startDate)/Double(innerFrameWidth)
@@ -118,17 +115,12 @@ public final class GlucoseChartManager {
     
     /// - parameters:
     ///     - chartLongPressGestureRecognizer : defined here as parameter so that this class can handle the config of the recognizer
-    init(coreDataManager: CoreDataManager) {
-        
-        // set coreDataManager and bgReadingsAccessor
-        self.coreDataManager = coreDataManager
-        
+    init() {
         // initialize enddate
         endDate = Date()
         
         // intialize startdate, which is enddate minus a few hours
         startDate = endDate.addingTimeInterval(.hours(-UserDefaults.standard.chartWidthInHours))
-        
     }
     
     // MARK: - public functions
@@ -183,7 +175,7 @@ public final class GlucoseChartManager {
                     reUseExistingChartPointList = false
                     
                     // use newGlucoseChartPointsToAppend and assign it to new list of chartpoints startDate to endDate
-                    newGlucoseChartPointsToAppend = self.getGlucoseChartPoints(startDate: startDateToUse, endDate: endDate, bgReadingsAccessor: self.data().bgReadingsAccessor, on: self.coreDataManager.privateManagedObjectContext)
+                    newGlucoseChartPointsToAppend = self.getGlucoseChartPoints(startDate: startDateToUse, endDate: endDate, bgReadingsAccessor: self.data().bgReadingsAccessor, on: CoreDataManager.shared.privateManagedObjectContext)
                     
                     // lastChartPointEarlierThanEndDate is the last chartPoint in the array to append
                     self.lastChartPointEarlierThanEndDate = newGlucoseChartPointsToAppend.lastGlucoseChartPoint
@@ -205,7 +197,7 @@ public final class GlucoseChartManager {
                 } else {
                     
                     // append glucseChartpoints with date > x.date up to endDate
-                    newGlucoseChartPointsToAppend = self.getGlucoseChartPoints(startDate: lastGlucoseTimeStamp, endDate: endDate, bgReadingsAccessor: self.data().bgReadingsAccessor, on: self.coreDataManager.privateManagedObjectContext)
+                    newGlucoseChartPointsToAppend = self.getGlucoseChartPoints(startDate: lastGlucoseTimeStamp, endDate: endDate, bgReadingsAccessor: self.data().bgReadingsAccessor, on: CoreDataManager.shared.privateManagedObjectContext)
                     
                     // lastChartPointEarlierThanEndDate is the last chartPoint int he array to append
                     self.lastChartPointEarlierThanEndDate = newGlucoseChartPointsToAppend.lastGlucoseChartPoint
@@ -221,7 +213,7 @@ public final class GlucoseChartManager {
                     
                     if let firstGlucoseChartPoint = self.glucoseChartPoints.firstGlucoseChartPoint, let firstGlucoseChartPointX = firstGlucoseChartPoint.x as? ChartAxisValueDate, startDateToUse < firstGlucoseChartPointX.date {
                         
-                        newGlucoseChartPointsToPrepend = self.getGlucoseChartPoints(startDate: startDateToUse, endDate: firstGlucoseChartPointX.date, bgReadingsAccessor: self.data().bgReadingsAccessor, on: self.coreDataManager.privateManagedObjectContext)
+                        newGlucoseChartPointsToPrepend = self.getGlucoseChartPoints(startDate: startDateToUse, endDate: firstGlucoseChartPointX.date, bgReadingsAccessor: self.data().bgReadingsAccessor, on: CoreDataManager.shared.privateManagedObjectContext)
                         
                         // maybe there's a higher value now for maximumValueInGlucoseChartPoints
                         self.maximumValueInGlucoseChartPointsInMgDl = self.getNewMaximumValueInGlucoseChartPoints(currentMaximumValueInGlucoseChartPoints: self.maximumValueInGlucoseChartPointsInMgDl, glucoseChartPoints: newGlucoseChartPointsToPrepend)
@@ -235,7 +227,7 @@ public final class GlucoseChartManager {
                 // this should be a case where there's no glucoseChartPoints stored yet, we just create a new array to append
                 
                 // get glucosePoints from coredata
-                newGlucoseChartPointsToAppend = self.getGlucoseChartPoints(startDate: startDateToUse, endDate: endDate, bgReadingsAccessor: self.data().bgReadingsAccessor, on: self.coreDataManager.privateManagedObjectContext)
+                newGlucoseChartPointsToAppend = self.getGlucoseChartPoints(startDate: startDateToUse, endDate: endDate, bgReadingsAccessor: self.data().bgReadingsAccessor, on: CoreDataManager.shared.privateManagedObjectContext)
                 
                 // lastChartPointEarlierThanEndDate is the last chartPoint in the array to append
                 self.lastChartPointEarlierThanEndDate = newGlucoseChartPointsToAppend.lastGlucoseChartPoint
@@ -253,7 +245,7 @@ public final class GlucoseChartManager {
             
 
             // get calibrations from coredata
-            let newCalibrationChartPoints = self.getCalibrationChartPoints(startDate: startDateToUse, endDate: endDate, calibrationsAccessor: self.data().calibrationsAccessor, on: self.coreDataManager.privateManagedObjectContext)
+            let newCalibrationChartPoints = self.getCalibrationChartPoints(startDate: startDateToUse, endDate: endDate, calibrationsAccessor: self.data().calibrationsAccessor, on: CoreDataManager.shared.privateManagedObjectContext)
 
             DispatchQueue.main.async {
                 
@@ -931,12 +923,12 @@ public final class GlucoseChartManager {
         
         // initialize bgReadingsAccessor
         if bgReadingsAccessor == nil {
-            bgReadingsAccessor = BgReadingsAccessor(coreDataManager: coreDataManager)
+            bgReadingsAccessor = BgReadingsAccessor()
         }
         
         // initialize calibrationsAccessor
         if calibrationsAccessor == nil {
-            calibrationsAccessor = CalibrationsAccessor(coreDataManager: coreDataManager)
+            calibrationsAccessor = CalibrationsAccessor()
         }
         
         return (chartSettings!, chartPointDateFormatter!, operationQueue!, chartLabelSettings!, chartLabelSettingsObjectives!, chartLabelSettingsObjectivesSecondary!, chartLabelSettingsTarget!, chartLabelSettingsDimmed!, chartLabelSettingsHidden!, chartGuideLinesLayerSettings!, axisLabelTimeFormatter!, bgReadingsAccessor!, calibrationsAccessor!)

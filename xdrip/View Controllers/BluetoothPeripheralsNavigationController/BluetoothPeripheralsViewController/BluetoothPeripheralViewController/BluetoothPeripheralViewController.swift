@@ -73,10 +73,7 @@ class BluetoothPeripheralViewController: UIViewController {
     
     /// the BluetoothPeripheral being edited
     private var bluetoothPeripheral:BluetoothPeripheral?
-    
-    /// reference to coreDataManager
-    private var coreDataManager:CoreDataManager?
-    
+        
     /// a BluetoothPeripheralManager
     private weak var bluetoothPeripheralManager: BluetoothPeripheralManaging?
     
@@ -120,10 +117,8 @@ class BluetoothPeripheralViewController: UIViewController {
     // MARK:- public functions
     
     /// configure the viewController
-    public func configure(bluetoothPeripheral: BluetoothPeripheral?, coreDataManager: CoreDataManager, bluetoothPeripheralManager: BluetoothPeripheralManaging, expectedBluetoothPeripheralType type: BluetoothPeripheralType) {
-
+    public func configure(bluetoothPeripheral: BluetoothPeripheral?, bluetoothPeripheralManager: BluetoothPeripheralManaging, expectedBluetoothPeripheralType type: BluetoothPeripheralType) {
         self.bluetoothPeripheral = bluetoothPeripheral
-        self.coreDataManager = coreDataManager
         self.bluetoothPeripheralManager = bluetoothPeripheralManager
         self.expectedBluetoothPeripheralType = type
         self.transmitterIdTempValue = bluetoothPeripheral?.blePeripheral.transmitterId
@@ -226,7 +221,7 @@ class BluetoothPeripheralViewController: UIViewController {
             bluetoothPeripheral.blePeripheral.shouldconnect = false
             
             // save in coredata
-            self.coreDataManager?.saveChanges()
+            CoreDataManager.shared.saveChanges()
             
             // connect button label text needs to change because shouldconnect value has changed
             _ = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: bluetoothPeripheral, isScanning: self.isScanning, connectButtonOutlet: self.connectButtonOutlet, expectedBluetoothPeripheralType: self.expectedBluetoothPeripheralType, transmitterId: self.transmitterIdTempValue, bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
@@ -333,7 +328,7 @@ class BluetoothPeripheralViewController: UIViewController {
         // and finally stopScanningForNewDevice will be called, for the case where scanning would still be ongoing
         
         // save any changes that are made
-        coreDataManager?.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
         // set bluetoothPeripheralViewModel to nil. The bluetoothPeripheralViewModel's deinit will be called, which will set the delegate in the model to BluetoothPeripheralManager
 
@@ -393,15 +388,6 @@ class BluetoothPeripheralViewController: UIViewController {
             tableView.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
             tableView.dataSource = self
             tableView.delegate = self
-        }
-    }
-    
-    /// helper function to transform the optional global variable coredatamanager in to a non-optional
-    private func getCoreDataManager() -> CoreDataManager {
-        if let coreDataManager = coreDataManager {
-            return coreDataManager
-        } else {
-            fatalError("in BluetoothPeripheralViewController, coreDataManager is nil")
         }
     }
     
@@ -613,7 +599,7 @@ class BluetoothPeripheralViewController: UIViewController {
                 bluetoothPeripheral.blePeripheral.shouldconnect = true
                 
                 // save the update in coredata
-                coreDataManager?.saveChanges()
+                CoreDataManager.shared.saveChanges()
                 
                 // get bluetoothTransmitter
                 if let bluetoothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: bluetoothPeripheral, createANewOneIfNecesssary: true) {

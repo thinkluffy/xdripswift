@@ -27,6 +27,8 @@ extension WCSession {
 
 class WatchCommunicator: NSObject {
 	
+    private static let log = Log(type: WatchCommunicator.self)
+    
 	static func register() {
 		_ = self.shared
 	}
@@ -35,55 +37,47 @@ class WatchCommunicator: NSObject {
 	
 	private let session = WCSession.default
 	
-	private var coreDataManager: CoreDataManager?
-	private var dataManager: WatchManager?
+	private let watchManager = WatchManager()
 	
 	fileprivate override init() {
 		super.init()
-		print("init WatchCommunicator")
-		session.delegate = self
+
+        session.delegate = self
 		session.activate()
-		coreDataManager = CoreDataManager(modelName: ConstantsCoreData.modelName, completion: {
-			self.dataManager = WatchManager(coreDataManager: self.coreDataManager!)
-		})
 	}
 }
 
 extension WatchCommunicator: WCSessionDelegate {
     
 	func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-		print("activationDidCompleteWith \(activationState.rawValue), error: \(error?.localizedDescription ?? "nil")")
+        WatchCommunicator.log.d("activationDidCompleteWith \(activationState.rawValue), error: \(error?.localizedDescription ?? "nil")")
 	}
 	
 	func sessionDidBecomeInactive(_ session: WCSession) {
-		print("sessionDidBecomeInactive")
+        WatchCommunicator.log.d("sessionDidBecomeInactive")
 	}
 	
 	func sessionDidDeactivate(_ session: WCSession) {
-		print("sessionDidDeactivate")
+        WatchCommunicator.log.d("sessionDidDeactivate")
 	}
 	
 	// Sender
 	func session(_ session: WCSession, didFinish userInfoTransfer: WCSessionUserInfoTransfer, error: Error?) {
-		print("session didFinish userInfoTransfer error: \(error?.localizedDescription ?? "nil")")
+        WatchCommunicator.log.d("session didFinish userInfoTransfer error: \(error?.localizedDescription ?? "nil")")
 	}
 	
 	// Receiver
 	func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
-		print("session didReceiveMessage message : \(message)")
-		guard let dataManager = self.dataManager else {
-			replyHandler([:])
-			return
-		}
+        WatchCommunicator.log.d("session didReceiveMessage message : \(message)")
         
-		DispatchQueue.main.async {
+		DispatchQueue.main.async { [unowned self] in
             let message = Common.DataTransformToPhone.init(dic: message)
             let type = message.type
             var data: Common.DataTransformToWatch?
             let config = WatchCommunicator.getConfig()
                 
             if type == Common.MessageValues.latest {
-                if let latestBg = dataManager.getLatest() {
+                if let latestBg = self.watchManager.getLatest() {
                     let info = Common.BgInfo(date: latestBg.timeStamp,
                                              value: latestBg.calculatedValue.mgdlToMmol(mgdl: config.showAsMgDl))
                     let slope: Common.BgSlope = WatchCommunicator.convertSlope(of: latestBg.slopArrow)
@@ -94,7 +88,7 @@ extension WatchCommunicator: WCSessionDelegate {
                 }
                 
             } else if type == Common.MessageValues.recently {
-                let list = dataManager.getRecently(6).sorted { a, b in
+                let list = self.watchManager.getRecently(6).sorted { a, b in
                     a.timeStamp < b.timeStamp
                 }
                 var recently = [Common.BgInfo]()

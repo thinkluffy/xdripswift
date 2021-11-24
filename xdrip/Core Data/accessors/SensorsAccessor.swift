@@ -8,16 +8,7 @@ class SensorsAccessor {
     
     /// for logging
     private var log = OSLog(subsystem: ConstantsLog.subSystem, category: ConstantsLog.categoryApplicationDataSensors)
-    
-    /// CoreDataManager to use
-    private let coreDataManager:CoreDataManager
-    
-    // MARK: - initializer
-    
-    init(coreDataManager:CoreDataManager) {
-        self.coreDataManager = coreDataManager
-    }
-    
+        
     // MARK: - functions
     
     /// will get sensor with enddate nil (ie not stopped) and highest startDate,
@@ -37,7 +28,7 @@ class SensorsAccessor {
         // define returnvalue
         var returnValue:Sensor?
         
-        coreDataManager.mainManagedObjectContext.performAndWait {
+        CoreDataManager.shared.mainManagedObjectContext.performAndWait {
             do {
                 // Execute Fetch Request
                 let sensors = try fetchRequest.execute()

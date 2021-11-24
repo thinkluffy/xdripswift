@@ -11,7 +11,7 @@ public final class CoreDataManager {
     
     // MARK: - Properties
     
-    private let modelName: String
+    private var modelName: String!
     
     private var log = OSLog(subsystem: ConstantsLog.subSystem, category: ConstantsLog.categoryCoreDataManager)
     
@@ -24,7 +24,7 @@ public final class CoreDataManager {
 
     // MARK: -
     
-    private let completion: CoreDataManagerCompletion
+    private var completion: CoreDataManagerCompletion!
     
     // MARK: -
     
@@ -67,7 +67,7 @@ public final class CoreDataManager {
     private func addPersistentStore(to persistentStoreCoordinator: NSPersistentStoreCoordinator) {
         // Helpers
         let fileManager = FileManager.default
-        let storeName = "\(self.modelName).sqlite"
+        let storeName = "\(self.modelName!).sqlite"
         
         // URL Documents Directory
         let documentsDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -93,8 +93,9 @@ public final class CoreDataManager {
     }
     
     // MARK: - Initialization
-    
-    init(modelName: String, completion: @escaping CoreDataManagerCompletion) {
+    static let shared = CoreDataManager()
+
+    func initialize(modelName: String, completion: @escaping CoreDataManagerCompletion) {
         // Set Properties
         self.modelName = modelName
         self.completion = completion

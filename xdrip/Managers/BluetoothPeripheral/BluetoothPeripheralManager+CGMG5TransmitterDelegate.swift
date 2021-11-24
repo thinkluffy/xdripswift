@@ -12,7 +12,7 @@ extension BluetoothPeripheralManager: CGMG5TransmitterDelegate {
         // only if successful, set the lastResetTimeStamp to now
         if successful {
             dexcomG5.lastResetTimeStamp = Date()
-            coreDataManager.saveChanges()
+            CoreDataManager.shared.saveChanges()
         }
         
     }
@@ -33,7 +33,7 @@ extension BluetoothPeripheralManager: CGMG5TransmitterDelegate {
         
         dexcomG5.batteryTemperature = Int32(temp)
         
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
         
     }
     
@@ -44,7 +44,7 @@ extension BluetoothPeripheralManager: CGMG5TransmitterDelegate {
         
         dexcomG5.firmwareVersion = firmware
         
-        coreDataManager.saveChanges()
+        CoreDataManager.shared.saveChanges()
 
     }
     

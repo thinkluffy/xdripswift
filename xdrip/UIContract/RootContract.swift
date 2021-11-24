@@ -16,8 +16,7 @@ protocol RootV: MVPV {
 protocol RootP: MVPP {
     
     // temp used during refactoring
-    func setup(coreDataManager: CoreDataManager,
-               bgReadingsAccessor: BgReadingsAccessor,
+    func setup(bgReadingsAccessor: BgReadingsAccessor,
                healthKitManager: HealthKitManager,
                bgReadingSpeaker: BGReadingSpeaker,
                watchManager: WatchManager,

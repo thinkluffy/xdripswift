@@ -17,18 +17,10 @@ final class AlertsSettingsViewController: UIViewController {
             toDoWhenUnwinding()
         }
     }
-
-    // reference to coreDataManager
-    private var coreDataManager:CoreDataManager?
     
-    /// to read alertEntries from coredata manager
-    private lazy var alertEntriesAccessor:AlertEntriesAccessor = {
-        return AlertEntriesAccessor(coreDataManager: getCoreDataManager())
-    }()
+    private lazy var alertEntriesAccessor = AlertEntriesAccessor()
     
-    private lazy var alertTypesAccessor:AlertTypesAccessor = {
-        return AlertTypesAccessor(coreDataManager: getCoreDataManager())
-    }()
+    private lazy var alertTypesAccessor = AlertTypesAccessor()
     
     /// all alertEntries, one array of alertEntries per alertKind
     private lazy var alertEntriesPerAlertKind:[[AlertEntry]] = {
@@ -44,12 +36,6 @@ final class AlertsSettingsViewController: UIViewController {
     ///
     /// this closure can be called when returning from AlertSettingsViewController to AlertsSettingsViewController.
     private var toDoWhenUnwinding: (() -> ())?
-    
-    // MARK: - Public functions
-    
-    public func configure(coreDataManager:CoreDataManager?) {
-        self.coreDataManager = coreDataManager
-    }
 
     // MARK: - View Life Cycle
     
@@ -74,7 +60,7 @@ final class AlertsSettingsViewController: UIViewController {
         switch segueIdentifierAsCase {
             
         case AlertSettingsViewController.SegueIdentifiers.alertsToAlertSettings:
-            guard let vc = segue.destination as? AlertSettingsViewController, let (section, row) = sender as? (Int,Int), let coreDataManager = coreDataManager else {
+            guard let vc = segue.destination as? AlertSettingsViewController, let (section, row) = sender as? (Int,Int) else {
                 fatalError("In AlertsSettingsViewController, prepare for segue, viewcontroller is not AlertSettingsViewController or sender is not (Int,Int)) or coreDataManager is nil" )
             }
             
@@ -95,7 +81,9 @@ final class AlertsSettingsViewController: UIViewController {
             }
             
             // configure view controller
-            vc.configure(alertEntry: alertEntriesPerAlertKind[mappedSectionNumber][row], minimumStart: minimumStart, maximumStart: maximumStart, coreDataManager: coreDataManager )
+            vc.configure(alertEntry: alertEntriesPerAlertKind[mappedSectionNumber][row],
+                         minimumStart: minimumStart,
+                         maximumStart: maximumStart)
         default:
             // shouldn't happen because we're in alertssettings view here
             break
@@ -103,15 +91,6 @@ final class AlertsSettingsViewController: UIViewController {
     }
     
     // MARK: - private helper functions
-    
-    // helper function to transform the optional global variable coredatamanager in to a non-optional
-    private func getCoreDataManager() -> CoreDataManager {
-        if let coreDataManager = coreDataManager {
-            return coreDataManager
-        } else {
-            fatalError("in AlertsSettingsViewController, coreDataManager is nil")
-        }
-    }
     
     // setup the view
     private func setupView() {

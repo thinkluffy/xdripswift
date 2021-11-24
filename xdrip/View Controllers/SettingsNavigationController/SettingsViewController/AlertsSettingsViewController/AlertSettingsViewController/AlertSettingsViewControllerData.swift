@@ -55,10 +55,7 @@ class AlertSettingsViewControllerData: NSObject, UITableViewDataSource, UITableV
     
     /// a reference to the UIViewController
     public var uIViewController:UIViewController
-    
-    /// coredatamanager
-    public var coreDataManager:CoreDataManager
-    
+        
     /// when user changes properties, before pressing save button, this function will be called, can be set by AlertSettingsViewController which can assign to closure that disables "Add" button
     private var toCallWhenUserChangesProperties:(() -> ())?
     
@@ -68,7 +65,7 @@ class AlertSettingsViewControllerData: NSObject, UITableViewDataSource, UITableV
     // MARK:- initializer
     
     /// initializer
-    init(start:Int16, value:Int16, alertKind:Int16, alertType:AlertType, minimumStart:Int16, maximumStart:Int16, uIViewController:UIViewController, toCallWhenUserResetsProperties:(() -> ())?, toCallWhenUserChangesProperties:(() -> ())?, coreDataManager:CoreDataManager) {
+    init(start:Int16, value:Int16, alertKind:Int16, alertType:AlertType, minimumStart:Int16, maximumStart:Int16, uIViewController:UIViewController, toCallWhenUserResetsProperties:(() -> ())?, toCallWhenUserChangesProperties:(() -> ())?) {
         
         // initialze all parameters, and also temp variables
         self.start = start
@@ -87,7 +84,6 @@ class AlertSettingsViewControllerData: NSObject, UITableViewDataSource, UITableV
         self.minimumStart = minimumStart
         self.maximumStart = maximumStart
         self.uIViewController = uIViewController
-        self.coreDataManager = coreDataManager
     }
     
     // MARK:- private helper functions
@@ -121,10 +117,10 @@ extension AlertSettingsViewControllerData {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         // if no need to show alertvalue, then return count 1 less, value is the last row, it won't be shown
         if AlertSettingsViewControllerData.getAlertKind(alertKind: alertKind).needsAlertValue() || alertType.enabled {
             return Setting.allCases.count
+            
         } else {
             return Setting.allCases.count - 1
         }
@@ -259,7 +255,7 @@ extension AlertSettingsViewControllerData {
             // will open a pickerview with names of all available alerttypes and let user select an alerttype
             
             // first get all alerttypes, and store name in seperate array
-            let allAlertTypes = AlertTypesAccessor(coreDataManager: coreDataManager).getAllAlertTypes()
+            let allAlertTypes = AlertTypesAccessor().getAllAlertTypes()
             var allAlertTypeNames = [String]()
             for alertType in allAlertTypes {
                 allAlertTypeNames.append(alertType.name)

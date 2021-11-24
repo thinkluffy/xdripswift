@@ -298,19 +298,10 @@ struct R: Rswift.Validatable {
   #endif
 
   #if os(iOS) || os(tvOS)
-  /// This `R.storyboard` struct is generated, and contains static references to 2 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 1 storyboards.
   struct storyboard {
-    /// Storyboard `LaunchScreen`.
-    static let launchScreen = _R.storyboard.launchScreen()
     /// Storyboard `Main`.
     static let main = _R.storyboard.main()
-
-    #if os(iOS) || os(tvOS)
-    /// `UIStoryboard(name: "LaunchScreen", bundle: ...)`
-    static func launchScreen(_: Void = ()) -> UIKit.UIStoryboard {
-      return UIKit.UIStoryboard(resource: R.storyboard.launchScreen)
-    }
-    #endif
 
     #if os(iOS) || os(tvOS)
     /// `UIStoryboard(name: "Main", bundle: ...)`
@@ -1812,7 +1803,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.string` struct is generated, and contains static references to 21 localization tables.
+  /// This `R.string` struct is generated, and contains static references to 20 localization tables.
   struct string {
     /// This `R.string.alertTypesSettingsView` struct is generated, and contains static references to 16 localization keys.
     struct alertTypesSettingsView {
@@ -5197,31 +5188,6 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.launchScreen` struct is generated, and contains static references to 1 localization keys.
-    struct launchScreen {
-      /// fr translation: ---
-      ///
-      /// Locales: fr, sv, sl, ru, pl-PL, it, fr, zh, de, ar, es
-      static let mlkk4QZzText = Rswift.StringResource(key: "MLK-K4-QZz.text", tableName: "LaunchScreen", bundle: R.hostingBundle, locales: ["fr", "sv", "sl", "ru", "pl-PL", "it", "fr", "zh", "de", "ar", "es"], comment: nil)
-
-      /// fr translation: ---
-      ///
-      /// Locales: fr, sv, sl, ru, pl-PL, it, fr, zh, de, ar, es
-      static func mlkk4QZzText(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("MLK-K4-QZz.text", tableName: "LaunchScreen", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "LaunchScreen", preferredLanguages: preferredLanguages) else {
-          return "MLK-K4-QZz.text"
-        }
-
-        return NSLocalizedString("MLK-K4-QZz.text", tableName: "LaunchScreen", bundle: bundle, comment: "")
-      }
-
-      fileprivate init() {}
-    }
-
     /// This `R.string.libreErrors` struct is generated, and contains static references to 4 localization keys.
     struct libreErrors {
       /// en translation: Libre US is not supported
@@ -8535,29 +8501,9 @@ struct _R: Rswift.Validatable {
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
       #if os(iOS) || os(tvOS)
-      try launchScreen.validate()
-      #endif
-      #if os(iOS) || os(tvOS)
       try main.validate()
       #endif
     }
-
-    #if os(iOS) || os(tvOS)
-    struct launchScreen: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
-      typealias InitialController = UIKit.UIViewController
-
-      let bundle = R.hostingBundle
-      let name = "LaunchScreen"
-
-      static func validate() throws {
-        if UIKit.UIImage(named: "logo-launchScreen.png", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'logo-launchScreen.png' is used in storyboard 'LaunchScreen', but couldn't be loaded.") }
-        if #available(iOS 11.0, tvOS 11.0, *) {
-        }
-      }
-
-      fileprivate init() {}
-    }
-    #endif
 
     #if os(iOS) || os(tvOS)
     struct main: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {

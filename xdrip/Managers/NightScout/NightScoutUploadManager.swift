@@ -29,10 +29,7 @@ public class NightScoutUploadManager:NSObject {
     
     /// CalibrationsAccessor instance
     private let calibrationsAccessor: CalibrationsAccessor
-    
-    /// reference to coreDataManager
-    private let coreDataManager: CoreDataManager
-    
+        
     /// to solve problem that sometemes UserDefaults key value changes is triggered twice for just one change
     private let keyValueObserverTimeKeeper:KeyValueObserverTimeKeeper = KeyValueObserverTimeKeeper()
     
@@ -49,17 +46,15 @@ public class NightScoutUploadManager:NSObject {
     
     /// initializer
     /// - parameters:
-    ///     - coreDataManager : needed to get latest readings
     ///     - messageHandler : in case errors occur like credential check error, then this closure will be called with title and message
     ///     - checkIfDisReConnectAfterTimeStampFunction : function to verify if there's been a disconnect or reconnect after the timestamp of the given reading
-    init(coreDataManager: CoreDataManager, messageHandler:((_ title:String, _ message:String) -> Void)?) {
+    init(messageHandler:((_ title:String, _ message:String) -> Void)?) {
         
         // init properties
-        self.coreDataManager = coreDataManager
-        self.bgReadingsAccessor = BgReadingsAccessor(coreDataManager: coreDataManager)
-        self.calibrationsAccessor = CalibrationsAccessor(coreDataManager: coreDataManager)
+        self.bgReadingsAccessor = BgReadingsAccessor()
+        self.calibrationsAccessor = CalibrationsAccessor()
         self.messageHandler = messageHandler
-        self.sensorsAccessor = SensorsAccessor(coreDataManager: coreDataManager)
+        self.sensorsAccessor = SensorsAccessor()
         
         super.init()
         
@@ -119,13 +114,9 @@ public class NightScoutUploadManager:NSObject {
         if UserDefaults.standard.transmitterBatteryInfo != latestTransmitterBatteryInfo || latestUploaderBatteryLevel != UIDevice.current.batteryLevel {
             
             if let transmitterBatteryInfo = UserDefaults.standard.transmitterBatteryInfo {
-
                 uploadTransmitterBatteryInfoToNightScout(siteURL: siteURL, apiKey: apiKey, transmitterBatteryInfo: transmitterBatteryInfo)
-
             }
-            
         }
-        
     }
     
     // MARK: - overriden functions
@@ -232,7 +223,6 @@ public class NightScoutUploadManager:NSObject {
             ]
         }
         
-        
         uploadData(dataToUpload: dataToUpload, traceString: "uploadTransmitterBatteryInfoToNightScout", siteURL: siteURL, path: nightScoutDeviceStatusPath, apiKey: apiKey, completionHandler: {
         
             // sensor successfully uploaded, change value in coredata
@@ -270,7 +260,7 @@ public class NightScoutUploadManager:NSObject {
             DispatchQueue.main.async {
                 
                 sensor.uploadedToNS = true
-                self.coreDataManager.saveChanges()
+                CoreDataManager.shared.saveChanges()
 
             }
             

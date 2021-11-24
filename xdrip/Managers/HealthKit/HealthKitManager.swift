@@ -2,7 +2,7 @@ import Foundation
 import os
 import HealthKit
 
-public class HealthKitManager:NSObject {
+public class HealthKitManager: NSObject {
     // MARK: - public properties
     
     // MARK: - private properties
@@ -12,12 +12,9 @@ public class HealthKitManager:NSObject {
     
     /// for logging
     private var log = OSLog(subsystem: ConstantsLog.subSystem, category: ConstantsLog.categoryHealthKitManager)
-    
-    /// reference to coredatamanager
-    private var coreDataManager:CoreDataManager
-    
+        
     /// reference to BgReadingsAccessor
-    private var bgReadingsAccessor:BgReadingsAccessor
+    private let bgReadingsAccessor = BgReadingsAccessor()
     
     /// is healthkit fully initiazed or not, that includes checking if healthkit is available, created successfully bloodGlucoseType, user authorized - value will get changed 
     private var healthKitInitialized = false
@@ -30,13 +27,7 @@ public class HealthKitManager:NSObject {
     
     // MARK: - intialization
     
-    init(coreDataManager:CoreDataManager) {
-        
-        // initialize non optional private properties
-        self.coreDataManager = coreDataManager
-        self.bgReadingsAccessor = BgReadingsAccessor(coreDataManager: coreDataManager)
-        
-        // call super.init
+    override init() {
         super.init()
         
         // listen for changes to userdefaults storeReadingsInHealthkitAuthorized
@@ -51,7 +42,6 @@ public class HealthKitManager:NSObject {
         
         // do first store
         storeBgReadings()
-        
     }
     
     // MARK: - private functions
