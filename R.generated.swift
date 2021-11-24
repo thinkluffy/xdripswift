@@ -8561,15 +8561,20 @@ struct _R: Rswift.Validatable {
 
     #if os(iOS) || os(tvOS)
     struct main: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
-      typealias InitialController = MainTabBarController
+      typealias InitialController = InitViewController
 
       let bundle = R.hostingBundle
       let datePickerViewController = StoryboardViewControllerResource<DatePickerViewController>(identifier: "DatePickerViewController")
+      let mainTabBarController = StoryboardViewControllerResource<MainTabBarController>(identifier: "MainTabBarController")
       let name = "Main"
       let pickerViewController = StoryboardViewControllerResource<PickerViewController>(identifier: "PickerViewController")
 
       func datePickerViewController(_: Void = ()) -> DatePickerViewController? {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: datePickerViewController)
+      }
+
+      func mainTabBarController(_: Void = ()) -> MainTabBarController? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: mainTabBarController)
       }
 
       func pickerViewController(_: Void = ()) -> PickerViewController? {
@@ -8587,12 +8592,14 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "ic_tab_settings", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_settings' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_settings_h", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_settings_h' is used in storyboard 'Main', but couldn't be loaded.") }
         if #available(iOS 13.0, *) { if UIKit.UIImage(systemName: "link.circle") == nil { throw Rswift.ValidationError(description: "[R.swift] System image named 'link.circle' is used in storyboard 'Main', but couldn't be loaded.") } }
+        if UIKit.UIImage(named: "logo-launchScreen.png", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'logo-launchScreen.png' is used in storyboard 'Main', but couldn't be loaded.") }
         if #available(iOS 13.0, *) { if UIKit.UIImage(systemName: "moon.zzz") == nil { throw Rswift.ValidationError(description: "[R.swift] System image named 'moon.zzz' is used in storyboard 'Main', but couldn't be loaded.") } }
         if #available(iOS 13.0, *) { if UIKit.UIImage(systemName: "scope") == nil { throw Rswift.ValidationError(description: "[R.swift] System image named 'scope' is used in storyboard 'Main', but couldn't be loaded.") } }
         if UIKit.UIImage(named: "sensor14_14_alt", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'sensor14_14_alt' is used in storyboard 'Main', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
         if _R.storyboard.main().datePickerViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'datePickerViewController' could not be loaded from storyboard 'Main' as 'DatePickerViewController'.") }
+        if _R.storyboard.main().mainTabBarController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'mainTabBarController' could not be loaded from storyboard 'Main' as 'MainTabBarController'.") }
         if _R.storyboard.main().pickerViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'pickerViewController' could not be loaded from storyboard 'Main' as 'PickerViewController'.") }
       }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rfm-D0-ioj">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -1616,10 +1616,38 @@
             </objects>
             <point key="canvasLocation" x="3971" y="1500"/>
         </scene>
+        <!--Init View Controller-->
+        <scene sceneID="gla-Ov-67S">
+            <objects>
+                <viewController id="rfm-D0-ioj" customClass="InitViewController" customModule="xdrip" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MbV-Gm-LxH">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-launchScreen.png" translatesAutoresizingMaskIntoConstraints="NO" id="SAf-7G-76S">
+                                <rect key="frame" x="154" y="267.66666666666669" width="120" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="UJg-od-GuU"/>
+                                    <constraint firstAttribute="height" constant="120" id="mgO-C2-d0s"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="QKQ-1O-Z44"/>
+                        <color key="backgroundColor" red="0.13333333333333333" green="0.15294117647058825" blue="0.28235294117647058" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="SAf-7G-76S" firstAttribute="centerY" secondItem="QKQ-1O-Z44" secondAttribute="centerY" multiplier="0.7" id="QFV-f7-K6f"/>
+                            <constraint firstItem="SAf-7G-76S" firstAttribute="centerX" secondItem="QKQ-1O-Z44" secondAttribute="centerX" id="XYb-hJ-jaw"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wev-uQ-Hnc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1905" y="155"/>
+        </scene>
         <!--Main Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" customClass="MainTabBarController" customModule="xdrip" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBarController" id="49e-Tb-3d3" customClass="MainTabBarController" customModule="xdrip" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" itemPositioning="centered" id="W28-zg-YXA" customClass="OnlyImageTabbar" customModule="xdrip" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -1792,6 +1820,7 @@
         <image name="ic_tab_settings" width="24" height="24"/>
         <image name="ic_tab_settings_h" width="24" height="24"/>
         <image name="link.circle" catalog="system" width="128" height="121"/>
+        <image name="logo-launchScreen.png" width="120" height="120"/>
         <image name="moon.zzz" catalog="system" width="115" height="128"/>
         <image name="scope" catalog="system" width="128" height="122"/>
         <image name="sensor14_14_alt" width="390" height="14"/>
