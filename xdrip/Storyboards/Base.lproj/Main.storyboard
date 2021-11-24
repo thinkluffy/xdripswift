@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -33,31 +33,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="428" height="843"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s4j-SV-yRR" userLabel="Titlebar">
-                                <rect key="frame" x="0.0" y="44" width="428" height="50"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c5H-TU-zpY" customClass="CalendarTitle" customModule="xdrip" customModuleProvider="target">
-                                        <rect key="frame" x="96" y="0.0" width="236" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="CuV-wY-KdW"/>
-                                </constraints>
-                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oXm-VP-XCN">
-                                <rect key="frame" x="0.0" y="94" width="428" height="749"/>
+                                <rect key="frame" x="0.0" y="44" width="428" height="799"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ha-9o-Vt6" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="428" height="1078"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="428" height="1128"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C16-NQ-F1Y" userLabel="Upper Area">
-                                                <rect key="frame" x="0.0" y="0.0" width="428" height="749"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="428" height="799"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B9A-0Y-PhM" customClass="GlucoseIndicator" customModule="xdrip" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="428" height="459"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="428" height="509"/>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="delta" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Wo-wd-80o">
                                                         <rect key="frame" x="370.66666666666669" y="14.999999999999998" width="47.333333333333314" height="26.333333333333329"/>
@@ -66,7 +52,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="We3-bN-ffR">
-                                                        <rect key="frame" x="20" y="45" width="388" height="404"/>
+                                                        <rect key="frame" x="20" y="45" width="388" height="454"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <gestureRecognizers/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="90"/>
@@ -74,7 +60,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fqv-ph-O5s" userLabel="ChartCard" customClass="Card" customModule="xdrip" customModuleProvider="target">
-                                                        <rect key="frame" x="10" y="459" width="408" height="280"/>
+                                                        <rect key="frame" x="10" y="509" width="408" height="280"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_clock" translatesAutoresizingMaskIntoConstraints="NO" id="8Ps-oB-Woc">
                                                                 <rect key="frame" x="15" y="15" width="15" height="15"/>
@@ -197,7 +183,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fOj-9i-xJA" userLabel="Lower Area">
-                                                <rect key="frame" x="0.0" y="739" width="428" height="339"/>
+                                                <rect key="frame" x="0.0" y="789" width="428" height="339"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SBD-OB-ZNl" userLabel="StatisticsCard" customClass="Card" customModule="xdrip" customModuleProvider="target">
                                                         <rect key="frame" x="10" y="10" width="408" height="315"/>
@@ -528,13 +514,10 @@
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                         <color key="backgroundColor" red="0.13333333333333333" green="0.15294117647058825" blue="0.28235294117647058" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="C16-NQ-F1Y" firstAttribute="height" secondItem="PQr-Ze-W5v" secondAttribute="height" constant="-50" id="EmT-Bm-5yI"/>
-                            <constraint firstItem="s4j-SV-yRR" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="Ets-hV-87Q"/>
-                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="s4j-SV-yRR" secondAttribute="trailing" id="ay7-Rf-zxM"/>
-                            <constraint firstItem="s4j-SV-yRR" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="b1O-MB-XSk"/>
-                            <constraint firstItem="oXm-VP-XCN" firstAttribute="top" secondItem="s4j-SV-yRR" secondAttribute="bottom" id="oI8-KU-vbm"/>
+                            <constraint firstItem="C16-NQ-F1Y" firstAttribute="height" secondItem="PQr-Ze-W5v" secondAttribute="height" id="EmT-Bm-5yI"/>
                             <constraint firstItem="oXm-VP-XCN" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="oTk-Sb-7bq"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="oXm-VP-XCN" secondAttribute="bottom" id="vw5-pg-kUY"/>
+                            <constraint firstItem="oXm-VP-XCN" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="wfm-Cj-toU"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="oXm-VP-XCN" secondAttribute="trailing" id="x9I-g0-3kV"/>
                         </constraints>
                     </view>
@@ -547,7 +530,6 @@
                         <outlet property="bgReadingsCountStatisticLabelOutlet" destination="Vdh-xP-Z0Y" id="2Y4-Nd-iox"/>
                         <outlet property="bgReadingsCountTitleLabelOutlet" destination="PZI-Ln-kfh" id="KpP-lO-Dnq"/>
                         <outlet property="cVStatisticLabelOutlet" destination="xs7-Ob-Kt4" id="AU4-kU-poL"/>
-                        <outlet property="calendarTitle" destination="c5H-TU-zpY" id="oMk-SX-Uvd"/>
                         <outlet property="calibrateToolbarButtonOutlet" destination="u4d-bZ-Kw8" id="lSA-06-2bO"/>
                         <outlet property="chartHoursSelection" destination="Z83-KX-5Hv" id="Hb5-po-bSc"/>
                         <outlet property="chartLongPressGestureRecognizerOutlet" destination="axt-dD-sCA" id="mUZ-cu-720"/>
