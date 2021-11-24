@@ -87,78 +87,10 @@ final class RootViewController: UIViewController {
     
     @IBOutlet weak var sensorCountdownOutlet: UIImageView!
     
-    @IBAction func chartPanGestureRecognizerAction(_ sender: UIPanGestureRecognizer) {
-        
-        guard let glucoseChartManager = glucoseChartManager else {return}
-        
-        glucoseChartManager.handleUIGestureRecognizer(recognizer: sender, chartOutlet: chartOutlet, completionHandler: {
-            
-            // user has been panning, if chart is panned backward, then need to set valueLabel to value of latest chartPoint shown in the chart, and minutesAgo text to timeStamp of latestChartPoint
-            if glucoseChartManager.chartIsPannedBackward {
-                
-                if let lastChartPointEarlierThanEndDate = glucoseChartManager.lastChartPointEarlierThanEndDate, let chartAxisValueDate = lastChartPointEarlierThanEndDate.x as? ChartAxisValueDate  {
-                    
-                    // valueLabel text should not be strikethrough (might still be strikethrough in case latest reading is older than 10 minutes
-                    self.valueLabelOutlet.attributedText = nil
-                    
-                    // set value to value of latest chartPoint
-                    self.valueLabelOutlet.text = lastChartPointEarlierThanEndDate.y.scalar.bgValuetoString(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
-                    
-                    // set timestamp to timestamp of latest chartPoint
-                    self.minutesLabelOutlet.text =  self.dateTimeFormatterForMinutesLabelWhenPanning.string(from: chartAxisValueDate.date)
-                    
-                    self.valueLabelOutlet.textColor = UIColor.lightGray
-                    
-                    // apply strikethrough to the BG value text format
-                    let attributedString = NSMutableAttributedString(string: self.valueLabelOutlet.text!)
-                    attributedString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSMakeRange(0, attributedString.length))
-                    
-                    self.valueLabelOutlet.attributedText = attributedString
-                    
-                    // don't show anything in diff outlet
-                    self.diffLabelOutlet.text = ""
-                    
-                    let readingValue: Double
-                    if UserDefaults.standard.bloodGlucoseUnitIsMgDl {
-                        readingValue = lastChartPointEarlierThanEndDate.y.scalar
-                        
-                    } else {
-                        readingValue = lastChartPointEarlierThanEndDate.y.scalar.mmolToMgdl()
-                    }
-                    self.glucoseIndicator.reading = (valueInMgDl: readingValue,
-                                                     showAsMgDl: UserDefaults.standard.bloodGlucoseUnitIsMgDl,
-                                                     slopeArrow: nil)
-
-                } else {
-                    self.glucoseIndicator.reading = nil
-                    self.minutesLabelOutlet.text = "--:--"
-                    
-                    // this would only be the case if there's no readings withing the shown timeframe
-                    self.updateLabelsAndChart(overrideApplicationState: false)
-                }
-                
-            } else {
-                // chart is not panned, update labels is necessary
-                self.updateLabelsAndChart(overrideApplicationState: false)
-            }
-        })
-    }
-    
-    @IBOutlet var chartPanGestureRecognizerOutlet: UIPanGestureRecognizer!
-    
-    @IBAction func chartLongPressGestureRecognizerAction(_ sender: UILongPressGestureRecognizer) {
-        
-        // this one needs trigger in case user has panned, chart is decelerating, user clicks to stop the decleration, call to handleUIGestureRecognizer will stop the deceleration
-        // there's no completionhandler needed because the call in chartPanGestureRecognizerAction to handleUIGestureRecognizer already includes a completionhandler
-        glucoseChartManager?.handleUIGestureRecognizer(recognizer: sender, chartOutlet: chartOutlet, completionHandler: nil)
-    }
-    
     @IBAction func showChartDetailsButtonClicked(_ sender: UIButton) {
         performSegue(withIdentifier: R.segue.rootViewController.chartDetails, sender: self)
     }
-    
-    @IBOutlet var chartLongPressGestureRecognizerOutlet: UILongPressGestureRecognizer!
-    
+        
     // MARK: - Constants for ApplicationManager usage
     
     /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground - create updateLabelsAndChartTimer
@@ -665,7 +597,7 @@ final class RootViewController: UIViewController {
 //		WatchCommunicator.shared.dataManager = watchManager
 		
         // initialize glucoseChartManager
-        glucoseChartManager = GlucoseChartManager(chartLongPressGestureRecognizer: chartLongPressGestureRecognizerOutlet, coreDataManager: coreDataManager)
+        glucoseChartManager = GlucoseChartManager(coreDataManager: coreDataManager)
         
         // initialize statisticsManager
         statisticsManager = StatisticsManager(coreDataManager: coreDataManager)
@@ -1024,9 +956,6 @@ final class RootViewController: UIViewController {
         sensorToolbarButtonOutlet.title = Texts_HomeView.sensor
         calibrateToolbarButtonOutlet.title = Texts_HomeView.calibrationButton
         
-        chartLongPressGestureRecognizerOutlet.delegate = self
-        chartPanGestureRecognizerOutlet.delegate = self
-                
         // at this moment, coreDataManager is not yet initialized, we're just calling here prerender and reloadChart to show the chart with x and y axis and gridlines, but without readings. The readings will be loaded once coreDataManager is setup, after which updateChart() will be called, which will initiate loading of readings from coredata
         chartOutlet.reloadChart()
         
@@ -2117,21 +2046,6 @@ extension RootViewController: UNUserNotificationCenterDelegate {
                 // it as also not an alert notification that the user clicked, there might come in other types of notifications in the future
             }
         }
-    }
-}
-
-extension RootViewController: UIGestureRecognizerDelegate {
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer.view != chartOutlet {
-            return false
-        }
-        
-        if gestureRecognizer.view != otherGestureRecognizer.view {
-            return false
-        }
-        return true
     }
 }
 

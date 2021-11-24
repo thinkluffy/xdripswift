@@ -84,10 +84,6 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="200" id="PKI-B7-jsU"/>
                                                                 </constraints>
-                                                                <connections>
-                                                                    <outletCollection property="gestureRecognizers" destination="axt-dD-sCA" appends="YES" id="Bxm-Qp-L3P"/>
-                                                                    <outletCollection property="gestureRecognizers" destination="Fi5-iu-Usk" appends="YES" id="Rkv-hK-sLH"/>
-                                                                </connections>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z83-KX-5Hv" customClass="SingleSelection" customModule="xdrip" customModuleProvider="target">
                                                                 <rect key="frame" x="10" y="240" width="388" height="30"/>
@@ -532,9 +528,7 @@
                         <outlet property="cVStatisticLabelOutlet" destination="xs7-Ob-Kt4" id="AU4-kU-poL"/>
                         <outlet property="calibrateToolbarButtonOutlet" destination="u4d-bZ-Kw8" id="lSA-06-2bO"/>
                         <outlet property="chartHoursSelection" destination="Z83-KX-5Hv" id="Hb5-po-bSc"/>
-                        <outlet property="chartLongPressGestureRecognizerOutlet" destination="axt-dD-sCA" id="mUZ-cu-720"/>
                         <outlet property="chartOutlet" destination="0nE-AX-r0w" id="ivs-se-S3b"/>
-                        <outlet property="chartPanGestureRecognizerOutlet" destination="Fi5-iu-Usk" id="zn5-wp-DKt"/>
                         <outlet property="cvTitleLabelOutlet" destination="oFX-bq-9HK" id="pbE-li-dHW"/>
                         <outlet property="diffLabelOutlet" destination="7Wo-wd-80o" id="nnn-w9-1sX"/>
                         <outlet property="glucoseIndicator" destination="B9A-0Y-PhM" id="XSc-Au-W3T"/>
@@ -564,16 +558,6 @@
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.90000000000000002" id="tYH-fG-Lky">
                     <connections>
                         <action selector="valueLabelLongPressGestureRecognizerAction:" destination="9pv-A4-QxB" id="6V0-gW-Q4f"/>
-                    </connections>
-                </pongPressGestureRecognizer>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="Fi5-iu-Usk">
-                    <connections>
-                        <action selector="chartPanGestureRecognizerAction:" destination="9pv-A4-QxB" id="NUY-gV-rdx"/>
-                    </connections>
-                </panGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="axt-dD-sCA">
-                    <connections>
-                        <action selector="chartLongPressGestureRecognizerAction:" destination="9pv-A4-QxB" id="6qG-44-Nd4"/>
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>

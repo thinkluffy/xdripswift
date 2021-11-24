@@ -118,13 +118,10 @@ public final class GlucoseChartManager {
     
     /// - parameters:
     ///     - chartLongPressGestureRecognizer : defined here as parameter so that this class can handle the config of the recognizer
-    init(chartLongPressGestureRecognizer: UILongPressGestureRecognizer, coreDataManager: CoreDataManager) {
+    init(coreDataManager: CoreDataManager) {
         
         // set coreDataManager and bgReadingsAccessor
         self.coreDataManager = coreDataManager
-        
-        // for tapping the chart, we're using UILongPressGestureRecognizer because UITapGestureRecognizer doesn't react on touch down. With UILongPressGestureRecognizer and minimumPressDuration set to 0, we get a trigger as soon as the chart is touched
-        chartLongPressGestureRecognizer.minimumPressDuration = 0
         
         // initialize enddate
         endDate = Date()
@@ -654,7 +651,6 @@ public final class GlucoseChartManager {
             settings: data().chartSettings,
             layers: layers.compactMap { $0 }
         )
-        chart.delegate = self
         return chart
     }
     
@@ -974,26 +970,6 @@ public final class GlucoseChartManager {
             } else {
                 return ConstantsGlucoseChart.absoluteMinimumChartValueInMgdl.mgdlToMmol(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
             }
-            
         }
-
     }
-    
-}
- 
-extension GlucoseChartManager: ChartDelegate {
-    
-    public func onZoom(scaleX: CGFloat, scaleY: CGFloat, deltaX: CGFloat, deltaY: CGFloat, centerX: CGFloat, centerY: CGFloat, isGesture: Bool) {
-        
-    }
-    
-    public func onPan(transX: CGFloat, transY: CGFloat, deltaX: CGFloat, deltaY: CGFloat, isGesture: Bool, isDeceleration: Bool) {
-        
-    }
-    
-    public func onTap(_ models: [TappedChartPointLayerModels<ChartPoint>]) {
-        print("====> onTap, \(models.count)")
-    }
-    
-    
 }
