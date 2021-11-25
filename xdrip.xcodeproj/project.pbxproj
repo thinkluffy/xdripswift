@@ -17,6 +17,8 @@
 		4E01B1452742572300D00935 /* ChartDetailsContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E01B1442742572300D00935 /* ChartDetailsContract.swift */; };
 		4E01B1472742575400D00935 /* ChartDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E01B1462742575400D00935 /* ChartDetailsPresenter.swift */; };
 		4E1CFF34274E475A0020F0F1 /* InitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CFF33274E475A0020F0F1 /* InitViewController.swift */; };
+		4E1CFF36274F89320020F0F1 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CFF35274F89320020F0F1 /* StatisticsView.swift */; };
+		4E1CFF38274F89420020F0F1 /* StatisticsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E1CFF37274F89420020F0F1 /* StatisticsView.xib */; };
 		4E2C95A627367B540073D692 /* SingleSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95A527367B540073D692 /* SingleSelection.swift */; };
 		4E2C95A827375E110073D692 /* OnlyImageTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95A727375E110073D692 /* OnlyImageTabbar.swift */; };
 		4E2C95AA27375E570073D692 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95A927375E570073D692 /* Card.swift */; };
@@ -677,6 +679,8 @@
 		4E01B1442742572300D00935 /* ChartDetailsContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDetailsContract.swift; sourceTree = "<group>"; };
 		4E01B1462742575400D00935 /* ChartDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDetailsPresenter.swift; sourceTree = "<group>"; };
 		4E1CFF33274E475A0020F0F1 /* InitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitViewController.swift; sourceTree = "<group>"; };
+		4E1CFF35274F89320020F0F1 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
+		4E1CFF37274F89420020F0F1 /* StatisticsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatisticsView.xib; sourceTree = "<group>"; };
 		4E2C95A527367B540073D692 /* SingleSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSelection.swift; sourceTree = "<group>"; };
 		4E2C95A727375E110073D692 /* OnlyImageTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlyImageTabbar.swift; sourceTree = "<group>"; };
 		4E2C95A927375E570073D692 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
@@ -2582,6 +2586,8 @@
 				4E2C95AB27376D770073D692 /* GlucoseIndicator.swift */,
 				4E9D79D8273E695C00B666C5 /* CalendarTitle.swift */,
 				4E2C95AD274A54FA0073D692 /* WholeDayChart.swift */,
+				4E1CFF35274F89320020F0F1 /* StatisticsView.swift */,
+				4E1CFF37274F89420020F0F1 /* StatisticsView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3419,6 +3425,7 @@
 				F824378E24CB7A9900BED341 /* Win_Gain.caf in Resources */,
 				F824378624CB7A9900BED341 /* Alien_Siren.caf in Resources */,
 				F8B3A7CF226CC0B7004BA588 /* shorthigh4.mp3 in Resources */,
+				4E1CFF38274F89420020F0F1 /* StatisticsView.xib in Resources */,
 				F824378224CB7A9900BED341 /* Cartoon_Villain_Horns.caf in Resources */,
 				F824379724CB7A9900BED341 /* Siri_Transmitter_Battery_Low.caf in Resources */,
 				F82437AE24CB7A9900BED341 /* Cell_Phone_Ring_Tone.caf in Resources */,
@@ -3751,6 +3758,7 @@
 				F8AC425E21ADEBD60078C348 /* AppDelegate.swift in Sources */,
 				F8A2BC0825DB09BE001D1E78 /* Atom+CoreDataProperties.swift in Sources */,
 				F804870D2336D90200EBDDB7 /* M5Stack+CoreDataProperties.swift in Sources */,
+				4E1CFF36274F89320020F0F1 /* StatisticsView.swift in Sources */,
 				F85FF3CD252F9FD7004E6FF1 /* SnoozeParameters+CoreDataProperties.swift in Sources */,
 				F8F9722F23A5915900C3F17D /* M5StackPacket.swift in Sources */,
 				F821CF8E22AB090C005C1E43 /* DatePickerViewController.swift in Sources */,

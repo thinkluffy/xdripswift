@@ -1795,6 +1795,26 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
+  /// This `R.nib` struct is generated, and contains static references to 1 nibs.
+  struct nib {
+    /// Nib `StatisticsView`.
+    static let statisticsView = _R.nib._StatisticsView()
+
+    #if os(iOS) || os(tvOS)
+    /// `UINib(name: "StatisticsView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.statisticsView) instead")
+    static func statisticsView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.statisticsView)
+    }
+    #endif
+
+    static func statisticsView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.statisticsView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+
+    fileprivate init() {}
+  }
+
   /// This `R.reuseIdentifier` struct is generated, and contains static references to 1 reuse identifiers.
   struct reuseIdentifier {
     /// Reuse identifier `SettingsCell`.
@@ -8496,6 +8516,23 @@ struct _R: Rswift.Validatable {
     try storyboard.validate()
     #endif
   }
+
+  #if os(iOS) || os(tvOS)
+  struct nib {
+    struct _StatisticsView: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "StatisticsView"
+
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+
+      fileprivate init() {}
+    }
+
+    fileprivate init() {}
+  }
+  #endif
 
   #if os(iOS) || os(tvOS)
   struct storyboard: Rswift.Validatable {
