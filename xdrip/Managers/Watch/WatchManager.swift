@@ -38,13 +38,10 @@ class WatchManager: NSObject {
     /// process new readings
     ///     - lastConnectionStatusChangeTimeStamp : when was the last transmitter dis/reconnect - if nil then  1 1 1970 is used
     public func processNewReading(lastConnectionStatusChangeTimeStamp: Date?) {
-        
         // check if createCalenderEvent is enabled in the settings and if so create calender event
         if UserDefaults.standard.createCalendarEvent  {
             createCalendarEvent(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp)
         }
-        
-        sendDataToWatch()
     }
     
     // MARK: - private functions
@@ -175,26 +172,5 @@ class WatchManager: NSObject {
                 }
             }
         }
-    }
- 
-    private func sendDataToWatch() {
-        WatchManager.log.d("==> sendDataToWatch")
-        
-        guard WCSession.isSupported() else {
-            WatchManager.log.i("WCSession is not supported")
-            return
-        }
-        
-        // get 2 last Readings, with a calculatedValue
-        let lastReading = bgReadingsAccessor.get2LatestBgReadings(minimumTimeIntervalInMinutes: 1)
-        
-        // there should be at least one reading
-        guard lastReading.count > 0 else {
-            WatchManager.log.i("in sendDataToWatch, there are no new readings to process")
-            return
-        }
-        
-        WatchManager.log.d("==> currentValue: \(lastReading[0].calculatedValue)")
-        WCSession.default.transferUserInfo(["key0" : "value0"])
     }
 }
