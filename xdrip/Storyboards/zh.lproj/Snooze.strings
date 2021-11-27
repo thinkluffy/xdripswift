@@ -3,7 +3,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 /// row text for overview snooze. Not snoozed alarm
-"not_snoozed" = "Not snoozed";
+"not_snoozed" = "没有延迟";
 
 /// row text for overview snooze. Snoozed alarm, until .. followed by timestamp
-"snoozed_until" = "Snoozed till";
+"snoozed_until" = "延迟到";

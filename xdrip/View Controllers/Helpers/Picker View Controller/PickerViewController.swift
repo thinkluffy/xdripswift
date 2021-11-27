@@ -5,34 +5,34 @@ final class PickerViewController : UIViewController {
     //MARK: - Properties
 
     /// maintitle to use for pickerview
-    var mainTitle:String?
+    var mainTitle: String?
     
     /// subtitle to use for pickerview
-    var subTitle:String?
+    var subTitle: String?
     
     /// will have the soure data in the pickerview
-    var dataSource:[String] = []
+    var dataSource: [String] = []
     
     /// selectedIndex, initial value can be set by parent uiviewcontroller
-    var selectedRow:Int?
+    var selectedRow: Int?
     
     /// name of button that allows user to select, ie the "Ok" button
-    var addButtonTitle:String?
+    var addButtonTitle: String?
     
     /// name of button that allows user to cancel, ie the "Cancel" button
-    var cancelButtonTitle:String?
+    var cancelButtonTitle: String?
     
     // handler to executed when user clicks actionButton
-    var addHandler:((_ index: Int) -> Void) = {_ in fatalError("in PickerViewController, actionHandler is not initialized")}
+    var addHandler: ((_ index: Int) -> Void) = {_ in fatalError("in PickerViewController, actionHandler is not initialized")}
     
     /// handler to execute when user clicks cancelHandler
-    var cancelHandler:(() -> Void)?
+    var cancelHandler: (() -> Void)?
     
     /// will be called when user change selection before clicking ok or cancel button
-    var didSelectRowHandler:((Int) -> Void)?
+    var didSelectRowHandler: ((Int) -> Void)?
     
     /// priority to be applied
-    private var priority:PickerViewPriority?
+    private var priority: PickerViewPriority?
     
     //MARK: Actions
     
@@ -50,7 +50,6 @@ final class PickerViewController : UIViewController {
         
         // remove the uiviewcontroller
         self.dismiss(animated: true, completion: nil)
-
     }
     
     //MARK: Outlets
@@ -72,11 +71,6 @@ final class PickerViewController : UIViewController {
     
     // MARK: - View Life Cycle
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -86,7 +80,6 @@ final class PickerViewController : UIViewController {
     // MARK: - View Methods
     
     private func setupView() {
-
         //data source
         pickerView.dataSource = self
         
@@ -96,6 +89,7 @@ final class PickerViewController : UIViewController {
         //set actionTitle
         if let addButtonTitle = addButtonTitle {
             addButton.setTitle(addButtonTitle, for: .normal)
+            
         } else {
             addButton.setTitle(Texts_Common.Ok, for: .normal)
         }
@@ -103,6 +97,7 @@ final class PickerViewController : UIViewController {
         //set cancelTitle
         if let cancelButtonTitle = cancelButtonTitle {
             cancelButton.setTitle(cancelButtonTitle, for: .normal)
+            
         } else {
             cancelButton.setTitle(Texts_Common.Cancel, for: .normal)
         }
@@ -115,6 +110,7 @@ final class PickerViewController : UIViewController {
         // set picker maintitle
         if let mainTitle = mainTitle {
             pickerViewMainTitle.text = mainTitle
+            
         } else {
             pickerViewMainTitle.text = ""
         }
@@ -132,7 +128,7 @@ final class PickerViewController : UIViewController {
             case .normal:
                 break
             case .high:
-                pickerViewMainTitle.textColor = UIColor.red
+                pickerViewMainTitle.textColor = ConstantsUI.accentRed
             }
         }
     }
@@ -143,10 +139,9 @@ final class PickerViewController : UIViewController {
     /// - parameters:
     ///     - pickerViewData : data to use in the pickerviewcontroller
     ///     - parentController : the parentController to which the pickerviewcontroller will be added
-    public static func displayPickerViewController(pickerViewData:PickerViewData, parentController:UIViewController) {
-        
+    static func displayPickerViewController(pickerViewData: PickerViewData, parentController: UIViewController) {
         let pickerViewController = UIStoryboard.main.instantiateViewController(withIdentifier: "PickerViewController") as! PickerViewController
-        pickerViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        pickerViewController.modalPresentationStyle = UIModalPresentationStyle.popover
         
         //configure pickerViewController
         pickerViewController.mainTitle = pickerViewData.mainTitle != nil ? pickerViewData.mainTitle:""
@@ -168,13 +163,10 @@ final class PickerViewController : UIViewController {
         
         // present it
         parentController.present(pickerViewController, animated: true)
-
     }
-
-
 }
 
-extension PickerViewController:UIPickerViewDelegate {
+extension PickerViewController: UIPickerViewDelegate {
     
     // MARK: - UIPickerViewDelegate protocol Methods
     
@@ -183,7 +175,6 @@ extension PickerViewController:UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
         // set selectedRow to row, value will be used when pickerview is closed
         selectedRow = row
         
@@ -194,7 +185,7 @@ extension PickerViewController:UIPickerViewDelegate {
     }
 }
 
-extension PickerViewController:UIPickerViewDataSource {
+extension PickerViewController: UIPickerViewDataSource {
     
     // MARK: - UIPickerViewDataSource protocol Methods
     
@@ -205,5 +196,4 @@ extension PickerViewController:UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return dataSource.count
     }
-    
 }

@@ -31,7 +31,7 @@
 "on" = "On";
 
 /// red
-"red" = "red";
+"red" = "红色";
 
 /// 
 "off" = "Off";
@@ -40,13 +40,13 @@
 "sensorStatus" = "Sensor status:";
 
 /// yellow
-"yellow" = "yellow";
+"yellow" = "黄色";
 
 /// 
-"delete" = "Delete";
+"delete" = "删除";
 
 /// literally no, without capital
-"no" = "No";
+"no" = "否";
 
 /// green
 "green" = "green";
@@ -55,10 +55,10 @@
 "name" = "Name:";
 
 /// literally yes, without capital
-"yes" = "Yes";
+"yes" = "是";
 
 /// literally 'Cancel'
-"common_cancel" = "Cancel";
+"common_cancel" = "取消";
 
 /// white
 "white" = "white";
@@ -73,7 +73,7 @@
 "unknown" = "Unknown";
 
 /// literally 'OK'
-"common_Ok" = "OK";
+"common_Ok" = "好的";
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////   Translation needed - remove this header after translation                       /////
@@ -99,13 +99,13 @@
 "common_statistics_cv" = "CV";
 
 "common_statistics_bgReadingsCount" = "血糖读数";
-"common_statistics_stdDeviation" = "标准偏差";
+"common_statistics_stdDeviation" = "SD";
 
 /// the word low
 "common_statistics_low" = "低";
 
 /// literal translation needed
-"common_days" = "days";
+"common_days" = "天";
 
 /// the word average
 "common_statistics_average" = "平均血糖";

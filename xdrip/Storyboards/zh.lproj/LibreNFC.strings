@@ -4,7 +4,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 /// after scanning NFC, scan complete message
-"scanComplete" = "Scan Complete";
+"scanComplete" = "扫描完成";
 
 /// when NFC scanning is started, this message will appear
 "holdTopOfIphoneNearSensor" = "Hold the top of your iOS device near the sensor to scan";
