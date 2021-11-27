@@ -19,13 +19,18 @@ class WatchManager: NSObject {
     /// timestamp of last reading for which calendar event is created, initially set to 1 jan 1970
     private var timeStampLastProcessedReading = Date(timeIntervalSince1970: 0.0)
     
+    static let shared = WatchManager()
+    
+    private override init() {
+    }
+    
     // MARK: - public functions
     
-	public func getLatest() -> BgReading? {
+    func getLatest() -> BgReading? {
 		return bgReadingsAccessor.last(forSensor: nil)
 	}
 	
-	public func getRecently(_ hours: Int) -> [BgReading] {
+    func getRecently(_ hours: Int) -> [BgReading] {
 		return bgReadingsAccessor
 			.getLatestBgReadings(
 				limit: nil,
@@ -37,7 +42,7 @@ class WatchManager: NSObject {
 	
     /// process new readings
     ///     - lastConnectionStatusChangeTimeStamp : when was the last transmitter dis/reconnect - if nil then  1 1 1970 is used
-    public func processNewReading(lastConnectionStatusChangeTimeStamp: Date?) {
+    func processNewReading(lastConnectionStatusChangeTimeStamp: Date?) {
         // check if createCalenderEvent is enabled in the settings and if so create calender event
         if UserDefaults.standard.createCalendarEvent  {
             createCalendarEvent(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp)
@@ -81,7 +86,8 @@ class WatchManager: NSObject {
         // latest reading should be less than 5 minutes old
         guard abs(lastReading[0].timeStamp.timeIntervalSinceNow) < 5 * 60 else {
             WatchManager.log.i("in createCalendarEvent, the latest reading is older than 5 minutes")
-            return        }
+            return
+        }
         
         // time to delete any existing events
         deleteAllEvents(in: calendar)
@@ -98,14 +104,11 @@ class WatchManager: NSObject {
         
         // add delta if needed
         if UserDefaults.standard.displayDeltaInCalendarEvent && lastReading.count > 1 {
-            
             title = title + " " + lastReading[0].unitizedDeltaString(previousBgReading: lastReading[1], showUnit: UserDefaults.standard.displayUnitInCalendarEvent, highGranularity: true, mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
             
         } else if UserDefaults.standard.displayUnitInCalendarEvent {
-            
             // add unit if needed
             title = title + " " + (UserDefaults.standard.bloodGlucoseUnitIsMgDl ? Texts_Common.mgdl : Texts_Common.mmol)
-            
         }
         
         // create an event now
@@ -116,8 +119,7 @@ class WatchManager: NSObject {
         event.endDate = Date(timeIntervalSinceNow: 60 * 10)
         event.calendar = calendar
         
-        do{
-            
+        do {
             try eventStore.save(event, span: .thisEvent)
             
             timeStampLastProcessedReading = lastReading[0].timeStamp
@@ -125,7 +127,6 @@ class WatchManager: NSObject {
         } catch let error {
             WatchManager.log.e("in createCalendarEvent, error while saving : \(error.localizedDescription)")
         }
-
     }
     
     /// - gets all calendars on the device, if one of them has a title that matches the name stored in  UserDefaults.standard.calenderId, then it returns that calendar.
@@ -133,18 +134,14 @@ class WatchManager: NSObject {
     /// - also if currently there's no value in the UserDefaults, then value will be assigned here to UserDefaults.standard.calenderId
     /// - nil as return value should normally not happen, because there should always be at least one calendar on the device
     private func getCalendar() -> EKCalendar? {
-        
         // get calendar title stored in the settings and compare to list
         if let calendarIdInUserDefaults = UserDefaults.standard.calenderId {
-            
             // get all calendars, if there's one having the same title return that one
             for calendar in eventStore.calendars(for: .event) {
-                
                 if calendar.title == calendarIdInUserDefaults {
                     return calendar
                 }
             }
-            
         }
         
         // so there's no value in UserDefaults.standard.calenderId or there isn't a calendar that has a title as stored in UserDefaults.standard.calenderId
@@ -152,23 +149,26 @@ class WatchManager: NSObject {
         UserDefaults.standard.calenderId = eventStore.defaultCalendarForNewEvents?.title
         
         return eventStore.defaultCalendarForNewEvents
-
     }
     
     // deletes all xdrip events in the calendar, for the last 24 hours
     private func deleteAllEvents(in calendar: EKCalendar) {
-        let predicate = eventStore.predicateForEvents(withStart: Date(timeIntervalSinceNow: -24*3600), end: Date(), calendars: [calendar])
+        let predicate = eventStore.predicateForEvents(withStart: Date(timeIntervalSinceNow: -24*3600),
+                                                      end: Date(), calendars: [calendar])
         
         let events = eventStore.events(matching: predicate)
         
         for event in events {
-            if let notes = event.notes {
-                if notes.contains(find: ConstantsWatch.textInCreatedEvent) {
-                    do{
-                        try eventStore.remove(event, span: .thisEvent)
-                    } catch let error {
-                        WatchManager.log.e("in deleteAllEvents, error while removing : \(error.localizedDescription)")
-                    }
+            guard let notes = event.notes else {
+                continue
+            }
+            
+            if notes.contains(find: ConstantsWatch.textInCreatedEvent) {
+                do {
+                    try eventStore.remove(event, span: .thisEvent)
+                    
+                } catch let error {
+                    WatchManager.log.e("in deleteAllEvents, error while removing : \(error.localizedDescription)")
                 }
             }
         }

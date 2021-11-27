@@ -11,6 +11,8 @@ import PieCharts
 /// viewcontroller for the home screen
 final class RootViewController: UIViewController {
     
+    private static let log = Log(type: RootViewController.self)
+    
     // MARK: - Properties - Outlets and Actions for buttons and labels in home screen
     
     @IBOutlet weak var preSnoozeToolbarButtonOutlet: UIBarButtonItem!
@@ -134,10 +136,7 @@ final class RootViewController: UIViewController {
     
     /// dexcomShareUploadManager instance
     private var dexcomShareUploadManager:DexcomShareUploadManager?
-    
-    /// WatchManager instance
-    private var watchManager: WatchManager?
-    
+        
     /// healthkit manager instance
     private var healthKitManager: HealthKitManager?
     
@@ -213,7 +212,7 @@ final class RootViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+                
         // viewWillAppear when user switches eg from Settings Tab to Home Tab - latest reading value needs to be shown on the view, and also update minutes ago etc.
         updateLabelsAndChart(overrideApplicationState: true)
         
@@ -394,15 +393,13 @@ final class RootViewController: UIViewController {
         
         // reinitialise glucose chart and also to update labels and chart
         ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: applicationManagerKeyUpdateLabelsAndChart, closure: {
-            
+                        
             self.updateLabelsAndChart(overrideApplicationState: true)
-            
             
             self.updateSensorCountdown()
             
             // update statistics related outlets
             self.updateStatistics(animatePieChart: false)
-            
         })
     }
     
@@ -559,10 +556,6 @@ final class RootViewController: UIViewController {
         // setup alertmanager
         alertManager = AlertManager(soundPlayer: soundPlayer)
         
-        // setup watchmanager
-        watchManager = WatchManager()
-//		WatchCommunicator.shared.dataManager = watchManager
-		
         // initialize glucoseChartManager
         glucoseChartManager = GlucoseChartManager()
         
@@ -577,7 +570,6 @@ final class RootViewController: UIViewController {
         presenter.setup(bgReadingsAccessor: bgReadingsAccessor,
                         healthKitManager: healthKitManager!,
                         bgReadingSpeaker: bgReadingSpeaker!,
-                        watchManager: watchManager!,
                         bluetoothPeripheralManager: bluetoothPeripheralManager!,
                         loopManager: loopManager!)
     }
@@ -818,7 +810,7 @@ final class RootViewController: UIViewController {
                 
                 bluetoothPeripheralManager?.sendLatestReading()
                 
-                watchManager?.processNewReading(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp())
+                WatchManager.shared.processNewReading(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp())
                 
                 loopManager?.share()
                 
@@ -875,7 +867,9 @@ final class RootViewController: UIViewController {
                 
             }
             
-        case UserDefaults.Key.multipleAppBadgeValueWith10, UserDefaults.Key.showReadingInAppBadge, UserDefaults.Key.bloodGlucoseUnitIsMgDl:
+        case UserDefaults.Key.multipleAppBadgeValueWith10,
+            UserDefaults.Key.showReadingInAppBadge,
+            UserDefaults.Key.bloodGlucoseUnitIsMgDl:
             
             // if showReadingInAppBadge = false, means user set it from true to false
             // set applicationIconBadgeNumber to 0. This will cause removal of the badge counter, but als removal of any existing notification on the screen
@@ -888,7 +882,10 @@ final class RootViewController: UIViewController {
             // this will trigger update of app badge, will also create notification, but as app is most likely in foreground, this won't show up
             createBgReadingNotificationAndSetAppBadge(overrideShowReadingInNotification: true)
             
-        case UserDefaults.Key.urgentLowMarkValue, UserDefaults.Key.lowMarkValue, UserDefaults.Key.highMarkValue, UserDefaults.Key.urgentHighMarkValue:
+        case UserDefaults.Key.urgentLowMarkValue,
+            UserDefaults.Key.lowMarkValue,
+            UserDefaults.Key.highMarkValue,
+            UserDefaults.Key.urgentHighMarkValue:
             
             // redraw chart is necessary
             updateChartWithResetEndDate()
@@ -962,8 +959,10 @@ final class RootViewController: UIViewController {
     
     /// will update the chart with endDate = currentDate
     private func updateChartWithResetEndDate() {
-        
-        glucoseChartManager?.updateChartPoints(endDate: Date(), startDate: nil, chartOutlet: chartOutlet, completionHandler: nil)
+        glucoseChartManager?.updateChartPoints(endDate: Date(),
+                                               startDate: nil,
+                                               chartOutlet: chartOutlet,
+                                               completionHandler: nil)
         
     }
     
@@ -1125,7 +1124,7 @@ final class RootViewController: UIViewController {
                 self.bluetoothPeripheralManager?.sendLatestReading()
                 
                 // watchManager should process new reading
-                self.watchManager?.processNewReading(lastConnectionStatusChangeTimeStamp: self.lastConnectionStatusChangeTimeStamp())
+                WatchManager.shared.processNewReading(lastConnectionStatusChangeTimeStamp: self.lastConnectionStatusChangeTimeStamp())
                 
                 // send also to loopmanager, not interesting for loop probably, but the data is also used for today widget
                 self.loopManager?.share()

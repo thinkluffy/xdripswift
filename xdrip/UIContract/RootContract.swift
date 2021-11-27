@@ -19,7 +19,6 @@ protocol RootP: MVPP {
     func setup(bgReadingsAccessor: BgReadingsAccessor,
                healthKitManager: HealthKitManager,
                bgReadingSpeaker: BGReadingSpeaker,
-               watchManager: WatchManager,
                bluetoothPeripheralManager: BluetoothPeripheralManager,
                loopManager: LoopManager)
 }

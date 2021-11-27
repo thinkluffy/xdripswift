@@ -29,15 +29,15 @@ class WatchCommunicator: NSObject {
 	
     private static let log = Log(type: WatchCommunicator.self)
     
-	static func register() {
-		_ = self.shared
-	}
-	
-	static let shared = WatchCommunicator()
-	
+    static let shared = WatchCommunicator()
+
+    static func register() {
+        _ = self.shared
+    }
+    
 	private let session = WCSession.default
 	
-	private let watchManager = WatchManager()
+    private let watchManager = WatchManager.shared
 	
 	fileprivate override init() {
 		super.init()

@@ -17,11 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Log.setup(level: UserDefaults.standard.OSLogEnabled ? .verbose : .warning)
 
         trace("in didFinishLaunchingWithOptions", log: log, category: ConstantsLog.categoryAppDelegate, type: .info)
+        		
+        WatchCommunicator.register()
         
-		WatchCommunicator.register()
-		
         return true
-        
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

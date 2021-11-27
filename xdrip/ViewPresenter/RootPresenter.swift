@@ -17,7 +17,6 @@ class RootPresenter: RootP {
     private var bgReadingsAccessor: BgReadingsAccessor?
     private var healthKitManager: HealthKitManager?
     private var bgReadingSpeaker: BGReadingSpeaker?
-    private var watchManager: WatchManager?
     private var bluetoothPeripheralManager: BluetoothPeripheralManager?
     private var loopManager: LoopManager?
     
@@ -30,13 +29,11 @@ class RootPresenter: RootP {
     func setup(bgReadingsAccessor: BgReadingsAccessor,
                healthKitManager: HealthKitManager,
                bgReadingSpeaker: BGReadingSpeaker,
-               watchManager: WatchManager,
                bluetoothPeripheralManager: BluetoothPeripheralManager,
                loopManager: LoopManager) {
         self.bgReadingsAccessor = bgReadingsAccessor
         self.healthKitManager = healthKitManager
         self.bgReadingSpeaker = bgReadingSpeaker
-        self.watchManager = watchManager
         self.bluetoothPeripheralManager = bluetoothPeripheralManager
         self.loopManager = loopManager
         
@@ -102,7 +99,7 @@ extension RootPresenter: NightScoutFollowerDelegate {
             bluetoothPeripheralManager?.sendLatestReading()
             
             // ask watchManager to process new reading, ignore last connection change timestamp because this is follower mode, there is no connection to a transmitter
-            watchManager?.processNewReading(lastConnectionStatusChangeTimeStamp: nil)
+            WatchManager.shared.processNewReading(lastConnectionStatusChangeTimeStamp: nil)
             
             // send also to loopmanager, not interesting for loop probably, but the data is also used for today widget
             loopManager?.share()
