@@ -22,14 +22,8 @@ class ChartDetailsViewController: UIViewController {
     @IBOutlet weak var chartView: ScatterChartView!
 
     private var presenter: ChartDetailsP!
-
-    private static let ChartHoursIdH1 = 0
-    private static let ChartHoursIdH3 = 1
-    private static let ChartHoursIdH6 = 2
-    private static let ChartHoursIdH12 = 3
-    private static let ChartHoursIdH24 = 4
     
-    private var selectedChartHoursId = ChartDetailsViewController.ChartHoursIdH3
+    private var selectedChartHoursId = ChartHours.H3
     
     private lazy var exitButton: UIButton = {
         let view = UIButton()
@@ -112,11 +106,11 @@ class ChartDetailsViewController: UIViewController {
         calendarTitle.delegate = self
 
         var selectionItems = [SingleSelectionItem]()
-        selectionItems.append(SingleSelectionItem(id: ChartDetailsViewController.ChartHoursIdH1, title: "1H"))
-        selectionItems.append(SingleSelectionItem(id: ChartDetailsViewController.ChartHoursIdH3, title: "3H"))
-        selectionItems.append(SingleSelectionItem(id: ChartDetailsViewController.ChartHoursIdH6, title: "6H"))
-        selectionItems.append(SingleSelectionItem(id: ChartDetailsViewController.ChartHoursIdH12, title: "12H"))
-        selectionItems.append(SingleSelectionItem(id: ChartDetailsViewController.ChartHoursIdH24, title: "24H"))
+        selectionItems.append(SingleSelectionItem(id: ChartHours.H1, title: "1H"))
+        selectionItems.append(SingleSelectionItem(id: ChartHours.H3, title: "3H"))
+        selectionItems.append(SingleSelectionItem(id: ChartHours.H6, title: "6H"))
+        selectionItems.append(SingleSelectionItem(id: ChartHours.H12, title: "12H"))
+        selectionItems.append(SingleSelectionItem(id: ChartHours.H24, title: "24H"))
 
         chartHoursSelection.show(items: selectionItems)
         chartHoursSelection.delegate = self
@@ -124,17 +118,17 @@ class ChartDetailsViewController: UIViewController {
         switch UserDefaults.standard.chartWidthInHours
         {
         case 1:
-            selectedChartHoursId = ChartDetailsViewController.ChartHoursIdH1
+            selectedChartHoursId = ChartHours.H1
         case 3:
-            selectedChartHoursId = ChartDetailsViewController.ChartHoursIdH3
+            selectedChartHoursId = ChartHours.H3
         case 6:
-            selectedChartHoursId = ChartDetailsViewController.ChartHoursIdH6
+            selectedChartHoursId = ChartHours.H6
         case 12:
-            selectedChartHoursId = ChartDetailsViewController.ChartHoursIdH12
+            selectedChartHoursId = ChartHours.H12
         case 24:
-            selectedChartHoursId = ChartDetailsViewController.ChartHoursIdH24
+            selectedChartHoursId = ChartHours.H24
         default:
-            selectedChartHoursId = ChartDetailsViewController.ChartHoursIdH6
+            selectedChartHoursId = ChartHours.H6
         }
         chartHoursSelection.select(id: selectedChartHoursId, triggerCallback: false)
 
@@ -172,7 +166,7 @@ class ChartDetailsViewController: UIViewController {
         xAxis.gridLineWidth = 2
         xAxis.axisLineColor = ConstantsUI.mainBackgroundColor
         xAxis.axisLineWidth = 2
-        if selectedChartHoursId == ChartDetailsViewController.ChartHoursIdH24 {
+        if selectedChartHoursId == ChartHours.H24 {
             xAxis.granularity = Date.hourInSeconds * 3 // 2 hours do not work, why?
             
         } else {
@@ -348,15 +342,15 @@ extension ChartDetailsViewController: ChartDetailsV {
     private func calChartHoursSeconds(chartHoursId: Int) -> Double {
         let xRange: Double
         switch chartHoursId {
-        case ChartDetailsViewController.ChartHoursIdH1:
+        case ChartHours.H1:
             xRange = Date.hourInSeconds
-        case ChartDetailsViewController.ChartHoursIdH3:
+        case ChartHours.H3:
             xRange = Date.hourInSeconds * 3
-        case ChartDetailsViewController.ChartHoursIdH6:
+        case ChartHours.H6:
             xRange = Date.hourInSeconds * 6
-        case ChartDetailsViewController.ChartHoursIdH12:
+        case ChartHours.H12:
             xRange = Date.hourInSeconds * 12
-        case ChartDetailsViewController.ChartHoursIdH24:
+        case ChartHours.H24:
             xRange = Date.hourInSeconds * 24
         default:
             xRange = Date.hourInSeconds * 6
@@ -446,7 +440,7 @@ extension ChartDetailsViewController: SingleSelectionDelegate {
         let xRange = calChartHoursSeconds(chartHoursId: selectedChartHoursId)
         chartView.setVisibleXRange(minXRange: xRange, maxXRange: xRange)
         
-        if selectedChartHoursId == ChartDetailsViewController.ChartHoursIdH24 {
+        if selectedChartHoursId == ChartHours.H24 {
             chartView.xAxis.granularity = Date.hourInSeconds * 3 // 2 hours do not work, why?
             
         } else {

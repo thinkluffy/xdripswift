@@ -891,7 +891,7 @@ final class RootViewController: UIViewController {
         // at this moment, coreDataManager is not yet initialized, we're just calling here prerender and reloadChart to show the chart with x and y axis and gridlines, but without readings. The readings will be loaded once coreDataManager is setup, after which updateChart() will be called, which will initiate loading of readings from coredata
 //        chartOutlet.reloadChart()
         
-        glucoseChart.chartHoursId = selectedChartHoursId
+        glucoseChart.chartHours = selectedChartHoursId
 
         valueLabelOutlet.isHidden = true
     }
@@ -1902,7 +1902,22 @@ extension RootViewController: SingleSelectionDelegate {
     func singleSelectionItemDidSelect(_ singleSelecton: SingleSelection, item: SingleSelectionItem) {
         if singleSelecton == chartHoursSelection {
             selectedChartHoursId = item.id
-            glucoseChart.chartHoursId = selectedChartHoursId
+            switch item.id
+            {
+            case ChartHours.H1:
+                UserDefaults.standard.chartWidthInHours = 1
+            case ChartHours.H3:
+                UserDefaults.standard.chartWidthInHours = 3
+            case ChartHours.H6:
+                UserDefaults.standard.chartWidthInHours = 6
+            case ChartHours.H12:
+                UserDefaults.standard.chartWidthInHours = 12
+            case ChartHours.H24:
+                UserDefaults.standard.chartWidthInHours = 24
+            default:
+                break
+            }
+            glucoseChart.chartHours = item.id
             
         } else if singleSelecton == statisticsDaysSelection {
             switch item.id

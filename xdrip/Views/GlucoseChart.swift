@@ -15,7 +15,7 @@ class GlucoseChart: UIView {
     
     private lazy var chartView = ScatterChartView()
     
-    var chartHoursId = ChartHours.H3 {
+    var chartHours = ChartHours.H3 {
         didSet {
             applyChartHours()
         }
@@ -61,8 +61,8 @@ class GlucoseChart: UIView {
         xAxis.gridLineWidth = 2
         xAxis.axisLineColor = ConstantsUI.mainBackgroundColor
         xAxis.axisLineWidth = 2
-        if chartHoursId == ChartHours.H24 ||
-            chartHoursId == ChartHours.H12 {
+        if chartHours == ChartHours.H24 ||
+            chartHours == ChartHours.H12 {
             xAxis.granularity = Date.hourInSeconds * 3 // 2 hours do not work, why?
 
         } else {
@@ -240,7 +240,7 @@ class GlucoseChart: UIView {
         
         chartView.data = data
         
-        let xRange = calChartHoursSeconds(chartHoursId: chartHoursId)
+        let xRange = calChartHoursSeconds(chartHoursId: chartHours)
         chartView.setVisibleXRange(minXRange: xRange, maxXRange: xRange)
         
         chartView.moveViewToX(chartView.xAxis.axisMaximum  - xRange)
@@ -277,7 +277,7 @@ class GlucoseChart: UIView {
     
     private func applyDataShapeSize(dataSet: ScatterChartDataSet) {
         let shapeSize: CGFloat
-        switch chartHoursId
+        switch chartHours
         {
         case ChartHours.H1:
             shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter1h
@@ -303,28 +303,12 @@ class GlucoseChart: UIView {
     }
     
     private func applyChartHours() {
-        switch chartHoursId
-        {
-        case ChartHours.H1:
-            UserDefaults.standard.chartWidthInHours = 1
-        case ChartHours.H3:
-            UserDefaults.standard.chartWidthInHours = 3
-        case ChartHours.H6:
-            UserDefaults.standard.chartWidthInHours = 6
-        case ChartHours.H12:
-            UserDefaults.standard.chartWidthInHours = 12
-        case ChartHours.H24:
-            UserDefaults.standard.chartWidthInHours = 24
-        default:
-            break
-        }
-        
         let highestVisibleX = chartView.highestVisibleX
-        let xRange = calChartHoursSeconds(chartHoursId: chartHoursId)
+        let xRange = calChartHoursSeconds(chartHoursId: chartHours)
         chartView.setVisibleXRange(minXRange: xRange, maxXRange: xRange)
         
-        if chartHoursId == ChartHours.H24 ||
-            chartHoursId == ChartHours.H12 {
+        if chartHours == ChartHours.H24 ||
+            chartHours == ChartHours.H12 {
             chartView.xAxis.granularity = Date.hourInSeconds * 3 // 2 hours do not work, why?
             
         } else {
