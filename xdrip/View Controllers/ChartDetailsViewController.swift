@@ -294,29 +294,19 @@ extension ChartDetailsViewController: ChartDetailsV {
         }
         
         let urgentHighDataSet = ScatterChartDataSet(entries: urgentHighValues)
-        applyDataSetStyle(dataSet: urgentHighDataSet)
         urgentHighDataSet.setColor(ConstantsGlucoseChart.glucoseUrgentRangeColor)
-        urgentHighDataSet.scatterShapeSize = ConstantsGlucoseChart.glucoseCircleDiameter3h
         
         let highDataSet = ScatterChartDataSet(entries: highValues)
-        applyDataSetStyle(dataSet: highDataSet)
         highDataSet.setColor(ConstantsGlucoseChart.glucoseNotUrgentRangeColor)
-        highDataSet.scatterShapeSize = ConstantsGlucoseChart.glucoseCircleDiameter3h
         
         let inRangeDataSet = ScatterChartDataSet(entries: inRangeValues)
-        applyDataSetStyle(dataSet: inRangeDataSet)
         inRangeDataSet.setColor(ConstantsGlucoseChart.glucoseInRangeColor)
-        inRangeDataSet.scatterShapeSize = ConstantsGlucoseChart.glucoseCircleDiameter3h
         
         let lowDataSet = ScatterChartDataSet(entries: lowValues)
-        applyDataSetStyle(dataSet: lowDataSet)
         lowDataSet.setColor(ConstantsGlucoseChart.glucoseNotUrgentRangeColor)
-        lowDataSet.scatterShapeSize = ConstantsGlucoseChart.glucoseCircleDiameter3h
         
         let urgentLowDataSet = ScatterChartDataSet(entries: urgentLowValues)
-        applyDataSetStyle(dataSet: urgentLowDataSet)
         urgentLowDataSet.setColor(ConstantsGlucoseChart.glucoseUrgentRangeColor)
-        urgentLowDataSet.scatterShapeSize = ConstantsGlucoseChart.glucoseCircleDiameter3h
         
         chartView.xAxis.axisMinimum = fromDate.timeIntervalSince1970
         chartView.xAxis.axisMaximum = toDate.timeIntervalSince1970
@@ -328,6 +318,14 @@ extension ChartDetailsViewController: ChartDetailsV {
             lowDataSet,
             urgentLowDataSet
         ])
+        
+        for s in data.dataSets {
+            guard let scatterDataSet = s as? ScatterChartDataSet else {
+                continue
+            }
+            applyDataSetStyle(dataSet: scatterDataSet)
+            applyDataShapeSize(dataSet: scatterDataSet)
+        }
         chartView.data = data
         
         let xRange = calChartHoursSeconds(chartHoursId: selectedChartHoursId)
@@ -335,8 +333,7 @@ extension ChartDetailsViewController: ChartDetailsV {
 
         // move current time to centerX
         if isToday && showingDate == nil {
-            chartView.moveViewToX(min(Date().timeIntervalSince1970 - xRange/2,
-                                      toDate.timeIntervalSince1970 - xRange))
+            chartView.moveViewToX(Date().timeIntervalSince1970 - xRange/2)
         }
 
         showingDate = fromDate
@@ -373,6 +370,10 @@ extension ChartDetailsViewController: ChartDetailsV {
         dataSet.drawHorizontalHighlightIndicatorEnabled = false
         dataSet.highlightColor = .white
         dataSet.axisDependency = .right
+    }
+    
+    private func applyDataShapeSize(dataSet: ScatterChartDataSet) {
+        dataSet.scatterShapeSize = ConstantsGlucoseChart.glucoseCircleDiameter3h
     }
 }
 

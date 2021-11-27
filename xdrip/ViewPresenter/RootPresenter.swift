@@ -14,7 +14,7 @@ class RootPresenter: RootP {
 
     private weak var view: RootV?
     
-    private var bgReadingsAccessor: BgReadingsAccessor?
+    private var bgReadingsAccessor: BgReadingsAccessor!
     private var healthKitManager: HealthKitManager?
     private var bgReadingSpeaker: BGReadingSpeaker?
     private var bluetoothPeripheralManager: BluetoothPeripheralManager?
@@ -38,6 +38,24 @@ class RootPresenter: RootP {
         self.loopManager = loopManager
         
         nightScoutFollowManager = NightScoutFollowManager(nightScoutFollowerDelegate: self)
+    }
+    
+    func loadChartReadings() {
+        RootPresenter.log.d("==> loadChartReadings")
+        
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            let fromDate = Date(timeIntervalSinceNow: -Date.dayInSeconds)
+            let toDate = Date()
+
+            let readings = self?.bgReadingsAccessor.getBgReadings(from: fromDate,
+                                                                  to: toDate,
+                                                                  on: CoreDataManager.shared
+                                                                    .mainManagedObjectContext)
+           
+            DispatchQueue.main.async {
+                self?.view?.showChartReadings(readings, from: fromDate, to: toDate)
+            }
+        }
     }
     
     // a long function just to get the timestamp of the last disconnect or reconnect. If not known then returns 1 1 1970

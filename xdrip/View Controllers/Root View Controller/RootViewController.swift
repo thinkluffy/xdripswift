@@ -7,6 +7,7 @@ import SwiftCharts
 import HealthKitUI
 import AVFoundation
 import PieCharts
+import Charts
 
 /// viewcontroller for the home screen
 final class RootViewController: UIViewController {
@@ -59,7 +60,7 @@ final class RootViewController: UIViewController {
     @IBOutlet weak var glucoseIndicator: GlucoseIndicator!
 
     /// outlet for chart
-    @IBOutlet weak var chartOutlet: BloodGlucoseChartView!
+    @IBOutlet weak var glucoseChart: GlucoseChart!
         
     @IBOutlet weak var chartHoursSelection: SingleSelection!
     @IBOutlet weak var statisticsDaysSelection: SingleSelection!
@@ -95,9 +96,6 @@ final class RootViewController: UIViewController {
     
     /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppWillTerminate - trace that app goes to background
     private let applicationManagerKeyTraceAppWillTerminate = "applicationManagerKeyTraceAppWillTerminate"
-    
-    /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground - to clean GlucoseChartManager memory
-    private let applicationManagerKeyCleanMemoryGlucoseChartManager = "applicationManagerKeyCleanMemoryGlucoseChartManager"
     
     /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground - to initialize the glucoseChartManager and update labels and chart
     private let applicationManagerKeyUpdateLabelsAndChart = "applicationManagerKeyUpdateLabelsAndChart"
@@ -149,11 +147,6 @@ final class RootViewController: UIViewController {
     /// manages bluetoothPeripherals that this app knows
     private var bluetoothPeripheralManager: BluetoothPeripheralManager?
     
-    /// - manage glucose chart
-    /// - will be nillified each time the app goes to the background, to avoid unnecessary ram usage (which seems to cause app getting killed)
-    /// - will be reinitialized each time the app comes to the foreground
-    private var glucoseChartManager: GlucoseChartManager?
-    
     /// statisticsManager instance
     private var statisticsManager: StatisticsManager?
     
@@ -182,12 +175,8 @@ final class RootViewController: UIViewController {
     
     /// when was the last notification created with bgreading, setting to 1 1 1970 initially to avoid having to unwrap it
     private var timeStampLastBGNotification = Date(timeIntervalSince1970: 0)
-    
-    private static let ChartHoursIdH1 = 0
-    private static let ChartHoursIdH3 = 1
-    private static let ChartHoursIdH6 = 2
-    private static let ChartHoursIdH12 = 3
-    private static let ChartHoursIdH24 = 4
+
+    private var selectedChartHoursId = ChartHours.H3
 
     private static let StatisticsDaysToday = 0
     private static let StatisticsDays7D = 1
@@ -202,12 +191,6 @@ final class RootViewController: UIViewController {
     // set the status bar content colour to light to match new darker theme
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // never seen it triggered, copied that from Loop
-        glucoseChartManager?.cleanUpMemory()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -240,29 +223,28 @@ final class RootViewController: UIViewController {
 
         // chart hours
         var chartHoursItems = [SingleSelectionItem]()
-        chartHoursItems.append(SingleSelectionItem(id: RootViewController.ChartHoursIdH1, title: "1H"))
-        chartHoursItems.append(SingleSelectionItem(id: RootViewController.ChartHoursIdH3, title: "3H"))
-        chartHoursItems.append(SingleSelectionItem(id: RootViewController.ChartHoursIdH6, title: "6H"))
-        chartHoursItems.append(SingleSelectionItem(id: RootViewController.ChartHoursIdH12, title: "12H"))
-        chartHoursItems.append(SingleSelectionItem(id: RootViewController.ChartHoursIdH24, title: "24H"))
+        chartHoursItems.append(SingleSelectionItem(id: ChartHours.H1, title: "1H"))
+        chartHoursItems.append(SingleSelectionItem(id: ChartHours.H3, title: "3H"))
+        chartHoursItems.append(SingleSelectionItem(id: ChartHours.H6, title: "6H"))
+        chartHoursItems.append(SingleSelectionItem(id: ChartHours.H12, title: "12H"))
+        chartHoursItems.append(SingleSelectionItem(id: ChartHours.H24, title: "24H"))
         chartHoursSelection.show(items: chartHoursItems)
         chartHoursSelection.delegate = self
                 
-        let selectedChartHoursId: Int
         switch UserDefaults.standard.chartWidthInHours
         {
         case 1:
-            selectedChartHoursId = RootViewController.ChartHoursIdH1
+            selectedChartHoursId = ChartHours.H1
         case 3:
-            selectedChartHoursId = RootViewController.ChartHoursIdH3
+            selectedChartHoursId = ChartHours.H3
         case 6:
-            selectedChartHoursId = RootViewController.ChartHoursIdH6
+            selectedChartHoursId = ChartHours.H6
         case 12:
-            selectedChartHoursId = RootViewController.ChartHoursIdH12
+            selectedChartHoursId = ChartHours.H12
         case 24:
-            selectedChartHoursId = RootViewController.ChartHoursIdH24
+            selectedChartHoursId = ChartHours.H24
         default:
-            selectedChartHoursId = RootViewController.ChartHoursIdH6
+            selectedChartHoursId = ChartHours.H6
         }
         chartHoursSelection.select(id: selectedChartHoursId, triggerCallback: false)
         
@@ -385,11 +367,11 @@ final class RootViewController: UIViewController {
         // add tracing when app will terminaten - this only works for non-suspended apps, probably (not tested) also works for apps that crash in the background
         ApplicationManager.shared.addClosureToRunWhenAppWillTerminate(key: applicationManagerKeyTraceAppWillTerminate, closure: {trace("Application will terminate", log: self.log, category: ConstantsLog.categoryRootView, type: .info)})
         
-        ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground(key: applicationManagerKeyCleanMemoryGlucoseChartManager, closure: {
-            
-            self.glucoseChartManager?.cleanUpMemory()
-            
-        })
+//        ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground(key: applicationManagerKeyCleanMemoryGlucoseChartManager, closure: {
+//
+//            self.glucoseChartManager?.cleanUpMemory()
+//
+//        })
         
         // reinitialise glucose chart and also to update labels and chart
         ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: applicationManagerKeyUpdateLabelsAndChart, closure: {
@@ -556,16 +538,8 @@ final class RootViewController: UIViewController {
         // setup alertmanager
         alertManager = AlertManager(soundPlayer: soundPlayer)
         
-        // initialize glucoseChartManager
-        glucoseChartManager = GlucoseChartManager()
-        
         // initialize statisticsManager
         statisticsManager = StatisticsManager()
-        
-        // initialize chartGenerator in chartOutlet
-        self.chartOutlet.chartGenerator = { [weak self] (frame) in
-            return self?.glucoseChartManager?.glucoseChartWithFrame(frame)?.view
-        }
         
         presenter.setup(bgReadingsAccessor: bgReadingsAccessor,
                         healthKitManager: healthKitManager!,
@@ -706,13 +680,11 @@ final class RootViewController: UIViewController {
                     CoreDataManager.shared.mainManagedObjectContext.delete(reading)
                     
                     CoreDataManager.shared.saveChanges()
-                    
                 }
                 
                 // as we're deleting readings, glucoseChartPoints need to be updated, otherwise we keep seeing old values
                 // this is the easiest way to achieve it
-                glucoseChartManager?.cleanUpMemory()
-                
+//                glucoseChartManager?.cleanUpMemory()
             }
             
             // was a new reading created or not ?
@@ -882,13 +854,13 @@ final class RootViewController: UIViewController {
             // this will trigger update of app badge, will also create notification, but as app is most likely in foreground, this won't show up
             createBgReadingNotificationAndSetAppBadge(overrideShowReadingInNotification: true)
             
-        case UserDefaults.Key.urgentLowMarkValue,
-            UserDefaults.Key.lowMarkValue,
-            UserDefaults.Key.highMarkValue,
-            UserDefaults.Key.urgentHighMarkValue:
-            
-            // redraw chart is necessary
-            updateChartWithResetEndDate()
+//        case UserDefaults.Key.urgentLowMarkValue,
+//            UserDefaults.Key.lowMarkValue,
+//            UserDefaults.Key.highMarkValue,
+//            UserDefaults.Key.urgentHighMarkValue:
+//
+//            // redraw chart is necessary
+//            updateChartWithResetEndDate()
     
         default:
             break
@@ -917,8 +889,10 @@ final class RootViewController: UIViewController {
         calibrateToolbarButtonOutlet.title = Texts_HomeView.calibrationButton
         
         // at this moment, coreDataManager is not yet initialized, we're just calling here prerender and reloadChart to show the chart with x and y axis and gridlines, but without readings. The readings will be loaded once coreDataManager is setup, after which updateChart() will be called, which will initiate loading of readings from coredata
-        chartOutlet.reloadChart()
+//        chartOutlet.reloadChart()
         
+        glucoseChart.chartHoursId = selectedChartHoursId
+
         valueLabelOutlet.isHidden = true
     }
     
@@ -954,16 +928,6 @@ final class RootViewController: UIViewController {
                 trace("Unable to create notification %{public}@", log: self.log, category: ConstantsLog.categoryRootView, type: .error, error.localizedDescription)
             }
         }
-        
-    }
-    
-    /// will update the chart with endDate = currentDate
-    private func updateChartWithResetEndDate() {
-        glucoseChartManager?.updateChartPoints(endDate: Date(),
-                                               startDate: nil,
-                                               chartOutlet: chartOutlet,
-                                               completionHandler: nil)
-        
     }
     
     /// launches timer that will do regular screen updates - and adds closure to ApplicationManager : when going to background, stop the timer, when coming to foreground, restart the timer
@@ -1340,20 +1304,11 @@ final class RootViewController: UIViewController {
     }
     
     /// - updates the labels and the chart,
-    /// - but only if the chart is not panned backward
-    /// - and if app is in foreground
+    /// - if app is in foreground
     /// - and if overrideApplicationState = false
     /// - parameters:
     ///     - overrideApplicationState : if true, then update will be done even if state is not .active
     @objc private func updateLabelsAndChart(overrideApplicationState: Bool = false) {
-        
-        // if glucoseChartManager not nil, then check if panned backward and if so then don't update the chart
-        if let glucoseChartManager = glucoseChartManager  {
-            // check that app is in foreground, but only if overrideApplicationState = false
-            // check if chart is currently panned back in time, in that case we don't update the labels
-            guard !glucoseChartManager.chartIsPannedBackward else {return}
-        }
-        
         guard UIApplication.shared.applicationState == .active || overrideApplicationState else {return}
         
         // check that bgReadingsAccessor exists, otherwise return - this happens if updateLabelsAndChart is called from viewDidload at app launch
@@ -1449,8 +1404,9 @@ final class RootViewController: UIViewController {
         diffLabelOutlet.text = lastReading.unitizedDeltaString(previousBgReading: lastButOneReading, showUnit: true, highGranularity: true, mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
         
         // update the chart up to now
-        updateChartWithResetEndDate()
+//        updateChartWithResetEndDate()
         
+        presenter.loadChartReadings()
     }
     
     /// when user clicks transmitter button, this will create and present the actionsheet, contents depend on type of transmitter and sensor status
@@ -1931,6 +1887,10 @@ extension RootViewController: RootV {
         // check alerts, create notification, set app badge
         checkAlertsCreateNotificationAndSetAppBadge()
     }
+    
+    func showChartReadings(_ readings: [BgReading]?, from fromDate: Date, to toDate: Date) {
+        glucoseChart.show(readings: readings, from: fromDate, to: toDate)
+    }
 }
 
 extension RootViewController: SingleSelectionDelegate {
@@ -1941,30 +1901,8 @@ extension RootViewController: SingleSelectionDelegate {
     
     func singleSelectionItemDidSelect(_ singleSelecton: SingleSelection, item: SingleSelectionItem) {
         if singleSelecton == chartHoursSelection {
-            switch item.id
-            {
-            case RootViewController.ChartHoursIdH1:
-                UserDefaults.standard.chartWidthInHours = 1
-            case RootViewController.ChartHoursIdH3:
-                UserDefaults.standard.chartWidthInHours = 3
-            case RootViewController.ChartHoursIdH6:
-                UserDefaults.standard.chartWidthInHours = 6
-            case RootViewController.ChartHoursIdH12:
-                UserDefaults.standard.chartWidthInHours = 12
-            case RootViewController.ChartHoursIdH24:
-                UserDefaults.standard.chartWidthInHours = 24
-            default:
-                break
-            }
-            
-            if let glucoseChartManager = glucoseChartManager {
-                let startDate = glucoseChartManager.endDate
-                    .addingTimeInterval(.hours(-UserDefaults.standard.chartWidthInHours))
-                glucoseChartManager.updateChartPoints(endDate: glucoseChartManager.endDate,
-                                                      startDate: startDate,
-                                                      chartOutlet: chartOutlet,
-                                                      completionHandler: nil)
-            }
+            selectedChartHoursId = item.id
+            glucoseChart.chartHoursId = selectedChartHoursId
             
         } else if singleSelecton == statisticsDaysSelection {
             switch item.id
@@ -1986,4 +1924,15 @@ extension RootViewController: SingleSelectionDelegate {
             updateStatistics(animatePieChart: true, overrideApplicationState: false)
         }
     }
+}
+
+fileprivate class HourAxisValueFormatter: IAxisValueFormatter {
+    
+    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        let date = Date(timeIntervalSince1970: value)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH"
+        return dateFormatter.string(from: date)
+    }
+    
 }

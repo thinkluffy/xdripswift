@@ -11,6 +11,8 @@ import UIKit
 protocol RootV: MVPV {
     
     func showNewReading()
+    
+    func showChartReadings(_ readings: [BgReading]?, from fromDate: Date, to toDate: Date)
 }
 
 protocol RootP: MVPP {
@@ -21,4 +23,6 @@ protocol RootP: MVPP {
                bgReadingSpeaker: BGReadingSpeaker,
                bluetoothPeripheralManager: BluetoothPeripheralManager,
                loopManager: LoopManager)
+    
+    func loadChartReadings()
 }

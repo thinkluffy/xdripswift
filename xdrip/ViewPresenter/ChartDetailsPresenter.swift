@@ -14,7 +14,7 @@ class ChartDetailsPresenter: ChartDetailsP {
 
     private weak var view: ChartDetailsV?
     
-    private let bgReadingAccessor = BgReadingsAccessor()
+    private let bgReadingsAccessor = BgReadingsAccessor()
     
     init(view: ChartDetailsV) {
         self.view = view
@@ -25,7 +25,7 @@ class ChartDetailsPresenter: ChartDetailsP {
             let fromDate = Calendar.current.startOfDay(for: date)
             let toDate = Date(timeInterval: Date.dayInSeconds, since: fromDate)
             
-            let readings = self?.bgReadingAccessor.getBgReadings(from: fromDate,
+            let readings = self?.bgReadingsAccessor.getBgReadings(from: fromDate,
                                                                   to: toDate,
                                                                   on: CoreDataManager.shared.mainManagedObjectContext)
            
