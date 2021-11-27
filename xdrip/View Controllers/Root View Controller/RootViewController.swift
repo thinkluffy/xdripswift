@@ -3,7 +3,6 @@ import CoreData
 import os
 import CoreBluetooth
 import UserNotifications
-import SwiftCharts
 import HealthKitUI
 import AVFoundation
 import PieCharts

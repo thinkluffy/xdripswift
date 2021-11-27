@@ -7,9 +7,6 @@ target 'xdrip' do
 
   # Pods for xdrip
   pod "ActionClosurable", :git => 'https://github.com/takasek/ActionClosurable.git'
-
-  use_frameworks!
-  pod 'SwiftCharts', '~> 0.6.5'
   
   use_frameworks!
   pod 'CryptoSwift', '~> 1.4.0'

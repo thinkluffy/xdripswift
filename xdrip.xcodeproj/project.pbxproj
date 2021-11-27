@@ -98,7 +98,6 @@
 		F80610C4222D4E4D00D8F236 /* ActionClosureable-extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80610C3222D4E4D00D8F236 /* ActionClosureable-extension.swift */; };
 		F80859272364355F00F3829D /* ConstantsGlucoseChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80859262364355F00F3829D /* ConstantsGlucoseChart.swift */; };
 		F80859292364D61B00F3829D /* UserDefaults+charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80859282364D61B00F3829D /* UserDefaults+charts.swift */; };
-		F808592D23677D6A00F3829D /* ChartPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F808592C23677D6A00F3829D /* ChartPoint.swift */; };
 		F808D2C8240323CA0084B5DB /* BubbleBluetoothPeripheralViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F808D2C7240323CA0084B5DB /* BubbleBluetoothPeripheralViewModel.swift */; };
 		F808D2CA240325E40084B5DB /* CGMBubbleTransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F808D2C9240325E40084B5DB /* CGMBubbleTransmitterDelegate.swift */; };
 		F808D2CC240328FA0084B5DB /* Bubble+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F808D2CB240328FA0084B5DB /* Bubble+CoreDataClass.swift */; };
@@ -782,7 +781,6 @@
 		F80610C3222D4E4D00D8F236 /* ActionClosureable-extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActionClosureable-extension.swift"; sourceTree = "<group>"; };
 		F80859262364355F00F3829D /* ConstantsGlucoseChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsGlucoseChart.swift; sourceTree = "<group>"; };
 		F80859282364D61B00F3829D /* UserDefaults+charts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+charts.swift"; sourceTree = "<group>"; };
-		F808592C23677D6A00F3829D /* ChartPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartPoint.swift; sourceTree = "<group>"; };
 		F808D2C7240323CA0084B5DB /* BubbleBluetoothPeripheralViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleBluetoothPeripheralViewModel.swift; sourceTree = "<group>"; };
 		F808D2C9240325E40084B5DB /* CGMBubbleTransmitterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGMBubbleTransmitterDelegate.swift; sourceTree = "<group>"; };
 		F808D2CB240328FA0084B5DB /* Bubble+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bubble+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -1694,7 +1692,6 @@
 				F8B3A857227F6971004BA588 /* UISwitch.swift */,
 				F8BDD4232218790E006EAB84 /* UserDefaults.swift */,
 				F80859282364D61B00F3829D /* UserDefaults+charts.swift */,
-				F808592C23677D6A00F3829D /* ChartPoint.swift */,
 				F8E51D602448E695001C9E5A /* Bundle.swift */,
 				F8AF361A245D93ED00B5977B /* Int16.swift */,
 				F890E079247687AE008FB2EC /* URL.swift */,
@@ -3833,7 +3830,6 @@
 				F821CF5F229BF43A005C1E43 /* ApplicationManager.swift in Sources */,
 				F8B3A834227F08AC004BA588 /* PickerViewData.swift in Sources */,
 				F8177025248ED4DE00AA3600 /* Libre1DerivedAlgorithmParameters.swift in Sources */,
-				F808592D23677D6A00F3829D /* ChartPoint.swift in Sources */,
 				F8A2BC0425DB093B001D1E78 /* Atom+CoreDataClass.swift in Sources */,
 				F8F9722823A5915900C3F17D /* BluconUtilities.swift in Sources */,
 				F8F9724723A69A8000C3F17D /* BluetoothPeripheralCategory.swift in Sources */,
@@ -4744,7 +4740,7 @@
 				CURRENT_PROJECT_VERSION = 4167;
 				DEVELOPMENT_TEAM = KHV6JJH7M8;
 				INFOPLIST_FILE = "$(SRCROOT)/xdrip/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4774,7 +4770,7 @@
 				CURRENT_PROJECT_VERSION = 4167;
 				DEVELOPMENT_TEAM = KHV6JJH7M8;
 				INFOPLIST_FILE = "$(SRCROOT)/xdrip/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
