@@ -21,5 +21,6 @@ target 'xdrip' do
   pod 'CocoaLumberjack/Swift', '3.7.0'
   pod 'SwiftyJSON', '4.3.0'
   pod 'Charts', :tag => 'v3.6.2-th', :git => 'https://github.com/thinkluffy/Charts.git'
+  pod 'FSCalendar'
 
 end

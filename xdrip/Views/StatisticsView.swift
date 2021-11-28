@@ -74,21 +74,21 @@ class StatisticsView: UIView {
         let isMgDl = UserDefaults.standard.bloodGlucoseUnitIsMgDl
         
         // set the low/high "label" labels with the low/high user values that the user has chosen to use
-        self.lowLabelOutlet.text = "(<" + (isMgDl ? Int(statistics.lowLimitForTIR).description : statistics.lowLimitForTIR.round(toDecimalPlaces: 1).description) + ")"
-        self.highLabelOutlet.text = "(>" + (isMgDl ? Int(statistics.highLimitForTIR).description : statistics.highLimitForTIR.round(toDecimalPlaces: 1).description) + ")"
+        lowLabelOutlet.text = "(<" + (isMgDl ? Int(statistics.lowLimitForTIR).description : statistics.lowLimitForTIR.round(toDecimalPlaces: 1).description) + ")"
+        highLabelOutlet.text = "(>" + (isMgDl ? Int(statistics.highLimitForTIR).description : statistics.highLimitForTIR.round(toDecimalPlaces: 1).description) + ")"
         
         // set all label outlets with the correctly formatted calculated values
-        self.lowStatisticLabelOutlet.textColor = ConstantsStatistics.labelLowColor
-        self.lowStatisticLabelOutlet.text = Int(statistics.lowStatisticValue.round(toDecimalPlaces: 0)).description + "%"
+        lowStatisticLabelOutlet.textColor = ConstantsStatistics.labelLowColor
+        lowStatisticLabelOutlet.text = Int(statistics.lowStatisticValue.round(toDecimalPlaces: 0)).description + "%"
         
-        self.inRangeStatisticLabelOutlet.textColor = ConstantsStatistics.labelInRangeColor
-        self.inRangeStatisticLabelOutlet.text = Int(statistics.inRangeStatisticValue.round(toDecimalPlaces: 0)).description + "%"
+        inRangeStatisticLabelOutlet.textColor = ConstantsStatistics.labelInRangeColor
+        inRangeStatisticLabelOutlet.text = Int(statistics.inRangeStatisticValue.round(toDecimalPlaces: 0)).description + "%"
         
-        self.highStatisticLabelOutlet.textColor = ConstantsStatistics.labelHighColor
-        self.highStatisticLabelOutlet.text = Int(statistics.highStatisticValue.round(toDecimalPlaces: 0)).description + "%"
+        highStatisticLabelOutlet.textColor = ConstantsStatistics.labelHighColor
+        highStatisticLabelOutlet.text = Int(statistics.highStatisticValue.round(toDecimalPlaces: 0)).description + "%"
         
         if statistics.readingsCount > 0 {
-            self.bgReadingsCountStatisticLabelOutlet.text = "\(statistics.readingsCount)"
+            bgReadingsCountStatisticLabelOutlet.text = "\(statistics.readingsCount)"
         }
         
         if statistics.stdDeviation > 0 {
@@ -102,53 +102,60 @@ class StatisticsView: UIView {
         
         // if there are no values returned (new sensor?) then just leave the default "-" showing
         if statistics.averageStatisticValue.value > 0 {
-            self.averageStatisticLabelOutlet.text = (isMgDl ? Int(statistics.averageStatisticValue.round(toDecimalPlaces: 0)).description : statistics.averageStatisticValue.round(toDecimalPlaces: 1).description) + (isMgDl ? " mg/dL" : " mmol/L")
+            averageStatisticLabelOutlet.text = (isMgDl ? Int(statistics.averageStatisticValue.round(toDecimalPlaces: 0)).description : statistics.averageStatisticValue.round(toDecimalPlaces: 1).description) + (isMgDl ? " mg/dL" : " mmol/L")
         }
         
         // if there are no values returned (new sensor?) then just leave the default "-" showing
         if statistics.a1CStatisticValue.value > 0 {
             if UserDefaults.standard.useIFCCA1C {
-                self.a1CStatisticLabelOutlet.text = Int(statistics.a1CStatisticValue.round(toDecimalPlaces: 0)).description + " mmol"
+                a1CStatisticLabelOutlet.text = Int(statistics.a1CStatisticValue.round(toDecimalPlaces: 0)).description + " mmol"
+            
             } else {
-                self.a1CStatisticLabelOutlet.text = statistics.a1CStatisticValue.round(toDecimalPlaces: 1).description + "%"
+                a1CStatisticLabelOutlet.text = statistics.a1CStatisticValue.round(toDecimalPlaces: 1).description + "%"
             }
         }
         
         // if there are no values returned (new sensor?) then just leave the default "-" showing
         if statistics.cVStatisticValue.value > 0 {
-            self.cVStatisticLabelOutlet.text = Int(statistics.cVStatisticValue.round(toDecimalPlaces: 0)).description + "%"
+            cVStatisticLabelOutlet.text = Int(statistics.cVStatisticValue.round(toDecimalPlaces: 0)).description + "%"
         }
         
         // show number of days calculated under the pie chart
         switch daysToUseStatistics {
         case 0:
-            self.timePeriodLabelOutlet.text = Texts_Common.today
+            timePeriodLabelOutlet.text = Texts_Common.today
             
         case 1:
-            self.timePeriodLabelOutlet.text = "24 " + Texts_Common.hours
+            timePeriodLabelOutlet.text = "24 " + Texts_Common.hours
             
         default:
-            self.timePeriodLabelOutlet.text = statistics.numberOfDaysUsed.description + " " + Texts_Common.days
+            timePeriodLabelOutlet.text = statistics.numberOfDaysUsed.description + " " + Texts_Common.days
         }
         
         // disable the chart animation if it's just a normal update, enable it if the call comes from didAppear()
         if animatePieChart {
-            self.pieChartOutlet.animDuration = ConstantsStatistics.pieChartAnimationSpeed
+            pieChartOutlet.animDuration = ConstantsStatistics.pieChartAnimationSpeed
             
         } else {
-            self.pieChartOutlet.animDuration = 0
+            pieChartOutlet.animDuration = 0
         }
         
+        // cleart first, or the changed models have no effect
+        pieChartOutlet.clear()
+        
         if statistics.inRangeStatisticValue < 100 {
-            self.pieChartOutlet.models = [
-                PieSliceModel(value: Double(statistics.lowStatisticValue), color: ConstantsStatistics.pieChartLowSliceColor),
-                PieSliceModel(value: Double(statistics.inRangeStatisticValue), color: ConstantsStatistics.pieChartInRangeSliceColor),
-                PieSliceModel(value: Double(statistics.highStatisticValue), color: ConstantsStatistics.pieChartHighSliceColor)
+            pieChartOutlet.models = [
+                PieSliceModel(value: Double(statistics.lowStatisticValue),
+                              color: ConstantsStatistics.pieChartLowSliceColor),
+                PieSliceModel(value: Double(statistics.inRangeStatisticValue),
+                              color: ConstantsStatistics.pieChartInRangeSliceColor),
+                PieSliceModel(value: Double(statistics.highStatisticValue),
+                              color: ConstantsStatistics.pieChartHighSliceColor)
             ]
-                        
+            
         } else {
             // show a green circle at 100%
-            self.pieChartOutlet.models = [
+            pieChartOutlet.models = [
                 PieSliceModel(value: 1, color: ConstantsStatistics.pieChartInRangeSliceColor)
             ]
         }

@@ -7,6 +7,7 @@ PODS:
   - CocoaLumberjack/Swift (3.7.0):
     - CocoaLumberjack/Core
   - CryptoSwift (1.4.0)
+  - FSCalendar (2.8.2)
   - PieCharts (0.0.7)
   - R.swift (5.4.0):
     - R.swift.Library (~> 5.3.0)
@@ -19,6 +20,7 @@ DEPENDENCIES:
   - Charts (from `https://github.com/thinkluffy/Charts.git`, tag `v3.6.2-th`)
   - CocoaLumberjack/Swift (= 3.7.0)
   - CryptoSwift (~> 1.4.0)
+  - FSCalendar
   - PieCharts
   - R.swift
   - SnapKit (~> 5.0.0)
@@ -28,6 +30,7 @@ SPEC REPOS:
   trunk:
     - CocoaLumberjack
     - CryptoSwift
+    - FSCalendar
     - PieCharts
     - R.swift
     - R.swift.Library
@@ -54,12 +57,13 @@ SPEC CHECKSUMS:
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   CocoaLumberjack: e8955b9d337ac307103b0a34fd141c32f27e53c5
   CryptoSwift: 7cc902df1784de3b389a387756c7d710f197730c
+  FSCalendar: e6a2eb9c571bf0719ed797ef807e08426753c241
   PieCharts: 30e50dfa7dc19e5b84e9878d32089673ef5d0453
   R.swift: c533450b0f7dc494e0993f5f1a1db925d84c3006
   R.swift.Library: 0fc583cb55a99e28901299cc451614cad1161962
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: cda7a0c0cb5d2b11219a511e4e9fe49ed1d2f4cb
+PODFILE CHECKSUM: 3461f8499ce854611b44a7508970cf41f4cb3425
 
 COCOAPODS: 1.9.1

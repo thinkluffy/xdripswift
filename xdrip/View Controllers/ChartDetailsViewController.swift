@@ -8,6 +8,7 @@
 
 import UIKit
 import Charts
+import FSCalendar
 
 class ChartDetailsViewController: UIViewController {
 
@@ -25,6 +26,8 @@ class ChartDetailsViewController: UIViewController {
     
     private var selectedChartHoursId = ChartHours.H3
     
+    private weak var calendar: FSCalendar!
+
     private lazy var exitButton: UIButton = {
         let view = UIButton()
         view.setImage(R.image.ic_to_portrait(), for: .normal)
@@ -225,11 +228,20 @@ class ChartDetailsViewController: UIViewController {
         rangeTopLine.valueFont = .systemFont(ofSize: 12)
         rangeTopLine.valueTextColor = .gray
 
+        let rangeBottomLine = ChartLimitLine(limit: yAxis.axisMinimum,
+                                             label: yAxis.axisMinimum.bgValuetoString(mgdl: showAsMg))
+        rangeBottomLine.lineWidth = 0
+        rangeBottomLine.lineColor = ConstantsUI.mainBackgroundColor
+        rangeBottomLine.labelPosition = .right
+        rangeBottomLine.valueFont = .systemFont(ofSize: 12)
+        rangeBottomLine.valueTextColor = .gray
+        
         yAxis.removeAllLimitLines()
         yAxis.addLimitLine(urgentHighLine)
         yAxis.addLimitLine(highLine)
         yAxis.addLimitLine(lowLine)
         yAxis.addLimitLine(rangeTopLine)
+        yAxis.addLimitLine(rangeBottomLine)
         
         yAxis.drawLimitLinesBehindDataEnabled = true
     }
@@ -422,7 +434,11 @@ extension ChartDetailsViewController: CalendarTitleDelegate {
     }
     
     func calendarTitleDidClick(_ calendarTitle: CalendarTitle) {
-        
+//        let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: 320, height: 300))
+////        calendar.dataSource = self
+////        calendar.delegate = self
+//        view.addSubview(calendar)
+//        self.calendar = calendar
     }
 }
 

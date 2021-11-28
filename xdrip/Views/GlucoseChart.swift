@@ -15,6 +15,12 @@ class GlucoseChart: UIView {
     
     private lazy var chartView = ScatterChartView()
     
+    private lazy var urgentHighLine = ChartLimitLine()
+    private lazy var highLine = ChartLimitLine()
+    private lazy var lowLine = ChartLimitLine()
+    private lazy var rangeTopLine = ChartLimitLine()
+    private lazy var rangeBottomLine = ChartLimitLine()
+
     var chartHours = ChartHours.H3 {
         didSet {
             applyChartHours()
@@ -75,21 +81,16 @@ class GlucoseChart: UIView {
         // leave space for limit labels outside viewport
         chartView.setExtraOffsets(left: 0, top: 0, right: 30, bottom: 0)
         
-        let showAsMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
-
         let yAxis = chartView.rightAxis
         yAxis.drawGridLinesEnabled = false
         yAxis.drawLabelsEnabled = false
         yAxis.axisLineColor = ConstantsUI.mainBackgroundColor
         yAxis.axisLineWidth = 2
-        yAxis.axisMaximum = showAsMg ? 300 : 16.6
-        yAxis.axisMinimum = showAsMg ? 40 : 2.2
         
-        let urgentHigh = UserDefaults.standard.urgentHighMarkValue.mgdlToMmol(mgdl: showAsMg)
-        let high = UserDefaults.standard.highMarkValue.mgdlToMmol(mgdl: showAsMg)
-        let low = UserDefaults.standard.lowMarkValue.mgdlToMmol(mgdl: showAsMg)
+        setupLimitLines()
+    }
 
-        let urgentHighLine = ChartLimitLine(limit: urgentHigh, label: urgentHigh.bgValuetoString(mgdl: showAsMg))
+    private func setupLimitLines() {
         urgentHighLine.lineWidth = 1
         urgentHighLine.lineDashLengths = [5, 5]
         urgentHighLine.labelPosition = .right
@@ -97,7 +98,6 @@ class GlucoseChart: UIView {
         urgentHighLine.lineColor = .gray
         urgentHighLine.valueTextColor = .white
         
-        let highLine = ChartLimitLine(limit: high, label: high.bgValuetoString(mgdl: showAsMg))
         highLine.lineWidth = 1
         highLine.lineDashLengths = [5, 5]
         highLine.labelPosition = .right
@@ -105,7 +105,6 @@ class GlucoseChart: UIView {
         highLine.lineColor = .gray
         highLine.valueTextColor = .white
         
-        let lowLine = ChartLimitLine(limit: low, label: low.bgValuetoString(mgdl: showAsMg))
         lowLine.lineWidth = 1
         lowLine.lineDashLengths = [5, 5]
         lowLine.labelPosition = .right
@@ -113,24 +112,60 @@ class GlucoseChart: UIView {
         lowLine.lineColor = .gray
         lowLine.valueTextColor = .white
         
-        let rangeTopLine = ChartLimitLine(limit: yAxis.axisMaximum,
-                                          label: yAxis.axisMaximum.bgValuetoString(mgdl: showAsMg))
         rangeTopLine.lineWidth = 2
         rangeTopLine.lineColor = ConstantsUI.mainBackgroundColor
         rangeTopLine.labelPosition = .right
         rangeTopLine.valueFont = .systemFont(ofSize: 12)
         rangeTopLine.valueTextColor = .gray
-
+        
+        rangeBottomLine.lineWidth = 0
+        rangeBottomLine.lineColor = ConstantsUI.mainBackgroundColor
+        rangeBottomLine.labelPosition = .right
+        rangeBottomLine.valueFont = .systemFont(ofSize: 12)
+        rangeBottomLine.valueTextColor = .gray
+        
+        let yAxis = chartView.rightAxis
+        
         yAxis.removeAllLimitLines()
         yAxis.addLimitLine(urgentHighLine)
         yAxis.addLimitLine(highLine)
         yAxis.addLimitLine(lowLine)
         yAxis.addLimitLine(rangeTopLine)
+        yAxis.addLimitLine(rangeBottomLine)
         
         yAxis.drawLimitLinesBehindDataEnabled = true
     }
+    
+    private func applySettings() {
+        let showAsMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
 
+        let yAxis = chartView.rightAxis
+        yAxis.axisMaximum = showAsMg ? 300 : 16.6
+        yAxis.axisMinimum = showAsMg ? 40 : 2.2
+        
+        let urgentHigh = UserDefaults.standard.urgentHighMarkValue.mgdlToMmol(mgdl: showAsMg)
+        let high = UserDefaults.standard.highMarkValue.mgdlToMmol(mgdl: showAsMg)
+        let low = UserDefaults.standard.lowMarkValue.mgdlToMmol(mgdl: showAsMg)
+        
+        urgentHighLine.limit = urgentHigh
+        urgentHighLine.label = urgentHigh.bgValuetoString(mgdl: showAsMg)
+        
+        highLine.limit = high
+        highLine.label = high.bgValuetoString(mgdl: showAsMg)
+        
+        lowLine.limit = low
+        lowLine.label = low.bgValuetoString(mgdl: showAsMg)
+        
+        rangeTopLine.limit = yAxis.axisMaximum
+        rangeTopLine.label = yAxis.axisMaximum.bgValuetoString(mgdl: showAsMg)
+        
+        rangeBottomLine.limit = yAxis.axisMinimum
+        rangeBottomLine.label = yAxis.axisMinimum.bgValuetoString(mgdl: showAsMg)
+    }
+    
     func show(readings: [BgReading]?, from fromDate: Date, to toDate: Date) {
+        applySettings()
+
         guard let readings = readings else {
             GlucoseChart.log.e("reading is nil, nothing to show")
             chartView.data = nil

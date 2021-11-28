@@ -90,8 +90,7 @@ class CalendarTitle: UIView {
         addSubview(rightArrow)
         
         dateLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-        }
+            make.center.equalToSuperview()        }
         
         leftArrow.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
@@ -113,6 +112,7 @@ class CalendarTitle: UIView {
         leftArrow.addTarget(self, action: #selector(buttonDidClick(_:)), for: .touchUpInside)
         rightArrow.addTarget(self, action: #selector(buttonDidClick(_:)), for: .touchUpInside)
     
+        dateLabel.isUserInteractionEnabled = true
         dateLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(titleDidClick(tap:))))
     }
     

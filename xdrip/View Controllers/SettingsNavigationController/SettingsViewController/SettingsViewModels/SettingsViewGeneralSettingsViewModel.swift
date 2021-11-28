@@ -18,9 +18,6 @@ fileprivate enum Setting: Int, CaseIterable {
     /// show reading in app badge
     case showReadingInAppBadge = 4
     
-    /// if reading is shown in app badge, should value be multiplied with 10 yes or no
-    case multipleAppBadgeValueWith10 = 5
-    
 }
 
 /// conforms to SettingsViewModelProtocol for all general settings in the first sections screen
@@ -84,7 +81,7 @@ class SettingsViewGeneralSettingsViewModel: SettingsViewModelProtocol {
                 })
             }
             
-        case .showReadingInNotification, .showReadingInAppBadge, .multipleAppBadgeValueWith10:
+        case .showReadingInNotification, .showReadingInAppBadge:
             return SettingsSelectedRowAction.nothing
             
         case .notificationInterval:
@@ -98,14 +95,7 @@ class SettingsViewGeneralSettingsViewModel: SettingsViewModelProtocol {
     }
 
     func numberOfRows() -> Int {
-        // if unit is mmol and if show value in app badge is on and if showReadingInNotification is not on, then show also if to be multiplied by 10 yes or no
-        // (if showReadingInNotification is on, then badge counter will be set via notification, in this case we can use NSNumber so we don't need to multiply by 10)
-        if !UserDefaults.standard.bloodGlucoseUnitIsMgDl && UserDefaults.standard.showReadingInAppBadge && !UserDefaults.standard.showReadingInNotification {
-            return Setting.allCases.count
-        } else {
-            return Setting.allCases.count - 1
-        }
-        
+        return Setting.allCases.count
     }
 
     func settingsRowText(index: Int) -> String {
@@ -128,9 +118,6 @@ class SettingsViewGeneralSettingsViewModel: SettingsViewModelProtocol {
         case .showReadingInAppBadge:
             return Texts_SettingsView.labelShowReadingInAppBadge
             
-        case .multipleAppBadgeValueWith10:
-            return Texts_SettingsView.multipleAppBadgeValueWith10
-            
         }
     }
     
@@ -145,7 +132,7 @@ class SettingsViewGeneralSettingsViewModel: SettingsViewModelProtocol {
         case .masterFollower:
             return UITableViewCell.AccessoryType.none
             
-        case .showReadingInNotification, .showReadingInAppBadge, .multipleAppBadgeValueWith10:
+        case .showReadingInNotification, .showReadingInAppBadge:
             return UITableViewCell.AccessoryType.none
             
         case .notificationInterval:
@@ -165,7 +152,7 @@ class SettingsViewGeneralSettingsViewModel: SettingsViewModelProtocol {
         case .masterFollower:
             return UserDefaults.standard.isMaster ? Texts_SettingsView.master:Texts_SettingsView.follower
             
-        case .showReadingInNotification, .showReadingInAppBadge, .multipleAppBadgeValueWith10:
+        case .showReadingInNotification, .showReadingInAppBadge:
             return nil
             
         case .notificationInterval:
@@ -174,31 +161,20 @@ class SettingsViewGeneralSettingsViewModel: SettingsViewModelProtocol {
     }
     
     func uiView(index: Int) -> UIView? {
-        
         guard let setting = Setting(rawValue: index) else { fatalError("Unexpected Section") }
         
         switch setting {
-            
         case .showReadingInNotification:
-            
             return UISwitch(isOn: UserDefaults.standard.showReadingInNotification, action: {(isOn:Bool) in UserDefaults.standard.showReadingInNotification = isOn})
             
         case .showReadingInAppBadge:
-
             return UISwitch(isOn: UserDefaults.standard.showReadingInAppBadge, action: {(isOn:Bool) in UserDefaults.standard.showReadingInAppBadge = isOn})
-
-        case .multipleAppBadgeValueWith10:
-
-            return UISwitch(isOn: UserDefaults.standard.multipleAppBadgeValueWith10, action: {(isOn:Bool) in UserDefaults.standard.multipleAppBadgeValueWith10 = isOn})
 
         case .bloodGlucoseUnit, .masterFollower:
             return nil
             
         case .notificationInterval:
             return nil
-            
         }
-
     }
-    
 }

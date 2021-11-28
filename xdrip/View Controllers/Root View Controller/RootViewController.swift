@@ -290,16 +290,7 @@ final class RootViewController: UIViewController {
         
         // housekeeper should be non nil here, kall housekeeper
         houseKeeper?.doAppStartUpHouseKeeping()
-        
-        // update label texts, minutes ago, diff and value
-        updateLabelsAndChart(overrideApplicationState: true)
-        
-        // update sensor countdown
-        updateSensorCountdown()
-        
-        // update statistics related outlets
-        updateStatistics(animatePieChart: true, overrideApplicationState: true)
-        
+                                
         // create badge counter
         createBgReadingNotificationAndSetAppBadge(overrideShowReadingInNotification: true)
         
@@ -313,16 +304,8 @@ final class RootViewController: UIViewController {
         // bg reading notification and badge, and multiplication factor
         UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.showReadingInNotification.rawValue, options: .new, context: nil)
         UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.showReadingInAppBadge.rawValue, options: .new, context: nil)
-        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.multipleAppBadgeValueWith10.rawValue, options: .new, context: nil)
         // also update of unit requires update of badge
         UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.bloodGlucoseUnitIsMgDl.rawValue, options: .new, context: nil)
-        
-        
-        // high mark , low mark , urgent high mark, urgent low mark. change requires redraw of graph
-        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.urgentLowMarkValue.rawValue, options: .new, context: nil)
-        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.lowMarkValue.rawValue, options: .new, context: nil)
-        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.highMarkValue.rawValue, options: .new, context: nil)
-        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.urgentHighMarkValue.rawValue, options: .new, context: nil)
 
         // setup delegate for UNUserNotificationCenter
         UNUserNotificationCenter.current().delegate = self
@@ -810,7 +793,9 @@ final class RootViewController: UIViewController {
         // first check keyValueObserverTimeKeeper
         switch keyPathEnum {
         
-        case UserDefaults.Key.isMaster, UserDefaults.Key.multipleAppBadgeValueWith10, UserDefaults.Key.showReadingInAppBadge, UserDefaults.Key.bloodGlucoseUnitIsMgDl:
+        case UserDefaults.Key.isMaster,
+            UserDefaults.Key.showReadingInAppBadge,
+            UserDefaults.Key.bloodGlucoseUnitIsMgDl:
             
             // transmittertype change triggered by user, should not be done within 200 ms
             if !keyValueObserverTimeKeeper.verifyKey(forKey: keyPathEnum.rawValue, withMinimumDelayMilliSeconds: 200) {
@@ -838,28 +823,17 @@ final class RootViewController: UIViewController {
                 
             }
             
-        case UserDefaults.Key.multipleAppBadgeValueWith10,
-            UserDefaults.Key.showReadingInAppBadge,
+        case UserDefaults.Key.showReadingInAppBadge,
             UserDefaults.Key.bloodGlucoseUnitIsMgDl:
             
             // if showReadingInAppBadge = false, means user set it from true to false
             // set applicationIconBadgeNumber to 0. This will cause removal of the badge counter, but als removal of any existing notification on the screen
             if !UserDefaults.standard.showReadingInAppBadge {
-                
                 UIApplication.shared.applicationIconBadgeNumber = 0
-                
             }
             
             // this will trigger update of app badge, will also create notification, but as app is most likely in foreground, this won't show up
             createBgReadingNotificationAndSetAppBadge(overrideShowReadingInNotification: true)
-            
-//        case UserDefaults.Key.urgentLowMarkValue,
-//            UserDefaults.Key.lowMarkValue,
-//            UserDefaults.Key.highMarkValue,
-//            UserDefaults.Key.urgentHighMarkValue:
-//
-//            // redraw chart is necessary
-//            updateChartWithResetEndDate()
     
         default:
             break
@@ -1280,26 +1254,22 @@ final class RootViewController: UIViewController {
             
             // set timeStampLastBGNotification to now
             timeStampLastBGNotification = Date()
-        }
-        else {
             
+        } else {
             // notification shouldn't be shown, but maybe the badge counter. Here the badge value needs to be shown in another way
-            
             if UserDefaults.standard.showReadingInAppBadge {
                 
                 // rescale of unit is mmol
                 readingValueForBadge = readingValueForBadge.mgdlToMmol(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
                 
                 // if unit is mmol and if value needs to be multiplied by 10, then multiply by 10
-                if !UserDefaults.standard.bloodGlucoseUnitIsMgDl && UserDefaults.standard.multipleAppBadgeValueWith10 {
+                if !UserDefaults.standard.bloodGlucoseUnitIsMgDl {
                     readingValueForBadge = readingValueForBadge * 10.0
                 }
                 
                 UIApplication.shared.applicationIconBadgeNumber = Int(round(readingValueForBadge))
-                
             }
         }
-        
     }
     
     /// - updates the labels and the chart,
@@ -1614,7 +1584,6 @@ final class RootViewController: UIViewController {
     
     // helper function to calculate the statistics and update the pie chart and label outlets
     private func updateStatistics(animatePieChart: Bool = false, overrideApplicationState: Bool = false) {
-        
         // don't calculate statis if app is not running in the foreground
         guard UIApplication.shared.applicationState == .active || overrideApplicationState else {return}
         
@@ -1633,13 +1602,16 @@ final class RootViewController: UIViewController {
         // if the user has selected 0 (to chose "today") then set the fromDate to the previous midnight
         if daysToUseStatistics == 0 {
             fromDate = Calendar(identifier: .gregorian).startOfDay(for: Date())
+            
         } else {
             fromDate = Date(timeIntervalSinceNow: -3600.0 * 24.0 * Double(daysToUseStatistics))
         }
         
         // statisticsManager will calculate the statistics in background thread and call the callback function in the main thread
         statisticsManager?.calculateStatistics(fromDate: fromDate, toDate: nil, callback: { [weak self] statistics in
-            self?.statisticsView.show(statistics: statistics, daysToUseStatistics: daysToUseStatistics)
+            self?.statisticsView.show(statistics: statistics,
+                                      daysToUseStatistics: daysToUseStatistics,
+                                      animatePieChart: animatePieChart)
         })
     }
     
@@ -1935,7 +1907,7 @@ extension RootViewController: SingleSelectionDelegate {
                 break
             }
             
-            updateStatistics(animatePieChart: true, overrideApplicationState: false)
+            updateStatistics(animatePieChart: false, overrideApplicationState: false)
         }
     }
 }

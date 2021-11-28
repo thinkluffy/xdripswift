@@ -29,8 +29,6 @@ extension UserDefaults {
         case showReadingInNotification = "showReadingInNotification"
         /// should readings be shown in app badge yes or no
         case showReadingInAppBadge = "showReadingInAppBadge"
-        /// should reading by multiplied by 10
-        case multipleAppBadgeValueWith10 = "multipleAppBadgeValueWith10"
         /// minimum time between two notifications, set by user
         case notificationInterval = "notificationInterval"
         
@@ -344,17 +342,6 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: Key.showReadingInAppBadge.rawValue)
-        }
-    }
-    
-    /// should reading be multiplied by 10 or not
-    @objc dynamic var multipleAppBadgeValueWith10: Bool {
-        // default value for bool in userdefaults is false, as default we want readings not to be multiplied by 10
-        get {
-            return !bool(forKey: Key.multipleAppBadgeValueWith10.rawValue)
-        }
-        set {
-            set(!newValue, forKey: Key.multipleAppBadgeValueWith10.rawValue)
         }
     }
     
