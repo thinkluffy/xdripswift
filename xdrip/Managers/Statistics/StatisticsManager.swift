@@ -63,6 +63,7 @@ public final class StatisticsManager {
             var numberOfDaysUsed: Int = 0
             var readingsCount: Int = 0
             var stdDeviation: Double = 0
+			var gviStatisticValue: Double = 0
 
             CoreDataManager.shared.privateManagedObjectContext.performAndWait {
 
@@ -174,6 +175,27 @@ public final class StatisticsManager {
                     // calculate Coeffecient of Variation
                     cVStatisticValue = ((stdDeviation) / averageStatisticValue) * 100
                 
+					// https://web.archive.org/web/20160523152519/http://www.healthline.com/diabetesmine/a-new-view-of-glycemic-variability-how-long-is-your-line#2
+					// x轴单位为分钟，y轴单位为mg/dL
+					func gvi(data: [BgReading]) -> Double {
+						guard data.count > 1 else {
+							return Double(data.count)
+						}
+						
+						func dL(x: BgReading, y: BgReading) -> Double {
+							let dx = x.timeStamp.timeIntervalSince(y.timeStamp)/60 // 单位分钟
+							let dy = (x.calculatedValue - y.calculatedValue)
+							return sqrt(pow(dx, 2) + pow(dy, 2))
+						}
+						var L: Double = 0
+						let L0: Double = dL(x: data.first!, y: data.last!)
+						
+						for i in 0..<(data.count - 1) {
+							L +=  dL(x: data[i], y: data[i+1])
+						}
+						return L / L0
+					}
+					gviStatisticValue = gvi(data: readings)
                 } else {
                 
                     // just assign a zero value to all statistics variables
@@ -185,6 +207,7 @@ public final class StatisticsManager {
                     a1CStatisticValue = 0
                     readingsCount = 0
                     stdDeviation = 0
+					gviStatisticValue = 0
                 }
 
             }
@@ -202,7 +225,8 @@ public final class StatisticsManager {
                                         highLimitForTIR: highLimitForTIR,
                                         numberOfDaysUsed: numberOfDaysUsed,
                                         readingsCount: readingsCount,
-                                        stdDeviation: stdDeviation))
+                                        stdDeviation: stdDeviation,
+										gviStatisticValue: gviStatisticValue))
                 }
             }
 
@@ -228,6 +252,7 @@ public final class StatisticsManager {
         var numberOfDaysUsed: Int
         var readingsCount: Int
         var stdDeviation: Double
+		var gviStatisticValue: Double
         
     }
      
