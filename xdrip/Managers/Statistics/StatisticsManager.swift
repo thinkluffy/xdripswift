@@ -187,17 +187,18 @@ public final class StatisticsManager {
 							let dy = (x.calculatedValue - y.calculatedValue)
 							return sqrt(pow(dx, 2) + pow(dy, 2))
 						}
+                        
 						var L: Double = 0
 						let L0: Double = dL(x: data.first!, y: data.last!)
 						
-						for i in 0..<(data.count - 1) {
+						for i in 0 ..< (data.count - 1) {
 							L +=  dL(x: data[i], y: data[i+1])
 						}
 						return L / L0
 					}
 					gviStatisticValue = gvi(data: readings)
+                    
                 } else {
-                
                     // just assign a zero value to all statistics variables
                     lowStatisticValue = 0
                     highStatisticValue = 0
@@ -209,7 +210,6 @@ public final class StatisticsManager {
                     stdDeviation = 0
 					gviStatisticValue = 0
                 }
-
             }
             
             // call callback in main thread, this callback will only update the UI when the user hasn't requested more statistics updates in the meantime (this will only apply if they are reaaaallly quick at tapping the segmented control)
@@ -229,7 +229,6 @@ public final class StatisticsManager {
 										gviStatisticValue: gviStatisticValue))
                 }
             }
-
         })
         
         // add the operation to the queue and start it. As maxConcurrentOperationCount = 1, it may be kept until a previous operation has finished
