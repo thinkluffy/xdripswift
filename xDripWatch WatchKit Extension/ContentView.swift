@@ -53,12 +53,12 @@ struct ContentView: View {
 								.font(.title)
 								.foregroundColor(color)
 						}
+						Text(config.showAsMgDl ? "mg/dL" : "mmol/L")
+							.font(.footnote)
+							.foregroundColor(Color.secondary)
 					}
 				}
                 
-				Text(config.showAsMgDl ? "mg/dL" : "mmol/L")
-					.font(.footnote)
-					.foregroundColor(Color.secondary)
                 
 				if usefulData.bgInfoList.count > 0 {
 					let list = usefulData.bgInfoList.map {
