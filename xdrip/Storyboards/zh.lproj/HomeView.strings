@@ -77,3 +77,6 @@
 
 /// Info message to explain screen lock function
 "screenlockinfo" = "This will keep the screen awake until you move to another app or click Unlock.\r\n\nIt is recommended that you keep the phone plugged into a charger to prevent battery drain.";
+
+
+"toast_new_bg_reading" = "新血糖值";

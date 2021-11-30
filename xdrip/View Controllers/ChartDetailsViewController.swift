@@ -545,6 +545,7 @@ fileprivate class DatePickerSheetContent: BottomSheetContent {
 
 extension DatePickerSheetContent: FSCalendarDelegate {
     
+    // avoid selecting a date in future
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
         date <= Date()
     }

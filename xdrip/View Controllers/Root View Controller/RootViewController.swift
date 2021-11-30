@@ -768,7 +768,7 @@ final class RootViewController: UIViewController {
                 
                 loopManager?.share()
                 
-                navigationController?.view.makeToast("New BG", duration: 2.0, position: .bottom)
+                showNewBGReadingToast()
             }
         }
     }
@@ -1839,6 +1839,10 @@ extension RootViewController: UNUserNotificationCenterDelegate {
             }
         }
     }
+    
+    private func showNewBGReadingToast() {
+        tabBarController?.view.makeToast(R.string.homeView.toast_new_bg_reading(), duration: 2, position: .bottom)
+    }
 }
 
 extension RootViewController: RootV {
@@ -1855,6 +1859,8 @@ extension RootViewController: RootV {
         
         // check alerts, create notification, set app badge
         checkAlertsCreateNotificationAndSetAppBadge()
+        
+        showNewBGReadingToast()
     }
     
     func showChartReadings(_ readings: [BgReading]?, from fromDate: Date, to toDate: Date) {

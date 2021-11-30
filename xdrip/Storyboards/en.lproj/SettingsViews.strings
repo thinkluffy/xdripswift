@@ -31,8 +31,8 @@
 "settingsviews_transmitterid_text_for_button"  = "Transmitter ID";
 "settingsviews_givetransmitterid" = "Enter Transmitter ID";
 "settingsviews_resettransmitter" = "Reset Transmitter";
-"settingsviews_webooptransmitter" = "Use Libre Algorithm?";
-"settingsviews_nonfixedtransmitter" = "Enable Multi-point Calibration?";
+"settingsviews_webooptransmitter" = "Use Libre Algorithm";
+"settingsviews_nonfixedtransmitter" = "Enable Multi-point Calibration";
 "settingsviews_labelNonFixed" = "Multi-point Calibration";
 "settingsviews_labelWebOOP" = "xDrip or Libre Algorithm";
 "transmitterId8OrHigherNotSupported" = "Transmitters with ID 8Gxxxx or newer are not currently supported!";

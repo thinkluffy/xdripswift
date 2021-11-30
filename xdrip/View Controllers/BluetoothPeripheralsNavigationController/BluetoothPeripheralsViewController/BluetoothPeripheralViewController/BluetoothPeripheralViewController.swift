@@ -127,7 +127,12 @@ class BluetoothPeripheralViewController: UIViewController {
     
     /// - sets text in connect button (only applicable to BluetoothPeripheralViewController) and gets status text
     /// - used in BluetoothPeripheralsViewController and BluetoothPeripheralViewController. BluetoothPeripheralsViewController doen't have a connect button, so that outlet is optional
-    public static func setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: BluetoothPeripheral?, isScanning: Bool, connectButtonOutlet: UIButton?, expectedBluetoothPeripheralType: BluetoothPeripheralType?, transmitterId: String?, bluetoothPeripheralManager: BluetoothPeripheralManager) -> String {
+    static func setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: BluetoothPeripheral?,
+                                                                 isScanning: Bool,
+                                                                 connectButtonOutlet: UIButton?,
+                                                                 expectedBluetoothPeripheralType: BluetoothPeripheralType?,
+                                                                 transmitterId: String?,
+                                                                 bluetoothPeripheralManager: BluetoothPeripheralManager) -> String {
         
         // by default connectbutton is enabled
         connectButtonOutlet?.enable()

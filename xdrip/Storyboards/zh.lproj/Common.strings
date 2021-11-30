@@ -52,7 +52,7 @@
 "green" = "green";
 
 /// name
-"name" = "Name:";
+"name" = "名称";
 
 /// literally yes, without capital
 "yes" = "是";

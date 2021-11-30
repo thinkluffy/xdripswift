@@ -53,16 +53,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
     
     private func setupUIComponents() {
-//        // Toast
-//        var style = ToastStyle()
-//        style.backgroundImage = R.image.bg.bg_toast()
-//        style.verticalMargin = 50
-//        style.verticalPadding = 17
-//        style.horizontalPadding = 40
-//        style.slideInAndOut = true
-//        style.titleColor = .hex(0xff1f2033)
-//        style.messageColor = .hex(0xff1f2033)
-//        ToastManager.shared.style = style
+        // Toast
+        var style = ToastStyle()
+        style.backgroundColor = .white
+        style.verticalMargin = 50
+        style.verticalPadding = 10
+        style.horizontalPadding = 20
+        style.slideInAndOut = true
+        style.titleColor = .hex(0xff1f2033)
+        style.messageColor = .hex(0xff1f2033)
+        ToastManager.shared.style = style
     }
 }
 
