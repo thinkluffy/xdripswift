@@ -768,9 +768,9 @@ final class RootViewController: UIViewController {
                 
                 loopManager?.share()
                 
+                navigationController?.view.makeToast("New BG", duration: 2.0, position: .bottom)
             }
         }
-        
     }
     
     /// closes the SnoozeViewController if it is being presented now
@@ -1363,11 +1363,9 @@ final class RootViewController: UIViewController {
             valueLabelOutlet.textColor = UIColor.green
         }
         
-        // get minutes ago and create text for minutes ago label
-        let minutesAgo = -Int(lastReading.timeStamp.timeIntervalSinceNow) / 60
-        let minutesAgoText = minutesAgo.description + " " + (minutesAgo == 1 ? Texts_Common.minute:Texts_Common.minutes) + " " + Texts_HomeView.ago
-        
-        minutesLabelOutlet.text = minutesAgoText
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh:mm"
+        minutesLabelOutlet.text = dateFormatter.string(from: lastReading.timeStamp)
         
         // create delta text
         diffLabelOutlet.text = lastReading.unitizedDeltaString(previousBgReading: lastButOneReading, showUnit: true, highGranularity: true, mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
