@@ -213,33 +213,26 @@ extension CGMLibre2Transmitter {
         var skipped = 0
         
         repeatingTimer = RepeatingTimer(timeInterval: 60.0, eventHandler: {
-            
             if skipped < skip && skipValues {
                 //skip one
                 skipped = skipped + 1
                 
             } else {
-
                 if let data = Data(hexadecimalString: testData[index]), let sensorUid = sensorUid, index < testData.count {
-                    
                     DispatchQueue.main.sync {
                         self.processValue(value: data, sensorUID: sensorUid)
                     }
-                    
                 }
                 
                 skip = skip + 1
                 skipped = 0
-
             }
             
             index = index + 1
-            
         })
         
         if let repeatingTimer = repeatingTimer {
             repeatingTimer.resume()
         }
-        
     }
 }

@@ -70,10 +70,18 @@ class CGMLibre2Transmitter:BluetoothTransmitter, CGMTransmitter {
     ///     - sensorSerialNumber : optional, sensor serial number, should be set if already known from previous session
     ///     - cGMTransmitterDelegate : a CGMTransmitterDelegate
     ///     - webOOPEnabled : enabled or not, if nil then default false
-    init(address:String?, name: String?, bluetoothTransmitterDelegate: BluetoothTransmitterDelegate, cGMLibre2TransmitterDelegate : CGMLibre2TransmitterDelegate, sensorSerialNumber:String?, cGMTransmitterDelegate:CGMTransmitterDelegate, nonFixedSlopeEnabled: Bool?, webOOPEnabled: Bool?) {
+    init(address: String?,
+         name: String?,
+         bluetoothTransmitterDelegate: BluetoothTransmitterDelegate,
+         cGMLibre2TransmitterDelegate: CGMLibre2TransmitterDelegate,
+         sensorSerialNumber: String?,
+         cGMTransmitterDelegate: CGMTransmitterDelegate,
+         nonFixedSlopeEnabled: Bool?,
+         webOOPEnabled: Bool?) {
         
         // assign addressname and name or expected devicename
         var newAddressAndName:BluetoothTransmitter.DeviceAddressAndName = BluetoothTransmitter.DeviceAddressAndName.notYetConnected(expectedName: "abbott")
+        
         if let address = address {
             newAddressAndName = BluetoothTransmitter.DeviceAddressAndName.alreadyConnectedBefore(address: address, name: name)
         }
@@ -100,7 +108,6 @@ class CGMLibre2Transmitter:BluetoothTransmitter, CGMTransmitter {
         self.webOOPEnabled = webOOPEnabled ?? false
 
         super.init(addressAndName: newAddressAndName, CBUUID_Advertisement: nil, servicesCBUUIDs: [CBUUID(string: CBUUID_Service_Libre2)], CBUUID_ReceiveCharacteristic: CBUUID_ReceiveCharacteristic_Libre2, CBUUID_WriteCharacteristic: CBUUID_WriteCharacteristic_Libre2, bluetoothTransmitterDelegate: bluetoothTransmitterDelegate)
-        
     }
     
     // MARK: - overriden  BluetoothTransmitter functions
@@ -113,34 +120,23 @@ class CGMLibre2Transmitter:BluetoothTransmitter, CGMTransmitter {
         
         // create libreNFC instance and start session
         if #available(iOS 14.0, *) {
-            
             if NFCTagReaderSession.readingAvailable {
-
                 // startScanning is getting called several times, but we must restrict launch of nfc scan to one single time, therefore check if libreNFC == nil
                 if libreNFC == nil {
-                    
                     libreNFC = LibreNFC(libreNFCDelegate: self)
-                    
                     (libreNFC as! LibreNFC).startSession()
-                    
                 }
 
             } else {
-                
                 bluetoothTransmitterDelegate?.error(message: TextsLibreNFC.deviceMustSupportNFC)
-                
             }
             
-            
         } else {
-            
             bluetoothTransmitterDelegate?.error(message: TextsLibreNFC.deviceMustSupportIOS14)
-            
         }
         
         // start the bluetooth scanning
         return super.startScanning()
-
     }
     
     override func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
@@ -179,17 +175,15 @@ class CGMLibre2Transmitter:BluetoothTransmitter, CGMTransmitter {
         
         // there should be already stored a value for libreSensorUID in the userdefaults at this moment, otherwise processing is not possible
         guard let libreSensorUID = UserDefaults.standard.libreSensorUID else {
-            
             trace("in peripheral didUpdateValueFor but libreSensorUID is not known, no further processing", log: log, category: ConstantsLog.categoryCGMLibre2, type: .info)
-            
             return
-            
         }
             
         // logging libreSensorUID and libre1DerivedAlgorithmParameters just in case it's needed for debugging purposes
         var libre1DerivedAlgorithmParametersAsString: String!
         if let libre1DerivedAlgorithmParameters = UserDefaults.standard.libre1DerivedAlgorithmParameters {
             libre1DerivedAlgorithmParametersAsString = libre1DerivedAlgorithmParameters.description
+            
         } else {
             libre1DerivedAlgorithmParametersAsString = "unknown"
         }
@@ -198,13 +192,11 @@ class CGMLibre2Transmitter:BluetoothTransmitter, CGMTransmitter {
 
         
         if let value = characteristic.value {
-            
             processValue(value: value, sensorUID: libreSensorUID)
             
         } else {
             trace("in peripheral didUpdateValueFor, value is nil, no further processing", log: log, category: ConstantsLog.categoryCGMLibre2, type: .error)
         }
-        
     }
     
     override func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
@@ -304,33 +296,23 @@ class CGMLibre2Transmitter:BluetoothTransmitter, CGMTransmitter {
                 trace("in peripheral didUpdateValueFor, error while parsing/decrypting data =  %{public}@ ", log: log, category: ConstantsLog.categoryCGMLibre2, type: .info, error.localizedDescription)
                 
                 resetRxBuffer()
-                
             }
-            
         }
-        
     }
 
     // MARK: - CGMTransmitter protocol functions
     
     func setNonFixedSlopeEnabled(enabled: Bool) {
-        
         if nonFixedSlopeEnabled != enabled {
-            
             nonFixedSlopeEnabled = enabled
-            
         }
     }
     
     /// set webOOPEnabled value
     func setWebOOPEnabled(enabled: Bool) {
-        
         if webOOPEnabled != enabled {
-            
             webOOPEnabled = enabled
-            
         }
-        
     }
     
     func cgmTransmitterType() -> CGMTransmitterType {
@@ -350,11 +332,8 @@ class CGMLibre2Transmitter:BluetoothTransmitter, CGMTransmitter {
     }
     
     func maxSensorAgeInDays() -> Int? {
-        
         return libreSensorType?.maxSensorAgeInDays()
-        
     }
-    
 }
 
 #else

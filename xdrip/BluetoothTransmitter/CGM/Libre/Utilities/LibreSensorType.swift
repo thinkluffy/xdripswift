@@ -138,16 +138,12 @@ public enum LibreSensorType: String {
             
         default:
             return nil
-            
         }
-            
     }
     
     /// maximum sensor age in days, nil if no maximum
     func maxSensorAgeInDays() -> Int? {
-        
         switch self {
-        
         case .libre1:
             return 14
             
@@ -162,13 +158,8 @@ public enum LibreSensorType: String {
 
         case .libreProH:
             return nil
-
         }
-        
     }
-    
-
-    
 }
 
 

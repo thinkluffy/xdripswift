@@ -60,7 +60,8 @@ final class RootViewController: UIViewController {
 
     /// outlet for chart
     @IBOutlet weak var glucoseChart: GlucoseChart!
-        
+    @IBOutlet weak var newReadingCountDownView: CountDownView!
+
     @IBOutlet weak var chartHoursSelection: SingleSelection!
     @IBOutlet weak var statisticsDaysSelection: SingleSelection!
         
@@ -535,24 +536,19 @@ final class RootViewController: UIViewController {
     ///     - glucoseData : array with new readings
     ///     - sensorTimeInMinutes : should be present only if it's the first reading(s) being processed for a specific sensor and is needed if it's a transmitterType that returns true to the function canDetectNewSensor
     private func processNewGlucoseData(glucoseData: inout [GlucoseData], sensorTimeInMinutes: Int?) {
-        
         // unwrap calibrationsAccessor and coreDataManager and cgmTransmitter
         guard let calibrationsAccessor = calibrationsAccessor, let cgmTransmitter = bluetoothPeripheralManager?.getCGMTransmitter() else {
-            
-            trace("in processNewGlucoseData, calibrationsAccessor or coreDataManager or cgmTransmitter is nil", log: log, category: ConstantsLog.categoryRootView, type: .error)
-            
+            RootViewController.log.e("in processNewGlucoseData, calibrationsAccessor or coreDataManager or cgmTransmitter is nil")
             return
-            
         }
         
         if activeSensor == nil {
-            
             if let sensorTimeInMinutes = sensorTimeInMinutes, cgmTransmitter.cgmTransmitterType().canDetectNewSensor() {
-                
                 activeSensor = Sensor(startDate: Date(timeInterval: -Double(sensorTimeInMinutes * 60), since: Date()),
                                       nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
                 if let activeSensor = activeSensor {
                     trace("created sensor with id : %{public}@ and startdate  %{public}@", log: log, category: ConstantsLog.categoryRootView, type: .info, activeSensor.id, activeSensor.startDate.description)
+                    
                 } else {
                     trace("creation active sensor failed", log: log, category: ConstantsLog.categoryRootView, type: .info)
                 }
@@ -620,32 +616,26 @@ final class RootViewController: UIViewController {
                 // if that's not the case add 1 minute to timeStampToDelete
                 // repeat this until reached
                 let checkTimeStampToDelete = { (glucoseData: [GlucoseData]) -> Bool in
-                    
                     // just to avoid infinite loop
                     if timeStampToDelete > Date() {return true}
                     
                     let minutes = Int(abs(timeStampToDelete.timeIntervalSince(Date())/60.0))
                     
                     if minutes < glucoseData.count {
-                        
                         if abs(glucoseData[minutes].timeStamp.timeIntervalSince(timeStampToDelete)) > 1.0 {
                             // increase timeStampToDelete with 5 minutes, this is in the assumption that ConstantsSmoothing.readingsToDeleteInMinutes is not more than 21, by reducing to 16 we should never have a gap because there's always minimum 16 values per minute
                             timeStampToDelete = timeStampToDelete.addingTimeInterval(1.0 * 60)
                             
                             return false
-                            
                         }
-                        
                         return true
                         
                     } else {
                         // should never come here
                         // increase timeStampToDelete with 5 minutes
                         timeStampToDelete = timeStampToDelete.addingTimeInterval(1.0 * 60)
-                        
                         return false
                     }
-                    
                 }
                 
                 // repeat the function checkTimeStampToDelete until timeStampToDelete is high enough so that we delete only bgReading's without creating a gap that can't be filled in
@@ -656,7 +646,6 @@ final class RootViewController: UIViewController {
                 
                 // delete them
                 for reading in lastBgReadings {
-                    
                     trace("reading being deleted with timestamp =  %{public}@", log: self.log, category: ConstantsLog.categoryRootView, type: .debug, reading.timeStamp.toString(timeStyle: .long, dateStyle: .none))
                     
                     CoreDataManager.shared.mainManagedObjectContext.delete(reading)
@@ -710,20 +699,14 @@ final class RootViewController: UIViewController {
                         // set timeStampLastBgReading to new timestamp
                         timeStampLastBgReading = glucose.timeStamp
                         
-                        
                     } else {
-                        
-                        trace("reading skipped, rawValue <= 0, looks like a faulty sensor", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
-                        
+                        RootViewController.log.i("reading skipped, rawValue <= 0, looks like a faulty sensor")
                     }
-                    
                 }
-                
             }
             
             // if a new reading is created, create either initial calibration request or bgreading notification - upload to nightscout and check alerts
             if newReadingCreated {
-                
                 // only if no webOOPEnabled : if no two calibration exist yet then create calibration request notification, otherwise a bgreading notification and update labels
                 if firstCalibrationForActiveSensor == nil && lastCalibrationForActiveSensor == nil && !cgmTransmitter.isWebOOPEnabled() {
                     
@@ -731,15 +714,12 @@ final class RootViewController: UIViewController {
                     let latestReadings = bgReadingsAccessor.getLatestBgReadings(limit: 36, howOld: nil, forSensor: activeSensor, ignoreRawData: false, ignoreCalculatedValue: true)
                     
                     if latestReadings.count > 1 {
-
                         trace("calibration : two readings received, no calibrations exist yet and not weboopenabled, request calibation to user", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
 
                         createInitialCalibrationRequest()
-                        
                     }
                     
                 } else {
-                    
                     // check alerts, create notification, set app badge
                     checkAlertsCreateNotificationAndSetAppBadge()
                     
@@ -751,7 +731,6 @@ final class RootViewController: UIViewController {
                     
                     // update sensor countdown graphic
                     updateSensorCountdown()
-                    
                 }
                 
                 nightScoutUploadManager?.upload(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp())
@@ -769,6 +748,10 @@ final class RootViewController: UIViewController {
                 loopManager?.share()
                 
                 showNewBGReadingToast()
+                
+                // should check how offen the Transmitter get new reading
+                newReadingCountDownView.reset(to: 60)
+                newReadingCountDownView.startCountDown()
             }
         }
     }
@@ -1714,10 +1697,9 @@ extension RootViewController: CGMTransmitterDelegate {
     }
     
     func cgmTransmitterInfoReceived(glucoseData: inout [GlucoseData], transmitterBatteryInfo: TransmitterBatteryInfo?, sensorTimeInMinutes: Int?) {
-    
-        trace("transmitterBatteryInfo %{public}@", log: log, category: ConstantsLog.categoryRootView, type: .debug, transmitterBatteryInfo?.description ?? "not received")
-        trace("sensor time in minutes %{public}@", log: log, category: ConstantsLog.categoryRootView, type: .debug, sensorTimeInMinutes?.description ?? "not received")
-        trace("glucoseData size = %{public}@", log: log, category: ConstantsLog.categoryRootView, type: .debug, glucoseData.count.description)
+        RootViewController.log.d("transmitterBatteryInfo \(transmitterBatteryInfo?.description ?? "not received")")
+        RootViewController.log.d("sensor time in minutes \(sensorTimeInMinutes?.description ?? "not received")")
+        RootViewController.log.d("glucoseData size: \(glucoseData.count.description)")
         
         // if received transmitterBatteryInfo not nil, then store it
         if let transmitterBatteryInfo = transmitterBatteryInfo {

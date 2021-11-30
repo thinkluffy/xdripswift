@@ -158,10 +158,19 @@
                                                         <color key="tintColor" red="0.91764705882352937" green="0.1764705882352941" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <color key="barTintColor" red="0.1384946406" green="0.1503256261" blue="0.2745223343" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     </toolbar>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V90-WH-dIE" customClass="CountDownView" customModule="xdrip" customModuleProvider="target">
+                                                        <rect key="frame" x="368" y="10" width="50" height="20"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="20" id="LNZ-iA-1Ej"/>
+                                                            <constraint firstAttribute="width" constant="50" id="w9d-2A-rMZ"/>
+                                                        </constraints>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="B9A-0Y-PhM" firstAttribute="top" secondItem="C16-NQ-F1Y" secondAttribute="top" id="0Cp-j8-xqU"/>
+                                                    <constraint firstItem="V90-WH-dIE" firstAttribute="top" secondItem="C16-NQ-F1Y" secondAttribute="top" constant="10" id="0uL-Xx-KeJ"/>
                                                     <constraint firstAttribute="trailing" secondItem="B9A-0Y-PhM" secondAttribute="trailing" id="1ug-ld-IKQ"/>
                                                     <constraint firstItem="tVG-ML-9xd" firstAttribute="leading" secondItem="C16-NQ-F1Y" secondAttribute="leading" id="3Dx-Rt-YEp"/>
                                                     <constraint firstItem="B9A-0Y-PhM" firstAttribute="leading" secondItem="C16-NQ-F1Y" secondAttribute="leading" id="6Uu-OL-6iT"/>
@@ -174,6 +183,7 @@
                                                     <constraint firstItem="Fqv-ph-O5s" firstAttribute="top" secondItem="We3-bN-ffR" secondAttribute="bottom" constant="10" id="ViQ-DN-7he"/>
                                                     <constraint firstAttribute="trailing" secondItem="Fqv-ph-O5s" secondAttribute="trailing" constant="10" id="XaG-IP-8SC"/>
                                                     <constraint firstItem="Fqv-ph-O5s" firstAttribute="leading" secondItem="C16-NQ-F1Y" secondAttribute="leading" constant="10" id="a3i-Qb-fUj"/>
+                                                    <constraint firstAttribute="trailing" secondItem="V90-WH-dIE" secondAttribute="trailing" constant="10" id="cMy-os-dno"/>
                                                     <constraint firstItem="We3-bN-ffR" firstAttribute="centerX" secondItem="C16-NQ-F1Y" secondAttribute="centerX" id="vhA-TS-y2Z"/>
                                                     <constraint firstItem="We3-bN-ffR" firstAttribute="top" secondItem="C16-NQ-F1Y" secondAttribute="top" constant="45" id="xak-Qv-s0j"/>
                                                 </constraints>
@@ -269,6 +279,7 @@
                         <outlet property="glucoseChart" destination="0nE-AX-r0w" id="pRD-sg-aj1"/>
                         <outlet property="glucoseIndicator" destination="B9A-0Y-PhM" id="XSc-Au-W3T"/>
                         <outlet property="minutesLabelOutlet" destination="uyn-2k-K74" id="XXm-rq-Suy"/>
+                        <outlet property="newReadingCountDownView" destination="V90-WH-dIE" id="0Er-nN-KPr"/>
                         <outlet property="preSnoozeToolbarButtonOutlet" destination="f3E-Tt-LBV" id="HyH-Pn-tQ6"/>
                         <outlet property="sensorCountdownOutlet" destination="HZT-Dl-efY" id="VOW-qS-jVs"/>
                         <outlet property="sensorToolbarButtonOutlet" destination="ZIM-Wf-bUy" id="kjL-rX-6ZV"/>
