@@ -24,10 +24,8 @@ class ChartDetailsViewController: UIViewController {
 
     private var presenter: ChartDetailsP!
     
-    private var selectedChartHoursId = ChartHours.H3
+    private var selectedChartHoursId = ChartHours.H6
     
-    private weak var calendar: FSCalendar!
-
     private lazy var exitButton: UIButton = {
         let view = UIButton()
         view.setImage(R.image.ic_to_portrait(), for: .normal)
@@ -117,22 +115,6 @@ class ChartDetailsViewController: UIViewController {
 
         chartHoursSelection.show(items: selectionItems)
         chartHoursSelection.delegate = self
-        
-        switch UserDefaults.standard.chartWidthInHours
-        {
-        case 1:
-            selectedChartHoursId = ChartHours.H1
-        case 3:
-            selectedChartHoursId = ChartHours.H3
-        case 6:
-            selectedChartHoursId = ChartHours.H6
-        case 12:
-            selectedChartHoursId = ChartHours.H12
-        case 24:
-            selectedChartHoursId = ChartHours.H24
-        default:
-            selectedChartHoursId = ChartHours.H6
-        }
         chartHoursSelection.select(id: selectedChartHoursId, triggerCallback: false)
 
         lockMoveButton.onTap { [unowned self] btn in
@@ -434,11 +416,15 @@ extension ChartDetailsViewController: CalendarTitleDelegate {
     }
     
     func calendarTitleDidClick(_ calendarTitle: CalendarTitle) {
-//        let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: 320, height: 300))
-////        calendar.dataSource = self
-////        calendar.delegate = self
-//        view.addSubview(calendar)
-//        self.calendar = calendar
+        guard let selectedDate = calendarTitle.dateTime else {
+            return
+        }
+        
+        let bottomSheet = BottomSheet()
+        let content = DatePickerSheetContent(selectedDate: selectedDate)
+        content.delegate = self
+        bottomSheet.contentView = content
+        bottomSheet.show(in: view)
     }
 }
 
@@ -469,6 +455,20 @@ extension ChartDetailsViewController: SingleSelectionDelegate {
     }
 }
 
+extension ChartDetailsViewController: DatePickerSheetContentDelegate {
+    
+    fileprivate func datePickerSheetContent(_ sheetContent: DatePickerSheetContent, didSelect date: Date) {
+        // double check to avoid selecting a date in future
+        guard date < Date() else {
+            return
+        }
+        
+        sheetContent.bottomSheet?.dismissView()
+        calendarTitle.dateTime = date
+        presenter.loadData(date: date)
+    }
+}
+
 fileprivate class HourAxisValueFormatter: IAxisValueFormatter {
     
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
@@ -478,5 +478,80 @@ fileprivate class HourAxisValueFormatter: IAxisValueFormatter {
         return dateFormatter.string(from: date)
     }
     
+}
+
+fileprivate protocol DatePickerSheetContentDelegate: AnyObject {
+    
+    func datePickerSheetContent(_ sheetContent: DatePickerSheetContent, didSelect date: Date)
+}
+
+fileprivate class DatePickerSheetContent: BottomSheetContent {
+    
+    weak var delegate: DatePickerSheetContentDelegate?
+        
+    private let selectedDate: Date?
+    
+    init(selectedDate: Date) {
+        self.selectedDate = selectedDate
+        super.init(frame: .zero)
+        initialize()
+    }
+    
+    required init?(coder: NSCoder) {
+        selectedDate = nil
+        super.init(coder: coder)
+        initialize()
+    }
+    
+    private func initialize() {
+        backgroundColor = .clear
+        
+        let container = Card()
+        container.backgroundColor = ConstantsUI.mainBackgroundColor
+        
+        addSubview(container)
+
+        let calendar = FSCalendar()
+        calendar.appearance.headerTitleColor = .white
+        calendar.appearance.headerDateFormat = "yyyy-MM"
+        calendar.appearance.headerMinimumDissolvedAlpha = 0
+        calendar.appearance.titleDefaultColor = .white
+        calendar.appearance.weekdayTextColor = .white
+        calendar.appearance.todayColor = ConstantsUI.contentBackgroundColor
+        calendar.appearance.todaySelectionColor = ConstantsUI.accentRed
+        calendar.appearance.selectionColor = ConstantsUI.accentRed
+        
+        if let selectedDate = selectedDate {
+            calendar.select(selectedDate)
+        }
+            
+        calendar.dataSource = self
+        calendar.delegate = self
+        
+        container.addSubview(calendar)
+        
+        container.snp.makeConstraints { make in
+            make.width.equalTo(320)
+            make.height.equalTo(300)
+            make.centerX.equalToSuperview()
+            make.top.bottom.equalToSuperview()
+        }
+        
+        calendar.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(10)
+        }
+    }
+}
+
+extension DatePickerSheetContent: FSCalendarDataSource, FSCalendarDelegate {
+    
+    // avoid selecting date in future
+    func maximumDate(for calendar: FSCalendar) -> Date {
+        return Date()
+    }
+    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        delegate?.datePickerSheetContent(self, didSelect: date)
+    }
 }
 

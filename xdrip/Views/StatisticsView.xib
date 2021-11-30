@@ -19,6 +19,7 @@
                 <outlet property="bgReadingsCountTitleLabelOutlet" destination="icj-SH-3Pq" id="KBR-ft-1j4"/>
                 <outlet property="cVStatisticLabelOutlet" destination="ZYd-3g-1dQ" id="MMa-qr-2ta"/>
                 <outlet property="cvTitleLabelOutlet" destination="MFl-Mj-ikK" id="iAI-dC-2gE"/>
+                <outlet property="gviLabel" destination="1v1-L6-9LN" id="QBn-PQ-fGx"/>
                 <outlet property="highLabelOutlet" destination="g8A-Dj-k6P" id="msd-PP-2Pa"/>
                 <outlet property="highStatisticLabelOutlet" destination="yPT-Ik-ISE" id="Wgz-8k-elz"/>
                 <outlet property="highTitleLabelOutlet" destination="Tp5-YX-MfM" id="uuA-Df-w6d"/>
@@ -27,6 +28,7 @@
                 <outlet property="lowLabelOutlet" destination="fNf-LS-n4g" id="our-BQ-wer"/>
                 <outlet property="lowStatisticLabelOutlet" destination="l3U-eK-CLZ" id="drK-AJ-A4s"/>
                 <outlet property="lowTitleLabelOutlet" destination="xb8-gu-fH6" id="gAy-Gk-vXp"/>
+                <outlet property="pgsLabel" destination="Jdq-59-Ooc" id="h2p-Ba-kho"/>
                 <outlet property="pieChartOutlet" destination="Abi-2e-mtF" id="ttX-3Q-Fte"/>
                 <outlet property="stdDeviationStatisticLabelOutlet" destination="8ZX-RH-78U" id="Zk0-yn-MHP"/>
                 <outlet property="stdDeviationTitleLabelOutlet" destination="4zU-nJ-cqc" id="xl7-jo-1v6"/>

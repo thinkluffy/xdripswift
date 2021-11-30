@@ -31,7 +31,9 @@ class StatisticsView: UIView {
     @IBOutlet weak var bgReadingsCountStatisticLabelOutlet: UILabel!
     @IBOutlet weak var stdDeviationTitleLabelOutlet: UILabel!
     @IBOutlet weak var stdDeviationStatisticLabelOutlet: UILabel!
-    
+    @IBOutlet weak var gviLabel: UILabel!
+    @IBOutlet weak var pgsLabel: UILabel!
+
     private var contentView: UIView!
     
     required init?(coder aDecoder: NSCoder) {
@@ -116,10 +118,17 @@ class StatisticsView: UIView {
         }
         
         // if there are no values returned (new sensor?) then just leave the default "-" showing
-        if statistics.cVStatisticValue.value > 0 {
+        if statistics.cVStatisticValue > 0 {
             cVStatisticLabelOutlet.text = Int(statistics.cVStatisticValue.round(toDecimalPlaces: 0)).description + "%"
         }
         
+        if statistics.gviStatisticValue > 0 {
+            gviLabel.text = String(format: "%.1f", statistics.gviStatisticValue)
+        }
+        
+		if statistics.pgsStatisticValue > 0 {
+			pgsLabel.text = String(format: "%.0f", statistics.pgsStatisticValue)
+		}
         // show number of days calculated under the pie chart
         switch daysToUseStatistics {
         case 0:

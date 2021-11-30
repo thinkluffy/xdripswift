@@ -28,6 +28,7 @@
 		4E2C95B8274BEC3F0073D692 /* RootPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95B7274BEC3F0073D692 /* RootPresenter.swift */; };
 		4E2C95BC275230B10073D692 /* GlucoseChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95BB275230B10073D692 /* GlucoseChart.swift */; };
 		4E2C95BF275231F90073D692 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95BE275231F90073D692 /* Constants.swift */; };
+		4E6797642754FCE3009C36BB /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6797632754FCE3009C36BB /* BottomSheet.swift */; };
 		4E9D7978273A983600B666C5 /* ChartDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D7977273A983600B666C5 /* ChartDetailsViewController.swift */; };
 		4E9D7986273BEC5500B666C5 /* BaseAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D797B273BEC5500B666C5 /* BaseAppDelegate.swift */; };
 		4E9D7987273BEC5500B666C5 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D797C273BEC5500B666C5 /* Log.swift */; };
@@ -689,6 +690,7 @@
 		4E2C95B7274BEC3F0073D692 /* RootPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPresenter.swift; sourceTree = "<group>"; };
 		4E2C95BB275230B10073D692 /* GlucoseChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseChart.swift; sourceTree = "<group>"; };
 		4E2C95BE275231F90073D692 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		4E6797632754FCE3009C36BB /* BottomSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
 		4E9D7977273A983600B666C5 /* ChartDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDetailsViewController.swift; sourceTree = "<group>"; };
 		4E9D797B273BEC5500B666C5 /* BaseAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseAppDelegate.swift; sourceTree = "<group>"; };
 		4E9D797C273BEC5500B666C5 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
@@ -1591,6 +1593,7 @@
 				4E9D79AF273BF04400B666C5 /* RoundedButton.swift */,
 				4E9D79B0273BF04400B666C5 /* VerticalButton.swift */,
 				4E9D79B2273BF04400B666C5 /* Toast.swift */,
+				4E6797632754FCE3009C36BB /* BottomSheet.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -3888,6 +3891,7 @@
 				F8A2BC3025DB0D6D001D1E78 /* BluetoothPeripheralManager.swift in Sources */,
 				F8A389EB233175A10010F405 /* SettingsViewM5StackSettingsViewModel.swift in Sources */,
 				F816E1242439DB63009EE65B /* DexcomG4+BluetoothPeripheral.swift in Sources */,
+				4E6797642754FCE3009C36BB /* BottomSheet.swift in Sources */,
 				F8E5404C2522624800052CE5 /* ConstantsHousekeeping.swift in Sources */,
 				F8AF120124B9082000AE5BA2 /* Calibration+NightScout.swift in Sources */,
 				F808D2D2240329E80084B5DB /* Bubble+BluetoothPeripheral.swift in Sources */,
