@@ -36,7 +36,7 @@ enum TimeRange {
 	var chartPointRadius: CGFloat {
 		switch self {
 		case .hour1:
-			return 6
+			return 4
 		case .hour3:
 			return 3
 		case .hour6:
@@ -80,6 +80,9 @@ struct WatchChartView: View {
 		
 		let oneHour = 60 * 60
 		for value in originValues {
+			if value.y > self.maxY {
+				self.maxY = value.y
+			}
 			switch Int(Date().timeIntervalSince1970) - value.x {
 			case 0...oneHour:
 				last1hour.append(value)
@@ -173,10 +176,11 @@ struct WatchChartView: View {
 					   let first: ChartPoint = values.first!
 					   let maxTimeInterval: CGFloat = CGFloat(Int(Date().timeIntervalSince1970) - first.x)
 					   let pathWidth = reader.size.width - RightLabelWidth
-//					   var radius: CGFloat = pathWidth * 5 * 60 / maxTimeInterval
-					   let radius: CGFloat = timeRange.chartPointRadius
+//					   let avgRadius: CGFloat = pathWidth * 60 / maxTimeInterval
+//					   let radius = max(avgRadius, timeRange.chartPointRadius
+					   let radius = timeRange.chartPointRadius
 					   let value = values[i]
-					   
+					   // 0.47 0.9 2.8
 					   if value.y <= self.maxY && value.y >= self.minY {
 						   let x = (pathWidth - radius) * CGFloat(value.x - first.x) / maxTimeInterval
 						   let height = reader.size.height * CGFloat((self.maxY - value.y) / (self.maxY - self.minY))
@@ -234,10 +238,10 @@ extension WatchChartView {
 		// 六小时前 - 现在
 		let start = Int(now.addingTimeInterval(-6*60*60).timeIntervalSince1970)
 		let end = Int(now.timeIntervalSince1970)
-		for i in stride(from: start, to: end, by: 5*60) {
+		for i in stride(from: start, to: end, by: 60) {
 			last = last + Double.random(in: -0.4...0.4)
 			last = min(16.6, max(2.2, last))
-			if Int.random(in: 0..<100) > 90{
+			if Int.random(in: 0..<100) > 90 {
 				// 模拟90%的几率没数据
 				continue
 			}

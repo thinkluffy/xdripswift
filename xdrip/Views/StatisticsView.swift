@@ -126,6 +126,9 @@ class StatisticsView: UIView {
             gviLabel.text = String(format: "%.1f", statistics.gviStatisticValue)
         }
         
+		if statistics.pgsStatisticValue > 0 {
+			pgsLabel.text = String(format: "%.0f", statistics.pgsStatisticValue)
+		}
         // show number of days calculated under the pie chart
         switch daysToUseStatistics {
         case 0:

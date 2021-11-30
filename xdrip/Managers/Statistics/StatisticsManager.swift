@@ -64,6 +64,7 @@ public final class StatisticsManager {
             var readingsCount: Int = 0
             var stdDeviation: Double = 0
 			var gviStatisticValue: Double = 0
+			var pgsStatisticValue: Double = 0
 
             CoreDataManager.shared.privateManagedObjectContext.performAndWait {
 
@@ -189,7 +190,7 @@ public final class StatisticsManager {
 						}
                         
 						var L: Double = 0
-						let L0: Double = dL(x: data.first!, y: data.last!)
+						let L0: Double = abs(data.first!.timeStamp.timeIntervalSince(data.last!.timeStamp)/60)
 						
 						for i in 0 ..< (data.count - 1) {
 							L +=  dL(x: data[i], y: data[i+1])
@@ -197,7 +198,7 @@ public final class StatisticsManager {
 						return L / L0
 					}
 					gviStatisticValue = gvi(data: readings)
-                    
+					pgsStatisticValue = gviStatisticValue * averageStatisticValue * (isMgDl ? 1 : ConstantsBloodGlucose.mmollToMgdl ) * (1 - inRangeStatisticValue/100)
                 } else {
                     // just assign a zero value to all statistics variables
                     lowStatisticValue = 0
@@ -209,6 +210,7 @@ public final class StatisticsManager {
                     readingsCount = 0
                     stdDeviation = 0
 					gviStatisticValue = 0
+					pgsStatisticValue = 0
                 }
             }
             
@@ -226,7 +228,8 @@ public final class StatisticsManager {
                                         numberOfDaysUsed: numberOfDaysUsed,
                                         readingsCount: readingsCount,
                                         stdDeviation: stdDeviation,
-										gviStatisticValue: gviStatisticValue))
+										gviStatisticValue: gviStatisticValue,
+										pgsStatisticValue: pgsStatisticValue))
                 }
             }
         })
@@ -252,7 +255,7 @@ public final class StatisticsManager {
         var readingsCount: Int
         var stdDeviation: Double
 		var gviStatisticValue: Double
-        
+		var pgsStatisticValue: Double
     }
      
 }
