@@ -36,11 +36,11 @@ enum TimeRange {
 	var chartPointRadius: CGFloat {
 		switch self {
 		case .hour1:
-			return 3
+			return 4
 		case .hour3:
-			return 2
+			return 3
 		case .hour6:
-			return 1.5
+			return 2
 		}
 	}
 }
@@ -176,10 +176,9 @@ struct WatchChartView: View {
 					   let first: ChartPoint = values.first!
 					   let maxTimeInterval: CGFloat = CGFloat(Int(Date().timeIntervalSince1970) - first.x)
 					   let pathWidth = reader.size.width - RightLabelWidth
-					   let avgRadius: CGFloat = pathWidth * 60 / maxTimeInterval
-					   let radius = max(avgRadius, timeRange.chartPointRadius)
-//					   radius = max(radius, timeRange.chartPointRadius)
-//					   let radius = timeRange.chartPointRadius
+//					   let avgRadius: CGFloat = pathWidth * 60 / maxTimeInterval
+//					   let radius = max(avgRadius, timeRange.chartPointRadius
+					   let radius = timeRange.chartPointRadius
 					   let value = values[i]
 					   // 0.47 0.9 2.8
 					   if value.y <= self.maxY && value.y >= self.minY {

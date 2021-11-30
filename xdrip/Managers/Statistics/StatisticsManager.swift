@@ -198,7 +198,7 @@ public final class StatisticsManager {
 						return L / L0
 					}
 					gviStatisticValue = gvi(data: readings)
-					pgsStatisticValue = gviStatisticValue * averageStatisticValue * (1 - inRangeStatisticValue/100)
+					pgsStatisticValue = gviStatisticValue * averageStatisticValue * (isMgDl ? 1 : ConstantsBloodGlucose.mmollToMgdl ) * (1 - inRangeStatisticValue/100)
                 } else {
                     // just assign a zero value to all statistics variables
                     lowStatisticValue = 0
