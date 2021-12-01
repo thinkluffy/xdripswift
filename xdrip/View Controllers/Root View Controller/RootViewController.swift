@@ -1600,13 +1600,6 @@ final class RootViewController: UIViewController {
     
     /// this function will check if the user is using a time-sensitive sensor (such as a 14 day Libre, calculate the days remaining and then update the imageUI with the relevant svg image from the project assets.
     private func updateSensorCountdown() {
-        
-        // if the user has chosen not to display the countdown graphic, then make sure the graphic is hidden and just return back without doing anything
-        if !UserDefaults.standard.showSensorCountdown {
-            sensorCountdownOutlet.isHidden = true
-            return
-        }
-        
         // if there's no active sensor, there's nothing to do or show
         guard activeSensor != nil else {
             sensorCountdownOutlet.isHidden = true
@@ -1624,9 +1617,6 @@ final class RootViewController: UIViewController {
             UserDefaults.standard.maxSensorAgeInDays = maxDays
         }
         
-        // pull the boolean value from UserDefaults to see if you user prefers the alternative graphics (count-up instead of count-down)
-        let showSensorCountdownAlternativeGraphics = UserDefaults.standard.showSensorCountdownAlternativeGraphics
-
         // check if the sensor type has a hard coded maximum sensor life previously stored.
         if let maxSensorAgeInDays = UserDefaults.standard.maxSensorAgeInDays as Int?, maxSensorAgeInDays > 0 {
         
@@ -1655,14 +1645,7 @@ final class RootViewController: UIViewController {
                 }
                 
             } else {
-                
                 sensorCountdownAssetName += "00"
-                
-            }
-            
-            // if the user prefers the alternative graphics (count-up), then append this to the end of the string
-            if showSensorCountdownAlternativeGraphics {
-                sensorCountdownAssetName += "_alt"
             }
             
             // update the UIImage
@@ -1672,12 +1655,9 @@ final class RootViewController: UIViewController {
             sensorCountdownOutlet.isHidden = false
             
         } else {
-
             // this must be a sensor without a maxSensorAge , so just make sure to hide the sensor countdown image and do nothing
             sensorCountdownOutlet.isHidden = true
-
         }
-        
     }
 }
 

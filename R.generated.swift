@@ -1339,7 +1339,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 50 images.
+  /// This `R.image` struct is generated, and contains static references to 33 images.
   struct image {
     /// Image `ic_arrow_left`.
     static let ic_arrow_left = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_arrow_left")
@@ -1373,72 +1373,38 @@ struct R: Rswift.Validatable {
     static let ic_to_portrait = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_to_portrait")
     /// Image `logo-launchScreen`.
     static let logoLaunchScreen = Rswift.ImageResource(bundle: R.hostingBundle, name: "logo-launchScreen")
-    /// Image `sensor14_00_alt`.
-    static let sensor14_00_alt = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_00_alt")
     /// Image `sensor14_00`.
     static let sensor14_00 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_00")
-    /// Image `sensor14_01_alt`.
-    static let sensor14_01_alt = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_01_alt")
-    /// Image `sensor14_01_urgent_alt`.
-    static let sensor14_01_urgent_alt = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_01_urgent_alt")
     /// Image `sensor14_01_urgent`.
     static let sensor14_01_urgent = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_01_urgent")
-    /// Image `sensor14_01_warning_alt`.
-    static let sensor14_01_warning_alt = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_01_warning_alt")
     /// Image `sensor14_01_warning`.
     static let sensor14_01_warning = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_01_warning")
     /// Image `sensor14_01`.
     static let sensor14_01 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_01")
-    /// Image `sensor14_02_alt`.
-    static let sensor14_02_alt = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_02_alt")
     /// Image `sensor14_02`.
     static let sensor14_02 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_02")
-    /// Image `sensor14_03_alt`.
-    static let sensor14_03_alt = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_03_alt")
     /// Image `sensor14_03`.
     static let sensor14_03 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_03")
-    /// Image `sensor14_04_alt`.
-    static let sensor14_04_alt = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_04_alt")
     /// Image `sensor14_04`.
     static let sensor14_04 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_04")
-    /// Image `sensor14_05_alt`.
-    static let sensor14_05_alt = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_05_alt")
     /// Image `sensor14_05`.
     static let sensor14_05 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_05")
-    /// Image `sensor14_06_alt`.
-    static let sensor14_06_alt = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_06_alt")
     /// Image `sensor14_06`.
     static let sensor14_06 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_06")
-    /// Image `sensor14_07_alt`.
-    static let sensor14_07_alt = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_07_alt")
     /// Image `sensor14_07`.
     static let sensor14_07 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_07")
-    /// Image `sensor14_08_alt`.
-    static let sensor14_08_alt = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_08_alt")
     /// Image `sensor14_08`.
     static let sensor14_08 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_08")
-    /// Image `sensor14_09_alt`.
-    static let sensor14_09_alt = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_09_alt")
     /// Image `sensor14_09`.
     static let sensor14_09 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_09")
-    /// Image `sensor14_10_alt`.
-    static let sensor14_10_alt = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_10_alt")
     /// Image `sensor14_10`.
     static let sensor14_10 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_10")
-    /// Image `sensor14_11_alt`.
-    static let sensor14_11_alt = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_11_alt")
     /// Image `sensor14_11`.
     static let sensor14_11 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_11")
-    /// Image `sensor14_12_alt`.
-    static let sensor14_12_alt = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_12_alt")
     /// Image `sensor14_12`.
     static let sensor14_12 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_12")
-    /// Image `sensor14_13_alt`.
-    static let sensor14_13_alt = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_13_alt")
     /// Image `sensor14_13`.
     static let sensor14_13 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_13")
-    /// Image `sensor14_14_alt`.
-    static let sensor14_14_alt = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_14_alt")
     /// Image `sensor14_14`.
     static let sensor14_14 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_14")
 
@@ -1562,23 +1528,9 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_00_alt", bundle: ..., traitCollection: ...)`
-    static func sensor14_00_alt(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_00_alt, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "sensor14_01", bundle: ..., traitCollection: ...)`
     static func sensor14_01(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.sensor14_01, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_01_alt", bundle: ..., traitCollection: ...)`
-    static func sensor14_01_alt(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_01_alt, compatibleWith: traitCollection)
     }
     #endif
 
@@ -1590,23 +1542,9 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_01_urgent_alt", bundle: ..., traitCollection: ...)`
-    static func sensor14_01_urgent_alt(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_01_urgent_alt, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "sensor14_01_warning", bundle: ..., traitCollection: ...)`
     static func sensor14_01_warning(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.sensor14_01_warning, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_01_warning_alt", bundle: ..., traitCollection: ...)`
-    static func sensor14_01_warning_alt(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_01_warning_alt, compatibleWith: traitCollection)
     }
     #endif
 
@@ -1618,23 +1556,9 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_02_alt", bundle: ..., traitCollection: ...)`
-    static func sensor14_02_alt(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_02_alt, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "sensor14_03", bundle: ..., traitCollection: ...)`
     static func sensor14_03(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.sensor14_03, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_03_alt", bundle: ..., traitCollection: ...)`
-    static func sensor14_03_alt(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_03_alt, compatibleWith: traitCollection)
     }
     #endif
 
@@ -1646,23 +1570,9 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_04_alt", bundle: ..., traitCollection: ...)`
-    static func sensor14_04_alt(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_04_alt, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "sensor14_05", bundle: ..., traitCollection: ...)`
     static func sensor14_05(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.sensor14_05, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_05_alt", bundle: ..., traitCollection: ...)`
-    static func sensor14_05_alt(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_05_alt, compatibleWith: traitCollection)
     }
     #endif
 
@@ -1674,23 +1584,9 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_06_alt", bundle: ..., traitCollection: ...)`
-    static func sensor14_06_alt(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_06_alt, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "sensor14_07", bundle: ..., traitCollection: ...)`
     static func sensor14_07(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.sensor14_07, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_07_alt", bundle: ..., traitCollection: ...)`
-    static func sensor14_07_alt(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_07_alt, compatibleWith: traitCollection)
     }
     #endif
 
@@ -1702,23 +1598,9 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_08_alt", bundle: ..., traitCollection: ...)`
-    static func sensor14_08_alt(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_08_alt, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "sensor14_09", bundle: ..., traitCollection: ...)`
     static func sensor14_09(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.sensor14_09, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_09_alt", bundle: ..., traitCollection: ...)`
-    static func sensor14_09_alt(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_09_alt, compatibleWith: traitCollection)
     }
     #endif
 
@@ -1730,23 +1612,9 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_10_alt", bundle: ..., traitCollection: ...)`
-    static func sensor14_10_alt(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_10_alt, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "sensor14_11", bundle: ..., traitCollection: ...)`
     static func sensor14_11(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.sensor14_11, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_11_alt", bundle: ..., traitCollection: ...)`
-    static func sensor14_11_alt(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_11_alt, compatibleWith: traitCollection)
     }
     #endif
 
@@ -1758,13 +1626,6 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_12_alt", bundle: ..., traitCollection: ...)`
-    static func sensor14_12_alt(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_12_alt, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "sensor14_13", bundle: ..., traitCollection: ...)`
     static func sensor14_13(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.sensor14_13, compatibleWith: traitCollection)
@@ -1772,23 +1633,9 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_13_alt", bundle: ..., traitCollection: ...)`
-    static func sensor14_13_alt(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_13_alt, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "sensor14_14", bundle: ..., traitCollection: ...)`
     static func sensor14_14(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.sensor14_14, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_14_alt", bundle: ..., traitCollection: ...)`
-    static func sensor14_14_alt(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_14_alt, compatibleWith: traitCollection)
     }
     #endif
 

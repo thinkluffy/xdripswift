@@ -32,9 +32,6 @@ final class SettingsViewController: UIViewController {
         /// statistics settings
         case statistics
         
-        /// sensor countdown settings
-        case sensorCountdown
-        
         /// alarms
         case alarms
         
@@ -68,8 +65,6 @@ final class SettingsViewController: UIViewController {
                 return SettingsViewHomeScreenSettingsViewModel()
             case .statistics:
                 return SettingsViewStatisticsSettingsViewModel()
-            case .sensorCountdown:
-                return SettingsViewSensorCountdownSettingsViewModel()
             case .alarms:
                 return SettingsViewAlertSettingsViewModel()
             case .nightscout:
@@ -145,16 +140,12 @@ final class SettingsViewController: UIViewController {
             
             // store reload closure in the viewModel
             viewModel.storeRowReloadClosure(rowReloadClosure: {row in
-                
                 self.tableView.reloadRows(at: [IndexPath(row: row, section: section.rawValue)], with: .none)
-                    
             })
 
             // store the viewModel
             self.viewModels.append(viewModel)
-            
         }
-        
     }
 
     // MARK: - View Life Cycle
