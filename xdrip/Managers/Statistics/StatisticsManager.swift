@@ -54,17 +54,17 @@ public final class StatisticsManager {
             // declare return variables
             var lowStatisticValue: Double = 0
             var highStatisticValue: Double = 0
-            var inRangeStatisticValue: Double = 0
-            var averageStatisticValue: Double = 0
-            var a1CStatisticValue: Double = 0
-            var cVStatisticValue: Double = 0
+            var inRangeStatisticValue: Double?
+            var averageStatisticValue: Double?
+            var a1CStatisticValue: Double?
+            var cVStatisticValue: Double?
             var lowLimitForTIR: Double = 0
             var highLimitForTIR: Double = 0
-            var numberOfDaysUsed: Int = 0
-            var readingsCount: Int = 0
-            var stdDeviation: Double = 0
-			var gviStatisticValue: Double = 0
-			var pgsStatisticValue: Double = 0
+            var numberOfDaysUsed: Int?
+            var readingsCount: Int?
+            var stdDeviation: Double?
+			var gviStatisticValue: Double?
+			var pgsStatisticValue: Double?
 
             CoreDataManager.shared.privateManagedObjectContext.performAndWait {
 
@@ -157,9 +157,9 @@ public final class StatisticsManager {
                     
                     // calculate an estimated HbA1C value using either IFCC (e.g 49 mmol/mol) or NGSP (e.g 5.8%) methods: http://www.ngsp.org/ifccngsp.asp
                     if UserDefaults.standard.useIFCCA1C {
-                        a1CStatisticValue = (((46.7 + Double(isMgDl ? averageStatisticValue : (averageStatisticValue / ConstantsBloodGlucose.mgDlToMmoll))) / 28.7) - 2.152) / 0.09148
+                        a1CStatisticValue = (((46.7 + Double(isMgDl ? averageStatisticValue! : (averageStatisticValue! / ConstantsBloodGlucose.mgDlToMmoll))) / 28.7) - 2.152) / 0.09148
                     } else {
-                        a1CStatisticValue = (46.7 + Double(isMgDl ? averageStatisticValue : (averageStatisticValue / ConstantsBloodGlucose.mgDlToMmoll))) / 28.7
+                        a1CStatisticValue = (46.7 + Double(isMgDl ? averageStatisticValue! : (averageStatisticValue! / ConstantsBloodGlucose.mgDlToMmoll))) / 28.7
                     }
                     
                     
@@ -167,14 +167,14 @@ public final class StatisticsManager {
                     var sum: Double = 0;
                     
                     for glucoseValue in glucoseValues {
-                        sum += (Double(glucoseValue.value) - averageStatisticValue) * (Double(glucoseValue.value) - averageStatisticValue)
+                        sum += (Double(glucoseValue.value) - averageStatisticValue!) * (Double(glucoseValue.value) - averageStatisticValue!)
                     }
                     
                     stdDeviation = sqrt(sum / Double(glucoseValues.count))
                     
                     
                     // calculate Coeffecient of Variation
-                    cVStatisticValue = ((stdDeviation) / averageStatisticValue) * 100
+                    cVStatisticValue = ((stdDeviation!) / averageStatisticValue!) * 100
                 
 					// https://web.archive.org/web/20160523152519/http://www.healthline.com/diabetesmine/a-new-view-of-glycemic-variability-how-long-is-your-line#2
 					// x轴单位为分钟，y轴单位为mg/dL
@@ -182,36 +182,30 @@ public final class StatisticsManager {
 						guard data.count > 1 else {
 							return Double(data.count)
 						}
-						
-						func dL(x: BgReading, y: BgReading) -> Double {
-							let dx = x.timeStamp.timeIntervalSince(y.timeStamp)/60 // 单位分钟
-							let dy = (x.calculatedValue - y.calculatedValue)
-							return sqrt(pow(dx, 2) + pow(dy, 2))
-						}
                         
 						var L: Double = 0
 						let L0: Double = abs(data.first!.timeStamp.timeIntervalSince(data.last!.timeStamp)/60)
 						
-						for i in 0 ..< (data.count - 1) {
-							L +=  dL(x: data[i], y: data[i+1])
+						var lastItem = data.first!
+						for i in 1 ..< data.count {
+							let current = data[i]
+							let timeInterval = current.timeStamp.timeIntervalSince(lastItem.timeStamp)
+							if abs(timeInterval) >= (4.5 * 60) {
+								let dx = timeInterval/60 // 单位分钟
+								let dy = current.calculatedValue - lastItem.calculatedValue
+								L +=  sqrt(pow(dx, 2) + pow(dy, 2))
+								lastItem = current
+							}
 						}
 						return L / L0
 					}
 					gviStatisticValue = gvi(data: readings)
-					pgsStatisticValue = gviStatisticValue * averageStatisticValue * (isMgDl ? 1 : ConstantsBloodGlucose.mmollToMgdl ) * (1 - inRangeStatisticValue/100)
+					if inRangeStatisticValue == 100 {
+						pgsStatisticValue = 0
+					} else {
+						pgsStatisticValue = gviStatisticValue! * averageStatisticValue! * (isMgDl ? 1 : ConstantsBloodGlucose.mmollToMgdl ) * (1 - inRangeStatisticValue!/100)
+					}
                     
-                } else {
-                    // just assign a zero value to all statistics variables
-                    lowStatisticValue = 0
-                    highStatisticValue = 0
-                    inRangeStatisticValue = 0
-                    averageStatisticValue = 0
-                    cVStatisticValue = 0
-                    a1CStatisticValue = 0
-                    readingsCount = 0
-                    stdDeviation = 0
-					gviStatisticValue = 0
-					pgsStatisticValue = 0
                 }
             }
             
@@ -244,19 +238,19 @@ public final class StatisticsManager {
     /// can store rresult off calculations in calculateStatistics,  to be used in UI
     public struct Statistics {
         
-        var lowStatisticValue: Double
-        var highStatisticValue: Double
-        var inRangeStatisticValue: Double
-        var averageStatisticValue: Double
-        var a1CStatisticValue: Double
-        var cVStatisticValue: Double
-        var lowLimitForTIR: Double
-        var highLimitForTIR: Double
-        var numberOfDaysUsed: Int
-        var readingsCount: Int
-        var stdDeviation: Double
-		var gviStatisticValue: Double
-		var pgsStatisticValue: Double
+        var lowStatisticValue: Double?
+        var highStatisticValue: Double?
+        var inRangeStatisticValue: Double?
+        var averageStatisticValue: Double?
+        var a1CStatisticValue: Double?
+        var cVStatisticValue: Double?
+        var lowLimitForTIR: Double?
+        var highLimitForTIR: Double?
+        var numberOfDaysUsed: Int?
+        var readingsCount: Int?
+        var stdDeviation: Double?
+		var gviStatisticValue: Double?
+		var pgsStatisticValue: Double?
     }
      
 }

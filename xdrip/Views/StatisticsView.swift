@@ -76,58 +76,58 @@ class StatisticsView: UIView {
         let isMgDl = UserDefaults.standard.bloodGlucoseUnitIsMgDl
         
         // set the low/high "label" labels with the low/high user values that the user has chosen to use
-        lowLabelOutlet.text = "(<" + (isMgDl ? Int(statistics.lowLimitForTIR).description : statistics.lowLimitForTIR.round(toDecimalPlaces: 1).description) + ")"
-        highLabelOutlet.text = "(>" + (isMgDl ? Int(statistics.highLimitForTIR).description : statistics.highLimitForTIR.round(toDecimalPlaces: 1).description) + ")"
+        lowLabelOutlet.text = "(<" + (isMgDl ? Int(statistics.lowLimitForTIR ?? 0).description : (statistics.lowLimitForTIR ?? 0).round(toDecimalPlaces: 1).description) + ")"
+        highLabelOutlet.text = "(>" + (isMgDl ? Int(statistics.highLimitForTIR ?? 0).description : (statistics.highLimitForTIR ?? 0).round(toDecimalPlaces: 1).description) + ")"
         
         // set all label outlets with the correctly formatted calculated values
         lowStatisticLabelOutlet.textColor = ConstantsStatistics.labelLowColor
-        lowStatisticLabelOutlet.text = Int(statistics.lowStatisticValue.round(toDecimalPlaces: 0)).description + "%"
+        lowStatisticLabelOutlet.text = Int((statistics.lowStatisticValue ?? 0).round(toDecimalPlaces: 0)).description + "%"
         
         inRangeStatisticLabelOutlet.textColor = ConstantsStatistics.labelInRangeColor
-        inRangeStatisticLabelOutlet.text = Int(statistics.inRangeStatisticValue.round(toDecimalPlaces: 0)).description + "%"
+        inRangeStatisticLabelOutlet.text = Int((statistics.inRangeStatisticValue ?? 0).round(toDecimalPlaces: 0)).description + "%"
         
         highStatisticLabelOutlet.textColor = ConstantsStatistics.labelHighColor
-        highStatisticLabelOutlet.text = Int(statistics.highStatisticValue.round(toDecimalPlaces: 0)).description + "%"
+        highStatisticLabelOutlet.text = Int((statistics.highStatisticValue ?? 0).round(toDecimalPlaces: 0)).description + "%"
         
-        if statistics.readingsCount > 0 {
-            bgReadingsCountStatisticLabelOutlet.text = "\(statistics.readingsCount)"
+        if let readingsCount = statistics.readingsCount {
+            bgReadingsCountStatisticLabelOutlet.text = "\(readingsCount)"
         }
         
-        if statistics.stdDeviation > 0 {
+        if let stdDeviation = statistics.stdDeviation {
             if isMgDl {
-                self.stdDeviationStatisticLabelOutlet.text = Int(statistics.stdDeviation.round(toDecimalPlaces: 0)).description + " mg/dL"
+                self.stdDeviationStatisticLabelOutlet.text = Int(stdDeviation.round(toDecimalPlaces: 0)).description + " mg/dL"
                 
             } else {
-                self.stdDeviationStatisticLabelOutlet.text = statistics.stdDeviation.round(toDecimalPlaces: 1).description + " mmol/L"
+                self.stdDeviationStatisticLabelOutlet.text = stdDeviation.round(toDecimalPlaces: 1).description + " mmol/L"
             }
         }
         
         // if there are no values returned (new sensor?) then just leave the default "-" showing
-        if statistics.averageStatisticValue.value > 0 {
-            averageStatisticLabelOutlet.text = (isMgDl ? Int(statistics.averageStatisticValue.round(toDecimalPlaces: 0)).description : statistics.averageStatisticValue.round(toDecimalPlaces: 1).description) + (isMgDl ? " mg/dL" : " mmol/L")
+		if let averageStatisticValue = statistics.averageStatisticValue {
+            averageStatisticLabelOutlet.text = (isMgDl ? Int(averageStatisticValue.round(toDecimalPlaces: 0)).description : averageStatisticValue.round(toDecimalPlaces: 1).description) + (isMgDl ? " mg/dL" : " mmol/L")
         }
         
         // if there are no values returned (new sensor?) then just leave the default "-" showing
-        if statistics.a1CStatisticValue.value > 0 {
+		if let a1CStatisticValue = statistics.a1CStatisticValue {
             if UserDefaults.standard.useIFCCA1C {
-                a1CStatisticLabelOutlet.text = Int(statistics.a1CStatisticValue.round(toDecimalPlaces: 0)).description + " mmol"
+                a1CStatisticLabelOutlet.text = Int(a1CStatisticValue.round(toDecimalPlaces: 0)).description + " mmol"
             
             } else {
-                a1CStatisticLabelOutlet.text = statistics.a1CStatisticValue.round(toDecimalPlaces: 1).description + "%"
+                a1CStatisticLabelOutlet.text = a1CStatisticValue.round(toDecimalPlaces: 1).description + "%"
             }
         }
         
         // if there are no values returned (new sensor?) then just leave the default "-" showing
-        if statistics.cVStatisticValue > 0 {
-            cVStatisticLabelOutlet.text = Int(statistics.cVStatisticValue.round(toDecimalPlaces: 0)).description + "%"
+        if let cVStatisticValue = statistics.cVStatisticValue {
+            cVStatisticLabelOutlet.text = Int(cVStatisticValue.round(toDecimalPlaces: 0)).description + "%"
         }
         
-        if statistics.gviStatisticValue > 0 {
-            gviLabel.text = String(format: "%.1f", statistics.gviStatisticValue)
+        if let gviStatisticValue = statistics.gviStatisticValue {
+            gviLabel.text = String(format: "%.1f", gviStatisticValue)
         }
         
-		if statistics.pgsStatisticValue > 0 {
-			pgsLabel.text = String(format: "%.0f", statistics.pgsStatisticValue)
+		if let pgsStatisticValue = statistics.pgsStatisticValue {
+			pgsLabel.text = String(format: "%.0f", pgsStatisticValue)
 		}
         // show number of days calculated under the pie chart
         switch daysToUseStatistics {
@@ -138,7 +138,7 @@ class StatisticsView: UIView {
             timePeriodLabelOutlet.text = "24 " + Texts_Common.hours
             
         default:
-            timePeriodLabelOutlet.text = statistics.numberOfDaysUsed.description + " " + Texts_Common.days
+            timePeriodLabelOutlet.text = (statistics.numberOfDaysUsed ?? 0).description + " " + Texts_Common.days
         }
         
         // disable the chart animation if it's just a normal update, enable it if the call comes from didAppear()
@@ -152,16 +152,15 @@ class StatisticsView: UIView {
         // cleart first, or the changed models have no effect
         pieChartOutlet.clear()
         
-        if statistics.inRangeStatisticValue < 100 {
+        if (statistics.inRangeStatisticValue ?? 0) < 100 {
             pieChartOutlet.models = [
-                PieSliceModel(value: Double(statistics.lowStatisticValue),
+                PieSliceModel(value: Double(statistics.lowStatisticValue ?? 0),
                               color: ConstantsStatistics.pieChartLowSliceColor),
-                PieSliceModel(value: Double(statistics.inRangeStatisticValue),
+                PieSliceModel(value: Double(statistics.inRangeStatisticValue ?? 0),
                               color: ConstantsStatistics.pieChartInRangeSliceColor),
-                PieSliceModel(value: Double(statistics.highStatisticValue),
+                PieSliceModel(value: Double(statistics.highStatisticValue ?? 0),
                               color: ConstantsStatistics.pieChartHighSliceColor)
             ]
-            
         } else {
             // show a green circle at 100%
             pieChartOutlet.models = [
