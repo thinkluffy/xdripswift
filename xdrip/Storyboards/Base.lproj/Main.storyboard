@@ -159,12 +159,8 @@
                                                         <color key="barTintColor" red="0.1384946406" green="0.1503256261" blue="0.2745223343" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     </toolbar>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V90-WH-dIE" customClass="CountDownView" customModule="xdrip" customModuleProvider="target">
-                                                        <rect key="frame" x="368" y="10" width="50" height="20"/>
+                                                        <rect key="frame" x="418" y="10" width="0.0" height="0.0"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="20" id="LNZ-iA-1Ej"/>
-                                                            <constraint firstAttribute="width" constant="50" id="w9d-2A-rMZ"/>
-                                                        </constraints>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1543,6 +1539,9 @@
             <point key="canvasLocation" x="3973" y="581"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="V90-WH-dIE"/>
+    </designables>
     <color key="tintColor" red="0.077760688960000005" green="0.092910580340000007" blue="0.192109853" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>
         <image name="ic_clock" width="25" height="25"/>

@@ -8,6 +8,7 @@
 
 import UIKit
 
+@IBDesignable
 class CountDownView: UIView {
 
     private lazy var countDownLabel: UILabel = {
@@ -40,7 +41,7 @@ class CountDownView: UIView {
         addSubview(countDownLabel)
         
         countDownLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+            make.edges.equalToSuperview()
         }
     }
     
@@ -75,5 +76,13 @@ class CountDownView: UIView {
             timer?.invalidate()
             timer = nil
         }
+    }
+    
+    override var intrinsicContentSize: CGSize {
+        return countDownLabel.intrinsicContentSize
+    }
+    
+    override func prepareForInterfaceBuilder() {
+        invalidateIntrinsicContentSize()
     }
 }
