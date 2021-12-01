@@ -30,7 +30,7 @@ class ChartDetailsPresenter: ChartDetailsP {
                                                                   on: CoreDataManager.shared.mainManagedObjectContext)
            
             DispatchQueue.main.async {
-                self?.view?.showReadings(readings, from: fromDate, to: toDate)
+                self?.view?.show(readings: readings, from: fromDate, to: toDate)
             }
         }
     }

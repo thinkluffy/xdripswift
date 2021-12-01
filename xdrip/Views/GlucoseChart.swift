@@ -166,8 +166,8 @@ class GlucoseChart: UIView {
     func show(readings: [BgReading]?, from fromDate: Date, to toDate: Date) {
         applySettings()
 
-        guard let readings = readings else {
-            GlucoseChart.log.e("reading is nil, nothing to show")
+        guard let readings = readings, !readings.isEmpty else {
+            GlucoseChart.log.e("readings are nil, nothing to show")
             chartView.data = nil
             return
         }

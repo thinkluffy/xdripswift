@@ -28,6 +28,7 @@
 		4E2C95B8274BEC3F0073D692 /* RootPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95B7274BEC3F0073D692 /* RootPresenter.swift */; };
 		4E2C95BC275230B10073D692 /* GlucoseChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95BB275230B10073D692 /* GlucoseChart.swift */; };
 		4E2C95BF275231F90073D692 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95BE275231F90073D692 /* Constants.swift */; };
+		4E46D933275663AF00C79F86 /* CountDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46D932275663AF00C79F86 /* CountDownView.swift */; };
 		4E6797642754FCE3009C36BB /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6797632754FCE3009C36BB /* BottomSheet.swift */; };
 		4E9D7978273A983600B666C5 /* ChartDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D7977273A983600B666C5 /* ChartDetailsViewController.swift */; };
 		4E9D7986273BEC5500B666C5 /* BaseAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D797B273BEC5500B666C5 /* BaseAppDelegate.swift */; };
@@ -690,6 +691,7 @@
 		4E2C95B7274BEC3F0073D692 /* RootPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPresenter.swift; sourceTree = "<group>"; };
 		4E2C95BB275230B10073D692 /* GlucoseChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseChart.swift; sourceTree = "<group>"; };
 		4E2C95BE275231F90073D692 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		4E46D932275663AF00C79F86 /* CountDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownView.swift; sourceTree = "<group>"; };
 		4E6797632754FCE3009C36BB /* BottomSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
 		4E9D7977273A983600B666C5 /* ChartDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDetailsViewController.swift; sourceTree = "<group>"; };
 		4E9D797B273BEC5500B666C5 /* BaseAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseAppDelegate.swift; sourceTree = "<group>"; };
@@ -1984,7 +1986,22 @@
 		F8297F42238DC4AC00D74D66 /* BluetoothPeripheral */ = {
 			isa = PBXGroup;
 			children = (
-				F8A2BC1D25DB0D6D001D1E78 /* BluetoothPeripheral */,
+				F8A2BC1E25DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMG5TransmitterDelegate.swift */,
+				F8A2BC1F25DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMDropletTransmitterDelegate.swift */,
+				F8A2BC2025DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMBlueReaderTransmitterDelegate.swift */,
+				F8A2BC2125DB0D6D001D1E78 /* BluetoothPeripheralManager.swift */,
+				F8A2BC2225DB0D6D001D1E78 /* BluetoothPeripheralManager+M5StackBluetoothTransmitterDelegate.swift */,
+				F8A2BC2325DB0D6D001D1E78 /* BluetoothPeripheralManaging.swift */,
+				F8A2BC2425DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMDexcomG4TransmitterDelegate.swift */,
+				F8A2BC2525DB0D6D001D1E78 /* BluetoothPeripheralManager+WatlaaBluetoothTransmitterDelegate.swift */,
+				F8A2BC2625DB0D6D001D1E78 /* BluetoothPeripheralManager+BluetoothTransmitterDelegate.swift */,
+				F8A2BC2725DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMG6TransmitterDelegate.swift */,
+				F8A2BC2825DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMMiaoMiaoTransmitterDelegate.swift */,
+				F8A2BC2925DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMBluconTransmitterDelegate.swift */,
+				F8A2BC2A25DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMLibre2TransmitterDelegate.swift */,
+				F8A2BC2B25DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMGNSEntryTransmitterDelegate.swift */,
+				F8A2BC2C25DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMBubbleTransmitterDelegate.swift */,
+				F8A2BC3E25DB0D89001D1E78 /* BluetoothPeripheralManager+CGMAtomTransmitterDelegate.swift */,
 			);
 			path = BluetoothPeripheral;
 			sourceTree = "<group>";
@@ -2187,29 +2204,6 @@
 				F8A2BC4425DB2679001D1E78 /* AtomResponseType.swift */,
 			);
 			path = Atom;
-			sourceTree = "<group>";
-		};
-		F8A2BC1D25DB0D6D001D1E78 /* BluetoothPeripheral */ = {
-			isa = PBXGroup;
-			children = (
-				F8A2BC1E25DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMG5TransmitterDelegate.swift */,
-				F8A2BC1F25DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMDropletTransmitterDelegate.swift */,
-				F8A2BC2025DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMBlueReaderTransmitterDelegate.swift */,
-				F8A2BC2125DB0D6D001D1E78 /* BluetoothPeripheralManager.swift */,
-				F8A2BC2225DB0D6D001D1E78 /* BluetoothPeripheralManager+M5StackBluetoothTransmitterDelegate.swift */,
-				F8A2BC2325DB0D6D001D1E78 /* BluetoothPeripheralManaging.swift */,
-				F8A2BC2425DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMDexcomG4TransmitterDelegate.swift */,
-				F8A2BC2525DB0D6D001D1E78 /* BluetoothPeripheralManager+WatlaaBluetoothTransmitterDelegate.swift */,
-				F8A2BC2625DB0D6D001D1E78 /* BluetoothPeripheralManager+BluetoothTransmitterDelegate.swift */,
-				F8A2BC2725DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMG6TransmitterDelegate.swift */,
-				F8A2BC2825DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMMiaoMiaoTransmitterDelegate.swift */,
-				F8A2BC2925DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMBluconTransmitterDelegate.swift */,
-				F8A2BC2A25DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMLibre2TransmitterDelegate.swift */,
-				F8A2BC2B25DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMGNSEntryTransmitterDelegate.swift */,
-				F8A2BC2C25DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMBubbleTransmitterDelegate.swift */,
-				F8A2BC3E25DB0D89001D1E78 /* BluetoothPeripheralManager+CGMAtomTransmitterDelegate.swift */,
-			);
-			name = BluetoothPeripheral;
 			sourceTree = "<group>";
 		};
 		F8A389CD232A6A6F0010F405 /* M5StackSettingsViewController */ = {
@@ -2587,6 +2581,7 @@
 				4E1CFF35274F89320020F0F1 /* StatisticsView.swift */,
 				4E1CFF37274F89420020F0F1 /* StatisticsView.xib */,
 				4E2C95BB275230B10073D692 /* GlucoseChart.swift */,
+				4E46D932275663AF00C79F86 /* CountDownView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3791,6 +3786,7 @@
 				4E2C95A827375E110073D692 /* OnlyImageTabbar.swift in Sources */,
 				F816E10A2437E7B8009EE65B /* CGMBlueReaderTransmitterDelegate.swift in Sources */,
 				4E2C95B8274BEC3F0073D692 /* RootPresenter.swift in Sources */,
+				4E46D933275663AF00C79F86 /* CountDownView.swift in Sources */,
 				F8B3A850227F26F8004BA588 /* AlertTypesSettingsViewController.swift in Sources */,
 				F816E0FE24367338009EE65B /* GNSEntry+BluetoothPeripheral.swift in Sources */,
 				F8B3A808227A2933004BA588 /* SettingsSelectedRowAction.swift in Sources */,

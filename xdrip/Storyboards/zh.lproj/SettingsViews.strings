@@ -55,10 +55,10 @@
 "volumeTestiOSSoundExplanation" = "An alarm sound is now being played with the same volume that will be used for an Alarm Type with 'Override Mute' = Off\n\n(Also used always for Missed Reading alarms which use the iOS volume.)\n\nPress one of the volume buttons to stop the sound, then change the volume with the volume buttons to the desired volume and test again.";
 
 /// non fixed calibration slopes settings in bluetooth peripheral view : enabled or not
-"settingsviews_nonfixedtransmitter" = "Enable Multi-point Calibration?";
+"settingsviews_nonfixedtransmitter" = "启用多点校准";
 
 /// web oop settings in bluetooth peripheral view : enabled or not
-"settingsviews_webooptransmitter" = "Use Libre Algorithm?";
+"settingsviews_webooptransmitter" = "使用瞬感算法";
 
 /// Apple Watch Settings - text in row where user needs to say if unit should be displayed or not
 "displayUnitInCalendarEvent" = "Display Unit?";
@@ -142,7 +142,7 @@
 "settingsviews_multipleAppBadgeValueWith10" = "Multiply App Badge Reading by 10?";
 
 /// non fixed settings, title of the section
-"settingsviews_labelNonFixed" = "Multi-point Calibration";
+"settingsviews_labelNonFixed" = "多点校准";
 
 /// nightscout settings, when clicking the cell, test the url and api key
 "testUrlAndAPIKey" = "测试连接";

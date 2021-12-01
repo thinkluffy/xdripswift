@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         		
         WatchCommunicator.register()
         
+        setupUIComponents()
+
         return true
     }
     
@@ -45,6 +47,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
+    }
+}
+
+extension AppDelegate {
+    
+    private func setupUIComponents() {
+        // Toast
+        var style = ToastStyle()
+        style.backgroundColor = .white
+        style.verticalMargin = 50
+        style.verticalPadding = 10
+        style.horizontalPadding = 20
+        style.slideInAndOut = true
+        style.titleColor = .hex(0xff1f2033)
+        style.messageColor = .hex(0xff1f2033)
+        ToastManager.shared.style = style
     }
 }
 

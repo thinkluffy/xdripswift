@@ -235,17 +235,23 @@ class ChartDetailsViewController: UIViewController {
 
 extension ChartDetailsViewController: ChartDetailsV {
     
-    func showReadings(_ readings: [BgReading]?, from fromDate: Date, to toDate: Date) {
-        guard let readings = readings else {
-            ChartDetailsViewController.log.e("reading is nil, nothing to show")
-            chartView.data = nil
-            return
-        }
-        
+    func show(readings: [BgReading]?, from fromDate: Date, to toDate: Date) {
         // setup calendar title
         calendarTitle.dateTime = fromDate
         let isToday = Calendar.current.isDateInToday(fromDate)
         calendarTitle.showRightArrow = !isToday
+        
+        // reset selected bg time and value
+        chartView.highlightValues(nil)
+        bgTimeLabel.text = "--:--"
+        bgValueLabel.text = "---"
+        bgValueLabel.textColor = .white
+        
+        guard let readings = readings, !readings.isEmpty else {
+            ChartDetailsViewController.log.e("reading is nil, nothing to show")
+            chartView.data = nil
+            return
+        }
         
         // setup chart
         let showAsMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
@@ -325,12 +331,6 @@ extension ChartDetailsViewController: ChartDetailsV {
         }
 
         showingDate = fromDate
-        
-        // reset selected bg time and value
-        chartView.highlightValues(nil)
-        bgTimeLabel.text = "--:--"
-        bgValueLabel.text = "---"
-        bgValueLabel.textColor = .white
     }
     
     private func calChartHoursSeconds(chartHoursId: Int) -> Double {
@@ -464,7 +464,6 @@ extension ChartDetailsViewController: DatePickerSheetContentDelegate {
         }
         
         sheetContent.bottomSheet?.dismissView()
-        calendarTitle.dateTime = date
         presenter.loadData(date: date)
     }
 }
@@ -490,6 +489,7 @@ fileprivate class DatePickerSheetContent: BottomSheetContent {
     weak var delegate: DatePickerSheetContentDelegate?
         
     private let selectedDate: Date?
+    fileprivate weak var calendar: FSCalendar!
     
     init(selectedDate: Date) {
         self.selectedDate = selectedDate
@@ -525,11 +525,11 @@ fileprivate class DatePickerSheetContent: BottomSheetContent {
             calendar.select(selectedDate)
         }
             
-        calendar.dataSource = self
         calendar.delegate = self
         
         container.addSubview(calendar)
-        
+        self.calendar = calendar
+
         container.snp.makeConstraints { make in
             make.width.equalTo(320)
             make.height.equalTo(300)
@@ -543,11 +543,11 @@ fileprivate class DatePickerSheetContent: BottomSheetContent {
     }
 }
 
-extension DatePickerSheetContent: FSCalendarDataSource, FSCalendarDelegate {
+extension DatePickerSheetContent: FSCalendarDelegate {
     
-    // avoid selecting date in future
-    func maximumDate(for calendar: FSCalendar) -> Date {
-        return Date()
+    // avoid selecting a date in future
+    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+        date <= Date()
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {

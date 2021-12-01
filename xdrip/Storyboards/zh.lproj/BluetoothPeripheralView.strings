@@ -4,22 +4,22 @@
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 /// text in button top right, this button will disable automatic connect
-"donotconnect" = "Stop Scanning";
+"donotconnect" = "停止扫描";
 
 /// BluetoothPeripheral view, this is a name of a BluetoothPeripheral assigned by the user, to recognize the device
-"bluetoothPeripheralAlias" = "Alias:";
+"bluetoothPeripheralAlias" = "别名";
 
 /// 
-"battery" = "Battery:";
+"battery" = "电池";
 
 /// cell text, shows when last reset was done, if known. Only for Dexcom
-"lastReset" = "Last Reset:";
+"lastReset" = "上次重置";
 
 /// button text, to connect
-"connect" = "Connect";
+"connect" = "连接";
 
 /// when M5Stack is shown, title of the cell with the address
-"address" = "Address:";
+"address" = "地址";
 
 /// User tries to add a CGM or connect an already existing CGM, while in follower mode.
 "cannotActiveCGMInFollowerMode" = "You can not activate a CGM in Follower Mode";
@@ -31,19 +31,19 @@
 "confirmDeletionPeripheral" = "Do you want to delete bluetooth device: ";
 
 /// BluetoothPeripheral view, text of the cell with the sensor type (only used for Libre)
-"sensorType" = "Sensor Type:";
+"sensorType" = "探头类型:";
 
 /// BluetoothPeripheral view, text of the cell with the serial number (this is not the sensor serial number
-"serialNumber" = "Serial Number:";
+"serialNumber" = "序列号";
 
 /// BluetoothPeripheral view, text of the cell with the sensor serial number
-"SensorSerialNumber" = "Sensor Serial Number:";
+"SensorSerialNumber" = "探头序列号";
 
 /// Bluetooth Peripheral view, when user clicks alias field
 "aliasAlreadyExists" = "There is already a bluetooth device with this alias";
 
 /// 
-"notConnected" = "Not Connected";
+"notConnected" = "未连接上";
 
 /// To give result about transitter result in notification body
 "transmitterResultResult" = "Transmitter Reset Result";
@@ -52,40 +52,40 @@
 "bootLoader" = "Bootloader";
 
 /// when Bluetooth Peripheral is shown, connection status, connected
-"connected" = "Connected";
+"connected" = "已连接";
 
 /// text in status row, if scanning ongoing
-"scanning" = "Scanning";
+"scanning" = "正在扫描";
 
 /// cell text, if user needs to set the transmitter id
-"needsTransmitterId" = "Missing Transmitter ID";
+"needsTransmitterId" = "缺少发射器 ID";
 
 /// cell text, shows when last reset was done, if known. Only for Dexcom
 "lastResetNotKnown" = "Last Reset Timestamp is not known";
 
 /// text in status rown, when not connect but app is trying to connect
-"tryingToConnect" = "Scanning";
+"tryingToConnect" = "扫描中";
 
 /// button text, to disconnect
-"disconnect" = "Disconnect";
+"disconnect" = "断开连接";
 
 /// text in status row, if ready to start scanning
-"readyToScan" = "Ready to Scan";
+"readyToScan" = "可以扫描";
 
 /// text in button to start scanning
-"scan" = "Scan";
+"scan" = "扫描";
 
 /// cell text, where the disconnection timestamp is shown
-"disConnectedAt" = "Disconnected At:";
+"disConnectedAt" = "断开连接的时间";
 
 /// text in status row, when not connected and app is not scanning
-"notTryingToConnect" = "Not Scanning";
+"notTryingToConnect" = "没有在扫描";
 
 /// when Bluetooth Peripheral is shown, title of the cell with the status
-"status" = "Status:";
+"status" = "状态";
 
 /// cell text, where the connection timestamp is shown
-"connectedAt" = "Connected At:";
+"connectedAt" = "连接上的时间";
 
 /// cell text, where user can select to reset a transmitter at next connect. Only for Dexcom
-"resetRequired" = "Reset Transmitter?";
+"resetRequired" = "重置发射器";

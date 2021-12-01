@@ -2485,15 +2485,15 @@ struct R: Rswift.Validatable {
 
     /// This `R.string.bluetoothPeripheralView` struct is generated, and contains static references to 31 localization keys.
     struct bluetoothPeripheralView {
-      /// en translation: Address:
+      /// en translation: Address
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static let address = Rswift.StringResource(key: "address", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "es", "fr", "de", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-      /// en translation: Alias:
+      /// en translation: Alias
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static let bluetoothPeripheralAlias = Rswift.StringResource(key: "bluetoothPeripheralAlias", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "es", "fr", "de", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-      /// en translation: Battery:
+      /// en translation: Battery
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static let battery = Rswift.StringResource(key: "battery", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "es", "fr", "de", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
@@ -2521,7 +2521,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static let connected = Rswift.StringResource(key: "connected", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "es", "fr", "de", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-      /// en translation: Connected At:
+      /// en translation: Connected At
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static let connectedAt = Rswift.StringResource(key: "connectedAt", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "es", "fr", "de", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
@@ -2529,7 +2529,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static let disconnect = Rswift.StringResource(key: "disconnect", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "es", "fr", "de", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-      /// en translation: Disconnected At:
+      /// en translation: Disconnected At
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static let disConnectedAt = Rswift.StringResource(key: "disConnectedAt", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "es", "fr", "de", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
@@ -2537,14 +2537,14 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static let confirmDeletionPeripheral = Rswift.StringResource(key: "confirmDeletionPeripheral", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "es", "fr", "de", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
+      /// en translation: Last Reset
+      ///
+      /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
+      static let lastReset = Rswift.StringResource(key: "lastReset", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "es", "fr", "de", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
       /// en translation: Last Reset Timestamp is not known
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static let lastResetNotKnown = Rswift.StringResource(key: "lastResetNotKnown", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "es", "fr", "de", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-      /// en translation: Last Reset:
-      ///
-      /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
-      static let lastReset = Rswift.StringResource(key: "lastReset", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "es", "fr", "de", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
       /// en translation: Missing Transmitter ID
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
@@ -2577,19 +2577,19 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static let tryingToConnect = Rswift.StringResource(key: "tryingToConnect", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "es", "fr", "de", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-      /// en translation: Sensor Type:
+      /// en translation: Sensor Type
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static let sensorType = Rswift.StringResource(key: "sensorType", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "es", "fr", "de", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-      /// en translation: Serial Number:
+      /// en translation: Serial Number
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static let sensorSerialNumber = Rswift.StringResource(key: "SensorSerialNumber", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "es", "fr", "de", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-      /// en translation: Serial Number:
+      /// en translation: Serial Number
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static let serialNumber = Rswift.StringResource(key: "serialNumber", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "es", "fr", "de", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-      /// en translation: Status:
+      /// en translation: Status
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static let status = Rswift.StringResource(key: "status", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "es", "fr", "de", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
@@ -2610,7 +2610,7 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static let cannotActiveCGMInFollowerMode = Rswift.StringResource(key: "cannotActiveCGMInFollowerMode", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "es", "fr", "de", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
 
-      /// en translation: Address:
+      /// en translation: Address
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static func address(preferredLanguages: [String]? = nil) -> String {
@@ -2625,7 +2625,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("address", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
-      /// en translation: Alias:
+      /// en translation: Alias
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static func bluetoothPeripheralAlias(preferredLanguages: [String]? = nil) -> String {
@@ -2640,7 +2640,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("bluetoothPeripheralAlias", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
-      /// en translation: Battery:
+      /// en translation: Battery
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static func battery(preferredLanguages: [String]? = nil) -> String {
@@ -2745,7 +2745,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("connected", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
-      /// en translation: Connected At:
+      /// en translation: Connected At
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static func connectedAt(preferredLanguages: [String]? = nil) -> String {
@@ -2775,7 +2775,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("disconnect", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
-      /// en translation: Disconnected At:
+      /// en translation: Disconnected At
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static func disConnectedAt(preferredLanguages: [String]? = nil) -> String {
@@ -2805,6 +2805,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("confirmDeletionPeripheral", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
+      /// en translation: Last Reset
+      ///
+      /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
+      static func lastReset(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("lastReset", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
+          return "lastReset"
+        }
+
+        return NSLocalizedString("lastReset", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
+      }
+
       /// en translation: Last Reset Timestamp is not known
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
@@ -2818,21 +2833,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("lastResetNotKnown", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Last Reset:
-      ///
-      /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
-      static func lastReset(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("lastReset", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "lastReset"
-        }
-
-        return NSLocalizedString("lastReset", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
       /// en translation: Missing Transmitter ID
@@ -2955,7 +2955,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("tryingToConnect", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
-      /// en translation: Sensor Type:
+      /// en translation: Sensor Type
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static func sensorType(preferredLanguages: [String]? = nil) -> String {
@@ -2970,7 +2970,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("sensorType", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
-      /// en translation: Serial Number:
+      /// en translation: Serial Number
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static func sensorSerialNumber(preferredLanguages: [String]? = nil) -> String {
@@ -2985,7 +2985,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("SensorSerialNumber", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
-      /// en translation: Serial Number:
+      /// en translation: Serial Number
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static func serialNumber(preferredLanguages: [String]? = nil) -> String {
@@ -3000,7 +3000,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("serialNumber", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
-      /// en translation: Status:
+      /// en translation: Status
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static func status(preferredLanguages: [String]? = nil) -> String {
@@ -3347,7 +3347,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static let common_statistics_low = Rswift.StringResource(key: "common_statistics_low", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fi", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Name:
+      /// en translation: Name
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static let name = Rswift.StringResource(key: "name", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fi", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -3779,7 +3779,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("common_statistics_low", tableName: "Common", bundle: bundle, comment: "")
       }
 
-      /// en translation: Name:
+      /// en translation: Name
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static func name(preferredLanguages: [String]? = nil) -> String {
@@ -4476,7 +4476,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.homeView` struct is generated, and contains static references to 38 localization keys.
+    /// This `R.string.homeView` struct is generated, and contains static references to 39 localization keys.
     struct homeView {
       /// en translation: Bluetooth is not on. Switch on bluetooth first and then try again.
       ///
@@ -4510,6 +4510,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
       static let lock = Rswift.StringResource(key: "lock", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// en translation: New BG Reading
+      ///
+      /// Locales: en, zh
+      static let toast_new_bg_reading = Rswift.StringResource(key: "toast_new_bg_reading", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Not Known
       ///
       /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
@@ -4749,6 +4753,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("lock", tableName: "HomeView", bundle: bundle, comment: "")
+      }
+
+      /// en translation: New BG Reading
+      ///
+      /// Locales: en, zh
+      static func toast_new_bg_reading(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("toast_new_bg_reading", tableName: "HomeView", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
+          return "toast_new_bg_reading"
+        }
+
+        return NSLocalizedString("toast_new_bg_reading", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
       /// en translation: Not Known
@@ -6164,7 +6183,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let displayUnitInCalendarEvent = Rswift.StringResource(key: "displayUnitInCalendarEvent", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Enable Multi-point Calibration?
+      /// en translation: Enable Multi-point Calibration
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_nonfixedtransmitter = Rswift.StringResource(key: "settingsviews_nonfixedtransmitter", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -6468,7 +6487,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_useUSDexcomShareurl = Rswift.StringResource(key: "settingsviews_useUSDexcomShareurl", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Use Libre Algorithm?
+      /// en translation: Use Libre Algorithm
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_webooptransmitter = Rswift.StringResource(key: "settingsviews_webooptransmitter", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -6856,7 +6875,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("displayUnitInCalendarEvent", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Enable Multi-point Calibration?
+      /// en translation: Enable Multi-point Calibration
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static func settingsviews_nonfixedtransmitter(preferredLanguages: [String]? = nil) -> String {
@@ -7998,7 +8017,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_useUSDexcomShareurl", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Use Libre Algorithm?
+      /// en translation: Use Libre Algorithm
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static func settingsviews_webooptransmitter(preferredLanguages: [String]? = nil) -> String {
