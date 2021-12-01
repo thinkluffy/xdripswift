@@ -2,15 +2,15 @@ import Foundation
 import CoreData
 
 protocol Calibrator {
-    
+        
     ///slope parameters to be defined per type of sensor Dexcom/Libre, in class that conforms to Calibrator protocol
-    var sParams:SlopeParameters{get}
+    var sParams: SlopeParameters{get}
     
     /// for instance Dexcom values come in 100.000's, (eg rawvalue 140.000), in case of Dexcom divider is 1000, resulting in 140, then this value will be used in calibration algorithm.
-    var rawValueDivider:Double {get}
+    var rawValueDivider: Double {get}
 
     /// false for Libre, true for Dexcom
-    var ageAdjustMentNeeded:Bool{get}
+    var ageAdjustMentNeeded: Bool{get}
     
     /// creates two calibrations, stored in the database, but context not saved. Also readings will be adpated, also not saved.
     /// - parameters:
@@ -51,6 +51,7 @@ protocol Calibrator {
 }
 
 extension Calibrator {
+    
     /// creates two calibrations, stored in the database, but context not saved. Also readings will be adpated, also not saved.
     ///
     /// - parameters:
@@ -263,6 +264,7 @@ extension Calibrator {
         if (lastCalibrationsForActiveSensorInLastXDays.count <= 1) {
             calibration.slope = 1
             calibration.intercept = calibration.bg - (calibration.rawValue * calibration.slope)
+            
         } else {
             loop2 : for calibrationItem in lastCalibrationsForActiveSensorInLastXDays {
                 w = calculateWeight(for: calibrationItem, firstCalibration: firstCalibration, lastCalibration: lastCalibration)
@@ -312,7 +314,6 @@ extension Calibrator {
     /// - returns:
     ///     - calculated weight
     private func calculateWeight(for calibration:Calibration, firstCalibration:Calibration, lastCalibration:Calibration) -> Double {
-        
         let firstTimeStarted = firstCalibration.sensorAgeAtTimeOfEstimation
         let lastTimeStarted = lastCalibration.sensorAgeAtTimeOfEstimation
         //we know that
@@ -356,13 +357,16 @@ extension Calibrator {
                 return max(((-0.048) * (thisCalibration.sensorAgeAtTimeOfEstimation / (60000 * 60 * 24))) + 1.1, sParams.DEFAULT_LOW_SLOPE_HIGH)
             }
             return Double(sParams.DEFAULT_SLOPE)
+            
         } else {
             if calibrations.count == 3 {
-                if ((abs(thisCalibration.bg) < 30) && (calibrations[1].possibleBad)) {
+                if (abs(thisCalibration.bg) < 30) && (calibrations[1].possibleBad) {
                     return calibrations[1].slope
+                    
                 } else {
                     return sParams.DEFAULT_HIGH_SLOPE_HIGH
                 }
+                
             } else if calibrations.count == 2 {
                 return sParams.DEFAUL_HIGH_SLOPE_LOW
             }
@@ -464,6 +468,7 @@ extension Calibrator {
             bgReading.ra = y1/((x1-x2)*(x1-x3))+y2/((x2-x1)*(x2-x3))+y3/((x3-x1)*(x3-x2))
             bgReading.rb = (-y1*(x2+x3)/((x1-x2)*(x1-x3))-y2*(x1+x3)/((x2-x1)*(x2-x3))-y3*(x1+x2)/((x3-x1)*(x3-x2)))
             bgReading.rc = (y1*x2*x3/((x1-x2)*(x1-x3))+y2*x1*x3/((x2-x1)*(x2-x3))+y3*x1*x2/((x3-x1)*(x3-x2)))
+            
         } else if (last3Readings.count == 2) {
             //debuglogging("in last3Readings.count == 2")
             latest = last3Readings[0]
@@ -485,6 +490,7 @@ extension Calibrator {
             }
             bgReading.ra = 0
             bgReading.rc = -1 * ((latest.rb * x1) - y1)
+            
         } else {
             bgReading.ra = 0
             bgReading.rb = 0
@@ -557,14 +563,16 @@ extension Calibrator {
     /// - parameters:
     ///     - bgReading : reading that will be updated
     ///     - last2Readings result of call to BgReadings.getLatestBgReadings(2, sensor) ignoreRawData and ignoreCalculatedValue false - inout parameter to improve performance
-    public func findSlope(for bgReading: BgReading, last2Readings:inout Array<BgReading>) {
-        bgReading.hideSlope = true;
+    public func findSlope(for bgReading: BgReading, last2Readings: inout Array<BgReading>) {
+        bgReading.hideSlope = true
         if (last2Readings.count >= 2) {
             let (slope, hide) = bgReading.calculateSlope(lastBgReading:last2Readings[1]);
             bgReading.calculatedValueSlope = slope
             bgReading.hideSlope = hide
+            
         } else if (last2Readings.count == 1) {
             bgReading.calculatedValueSlope = 0
+            
         } else {
             bgReading.calculatedValueSlope = 0
         }

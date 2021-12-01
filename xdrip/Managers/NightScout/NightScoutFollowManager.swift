@@ -86,7 +86,7 @@ class NightScoutFollowManager:NSObject {
     ///     - followGlucoseData : glucose data from which new BgReading needs to be created
     /// - returns:
     ///     - BgReading : the new reading, not saved in the coredata
-    public func createBgReading(followGlucoseData:NightScoutBgReading) -> BgReading {
+    func createBgReading(followGlucoseData: NightScoutBgReading) -> BgReading {
         // for dev : creation of BgReading is done in seperate static function. This allows to do the BgReading creation in other place, as is done also for readings received from a transmitter.
         
         // create new bgReading
@@ -111,7 +111,7 @@ class NightScoutFollowManager:NSObject {
     ///
     /// updates bgreading
     ///
-    private func findSlope() -> (calculatedValueSlope:Double, hideSlope:Bool) {
+    private func findSlope() -> (calculatedValueSlope: Double, hideSlope: Bool) {
         
         // init returnvalues
         var hideSlope = true
@@ -122,13 +122,12 @@ class NightScoutFollowManager:NSObject {
         
         // if more thant 2 readings, calculate slope and hie
         if last2Readings.count >= 2 {
-            let (slope, hide) = last2Readings[0].calculateSlope(lastBgReading:last2Readings[1]);
+            let (slope, hide) = last2Readings[0].calculateSlope(lastBgReading: last2Readings[1]);
             calculatedValueSlope = slope
             hideSlope = hide
         }
 
         return (calculatedValueSlope, hideSlope)
-        
     }
 
     

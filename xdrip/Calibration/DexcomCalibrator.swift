@@ -1,6 +1,6 @@
 import Foundation
 
-class DexcomCalibrator:Calibrator {
+class DexcomCalibrator: Calibrator {
     
     var rawValueDivider: Double = 1000.0
     

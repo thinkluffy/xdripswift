@@ -1295,6 +1295,7 @@ final class RootViewController: UIViewController {
         var calculatedValueAsString = BgReading.unitizedString(calculatedValue: lastReading.calculatedValue,
                                                                unitIsMgDl: isMgDl)
         
+        var isReadingTooOld = false
         // if latestReading is older than 11 minutes, then it should be strikethrough
         if lastReading.timeStamp < Date(timeIntervalSinceNow: -60.0 * 11) {
             
@@ -1302,9 +1303,9 @@ final class RootViewController: UIViewController {
             attributeString.addAttribute(.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
             
             valueLabelOutlet.attributedText = attributeString
+            isReadingTooOld = true
             
         } else {
-            
             if !lastReading.hideSlope {
                 calculatedValueAsString = calculatedValueAsString + " " + lastReading.slopeArrow()
             }
@@ -1320,7 +1321,7 @@ final class RootViewController: UIViewController {
         glucoseIndicator.reading = (
             valueInMgDl: lastReading.calculatedValue,
             showAsMgDl: isMgDl,
-            slopeArrow: lastReading.hideSlope ? nil : lastReading.slopArrow
+            slopeArrow: (isReadingTooOld || lastReading.hideSlope) ? nil : lastReading.slopArrow
         )
         
                 

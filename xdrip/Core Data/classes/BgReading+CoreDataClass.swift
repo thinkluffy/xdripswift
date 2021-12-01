@@ -237,16 +237,16 @@ public class BgReading: NSManagedObject {
     /// - returns:
     ///     - calculated slope and hideSlope
     func calculateSlope(lastBgReading: BgReading) -> (Double, Bool) {
-        if timeStamp == lastBgReading.timeStamp
-            ||
+        if timeStamp == lastBgReading.timeStamp ||
             timeStamp.toMillisecondsAsDouble() - lastBgReading.timeStamp.toMillisecondsAsDouble() > Double(ConstantsBGGraphBuilder.maxSlopeInMinutes * 60 * 1000) {
-            return (0,true)
+            return (0, true)
         }
+        
         return ((lastBgReading.calculatedValue - calculatedValue) / (lastBgReading.timeStamp.toMillisecondsAsDouble() - timeStamp.toMillisecondsAsDouble()), false)
     }
     
     /// slopeName for upload to NightScout
-    public var slopeName:String {
+    public var slopeName: String {
         let slope_by_minute:Double = calculatedValueSlope * 60000
         var arrow = "NONE"
         if (slope_by_minute <= (-3.5)) {

@@ -1,6 +1,6 @@
 import Foundation
 
-class Libre1Calibrator:Calibrator {
+class Libre1Calibrator: Calibrator {
     
     var rawValueDivider: Double = 1000.0
     

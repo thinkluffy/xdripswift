@@ -190,8 +190,10 @@ public final class StatisticsManager {
 						for i in 1 ..< data.count {
 							let current = data[i]
 							let timeInterval = current.timeStamp.timeIntervalSince(lastItem.timeStamp)
-							if abs(timeInterval) >= (4.5 * 60) {
-								let dx = timeInterval/60 // 单位分钟
+                            
+                            // filter readings having 5 miniuts interval
+                            if abs(timeInterval) >= (4.5 * Date.minuteInSeconds) {
+								let dx = timeInterval / 60 // 单位分钟
 								let dy = current.calculatedValue - lastItem.calculatedValue
 								L +=  sqrt(pow(dx, 2) + pow(dy, 2))
 								lastItem = current
@@ -202,10 +204,10 @@ public final class StatisticsManager {
 					gviStatisticValue = gvi(data: readings)
 					if inRangeStatisticValue == 100 {
 						pgsStatisticValue = 0
+                        
 					} else {
 						pgsStatisticValue = gviStatisticValue! * averageStatisticValue! * (isMgDl ? 1 : ConstantsBloodGlucose.mmollToMgdl ) * (1 - inRangeStatisticValue!/100)
 					}
-                    
                 }
             }
             
