@@ -53,10 +53,10 @@ struct ContentView: View {
 								.font(.title)
 								.foregroundColor(color)
 						}
-						Text(config.showAsMgDl ? "mg/dL" : "mmol/L")
-							.font(.footnote)
-							.foregroundColor(Color.secondary)
 					}
+					Text(config.showAsMgDl ? "mg/dL" : "mmol/L")
+						   .font(.footnote)
+						   .foregroundColor(Color.secondary)
 				}
                 
                 
