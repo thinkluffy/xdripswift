@@ -122,7 +122,7 @@ extension RootPresenter: NightScoutFollowerDelegate {
             // send also to loopmanager, not interesting for loop probably, but the data is also used for today widget
             loopManager?.share()
             
-            view?.showNewReading()
+            view?.showNewFollowerReading()
         }
     }
 }

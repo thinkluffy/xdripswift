@@ -72,7 +72,7 @@ class BluetoothPeripheralViewController: UIViewController {
     // MARK: - private properties
     
     /// the BluetoothPeripheral being edited
-    private var bluetoothPeripheral:BluetoothPeripheral?
+    private var bluetoothPeripheral: BluetoothPeripheral?
         
     /// a BluetoothPeripheralManager
     private weak var bluetoothPeripheralManager: BluetoothPeripheralManaging?
@@ -117,12 +117,13 @@ class BluetoothPeripheralViewController: UIViewController {
     // MARK:- public functions
     
     /// configure the viewController
-    public func configure(bluetoothPeripheral: BluetoothPeripheral?, bluetoothPeripheralManager: BluetoothPeripheralManaging, expectedBluetoothPeripheralType type: BluetoothPeripheralType) {
+    func configure(bluetoothPeripheral: BluetoothPeripheral?,
+                   bluetoothPeripheralManager: BluetoothPeripheralManaging,
+                   expectedBluetoothPeripheralType type: BluetoothPeripheralType) {
         self.bluetoothPeripheral = bluetoothPeripheral
         self.bluetoothPeripheralManager = bluetoothPeripheralManager
         self.expectedBluetoothPeripheralType = type
         self.transmitterIdTempValue = bluetoothPeripheral?.blePeripheral.transmitterId
-        
     }
     
     /// - sets text in connect button (only applicable to BluetoothPeripheralViewController) and gets status text
@@ -141,7 +142,6 @@ class BluetoothPeripheralViewController: UIViewController {
         
         // if BluetoothPeripheral not nil
         if let bluetoothPeripheral = bluetoothPeripheral {
-            
             // if connected then status = connected, button text = disconnect
             if bluetoothPeripheralIsConnected(bluetoothPeripheral: bluetoothPeripheral, bluetoothPeripheralManager: bluetoothPeripheralManager) {
                 
@@ -153,21 +153,15 @@ class BluetoothPeripheralViewController: UIViewController {
             // if not connected, but shouldconnect = true, means the app is trying to connect
             // by clicking the button, app will stop trying to connect
             if bluetoothPeripheral.blePeripheral.shouldconnect {
-                
                 connectButtonOutlet?.setTitle(Texts_BluetoothPeripheralView.donotconnect, for: .normal)
-                
                 return Texts_BluetoothPeripheralView.tryingToConnect
-                
             }
             
             // not connected, shouldconnect = false
             connectButtonOutlet?.setTitle(Texts_BluetoothPeripheralView.connect, for: .normal)
-            
             return Texts_BluetoothPeripheralView.notTryingToConnect
             
-            
         } else {
-            
             // BluetoothPeripheral is nil
             
             // if needs transmitterId, but no transmitterId is given by user, then button allows to set transmitter id, row text = "needs transmitter id"
@@ -176,7 +170,6 @@ class BluetoothPeripheralViewController: UIViewController {
                 connectButtonOutlet?.setTitle(Texts_SettingsView.labelTransmitterIdTextForButton, for: .normal)
                 
                 return Texts_BluetoothPeripheralView.needsTransmitterId
-                
             }
             
             //if transmitter id not needed or transmitter id needed and already given, but not yet scanning
@@ -192,26 +185,21 @@ class BluetoothPeripheralViewController: UIViewController {
             
             // getting here, means it should be scanning
             if isScanning {
-                
                 // disable, while scanning there's no need to click that button
                 connectButtonOutlet?.disable()
-                
                 connectButtonOutlet?.setTitle(Texts_BluetoothPeripheralView.scanning, for: .normal)
                 
                 return Texts_BluetoothPeripheralView.scanning
-                
             }
             
             // we're here, looks like an error, let's write that in the status field
             connectButtonOutlet?.setTitle("error", for: .normal)
             return "error"
-            
         }
-        
     }
 
     /// sets shouldconnect for bluetoothPeripheral to false, and disconnect
-    public func setShouldConnectToFalse(for bluetoothPeripheral: BluetoothPeripheral) {
+    func setShouldConnectToFalse(for bluetoothPeripheral: BluetoothPeripheral) {
         
         guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {return}
         
@@ -257,7 +245,7 @@ class BluetoothPeripheralViewController: UIViewController {
     }
     
     /// the BluetoothPeripheralViewController has already a few sections defined (eg bluetooth, weboop). This is the amount of sections defined in BluetoothPeripheralViewController.
-    public func numberOfGeneralSections() -> Int {
+    func numberOfGeneralSections() -> Int {
         
         // first check if bluetoothPeripheral already known
         if bluetoothPeripheral != nil {
@@ -284,7 +272,6 @@ class BluetoothPeripheralViewController: UIViewController {
                 nonFixedSettingsSectionIsShown = true
                 
                 return 2
-                
             }
             
         }
@@ -297,7 +284,6 @@ class BluetoothPeripheralViewController: UIViewController {
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         
         guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {
@@ -314,17 +300,37 @@ class BluetoothPeripheralViewController: UIViewController {
         
         // assign the self delegate in the transmitter object
         if let bluetoothPeripheral = bluetoothPeripheral, let bluetoothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: bluetoothPeripheral, createANewOneIfNecesssary: false) {
-            
             bluetoothTransmitter.bluetoothTransmitterDelegate = self
-            
         }
-
-        setupView()
         
+        navigationController?.navigationBar.tintColor = UIColor.white
+        
+        setupView()
+    }
+    
+    private var isNavigationBarHiddenBefore = false
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let navigationController = navigationController else {
+            return
+        }
+        
+        isNavigationBarHiddenBefore = navigationController.navigationBar.isHidden
+        if isNavigationBarHiddenBefore {
+            navigationController.setNavigationBarHidden(false, animated: true)
+        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isNavigationBarHiddenBefore {
+            navigationController?.setNavigationBarHidden(true, animated: true)
+        }
     }
     
     override func willMove(toParent parent: UIViewController?) {
-
         super.willMove(toParent: parent)
 
         // willMove is called when BluetoothPeripheralViewController is added and when BluetoothPeripheralViewController is removed.
@@ -344,18 +350,15 @@ class BluetoothPeripheralViewController: UIViewController {
         
         // just in case scanning for a new device is still ongoing, call stopscanning
         bluetoothPeripheralManager?.stopScanningForNewDevice()
-
     }
     
     // MARK: - View Methods
     
     private func setupView() {
-        
         // set label of connect button, according to current status
         _ = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: bluetoothPeripheral, isScanning: isScanning, connectButtonOutlet: connectButtonOutlet, expectedBluetoothPeripheralType: expectedBluetoothPeripheralType, transmitterId: transmitterIdTempValue, bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
         
         if bluetoothPeripheral == nil {
-
             // should be disabled, as there's nothing to delete yet
             trashButtonOutlet.disable()
             
@@ -369,19 +372,14 @@ class BluetoothPeripheralViewController: UIViewController {
             
             // if transmitterId needed, request for it now and set button text
             if expectedBluetoothPeripheralType.needsTransmitterId() {
-                
                 requestTransmitterId()
-                
             }
-            
-
         }
         
         // set title
         title = bluetoothPeripheralViewModel?.screenTitle()
         
         setupTableView()
-        
     }
     
     // MARK: - private functions
@@ -442,9 +440,7 @@ class BluetoothPeripheralViewController: UIViewController {
             
             // set self as delegate in the bluetoothTransmitter
             if let bluetoothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: bluetoothPeripheral, createANewOneIfNecesssary: false) {
-                
                 bluetoothTransmitter.bluetoothTransmitterDelegate = self
-
             }
 
             // reload the full screen , all rows in all sections in the tableView
@@ -455,10 +451,7 @@ class BluetoothPeripheralViewController: UIViewController {
                 infoAlertWhenScanningStarts.dismiss(animated: true, completion: nil)
                 self.infoAlertWhenScanningStarts = nil
             }
-            
         })
-        
-        
     }
     
     private func handleScanningResult(startScanningResult: BluetoothTransmitter.startScanningResult) {
@@ -561,12 +554,10 @@ class BluetoothPeripheralViewController: UIViewController {
         }, cancelHandler: nil)
         
         self.present(alert, animated:true)
-        
     }
     
     /// user clicked connect button
     private func connectButtonHandler() {
-        
         // unwrap bluetoothPeripheralManager
         guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {return}
         
@@ -575,29 +566,23 @@ class BluetoothPeripheralViewController: UIViewController {
         
         // let's first check if bluetoothPeripheral exists
         if let bluetoothPeripheral = bluetoothPeripheral {
-            
             // if shouldconnect = true then set setshouldconnect to false, this will also result in disconnecting
             if bluetoothPeripheral.blePeripheral.shouldconnect {
-                
                 // disconnect
                 setShouldConnectToFalse(for: bluetoothPeripheral)
                 
             } else {
-                
                 // check if it's a CGM being activated and if so that there's no other cgm which has shouldconnect = true
                 if expectedBluetoothPeripheralType.category() == .CGM, BluetoothPeripheralsViewController.self.otherCGMTransmitterHasShouldConnectTrue(bluetoothPeripheralManager: self.bluetoothPeripheralManager, uiViewController: self) {
                     
                     return
-                    
                 }
                 
                 // check if it's a CGM being activated and if so that app is in master mode
                 if expectedBluetoothPeripheralType.category() == .CGM, !UserDefaults.standard.isMaster {
-                    
                     self.present(UIAlertController(title: Texts_Common.warning, message: Texts_BluetoothPeripheralView.cannotActiveCGMInFollowerMode, actionHandler: nil), animated: true, completion: nil)
                     
                     return
-                    
                 }
                 
                 // device should automatically connect, this will be stored in coredata
@@ -617,32 +602,23 @@ class BluetoothPeripheralViewController: UIViewController {
                     
                     // connect (probably connection is already done because transmitter has just been created by bluetoothPeripheralManager, this is a transmitter for which mac address is known, so it will by default try to connect
                     bluetoothTransmitter.connect()
-                    
                 }
-                
             }
             
         } else {
-            
             // there's no bluetoothperipheral yet, so this is the case where viewcontroller is opened to scan for a new peripheral
             // if it's a transmitter type that needs a transmitter id, and if there's no transmitterid yet, then ask transmitter id
             // else start scanning
             if expectedBluetoothPeripheralType.needsTransmitterId() && transmitterIdTempValue == nil {
-                
                 requestTransmitterId()
                 
             } else {
-                
                 scanForBluetoothPeripheral(type: expectedBluetoothPeripheralType)
-                
             }
-            
-            
         }
         
         // will change text of the button
         _ = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: bluetoothPeripheral, isScanning: isScanning, connectButtonOutlet: connectButtonOutlet, expectedBluetoothPeripheralType: expectedBluetoothPeripheralType, transmitterId: transmitterIdTempValue, bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
-        
     }
     
     /// checks if bluetoothPeripheral is not nil, etc.

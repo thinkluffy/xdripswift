@@ -1338,13 +1338,10 @@ extension BluetoothPeripheralManager: BluetoothPeripheralManaging {
     }
     
     func getBluetoothPeripherals() -> [BluetoothPeripheral] {
-        
         return bluetoothPeripherals
-        
     }
     
     func getBluetoothTransmitters() -> [BluetoothTransmitter] {
-        
         var bluetoothTransmitters: [BluetoothTransmitter] = []
         
         for bluetoothTransmitter in self.bluetoothTransmitters {
@@ -1352,17 +1349,12 @@ extension BluetoothPeripheralManager: BluetoothPeripheralManaging {
                 bluetoothTransmitters.append(bluetoothTransmitter)
             }
         }
-        
         return bluetoothTransmitters
-        
     }
     
     func setBluetoothTransmitterToNil(forBluetoothPeripheral bluetoothPeripheral: BluetoothPeripheral) {
-        
         if let index = firstIndexInBluetoothPeripherals(bluetoothPeripheral: bluetoothPeripheral) {
-            
             setTransmitterToNilAndCallcgmTransmitterInfoChangedIfNecessary(indexInBluetoothTransmittersArray: index)
-            
         }
     }
     

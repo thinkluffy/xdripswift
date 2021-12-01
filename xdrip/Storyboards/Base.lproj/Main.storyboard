@@ -916,13 +916,13 @@
         <!--Bluetooth Peripheral View Controller-->
         <scene sceneID="fw3-II-GI1">
             <objects>
-                <viewController id="FJ0-eY-Fv0" userLabel="Bluetooth Peripheral View Controller" customClass="BluetoothPeripheralViewController" customModule="xdrip" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BluetoothPeripheral" hidesBottomBarWhenPushed="YES" id="FJ0-eY-Fv0" userLabel="Bluetooth Peripheral View Controller" customClass="BluetoothPeripheralViewController" customModule="xdrip" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0Ho-lg-UtI">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="843"/>
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="82M-Ti-NV0">
-                                <rect key="frame" x="0.0" y="126" width="428" height="717"/>
+                                <rect key="frame" x="0.0" y="136" width="428" height="756"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SettingsCell" textLabel="vbi-WE-Mvc" detailTextLabel="N1U-VA-CRw" style="IBUITableViewCellStyleValue1" id="dpi-qU-2Va">
@@ -953,7 +953,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WtR-0P-RyL">
-                                <rect key="frame" x="20" y="88" width="78" height="38"/>
+                                <rect key="frame" x="20" y="98" width="78" height="38"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <state key="normal" title="Connect">
                                     <color key="titleColor" systemColor="systemYellowColor"/>
@@ -966,17 +966,16 @@
                         <viewLayoutGuide key="safeArea" id="jHe-GP-4Jf"/>
                         <color key="backgroundColor" red="0.13333333333333333" green="0.15294117647058825" blue="0.28235294117647058" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="WtR-0P-RyL" firstAttribute="top" secondItem="jHe-GP-4Jf" secondAttribute="top" id="Ej3-HQ-w2L"/>
                             <constraint firstItem="WtR-0P-RyL" firstAttribute="leading" secondItem="jHe-GP-4Jf" secondAttribute="leading" constant="20" id="ToR-DO-JrT"/>
                             <constraint firstItem="jHe-GP-4Jf" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="WtR-0P-RyL" secondAttribute="trailing" symbolic="YES" id="VoL-v2-1bY"/>
                             <constraint firstItem="82M-Ti-NV0" firstAttribute="top" secondItem="WtR-0P-RyL" secondAttribute="bottom" id="aP0-31-V6e"/>
+                            <constraint firstItem="WtR-0P-RyL" firstAttribute="top" secondItem="jHe-GP-4Jf" secondAttribute="top" constant="10" id="fgv-Ep-w1A"/>
                             <constraint firstItem="jHe-GP-4Jf" firstAttribute="bottom" secondItem="82M-Ti-NV0" secondAttribute="bottom" id="qBc-5d-R7l"/>
                             <constraint firstItem="jHe-GP-4Jf" firstAttribute="trailing" secondItem="82M-Ti-NV0" secondAttribute="trailing" id="w0B-Wn-iY0"/>
                             <constraint firstItem="82M-Ti-NV0" firstAttribute="leading" secondItem="jHe-GP-4Jf" secondAttribute="leading" id="yg8-ad-aLX"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="1DE-2P-Qfh">
-                        <barButtonItem key="backBarButtonItem" title="I" id="Fis-6U-di6"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="trash" id="N7o-Nz-l8g">
                             <color key="tintColor" systemColor="systemRedColor"/>
                             <connections>
@@ -992,7 +991,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kwG-Zz-t1q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2342" y="-155"/>
+            <point key="canvasLocation" x="2341.1214953271028" y="-155.50755939524839"/>
         </scene>
         <!--Alert Settings View Controller-->
         <scene sceneID="sgW-JX-gdP">

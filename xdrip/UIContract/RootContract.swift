@@ -10,7 +10,7 @@ import UIKit
 
 protocol RootV: MVPV {
     
-    func showNewReading()
+    func showNewFollowerReading()
     
     func showChartReadings(_ readings: [BgReading]?, from fromDate: Date, to toDate: Date)
 }

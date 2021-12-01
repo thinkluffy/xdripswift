@@ -158,16 +158,10 @@ final class BluetoothPeripheralsViewController: UIViewController {
                 
                 // check that xdrip is in master mode
                 if !UserDefaults.standard.isMaster {
-                 
                     self.present(UIAlertController(title: Texts_Common.warning, message: Texts_BluetoothPeripheralView.cannotActiveCGMInFollowerMode, actionHandler: nil), animated: true, completion: nil)
-
                     return
-                    
                 }
-                
-                
             }
-            
             
             let pickerViewData = PickerViewData (withMainTitle: nil, withSubTitle: Texts_BluetoothPeripheralsView.selectType, withData: BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(withCategory: BluetoothPeripheralCategory.listOfCategories()[categoryIndex]), selectedRow: nil, withPriority: nil, actionButtonText: nil, cancelButtonText: nil, onActionClick: {(_ typeIndex: Int) in
                 
@@ -187,7 +181,6 @@ final class BluetoothPeripheralsViewController: UIViewController {
 
         // create and present PickerViewController
         PickerViewController.displayPickerViewController(pickerViewData: pickerViewData, parentController: self)
-        
     }
     
     // setup datasource, delegate, seperatorInset
@@ -202,20 +195,14 @@ final class BluetoothPeripheralsViewController: UIViewController {
 
     /// calls tableView.reloadRows for the row where bluetoothPeripheral is shown
     private func updateRow(for bluetoothPeripheral: BluetoothPeripheral) {
-
         // possibly an instance of BluetoothPeripheralViewController is on top of this UIViewController, in which case it's better not to update the rows (xcode creates warnings if this would be done)
         if isViewLoaded && (view.window != nil) {
-
             tableView.reloadRows(at: [IndexPath(row: getIndexInSection(for: bluetoothPeripheral), section: bluetoothPeripheral.bluetoothPeripheralType().category().index())], with: .none)
-
         }
-
     }
     
     /// for specific BluetoothPeripheral, finds the number of the row in the table in it's section
-    private func getIndexInSection(for bluetoothPeripheral: BluetoothPeripheral) -> Int
-    {
-        
+    private func getIndexInSection(for bluetoothPeripheral: BluetoothPeripheral) -> Int {
         // unwrap bluetoothPeripheralManager
         guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {return 0}
         
@@ -224,44 +211,31 @@ final class BluetoothPeripheralsViewController: UIViewController {
         
         // loop through all BluetoothPeripheral's, skip those that are not of the same category, continue until one is found with the same address, increase rowNumber each time one is found in same category
         for peripheralInList in bluetoothPeripheralManager.getBluetoothPeripherals() {
-            
             if peripheralInList.bluetoothPeripheralType().category() == bluetoothPeripheral.bluetoothPeripheralType().category() {
-                
                 if peripheralInList.blePeripheral.address == bluetoothPeripheral.blePeripheral.address {
                     break
                 }
-                
                 rowNumber = rowNumber + 1
-                
             }
-
         }
   
         // we should not get here
         return rowNumber
-        
     }
     
     /// - sets the delegates of each transmitter to self
     /// - bluetoothPeripheralManager will also still receive delegate calls
     private func initializeBluetoothTransmitterDelegates() {
-
         if let bluetoothPeripheralManager = bluetoothPeripheralManager  {
-            
             for bluetoothTransmitter in bluetoothPeripheralManager.getBluetoothTransmitters() {
-                
                 // assign self as BluetoothTransmitterDelegate
                 bluetoothTransmitter.bluetoothTransmitterDelegate = self
-                
             }
-            
         }
-
     }
     
     /// number of rows in section
     private func numberOfRows(inSection section: Int) -> Int {
-        
         // unwrap bluetoothPeripheralManager
         guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {return 0}
         
@@ -270,7 +244,6 @@ final class BluetoothPeripheralsViewController: UIViewController {
         
         // loop through bluetoothPeripheralManager's and count amount that has a category matching the section number
         for bluetoothPeripheral in bluetoothPeripheralManager.getBluetoothPeripherals() {
-            
             if bluetoothPeripheral.bluetoothPeripheralType().category().index() == section {
                 numberOfRows = numberOfRows + 1
             }
@@ -302,7 +275,6 @@ extension BluetoothPeripheralsViewController: UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableCell") ?? UITableViewCell(style: .value1, reuseIdentifier: "tableCell")
         cell.textLabel?.textColor = ConstantsUI.tableTitleColor
         cell.detailTextLabel?.textColor = ConstantsUI.tableDetailTextColor
@@ -336,25 +308,22 @@ extension BluetoothPeripheralsViewController: UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         tableView.deselectRow(at: indexPath, animated: true)
        
         // unwrap bluetoothPeripheralManager
         guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {return}
         
-        self.performSegue(withIdentifier: BluetoothPeripheralViewController.SegueIdentifiers.BluetoothPeripheralsToBluetoothPeripheralSegueIdentifier.rawValue, sender: bluetoothPeripheralManager.getBluetoothPeripherals()[getIndexInTable(forRowAt: indexPath)])
-
+        self.performSegue(withIdentifier: BluetoothPeripheralViewController.SegueIdentifiers.BluetoothPeripheralsToBluetoothPeripheralSegueIdentifier.rawValue,
+                          sender: bluetoothPeripheralManager.getBluetoothPeripherals()[getIndexInTable(forRowAt: indexPath)])
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
         guard section < BluetoothPeripheralCategory.allCases.count else {return nil}
         
         // if there's no bluetoothperipherals then show no title
         if numberOfRows(inSection: section) == 0 {return nil}
         
         return BluetoothPeripheralCategory.allCases[section].rawValue
-        
     }
 
 }

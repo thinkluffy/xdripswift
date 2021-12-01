@@ -8565,11 +8565,16 @@ struct _R: Rswift.Validatable {
     struct main: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
       typealias InitialController = InitViewController
 
+      let bluetoothPeripheral = StoryboardViewControllerResource<BluetoothPeripheralViewController>(identifier: "BluetoothPeripheral")
       let bundle = R.hostingBundle
       let datePickerViewController = StoryboardViewControllerResource<DatePickerViewController>(identifier: "DatePickerViewController")
       let mainTabBarController = StoryboardViewControllerResource<MainTabBarController>(identifier: "MainTabBarController")
       let name = "Main"
       let pickerViewController = StoryboardViewControllerResource<PickerViewController>(identifier: "PickerViewController")
+
+      func bluetoothPeripheral(_: Void = ()) -> BluetoothPeripheralViewController? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: bluetoothPeripheral)
+      }
 
       func datePickerViewController(_: Void = ()) -> DatePickerViewController? {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: datePickerViewController)
@@ -8600,6 +8605,7 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "sensor14_14_alt", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'sensor14_14_alt' is used in storyboard 'Main', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
+        if _R.storyboard.main().bluetoothPeripheral() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'bluetoothPeripheral' could not be loaded from storyboard 'Main' as 'BluetoothPeripheralViewController'.") }
         if _R.storyboard.main().datePickerViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'datePickerViewController' could not be loaded from storyboard 'Main' as 'DatePickerViewController'.") }
         if _R.storyboard.main().mainTabBarController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'mainTabBarController' could not be loaded from storyboard 'Main' as 'MainTabBarController'.") }
         if _R.storyboard.main().pickerViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'pickerViewController' could not be loaded from storyboard 'Main' as 'PickerViewController'.") }

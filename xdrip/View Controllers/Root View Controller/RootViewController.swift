@@ -758,16 +758,10 @@ final class RootViewController: UIViewController {
     
     /// closes the SnoozeViewController if it is being presented now
     private func closeSnoozeViewController() {
-        
-        if let presentedViewController = self.presentedViewController {
-            
-            if let snoozeViewController = presentedViewController as? SnoozeViewController {
-                
-                snoozeViewController.dismiss(animated: true, completion: nil)
-                
-            }
+        if let presentedViewController = self.presentedViewController,
+            let snoozeViewController = presentedViewController as? SnoozeViewController {
+            snoozeViewController.dismiss(animated: true, completion: nil)
         }
-        
     }
     
     /// used by observevalue for UserDefaults.Key
@@ -1362,55 +1356,64 @@ final class RootViewController: UIViewController {
     /// when user clicks transmitter button, this will create and present the actionsheet, contents depend on type of transmitter and sensor status
     private func createAndPresentSensorButtonActionSheet() {
         
-        // initialize list of actions
-        var listOfActions = [UIAlertAction]()
-        
-        // first action is to show the status
-        let sensorStatusAction = UIAlertAction(title: Texts_HomeView.statusActionTitle, style: .default) { (UIAlertAction) in
-            self.showStatus()
+//        // initialize list of actions
+//        var listOfActions = [UIAlertAction]()
+//
+//        // first action is to show the status
+//        let sensorStatusAction = UIAlertAction(title: Texts_HomeView.statusActionTitle, style: .default) { (UIAlertAction) in
+//            self.showStatus()
+//        }
+//        listOfActions.append(sensorStatusAction)
+//
+//        // next action is to start or stop the sensor, can also be omitted depending on type of device - also not applicable for follower mode
+//        if let cgmTransmitter = self.bluetoothPeripheralManager?.getCGMTransmitter() {
+//            if cgmTransmitter.cgmTransmitterType().allowManualSensorStart() && UserDefaults.standard.isMaster {
+//                // user needs to start and stop the sensor manually
+//                var startStopAction: UIAlertAction
+//
+//                if activeSensor != nil {
+//                    startStopAction = UIAlertAction(title: Texts_HomeView.stopSensorActionTitle, style: .default) { (UIAlertAction) in
+//                        trace("in createAndPresentSensorButtonActionSheet, user clicked stop sensor, will stop the sensor", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
+//
+//                        self.stopSensor()
+//                    }
+//                } else {
+//                    startStopAction = UIAlertAction(title: Texts_HomeView.startSensorActionTitle, style: .default) { (UIAlertAction) in
+//                        self.startSensorAskUserForStarttime()
+//                    }
+//                }
+//
+//                listOfActions.append(startStopAction)
+//            }
+//        }
+//
+//        let cancelAction = UIAlertAction(title: Texts_Common.Cancel, style: .cancel, handler: nil)
+//        listOfActions.append(cancelAction)
+//
+//        // create and present new alertController of type actionsheet
+//        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+//        for action in listOfActions {
+//            actionSheet.addAction(action)
+//        }
+//
+//        // following is required for iPad, as explained here https://stackoverflow.com/questions/28089898/actionsheet-not-working-ipad
+//        // otherwise it crashes on iPad when clicking transmitter button
+//        if let popoverController = actionSheet.popoverPresentationController {
+//            popoverController.sourceView = self.view
+//            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+//            popoverController.permittedArrowDirections = []
+//        }
+//
+//        self.present(actionSheet, animated: true)
+        if let bluetoothPeripheralManager = bluetoothPeripheralManager,
+            let bluetoothPeripheralViewController = R.storyboard.main.bluetoothPeripheral() {
+            let bluetoothPeripheral = bluetoothPeripheralManager.getBluetoothPeripherals()[0]
+            
+            bluetoothPeripheralViewController.configure(bluetoothPeripheral: bluetoothPeripheral,
+                                                        bluetoothPeripheralManager: bluetoothPeripheralManager,
+                                                        expectedBluetoothPeripheralType: bluetoothPeripheral.bluetoothPeripheralType())
+            navigationController?.pushViewController(bluetoothPeripheralViewController, animated: true)
         }
-        listOfActions.append(sensorStatusAction)
-        
-        // next action is to start or stop the sensor, can also be omitted depending on type of device - also not applicable for follower mode
-        if let cgmTransmitter = self.bluetoothPeripheralManager?.getCGMTransmitter() {
-            if cgmTransmitter.cgmTransmitterType().allowManualSensorStart() && UserDefaults.standard.isMaster {
-                // user needs to start and stop the sensor manually
-                var startStopAction: UIAlertAction
-                
-                if activeSensor != nil {
-                    startStopAction = UIAlertAction(title: Texts_HomeView.stopSensorActionTitle, style: .default) { (UIAlertAction) in
-                        trace("in createAndPresentSensorButtonActionSheet, user clicked stop sensor, will stop the sensor", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
-                        
-                        self.stopSensor()
-                    }
-                } else {
-                    startStopAction = UIAlertAction(title: Texts_HomeView.startSensorActionTitle, style: .default) { (UIAlertAction) in
-                        self.startSensorAskUserForStarttime()
-                    }
-                }
-                
-                listOfActions.append(startStopAction)
-            }
-        }
-
-        let cancelAction = UIAlertAction(title: Texts_Common.Cancel, style: .cancel, handler: nil)
-        listOfActions.append(cancelAction)
-        
-        // create and present new alertController of type actionsheet
-        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        for action in listOfActions {
-            actionSheet.addAction(action)
-        }
-        
-        // following is required for iPad, as explained here https://stackoverflow.com/questions/28089898/actionsheet-not-working-ipad
-        // otherwise it crashes on iPad when clicking transmitter button
-        if let popoverController = actionSheet.popoverPresentationController {
-            popoverController.sourceView = self.view
-            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-            popoverController.permittedArrowDirections = []
-        }
-        
-        self.present(actionSheet, animated: true)
     }
     
     /// will show the status
@@ -1443,7 +1446,6 @@ final class RootViewController: UIViewController {
     
     /// stops the active sensor and sets sensorSerialNumber in UserDefaults to nil
     private func stopSensor() {
-        
         if let activeSensor = activeSensor {
             activeSensor.endDate = Date()
         }
@@ -1454,7 +1456,6 @@ final class RootViewController: UIViewController {
         
         // now that the activeSensor object has been destroyed, update (hide) the sensor countdown graphic
         updateSensorCountdown()
-        
     }
     
     /// start a new sensor, ask user for starttime
@@ -1829,7 +1830,7 @@ extension RootViewController: UNUserNotificationCenterDelegate {
 
 extension RootViewController: RootV {
     
-    func showNewReading() {
+    func showNewFollowerReading() {
         // update all text in first screen
         updateLabelsAndChart(overrideApplicationState: false)
         
