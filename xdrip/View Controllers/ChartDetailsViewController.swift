@@ -231,6 +231,25 @@ class ChartDetailsViewController: UIViewController {
     @objc private func exitButtonDidClick(_ button: UIButton) {
         dismiss(animated: false)
     }
+    
+    private func filterReadingsIfNeeded(_ readings: [BgReading]) -> [BgReading] {
+        guard UserDefaults.standard.chartDots5MinsApart else {
+            return readings
+        }
+        
+        var filteredBgReadings = [BgReading]()
+        var lastShownReading: BgReading?
+        
+        for r in readings {
+            if lastShownReading == nil ||
+                r.timeStamp.timeIntervalSince(lastShownReading!.timeStamp) > 4.5 * Date.minuteInSeconds {
+                filteredBgReadings.append(r)
+                lastShownReading = r
+            }
+        }
+        
+        return filteredBgReadings
+    }
 }
 
 extension ChartDetailsViewController: ChartDetailsV {
@@ -247,12 +266,6 @@ extension ChartDetailsViewController: ChartDetailsV {
         bgValueLabel.text = "---"
         bgValueLabel.textColor = .white
         
-        guard let readings = readings, !readings.isEmpty else {
-            ChartDetailsViewController.log.e("reading is nil, nothing to show")
-            chartView.data = nil
-            return
-        }
-        
         // setup chart
         let showAsMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
         
@@ -261,15 +274,34 @@ extension ChartDetailsViewController: ChartDetailsV {
         let lowInMg = UserDefaults.standard.lowMarkValue
         let urgentLowInMg = UserDefaults.standard.urgentLowMarkValue
         
+        guard let readings = readings, !readings.isEmpty else {
+            ChartDetailsViewController.log.i("reading is nil, nothing to show")
+            
+            // put a placeholder to avoid showing default No Data view
+            var placeholderEntries = [ChartDataEntry]()
+            let placeholdeEntry = ChartDataEntry(x: fromDate.timeIntervalSince1970, y: highInMg.mgdlToMmol(mgdl: showAsMg))
+            placeholderEntries.append(placeholdeEntry)
+            let placeholderDataSet = ScatterChartDataSet(entries: placeholderEntries)
+            placeholderDataSet.setColor(.clear)
+            
+            let data = ScatterChartData(dataSets: [
+                placeholderDataSet
+            ])
+            chartView.data = data
+            return
+        }
+        
         var urgentHighValues = [ChartDataEntry]()
         var highValues = [ChartDataEntry]()
         var inRangeValues = [ChartDataEntry]()
         var lowValues = [ChartDataEntry]()
         var urgentLowValues = [ChartDataEntry]()
 
-        for r in readings {
+        let filteredReadings = filterReadingsIfNeeded(readings)
+
+        for r in filteredReadings {
             let bgValue = showAsMg ? r.calculatedValue : r.calculatedValue.mgdlToMmol()
-            let chartDataEntry = ChartDataEntry(x: r.timeStamp.timeIntervalSince1970, y: bgValue, data: r)
+            let chartDataEntry = ChartDataEntry(x: r.timeStamp.timeIntervalSince1970, y: bgValue)
             if r.calculatedValue >= urgentHighInMg {
                 urgentHighValues.append(chartDataEntry)
                 

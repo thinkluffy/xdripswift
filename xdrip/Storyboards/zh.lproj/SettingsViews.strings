@@ -15,14 +15,14 @@
 "settingsviews_sectiontitledexcomshare" = "Dexcom Share";
 "settingsviews_uploadReadingstoDexcomShare" = "上传到德康服务器";
 "settingsviews_dexcomShareSerialNumber" = "序列号";
-"settingsviews_giveDexcomShareSerialNumber" = "输入Dexcom Share 序列号";
+"settingsviews_giveDexcomShareSerialNumber" = "输入 Dexcom Share 序列号";
 "settingsviews_useUSDexcomShareurl" = "使用美国德康服务器";
 "settingsviews_dexcomShareAccountName" = "德康账号";
-"settingsviews_giveDexcomShareAccountName" = "输入Dexcom APP用户名";
-"settingsviews_giveDexcomSharePassword" = "输入Dexcom APP密码";
-"settingsviews_sectiontitlenightscout" = "NightScout远程监控";
+"settingsviews_giveDexcomShareAccountName" = "输入 Dexcom APP 用户名";
+"settingsviews_giveDexcomSharePassword" = "输入 Dexcom APP 密码";
+"settingsviews_sectiontitlenightscout" = "NightScout 远程监控";
 "settingsviews_nightScoutEnabled" = "NightScout 已启用";
-"settingsviews_nightScoutUrl" = "Url(网址)";
+"settingsviews_nightScoutUrl" = "网址";
 "settingsviews_giveNightScoutUrl" = "输入 NightScout 网址";
 "settingsviews_nightScoutAPIKey" = "API 密钥";
 "settingsviews_giveNightScoutAPIKey" = "输入 NightScout API 密钥";
@@ -43,10 +43,10 @@
 "timeScheduleViewTitle" = "On/Off Time Schedule for ";
 
 /// In Settings, Alerts section, there's an option to test the volume of ios sound, this is the title of the row
-"volumeTestiOSSound" = "Test Volume (Current iPhone Volume)";
+"volumeTestiOSSound" = "测试音量 (Current iPhone Volume)";
 
 /// nightscout settings, port to use
-"nightScoutPort" = "Port (optional):";
+"nightScoutPort" = "端口 (可选)";
 
 /// home screen settings, urgent high value
 "settingsviews_urgentHighValue" = "紧急高值";
@@ -61,13 +61,13 @@
 "settingsviews_webooptransmitter" = "使用瞬感算法";
 
 /// Apple Watch Settings - text in row where user needs to say if unit should be displayed or not
-"displayUnitInCalendarEvent" = "Display Unit?";
+"displayUnitInCalendarEvent" = "显示单位";
 
 /// When clicking the interval setting, a pop up asks for minimum number of minutes between two readings, this is the pop up message - this is used for setting the interval between two readings in BG notifications, Speak readings, Apple Watch
 "settingsviews_IntervalMessage" = "Minimum interval between two readings, in minutes";
 
 /// Apple Watch Settings - text in row where create event is enabled or disabled 
-"createCalendarEvent" = "Create Calendar Events?";
+"createCalendarEvent" = "创建日历事件";
 
 /// in Settings, section title for Trace
 "sectionTitleTrace" = "Issue Reporting";
@@ -79,7 +79,7 @@
 "debugLevel" = "Include Debug Level";
 
 /// Apple Watch Settings - text in row where user needs to say if delta should be displayed or not
-"displayDeltaInCalendarEvent" = "Display Delta?";
+"displayDeltaInCalendarEvent" = "显示变化";
 
 /// about settings, section title
 "settingsviews_sectiontitleAbout" = "关于 %@";
@@ -91,10 +91,10 @@
 "settingsviews_urgentLowValue" = "紧急低值";
 
 /// weboop settings, title of the dialogs where site and token are asked - also used when viewing bluetoothperipheral settings, the title of the section
-"settingsviews_labelWebOOP" = "zDrip or Libre Algorithm";
+"settingsviews_labelWebOOP" = "zDrip 或 瞬感算法";
 
 /// nightscout or dexcom share settings, where user can select to edit the schedule
-"schedule" = "Schedule:";
+"schedule" = "Schedule";
 
 /// In case user tries to send trace file via email but error occurs.
 "failedToSendEmail" = "Failed to Send Email";
@@ -106,19 +106,16 @@
 "m5stack_settingsviews_giveBluetoothPassword" = "Enter Bluetooth Password";
 
 /// used in settings, section Info, title of the version setting
-"settingsviews_Version" = "Version:";
+"settingsviews_Version" = "Version";
 
 /// used in settings, section Info, title of the build setting
-"settingsviews_build" = "Build:";
+"settingsviews_build" = "Build";
 
 /// nightscout settings, where user can select to use schedule or not
 "settingsviews_useSchedule" = "Use Upload Schedule?";
 
-/// home screen settings, target value
-"settingsviews_targetValue" = "目标值";
-
-/// home screen settings, show target line
-"settingsviews_showtarget" = "显示目标线";
+/// home screen settings, show chart dots in 5 minutes apart
+"settingsviews_chartDots5MinsApart" = "5 分钟一个点";
 
 /// used in settings, section Info, title of the license setting
 "settingsviews_license" = "License";
@@ -163,7 +160,7 @@
 "settingsviews_labelShowReadingInAppBadge" = "角标显示血糖";
 
 /// In Settings, Alerts section, there's an option to test the volume of the sound player, this is the title of the row
-"volumeTestSoundPlayer" = "Test Volume (if Override Mute On)";
+"volumeTestSoundPlayer" = "测试音量 (if Override Mute On)";
 
 /// healthkit settings, literally 'healthkit'
 "settingsviews_healthkit" = "数据写入苹果健康";
@@ -172,7 +169,7 @@
 "m5stack_settingsviews_sectiontitlebluetooth" = "蓝牙";
 
 /// Apple Watch Settings - section title
-"appleWatchSectionTitle" = "Apple Watch";
+"appleWatchSectionTitle" = "苹果手表";
 
 /// Text in pop up shown when user wants to send the trace file
 "describeProblem" = "Explain why you need to send the trace file with as much detail as possible. If you have already reported your problem in the Facebook support group '%@', then mention your facebook name in the e-mail";
@@ -199,7 +196,7 @@
 "settingsviews_useobjectives" = "图表中显示目标";
 
 /// Apple Watch Settings - text in row where user needs to say if trend should be displayed or not
-"settingsviews_displayTrendInCalendarEvent" = "Display Trend?";
+"settingsviews_displayTrendInCalendarEvent" = "显示趋势";
 
 /// 
 "settingsviews_showcoloredobjectives" = "Show Colored Lines?";
@@ -212,7 +209,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 /// deloper settings, row title for 'Smooth Libre Values?'
-"smoothLibreValues" = "Smooth Libre Values?";
+"smoothLibreValues" = "平滑瞬感数值";
 
 /// deloper settings, row title for OSLog - with OSLog enabled, a developer can view log information as explained here https://developer.apple.com/documentation/os/oslog
 "oslog" = "OSLog";
@@ -241,10 +238,10 @@
 "settingsviews_sectiontitlestatistics" = "统计";
 
 /// statistics settings, use standard range?
-"settingsviews_useStandardStatisticsRange" = "Use Standard Range?";
+"settingsviews_useStandardStatisticsRange" = "使用标准范围";
 
 /// statistics settings, use IFCC method for HbA1c?
-"settingsviews_useIFCCA1C" = "Show HbA1c in mmols/mol?";
+"settingsviews_useIFCCA1C" = "HbA1c 使用 mmols/mol";
 
 /// statistics settings, show statistics on home screen
 "settingsviews_showStatistics" = "显示统计";

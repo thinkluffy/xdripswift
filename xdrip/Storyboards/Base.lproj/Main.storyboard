@@ -898,7 +898,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="IRh-fS-FQG">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Vzx-sW-4v4">
-                            <color key="tintColor" systemColor="systemYellowColor"/>
+                            <color key="tintColor" red="0.91764705882352937" green="0.1764705882352941" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="addButtonAction:" destination="E45-Z1-hcE" id="FHj-U1-3eb"/>
                             </connections>

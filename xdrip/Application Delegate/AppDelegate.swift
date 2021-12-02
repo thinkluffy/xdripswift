@@ -56,7 +56,7 @@ extension AppDelegate {
         // Toast
         var style = ToastStyle()
         style.backgroundColor = .white
-        style.verticalMargin = 50
+        style.verticalMargin = 80
         style.verticalPadding = 10
         style.horizontalPadding = 20
         style.slideInAndOut = true

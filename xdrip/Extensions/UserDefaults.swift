@@ -44,11 +44,9 @@ extension UserDefaults {
         case lowMarkValue = "lowMarkValue"
         /// urgent low value
         case urgentLowMarkValue = "urgentLowMarkValue"
-        /// show the target line or hide it?
-        case showTarget = "showTarget"
-        /// target value
-        case targetMarkValue = "targetMarkValue"
-        
+        /// bg dots in 5 minutes
+        case chartDots5MinsApart = "chartDots5MinsApart"
+
         // Statistics settings
         
         /// show the statistics? How many days should we use for the calculations?
@@ -362,7 +360,6 @@ extension UserDefaults {
             
             // setting to be stored also in shared userdefaults because it's used by the today widget
             UserDefaults.storeInSharedUserDefaults(value: bloodGlucoseUnitIsMgDl ? newValue:newValue.mmolToMgdl(), forKey: Key.urgentHighMarkValue.rawValue)
-
         }
     }
     
@@ -386,39 +383,14 @@ extension UserDefaults {
             
             // setting to be stored also in shared userdefaults because it's used by the today widget
             UserDefaults.storeInSharedUserDefaults(value: bloodGlucoseUnitIsMgDl ? newValue:newValue.mmolToMgdl(), forKey: Key.highMarkValue.rawValue)
-
         }
     }
     
     /// the highMarkValue in mgdl
     @objc dynamic var highMarkValue: Double {
         get {
-            
             //read currentvalue in mgdl
             return double(forKey: Key.highMarkValue.rawValue)
-            
-        }
-        
-    }
-
-    
-    /// the targetvalue in unit selected by user ie, mgdl or mmol
-    @objc dynamic var targetMarkValueInUserChosenUnit:Double {
-        get {
-            //read currentvalue in mgdl
-            var returnValue = double(forKey: Key.targetMarkValue.rawValue)
-            // if 0 set to defaultvalue
-            if returnValue == 0.0 {
-                returnValue = ConstantsBGGraphBuilder.defaultTargetMarkInMgdl
-            }
-            if !bloodGlucoseUnitIsMgDl {
-                returnValue = returnValue.mgdlToMmol()
-            }
-            return returnValue
-        }
-        set {
-            // store in mgdl
-            set(bloodGlucoseUnitIsMgDl ? newValue:newValue.mmolToMgdl(), forKey: Key.targetMarkValue.rawValue)
         }
     }
     
@@ -449,12 +421,9 @@ extension UserDefaults {
     /// the lowmarkvalue in mgdl
     @objc dynamic var lowMarkValue: Double {
         get {
-            
             //read currentvalue in mgdl
             return double(forKey: Key.lowMarkValue.rawValue)
-            
         }
-        
     }
     
     /// the urgentlowmarkvalue in unit selected by user ie, mgdl or mmol
@@ -484,12 +453,9 @@ extension UserDefaults {
     /// the urgentLowMarkValue in mgdl
     @objc dynamic var urgentLowMarkValue: Double {
         get {
-            
             //read currentvalue in mgdl
             return double(forKey: Key.urgentLowMarkValue.rawValue)
-            
         }
-        
     }
 
     /// the urgenthighmarkvalue in unit selected by user ie, mgdl or mmol - rounded
@@ -508,23 +474,19 @@ extension UserDefaults {
             if let value = value {
                 UserDefaults.storeInSharedUserDefaults(value: value, forKey: Key.urgentHighMarkValue.rawValue)
             }
-
         }
     }
     
     /// the urgentHighMarkValue in mgdl
     @objc dynamic var urgentHighMarkValue: Double {
         get {
-            
             //read currentvalue in mgdl
             return double(forKey: Key.urgentHighMarkValue.rawValue)
-            
         }
-        
     }
 
     /// the highmarkvalue in unit selected by user ie, mgdl or mmol - rounded
-    @objc dynamic var highMarkValueInUserChosenUnitRounded:String {
+    @objc dynamic var highMarkValueInUserChosenUnitRounded: String {
         get {
             return highMarkValueInUserChosenUnit.bgValuetoString(mgdl: bloodGlucoseUnitIsMgDl)
         }
@@ -539,26 +501,11 @@ extension UserDefaults {
             if let value = value {
                 UserDefaults.storeInSharedUserDefaults(value: value, forKey: Key.highMarkValue.rawValue)
             }
-
-        }
-    }
-    
-    /// the targetmarkvalue in unit selected by user ie, mgdl or mmol - rounded
-    @objc dynamic var targetMarkValueInUserChosenUnitRounded:String {
-        get {
-            return targetMarkValueInUserChosenUnit.bgValuetoString(mgdl: bloodGlucoseUnitIsMgDl)
-        }
-        set {
-            var value = newValue.toDouble()
-            if !bloodGlucoseUnitIsMgDl {
-                value = value?.mmolToMgdl()
-            }
-            set(value, forKey: Key.targetMarkValue.rawValue)
         }
     }
     
     /// the lowmarkvalue in unit selected by user ie, mgdl or mmol - rounded
-    @objc dynamic var lowMarkValueInUserChosenUnitRounded:String {
+    @objc dynamic var lowMarkValueInUserChosenUnitRounded: String {
         get {
             return lowMarkValueInUserChosenUnit.bgValuetoString(mgdl: bloodGlucoseUnitIsMgDl)
         }
@@ -573,7 +520,6 @@ extension UserDefaults {
             if let value = value {
                 UserDefaults.storeInSharedUserDefaults(value: value, forKey: Key.lowMarkValue.rawValue)
             }
-
         }
     }
     
@@ -593,23 +539,20 @@ extension UserDefaults {
             if let value = value {
                 UserDefaults.storeInSharedUserDefaults(value: value, forKey: Key.urgentLowMarkValue.rawValue)
             }
-
         }
     }
     
-    /// should the target line (always shown in green) be shown on the graph?
-    @objc dynamic var showTarget: Bool {
-        // default value for bool in userdefaults is false, by default we will hide the target line as it could confuse users
+    /// show chart dots 5 minutes apart
+    @objc dynamic var chartDots5MinsApart: Bool {
         get {
-            return !bool(forKey: Key.showTarget.rawValue)
+            return !bool(forKey: Key.chartDots5MinsApart.rawValue)
         }
         set {
-            set(!newValue, forKey: Key.showTarget.rawValue)
+            set(!newValue, forKey: Key.chartDots5MinsApart.rawValue)
         }
     }
     
     // MARK: Statistics Settings
-    
     
     /// should the statistics view be shown on the home screen?
     @objc dynamic var showStatistics: Bool {

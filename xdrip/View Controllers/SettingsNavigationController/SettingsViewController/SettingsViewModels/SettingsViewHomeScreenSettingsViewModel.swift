@@ -8,7 +8,7 @@
 
 import UIKit
 
-fileprivate enum Setting:Int, CaseIterable {
+fileprivate enum Setting: Int, CaseIterable {
     
     //urgent high value
     case urgentHighMarkValue = 0
@@ -22,12 +22,9 @@ fileprivate enum Setting:Int, CaseIterable {
     //urgent low value
     case urgentLowMarkValue = 3
     
-    //show target line?
-    case showTarget = 4
-    
-    //target value
-    case targetMarkValue = 5
-    
+    //chart dots 5 minuts apart?
+    case chartDots5MinsApart = 4
+        
 }
 
 /// conforms to SettingsViewModelProtocol for all general settings in the first sections screen
@@ -39,12 +36,14 @@ struct SettingsViewHomeScreenSettingsViewModel: SettingsViewModelProtocol {
         
         switch setting {
 
-        case .showTarget :
-            return UISwitch(isOn: UserDefaults.standard.showTarget, action: {(isOn:Bool) in UserDefaults.standard.showTarget = isOn})
-            
-        case .urgentHighMarkValue, .highMarkValue, .targetMarkValue, .lowMarkValue, .urgentLowMarkValue:
+        case .chartDots5MinsApart :
+            return UISwitch(isOn: UserDefaults.standard.chartDots5MinsApart) {
+                isOn in
+                UserDefaults.standard.chartDots5MinsApart = isOn
+            }
+        
+        case .urgentHighMarkValue, .highMarkValue, .lowMarkValue, .urgentLowMarkValue:
             return nil
-            
         }
     }
     
@@ -70,7 +69,19 @@ struct SettingsViewHomeScreenSettingsViewModel: SettingsViewModelProtocol {
         switch setting {
                 
             case .urgentHighMarkValue:
-                return SettingsSelectedRowAction.askText(title: Texts_SettingsView.labelUrgentHighValue, message: nil, keyboardType: UserDefaults.standard.bloodGlucoseUnitIsMgDl ? .numberPad:.decimalPad, text: UserDefaults.standard.urgentHighMarkValueInUserChosenUnitRounded, placeHolder: ConstantsBGGraphBuilder.defaultUrgentHighMarkInMgdl.description, actionTitle: nil, cancelTitle: nil, actionHandler: {(urgentHighMarkValue:String) in UserDefaults.standard.urgentHighMarkValueInUserChosenUnitRounded = urgentHighMarkValue}, cancelHandler: nil, inputValidator: nil)
+                return SettingsSelectedRowAction.askText(
+                    title: Texts_SettingsView.labelUrgentHighValue,
+                    message: nil,
+                    keyboardType: UserDefaults.standard.bloodGlucoseUnitIsMgDl ? .numberPad:.decimalPad,
+                    text: UserDefaults.standard.urgentHighMarkValueInUserChosenUnitRounded,
+                    placeHolder: ConstantsBGGraphBuilder.defaultUrgentHighMarkInMgdl.description,
+                    actionTitle: nil,
+                    cancelTitle: nil,
+                    actionHandler: { urgentHighMarkValue in
+                        UserDefaults.standard.urgentHighMarkValueInUserChosenUnitRounded = urgentHighMarkValue
+                    },
+                    cancelHandler: nil,
+                    inputValidator: nil)
 
             case .highMarkValue:
                 return SettingsSelectedRowAction.askText(title: Texts_SettingsView.labelHighValue, message: nil, keyboardType: UserDefaults.standard.bloodGlucoseUnitIsMgDl ? .numberPad:.decimalPad, text: UserDefaults.standard.highMarkValueInUserChosenUnitRounded, placeHolder: ConstantsBGGraphBuilder.defaultHighMarkInMgdl.description, actionTitle: nil, cancelTitle: nil, actionHandler: {(highMarkValue:String) in UserDefaults.standard.highMarkValueInUserChosenUnitRounded = highMarkValue}, cancelHandler: nil, inputValidator: nil)
@@ -81,17 +92,15 @@ struct SettingsViewHomeScreenSettingsViewModel: SettingsViewModelProtocol {
             case .urgentLowMarkValue:
                 return SettingsSelectedRowAction.askText(title: Texts_SettingsView.labelUrgentLowValue, message: nil, keyboardType: UserDefaults.standard.bloodGlucoseUnitIsMgDl ? .numberPad:.decimalPad, text: UserDefaults.standard.urgentLowMarkValueInUserChosenUnitRounded, placeHolder: ConstantsBGGraphBuilder.defaultUrgentLowMarkInMgdl.description, actionTitle: nil, cancelTitle: nil, actionHandler: {(urgentLowMarkValue:String) in UserDefaults.standard.urgentLowMarkValueInUserChosenUnitRounded = urgentLowMarkValue}, cancelHandler: nil, inputValidator: nil)
             
-            case .showTarget:
+            case .chartDots5MinsApart:
                 return SettingsSelectedRowAction.callFunction(function: {
-                    if UserDefaults.standard.showTarget {
-                        UserDefaults.standard.showTarget = false
+                    if UserDefaults.standard.chartDots5MinsApart {
+                        UserDefaults.standard.chartDots5MinsApart = false
+                        
                     } else {
-                        UserDefaults.standard.showTarget = true
+                        UserDefaults.standard.chartDots5MinsApart = true
                     }
                 })
-            
-            case .targetMarkValue:
-                return SettingsSelectedRowAction.askText(title: Texts_SettingsView.labelTargetValue, message: nil, keyboardType: UserDefaults.standard.bloodGlucoseUnitIsMgDl ? .numberPad:.decimalPad, text: UserDefaults.standard.targetMarkValueInUserChosenUnitRounded, placeHolder: ConstantsBGGraphBuilder.defaultTargetMarkInMgdl.description, actionTitle: nil, cancelTitle: nil, actionHandler: {(targetMarkValue:String) in UserDefaults.standard.targetMarkValueInUserChosenUnitRounded = targetMarkValue}, cancelHandler: nil, inputValidator: nil)
         }
     }
     
@@ -108,23 +117,20 @@ struct SettingsViewHomeScreenSettingsViewModel: SettingsViewModelProtocol {
 
         switch setting {
                 
-            case .urgentHighMarkValue:
-                return Texts_SettingsView.labelUrgentHighValue
+        case .urgentHighMarkValue:
+            return Texts_SettingsView.labelUrgentHighValue
 
-            case .highMarkValue:
-                return Texts_SettingsView.labelHighValue
-                
-            case .lowMarkValue:
-                return Texts_SettingsView.labelLowValue
-                
-            case .urgentLowMarkValue:
-                return Texts_SettingsView.labelUrgentLowValue
-                
-            case .showTarget:
-                return Texts_SettingsView.labelShowTarget
-
-            case .targetMarkValue:
-                return Texts_SettingsView.labelTargetValue
+        case .highMarkValue:
+            return Texts_SettingsView.labelHighValue
+            
+        case .lowMarkValue:
+            return Texts_SettingsView.labelLowValue
+            
+        case .urgentLowMarkValue:
+            return Texts_SettingsView.labelUrgentLowValue
+            
+        case .chartDots5MinsApart:
+            return R.string.settingsViews.settingsviews_chartDots5MinsApart()
         }
     }
     
@@ -145,12 +151,8 @@ struct SettingsViewHomeScreenSettingsViewModel: SettingsViewModelProtocol {
         case .urgentLowMarkValue:
             return UITableViewCell.AccessoryType.disclosureIndicator
 
-        case .showTarget:
+        case .chartDots5MinsApart:
             return UITableViewCell.AccessoryType.none
-                
-        case .targetMarkValue:
-            return UITableViewCell.AccessoryType.disclosureIndicator
-            
         }
     }
     
@@ -158,7 +160,6 @@ struct SettingsViewHomeScreenSettingsViewModel: SettingsViewModelProtocol {
         guard let setting = Setting(rawValue: index) else { fatalError("Unexpected Section") }
 
         switch setting {
-            
         case .urgentHighMarkValue:
             return UserDefaults.standard.urgentHighMarkValueInUserChosenUnit.bgValuetoString(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
                 
@@ -170,14 +171,9 @@ struct SettingsViewHomeScreenSettingsViewModel: SettingsViewModelProtocol {
 
         case .urgentLowMarkValue:
             return UserDefaults.standard.urgentLowMarkValueInUserChosenUnit.bgValuetoString(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
-
-        case .targetMarkValue:
-            return UserDefaults.standard.targetMarkValueInUserChosenUnit.bgValuetoString(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
             
-        case .showTarget:
+        case .chartDots5MinsApart:
             return nil
-            
         }
     }
-    
 }

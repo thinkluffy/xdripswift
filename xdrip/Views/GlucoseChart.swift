@@ -163,15 +163,28 @@ class GlucoseChart: UIView {
         rangeBottomLine.label = yAxis.axisMinimum.bgValuetoString(mgdl: showAsMg)
     }
     
+    private func filterReadingsIfNeeded(_ readings: [BgReading]) -> [BgReading] {
+        guard UserDefaults.standard.chartDots5MinsApart else {
+            return readings
+        }
+        
+        var filteredBgReadings = [BgReading]()
+        var lastShownReading: BgReading?
+        
+        for r in readings {
+            if lastShownReading == nil ||
+                r.timeStamp.timeIntervalSince(lastShownReading!.timeStamp) > 4.5 * Date.minuteInSeconds {
+                filteredBgReadings.append(r)
+                lastShownReading = r
+            }
+        }
+        
+        return filteredBgReadings
+    }
+    
     func show(readings: [BgReading]?, from fromDate: Date, to toDate: Date) {
         applySettings()
 
-        guard let readings = readings, !readings.isEmpty else {
-            GlucoseChart.log.e("readings are nil, nothing to show")
-            chartView.data = nil
-            return
-        }
-        
         // setup chart
         let showAsMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
         
@@ -180,6 +193,23 @@ class GlucoseChart: UIView {
         let lowInMg = UserDefaults.standard.lowMarkValue
         let urgentLowInMg = UserDefaults.standard.urgentLowMarkValue
         
+        guard let readings = readings, !readings.isEmpty else {
+            GlucoseChart.log.i("readings are nil, nothing to show")
+            
+            // put a placeholder to avoid showing default No Data view
+            var placeholderEntries = [ChartDataEntry]()
+            let placeholdeEntry = ChartDataEntry(x: fromDate.timeIntervalSince1970, y: highInMg.mgdlToMmol(mgdl: showAsMg))
+            placeholderEntries.append(placeholdeEntry)
+            let placeholderDataSet = ScatterChartDataSet(entries: placeholderEntries)
+            placeholderDataSet.setColor(.clear)
+            
+            let data = ScatterChartData(dataSets: [
+                placeholderDataSet
+            ])
+            chartView.data = data
+            return
+        }
+        
         var urgentHighValues = [ChartDataEntry]()
         var highValues = [ChartDataEntry]()
         var inRangeValues = [ChartDataEntry]()
@@ -187,19 +217,21 @@ class GlucoseChart: UIView {
         var urgentLowValues = [ChartDataEntry]()
         var currentValues = [ChartDataEntry]()
         
+        let filteredBgReadings = filterReadingsIfNeeded(readings)
+        
         let isLastReadingCurrent: Bool
-        if let lr = readings.last, Date().timeIntervalSince(lr.timeStamp) < Date.minuteInSeconds * 11 {
+        if let lr = filteredBgReadings.last, Date().timeIntervalSince(lr.timeStamp) < Date.minuteInSeconds * 11 {
             isLastReadingCurrent = true
             
         } else {
             isLastReadingCurrent = false
         }
         
-        for (i, r) in readings.enumerated() {
+        for (i, r) in filteredBgReadings.enumerated() {
             let bgValue = showAsMg ? r.calculatedValue : r.calculatedValue.mgdlToMmol()
             let chartDataEntry = ChartDataEntry(x: r.timeStamp.timeIntervalSince1970, y: bgValue, data: r)
             
-            if i >= readings.count - 1 && isLastReadingCurrent {
+            if i >= filteredBgReadings.count - 1 && isLastReadingCurrent {
                 currentValues.append(chartDataEntry)
                 break
             }
@@ -237,7 +269,7 @@ class GlucoseChart: UIView {
         urgentLowDataSet.setColor(ConstantsGlucoseChart.glucoseUrgentRangeColor)
         
         let currentDataSet = ScatterChartDataSet(entries: currentValues)
-        if isLastReadingCurrent, let lr = readings.last {
+        if isLastReadingCurrent, let lr = filteredBgReadings.last {
             if lr.calculatedValue >= urgentHighInMg || lr.calculatedValue <= urgentLowInMg {
                 currentDataSet.setColor(ConstantsGlucoseChart.glucoseUrgentRangeColor)
                 

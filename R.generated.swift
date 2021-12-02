@@ -5936,7 +5936,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.settingsViews` struct is generated, and contains static references to 109 localization keys.
+    /// This `R.string.settingsViews` struct is generated, and contains static references to 108 localization keys.
     struct settingsViews {
       /// en translation: API_SECRET:
       ///
@@ -6030,6 +6030,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let displayUnitInCalendarEvent = Rswift.StringResource(key: "displayUnitInCalendarEvent", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// en translation: Dots 5 Mins Apart
+      ///
+      /// Locales: en, zh
+      static let settingsviews_chartDots5MinsApart = Rswift.StringResource(key: "settingsviews_chartDots5MinsApart", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Enable Multi-point Calibration
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
@@ -6082,6 +6086,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_giveDexcomSharePassword = Rswift.StringResource(key: "settingsviews_giveDexcomSharePassword", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// en translation: HbA1c in mmols/mol
+      ///
+      /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
+      static let settingsviews_useIFCCA1C = Rswift.StringResource(key: "settingsviews_useIFCCA1C", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: High Value:
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
@@ -6222,10 +6230,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_showcoloredobjectives = Rswift.StringResource(key: "settingsviews_showcoloredobjectives", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Show HbA1c in mmols/mol?
-      ///
-      /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
-      static let settingsviews_useIFCCA1C = Rswift.StringResource(key: "settingsviews_useIFCCA1C", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: Show Objectives in Graph?
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
@@ -6238,10 +6242,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_showStatistics = Rswift.StringResource(key: "settingsviews_showStatistics", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Show Target Line?
-      ///
-      /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
-      static let settingsviews_showtarget = Rswift.StringResource(key: "settingsviews_showtarget", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: Smooth Libre Values?
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
@@ -6266,10 +6266,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let warningChangeFromMasterToFollower = Rswift.StringResource(key: "warningChangeFromMasterToFollower", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Target Value:
-      ///
-      /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
-      static let settingsviews_targetValue = Rswift.StringResource(key: "settingsviews_targetValue", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: Test Connection?
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
@@ -6338,7 +6334,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_webooptransmitter = Rswift.StringResource(key: "settingsviews_webooptransmitter", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Use Standard Range?
+      /// en translation: Use Standard Range
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_useStandardStatisticsRange = Rswift.StringResource(key: "settingsviews_useStandardStatisticsRange", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -6722,6 +6718,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("displayUnitInCalendarEvent", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
+      /// en translation: Dots 5 Mins Apart
+      ///
+      /// Locales: en, zh
+      static func settingsviews_chartDots5MinsApart(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("settingsviews_chartDots5MinsApart", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
+          return "settingsviews_chartDots5MinsApart"
+        }
+
+        return NSLocalizedString("settingsviews_chartDots5MinsApart", tableName: "SettingsViews", bundle: bundle, comment: "")
+      }
+
       /// en translation: Enable Multi-point Calibration
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
@@ -6917,6 +6928,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("settingsviews_giveDexcomSharePassword", tableName: "SettingsViews", bundle: bundle, comment: "")
+      }
+
+      /// en translation: HbA1c in mmols/mol
+      ///
+      /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
+      static func settingsviews_useIFCCA1C(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("settingsviews_useIFCCA1C", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
+          return "settingsviews_useIFCCA1C"
+        }
+
+        return NSLocalizedString("settingsviews_useIFCCA1C", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
       /// en translation: High Value:
@@ -7444,21 +7470,6 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_showcoloredobjectives", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Show HbA1c in mmols/mol?
-      ///
-      /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
-      static func settingsviews_useIFCCA1C(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_useIFCCA1C", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_useIFCCA1C"
-        }
-
-        return NSLocalizedString("settingsviews_useIFCCA1C", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
       /// en translation: Show Objectives in Graph?
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
@@ -7502,21 +7513,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("settingsviews_showStatistics", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Show Target Line?
-      ///
-      /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
-      static func settingsviews_showtarget(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_showtarget", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_showtarget"
-        }
-
-        return NSLocalizedString("settingsviews_showtarget", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
       /// en translation: Smooth Libre Values?
@@ -7607,21 +7603,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("warningChangeFromMasterToFollower", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Target Value:
-      ///
-      /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
-      static func settingsviews_targetValue(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_targetValue", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_targetValue"
-        }
-
-        return NSLocalizedString("settingsviews_targetValue", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
       /// en translation: Test Connection?
@@ -7879,7 +7860,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_webooptransmitter", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Use Standard Range?
+      /// en translation: Use Standard Range
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static func settingsviews_useStandardStatisticsRange(preferredLanguages: [String]? = nil) -> String {
