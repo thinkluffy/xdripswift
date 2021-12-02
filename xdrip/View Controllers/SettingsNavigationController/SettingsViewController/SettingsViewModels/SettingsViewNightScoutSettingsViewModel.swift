@@ -242,21 +242,21 @@ extension SettingsViewNightScoutSettingsViewModel: SettingsViewModelProtocol {
         
         switch setting {
         case .nightScoutEnabled:
-            return UITableViewCell.AccessoryType.none
+            return .none
         case .nightScoutUrl:
-            return UITableViewCell.AccessoryType.disclosureIndicator
+            return .none
         case .nightScoutAPIKey:
-            return UITableViewCell.AccessoryType.disclosureIndicator
+            return .none
         case .useSchedule:
-            return UITableViewCell.AccessoryType.none
+            return .none
         case .schedule:
-            return UITableViewCell.AccessoryType.disclosureIndicator
+            return .disclosureIndicator
         case .uploadSensorStartTime:
-            return UITableViewCell.AccessoryType.none
+            return .none
         case .testUrlAndAPIKey:
             return .none
         case .port:
-            return .disclosureIndicator
+            return .none
         }
     }
     
@@ -289,7 +289,9 @@ extension SettingsViewNightScoutSettingsViewModel: SettingsViewModelProtocol {
         switch setting {
             
         case .nightScoutEnabled:
-            return UISwitch(isOn: UserDefaults.standard.nightScoutEnabled, action: {(isOn:Bool) in UserDefaults.standard.nightScoutEnabled = isOn})
+            return UISwitch(isOn: UserDefaults.standard.nightScoutEnabled) { isOn in
+                UserDefaults.standard.nightScoutEnabled = isOn
+            }
         
         case .nightScoutUrl:
             return nil
@@ -298,13 +300,17 @@ extension SettingsViewNightScoutSettingsViewModel: SettingsViewModelProtocol {
             return nil
             
         case .useSchedule:
-            return UISwitch(isOn: UserDefaults.standard.nightScoutUseSchedule, action: {(isOn:Bool) in UserDefaults.standard.nightScoutUseSchedule = isOn})
+            return UISwitch(isOn: UserDefaults.standard.nightScoutUseSchedule) { isOn in
+                UserDefaults.standard.nightScoutUseSchedule = isOn
+            }
             
         case .schedule:
             return nil
             
         case .uploadSensorStartTime:
-            return UISwitch(isOn: UserDefaults.standard.uploadSensorStartTimeToNS, action: {(isOn:Bool) in UserDefaults.standard.uploadSensorStartTimeToNS = isOn})
+            return UISwitch(isOn: UserDefaults.standard.uploadSensorStartTimeToNS) { isOn in
+                UserDefaults.standard.uploadSensorStartTimeToNS = isOn
+            }
             
         case .testUrlAndAPIKey:
             return nil

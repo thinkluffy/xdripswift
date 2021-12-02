@@ -125,17 +125,17 @@ class SettingsViewDexcomSettingsViewModel:SettingsViewModelProtocol {
         
         switch setting {
         case .uploadReadingstoDexcomShare:
-            return UITableViewCell.AccessoryType.none
+            return .none
         case .dexcomShareAccountName:
-            return UITableViewCell.AccessoryType.disclosureIndicator
+            return .none
         case .dexcomSharePassword:
-            return UITableViewCell.AccessoryType.disclosureIndicator
+            return .none
         case .useUSDexcomShareurl:
-            return UITableViewCell.AccessoryType.none
+            return .none
         case .dexcomShareSerialNumber:
-            return UITableViewCell.AccessoryType.disclosureIndicator
+            return .none
         case .useSchedule:
-            return UITableViewCell.AccessoryType.none
+            return .none
         case .schedule:
             return UITableViewCell.AccessoryType.disclosureIndicator
         }

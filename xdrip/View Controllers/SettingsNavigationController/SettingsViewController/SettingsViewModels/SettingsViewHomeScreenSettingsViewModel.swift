@@ -139,20 +139,11 @@ struct SettingsViewHomeScreenSettingsViewModel: SettingsViewModelProtocol {
         
         switch setting {
             
-        case .urgentHighMarkValue:
-            return UITableViewCell.AccessoryType.disclosureIndicator
-            
-        case .highMarkValue:
-            return UITableViewCell.AccessoryType.disclosureIndicator
-        
-        case .lowMarkValue:
-            return UITableViewCell.AccessoryType.disclosureIndicator
-        
-        case .urgentLowMarkValue:
-            return UITableViewCell.AccessoryType.disclosureIndicator
+        case .urgentHighMarkValue, .highMarkValue, .lowMarkValue, .urgentLowMarkValue:
+            return .none
 
         case .chartDots5MinsApart:
-            return UITableViewCell.AccessoryType.none
+            return .none
         }
     }
     

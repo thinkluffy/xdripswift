@@ -127,16 +127,16 @@ class SettingsViewGeneralSettingsViewModel: SettingsViewModelProtocol {
         switch setting {
             
         case .bloodGlucoseUnit:
-            return UITableViewCell.AccessoryType.none
+            return .none
     
         case .masterFollower:
-            return UITableViewCell.AccessoryType.none
+            return .none
             
         case .showReadingInNotification, .showReadingInAppBadge:
-            return UITableViewCell.AccessoryType.none
+            return .none
             
         case .notificationInterval:
-            return UITableViewCell.AccessoryType.disclosureIndicator
+            return .none
             
         }
     }
@@ -165,10 +165,14 @@ class SettingsViewGeneralSettingsViewModel: SettingsViewModelProtocol {
         
         switch setting {
         case .showReadingInNotification:
-            return UISwitch(isOn: UserDefaults.standard.showReadingInNotification, action: {(isOn:Bool) in UserDefaults.standard.showReadingInNotification = isOn})
+            return UISwitch(isOn: UserDefaults.standard.showReadingInNotification) { isOn in
+                UserDefaults.standard.showReadingInNotification = isOn
+            }
             
         case .showReadingInAppBadge:
-            return UISwitch(isOn: UserDefaults.standard.showReadingInAppBadge, action: {(isOn:Bool) in UserDefaults.standard.showReadingInAppBadge = isOn})
+            return UISwitch(isOn: UserDefaults.standard.showReadingInAppBadge) { isOn in
+                UserDefaults.standard.showReadingInAppBadge = isOn
+            }
 
         case .bloodGlucoseUnit, .masterFollower:
             return nil
