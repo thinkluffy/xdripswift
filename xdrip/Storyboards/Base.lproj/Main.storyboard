@@ -136,7 +136,7 @@
                                                             <constraint firstAttribute="height" constant="50" id="0AI-PA-zd9"/>
                                                         </constraints>
                                                         <items>
-                                                            <barButtonItem title="Item" image="moon.zzz" catalog="system" id="f3E-Tt-LBV">
+                                                            <barButtonItem title="Item" image="ic_alarm" id="f3E-Tt-LBV">
                                                                 <connections>
                                                                     <action selector="preSnoozeToolbarButtonAction:" destination="9pv-A4-QxB" id="IDv-ho-TZ2"/>
                                                                     <segue destination="NvR-Zh-2Zn" kind="popoverPresentation" identifier="RootViewToSnoozeView" popoverAnchorBarButtonItem="f3E-Tt-LBV" id="VtQ-ZG-btn">
@@ -1543,6 +1543,7 @@
     </designables>
     <color key="tintColor" red="0.077760688960000005" green="0.092910580340000007" blue="0.192109853" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>
+        <image name="ic_alarm" width="24" height="24"/>
         <image name="ic_clock" width="25" height="25"/>
         <image name="ic_pushpin_unlock" width="24" height="24"/>
         <image name="ic_search" width="25" height="25"/>
@@ -1554,7 +1555,6 @@
         <image name="ic_tab_settings_h" width="24" height="24"/>
         <image name="link.circle" catalog="system" width="128" height="121"/>
         <image name="logo-launchScreen.png" width="120" height="120"/>
-        <image name="moon.zzz" catalog="system" width="115" height="128"/>
         <image name="scope" catalog="system" width="128" height="122"/>
         <image name="sensor14_14_alt" width="390" height="14"/>
         <systemColor name="systemGreenColor">

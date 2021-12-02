@@ -452,11 +452,11 @@ extension ChartDetailsViewController: CalendarTitleDelegate {
             return
         }
         
-        let bottomSheet = BottomSheet()
+        let sheet = HorizontalSheet()
         let content = DatePickerSheetContent(selectedDate: selectedDate)
         content.delegate = self
-        bottomSheet.contentView = content
-        bottomSheet.show(in: view)
+        sheet.contentView = content
+        sheet.show(in: view, dimColor: .black.withAlphaComponent(0.5))
     }
 }
 
@@ -495,7 +495,7 @@ extension ChartDetailsViewController: DatePickerSheetContentDelegate {
             return
         }
         
-        sheetContent.bottomSheet?.dismissView()
+        sheetContent.sheet?.dismissView()
         presenter.loadData(date: date)
     }
 }
@@ -516,7 +516,7 @@ fileprivate protocol DatePickerSheetContentDelegate: AnyObject {
     func datePickerSheetContent(_ sheetContent: DatePickerSheetContent, didSelect date: Date)
 }
 
-fileprivate class DatePickerSheetContent: BottomSheetContent {
+fileprivate class DatePickerSheetContent: HorizontalSheetContent {
     
     weak var delegate: DatePickerSheetContentDelegate?
         
@@ -538,7 +538,7 @@ fileprivate class DatePickerSheetContent: BottomSheetContent {
     private func initialize() {
         backgroundColor = .clear
         
-        let container = Card()
+        let container = UIView()
         container.backgroundColor = ConstantsUI.mainBackgroundColor
         
         addSubview(container)
@@ -564,9 +564,9 @@ fileprivate class DatePickerSheetContent: BottomSheetContent {
 
         container.snp.makeConstraints { make in
             make.width.equalTo(320)
-            make.height.equalTo(300)
-            make.centerX.equalToSuperview()
             make.top.bottom.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
         }
         
         calendar.snp.makeConstraints { make in

@@ -1339,8 +1339,12 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 33 images.
+  /// This `R.image` struct is generated, and contains static references to 35 images.
   struct image {
+    /// Image `ic_alarm_delay`.
+    static let ic_alarm_delay = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_alarm_delay")
+    /// Image `ic_alarm`.
+    static let ic_alarm = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_alarm")
     /// Image `ic_arrow_left`.
     static let ic_arrow_left = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_arrow_left")
     /// Image `ic_arrow_right`.
@@ -1407,6 +1411,20 @@ struct R: Rswift.Validatable {
     static let sensor14_13 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_13")
     /// Image `sensor14_14`.
     static let sensor14_14 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_14")
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_alarm", bundle: ..., traitCollection: ...)`
+    static func ic_alarm(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_alarm, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_alarm_delay", bundle: ..., traitCollection: ...)`
+    static func ic_alarm_delay(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_alarm_delay, compatibleWith: traitCollection)
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     /// `UIImage(named: "ic_arrow_left", bundle: ..., traitCollection: ...)`
@@ -8417,6 +8435,7 @@ struct _R: Rswift.Validatable {
       }
 
       static func validate() throws {
+        if UIKit.UIImage(named: "ic_alarm", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_alarm' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_clock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_clock' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_pushpin_unlock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_pushpin_unlock' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_search", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_search' is used in storyboard 'Main', but couldn't be loaded.") }
@@ -8428,7 +8447,6 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "ic_tab_settings_h", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_settings_h' is used in storyboard 'Main', but couldn't be loaded.") }
         if #available(iOS 13.0, *) { if UIKit.UIImage(systemName: "link.circle") == nil { throw Rswift.ValidationError(description: "[R.swift] System image named 'link.circle' is used in storyboard 'Main', but couldn't be loaded.") } }
         if UIKit.UIImage(named: "logo-launchScreen.png", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'logo-launchScreen.png' is used in storyboard 'Main', but couldn't be loaded.") }
-        if #available(iOS 13.0, *) { if UIKit.UIImage(systemName: "moon.zzz") == nil { throw Rswift.ValidationError(description: "[R.swift] System image named 'moon.zzz' is used in storyboard 'Main', but couldn't be loaded.") } }
         if #available(iOS 13.0, *) { if UIKit.UIImage(systemName: "scope") == nil { throw Rswift.ValidationError(description: "[R.swift] System image named 'scope' is used in storyboard 'Main', but couldn't be loaded.") } }
         if UIKit.UIImage(named: "sensor14_14_alt", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'sensor14_14_alt' is used in storyboard 'Main', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
