@@ -37,7 +37,7 @@ public final class StatisticsManager {
     /// calculates statistics, will execute in background.
     /// - parameters:
     ///     - callback : will be called with result of calculations in UI thread
-    public func calculateStatistics(fromDate: Date, toDate: Date? = Date(), callback: @escaping (Statistics) -> Void) {
+    func calculateStatistics(fromDate: Date, toDate: Date? = Date(), callback: @escaping (Statistics) -> Void) {
         
         // create a new operation
         let operation = BlockOperation(block: {
@@ -238,7 +238,7 @@ public final class StatisticsManager {
     }
     
     /// can store rresult off calculations in calculateStatistics,  to be used in UI
-    public struct Statistics {
+    struct Statistics {
         
         var lowStatisticValue: Double?
         var highStatisticValue: Double?

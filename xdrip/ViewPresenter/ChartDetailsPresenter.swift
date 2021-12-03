@@ -15,7 +15,8 @@ class ChartDetailsPresenter: ChartDetailsP {
     private weak var view: ChartDetailsV?
     
     private let bgReadingsAccessor = BgReadingsAccessor()
-    
+    private let statisticsManager = StatisticsManager()
+
     init(view: ChartDetailsV) {
         self.view = view
     }
@@ -33,5 +34,14 @@ class ChartDetailsPresenter: ChartDetailsP {
                 self?.view?.show(readings: readings, from: fromDate, to: toDate)
             }
         }
+    }
+    
+    func loadStatistics(date: Date) {
+        let fromDate = Calendar.current.startOfDay(for: date)
+        let toDate = Date(timeInterval: Date.dayInSeconds, since: fromDate)
+        
+        statisticsManager.calculateStatistics(fromDate: fromDate, toDate: toDate, callback: { [weak self] statistics in
+            self?.view?.show(statistics: statistics, of: date)
+        })
     }
 }

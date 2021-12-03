@@ -87,11 +87,10 @@ class SettingsViewDexcomSettingsViewModel:SettingsViewModelProtocol {
     }
 
     func numberOfRows() -> Int {
-        
         if !UserDefaults.standard.uploadReadingstoDexcomShare {
             return 1
-        }
-        else {
+            
+        } else {
             if !UserDefaults.standard.dexcomShareUseSchedule {
                 return Setting.allCases.count - 1
             }
@@ -137,7 +136,7 @@ class SettingsViewDexcomSettingsViewModel:SettingsViewModelProtocol {
         case .useSchedule:
             return .none
         case .schedule:
-            return UITableViewCell.AccessoryType.disclosureIndicator
+            return .disclosureIndicator
         }
     }
     
@@ -167,13 +166,22 @@ class SettingsViewDexcomSettingsViewModel:SettingsViewModelProtocol {
         
         switch setting {
         case .uploadReadingstoDexcomShare:
-            return UISwitch(isOn: UserDefaults.standard.uploadReadingstoDexcomShare, action: {(isOn:Bool) in UserDefaults.standard.uploadReadingstoDexcomShare = isOn})
+            return UISwitch(isOn: UserDefaults.standard.uploadReadingstoDexcomShare) { isOn in
+                UserDefaults.standard.uploadReadingstoDexcomShare = isOn
+            }
+            
         case .useUSDexcomShareurl:
-            return UISwitch(isOn: UserDefaults.standard.useUSDexcomShareurl, action: {(isOn:Bool) in UserDefaults.standard.useUSDexcomShareurl = isOn})
-        case .dexcomShareAccountName,.dexcomSharePassword,.dexcomShareSerialNumber:
+            return UISwitch(isOn: UserDefaults.standard.useUSDexcomShareurl) { isOn in
+                UserDefaults.standard.useUSDexcomShareurl = isOn
+            }
+            
+        case .dexcomShareAccountName, .dexcomSharePassword, .dexcomShareSerialNumber:
             return nil
+            
         case .useSchedule:
-            return UISwitch(isOn: UserDefaults.standard.dexcomShareUseSchedule, action: {(isOn:Bool) in UserDefaults.standard.dexcomShareUseSchedule = isOn})
+            return UISwitch(isOn: UserDefaults.standard.dexcomShareUseSchedule) { isOn in
+                UserDefaults.standard.dexcomShareUseSchedule = isOn
+            }
             
         case .schedule:
             return nil
@@ -188,41 +196,27 @@ extension SettingsViewDexcomSettingsViewModel: TimeSchedule {
     }
     
     func getSchedule() -> [Int] {
-        
         var schedule = [Int]()
         
         if let scheduleInSettings = UserDefaults.standard.dexcomShareSchedule {
-            
             schedule = scheduleInSettings.split(separator: "-").map({Int($0) ?? 0})
-            
         }
-        
         return schedule
-        
     }
     
     func storeSchedule(schedule: [Int]) {
-        
         var scheduleToStore: String?
         
         for entry in schedule {
-            
             if scheduleToStore == nil {
-                
                 scheduleToStore = entry.description
                 
             } else {
-                
                 scheduleToStore = scheduleToStore! + "-" + entry.description
-                
             }
-            
         }
         
         UserDefaults.standard.dexcomShareSchedule = scheduleToStore
-        
     }
-    
-    
 }
 

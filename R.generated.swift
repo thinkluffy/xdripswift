@@ -1339,7 +1339,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 35 images.
+  /// This `R.image` struct is generated, and contains static references to 36 images.
   struct image {
     /// Image `ic_alarm_delay`.
     static let ic_alarm_delay = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_alarm_delay")
@@ -1361,6 +1361,8 @@ struct R: Rswift.Validatable {
     static let ic_radio_button = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_radio_button")
     /// Image `ic_search`.
     static let ic_search = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_search")
+    /// Image `ic_statistics`.
+    static let ic_statistics = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_statistics")
     /// Image `ic_tab_bloodsugar_h`.
     static let ic_tab_bloodsugar_h = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_bloodsugar_h")
     /// Image `ic_tab_bloodsugar`.
@@ -1479,6 +1481,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ic_search", bundle: ..., traitCollection: ...)`
     static func ic_search(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ic_search, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_statistics", bundle: ..., traitCollection: ...)`
+    static func ic_statistics(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_statistics, compatibleWith: traitCollection)
     }
     #endif
 
@@ -8439,6 +8448,7 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "ic_clock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_clock' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_pushpin_unlock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_pushpin_unlock' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_search", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_search' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ic_statistics", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_statistics' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_bloodsugar", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_bloodsugar' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_bloodsugar_h", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_bloodsugar_h' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_bluetooth", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_bluetooth' is used in storyboard 'Main', but couldn't be loaded.") }

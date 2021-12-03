@@ -255,6 +255,7 @@ class BgLabelInMmol: UIView {
         
         valueLabelMmolInt.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
+            make.left.equalToSuperview()
         }
         
         valueLabelMmolFraction.snp.makeConstraints { make in

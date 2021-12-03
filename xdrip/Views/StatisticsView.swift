@@ -49,6 +49,9 @@ class StatisticsView: UIView {
     private func initialize() {
         contentView = loadXib()
         addSubview(contentView)
+        contentView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
         
         pieChartOutlet.outerRadius = 40
         pieChartOutlet.innerRadius = 15
@@ -72,7 +75,31 @@ class StatisticsView: UIView {
         return nib.instantiate(withOwner: self, options: nil).first as! UIView
     }
     
+    func show(statistics: StatisticsManager.Statistics, of date: Date) {
+        updateValues(statistics: statistics, animatePieChart: false)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        timePeriodLabelOutlet.text = dateFormatter.string(from: date)
+    }
+    
     func show(statistics: StatisticsManager.Statistics, daysToUseStatistics: Int, animatePieChart: Bool = false) {
+        updateValues(statistics: statistics, animatePieChart: animatePieChart)
+        
+        // show number of days calculated under the pie chart
+        switch daysToUseStatistics {
+        case 0:
+            timePeriodLabelOutlet.text = Texts_Common.today
+            
+        case 1:
+            timePeriodLabelOutlet.text = "24 " + Texts_Common.hours
+            
+        default:
+            timePeriodLabelOutlet.text = (statistics.numberOfDaysUsed ?? 0).description + " " + Texts_Common.days
+        }
+    }
+    
+    private func updateValues(statistics: StatisticsManager.Statistics, animatePieChart: Bool) {
         let isMgDl = UserDefaults.standard.bloodGlucoseUnitIsMgDl
         
         // set the low/high "label" labels with the low/high user values that the user has chosen to use
@@ -103,12 +130,12 @@ class StatisticsView: UIView {
         }
         
         // if there are no values returned (new sensor?) then just leave the default "-" showing
-		if let averageStatisticValue = statistics.averageStatisticValue {
+        if let averageStatisticValue = statistics.averageStatisticValue {
             averageStatisticLabelOutlet.text = (isMgDl ? Int(averageStatisticValue.round(toDecimalPlaces: 0)).description : averageStatisticValue.round(toDecimalPlaces: 1).description) + (isMgDl ? " mg/dL" : " mmol/L")
         }
         
         // if there are no values returned (new sensor?) then just leave the default "-" showing
-		if let a1CStatisticValue = statistics.a1CStatisticValue {
+        if let a1CStatisticValue = statistics.a1CStatisticValue {
             if UserDefaults.standard.useIFCCA1C {
                 a1CStatisticLabelOutlet.text = Int(a1CStatisticValue.round(toDecimalPlaces: 0)).description + " mmol"
             
@@ -126,19 +153,8 @@ class StatisticsView: UIView {
             gviLabel.text = String(format: "%.1f", gviStatisticValue)
         }
         
-		if let pgsStatisticValue = statistics.pgsStatisticValue {
-			pgsLabel.text = String(format: "%.0f", pgsStatisticValue)
-		}
-        // show number of days calculated under the pie chart
-        switch daysToUseStatistics {
-        case 0:
-            timePeriodLabelOutlet.text = Texts_Common.today
-            
-        case 1:
-            timePeriodLabelOutlet.text = "24 " + Texts_Common.hours
-            
-        default:
-            timePeriodLabelOutlet.text = (statistics.numberOfDaysUsed ?? 0).description + " " + Texts_Common.days
+        if let pgsStatisticValue = statistics.pgsStatisticValue {
+            pgsLabel.text = String(format: "%.0f", pgsStatisticValue)
         }
         
         // disable the chart animation if it's just a normal update, enable it if the call comes from didAppear()

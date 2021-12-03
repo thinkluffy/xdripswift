@@ -18,6 +18,7 @@ class ChartDetailsViewController: UIViewController {
     @IBOutlet weak var chartCard: UIView!
     @IBOutlet weak var bgTimeLabel: UILabel!
     @IBOutlet weak var bgValueLabel: UILabel!
+    @IBOutlet weak var showStatisticsButton: UIButton!
     @IBOutlet weak var lockMoveButton: UIButton!
 
     @IBOutlet weak var chartView: ScatterChartView!
@@ -117,6 +118,12 @@ class ChartDetailsViewController: UIViewController {
         chartHoursSelection.delegate = self
         chartHoursSelection.select(id: selectedChartHoursId, triggerCallback: false)
 
+        showStatisticsButton.onTap { [unowned self] btn in
+            if let date = self.calendarTitle.dateTime {
+                self.presenter.loadStatistics(date: date)
+            }
+        }
+        
         lockMoveButton.onTap { [unowned self] btn in
             if self.chartView.dragMoveHighlightFirst {
                 btn.setImage(R.image.ic_pushpin_unlock(), for: .normal)
@@ -365,6 +372,13 @@ extension ChartDetailsViewController: ChartDetailsV {
         showingDate = fromDate
     }
     
+    func show(statistics: StatisticsManager.Statistics, of date: Date) {
+        let sheet = HorizontalSheet()
+        let content = StatisticsSheetContent(statistics: statistics, date: date)
+        sheet.contentView = content
+        sheet.show(in: view, dimColor: .black.withAlphaComponent(0.5))
+    }
+
     private func calChartHoursSeconds(chartHoursId: Int) -> Double {
         let xRange: Double
         switch chartHoursId {
@@ -521,7 +535,6 @@ fileprivate class DatePickerSheetContent: HorizontalSheetContent {
     weak var delegate: DatePickerSheetContentDelegate?
         
     private let selectedDate: Date?
-    fileprivate weak var calendar: FSCalendar!
     
     init(selectedDate: Date) {
         self.selectedDate = selectedDate
@@ -560,13 +573,10 @@ fileprivate class DatePickerSheetContent: HorizontalSheetContent {
         calendar.delegate = self
         
         container.addSubview(calendar)
-        self.calendar = calendar
 
         container.snp.makeConstraints { make in
             make.width.equalTo(320)
-            make.top.bottom.equalToSuperview()
-            make.centerY.equalToSuperview()
-            make.leading.trailing.equalToSuperview()
+            make.edges.equalToSuperview()
         }
         
         calendar.snp.makeConstraints { make in
@@ -587,3 +597,45 @@ extension DatePickerSheetContent: FSCalendarDelegate {
     }
 }
 
+fileprivate class StatisticsSheetContent: HorizontalSheetContent {
+        
+    private let statistics: StatisticsManager.Statistics
+    private let date: Date
+    
+    init(statistics: StatisticsManager.Statistics, date: Date) {
+        self.statistics = statistics
+        self.date = date
+        super.init(frame: .zero)
+        initialize()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("Not supported")
+    }
+    
+    private func initialize() {
+        backgroundColor = .clear
+        
+        let container = UIView()
+        container.backgroundColor = ConstantsUI.mainBackgroundColor
+        
+        addSubview(container)
+
+        let statisticsView = StatisticsView()
+        
+        container.addSubview(statisticsView)
+
+        container.snp.makeConstraints { make in
+            make.width.equalTo(400)
+            make.edges.equalToSuperview()
+        }
+        
+        statisticsView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(250)
+            make.centerY.equalToSuperview()
+        }
+        
+        statisticsView.show(statistics: statistics, of: date)
+    }
+}
