@@ -71,6 +71,7 @@ class Common {
 	}
 	
 	struct BgConfig {
+		var interval5Mins: Bool
 		var showAsMgDl: Bool
 		var min: Double
 		var max: Double
@@ -79,13 +80,15 @@ class Common {
 		var suggestMin: Double
 		var suggestMax: Double
 		
-		init(showAsMgDl: Bool,
+		init(interval5Mins: Bool,
+			 showAsMgDl: Bool,
 			 min: Double,
 			 max: Double,
 			 urgentMin: Double,
 			 urgentMax: Double,
 			 suggestMin: Double,
 			 suggestMax: Double) {
+			self.interval5Mins = interval5Mins
 			self.showAsMgDl = showAsMgDl
 			self.min = min
 			self.max = max
@@ -96,7 +99,8 @@ class Common {
 		}
 		
 		init(dic: [String: Any]) {
-			guard let showAsMgDl = dic["showAsMgDl"] as? Bool,
+			guard let interval5Mins = dic["interval5Mins"] as? Bool,
+				  let showAsMgDl = dic["showAsMgDl"] as? Bool,
 				  let min = dic["min"] as? Double,
 				  let max = dic["max"] as? Double,
 				  let urgentMin = dic["urgentMin"] as? Double,
@@ -106,6 +110,7 @@ class Common {
 			else {
 				fatalError("Date formatter Error")
 			}
+			self.interval5Mins = interval5Mins
 			self.showAsMgDl = showAsMgDl
 			self.min = min
 			self.max = max
@@ -116,7 +121,8 @@ class Common {
 		}
 		
 		func toDic() -> [String: Any] {
-			return ["showAsMgDl": showAsMgDl,
+			return ["interval5Mins": interval5Mins,
+					"showAsMgDl": showAsMgDl,
 					"min": min,
 					"max": max,
 					"urgentMin": urgentMin,

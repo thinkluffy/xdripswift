@@ -12,6 +12,22 @@ struct ContentView: View {
 
 	@EnvironmentObject var usefulData: UsefulData
 	
+	func getChartPointList(_ interval5Mins: Bool, from list: [Common.BgInfo]) -> [ChartPoint] {
+		var result = [ChartPoint]()
+		var lastItem: Common.BgInfo? = nil
+		for bg in list {
+			if interval5Mins == true
+				&& (lastItem != nil)
+				&& (abs(bg.date.timeIntervalSince(lastItem!.date)) < 4.5 * 60) {
+				continue
+			}
+			lastItem = bg
+			result.append(ChartPoint(x: Int(bg.date.timeIntervalSince1970),
+								   y: bg.value))
+		}
+		return result
+	}
+	
 	var body: some View {
 		VStack(alignment: .leading) {
 			if let config = usefulData.bgConfig {
@@ -61,10 +77,6 @@ struct ContentView: View {
                 
                 
 				if usefulData.bgInfoList.count > 0 {
-					let list = usefulData.bgInfoList.map {
-						ChartPoint(x: Int($0.date.timeIntervalSince1970), y: $0.value)
-					}
-                    
 					WatchChartView(pointDigit: config.showAsMgDl ? 0 : 1,
                                    min: config.min,
                                    max: config.max,
@@ -72,7 +84,7 @@ struct ContentView: View {
                                    urgentMax: config.urgentMax,
                                    suggestMin: config.suggestMin,
                                    suggestMax: config.suggestMax,
-                                   values: list)
+								   values: getChartPointList(config.interval5Mins, from: usefulData.bgInfoList))
 				}
 			}
 			Spacer(minLength: 10).frame(maxHeight: 10)
