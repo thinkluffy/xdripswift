@@ -21,29 +21,21 @@ final class RootViewController: UIViewController {
         // opens the SnoozeViewController, see storyboard
     }
     
-    @IBOutlet weak var sensorToolbarButtonOutlet: UIBarButtonItem!
-    
-    @IBAction func sensorToolbarButtonAction(_ sender: UIBarButtonItem) {
-        createAndPresentSensorButtonActionSheet()
-    }
+    @IBOutlet weak var sensorIndicator: SensorIndicator!
     
     @IBOutlet weak var calibrateToolbarButtonOutlet: UIBarButtonItem!
     
     @IBAction func calibrateToolbarButtonAction(_ sender: UIBarButtonItem) {
-        
-        if let cgmTransmitter = self.bluetoothPeripheralManager?.getCGMTransmitter(), cgmTransmitter.isWebOOPEnabled() {
-            
-            let alert = UIAlertController(title: Texts_Common.warning, message: Texts_HomeView.calibrationNotNecessary, actionHandler: nil)
-            
-            self.present(alert, animated: true, completion: nil)
+        if let cgmTransmitter = bluetoothPeripheralManager?.getCGMTransmitter(), cgmTransmitter.isWebOOPEnabled() {
+            let alert = UIAlertController(title: Texts_Common.warning,
+                                          message: Texts_HomeView.calibrationNotNecessary,
+                                          actionHandler: nil)
+            present(alert, animated: true, completion: nil)
             
         } else {
-            
             trace("calibration : user clicked the calibrate button", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
-            
             requestCalibration(userRequested: true)
         }
-        
     }
     
     
@@ -284,7 +276,7 @@ final class RootViewController: UIViewController {
         
         // enable or disable the buttons 'sensor' and 'calibrate' on top, depending on master or follower
         changeButtonsStatusTo(enabled: UserDefaults.standard.isMaster)
-        
+
         // Setup Core Data Manager - setting up coreDataManager happens asynchronously
         // completion handler is called when finished. This gives the app time to already continue setup which is independent of coredata, like initializing the views
         setupApplicationData()
@@ -787,7 +779,6 @@ final class RootViewController: UIViewController {
         switch keyPathEnum {
         
         case UserDefaults.Key.isMaster :
-            
             changeButtonsStatusTo(enabled: UserDefaults.standard.isMaster)
             
             // no sensor needed in follower mode, stop it
@@ -835,8 +826,9 @@ final class RootViewController: UIViewController {
     private func setupView() {
         // set texts for buttons on top
         preSnoozeToolbarButtonOutlet.title = Texts_HomeView.snoozeButton
-        sensorToolbarButtonOutlet.title = Texts_HomeView.sensor
         calibrateToolbarButtonOutlet.title = Texts_HomeView.calibrationButton
+        
+        sensorIndicator.addTarget(self, action: #selector(sensorIndicatorDidClick(_:)), for: .touchUpInside)
         
         // at this moment, coreDataManager is not yet initialized, we're just calling here prerender and reloadChart to show the chart with x and y axis and gridlines, but without readings. The readings will be loaded once coreDataManager is setup, after which updateChart() will be called, which will initiate loading of readings from coredata
 //        chartOutlet.reloadChart()
@@ -844,6 +836,10 @@ final class RootViewController: UIViewController {
         glucoseChart.chartHours = selectedChartHoursId
 
         valueLabelOutlet.isHidden = true
+    }
+    
+    @objc private func sensorIndicatorDidClick(_ sender: SensorIndicator) {
+        showBluetoothPeripheral()
     }
     
     // MARK: - private helper functions
@@ -1406,15 +1402,22 @@ final class RootViewController: UIViewController {
 //        }
 //
 //        self.present(actionSheet, animated: true)
-        if let bluetoothPeripheralManager = bluetoothPeripheralManager,
-            let bluetoothPeripheralViewController = R.storyboard.main.bluetoothPeripheral() {
-            let bluetoothPeripheral = bluetoothPeripheralManager.getBluetoothPeripherals()[0]
-            
-            bluetoothPeripheralViewController.configure(bluetoothPeripheral: bluetoothPeripheral,
-                                                        bluetoothPeripheralManager: bluetoothPeripheralManager,
-                                                        expectedBluetoothPeripheralType: bluetoothPeripheral.bluetoothPeripheralType())
-            navigationController?.pushViewController(bluetoothPeripheralViewController, animated: true)
+        showBluetoothPeripheral()
+    }
+    
+    private func showBluetoothPeripheral() {
+        guard let bluetoothPeripheralManager = bluetoothPeripheralManager,
+            let bluetoothPeripheralViewController = R.storyboard.main.bluetoothPeripheral()
+        else {
+            return
         }
+        
+        let bluetoothPeripheral = bluetoothPeripheralManager.getBluetoothPeripherals()[0]
+        
+        bluetoothPeripheralViewController.configure(bluetoothPeripheral: bluetoothPeripheral,
+                                                    bluetoothPeripheralManager: bluetoothPeripheralManager,
+                                                    expectedBluetoothPeripheralType: bluetoothPeripheral.bluetoothPeripheralType())
+        navigationController?.pushViewController(bluetoothPeripheralViewController, animated: true)
     }
     
     /// will show the status
@@ -1514,15 +1517,14 @@ final class RootViewController: UIViewController {
     
     /// enables or disables the buttons on top of the screen
     private func changeButtonsStatusTo(enabled: Bool) {
-        
         if enabled {
-            sensorToolbarButtonOutlet.enable()
+            sensorIndicator.isHidden = false
             calibrateToolbarButtonOutlet.enable()
+            
         } else {
-            sensorToolbarButtonOutlet.disable()
+            sensorIndicator.isHidden = true
             calibrateToolbarButtonOutlet.disable()
         }
-        
     }
     
     /// call alertManager.checkAlerts, and calls createBgReadingNotificationAndSetAppBadge with overrideShowReadingInNotification true or false, depending if immediate notification was created or not
