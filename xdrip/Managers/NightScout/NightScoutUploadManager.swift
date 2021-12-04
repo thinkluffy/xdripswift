@@ -88,13 +88,10 @@ public class NightScoutUploadManager:NSObject {
         
         // upload activeSensor if needed
         if UserDefaults.standard.uploadSensorStartTimeToNS, let activeSensor = sensorsAccessor.fetchActiveSensor() {
-            
             if !activeSensor.uploadedToNS  {
-
                 trace("in upload, activeSensor not yet uploaded to NS", log: self.oslog, category: ConstantsLog.categoryNightScoutUploadManager, type: .info)
 
                 uploadActiveSensorToNightScout(siteURL: siteURL, apiKey: apiKey, sensor: activeSensor)
-
             }
         }
         

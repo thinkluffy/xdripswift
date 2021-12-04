@@ -88,10 +88,6 @@ class Texts_SettingsView {
         return NSLocalizedString("settingsviews_sectiontitlestatistics", tableName: filename, bundle: Bundle.main, value: "Statistics", comment: "statistics settings, section title")
     }()
 
-    static let labelShowStatistics: String = {
-        return NSLocalizedString("settingsviews_showStatistics", tableName: filename, bundle: Bundle.main, value: "Show Statistics?", comment: "statistics settings, show statistics on home screen")
-    }()
-
     static let labelDaysToUseStatisticsTitle: String = {
         return NSLocalizedString("settingsviews_daysToUseStatisticsTitle", tableName: filename, bundle: Bundle.main, value: "Days to Calculate?", comment: "statistics settings, how many days to use for calculations")
     }()

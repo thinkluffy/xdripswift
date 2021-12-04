@@ -20,7 +20,6 @@ fileprivate enum Setting:Int, CaseIterable {
     
     /// should sensor start time be uploaded to NS yes or no
     case uploadSensorStartTime = 5
-    
 }
 
 class SettingsViewNightScoutSettingsViewModel {
@@ -96,16 +95,13 @@ class SettingsViewNightScoutSettingsViewModel {
     }
     
     private func callMessageHandlerInMainThread(title: String, message: String) {
-        
         // unwrap messageHandler
         guard let messageHandler = messageHandler else {return}
         
         DispatchQueue.main.async {
             messageHandler(title, message)
         }
-        
     }
-
 }
 
 /// conforms to SettingsViewModelProtocol for all nightscout settings in the first sections screen
@@ -128,7 +124,6 @@ extension SettingsViewNightScoutSettingsViewModel: SettingsViewModelProtocol {
     }
     
     func onRowSelect(index: Int) -> SettingsSelectedRowAction {
-        
         guard let setting = Setting(rawValue: index) else { fatalError("Unexpected Section") }
         
         switch setting {
@@ -150,7 +145,6 @@ extension SettingsViewNightScoutSettingsViewModel: SettingsViewModelProtocol {
                 UserDefaults.standard.nightScoutAPIKey = apiKey.toNilIfLength0()}, cancelHandler: nil, inputValidator: nil)
            
         case .testUrlAndAPIKey:
-
             if UserDefaults.standard.nightScoutAPIKey != nil && UserDefaults.standard.nightScoutUrl != nil {
                 // show info that test is started, through the messageHandler
                 if let messageHandler = messageHandler {
@@ -166,7 +160,7 @@ extension SettingsViewNightScoutSettingsViewModel: SettingsViewModelProtocol {
             }
             
         case .uploadSensorStartTime:
-            return SettingsSelectedRowAction.nothing
+            return .nothing
             
         case .port:
             return SettingsSelectedRowAction.askText(title: Texts_SettingsView.nightScoutPort, message: nil, keyboardType: .numberPad, text: UserDefaults.standard.nightScoutPort != 0 ? UserDefaults.standard.nightScoutPort.description : nil, placeHolder: nil, actionTitle: nil, cancelTitle: nil, actionHandler: {(port:String) in if let port = port.toNilIfLength0() { UserDefaults.standard.nightScoutPort = Int(port) ?? 0 } else {UserDefaults.standard.nightScoutPort = 0}}, cancelHandler: nil, inputValidator: nil)}
@@ -177,15 +171,12 @@ extension SettingsViewNightScoutSettingsViewModel: SettingsViewModelProtocol {
     }
 
     func numberOfRows() -> Int {
-        
         // if nightscout upload not enabled then only first row is shown
         if UserDefaults.standard.nightScoutEnabled {
-            
             // in follower mode, only 5 first rows to be shown : nightscout enabled button, url, port number, api key, option to test
             if !UserDefaults.standard.isMaster {
                 return 5
             }
-            
             return Setting.allCases.count
             
         } else {

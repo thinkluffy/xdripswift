@@ -19,18 +19,9 @@ final class AlertTypesSettingsViewController: UIViewController {
     }
     
     // MARK: - Private Properties
-        
-    /// reference to soundPlayer
-    private var soundPlayer: SoundPlayer?
-    
+            
     private lazy var alertTypesAccessor = AlertTypesAccessor()
     
-    // MARK:- public functions
-    
-    /// configure
-    public func configure(soundPlayer: SoundPlayer?) {
-        self.soundPlayer = soundPlayer
-    }
 
     // MARK: overriden
     
@@ -55,11 +46,11 @@ final class AlertTypesSettingsViewController: UIViewController {
         switch segueIdentifierAsCase {
             
         case AlertTypeSettingsViewController.SegueIdentifiers.alertTypesToAlertTypeSettings:
-            guard let vc = segue.destination as? AlertTypeSettingsViewController, let soundPlayer = soundPlayer else {
+            guard let vc = segue.destination as? AlertTypeSettingsViewController else {
                 fatalError("In AlertTypesSettingsViewController, prepare for segue, viewcontroller is not AlertTypeSettingsViewController or coreDataManager is nil or soundPlayer is nil" )
             }
 
-            vc.configure(alertType: sender as? AlertType, soundPlayer: soundPlayer)
+            vc.configure(alertType: sender as? AlertType)
         }
     }
 

@@ -6263,7 +6263,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_nightScoutUrl = Rswift.StringResource(key: "settingsviews_nightScoutUrl", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Upload Sensor Start Time?
+      /// en translation: Upload Sensor Start Time
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let uploadSensorStartTime = Rswift.StringResource(key: "uploadSensorStartTime", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -7712,7 +7712,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_nightScoutUrl", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Upload Sensor Start Time?
+      /// en translation: Upload Sensor Start Time
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static func uploadSensorStartTime(preferredLanguages: [String]? = nil) -> String {

@@ -4,19 +4,12 @@ import AudioToolbox
 import os
 import Speech
 
-class BGReadingSpeaker:NSObject {
-    
-    // MARK: - public properties
-    
+class BGReadingSpeaker: NSObject {
+        
     // MARK: - private properties
         
     /// a BgReadingsAccessor
     private var bgReadingsAccessor: BgReadingsAccessor
-    
-    /// audioplayer used by app
-    ///
-    /// is used to verify if app happens to be playing a sound, in which case new readings shouldn't be spoken
-    private var sharedSoundPlayer: SoundPlayer
     
     /// timestamp of last spoken reading, initially set to 1 jan 1970
     private var timeStampLastSpokenReading: Date
@@ -27,9 +20,8 @@ class BGReadingSpeaker:NSObject {
     // MARK: - initializer
     
     /// init is private, to avoid creation
-    init(sharedSoundPlayer: SoundPlayer) {
+    override init() {
         // initialize non optional private properties
-        self.sharedSoundPlayer = sharedSoundPlayer
         self.bgReadingsAccessor = BgReadingsAccessor()
         
         // initialize timeStampLastSpokenReading
@@ -56,7 +48,7 @@ class BGReadingSpeaker:NSObject {
     ///     - there' s a recent reading less than 4.5 minutes old
     ///     - time since last spoken reading > interval defined by user (UserDefaults.standard.speakInterval)
     ///     - lastConnectionStatusChangeTimeStamp : when was the last transmitter dis/reconnect
-    public func speakNewReading(lastConnectionStatusChangeTimeStamp: Date) {
+    func speakNewReading(lastConnectionStatusChangeTimeStamp: Date) {
         
         // if speak reading not enabled, then no further processing
         if !UserDefaults.standard.speakReadings {
@@ -64,7 +56,7 @@ class BGReadingSpeaker:NSObject {
         }
         
         // if app shared soundPlayer is playing, then don't say the text
-        if sharedSoundPlayer.isPlaying() {
+        if SoundPlayer.shared.isPlaying() {
             return
         }
         
@@ -88,7 +80,6 @@ class BGReadingSpeaker:NSObject {
         if (abs(timeStampLastSpokenReading.timeIntervalSince(Date())) < ConstantsSpeakReading.minimiumTimeBetweenTwoReadingsInMinutes * 60.0 && lastConnectionStatusChangeTimeStamp.timeIntervalSince(timeStampLastSpokenReading) < 0) {
             
             return
-            
         }
         
         // assign bgReadingToSpeak

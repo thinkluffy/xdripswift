@@ -8,10 +8,7 @@ final class SettingsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Private Properties
-        
-    /// reference to soundPlayer
-    private var soundPlayer: SoundPlayer?
-    
+            
     /// will show pop up with title and message
     private var messageHandler: ((String, String) -> Void)?
     
@@ -83,37 +80,25 @@ final class SettingsViewController: UIViewController {
                 return SettingsViewMoreSettingsViewModel()
             }
         }
-        
     }
-    
-
-    // MARK:- public functions
-    
-    /// configure
-    public func configure(soundPlayer: SoundPlayer?) {
-        self.soundPlayer = soundPlayer
-       
+        
+    private func configure() {
         // create messageHandler
-        messageHandler = {
-            (title, message) in
+        messageHandler = { (title, message) in
             
             // piece of code that we need two times
             let createAndPresentMessageHandlerUIAlertController = {
-                
                 self.messageHandlerUiAlertController = UIAlertController(title: title, message: message, actionHandler: nil)
                 
                 if let messageHandlerUiAlertController = self.messageHandlerUiAlertController {
                     self.present(messageHandlerUiAlertController, animated: true, completion: nil)
                 }
-                
             }
             
             // first check if messageHandlerUiAlertController is not nil and is presenting. If it is, dismiss it and when completed call createAndPresentMessageHandlerUIAlertController
             if let messageHandlerUiAlertController = self.messageHandlerUiAlertController {
                 if messageHandlerUiAlertController.isBeingPresented {
-                    
                     messageHandlerUiAlertController.dismiss(animated: true, completion: createAndPresentMessageHandlerUIAlertController)
-                    
                     return
                     
                 }
@@ -121,12 +106,10 @@ final class SettingsViewController: UIViewController {
             
             // we're here which means there wasn't a messageHandlerUiAlertController being presented, so present it now
             createAndPresentMessageHandlerUIAlertController()
-            
         }
 
         // initialize viewModels
         for section in Section.allCases {
-
             // get a viewModel for the section
             let viewModel = section.viewModel()
             
@@ -151,43 +134,13 @@ final class SettingsViewController: UIViewController {
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         
         title = Texts_SettingsView.screenTitle
         
         setupView()
         
-    }
-    
-    // MARK: - other overriden functions
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        guard let segueIdentifier = segue.identifier else {
-            fatalError("In SettingsViewController, prepare for segue, Segue had no identifier")
-        }
-        
-        guard let segueIdentifierAsCase = SegueIdentifiers(rawValue: segueIdentifier) else {
-            fatalError("In SettingsViewController, segueIdentifierAsCase could not be initialized")
-        }
-        
-        switch segueIdentifierAsCase {
-            
-        case .settingsToAlertTypeSettings:
-            let vc = segue.destination as! AlertTypesSettingsViewController
-            vc.configure(soundPlayer: soundPlayer)
-            
-        case .settingsToAlertSettings:
-            break
-            
-        case .settingsToM5StackSettings:
-            // nothing to configure
-            break
-            
-        case .settingsToMore:
-            break
-        }
+        configure()
     }
 
     // MARK: - Private helper functions
@@ -205,7 +158,6 @@ final class SettingsViewController: UIViewController {
             tableView.delegate = self
         }
     }
-    
 }
 
 extension SettingsViewController:UITableViewDataSource, UITableViewDelegate {
@@ -213,19 +165,13 @@ extension SettingsViewController:UITableViewDataSource, UITableViewDelegate {
     // MARK: - UITableViewDataSource protocol Methods
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        
         if let view = view as? UITableViewHeaderFooterView {
-            
             view.textLabel?.textColor = ConstantsUI.tableViewHeaderTextColor
-            
         }
-        
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
         return viewModels[section].sectionTitle()
-
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -233,9 +179,7 @@ extension SettingsViewController:UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return viewModels[section].numberOfRows()
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -254,27 +198,26 @@ extension SettingsViewController:UITableViewDataSource, UITableViewDelegate {
     // MARK: - UITableViewDelegate protocol Methods
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         tableView.deselectRow(at: indexPath, animated: true)
         
         let viewModel = viewModels[indexPath.section]
         
         if viewModel.isEnabled(index: indexPath.row) {
-            
             let selectedRowAction = viewModel.onRowSelect(index: indexPath.row)
             
-            SettingsViewUtilities.runSelectedRowAction(selectedRowAction: selectedRowAction, forRowWithIndex: indexPath.row, forSectionWithIndex: indexPath.section, withSettingsViewModel: viewModel, tableView: tableView, forUIViewController: self)
-            
+            SettingsViewUtilities.runSelectedRowAction(selectedRowAction: selectedRowAction,
+                                                       forRowWithIndex: indexPath.row,
+                                                       forSectionWithIndex: indexPath.section,
+                                                       withSettingsViewModel: viewModel,
+                                                       tableView: tableView,
+                                                       forUIViewController: self)
         }
-        
     }
     
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        
         // apple doc says : Use this method to respond to taps in the detail button accessory view of a row. The table view does not call this method for other types of accessory views.
         // when user clicks on of the detail buttons, then consider this as row selected, for now - as it's only license that is using this button for now
         self.tableView(tableView, didSelectRowAt: indexPath)
-        
     }
 }
 
@@ -296,5 +239,3 @@ extension SettingsViewController {
         case settingsToMore = "settingsToMore"
     }
 }
-
-

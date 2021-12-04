@@ -7,7 +7,7 @@ import AudioToolbox
 /// has a function to check if an alert needs to be raised, and also raised the alert notification if needed.
 ///
 /// has all the logic but should be not or almost not aware of the kind of alerts that exists. The logic that is different per type of alert is defined in type AlertKind.
-public class AlertManager:NSObject {
+class AlertManager: NSObject {
     
     // MARK: - private properties
   
@@ -21,23 +21,20 @@ public class AlertManager:NSObject {
     private var log = OSLog(subsystem: ConstantsLog.subSystem, category: ConstantsLog.categoryAlertManager)
     
     /// BgReadings instance
-    private let bgReadingsAccessor:BgReadingsAccessor
+    private let bgReadingsAccessor: BgReadingsAccessor
     
     /// Calibrations instance
-    private let calibrationsAccessor:CalibrationsAccessor
+    private let calibrationsAccessor: CalibrationsAccessor
     
     /// Sensors instance
-    private let sensorsAccessor:SensorsAccessor
+    private let sensorsAccessor: SensorsAccessor
     
     /// for getting alertTypes from coredata
-    private var alertTypesAccessor:AlertTypesAccessor
+    private var alertTypesAccessor: AlertTypesAccessor
     
     /// for getting alertEntries from coredata
-    private var alertEntriesAccessor:AlertEntriesAccessor
-    
-    /// playSound instance
-    private var soundPlayer:SoundPlayer?
-    
+    private var alertEntriesAccessor: AlertEntriesAccessor
+        
     /// snooze parameters
     private var snoozeParameters = [SnoozeParameters]()
     
@@ -45,7 +42,7 @@ public class AlertManager:NSObject {
     private var alertNotificationIdentifers = [String]()
     
     /// permanent reference to notificationcenter
-    private let uNUserNotificationCenter:UNUserNotificationCenter
+    private let uNUserNotificationCenter: UNUserNotificationCenter
         
     /// snooze times in minutes
     private let snoozeValueMinutes = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75, 90, 120, 150, 180, 240, 300, 360, 420, 480, 540, 600, 1440, 10080]
@@ -60,14 +57,13 @@ public class AlertManager:NSObject {
     
     // MARK: - initializer
     
-    init(soundPlayer: SoundPlayer?) {
+    override init() {
         // initialize properties
         self.bgReadingsAccessor = BgReadingsAccessor()
         self.alertTypesAccessor = AlertTypesAccessor()
         self.alertEntriesAccessor = AlertEntriesAccessor()
         self.calibrationsAccessor = CalibrationsAccessor()
         self.sensorsAccessor = SensorsAccessor()
-        self.soundPlayer = soundPlayer
         self.uNUserNotificationCenter = UNUserNotificationCenter.current()
         
         // call super.init
@@ -88,12 +84,9 @@ public class AlertManager:NSObject {
         UNUserNotificationCenter.current().getNotificationCategories(completionHandler: setAlertNotificationCategories(_:))
         
         // alertManager may have raised an alert with a sound played by soundplayer. If user brings the app to the foreground, the soundPlayer needs to stop playing
-        ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: applicationManagerKeyStopPlayingSound, closure: {
-            if let soundPlayer = soundPlayer {
-                soundPlayer.stopPlaying()
-            }
-            
-        })
+        ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: applicationManagerKeyStopPlayingSound) {
+           SoundPlayer.shared.stopPlaying()
+        }
         
         // add observer for changes in UserDefaults
         addObservers()
@@ -107,7 +100,7 @@ public class AlertManager:NSObject {
     ///     - maxAgeOfLastBgReadingInSeconds : for master mode max 1 minute should be ok, but for follower mode it could be interesting to take a higher value
     /// - returns:
     ///     - if true then an immediate notification is created (immediate being not a future planned, like missed reading), which contains the bg reading in the text - so there's no need to create an additional notificationwith the text in it
-    public func checkAlerts(maxAgeOfLastBgReadingInSeconds:Double) -> Bool {
+    func checkAlerts(maxAgeOfLastBgReadingInSeconds:Double) -> Bool {
         
         // first of all remove all existing notifications, there should be only one open alert on the home screen. The most relevant one will be reraised
         uNUserNotificationCenter.removeDeliveredNotifications(withIdentifiers: alertNotificationIdentifers)
@@ -187,7 +180,7 @@ public class AlertManager:NSObject {
     /// this function looks very similar to the function with the same name defined in  UNUserNotificationCenterDelegate, difference is that it returns an optional instance of PickerViewData. This will have the snooze data, ie title, actionHandler, cancelHandler, list of values, etc.  Goal is not to have UI related stuff in AlertManager class. it's the caller that needs to decide how to present the data
     /// - returns:
     ///     - PickerViewData : contains data that user needs to pick from, nil means nothing to pick from
-    public func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) -> PickerViewData? {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) -> PickerViewData? {
         
         // declare returnValue
         var returnValue:PickerViewData?
@@ -198,9 +191,7 @@ public class AlertManager:NSObject {
             if response.notification.request.identifier == alertKind.notificationIdentifier() {
                 
                 // user clicked an alert notification, time to stop playing if play
-                if let soundPlayer = soundPlayer {
-                    soundPlayer.stopPlaying()
-                }
+                SoundPlayer.shared.stopPlaying()
                 
                 switch response.actionIdentifier {
                     
@@ -249,7 +240,7 @@ public class AlertManager:NSObject {
     }
     
     /// get the snoozeParameter for the alertKind
-    public func getSnoozeParameters(alertKind: AlertKind) -> SnoozeParameters {
+    func getSnoozeParameters(alertKind: AlertKind) -> SnoozeParameters {
         return snoozeParameters[alertKind.rawValue]
     }
 
@@ -259,7 +250,7 @@ public class AlertManager:NSObject {
     /// this function looks very similar to the UNUserNotificationCenterDelegate function, difference is that it returns an optional instance of PickerViewData. This will have the snooze data, ie title, actionHandler, cancelHandler, list of values, etc.  Goal is not to have UI related stuff in AlertManager class. it's the caller that needs to decide how to present the data
     /// - returns:
     ///     - PickerViewData : contains data that user needs to pick from, nil means nothing to pick from
-    public func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) -> PickerViewData? {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) -> PickerViewData? {
 
         // declare returnValue
         var returnValue:PickerViewData?
@@ -281,7 +272,7 @@ public class AlertManager:NSObject {
     }
     
     /// to unSnooze an already snoozed alert
-    public func unSnooze(alertKind: AlertKind) {
+    func unSnooze(alertKind: AlertKind) {
         
         // unsnooze
         getSnoozeParameters(alertKind: alertKind).unSnooze()
@@ -297,10 +288,10 @@ public class AlertManager:NSObject {
     ///     - content : possible this pickerViewData is requested after user clicked an alert notification, in that case content is the content of that notification. It allows to re-use the sound, delay, etc. If nil then this is used for presnooze
     ///     - actionHandler : optional closure to execute after user clicks the ok button, the snooze it'self will be done by the pickerViewData, can be used for example to change the contents of a cell
     ///     - cancelHandler : optional closure to execute after user clicks the cancel button.
-    public func createPickerViewData(forAlertKind alertKind:AlertKind,
-                                     content: UNNotificationContent?,
-                                     actionHandler: (() -> Void)?,
-                                     cancelHandler: (() -> Void)?) -> PickerViewData {
+    func createPickerViewData(forAlertKind alertKind:AlertKind,
+                              content: UNNotificationContent?,
+                              actionHandler: (() -> Void)?,
+                              cancelHandler: (() -> Void)?) -> PickerViewData {
         
         // find the default snooze period, so we can set selectedRow in the pickerviewdata
         let defaultSnoozePeriodInMinutes = Int(alertEntriesAccessor.getCurrentAndNextAlertEntry(forAlertKind: alertKind, forWhen: Date(), alertTypesAccessor: alertTypesAccessor).currentAlertEntry.alertType.snoozeperiod)
@@ -324,9 +315,7 @@ public class AlertManager:NSObject {
             cancelButtonText: Texts_Common.Cancel,
             onActionClick: {(snoozeIndex: Int) -> Void in
                 // if sound is currently playing then stop it
-                if let soundPlayer = self.soundPlayer {
-                    soundPlayer.stopPlaying()
-                }
+                SoundPlayer.shared.stopPlaying()
                 
                 // get snooze period
                 let snoozePeriod = self.snoozeValueMinutes[snoozeIndex]
@@ -358,9 +347,7 @@ public class AlertManager:NSObject {
                 () -> Void in
 
                 // if sound is currently playing then stop it
-                if let soundPlayer = self.soundPlayer {
-                    soundPlayer.stopPlaying()
-                }
+                SoundPlayer.shared.stopPlaying()
 
                 // if cancelHandler supplied by caller not nil, then execute it
                 cancelHandler?()
@@ -605,9 +592,8 @@ public class AlertManager:NSObject {
                     // also delayInSeconds must be nil, if delayInSeconds is not nil then we can not play the sound here at now, it must be added to the notification
                     if applicableAlertType.overridemute && delayInSecondsToUse == 0 {
                         // play the sound
-                        if let soundPlayer = self.soundPlayer {
-                            soundPlayer.playSound(soundFileName: soundToSet)
-                        }
+                        SoundPlayer.shared.playSound(soundFileName: soundToSet)
+                        
                     } else {
                         // mute should not be overriden, by adding the sound to the notification, we let iOS decide if the sound will be played or not
                         content.sound = UNNotificationSound.init(named: UNNotificationSoundName.init(soundToSet))

@@ -15,7 +15,7 @@ fileprivate enum Setting: Int, CaseIterable {
 }
 
 /// conforms to SettingsViewModelProtocol for all Dexcom settings in the first sections screen
-class SettingsViewDexcomSettingsViewModel:SettingsViewModelProtocol {
+class SettingsViewDexcomSettingsViewModel: SettingsViewModelProtocol {
     
     func storeRowReloadClosure(rowReloadClosure: ((Int) -> Void)) {}
     
@@ -26,7 +26,7 @@ class SettingsViewDexcomSettingsViewModel:SettingsViewModelProtocol {
     }
     
     func completeSettingsViewRefreshNeeded(index: Int) -> Bool {
-        return true
+        return false
     }
     
     func isEnabled(index: Int) -> Bool {
@@ -75,11 +75,11 @@ class SettingsViewDexcomSettingsViewModel:SettingsViewModelProtocol {
     }
 
     func numberOfRows() -> Int {
-        if !UserDefaults.standard.uploadReadingstoDexcomShare {
-            return 1
-            
-        } else {
+        if UserDefaults.standard.uploadReadingstoDexcomShare {
             return Setting.allCases.count
+
+        } else {
+            return 1
         }
     }
     

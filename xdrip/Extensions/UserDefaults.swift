@@ -48,9 +48,6 @@ extension UserDefaults {
         case chartDots5MinsApart = "chartDots5MinsApart"
 
         // Statistics settings
-        
-        /// show the statistics? How many days should we use for the calculations?
-        case showStatistics = "showStatistics"
         /// show the objective lines in color or grey?
         case daysToUseStatistics = "daysToUseStatistics"
         /// use IFCC way to show A1C?
@@ -534,17 +531,6 @@ extension UserDefaults {
     }
     
     // MARK: Statistics Settings
-    
-    /// should the statistics view be shown on the home screen?
-    @objc dynamic var showStatistics: Bool {
-        // default value for bool in userdefaults is false, by default we want the statistics view to show (true)
-        get {
-            return !bool(forKey: Key.showStatistics.rawValue)
-        }
-        set {
-            set(!newValue, forKey: Key.showStatistics.rawValue)
-        }
-    }
 
     /// days to use for the statistics calculations
     @objc dynamic var daysToUseStatistics: Int {

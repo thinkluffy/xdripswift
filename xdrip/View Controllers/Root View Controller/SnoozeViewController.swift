@@ -8,11 +8,9 @@ final class SnoozeViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     
     // reference to alertManager
-    private var alertManager:AlertManager?
-    
-    // MARK: - Public functions
-    
-    public func configure(alertManager:AlertManager?) {
+    private var alertManager: AlertManager?
+        
+    func configure(alertManager: AlertManager?) {
         self.alertManager = alertManager
     }
     
@@ -39,10 +37,8 @@ final class SnoozeViewController: UIViewController {
             tableView.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
             tableView.dataSource = self
             tableView.delegate = self
-            
         }
     }
-    
 }
 
 // MARK: - Conform to UITableViewDataSource
@@ -50,21 +46,16 @@ final class SnoozeViewController: UIViewController {
 extension SnoozeViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        
         // number of sections corresponds to number of alarm types
         return AlertKind.allCases.count
-        
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         // just one row per alarm type
         return 1
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableCell") ?? UITableViewCell(style: .value1, reuseIdentifier: "tableCell")
         cell.textLabel?.textColor = ConstantsUI.tableTitleColor
         cell.detailTextLabel?.textColor = ConstantsUI.tableDetailTextColor
@@ -83,7 +74,6 @@ extension SnoozeViewController: UITableViewDataSource {
         let (isSnoozed, remainingSeconds) = alertManager.getSnoozeParameters(alertKind: alertKind).getSnoozeValue() 
 
         if isSnoozed {
-            
             guard let remainingSeconds = remainingSeconds else {
                 fatalError("In SnoozeViewController, remainingSeconds is nil but alert is snoozed")
             }
@@ -97,9 +87,7 @@ extension SnoozeViewController: UITableViewDataSource {
             cell.textLabel?.text = TextsSnooze.snoozed_until + " " + snoozedTillDate.toString(timeStyle: .short, dateStyle: showDate ? .short : .none)
             
         } else {
-
             cell.textLabel?.text = TextsSnooze.not_snoozed
-
         }
         
         // no detailed text to be shown, the snooze time is already given in the textLabel
@@ -116,35 +104,28 @@ extension SnoozeViewController: UITableViewDataSource {
             
             // changing from off to on. Means user wants to pre-snooze
             if isOn {
-
                 // create and display pickerViewData
                 PickerViewController.displayPickerViewController(pickerViewData: alertManager.createPickerViewData(forAlertKind: alertKind, content: nil, actionHandler: { reloadRow() }, cancelHandler: { reloadRow() }), parentController: self)
                 
             } else {
                 // changing from on to off. Means user wants to unsnooze
-
                 alertManager.unSnooze(alertKind: alertKind)
                 
                 reloadRow()
-                
             }
-                
         })
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
         // alertKind corresponds to section number
         guard let alertKind = AlertKind(forSection: section) else {
             fatalError("In titleForHeaderInSection, could not create alertKind")
         }
         
         return alertKind.alertTitle()
-        
     }
-
 }
 
 // MARK: - Conform to UITableViewDelegate
@@ -152,19 +133,12 @@ extension SnoozeViewController: UITableViewDataSource {
 extension SnoozeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        
         if let view = view as? UITableViewHeaderFooterView {
-            
             view.textLabel?.textColor = ConstantsUI.tableViewHeaderTextColor
-            
         }
-        
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         tableView.deselectRow(at: indexPath, animated: true)
-        
     }
-    
 }

@@ -83,11 +83,6 @@ class MoreSettingsViewController: UIViewController {
             .section(headerTitle: R.string.settingsViews.settingsviews_sectiontitleAbout(iOS.appDisplayName), footerTitle: nil)
             .operationCell(id: 21, title: R.string.settingsViews.settingsviews_Version(), detailedText: iOS.appVersionName, icon: nil, accessoryView: nil, didClick: nil)
             .operationCell(id: 22, title: R.string.settingsViews.settingsviews_build(), detailedText: "\(iOS.appVersionCode)", icon: nil, accessoryView: nil, didClick: nil)
-            .operationCell(id: 23, title: R.string.settingsViews.settingsviews_license(), detailedText: nil, icon: nil, accessoryView: nil, didClick: {
-                [unowned self] operationCell, idnexPath in
-                let alert = UIAlertController(title: iOS.appDisplayName, message: R.string.homeView.licenseinfo(), actionHandler: nil)
-                self.present(alert, animated: true, completion: nil)
-            })
         
             // developer
             .section(headerTitle: R.string.settingsViews.developerSettings(), footerTitle: nil)

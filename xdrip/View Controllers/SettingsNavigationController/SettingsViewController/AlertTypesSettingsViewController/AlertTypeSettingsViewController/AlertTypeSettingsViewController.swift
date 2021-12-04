@@ -54,10 +54,7 @@ final class AlertTypeSettingsViewController: UIViewController {
     @IBOutlet weak var trashButtonOutlet: UIBarButtonItem!
     
     // MARK: - private properties
-    
-    /// reference to soundPlayer, needed to preplay sound when user is selecting one
-    private var soundPlayer:SoundPlayer?
-    
+        
     /// the alerttype being edited - will only be used initially to initialize the temp properties used locally, and in the end to update the alerttype - if nil then it's about creating a new alertType
     private var alertTypeAsNSObject:AlertType?
     
@@ -71,12 +68,9 @@ final class AlertTypeSettingsViewController: UIViewController {
     private var snoozePeriod = ConstantsDefaultAlertTypeSettings.snoozePeriod
     private var vibrate = ConstantsDefaultAlertTypeSettings.vibrate
     private var soundName = ConstantsDefaultAlertTypeSettings.soundName
-    
-    // MARK:- public functions
-    
-    public func configure(alertType: AlertType?, soundPlayer: SoundPlayer) {
+        
+    func configure(alertType: AlertType?) {
         self.alertTypeAsNSObject = alertType
-        self.soundPlayer = soundPlayer
         
         // configure local temp alert type properties if alertType not nil - if alertType is nil then this viewcontroller is opened to create a ne alertType, in that case default values are used
         if let alertType = alertType {
@@ -167,10 +161,8 @@ final class AlertTypeSettingsViewController: UIViewController {
     
     /// check if soundPlayer is playing and if yes stop it (might be that an alert sound is playing and that it will stop here althought it shouldn't - bad luck
     private func stopSoundPlayerIfPlaying() {
-        if let soundPlayer = self.soundPlayer {
-            if soundPlayer.isPlaying() {
-                soundPlayer.stopPlaying()
-            }
+        if SoundPlayer.shared.isPlaying() {
+            SoundPlayer.shared.stopPlaying()
         }
     }
     
@@ -181,13 +173,9 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
     // MARK: - UITableViewDataSource and UITableViewDelegate protocol Methods
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        
         if let view = view as? UITableViewHeaderFooterView {
-            
             view.textLabel?.textColor = ConstantsUI.tableViewHeaderTextColor
-            
         }
-        
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -360,14 +348,13 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
                 if index == 0 || index == 1 {
                     // if no sound or default iOS selected, then no sound will not be played - but also stop playing sound
                     self.stopSoundPlayerIfPlaying()
+                    
                 } else {
                     // stop playing
                     self.stopSoundPlayerIfPlaying()
                     
                     // play the selected sound
-                    if let soundPlayer = self.soundPlayer {
-                        soundPlayer.playSound(soundFileName: sounds.fileNames[index - 2])
-                    }
+                    SoundPlayer.shared.playSound(soundFileName: sounds.fileNames[index - 2])
                 }
             })
             

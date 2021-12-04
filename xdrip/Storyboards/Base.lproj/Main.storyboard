@@ -1340,7 +1340,7 @@
         <!--Settings Navigation Controller-->
         <scene sceneID="jbr-kK-p6W">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dyf-bd-1WE" customClass="SettingsNavigationController" customModule="xdrip" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dyf-bd-1WE" userLabel="Settings Navigation Controller" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="ic_tab_settings" selectedImage="ic_tab_settings_h" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="Q1d-AD-CWJ">

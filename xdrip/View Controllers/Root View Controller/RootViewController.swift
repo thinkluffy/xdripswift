@@ -380,18 +380,12 @@ final class RootViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
             
         })
-        
-        // setup SoundPlayer
-        soundPlayer = SoundPlayer()
-        
-        // setup FollowManager
-        guard let soundPlayer = soundPlayer else { fatalError("In setupApplicationData, this looks very in appropriate, shame")}
-        
+                        
         // setup healthkitmanager
         healthKitManager = HealthKitManager()
         
         // setup bgReadingSpeaker
-        bgReadingSpeaker = BGReadingSpeaker(sharedSoundPlayer: soundPlayer)
+        bgReadingSpeaker = BGReadingSpeaker()
         
         // setup loopManager
         loopManager = LoopManager()
@@ -466,7 +460,7 @@ final class RootViewController: UIViewController {
         cgmTransmitterInfoChanged()
         
         // setup alertmanager
-        alertManager = AlertManager(soundPlayer: soundPlayer)
+        alertManager = AlertManager()
         
         // initialize statisticsManager
         statisticsManager = StatisticsManager()
@@ -1545,24 +1539,16 @@ final class RootViewController: UIViewController {
         // don't calculate statis if app is not running in the foreground
         guard UIApplication.shared.applicationState == .active || overrideApplicationState else {return}
         
-        // if the user doesn't want to see the statistics, then just return without doing anything
-        if !UserDefaults.standard.showStatistics {
-            return
-        }
-        
-        // declare constants/variables
-        var daysToUseStatistics: Int = 0
-        var fromDate: Date = Date()
-        
         // get the maximum number of calculation days requested by the user
-        daysToUseStatistics = UserDefaults.standard.daysToUseStatistics
+        let daysToUseStatistics = UserDefaults.standard.daysToUseStatistics
+        var fromDate: Date
         
         // if the user has selected 0 (to chose "today") then set the fromDate to the previous midnight
         if daysToUseStatistics == 0 {
             fromDate = Calendar(identifier: .gregorian).startOfDay(for: Date())
             
         } else {
-            fromDate = Date(timeIntervalSinceNow: -3600.0 * 24.0 * Double(daysToUseStatistics))
+            fromDate = Date(timeIntervalSinceNow: -Date.dayInSeconds * Double(daysToUseStatistics))
         }
         
         // statisticsManager will calculate the statistics in background thread and call the callback function in the main thread
@@ -1681,10 +1667,8 @@ extension RootViewController: UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         // check which tab is being clicked
-        if let navigationController = viewController as? SettingsNavigationController, let soundPlayer = soundPlayer {
-            navigationController.configure(soundPlayer: soundPlayer)
-            
-        } else if let navigationController = viewController as? BluetoothPeripheralNavigationController, let bluetoothPeripheralManager = bluetoothPeripheralManager {
+        if let navigationController = viewController as? BluetoothPeripheralNavigationController,
+            let bluetoothPeripheralManager = bluetoothPeripheralManager {
             navigationController.configure(bluetoothPeripheralManager: bluetoothPeripheralManager)
         }
     }
@@ -1726,7 +1710,6 @@ extension RootViewController: UNUserNotificationCenterDelegate {
             PickerViewController.displayPickerViewController(pickerViewData: pickerViewData, parentController: self)
             
         }  else if notification.request.identifier == ConstantsNotifications.notificationIdentifierForVolumeTest {
-            
             // user is testing iOS Sound volume in the settings. Only the sound should be played, the alert itself will not be shown
             completionHandler([.sound])
             

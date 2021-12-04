@@ -40,6 +40,7 @@ struct SettingsViewAlertSettingsViewModel:SettingsViewModelProtocol {
         switch setting {
         case .alertTypes:
             return .performSegue(withIdentifier: SettingsViewController.SegueIdentifiers.settingsToAlertTypeSettings.rawValue, sender: nil)
+            
         case .alerts:
             return .performSegue(withIdentifier: SettingsViewController.SegueIdentifiers.settingsToAlertSettings.rawValue, sender: nil)
             
@@ -47,19 +48,14 @@ struct SettingsViewAlertSettingsViewModel:SettingsViewModelProtocol {
             
             // here the volume of the soundplayer will be tested.
             // soundplayer is used for alerts with override mute = on, except for missed reading alerts or any other delayed alert
-            
-            // create a soundplayer
-            let soundPlayer = SoundPlayer()
-            
+                        
             // start playing the xdripalert.aif
-            soundPlayer.playSound(soundFileName: "xdripalert.aif")
+            SoundPlayer.shared.playSound(soundFileName: "xdripalert.aif")
             
-            return SettingsSelectedRowAction.showInfoText(title: Texts_Common.warning, message: Texts_SettingsView.volumeTestSoundPlayerExplanation, actionHandler: {
-                
+            return SettingsSelectedRowAction.showInfoText(title: Texts_Common.warning, message: Texts_SettingsView.volumeTestSoundPlayerExplanation) {
                 // user clicked ok, which will close the pop up and also player should stop playing
-                soundPlayer.stopPlaying()
-                
-            })
+                SoundPlayer.shared.stopPlaying()
+            }
             
         case .volumeTestiOSSound:
 
@@ -75,14 +71,16 @@ struct SettingsViewAlertSettingsViewModel:SettingsViewModelProtocol {
             content.body = ""
             content.title = ""
             // sound
-            content.sound = UNNotificationSound.init(named: UNNotificationSoundName.init("xdripalert.aif"))
+            content.sound = UNNotificationSound(named: UNNotificationSoundName.init("xdripalert.aif"))
             // notification request
-            let notificationRequest = UNNotificationRequest(identifier: ConstantsNotifications.notificationIdentifierForVolumeTest, content: content, trigger: nil)
+            let notificationRequest = UNNotificationRequest(identifier: ConstantsNotifications.notificationIdentifierForVolumeTest,
+                                                            content: content,
+                                                            trigger: nil)
             // Add Request to User Notification Center
             UNUserNotificationCenter.current().add(notificationRequest)
             
-            return SettingsSelectedRowAction.showInfoText(title: Texts_Common.warning, message: Texts_SettingsView.volumeTestiOSSoundExplanation, actionHandler: nil)
-            
+            return SettingsSelectedRowAction.showInfoText(title: Texts_Common.warning,
+                                                          message: Texts_SettingsView.volumeTestiOSSoundExplanation)
         }
     }
     
@@ -101,12 +99,14 @@ struct SettingsViewAlertSettingsViewModel:SettingsViewModelProtocol {
     }
     
     func settingsRowText(index: Int) -> String {
-        guard let setting = Setting(rawValue: index) else { fatalError("Unexpected Setting in SettingsViewAlertSettingsViewModel onRowSelect") }
+        guard let setting = Setting(rawValue: index) else {
+            fatalError("Unexpected Setting in SettingsViewAlertSettingsViewModel onRowSelect")
+        }
         
         switch setting {
-            
         case .alertTypes:
             return Texts_SettingsView.labelAlertTypes
+            
         case .alerts:
             return Texts_SettingsView.labelAlerts
             
@@ -115,30 +115,22 @@ struct SettingsViewAlertSettingsViewModel:SettingsViewModelProtocol {
             
         case .volumeTestiOSSound:
             return Texts_SettingsView.volumeTestiOSSound
-            
         }
     }
     
     func accessoryType(index: Int) -> UITableViewCell.AccessoryType {
-        
         guard let setting = Setting(rawValue: index) else { fatalError("Unexpected Section") }
         
         switch setting {
-
         case .alertTypes, .alerts:
-            
             return .disclosureIndicator
             
         case .volumeTestSoundPlayer, .volumeTestiOSSound:
-            
             return .none
-            
         }
-        
     }
     
     func detailedText(index: Int) -> String? {
         return nil
     }
-    
 }
