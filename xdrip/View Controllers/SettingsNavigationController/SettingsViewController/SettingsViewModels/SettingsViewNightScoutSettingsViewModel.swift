@@ -21,12 +21,6 @@ fileprivate enum Setting:Int, CaseIterable {
     /// should sensor start time be uploaded to NS yes or no
     case uploadSensorStartTime = 5
     
-    /// use nightscout schedule or not
-    case useSchedule = 6
-    
-    /// open uiviewcontroller to edit schedule
-    case schedule = 7
-    
 }
 
 class SettingsViewNightScoutSettingsViewModel {
@@ -158,7 +152,6 @@ extension SettingsViewNightScoutSettingsViewModel: SettingsViewModelProtocol {
         case .testUrlAndAPIKey:
 
             if UserDefaults.standard.nightScoutAPIKey != nil && UserDefaults.standard.nightScoutUrl != nil {
-
                 // show info that test is started, through the messageHandler
                 if let messageHandler = messageHandler {
                     messageHandler(Texts_HomeView.info, Texts_NightScoutTestResult.nightScoutAPIKeyAndURLStarted)
@@ -169,16 +162,8 @@ extension SettingsViewNightScoutSettingsViewModel: SettingsViewModelProtocol {
                 return .nothing
 
             } else {
-                
                 return .showInfoText(title: Texts_Common.warning, message: Texts_NightScoutTestResult.warningAPIKeyOrURLIsnil)
-                
             }
-
-        case .useSchedule:
-            return .nothing
-            
-        case .schedule:
-            return .performSegue(withIdentifier: SettingsViewController.SegueIdentifiers.settingsToSchedule.rawValue, sender: self)
             
         case .uploadSensorStartTime:
             return SettingsSelectedRowAction.nothing
@@ -201,11 +186,6 @@ extension SettingsViewNightScoutSettingsViewModel: SettingsViewModelProtocol {
                 return 5
             }
             
-            // if schedule not enabled then show all rows except the last which is to edit the schedule
-            if !UserDefaults.standard.nightScoutUseSchedule {
-                return Setting.allCases.count - 1
-            }
-            
             return Setting.allCases.count
             
         } else {
@@ -224,10 +204,6 @@ extension SettingsViewNightScoutSettingsViewModel: SettingsViewModelProtocol {
             return Texts_SettingsView.labelNightScoutUrl
         case .nightScoutEnabled:
             return Texts_SettingsView.labelNightScoutEnabled
-        case .useSchedule:
-            return Texts_SettingsView.useSchedule
-        case .schedule:
-            return Texts_SettingsView.schedule
         case .uploadSensorStartTime:
             return Texts_SettingsView.uploadSensorStartTime
         case .testUrlAndAPIKey:
@@ -247,10 +223,6 @@ extension SettingsViewNightScoutSettingsViewModel: SettingsViewModelProtocol {
             return .none
         case .nightScoutAPIKey:
             return .none
-        case .useSchedule:
-            return .none
-        case .schedule:
-            return .disclosureIndicator
         case .uploadSensorStartTime:
             return .none
         case .testUrlAndAPIKey:
@@ -270,10 +242,6 @@ extension SettingsViewNightScoutSettingsViewModel: SettingsViewModelProtocol {
             return UserDefaults.standard.nightScoutAPIKey != nil ? "***********" : nil
         case .nightScoutUrl:
             return UserDefaults.standard.nightScoutUrl
-        case .useSchedule:
-            return nil
-        case .schedule:
-            return nil
         case .uploadSensorStartTime:
             return nil
         case .testUrlAndAPIKey:
@@ -299,14 +267,6 @@ extension SettingsViewNightScoutSettingsViewModel: SettingsViewModelProtocol {
         case .nightScoutAPIKey:
             return nil
             
-        case .useSchedule:
-            return UISwitch(isOn: UserDefaults.standard.nightScoutUseSchedule) { isOn in
-                UserDefaults.standard.nightScoutUseSchedule = isOn
-            }
-            
-        case .schedule:
-            return nil
-            
         case .uploadSensorStartTime:
             return UISwitch(isOn: UserDefaults.standard.uploadSensorStartTimeToNS) { isOn in
                 UserDefaults.standard.uploadSensorStartTimeToNS = isOn
@@ -320,52 +280,6 @@ extension SettingsViewNightScoutSettingsViewModel: SettingsViewModelProtocol {
             
         }
     }
-    
-}
-
-extension SettingsViewNightScoutSettingsViewModel: TimeSchedule {
-    
-    func serviceName() -> String {
-        return "NightScout"
-    }
-    
-    func getSchedule() -> [Int] {
-
-        var schedule = [Int]()
-        
-        if let scheduleInSettings = UserDefaults.standard.nightScoutSchedule {
-            
-            schedule = scheduleInSettings.split(separator: "-").map({Int($0) ?? 0})
-            
-        }
-
-        return schedule
-        
-    }
-    
-    func storeSchedule(schedule: [Int]) {
-        
-        var scheduleToStore: String?
-        
-        for entry in schedule {
-            
-            if scheduleToStore == nil {
-                
-                scheduleToStore = entry.description
-                
-            } else {
-                
-                scheduleToStore = scheduleToStore! + "-" + entry.description
-                
-            }
-            
-        }
-        
-        UserDefaults.standard.nightScoutSchedule = scheduleToStore
-        
-    }
-    
-    
 }
 
 

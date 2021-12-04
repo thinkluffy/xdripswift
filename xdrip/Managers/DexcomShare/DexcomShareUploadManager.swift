@@ -1,7 +1,7 @@
 import Foundation
 import os
 
-class DexcomShareUploadManager:NSObject {
+class DexcomShareUploadManager: NSObject {
  
     // MARK: - private properties
     
@@ -58,8 +58,6 @@ class DexcomShareUploadManager:NSObject {
         UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.useUSDexcomShareurl.rawValue, options: .new, context: nil)
         UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.uploadReadingstoDexcomShare.rawValue, options: .new, context: nil)
         UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.dexcomShareSerialNumber.rawValue, options: .new, context: nil)
-        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.dexcomShareUseSchedule.rawValue, options: .new, context: nil)
-        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.dexcomShareSchedule.rawValue, options: .new, context: nil)
 
     }
     
@@ -68,7 +66,7 @@ class DexcomShareUploadManager:NSObject {
     /// uploads latest BgReadings to Dexcom Share
     /// - parameters:
     ///     - lastConnectionStatusChangeTimeStamp : when was the last transmitter dis/reconnect - if nil then  1 1 1970 is used
-    public func upload(lastConnectionStatusChangeTimeStamp: Date?) {
+    func upload(lastConnectionStatusChangeTimeStamp: Date?) {
         
         // check if dexcomShare is enabled
         guard UserDefaults.standard.uploadReadingstoDexcomShare else {
@@ -86,18 +84,6 @@ class DexcomShareUploadManager:NSObject {
         guard UserDefaults.standard.dexcomShareSerialNumber != nil, UserDefaults.standard.dexcomShareAccountName != nil, UserDefaults.standard.dexcomSharePassword != nil else {
             trace("in upload, dexcomShareSerialNumber or dexcomShareAccountName or dexcomSharePassword is nil", log: self.log, category: ConstantsLog.categoryDexcomShareUploadManager, type: .info)
             return
-        }
-        
-        // if schedule is on, check if upload is needed according to schedule
-        if UserDefaults.standard.dexcomShareUseSchedule {
-            if let schedule = UserDefaults.standard.dexcomShareSchedule {
-                if !schedule.indicatesOn(forWhen: Date()) {
-                    
-                    trace("in upload, schedule indicates not on", log: self.log, category: ConstantsLog.categoryDexcomShareUploadManager, type: .info)
-                    
-                    return
-                }
-            }
         }
         
         // upload
@@ -141,7 +127,7 @@ class DexcomShareUploadManager:NSObject {
                         }
                     }
                     
-                case UserDefaults.Key.uploadReadingstoDexcomShare, UserDefaults.Key.dexcomShareSerialNumber, UserDefaults.Key.useUSDexcomShareurl, UserDefaults.Key.dexcomShareUseSchedule, UserDefaults.Key.dexcomShareSchedule :
+                case UserDefaults.Key.uploadReadingstoDexcomShare, UserDefaults.Key.dexcomShareSerialNumber, UserDefaults.Key.useUSDexcomShareurl:
                     
                     // if changing to enabled, then do a credentials test and if ok start upload, if fail don't give warning, that's the only difference with previous cases
                     if (keyValueObserverTimeKeeper.verifyKey(forKey: keyPathEnum.rawValue, withMinimumDelayMilliSeconds: 200)) {

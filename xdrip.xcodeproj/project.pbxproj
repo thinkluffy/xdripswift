@@ -290,7 +290,6 @@
 		F8297F52238ECA3200D74D66 /* BluetoothPeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8297F51238ECA3200D74D66 /* BluetoothPeripheralViewController.swift */; };
 		F8297F59238EE14E00D74D66 /* TextsBluetoothPeripheralsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8297F57238EE14E00D74D66 /* TextsBluetoothPeripheralsView.swift */; };
 		F8297F5A238EE14E00D74D66 /* TextsBluetoothPeripheralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8297F58238EE14E00D74D66 /* TextsBluetoothPeripheralView.swift */; };
-		F830990523B94ED7005741DF /* TimeScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F830990423B94ED7005741DF /* TimeScheduleViewController.swift */; };
 		F830991C23C2909E005741DF /* Watlaa+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F830991A23C2909E005741DF /* Watlaa+CoreDataClass.swift */; };
 		F830991D23C2909E005741DF /* Watlaa+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F830991B23C2909E005741DF /* Watlaa+CoreDataProperties.swift */; };
 		F830992023C291E2005741DF /* WatlaaBluetoothTransmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F830991F23C291E2005741DF /* WatlaaBluetoothTransmitter.swift */; };
@@ -1125,7 +1124,6 @@
 		F8297F51238ECA3200D74D66 /* BluetoothPeripheralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheralViewController.swift; sourceTree = "<group>"; };
 		F8297F57238EE14E00D74D66 /* TextsBluetoothPeripheralsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextsBluetoothPeripheralsView.swift; sourceTree = "<group>"; };
 		F8297F58238EE14E00D74D66 /* TextsBluetoothPeripheralView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextsBluetoothPeripheralView.swift; sourceTree = "<group>"; };
-		F830990423B94ED7005741DF /* TimeScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeScheduleViewController.swift; sourceTree = "<group>"; };
 		F830991A23C2909E005741DF /* Watlaa+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Watlaa+CoreDataClass.swift"; sourceTree = "<group>"; };
 		F830991B23C2909E005741DF /* Watlaa+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Watlaa+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F830991F23C291E2005741DF /* WatlaaBluetoothTransmitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatlaaBluetoothTransmitter.swift; sourceTree = "<group>"; };
@@ -2483,7 +2481,6 @@
 				4EE66F092733EADF00548A46 /* MoreSettingsViewController */,
 				F8B3A837227F090D004BA588 /* SettingsViewModels */,
 				F8A389E6232ECE7E0010F405 /* SettingsViewUtilities.swift */,
-				F830990423B94ED7005741DF /* TimeScheduleViewController.swift */,
 			);
 			path = SettingsViewController;
 			sourceTree = "<group>";
@@ -3760,7 +3757,6 @@
 				F8B3A858227F6971004BA588 /* UISwitch.swift in Sources */,
 				F8E6C78C24CDDB83007C1199 /* SnoozeViewController.swift in Sources */,
 				F8AF11F824B1E6EE00AE5BA2 /* XdripError.swift in Sources */,
-				F830990523B94ED7005741DF /* TimeScheduleViewController.swift in Sources */,
 				F8A2BC2F25DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMBlueReaderTransmitterDelegate.swift in Sources */,
 				F8F9722123A5915900C3F17D /* LibreSensorSerialNumber.swift in Sources */,
 				F8A1586722EDB8BF007F5B5D /* ConstantsHomeView.swift in Sources */,

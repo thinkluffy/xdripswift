@@ -1,20 +1,16 @@
 import UIKit
 
-fileprivate enum Setting:Int, CaseIterable {
+fileprivate enum Setting: Int, CaseIterable {
     ///should readings be uploaded or not
     case uploadReadingstoDexcomShare = 0
     ///dexcomShareAccountName
     case dexcomShareAccountName = 1
     /// dexcomSharePassword
     case dexcomSharePassword = 2
-    /// should us url be used true or false
-    case useUSDexcomShareurl = 3
     /// dexcomShareSerialNumber
-    case dexcomShareSerialNumber = 4
-    /// use dexcom share schedule or not
-    case useSchedule = 5
-    /// open uiviewcontroller to edit schedule
-    case schedule = 6
+    case dexcomShareSerialNumber = 3
+    /// should us url be used true or false
+    case useUSDexcomShareurl = 4
 
 }
 
@@ -34,9 +30,7 @@ class SettingsViewDexcomSettingsViewModel:SettingsViewModelProtocol {
     }
     
     func isEnabled(index: Int) -> Bool {
-
         return true
-        
     }
 
     func onRowSelect(index: Int) -> SettingsSelectedRowAction {
@@ -45,7 +39,7 @@ class SettingsViewDexcomSettingsViewModel:SettingsViewModelProtocol {
         switch setting {
             
         case .uploadReadingstoDexcomShare:
-            return SettingsSelectedRowAction.nothing
+            return .nothing
             
         case .dexcomShareAccountName:
             return SettingsSelectedRowAction.askText(title: Texts_SettingsView.labelDexcomShareAccountName, message: Texts_SettingsView.giveDexcomShareAccountName, keyboardType: UIKeyboardType.alphabet, text: UserDefaults.standard.dexcomShareAccountName, placeHolder: nil, actionTitle: nil, cancelTitle: nil, actionHandler: {(accountName:String) in UserDefaults.standard.dexcomShareAccountName = accountName.toNilIfLength0()}, cancelHandler: nil, inputValidator: nil)
@@ -54,7 +48,7 @@ class SettingsViewDexcomSettingsViewModel:SettingsViewModelProtocol {
             return SettingsSelectedRowAction.askText(title: Texts_Common.password, message: Texts_SettingsView.giveDexcomSharePassword, keyboardType: UIKeyboardType.alphabet, text: UserDefaults.standard.dexcomSharePassword, placeHolder: nil, actionTitle: nil, cancelTitle: nil, actionHandler: {(password:String) in UserDefaults.standard.dexcomSharePassword = password.toNilIfLength0()}, cancelHandler: nil, inputValidator: nil)
             
         case .useUSDexcomShareurl:
-            return SettingsSelectedRowAction.nothing
+            return .nothing
             
         case .dexcomShareSerialNumber:
             return SettingsSelectedRowAction.askText(title: Texts_SettingsView.labelDexcomShareSerialNumber, message: Texts_SettingsView.giveDexcomShareSerialNumber, keyboardType: UIKeyboardType.alphabet, text: UserDefaults.standard.dexcomShareSerialNumber, placeHolder: nil, actionTitle: nil, cancelTitle: nil, actionHandler: {(serialNumber:String) in
@@ -67,18 +61,12 @@ class SettingsViewDexcomSettingsViewModel:SettingsViewModelProtocol {
                     if currentSerialNumber != serialNumberUpper {
                         UserDefaults.standard.dexcomShareSerialNumber = serialNumberUpper.toNilIfLength0()
                     }
+                    
                 } else {
                     UserDefaults.standard.dexcomShareSerialNumber = serialNumberUpper.toNilIfLength0()
                 }
 
             }, cancelHandler: nil, inputValidator: nil)
-            
-        case .useSchedule:
-            return .nothing
-            
-        case .schedule:
-            return .performSegue(withIdentifier: SettingsViewController.SegueIdentifiers.settingsToSchedule.rawValue, sender: self)
-            
         }
     }
     
@@ -91,9 +79,6 @@ class SettingsViewDexcomSettingsViewModel:SettingsViewModelProtocol {
             return 1
             
         } else {
-            if !UserDefaults.standard.dexcomShareUseSchedule {
-                return Setting.allCases.count - 1
-            }
             return Setting.allCases.count
         }
     }
@@ -112,10 +97,6 @@ class SettingsViewDexcomSettingsViewModel:SettingsViewModelProtocol {
             return Texts_SettingsView.labelUseUSDexcomShareurl
         case .dexcomShareAccountName:
             return Texts_SettingsView.labelDexcomShareAccountName
-        case .useSchedule:
-            return Texts_SettingsView.useSchedule
-        case .schedule:
-            return Texts_SettingsView.schedule
         }
     }
     
@@ -133,10 +114,6 @@ class SettingsViewDexcomSettingsViewModel:SettingsViewModelProtocol {
             return .none
         case .dexcomShareSerialNumber:
             return .none
-        case .useSchedule:
-            return .none
-        case .schedule:
-            return .disclosureIndicator
         }
     }
     
@@ -154,10 +131,6 @@ class SettingsViewDexcomSettingsViewModel:SettingsViewModelProtocol {
             return nil
         case .dexcomShareSerialNumber:
             return UserDefaults.standard.dexcomShareSerialNumber
-        case .useSchedule:
-            return nil
-        case .schedule:
-            return nil
         }
     }
     
@@ -177,46 +150,6 @@ class SettingsViewDexcomSettingsViewModel:SettingsViewModelProtocol {
             
         case .dexcomShareAccountName, .dexcomSharePassword, .dexcomShareSerialNumber:
             return nil
-            
-        case .useSchedule:
-            return UISwitch(isOn: UserDefaults.standard.dexcomShareUseSchedule) { isOn in
-                UserDefaults.standard.dexcomShareUseSchedule = isOn
-            }
-            
-        case .schedule:
-            return nil
         }
     }
 }
-
-extension SettingsViewDexcomSettingsViewModel: TimeSchedule {
-    
-    func serviceName() -> String {
-        return "Dexcom Share"
-    }
-    
-    func getSchedule() -> [Int] {
-        var schedule = [Int]()
-        
-        if let scheduleInSettings = UserDefaults.standard.dexcomShareSchedule {
-            schedule = scheduleInSettings.split(separator: "-").map({Int($0) ?? 0})
-        }
-        return schedule
-    }
-    
-    func storeSchedule(schedule: [Int]) {
-        var scheduleToStore: String?
-        
-        for entry in schedule {
-            if scheduleToStore == nil {
-                scheduleToStore = entry.description
-                
-            } else {
-                scheduleToStore = scheduleToStore! + "-" + entry.description
-            }
-        }
-        
-        UserDefaults.standard.dexcomShareSchedule = scheduleToStore
-    }
-}
-

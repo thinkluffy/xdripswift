@@ -240,15 +240,7 @@ class Texts_SettingsView {
     static let labelNightScoutUrl = {
         return NSLocalizedString("settingsviews_nightScoutUrl", tableName: filename, bundle: Bundle.main, value: "URL:", comment: "nightscout settings, where user can set the nightscout url")
     }()
-    
-    static let useSchedule = {
-        return NSLocalizedString("settingsviews_useSchedule", tableName: filename, bundle: Bundle.main, value: "Use Upload Schedule?", comment: "nightscout settings, where user can select to use schedule or not")
-    }()
-    
-    static let schedule = {
-        return NSLocalizedString("schedule", tableName: filename, bundle: Bundle.main, value: "Schedule:", comment: "nightscout or dexcom share settings, where user can select to edit the schedule")
-    }()
-    
+
     static let giveNightScoutUrl = {
         return NSLocalizedString("settingsviews_giveNightScoutUrl", tableName: filename, bundle: Bundle.main, value: "Enter your NightScout URL", comment: "nightscout  settings, pop up that asks user to enter nightscout url")
     }()

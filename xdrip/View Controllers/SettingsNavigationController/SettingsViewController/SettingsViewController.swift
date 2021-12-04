@@ -185,11 +185,6 @@ final class SettingsViewController: UIViewController {
             // nothing to configure
             break
             
-        case .settingsToSchedule:
-            if let vc = segue.destination as? TimeScheduleViewController, let sender = sender as? TimeSchedule {
-                vc.configure(timeSchedule: sender)
-            }
-            
         case .settingsToMore:
             break
         }
@@ -285,7 +280,8 @@ extension SettingsViewController:UITableViewDataSource, UITableViewDelegate {
 
 /// defines perform segue identifiers used within settingsviewcontroller
 extension SettingsViewController {
-    public enum SegueIdentifiers:String {
+    
+    enum SegueIdentifiers:String {
 
         /// to go from general settings screen to alert types screen
         case settingsToAlertTypeSettings = "settingsToAlertTypeSettings"
@@ -295,9 +291,6 @@ extension SettingsViewController {
         
         /// to go from general settings screen to M5Stack settings screen
         case settingsToM5StackSettings = "settingsToM5StackSettings"
-        
-        /// to go from general settings to schedule screen
-        case settingsToSchedule = "settingsToSchedule"
         
         /// to go from general settings to more settings
         case settingsToMore = "settingsToMore"

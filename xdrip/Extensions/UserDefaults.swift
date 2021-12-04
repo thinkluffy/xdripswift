@@ -72,11 +72,6 @@ extension UserDefaults {
         
         /// should readings be uploaded to nightscout
         case nightScoutEnabled = "nightScoutEnabled"
-        /// should schedule be used for nightscout upload ?
-        case nightScoutUseSchedule = "nightScoutUseSchedule"
-        /// - schedule for nightscout use, only applicable if nightScoutUseSchedule = true
-        /// - string of values, seperate by '-', values are int values and represent minutes
-        case nightScoutSchedule = "nightScoutSchedule"
         /// nightscout url
         case nightScoutUrl = "nightScoutUrl"
         /// nightscout api key
@@ -98,11 +93,6 @@ extension UserDefaults {
         case useUSDexcomShareurl = "useUSDexcomShareurl"
         /// dexcom share serial number
         case dexcomShareSerialNumber = "dexcomShareSerialNumber"
-        /// should schedule be used for dexcom share upload ?
-        case dexcomShareUseSchedule = "dexcomShareUseSchedule"
-        /// - schedule for dexcomShare use, only applicable if dexcomShareUseSchedule = true
-        /// - string of values, seperate by '-', values are int values and represent minutes
-        case dexcomShareSchedule = "dexcomShareSchedule"
 
         // Healthkit
         
@@ -635,16 +625,6 @@ extension UserDefaults {
             set(newValue, forKey: Key.nightScoutEnabled.rawValue)
         }
     }
-    
-    /// use schedule for nightscoutupload ?
-    @objc dynamic var nightScoutUseSchedule: Bool {
-        get {
-            return bool(forKey: Key.nightScoutUseSchedule.rawValue)
-        }
-        set {
-            set(newValue, forKey: Key.nightScoutUseSchedule.rawValue)
-        }
-    }
 
     /// send sensor start time to nightscout ?
     @objc dynamic var uploadSensorStartTimeToNS: Bool {
@@ -677,18 +657,6 @@ extension UserDefaults {
             set(newValue, forKey: Key.nightScoutUrl.rawValue)
         }
     }
-    
-    /// - schedule for nightscout use, only applicable if nightScoutUseSchedule = true
-    /// - string of values, seperate by '-', values are int values and represent minutes
-    var nightScoutSchedule: String? {
-        get {
-            return string(forKey: Key.nightScoutSchedule.rawValue)
-        }
-        set {
-            set(newValue, forKey: Key.nightScoutSchedule.rawValue)
-        }
-    }
-    
 
     /// the nightscout api key
     @objc dynamic var nightScoutAPIKey:String? {
@@ -749,27 +717,6 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: Key.dexcomShareSerialNumber.rawValue)
-        }
-    }
-    
-    /// - schedule for dexcomShare use, only applicable if dexcomShareUseSchedule = true
-    /// - string of values, seperate by '-', values are int values and represent minutes
-    var dexcomShareSchedule: String? {
-        get {
-            return string(forKey: Key.dexcomShareSchedule.rawValue)
-        }
-        set {
-            set(newValue, forKey: Key.dexcomShareSchedule.rawValue)
-        }
-    }
-    
-    /// use schedule for dexcomShareupload ?
-    @objc dynamic var dexcomShareUseSchedule: Bool {
-        get {
-            return bool(forKey: Key.dexcomShareUseSchedule.rawValue)
-        }
-        set {
-            set(newValue, forKey: Key.dexcomShareUseSchedule.rawValue)
         }
     }
 
