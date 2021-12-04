@@ -1,7 +1,7 @@
 import Foundation
 import CoreData
 
-/// - has attributes which are common to all kinds of BluetoothPeripheral : address, name, shouldconnect, alias, parameterUpdateNeededAtNextConnect.
+/// - has attributes which are common to all kinds of BluetoothPeripheral : address, name, shouldconnect, parameterUpdateNeededAtNextConnect.
 /// - the name is very close the the protocol BluetoothPeripheral, bad luck that's all
 public class BLEPeripheral: NSManagedObject {
  
@@ -11,7 +11,10 @@ public class BLEPeripheral: NSManagedObject {
     public var libreSensorType: LibreSensorType?
 
     /// create BLEPeripheral, shouldconnect default value = true
-    init(address: String, name: String, alias: String?, bluetoothPeripheralType: BluetoothPeripheralType, nsManagedObjectContext:NSManagedObjectContext) {
+    init(address: String,
+         name: String,
+         bluetoothPeripheralType: BluetoothPeripheralType,
+         nsManagedObjectContext:NSManagedObjectContext) {
         
         let entity = NSEntityDescription.entity(forEntityName: "BLEPeripheral", in: nsManagedObjectContext)!
 
@@ -20,13 +23,11 @@ public class BLEPeripheral: NSManagedObject {
         self.address = address
         self.name = name
         self.shouldconnect = true
-        self.alias = alias
         self.parameterUpdateNeededAtNextConnect = false
      
         webOOPEnabled = ConstantsLibre.defaultWebOOPEnabled && bluetoothPeripheralType.canWebOOP()
         
         nonFixedSlopeEnabled = ConstantsLibre.defaultNonFixedSlopeEnabled
-        
     }
     
     private override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {

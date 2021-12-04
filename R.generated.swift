@@ -204,12 +204,10 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This struct is generated for `RootViewController`, and contains static references to 2 segues.
+    /// This struct is generated for `RootViewController`, and contains static references to 1 segues.
     struct rootViewController {
       /// Segue identifier `ChartDetails`.
       static let chartDetails: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, RootViewController, ChartDetailsViewController> = Rswift.StoryboardSegueIdentifier(identifier: "ChartDetails")
-      /// Segue identifier `RootViewToSnoozeView`.
-      static let rootViewToSnoozeView: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, RootViewController, SnoozeViewController> = Rswift.StoryboardSegueIdentifier(identifier: "RootViewToSnoozeView")
 
       #if os(iOS) || os(tvOS)
       /// Optionally returns a typed version of segue `ChartDetails`.
@@ -217,15 +215,6 @@ struct R: Rswift.Validatable {
       /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
       static func chartDetails(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, RootViewController, ChartDetailsViewController>? {
         return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.rootViewController.chartDetails, segue: segue)
-      }
-      #endif
-
-      #if os(iOS) || os(tvOS)
-      /// Optionally returns a typed version of segue `RootViewToSnoozeView`.
-      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
-      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      static func rootViewToSnoozeView(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, RootViewController, SnoozeViewController>? {
-        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.rootViewController.rootViewToSnoozeView, segue: segue)
       }
       #endif
 
@@ -1339,7 +1328,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 36 images.
+  /// This `R.image` struct is generated, and contains static references to 37 images.
   struct image {
     /// Image `ic_alarm_delay`.
     static let ic_alarm_delay = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_alarm_delay")
@@ -1349,6 +1338,8 @@ struct R: Rswift.Validatable {
     static let ic_arrow_left = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_arrow_left")
     /// Image `ic_arrow_right`.
     static let ic_arrow_right = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_arrow_right")
+    /// Image `ic_calibrate`.
+    static let ic_calibrate = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_calibrate")
     /// Image `ic_clock`.
     static let ic_clock = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_clock")
     /// Image `ic_pushpin_lock`.
@@ -1439,6 +1430,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ic_arrow_right", bundle: ..., traitCollection: ...)`
     static func ic_arrow_right(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ic_arrow_right, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_calibrate", bundle: ..., traitCollection: ...)`
+    static func ic_calibrate(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_calibrate, compatibleWith: traitCollection)
     }
     #endif
 
@@ -2357,16 +2355,12 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.bluetoothPeripheralView` struct is generated, and contains static references to 31 localization keys.
+    /// This `R.string.bluetoothPeripheralView` struct is generated, and contains static references to 28 localization keys.
     struct bluetoothPeripheralView {
       /// en translation: Address
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static let address = Rswift.StringResource(key: "address", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "es", "fr", "de", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-      /// en translation: Alias
-      ///
-      /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
-      static let bluetoothPeripheralAlias = Rswift.StringResource(key: "bluetoothPeripheralAlias", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "es", "fr", "de", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
       /// en translation: Battery
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
@@ -2375,10 +2369,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static let bootLoader = Rswift.StringResource(key: "bootLoader", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "es", "fr", "de", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-      /// en translation: Choose an alias for this bluetooth device, the name will be shown in the app and is easier for you to recognize
-      ///
-      /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
-      static let selectAliasText = Rswift.StringResource(key: "selectAliasText", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "es", "fr", "de", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
       /// en translation: Click 'Disconnect' to confirm that you really want to disconnect from the transmitter.
       ///
       /// Locales: en, pt, nl, es, fr, de, sv
@@ -2471,10 +2461,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static let donotconnect = Rswift.StringResource(key: "donotconnect", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "es", "fr", "de", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-      /// en translation: There is already a bluetooth device with this alias
-      ///
-      /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
-      static let aliasAlreadyExists = Rswift.StringResource(key: "aliasAlreadyExists", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "es", "fr", "de", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
       /// en translation: Transmitter Reset Result
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
@@ -2497,21 +2483,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("address", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Alias
-      ///
-      /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
-      static func bluetoothPeripheralAlias(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("bluetoothPeripheralAlias", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "bluetoothPeripheralAlias"
-        }
-
-        return NSLocalizedString("bluetoothPeripheralAlias", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
       /// en translation: Battery
@@ -2542,21 +2513,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("bootLoader", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Choose an alias for this bluetooth device, the name will be shown in the app and is easier for you to recognize
-      ///
-      /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
-      static func selectAliasText(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("selectAliasText", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "selectAliasText"
-        }
-
-        return NSLocalizedString("selectAliasText", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
       /// en translation: Click 'Disconnect' to confirm that you really want to disconnect from the transmitter.
@@ -2902,21 +2858,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("donotconnect", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: There is already a bluetooth device with this alias
-      ///
-      /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
-      static func aliasAlreadyExists(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("aliasAlreadyExists", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "aliasAlreadyExists"
-        }
-
-        return NSLocalizedString("aliasAlreadyExists", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
       /// en translation: Transmitter Reset Result
@@ -8426,6 +8367,7 @@ struct _R: Rswift.Validatable {
       let mainTabBarController = StoryboardViewControllerResource<MainTabBarController>(identifier: "MainTabBarController")
       let name = "Main"
       let pickerViewController = StoryboardViewControllerResource<PickerViewController>(identifier: "PickerViewController")
+      let snoozeAlarms = StoryboardViewControllerResource<SnoozeViewController>(identifier: "snoozeAlarms")
 
       func bluetoothPeripheral(_: Void = ()) -> BluetoothPeripheralViewController? {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: bluetoothPeripheral)
@@ -8443,8 +8385,13 @@ struct _R: Rswift.Validatable {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: pickerViewController)
       }
 
+      func snoozeAlarms(_: Void = ()) -> SnoozeViewController? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: snoozeAlarms)
+      }
+
       static func validate() throws {
         if UIKit.UIImage(named: "ic_alarm", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_alarm' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ic_calibrate", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_calibrate' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_clock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_clock' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_pushpin_unlock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_pushpin_unlock' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_search", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_search' is used in storyboard 'Main', but couldn't be loaded.") }
@@ -8456,7 +8403,6 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "ic_tab_settings", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_settings' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_settings_h", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_settings_h' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "logo-launchScreen.png", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'logo-launchScreen.png' is used in storyboard 'Main', but couldn't be loaded.") }
-        if #available(iOS 13.0, *) { if UIKit.UIImage(systemName: "scope") == nil { throw Rswift.ValidationError(description: "[R.swift] System image named 'scope' is used in storyboard 'Main', but couldn't be loaded.") } }
         if UIKit.UIImage(named: "sensor14_14_alt", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'sensor14_14_alt' is used in storyboard 'Main', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
@@ -8464,6 +8410,7 @@ struct _R: Rswift.Validatable {
         if _R.storyboard.main().datePickerViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'datePickerViewController' could not be loaded from storyboard 'Main' as 'DatePickerViewController'.") }
         if _R.storyboard.main().mainTabBarController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'mainTabBarController' could not be loaded from storyboard 'Main' as 'MainTabBarController'.") }
         if _R.storyboard.main().pickerViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'pickerViewController' could not be loaded from storyboard 'Main' as 'PickerViewController'.") }
+        if _R.storyboard.main().snoozeAlarms() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'snoozeAlarms' could not be loaded from storyboard 'Main' as 'SnoozeViewController'.") }
       }
 
       fileprivate init() {}

@@ -6,25 +6,22 @@ fileprivate let generalSettingSectionNumber = 0
 
 /// - a case per attribute that can be set in BluetoothPeripheralViewController
 /// - these are applicable to all types of bluetoothperipheral types (M5Stack ...)
-fileprivate enum Setting:Int, CaseIterable {
+fileprivate enum Setting: Int, CaseIterable {
     
     /// the name received from bluetoothTransmitter, ie the name hardcoded in the BluetoothPeripheral
     case name = 0
-
-    /// the alias that user has given, possibly nil
-    case alias = 1
     
     /// the address
-    case address = 2
+    case address = 1
     
     /// the current connection status
-    case connectionStatus = 3
+    case connectionStatus = 2
     
     /// timestamp when connection changed to connected or not connected
-    case connectOrDisconnectTimeStamp = 4
+    case connectOrDisconnectTimeStamp = 3
     
     /// transmitterID, only for devices that need it
-    case transmitterId = 5
+    case transmitterId = 4
 
 }
 
@@ -526,7 +523,6 @@ class BluetoothPeripheralViewController: UIViewController {
     
     /// use clicked trash button, need to delete the bluetoothperipheral
     private func trashButtonClicked() {
-        
         // let's first check if bluetoothPeripheral exists, otherwise there's nothing to trash, normally this shouldn't happen because trashbutton should be disabled if there's no bluetoothPeripheral
         guard let bluetoothPeripheral = bluetoothPeripheral else {return}
 
@@ -535,9 +531,6 @@ class BluetoothPeripheralViewController: UIViewController {
         
         // textToAdd is either 'address' + the address, or 'alias' + the alias, depending if alias has a value
         var textToAdd = Texts_BluetoothPeripheralView.address + " " + bluetoothPeripheral.blePeripheral.address
-        if let alias = bluetoothPeripheral.blePeripheral.alias {
-            textToAdd = Texts_BluetoothPeripheralView.bluetoothPeripheralAlias + " " + alias
-        }
         
         // first ask user if ok to delete and if yes delete
         let alert = UIAlertController(title: Texts_BluetoothPeripheralView.confirmDeletionBluetoothPeripheral + " " + textToAdd + "?", message: nil, actionHandler: {
@@ -830,19 +823,7 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
                 cell.textLabel?.text = Texts_BluetoothPeripheralView.status
                 cell.detailTextLabel?.text = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: bluetoothPeripheral, isScanning: isScanning, connectButtonOutlet: connectButtonOutlet, expectedBluetoothPeripheralType: expectedBluetoothPeripheralType, transmitterId: transmitterIdTempValue, bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
                 cell.accessoryType = .none
-                
-            case .alias:
-                
-                cell.textLabel?.text = Texts_BluetoothPeripheralView.bluetoothPeripheralAlias
-                cell.detailTextLabel?.text = bluetoothPeripheral?.blePeripheral.alias
-                if bluetoothPeripheral == nil {
-                    cell.accessoryType = .none
-                    
-                } else {
-                    cell.accessoryType = .disclosureIndicator
-                    cell.accessoryView = disclosureAaccessoryView
-                }
-                
+            
             case .transmitterId:
                 
                 cell.textLabel?.text = Texts_SettingsView.labelTransmitterId
@@ -1004,51 +985,7 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
                 
             case .name, .connectionStatus:
                 break
-                
-            case .alias:
-                
-                // clicked cell to change alias - need to ask for new name, and verify if there's already another BluetoothPerpiheral existing with the same name
-                
-                // first off al check that BluetoothPeripheral already exists, otherwise makes no sense to change the name
-                guard let bluetoothPeripheral = bluetoothPeripheral else {return}
-                
-                let alert = UIAlertController(title: Texts_BluetoothPeripheralView.bluetoothPeripheralAlias, message: Texts_BluetoothPeripheralView.selectAliasText, keyboardType: .default, text: bluetoothPeripheral.blePeripheral.alias, placeHolder: nil, actionTitle: nil, cancelTitle: nil, actionHandler: { (text:String) in
-                    
-                    let newalias = text.toNilIfLength0()
-                    
-                    if newalias != nil {
-                        
-                        // need to check if there's already another peripheral with the same name
-                        for bluetoothPeripheral in bluetoothPeripheralManager.getBluetoothPeripherals() {
-                            
-                            // not checking address of bluetoothPeripheral, because obviously that one could have the same alias
-                            if bluetoothPeripheral.blePeripheral.address != bluetoothPeripheral.blePeripheral.address {
-                                if bluetoothPeripheral.blePeripheral.alias == text {
-                                    
-                                    // bluetoothperipheral userdefined name already exists
-                                    let alreadyExistsAlert = UIAlertController(title: Texts_Common.warning, message: Texts_BluetoothPeripheralView.aliasAlreadyExists, actionHandler: nil)
-                                    
-                                    // present the alert
-                                    self.present(alreadyExistsAlert, animated: true, completion: nil)
-                                    
-                                    return
-                                    
-                                }
-                            }
-                        }
-                    }
-                    
-                    // not returned during loop, means name is unique
-                    bluetoothPeripheral.blePeripheral.alias = newalias
-                    
-                    // reload the specific row in the table
-                    tableView.reloadRows(at: [IndexPath(row: Setting.alias.rawValue, section: 0)], with: .none)
-                    
-                }, cancelHandler: nil)
-                
-                // present the alert
-                self.present(alert, animated: true, completion: nil)
-                
+        
             case .connectOrDisconnectTimeStamp:
                 break
                 

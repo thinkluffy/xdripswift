@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rfm-D0-ioj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rfm-D0-ioj">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -129,42 +129,28 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tVG-ML-9xd">
-                                                        <rect key="frame" x="0.0" y="0.0" width="428" height="50"/>
-                                                        <color key="backgroundColor" red="0.1384946406" green="0.1503256261" blue="0.2745223343" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="50" id="0AI-PA-zd9"/>
-                                                        </constraints>
-                                                        <items>
-                                                            <barButtonItem title="Item" image="ic_alarm" id="f3E-Tt-LBV">
-                                                                <connections>
-                                                                    <action selector="preSnoozeToolbarButtonAction:" destination="9pv-A4-QxB" id="IDv-ho-TZ2"/>
-                                                                    <segue destination="NvR-Zh-2Zn" kind="popoverPresentation" identifier="RootViewToSnoozeView" popoverAnchorBarButtonItem="f3E-Tt-LBV" id="VtQ-ZG-btn">
-                                                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                                                    </segue>
-                                                                </connections>
-                                                            </barButtonItem>
-                                                            <barButtonItem title="Item" image="scope" catalog="system" id="u4d-bZ-Kw8">
-                                                                <connections>
-                                                                    <action selector="calibrateToolbarButtonAction:" destination="9pv-A4-QxB" id="qNA-1R-UK5"/>
-                                                                </connections>
-                                                            </barButtonItem>
-                                                        </items>
-                                                        <color key="tintColor" red="0.91764705882352937" green="0.1764705882352941" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <color key="barTintColor" red="0.1384946406" green="0.1503256261" blue="0.2745223343" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    </toolbar>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Rp-y3-zdP" userLabel="TitleBar">
-                                                        <rect key="frame" x="100" y="0.0" width="328" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="428" height="50"/>
                                                         <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qv7-yV-rZx">
+                                                                <rect key="frame" x="10" y="13" width="24" height="24"/>
+                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                <state key="normal" image="ic_alarm"/>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tJt-7J-3U6">
+                                                                <rect key="frame" x="44" y="13" width="24" height="24"/>
+                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                <state key="normal" image="ic_calibrate"/>
+                                                            </button>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kba-Lh-TNW" customClass="SensorIndicator" customModule="xdrip" customModuleProvider="target">
-                                                                <rect key="frame" x="298" y="15" width="20" height="20"/>
+                                                                <rect key="frame" x="398" y="15" width="20" height="20"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="20" id="3vw-Jc-Ssk"/>
                                                                     <constraint firstAttribute="height" constant="20" id="bZW-ee-7fA"/>
                                                                 </constraints>
                                                             </view>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V90-WH-dIE" customClass="CountDownView" customModule="xdrip" customModuleProvider="target">
+                                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V90-WH-dIE" customClass="CountDownView" customModule="xdrip" customModuleProvider="target">
                                                                 <rect key="frame" x="288" y="25" width="0.0" height="0.0"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
@@ -173,8 +159,12 @@
                                                         <constraints>
                                                             <constraint firstItem="Kba-Lh-TNW" firstAttribute="centerY" secondItem="4Rp-y3-zdP" secondAttribute="centerY" id="J2J-W2-czl"/>
                                                             <constraint firstItem="Kba-Lh-TNW" firstAttribute="leading" secondItem="V90-WH-dIE" secondAttribute="trailing" constant="10" id="KPu-dF-IVP"/>
+                                                            <constraint firstItem="tJt-7J-3U6" firstAttribute="centerY" secondItem="4Rp-y3-zdP" secondAttribute="centerY" id="LZP-nQ-dT2"/>
                                                             <constraint firstAttribute="trailing" secondItem="Kba-Lh-TNW" secondAttribute="trailing" constant="10" id="QnK-c2-90b"/>
+                                                            <constraint firstItem="Qv7-yV-rZx" firstAttribute="leading" secondItem="4Rp-y3-zdP" secondAttribute="leading" constant="10" id="WKf-MY-xf1"/>
                                                             <constraint firstItem="V90-WH-dIE" firstAttribute="centerY" secondItem="Kba-Lh-TNW" secondAttribute="centerY" id="boM-k0-k0u"/>
+                                                            <constraint firstItem="tJt-7J-3U6" firstAttribute="leading" secondItem="Qv7-yV-rZx" secondAttribute="trailing" constant="10" id="iXX-EF-Kwn"/>
+                                                            <constraint firstItem="Qv7-yV-rZx" firstAttribute="centerY" secondItem="4Rp-y3-zdP" secondAttribute="centerY" id="vVy-LH-dqz"/>
                                                             <constraint firstAttribute="height" constant="50" id="zSf-Vu-2ob"/>
                                                         </constraints>
                                                     </view>
@@ -182,16 +172,13 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="B9A-0Y-PhM" firstAttribute="top" secondItem="C16-NQ-F1Y" secondAttribute="top" id="0Cp-j8-xqU"/>
-                                                    <constraint firstItem="4Rp-y3-zdP" firstAttribute="leading" secondItem="C16-NQ-F1Y" secondAttribute="leading" constant="100" id="0pw-zO-gU7"/>
+                                                    <constraint firstItem="4Rp-y3-zdP" firstAttribute="leading" secondItem="C16-NQ-F1Y" secondAttribute="leading" id="0pw-zO-gU7"/>
                                                     <constraint firstAttribute="trailing" secondItem="B9A-0Y-PhM" secondAttribute="trailing" id="1ug-ld-IKQ"/>
-                                                    <constraint firstItem="tVG-ML-9xd" firstAttribute="leading" secondItem="C16-NQ-F1Y" secondAttribute="leading" id="3Dx-Rt-YEp"/>
                                                     <constraint firstItem="B9A-0Y-PhM" firstAttribute="leading" secondItem="C16-NQ-F1Y" secondAttribute="leading" id="6Uu-OL-6iT"/>
                                                     <constraint firstAttribute="bottom" secondItem="Fqv-ph-O5s" secondAttribute="bottom" constant="10" id="Asd-Uc-cCh"/>
                                                     <constraint firstItem="We3-bN-ffR" firstAttribute="leading" secondItem="C16-NQ-F1Y" secondAttribute="leading" constant="20" id="DjD-bz-O8N"/>
-                                                    <constraint firstItem="tVG-ML-9xd" firstAttribute="top" secondItem="C16-NQ-F1Y" secondAttribute="top" id="LNr-l9-aaC"/>
                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="We3-bN-ffR" secondAttribute="trailing" id="LWb-Rj-dfs"/>
                                                     <constraint firstItem="B9A-0Y-PhM" firstAttribute="bottom" secondItem="Fqv-ph-O5s" secondAttribute="top" id="Pfb-rq-JSF"/>
-                                                    <constraint firstAttribute="trailing" secondItem="tVG-ML-9xd" secondAttribute="trailing" id="Pvj-mq-puH"/>
                                                     <constraint firstItem="Fqv-ph-O5s" firstAttribute="top" secondItem="We3-bN-ffR" secondAttribute="bottom" constant="10" id="ViQ-DN-7he"/>
                                                     <constraint firstAttribute="trailing" secondItem="Fqv-ph-O5s" secondAttribute="trailing" constant="10" id="XaG-IP-8SC"/>
                                                     <constraint firstItem="Fqv-ph-O5s" firstAttribute="leading" secondItem="C16-NQ-F1Y" secondAttribute="leading" constant="10" id="a3i-Qb-fUj"/>
@@ -286,16 +273,16 @@
                     </view>
                     <navigationItem key="navigationItem" id="Olt-0v-g6R"/>
                     <connections>
-                        <outlet property="calibrateToolbarButtonOutlet" destination="u4d-bZ-Kw8" id="lSA-06-2bO"/>
+                        <outlet property="calibrateButton" destination="tJt-7J-3U6" id="R12-h0-15Z"/>
                         <outlet property="chartHoursSelection" destination="Z83-KX-5Hv" id="Hb5-po-bSc"/>
                         <outlet property="diffLabelOutlet" destination="7Wo-wd-80o" id="nnn-w9-1sX"/>
                         <outlet property="glucoseChart" destination="0nE-AX-r0w" id="pRD-sg-aj1"/>
                         <outlet property="glucoseIndicator" destination="B9A-0Y-PhM" id="XSc-Au-W3T"/>
                         <outlet property="minutesLabelOutlet" destination="uyn-2k-K74" id="XXm-rq-Suy"/>
                         <outlet property="newReadingCountDownView" destination="V90-WH-dIE" id="0Er-nN-KPr"/>
-                        <outlet property="preSnoozeToolbarButtonOutlet" destination="f3E-Tt-LBV" id="HyH-Pn-tQ6"/>
                         <outlet property="sensorCountdownOutlet" destination="HZT-Dl-efY" id="VOW-qS-jVs"/>
                         <outlet property="sensorIndicator" destination="Kba-Lh-TNW" id="OR9-m9-EfF"/>
+                        <outlet property="snoozeButton" destination="Qv7-yV-rZx" id="HAy-KF-hmB"/>
                         <outlet property="statisticsDaysSelection" destination="15O-vf-6AT" id="aMB-Fa-NB2"/>
                         <outlet property="statisticsView" destination="MtJ-rx-OB9" id="u5w-qN-5Tq"/>
                         <outlet property="valueLabelOutlet" destination="We3-bN-ffR" id="wtY-sZ-mev"/>
@@ -314,13 +301,13 @@
         <!--Snooze View Controller-->
         <scene sceneID="m7D-YP-6gx">
             <objects>
-                <viewController id="NvR-Zh-2Zn" userLabel="Snooze View Controller" customClass="SnoozeViewController" customModule="xdrip" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="snoozeAlarms" id="NvR-Zh-2Zn" userLabel="Snooze View Controller" customClass="SnoozeViewController" customModule="xdrip" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LVP-4l-G8E">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="872"/>
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="g4X-8R-g01">
-                                <rect key="frame" x="0.0" y="70" width="428" height="753"/>
+                                <rect key="frame" x="0.0" y="114" width="428" height="729"/>
                                 <color key="backgroundColor" red="0.1333333333" green="0.1529411765" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsCell" textLabel="tIz-Hj-yxH" detailTextLabel="Tpl-mr-dqb" style="IBUITableViewCellStyleValue1" id="zQ9-Zy-4Lu">
@@ -351,7 +338,7 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Snooze Alarms" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LzM-bz-Cnv">
-                                <rect key="frame" x="15" y="14.999999999999996" width="217.33333333333334" height="40.666666666666657"/>
+                                <rect key="frame" x="15" y="59" width="217.33333333333334" height="40.666666666666657"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="34"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -1563,12 +1550,10 @@
             <point key="canvasLocation" x="3973" y="581"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="V90-WH-dIE"/>
-    </designables>
     <color key="tintColor" red="0.077760688960000005" green="0.092910580340000007" blue="0.192109853" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>
         <image name="ic_alarm" width="24" height="24"/>
+        <image name="ic_calibrate" width="24" height="24"/>
         <image name="ic_clock" width="25" height="25"/>
         <image name="ic_pushpin_unlock" width="24" height="24"/>
         <image name="ic_search" width="25" height="25"/>
@@ -1580,7 +1565,6 @@
         <image name="ic_tab_settings" width="24" height="24"/>
         <image name="ic_tab_settings_h" width="24" height="24"/>
         <image name="logo-launchScreen.png" width="120" height="120"/>
-        <image name="scope" catalog="system" width="128" height="122"/>
         <image name="sensor14_14_alt" width="390" height="14"/>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

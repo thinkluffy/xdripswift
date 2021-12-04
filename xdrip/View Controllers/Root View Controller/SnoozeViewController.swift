@@ -168,16 +168,3 @@ extension SnoozeViewController: UITableViewDelegate {
     }
     
 }
-
-// MARK: - SegueIdentifiers
-
-extension SnoozeViewController {
-    
-    public enum SegueIdentifiers: String {
-        
-        /// to go from RootViewController to SnoozeViewController
-        case RootViewToSnoozeView = "RootViewToSnoozeView"
-        
-    }
-    
-}

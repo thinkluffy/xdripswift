@@ -1,20 +1,20 @@
 import Foundation
 import CoreData
 
-public class GNSEntry: NSManagedObject {
+class GNSEntry: NSManagedObject {
     
     /// batterylevel, not stored in coreData, will only be available after having received it from the M5Stack
-    public var batteryLevel: Int = 0
+    var batteryLevel: Int = 0
     
     /// create GNSEntry
     /// - parameters:
-    init(address: String, name: String, alias: String?, nsManagedObjectContext:NSManagedObjectContext) {
+    init(address: String, name: String, nsManagedObjectContext: NSManagedObjectContext) {
         
         let entity = NSEntityDescription.entity(forEntityName: "GNSEntry", in: nsManagedObjectContext)!
         
         super.init(entity: entity, insertInto: nsManagedObjectContext)
         
-        blePeripheral = BLEPeripheral(address: address, name: name, alias: nil, bluetoothPeripheralType: .GNSentryType, nsManagedObjectContext: nsManagedObjectContext)
+        blePeripheral = BLEPeripheral(address: address, name: name, bluetoothPeripheralType: .GNSentryType, nsManagedObjectContext: nsManagedObjectContext)
 
         blePeripheral.webOOPEnabled = false
 

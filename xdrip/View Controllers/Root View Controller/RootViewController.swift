@@ -15,30 +15,11 @@ final class RootViewController: UIViewController {
     
     // MARK: - Properties - Outlets and Actions for buttons and labels in home screen
     
-    @IBOutlet weak var preSnoozeToolbarButtonOutlet: UIBarButtonItem!
-    
-    @IBAction func preSnoozeToolbarButtonAction(_ sender: UIBarButtonItem) {
-        // opens the SnoozeViewController, see storyboard
-    }
-    
+    @IBOutlet weak var snoozeButton: UIButton!
+    @IBOutlet weak var calibrateButton: UIButton!
+
     @IBOutlet weak var sensorIndicator: SensorIndicator!
-    
-    @IBOutlet weak var calibrateToolbarButtonOutlet: UIBarButtonItem!
-    
-    @IBAction func calibrateToolbarButtonAction(_ sender: UIBarButtonItem) {
-        if let cgmTransmitter = bluetoothPeripheralManager?.getCGMTransmitter(), cgmTransmitter.isWebOOPEnabled() {
-            let alert = UIAlertController(title: Texts_Common.warning,
-                                          message: Texts_HomeView.calibrationNotNecessary,
-                                          actionHandler: nil)
-            present(alert, animated: true, completion: nil)
-            
-        } else {
-            trace("calibration : user clicked the calibrate button", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
-            requestCalibration(userRequested: true)
-        }
-    }
-    
-    
+
     /// outlet for label that shows how many minutes ago and so on
     @IBOutlet weak var minutesLabelOutlet: UILabel!
     
@@ -349,43 +330,16 @@ final class RootViewController: UIViewController {
 //        })
         
         // reinitialise glucose chart and also to update labels and chart
-        ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: applicationManagerKeyUpdateLabelsAndChart, closure: {
-                        
-            self.updateLabelsAndChart(overrideApplicationState: true)
-            
-            self.updateSensorCountdown()
-            
+        ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: applicationManagerKeyUpdateLabelsAndChart) { [weak self] in
+            self?.updateLabelsAndChart(overrideApplicationState: true)
+            self?.updateSensorCountdown()
             // update statistics related outlets
-            self.updateStatistics(animatePieChart: false)
-        })
+            self?.updateStatistics(animatePieChart: false)
+        }
     }
     
     private func instancePresenter() {
         presenter = RootPresenter(view: self)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        guard let segueIdentifier = segue.identifier else {
-            fatalError("In RootViewController, prepare for segue, Segue had no identifier")
-        }
-        
-        if let segueIdentifierAsCase = SnoozeViewController.SegueIdentifiers(rawValue: segueIdentifier) {
-            switch segueIdentifierAsCase {
-            
-            case SnoozeViewController.SegueIdentifiers.RootViewToSnoozeView:
-                
-                guard let vc = segue.destination as? SnoozeViewController else {
-                    
-                    fatalError("In RootViewController, prepare for segue, viewcontroller is not SnoozeViewController" )
-                    
-                }
-                
-                // configure view controller
-                vc.configure(alertManager: alertManager)
-                
-            }
-        }
     }
     
     /// sets AVAudioSession category to AVAudioSession.Category.playback with option mixWithOthers and
@@ -394,6 +348,7 @@ final class RootViewController: UIViewController {
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, options: AVAudioSession.CategoryOptions.mixWithOthers)
             try AVAudioSession.sharedInstance().setActive(true)
+            
         } catch let error {
             trace("in init, could not set AVAudioSession category to playback and mixwithOthers, error = %{public}@", log: log, category: ConstantsLog.categoryRootView, type: .error, error.localizedDescription)
         }
@@ -825,8 +780,28 @@ final class RootViewController: UIViewController {
     /// Configure View, only stuff that is independent of coredata
     private func setupView() {
         // set texts for buttons on top
-        preSnoozeToolbarButtonOutlet.title = Texts_HomeView.snoozeButton
-        calibrateToolbarButtonOutlet.title = Texts_HomeView.calibrationButton
+        
+        snoozeButton.onTap { [unowned self] _ in
+            guard let snoozeAlarmsViewController = R.storyboard.main.snoozeAlarms() else {
+                return
+            }
+            
+            snoozeAlarmsViewController.configure(alertManager: self.alertManager)
+            self.present(snoozeAlarmsViewController, animated: true)
+        }
+        
+        calibrateButton.onTap { [unowned self] _ in
+            if let cgmTransmitter = self.bluetoothPeripheralManager?.getCGMTransmitter(), cgmTransmitter.isWebOOPEnabled() {
+                let alert = UIAlertController(title: Texts_Common.warning,
+                                              message: Texts_HomeView.calibrationNotNecessary,
+                                              actionHandler: nil)
+                self.present(alert, animated: true)
+                
+            } else {
+                RootViewController.log.i("calibration : user clicked the calibrate button")
+                self.requestCalibration(userRequested: true)
+            }
+        }
         
         sensorIndicator.addTarget(self, action: #selector(sensorIndicatorDidClick(_:)), for: .touchUpInside)
         
@@ -1506,24 +1481,22 @@ final class RootViewController: UIViewController {
     }
     
     private func getCGMTransmitterDeviceName(for cgmTransmitter: CGMTransmitter) -> String? {
-        
         if let bluetoothTransmitter = cgmTransmitter as? BluetoothTransmitter {
             return bluetoothTransmitter.deviceName
         }
         
         return nil
-        
     }
     
     /// enables or disables the buttons on top of the screen
     private func changeButtonsStatusTo(enabled: Bool) {
         if enabled {
             sensorIndicator.isHidden = false
-            calibrateToolbarButtonOutlet.enable()
+            calibrateButton.isHidden = false
             
         } else {
             sensorIndicator.isHidden = true
-            calibrateToolbarButtonOutlet.disable()
+            calibrateButton.isHidden = true
         }
     }
     

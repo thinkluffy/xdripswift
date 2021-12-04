@@ -285,11 +285,7 @@ extension BluetoothPeripheralsViewController: UITableViewDataSource, UITableView
         // get the bluetoothPeripheral
         let bluetoothPeripheral = bluetoothPeripheralManager.getBluetoothPeripherals()[getIndexInTable(forRowAt: indexPath)]
         
-        // textLabel should be the user defined alias of the BluetotindeothPeripheral, or if user defined alias == nil, then the devicename
-        cell.textLabel?.text = bluetoothPeripheral.blePeripheral.alias
-        if cell.textLabel?.text == nil {
-            cell.textLabel?.text = bluetoothPeripheral.blePeripheral.name
-        }
+        cell.textLabel?.text = bluetoothPeripheral.blePeripheral.name
         
         // detail is the connection status
         cell.detailTextLabel?.text = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: bluetoothPeripheral, isScanning: false, connectButtonOutlet: nil, expectedBluetoothPeripheralType: bluetoothPeripheral.bluetoothPeripheralType(), transmitterId: nil, bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)

@@ -16,9 +16,6 @@ extension BLEPeripheral {
     /// should app try to connect to the device yes or no
     @NSManaged public var shouldconnect: Bool
     
-    /// alias chosen by user, to recognize the device or to distinguish two devices that have the same name
-    @NSManaged public var alias: String?
-    
     /// optional because not every transmitter type needs it, and even for transmitter types that need it, it's not available at the moment an object is instantiated, because for new peripherals, the assignment of transmitterId happens in the viewmodel, when user clicks the done button
     @NSManaged public var transmitterId: String?
 
@@ -32,40 +29,40 @@ extension BLEPeripheral {
     @NSManaged public var webOOPEnabled: Bool
 
     /// a BLEPeripheral should only have one of dexcomG5, watlaa, m5Stack, ...
-    @NSManaged public var dexcomG5: DexcomG5?
+    @NSManaged var dexcomG5: DexcomG5?
     
     /// a BLEPeripheral should only have one of dexcomG5, watlaa, m5Stack, ...
-    @NSManaged public var watlaa: Watlaa?
+    @NSManaged var watlaa: Watlaa?
     
     /// a BLEPeripheral should only have one of dexcomG5, watlaa, m5Stack, ...
-    @NSManaged public var m5Stack: M5Stack?
+    @NSManaged var m5Stack: M5Stack?
     
     /// a BLEPeripheral should only have one of dexcomG5, watlaa, m5Stack, ...
-    @NSManaged public var bubble: Bubble?
+    @NSManaged var bubble: Bubble?
   
     /// a BLEPeripheral should only have one of dexcomG5, watlaa, m5Stack, ...
-    @NSManaged public var miaoMiao: MiaoMiao?
+    @NSManaged var miaoMiao: MiaoMiao?
     
     /// a BLEPeripheral should only have one of dexcomG5, watlaa, m5Stack, ...
-    @NSManaged public var gNSEntry: GNSEntry?
+    @NSManaged var gNSEntry: GNSEntry?
     
     /// a BLEPeripheral should only have one of dexcomG5, watlaa, m5Stack, ...
-    @NSManaged public var blueReader: BlueReader?
+    @NSManaged var blueReader: BlueReader?
     
     // a BLEPeripheral should only have one of dexcomG5, watlaa, m5Stack, ...
-    @NSManaged public var droplet: Droplet?
+    @NSManaged var droplet: Droplet?
     
     // a BLEPeripheral should only have one of dexcomG5, watlaa, m5Stack, ...
-    @NSManaged public var blucon: Blucon?
+    @NSManaged var blucon: Blucon?
     
     // a BLEPeripheral should only have one of dexcomG5, watlaa, m5Stack, ...
-    @NSManaged public var dexcomG4: DexcomG4?
+    @NSManaged var dexcomG4: DexcomG4?
     
     // a BLEPeripheral should only have one of dexcomG5, watlaa, m5Stack, ...
-    @NSManaged public var libre2: Libre2?
+    @NSManaged var libre2: Libre2?
     
     // a BLEPeripheral should only have one of dexcomG5, watlaa, m5Stack, ...
-    @NSManaged public var atom: Atom?
+    @NSManaged var atom: Atom?
     
     /// sensorSerialNumber of last sensor that was read
     @NSManaged public var sensorSerialNumber: String?

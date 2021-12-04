@@ -106,7 +106,7 @@ enum BluetoothPeripheralType: String, CaseIterable {
             
         case .M5StackType:
             
-           let newM5Stack = M5Stack(address: address, name: name, textColor: UserDefaults.standard.m5StackTextColor ?? ConstantsM5Stack.defaultTextColor, backGroundColor: ConstantsM5Stack.defaultBackGroundColor, rotation: ConstantsM5Stack.defaultRotation, brightness: 100, alias: nil, nsManagedObjectContext: nsManagedObjectContext)
+           let newM5Stack = M5Stack(address: address, name: name, textColor: UserDefaults.standard.m5StackTextColor ?? ConstantsM5Stack.defaultTextColor, backGroundColor: ConstantsM5Stack.defaultBackGroundColor, rotation: ConstantsM5Stack.defaultRotation, brightness: 100, nsManagedObjectContext: nsManagedObjectContext)
             
             // assign password stored in UserDefaults (might be nil)
             newM5Stack.blepassword = UserDefaults.standard.m5StackBlePassword
@@ -115,59 +115,59 @@ enum BluetoothPeripheralType: String, CaseIterable {
 
         case .M5StickCType:
             
-            return M5StickC(address: address, name: name, textColor: UserDefaults.standard.m5StackTextColor ?? ConstantsM5Stack.defaultTextColor, backGroundColor: ConstantsM5Stack.defaultBackGroundColor, rotation: ConstantsM5Stack.defaultRotation, alias: nil, nsManagedObjectContext: nsManagedObjectContext)
+            return M5StickC(address: address, name: name, textColor: UserDefaults.standard.m5StackTextColor ?? ConstantsM5Stack.defaultTextColor, backGroundColor: ConstantsM5Stack.defaultBackGroundColor, rotation: ConstantsM5Stack.defaultRotation, nsManagedObjectContext: nsManagedObjectContext)
             
         case .WatlaaType:
             
-            return Watlaa(address: address, name: name, alias: nil, nsManagedObjectContext: nsManagedObjectContext)
+            return Watlaa(address: address, name: name, nsManagedObjectContext: nsManagedObjectContext)
             
         case .DexcomG5Type:
             
-            return DexcomG5(address: address, name: name, alias: nil, nsManagedObjectContext: nsManagedObjectContext)
+            return DexcomG5(address: address, name: name, nsManagedObjectContext: nsManagedObjectContext)
             
         case .DexcomG6Type:
             
             // DexcomG6 is a DexcomG5 with isDexcomG6 set to true
-            let dexcomG6 = DexcomG5(address: address, name: name, alias: nil, nsManagedObjectContext: nsManagedObjectContext)
+            let dexcomG6 = DexcomG5(address: address, name: name, nsManagedObjectContext: nsManagedObjectContext)
             dexcomG6.isDexcomG6 = true
             
             return dexcomG6
             
         case .BubbleType:
             
-            return Bubble(address: address, name: name, alias: nil, nsManagedObjectContext: nsManagedObjectContext)
+            return Bubble(address: address, name: name, nsManagedObjectContext: nsManagedObjectContext)
             
         case .MiaoMiaoType:
             
-            return MiaoMiao(address: address, name: name, alias: nil, nsManagedObjectContext: nsManagedObjectContext)
+            return MiaoMiao(address: address, name: name, nsManagedObjectContext: nsManagedObjectContext)
             
         case .BluconType:
             
-            return Blucon(address: address, name: name, alias: nil, nsManagedObjectContext: nsManagedObjectContext)
+            return Blucon(address: address, name: name, nsManagedObjectContext: nsManagedObjectContext)
             
         case .GNSentryType:
             
-            return GNSEntry(address: address, name: name, alias: nil, nsManagedObjectContext: nsManagedObjectContext)
+            return GNSEntry(address: address, name: name, nsManagedObjectContext: nsManagedObjectContext)
   
         case .BlueReaderType:
             
-            return BlueReader(address: address, name: name, alias: nil, nsManagedObjectContext: nsManagedObjectContext)
+            return BlueReader(address: address, name: name, nsManagedObjectContext: nsManagedObjectContext)
             
         case .DropletType:
             
-            return Droplet(address: address, name: name, alias: nil, nsManagedObjectContext: nsManagedObjectContext)
+            return Droplet(address: address, name: name, nsManagedObjectContext: nsManagedObjectContext)
             
         case .DexcomG4Type:
             
-            return DexcomG4(address: address, name: name, alias: nil, nsManagedObjectContext: nsManagedObjectContext)
+            return DexcomG4(address: address, name: name, nsManagedObjectContext: nsManagedObjectContext)
             
         case .Libre2Type:
             
-            return Libre2(address: address, name: name, alias: nil, nsManagedObjectContext: nsManagedObjectContext)
+            return Libre2(address: address, name: name, nsManagedObjectContext: nsManagedObjectContext)
             
         case .AtomType:
             
-            return Atom(address: address, name: name, alias: nil, nsManagedObjectContext: nsManagedObjectContext)
+            return Atom(address: address, name: name, nsManagedObjectContext: nsManagedObjectContext)
             
         }
         

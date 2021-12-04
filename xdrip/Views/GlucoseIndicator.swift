@@ -30,7 +30,7 @@ class GlucoseIndicator: UIView {
                                                                        unitIsMgDl: true)
                         valueLabelMgDl.isHidden = false
                         valueLabelInMmol.isHidden = true
-                        
+
                     } else {
                         let valueInMmol = reading.valueInMgDl.mgdlToMmol()
                         valueLabelInMmol.bgValueInMmol = valueInMmol
@@ -98,7 +98,7 @@ class GlucoseIndicator: UIView {
     private let valueLabelMgDl: UILabel = {
         let label = UILabel()
         label.textColor = ConstantsUI.contentBackgroundColor
-        label.font = .systemFont(ofSize: 45)
+        label.font = .monospacedDigitSystemFont(ofSize: 45, weight: .regular)
         label.text = "---"
         return label
     }()
@@ -206,14 +206,14 @@ class BgLabelInMmol: UIView {
     private let valueLabelMmolInt: UILabel = {
         let label = UILabel()
         label.textColor = ConstantsUI.contentBackgroundColor
-        label.font = .boldSystemFont(ofSize: 50)
+        label.font = .monospacedDigitSystemFont(ofSize: 50, weight: .bold)
         return label
     }()
     
     private let valueLabelMmolFraction: UILabel = {
         let label = UILabel()
         label.textColor = ConstantsUI.contentBackgroundColor
-        label.font = .systemFont(ofSize: 30)
+        label.font = .monospacedDigitSystemFont(ofSize: 30, weight: .regular)
         return label
     }()
     

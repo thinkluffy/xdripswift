@@ -9,7 +9,7 @@ enum ConstantsUI {
 
     static let contentBackgroundColor = UIColor.rgba(20, 24, 49)
     
-    static let accentRed = UIColor.rgba(234, 45, 100)
+    static let accentRed = UIColor.rgba(234, 45, 100) // #ffea2d64
 
     static let glucoseLowColor = UIColor.rgba(233, 127, 57)
     static let glucoseInRangeColor = UIColor.rgba(72, 235, 56)

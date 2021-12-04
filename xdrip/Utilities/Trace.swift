@@ -244,40 +244,29 @@ fileprivate func rotateTraceFiles() {
         let newFile = getDocumentsDirectory().appendingPathComponent(ConstantsTrace.traceFileName + "." + (index + 1).description + ".log")
         
         if FileHandle(forWritingAtPath: file.path) != nil {
-
             do {
                 try fileManager.moveItem(at: file, to: newFile)
+                
             } catch {
                 debuglogging("failed to rename file " + lastFile.absoluteString)
             }
-            
         }
     }
     
     // now set tracefilename to nil, it will be reassigned to correct name, ie the one with index 0, at next usage
     traceFileName = nil
-    
 }
 
 class Trace {
     
     // MARK: - private properties
-    
-    /// CoreDataManager to use
-    private static var coreDataManager:CoreDataManager?
-    
+        
     /// BluetoothPeripheralManager to use
     private static var bluetoothPeripheralManager: BluetoothPeripheralManager?
     
     private static let paragraphSeperator = "\n\n===================================================\n\n"
     
     // MARK: - initializer
-    
-    static func initialize(coreDataManager: CoreDataManager?) {
-        
-        self.coreDataManager = coreDataManager
-        
-    }
     
     // MARK: - public static functions
     
@@ -306,163 +295,156 @@ class Trace {
         
         // is showReadingInNotification on or off
         traceInfo.appendStringAndNewLine("bgReading in notification is on = " + UserDefaults.standard.showReadingInNotification.description + "\n")
-        
-        // Info from coredata
-        
-        if let coreDataManager = coreDataManager {
-
-            // accessors
-            let bLEPeripheralAccessor = BLEPeripheralAccessor()
-            let alertEntriesAccessor = AlertEntriesAccessor()
-            let alertTypesAccessor = AlertTypesAccessor()
-
-            // all bluetooth transmitters
-            traceInfo.appendStringAndNewLine("List of bluetooth peripherals:\n")
-            
-            for blePeripheral in bLEPeripheralAccessor.getBLEPeripherals() {
-                traceInfo.appendStringAndNewLine("    Name : " + blePeripheral.name)
-                traceInfo.appendStringAndNewLine("    Address : " + blePeripheral.address)
-                if let alias = blePeripheral.alias {
-                    traceInfo.appendStringAndNewLine("    Alias : " + alias)
-                }
-                traceInfo.appendStringAndNewLine("    xDrip will " + (blePeripheral.shouldconnect ? "try ":"not try") + " to connect to this peripheral")
                 
-                if let libreSensorType = blePeripheral.libreSensorType {
-                    traceInfo.appendStringAndNewLine("last known libreSensorType = " + libreSensorType.description)
-                }
+        // accessors
+        let bLEPeripheralAccessor = BLEPeripheralAccessor()
+        let alertEntriesAccessor = AlertEntriesAccessor()
+        let alertTypesAccessor = AlertTypesAccessor()
 
-                for bluetoothPeripheralType in BluetoothPeripheralType.allCases {
+        // all bluetooth transmitters
+        traceInfo.appendStringAndNewLine("List of bluetooth peripherals:\n")
+        
+        for blePeripheral in bLEPeripheralAccessor.getBLEPeripherals() {
+            traceInfo.appendStringAndNewLine("    Name : " + blePeripheral.name)
+            traceInfo.appendStringAndNewLine("    Address : " + blePeripheral.address)
+            traceInfo.appendStringAndNewLine("    xDrip will " + (blePeripheral.shouldconnect ? "try ":"not try") + " to connect to this peripheral")
+            
+            if let libreSensorType = blePeripheral.libreSensorType {
+                traceInfo.appendStringAndNewLine("last known libreSensorType = " + libreSensorType.description)
+            }
+
+            for bluetoothPeripheralType in BluetoothPeripheralType.allCases {
+                
+                switch bluetoothPeripheralType {
                     
-                    switch bluetoothPeripheralType {
-                        
-                    case .M5StackType:
-                        if let m5Stack = blePeripheral.m5Stack, !m5Stack.isM5StickC {
+                case .M5StackType:
+                    if let m5Stack = blePeripheral.m5Stack, !m5Stack.isM5StickC {
 
-                            traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
-                            traceInfo.appendStringAndNewLine("    battery level = " + m5Stack.batteryLevel.description)
-                            
-                            // if needed additional specific info can be added
-      
-                        }
+                        traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
+                        traceInfo.appendStringAndNewLine("    battery level = " + m5Stack.batteryLevel.description)
                         
-                    case .M5StickCType:
-                        if let m5Stack = blePeripheral.m5Stack, m5Stack.isM5StickC {
-                            
-                            traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
-                            traceInfo.appendStringAndNewLine("    battery level = " + m5Stack.batteryLevel.description)
-                            
-                        }
+                        // if needed additional specific info can be added
+  
+                    }
+                    
+                case .M5StickCType:
+                    if let m5Stack = blePeripheral.m5Stack, m5Stack.isM5StickC {
                         
-                    case .DexcomG4Type:
-                        if let dexcomG4 = blePeripheral.dexcomG4 {
-                            
-                            traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
-                            
-                            // if needed additional specific info can be added
-                            traceInfo.appendStringAndNewLine("    batterylevel : " + dexcomG4.batteryLevel.description)
-                            
-                        }
-                        
-                    case .DexcomG5Type:
-                        if let dexcomG5 = blePeripheral.dexcomG5, !dexcomG5.isDexcomG6 {
-                            
-                            traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
-                            
-                            // if needed additional specific info can be added
-                            traceInfo.appendStringAndNewLine("    voltageA : " + dexcomG5.voltageA.description)
-                            traceInfo.appendStringAndNewLine("    voltageB : " + dexcomG5.voltageB.description)
-                            
-                        }
-                        
-                    case .DexcomG6Type:
-                        if let dexcomG6 = blePeripheral.dexcomG5, dexcomG6.isDexcomG6 {
-                            
-                            traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
-                            
-                            // if needed additional specific info can be added
-                            traceInfo.appendStringAndNewLine("    voltageA : " + dexcomG6.voltageA.description)
-                            traceInfo.appendStringAndNewLine("    voltageB : " + dexcomG6.voltageB.description)
-                            
-                        }
-                        
-                    case .BluconType:
-                        if let blucon = blePeripheral.blucon {
-                            
-                            traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
-                            
-                            // if needed additional specific info can be added
-                            traceInfo.appendStringAndNewLine("    batteryLevel : " + blucon.batteryLevel.description)
-                            
-                        }
-                        
-                    case .BlueReaderType:
-                        if blePeripheral.blueReader != nil {
-                            
-                            traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
-                            
-                        }
-                        
-                    case .BubbleType:
-                        if let bubble = blePeripheral.bubble {
-                            
-                            traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
-                            traceInfo.appendStringAndNewLine("    batteryLevel : " + bubble.batteryLevel.description)
-                            
-                        }
-                        
-                    case .DropletType:
-                        if let droplet = blePeripheral.droplet {
-                            
-                            traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
-                            traceInfo.appendStringAndNewLine("    batteryLevel : " + droplet.batteryLevel.description)
-                            
-                        }
-
-                    case .GNSentryType:
-                        if let gNSEntry = blePeripheral.gNSEntry {
-                            
-                            traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
-                            traceInfo.appendStringAndNewLine("    batteryLevel : " + gNSEntry.batteryLevel.description)
-                            
-                        }
-
-                    case .MiaoMiaoType:
-                        if let miaoMiao = blePeripheral.miaoMiao {
-                            
-                            traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
-                            traceInfo.appendStringAndNewLine("    batteryLevel : " + miaoMiao.batteryLevel.description)
-                            
-                        }
-                        
-                    case .AtomType:
-                        if let miaoMiao = blePeripheral.atom {
-                            
-                            traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
-                            traceInfo.appendStringAndNewLine("    batteryLevel : " + miaoMiao.batteryLevel.description)
-                            
-                        }
-                        
-                    case .WatlaaType:
-                        if let watlaa = blePeripheral.watlaa {
-                            
-                            traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
-                            traceInfo.appendStringAndNewLine("    batteryLevel : " + watlaa.watlaaBatteryLevel.description)
-                            
-                        }
-                        
-                    case .Libre2Type:
-                        if blePeripheral.libre2 != nil {
-                            
-                            traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
-                            
-                        }
+                        traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
+                        traceInfo.appendStringAndNewLine("    battery level = " + m5Stack.batteryLevel.description)
                         
                     }
+                    
+                case .DexcomG4Type:
+                    if let dexcomG4 = blePeripheral.dexcomG4 {
+                        
+                        traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
+                        
+                        // if needed additional specific info can be added
+                        traceInfo.appendStringAndNewLine("    batterylevel : " + dexcomG4.batteryLevel.description)
+                        
+                    }
+                    
+                case .DexcomG5Type:
+                    if let dexcomG5 = blePeripheral.dexcomG5, !dexcomG5.isDexcomG6 {
+                        
+                        traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
+                        
+                        // if needed additional specific info can be added
+                        traceInfo.appendStringAndNewLine("    voltageA : " + dexcomG5.voltageA.description)
+                        traceInfo.appendStringAndNewLine("    voltageB : " + dexcomG5.voltageB.description)
+                        
+                    }
+                    
+                case .DexcomG6Type:
+                    if let dexcomG6 = blePeripheral.dexcomG5, dexcomG6.isDexcomG6 {
+                        
+                        traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
+                        
+                        // if needed additional specific info can be added
+                        traceInfo.appendStringAndNewLine("    voltageA : " + dexcomG6.voltageA.description)
+                        traceInfo.appendStringAndNewLine("    voltageB : " + dexcomG6.voltageB.description)
+                        
+                    }
+                    
+                case .BluconType:
+                    if let blucon = blePeripheral.blucon {
+                        
+                        traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
+                        
+                        // if needed additional specific info can be added
+                        traceInfo.appendStringAndNewLine("    batteryLevel : " + blucon.batteryLevel.description)
+                        
+                    }
+                    
+                case .BlueReaderType:
+                    if blePeripheral.blueReader != nil {
+                        
+                        traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
+                        
+                    }
+                    
+                case .BubbleType:
+                    if let bubble = blePeripheral.bubble {
+                        
+                        traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
+                        traceInfo.appendStringAndNewLine("    batteryLevel : " + bubble.batteryLevel.description)
+                        
+                    }
+                    
+                case .DropletType:
+                    if let droplet = blePeripheral.droplet {
+                        
+                        traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
+                        traceInfo.appendStringAndNewLine("    batteryLevel : " + droplet.batteryLevel.description)
+                        
+                    }
+
+                case .GNSentryType:
+                    if let gNSEntry = blePeripheral.gNSEntry {
+                        
+                        traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
+                        traceInfo.appendStringAndNewLine("    batteryLevel : " + gNSEntry.batteryLevel.description)
+                        
+                    }
+
+                case .MiaoMiaoType:
+                    if let miaoMiao = blePeripheral.miaoMiao {
+                        
+                        traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
+                        traceInfo.appendStringAndNewLine("    batteryLevel : " + miaoMiao.batteryLevel.description)
+                        
+                    }
+                    
+                case .AtomType:
+                    if let miaoMiao = blePeripheral.atom {
+                        
+                        traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
+                        traceInfo.appendStringAndNewLine("    batteryLevel : " + miaoMiao.batteryLevel.description)
+                        
+                    }
+                    
+                case .WatlaaType:
+                    if let watlaa = blePeripheral.watlaa {
+                        
+                        traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
+                        traceInfo.appendStringAndNewLine("    batteryLevel : " + watlaa.watlaaBatteryLevel.description)
+                        
+                    }
+                    
+                case .Libre2Type:
+                    if blePeripheral.libre2 != nil {
+                        
+                        traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
+                        
+                    }
+                    
                 }
-                
-                traceInfo.appendStringAndNewLine("")
-                
             }
+            
+            traceInfo.appendStringAndNewLine("")
+                
+        
             
             // all alertentries
             traceInfo.appendStringAndNewLine("List of alerts:\n")

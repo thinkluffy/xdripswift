@@ -13,7 +13,7 @@ class CountDownView: UIView {
 
     private lazy var countDownLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16)
+        label.font = .monospacedDigitSystemFont(ofSize: 16, weight: .regular)
         label.textColor = .white
         return label
     }()
