@@ -317,24 +317,6 @@ class Trace {
                 
                 switch bluetoothPeripheralType {
                     
-                case .M5StackType:
-                    if let m5Stack = blePeripheral.m5Stack, !m5Stack.isM5StickC {
-
-                        traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
-                        traceInfo.appendStringAndNewLine("    battery level = " + m5Stack.batteryLevel.description)
-                        
-                        // if needed additional specific info can be added
-  
-                    }
-                    
-                case .M5StickCType:
-                    if let m5Stack = blePeripheral.m5Stack, m5Stack.isM5StickC {
-                        
-                        traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
-                        traceInfo.appendStringAndNewLine("    battery level = " + m5Stack.batteryLevel.description)
-                        
-                    }
-                    
                 case .DexcomG4Type:
                     if let dexcomG4 = blePeripheral.dexcomG4 {
                         

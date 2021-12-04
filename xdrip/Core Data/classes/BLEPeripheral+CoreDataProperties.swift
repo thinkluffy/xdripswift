@@ -35,9 +35,6 @@ extension BLEPeripheral {
     @NSManaged var watlaa: Watlaa?
     
     /// a BLEPeripheral should only have one of dexcomG5, watlaa, m5Stack, ...
-    @NSManaged var m5Stack: M5Stack?
-    
-    /// a BLEPeripheral should only have one of dexcomG5, watlaa, m5Stack, ...
     @NSManaged var bubble: Bubble?
   
     /// a BLEPeripheral should only have one of dexcomG5, watlaa, m5Stack, ...

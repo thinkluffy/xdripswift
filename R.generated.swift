@@ -221,14 +221,12 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This struct is generated for `SettingsViewController`, and contains static references to 4 segues.
+    /// This struct is generated for `SettingsViewController`, and contains static references to 3 segues.
     struct xdripSettingsViewController {
       /// Segue identifier `settingsToAlertSettings`.
       static let settingsToAlertSettings: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, xdrip.SettingsViewController, xdrip.AlertsSettingsViewController> = Rswift.StoryboardSegueIdentifier(identifier: "settingsToAlertSettings")
       /// Segue identifier `settingsToAlertTypeSettings`.
       static let settingsToAlertTypeSettings: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, xdrip.SettingsViewController, xdrip.AlertTypesSettingsViewController> = Rswift.StoryboardSegueIdentifier(identifier: "settingsToAlertTypeSettings")
-      /// Segue identifier `settingsToM5StackSettings`.
-      static let settingsToM5StackSettings: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, xdrip.SettingsViewController, xdrip.M5StackSettingsViewController> = Rswift.StoryboardSegueIdentifier(identifier: "settingsToM5StackSettings")
       /// Segue identifier `settingsToMore`.
       static let settingsToMore: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, xdrip.SettingsViewController, MoreSettingsViewController> = Rswift.StoryboardSegueIdentifier(identifier: "settingsToMore")
 
@@ -247,15 +245,6 @@ struct R: Rswift.Validatable {
       /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
       static func settingsToAlertTypeSettings(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, xdrip.SettingsViewController, xdrip.AlertTypesSettingsViewController>? {
         return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.xdripSettingsViewController.settingsToAlertTypeSettings, segue: segue)
-      }
-      #endif
-
-      #if os(iOS) || os(tvOS)
-      /// Optionally returns a typed version of segue `settingsToM5StackSettings`.
-      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
-      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      static func settingsToM5StackSettings(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, xdrip.SettingsViewController, xdrip.M5StackSettingsViewController>? {
-        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.xdripSettingsViewController.settingsToM5StackSettings, segue: segue)
       }
       #endif
 

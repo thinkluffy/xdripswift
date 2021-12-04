@@ -114,35 +114,6 @@ extension UserDefaults {
         /// message shown when user starts a sensor, which tells that timing should be exact, was it already shown or not
         case startSensorTimeInfoGiven = "startSensorTimeInfoGiven"
         
-        // M5Stack
-        
-        /// M5Stack blepassword, needed for authenticating App to M5Stack
-        case m5StackBlePassword = "M5StackBlePassword"
-        
-        /// M5Stack text color
-        case m5StackTextColor = "m5StackTextColor"
-        
-        /// M5Stack background color
-        case m5StackBackGroundColor = "m5StackBackGroundColor"
-        
-        /// name of wifi 1 to be configured in M5Stack
-        case m5StackWiFiName1 = "m5StackWiFiName1"
-        
-        /// name of wifi 2 to be configured in M5Stack
-        case m5StackWiFiName2 = "m5StackWiFiName2"
-        
-        /// name of wifi 3 to be configured in M5Stack
-        case m5StackWiFiName3 = "m5StackWiFiName3"
-        
-        /// Password of wifi 1 to be configured in M5Stack
-        case m5StackWiFiPassword1 = "m5StackWiFiPassword1"
-        
-        /// Password of wifi 2 to be configured in M5Stack
-        case m5StackWiFiPassword2 = "m5StackWiFiPassword2"
-        
-        /// Password of wifi 3 to be configured in M5Stack
-        case m5StackWiFiPassword3 = "m5StackWiFiPassword3"
-        
         // Apple Watch
         
         /// create calendar event yes or no
@@ -772,94 +743,6 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: Key.startSensorTimeInfoGiven.rawValue)
-        }
-    }
-    
-    // MARK: M5Stack
-
-    /// M5StackBlePassword, used for authenticating xdrip app towards M5Stack
-    var m5StackBlePassword: String? {
-        get {
-            return string(forKey: Key.m5StackBlePassword.rawValue)
-        }
-        set {
-            set(newValue, forKey: Key.m5StackBlePassword.rawValue)
-        }
-    }
-    
-    /// M5 Stack text color, this is the default text color for new m5Stacks. Per M5Stack it is possible to change the textcolor
-    var m5StackTextColor: M5StackColor? {
-        get {
-            let textColorAsInt = integer(forKey: Key.m5StackTextColor.rawValue)
-            if textColorAsInt > 0 {
-                return M5StackColor(forUInt16: UInt16(textColorAsInt))
-            } else {
-                return nil
-            }
-        }
-        set {
-            let newValueAsInt:Int? = {if let newValue = newValue {return Int(newValue.rawValue)} else {return nil}}()
-            set(newValueAsInt, forKey: Key.m5StackTextColor.rawValue)
-        }
-    }
-    
-    /// name of wifi 1 to be configured in M5Stack
-    var m5StackWiFiName1: String? {
-        get {
-            return string(forKey: Key.m5StackWiFiName1.rawValue)
-        }
-        set {
-            set(newValue, forKey: Key.m5StackWiFiName1.rawValue)
-        }
-    }
-    
-    /// name of wifi 2 to be configured in M5Stack
-    var m5StackWiFiName2: String? {
-        get {
-            return string(forKey: Key.m5StackWiFiName2.rawValue)
-        }
-        set {
-            set(newValue, forKey: Key.m5StackWiFiName2.rawValue)
-        }
-    }
-    
-    /// name of wifi 3 to be configured in M5Stack
-    var m5StackWiFiName3: String? {
-        get {
-            return string(forKey: Key.m5StackWiFiName3.rawValue)
-        }
-        set {
-            set(newValue, forKey: Key.m5StackWiFiName3.rawValue)
-        }
-    }
-    
-    /// Password of wifi 1 to be configured in M5Stack
-    var m5StackWiFiPassword1: String? {
-        get {
-            return string(forKey: Key.m5StackWiFiPassword1.rawValue)
-        }
-        set {
-            set(newValue, forKey: Key.m5StackWiFiPassword1.rawValue)
-        }
-    }
-    
-    /// Password of wifi 2 to be configured in M5Stack
-    var m5StackWiFiPassword2: String? {
-        get {
-            return string(forKey: Key.m5StackWiFiPassword2.rawValue)
-        }
-        set {
-            set(newValue, forKey: Key.m5StackWiFiPassword2.rawValue)
-        }
-    }
-    
-    /// Password of wifi 3 to be configured in M5Stack
-    var m5StackWiFiPassword3: String? {
-        get {
-            return string(forKey: Key.m5StackWiFiPassword3.rawValue)
-        }
-        set {
-            set(newValue, forKey: Key.m5StackWiFiPassword3.rawValue)
         }
     }
     

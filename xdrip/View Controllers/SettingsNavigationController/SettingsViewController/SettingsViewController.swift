@@ -44,9 +44,6 @@ final class SettingsViewController: UIViewController {
         /// store bg values in healthkit
         case speak
         
-        /// M5 stack settings
-        case M5stack
-        
         /// Apple Watch settings
         case AppleWatch
         
@@ -72,8 +69,6 @@ final class SettingsViewController: UIViewController {
                 return SettingsViewHealthKitSettingsViewModel()
             case .speak:
                 return SettingsViewSpeakSettingsViewModel()
-            case .M5stack:
-                return SettingsViewM5StackSettingsViewModel()
             case .AppleWatch:
                 return SettingsViewAppleWatchSettingsViewModel()
             case .more:
@@ -224,16 +219,13 @@ extension SettingsViewController:UITableViewDataSource, UITableViewDelegate {
 /// defines perform segue identifiers used within settingsviewcontroller
 extension SettingsViewController {
     
-    enum SegueIdentifiers:String {
+    enum SegueIdentifiers: String {
 
         /// to go from general settings screen to alert types screen
         case settingsToAlertTypeSettings = "settingsToAlertTypeSettings"
         
         /// to go from general settings screen to alert screen
         case settingsToAlertSettings = "settingsToAlertSettings"
-        
-        /// to go from general settings screen to M5Stack settings screen
-        case settingsToM5StackSettings = "settingsToM5StackSettings"
         
         /// to go from general settings to more settings
         case settingsToMore = "settingsToMore"

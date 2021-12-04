@@ -95,8 +95,6 @@
 		F8025E5021EE746400ECF0C0 /* Calibrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8025E4F21EE746400ECF0C0 /* Calibrator.swift */; };
 		F8025E5421EE8D2100ECF0C0 /* Libre1Calibrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8025E5321EE8D2100ECF0C0 /* Libre1Calibrator.swift */; };
 		F8025E6B21F7CD7600ECF0C0 /* UIStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8025E6A21F7CD7600ECF0C0 /* UIStoryboard.swift */; };
-		F804870C2336D90200EBDDB7 /* M5Stack+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F804870A2336D90200EBDDB7 /* M5Stack+CoreDataClass.swift */; };
-		F804870D2336D90200EBDDB7 /* M5Stack+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F804870B2336D90200EBDDB7 /* M5Stack+CoreDataProperties.swift */; };
 		F80610C4222D4E4D00D8F236 /* ActionClosureable-extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80610C3222D4E4D00D8F236 /* ActionClosureable-extension.swift */; };
 		F80859272364355F00F3829D /* ConstantsGlucoseChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80859262364355F00F3829D /* ConstantsGlucoseChart.swift */; };
 		F80859292364D61B00F3829D /* UserDefaults+charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80859282364D61B00F3829D /* UserDefaults+charts.swift */; };
@@ -113,9 +111,6 @@
 		F80D916B24F82913006840B5 /* CGMLibre2Transmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80D916A24F82913006840B5 /* CGMLibre2Transmitter.swift */; };
 		F80D916D24F82A17006840B5 /* CGMLibre2TransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80D916C24F82A17006840B5 /* CGMLibre2TransmitterDelegate.swift */; };
 		F80D917024F85C7A006840B5 /* Libre2+BluetoothPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80D916F24F85C7A006840B5 /* Libre2+BluetoothPeripheral.swift */; };
-		F80ED2EC236F68F90005C035 /* SettingsViewM5StackBluetoothSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80ED2E9236F68F90005C035 /* SettingsViewM5StackBluetoothSettingsViewModel.swift */; };
-		F80ED2ED236F68F90005C035 /* SettingsViewM5StackGeneralSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80ED2EA236F68F90005C035 /* SettingsViewM5StackGeneralSettingsViewModel.swift */; };
-		F80ED2EE236F68F90005C035 /* SettingsViewM5StackWiFiSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80ED2EB236F68F90005C035 /* SettingsViewM5StackWiFiSettingsViewModel.swift */; };
 		F816E0E22432A4D1009EE65B /* Blucon+BluetoothPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F816E0E12432A4D1009EE65B /* Blucon+BluetoothPeripheral.swift */; };
 		F816E0E42432A4FA009EE65B /* CGMBluconTransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F816E0E32432A4FA009EE65B /* CGMBluconTransmitterDelegate.swift */; };
 		F816E0ED2432A55F009EE65B /* BluconBluetoothPeripheralViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F816E0EC2432A55F009EE65B /* BluconBluetoothPeripheralViewModel.swift */; };
@@ -359,7 +354,6 @@
 		F8A2BC2E25DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMDropletTransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A2BC1F25DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMDropletTransmitterDelegate.swift */; };
 		F8A2BC2F25DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMBlueReaderTransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A2BC2025DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMBlueReaderTransmitterDelegate.swift */; };
 		F8A2BC3025DB0D6D001D1E78 /* BluetoothPeripheralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A2BC2125DB0D6D001D1E78 /* BluetoothPeripheralManager.swift */; };
-		F8A2BC3125DB0D6D001D1E78 /* BluetoothPeripheralManager+M5StackBluetoothTransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A2BC2225DB0D6D001D1E78 /* BluetoothPeripheralManager+M5StackBluetoothTransmitterDelegate.swift */; };
 		F8A2BC3225DB0D6D001D1E78 /* BluetoothPeripheralManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A2BC2325DB0D6D001D1E78 /* BluetoothPeripheralManaging.swift */; };
 		F8A2BC3325DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMDexcomG4TransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A2BC2425DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMDexcomG4TransmitterDelegate.swift */; };
 		F8A2BC3425DB0D6D001D1E78 /* BluetoothPeripheralManager+WatlaaBluetoothTransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A2BC2525DB0D6D001D1E78 /* BluetoothPeripheralManager+WatlaaBluetoothTransmitterDelegate.swift */; };
@@ -373,9 +367,7 @@
 		F8A2BC3F25DB0D89001D1E78 /* BluetoothPeripheralManager+CGMAtomTransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A2BC3E25DB0D89001D1E78 /* BluetoothPeripheralManager+CGMAtomTransmitterDelegate.swift */; };
 		F8A2BC4525DB2679001D1E78 /* AtomResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A2BC4425DB2679001D1E78 /* AtomResponseType.swift */; };
 		F8A389C823203E3E0010F405 /* ConstantsM5Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A389C723203E3E0010F405 /* ConstantsM5Stack.swift */; };
-		F8A389CF232AE2EA0010F405 /* M5StackSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A389CE232AE2E90010F405 /* M5StackSettingsViewController.swift */; };
 		F8A389E7232ECE7E0010F405 /* SettingsViewUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A389E6232ECE7E0010F405 /* SettingsViewUtilities.swift */; };
-		F8A389EB233175A10010F405 /* SettingsViewM5StackSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A389EA233175A10010F405 /* SettingsViewM5StackSettingsViewModel.swift */; };
 		F8A389ED23342EB10010F405 /* ConstantsNightScout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A389EC23342EB10010F405 /* ConstantsNightScout.swift */; };
 		F8A54AAD22D6859200934E7A /* SlopeParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A54AAC22D6859200934E7A /* SlopeParameters.swift */; };
 		F8A54AAF22D686CD00934E7A /* NightScoutBgReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A54AAE22D686CD00934E7A /* NightScoutBgReading.swift */; };
@@ -502,7 +494,6 @@
 		F8EEDD6423020FAD00D2D610 /* NoCalibrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EEDD6323020FAD00D2D610 /* NoCalibrator.swift */; };
 		F8F7B8E6259A6EBF00C47B04 /* LibreSmoothing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F7B8E5259A6EBF00C47B04 /* LibreSmoothing.swift */; };
 		F8F7B8EB259A7B1C00C47B04 /* SavitzkyGolaySmoothableArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F7B8EA259A7B1C00C47B04 /* SavitzkyGolaySmoothableArray.swift */; };
-		F8F971B623A5914D00C3F17D /* M5Stack+BluetoothPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F971B123A5914C00C3F17D /* M5Stack+BluetoothPeripheral.swift */; };
 		F8F971B723A5914D00C3F17D /* BluetoothPeripheralType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F971B423A5914C00C3F17D /* BluetoothPeripheralType.swift */; };
 		F8F971B823A5914D00C3F17D /* BluetoothPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F971B523A5914C00C3F17D /* BluetoothPeripheral.swift */; };
 		F8F9720223A5915900C3F17D /* CGMG6Transmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F971BD23A5915900C3F17D /* CGMG6Transmitter.swift */; };
@@ -543,19 +534,9 @@
 		F8F9722A23A5915900C3F17D /* TransmitterBatteryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F971F223A5915900C3F17D /* TransmitterBatteryInfo.swift */; };
 		F8F9722B23A5915900C3F17D /* CGMTransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F971F323A5915900C3F17D /* CGMTransmitterDelegate.swift */; };
 		F8F9722C23A5915900C3F17D /* GlucoseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F971F423A5915900C3F17D /* GlucoseData.swift */; };
-		F8F9722D23A5915900C3F17D /* M5StackBluetoothTransmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F971F623A5915900C3F17D /* M5StackBluetoothTransmitter.swift */; };
-		F8F9722E23A5915900C3F17D /* M5StackTransmitterOpCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F971F723A5915900C3F17D /* M5StackTransmitterOpCode.swift */; };
-		F8F9722F23A5915900C3F17D /* M5StackPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F971F923A5915900C3F17D /* M5StackPacket.swift */; };
-		F8F9723023A5915900C3F17D /* M5StackUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F971FA23A5915900C3F17D /* M5StackUtilities.swift */; };
-		F8F9723123A5915900C3F17D /* M5StackAuthenticateTXMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F971FC23A5915900C3F17D /* M5StackAuthenticateTXMessage.swift */; };
-		F8F9723223A5915900C3F17D /* M5StackReadBlePassWordTxMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F971FD23A5915900C3F17D /* M5StackReadBlePassWordTxMessage.swift */; };
-		F8F9723323A5915900C3F17D /* M5StackBluetoothTransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F971FE23A5915900C3F17D /* M5StackBluetoothTransmitterDelegate.swift */; };
 		F8F9723423A5915900C3F17D /* BluetoothTransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F9720023A5915900C3F17D /* BluetoothTransmitterDelegate.swift */; };
 		F8F9723523A5915900C3F17D /* BluetoothTransmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F9720123A5915900C3F17D /* BluetoothTransmitter.swift */; };
-		F8F9723923A5928D00C3F17D /* M5StackBluetoothPeripheralViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F9723823A5928D00C3F17D /* M5StackBluetoothPeripheralViewModel.swift */; };
-		F8F9723E23A593C000C3F17D /* M5StickCBluetoothPeripheralViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F9723D23A593C000C3F17D /* M5StickCBluetoothPeripheralViewModel.swift */; };
 		F8F9724723A69A8000C3F17D /* BluetoothPeripheralCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F9724623A69A8000C3F17D /* BluetoothPeripheralCategory.swift */; };
-		F8F9724923A69DAE00C3F17D /* M5StickC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F9724823A69DAE00C3F17D /* M5StickC.swift */; };
 		F8FDD6CB2553385000625B49 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FDD6CA2553385000625B49 /* Array.swift */; };
 		F8FDFEA9260DE1A70047597D /* DTCustomColoredAccessory.m in Sources */ = {isa = PBXBuildFile; fileRef = F8FDFEA8260DE1A70047597D /* DTCustomColoredAccessory.m */; };
 		F8FDFEAD260DE1B90047597D /* ConstantsUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FDFEAC260DE1B90047597D /* ConstantsUI.swift */; };
@@ -777,8 +758,6 @@
 		F8025E4F21EE746400ECF0C0 /* Calibrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calibrator.swift; sourceTree = "<group>"; };
 		F8025E5321EE8D2100ECF0C0 /* Libre1Calibrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Libre1Calibrator.swift; sourceTree = "<group>"; };
 		F8025E6A21F7CD7600ECF0C0 /* UIStoryboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStoryboard.swift; sourceTree = "<group>"; };
-		F804870A2336D90200EBDDB7 /* M5Stack+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "M5Stack+CoreDataClass.swift"; sourceTree = "<group>"; };
-		F804870B2336D90200EBDDB7 /* M5Stack+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "M5Stack+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F80610C3222D4E4D00D8F236 /* ActionClosureable-extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActionClosureable-extension.swift"; sourceTree = "<group>"; };
 		F80859262364355F00F3829D /* ConstantsGlucoseChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsGlucoseChart.swift; sourceTree = "<group>"; };
 		F80859282364D61B00F3829D /* UserDefaults+charts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+charts.swift"; sourceTree = "<group>"; };
@@ -795,9 +774,6 @@
 		F80D916A24F82913006840B5 /* CGMLibre2Transmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGMLibre2Transmitter.swift; sourceTree = "<group>"; };
 		F80D916C24F82A17006840B5 /* CGMLibre2TransmitterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGMLibre2TransmitterDelegate.swift; sourceTree = "<group>"; };
 		F80D916F24F85C7A006840B5 /* Libre2+BluetoothPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Libre2+BluetoothPeripheral.swift"; sourceTree = "<group>"; };
-		F80ED2E9236F68F90005C035 /* SettingsViewM5StackBluetoothSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewM5StackBluetoothSettingsViewModel.swift; sourceTree = "<group>"; };
-		F80ED2EA236F68F90005C035 /* SettingsViewM5StackGeneralSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewM5StackGeneralSettingsViewModel.swift; sourceTree = "<group>"; };
-		F80ED2EB236F68F90005C035 /* SettingsViewM5StackWiFiSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewM5StackWiFiSettingsViewModel.swift; sourceTree = "<group>"; };
 		F816E0E12432A4D1009EE65B /* Blucon+BluetoothPeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Blucon+BluetoothPeripheral.swift"; sourceTree = "<group>"; };
 		F816E0E32432A4FA009EE65B /* CGMBluconTransmitterDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGMBluconTransmitterDelegate.swift; sourceTree = "<group>"; };
 		F816E0EC2432A55F009EE65B /* BluconBluetoothPeripheralViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluconBluetoothPeripheralViewModel.swift; sourceTree = "<group>"; };
@@ -1224,7 +1200,6 @@
 		F8A2BC1F25DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMDropletTransmitterDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BluetoothPeripheralManager+CGMDropletTransmitterDelegate.swift"; sourceTree = "<group>"; };
 		F8A2BC2025DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMBlueReaderTransmitterDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BluetoothPeripheralManager+CGMBlueReaderTransmitterDelegate.swift"; sourceTree = "<group>"; };
 		F8A2BC2125DB0D6D001D1E78 /* BluetoothPeripheralManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheralManager.swift; sourceTree = "<group>"; };
-		F8A2BC2225DB0D6D001D1E78 /* BluetoothPeripheralManager+M5StackBluetoothTransmitterDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BluetoothPeripheralManager+M5StackBluetoothTransmitterDelegate.swift"; sourceTree = "<group>"; };
 		F8A2BC2325DB0D6D001D1E78 /* BluetoothPeripheralManaging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheralManaging.swift; sourceTree = "<group>"; };
 		F8A2BC2425DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMDexcomG4TransmitterDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BluetoothPeripheralManager+CGMDexcomG4TransmitterDelegate.swift"; sourceTree = "<group>"; };
 		F8A2BC2525DB0D6D001D1E78 /* BluetoothPeripheralManager+WatlaaBluetoothTransmitterDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BluetoothPeripheralManager+WatlaaBluetoothTransmitterDelegate.swift"; sourceTree = "<group>"; };
@@ -1238,9 +1213,7 @@
 		F8A2BC3E25DB0D89001D1E78 /* BluetoothPeripheralManager+CGMAtomTransmitterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BluetoothPeripheralManager+CGMAtomTransmitterDelegate.swift"; sourceTree = "<group>"; };
 		F8A2BC4425DB2679001D1E78 /* AtomResponseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomResponseType.swift; sourceTree = "<group>"; };
 		F8A389C723203E3E0010F405 /* ConstantsM5Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsM5Stack.swift; sourceTree = "<group>"; };
-		F8A389CE232AE2E90010F405 /* M5StackSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M5StackSettingsViewController.swift; sourceTree = "<group>"; };
 		F8A389E6232ECE7E0010F405 /* SettingsViewUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewUtilities.swift; sourceTree = "<group>"; };
-		F8A389EA233175A10010F405 /* SettingsViewM5StackSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewM5StackSettingsViewModel.swift; sourceTree = "<group>"; };
 		F8A389EC23342EB10010F405 /* ConstantsNightScout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsNightScout.swift; sourceTree = "<group>"; };
 		F8A54AAC22D6859200934E7A /* SlopeParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlopeParameters.swift; sourceTree = "<group>"; };
 		F8A54AAE22D686CD00934E7A /* NightScoutBgReading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NightScoutBgReading.swift; sourceTree = "<group>"; };
@@ -1411,7 +1384,6 @@
 		F8EEDD6323020FAD00D2D610 /* NoCalibrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoCalibrator.swift; sourceTree = "<group>"; };
 		F8F7B8E5259A6EBF00C47B04 /* LibreSmoothing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibreSmoothing.swift; sourceTree = "<group>"; };
 		F8F7B8EA259A7B1C00C47B04 /* SavitzkyGolaySmoothableArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavitzkyGolaySmoothableArray.swift; sourceTree = "<group>"; };
-		F8F971B123A5914C00C3F17D /* M5Stack+BluetoothPeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "M5Stack+BluetoothPeripheral.swift"; sourceTree = "<group>"; };
 		F8F971B423A5914C00C3F17D /* BluetoothPeripheralType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheralType.swift; sourceTree = "<group>"; };
 		F8F971B523A5914C00C3F17D /* BluetoothPeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheral.swift; sourceTree = "<group>"; };
 		F8F971BD23A5915900C3F17D /* CGMG6Transmitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGMG6Transmitter.swift; sourceTree = "<group>"; };
@@ -1453,19 +1425,9 @@
 		F8F971F223A5915900C3F17D /* TransmitterBatteryInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransmitterBatteryInfo.swift; sourceTree = "<group>"; };
 		F8F971F323A5915900C3F17D /* CGMTransmitterDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGMTransmitterDelegate.swift; sourceTree = "<group>"; };
 		F8F971F423A5915900C3F17D /* GlucoseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlucoseData.swift; sourceTree = "<group>"; };
-		F8F971F623A5915900C3F17D /* M5StackBluetoothTransmitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M5StackBluetoothTransmitter.swift; sourceTree = "<group>"; };
-		F8F971F723A5915900C3F17D /* M5StackTransmitterOpCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M5StackTransmitterOpCode.swift; sourceTree = "<group>"; };
-		F8F971F923A5915900C3F17D /* M5StackPacket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M5StackPacket.swift; sourceTree = "<group>"; };
-		F8F971FA23A5915900C3F17D /* M5StackUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M5StackUtilities.swift; sourceTree = "<group>"; };
-		F8F971FC23A5915900C3F17D /* M5StackAuthenticateTXMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M5StackAuthenticateTXMessage.swift; sourceTree = "<group>"; };
-		F8F971FD23A5915900C3F17D /* M5StackReadBlePassWordTxMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M5StackReadBlePassWordTxMessage.swift; sourceTree = "<group>"; };
-		F8F971FE23A5915900C3F17D /* M5StackBluetoothTransmitterDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M5StackBluetoothTransmitterDelegate.swift; sourceTree = "<group>"; };
 		F8F9720023A5915900C3F17D /* BluetoothTransmitterDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothTransmitterDelegate.swift; sourceTree = "<group>"; };
 		F8F9720123A5915900C3F17D /* BluetoothTransmitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothTransmitter.swift; sourceTree = "<group>"; };
-		F8F9723823A5928D00C3F17D /* M5StackBluetoothPeripheralViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M5StackBluetoothPeripheralViewModel.swift; sourceTree = "<group>"; };
-		F8F9723D23A593C000C3F17D /* M5StickCBluetoothPeripheralViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = M5StickCBluetoothPeripheralViewModel.swift; sourceTree = "<group>"; };
 		F8F9724623A69A8000C3F17D /* BluetoothPeripheralCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheralCategory.swift; sourceTree = "<group>"; };
-		F8F9724823A69DAE00C3F17D /* M5StickC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M5StickC.swift; sourceTree = "<group>"; };
 		F8FDD6CA2553385000625B49 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		F8FDFEA7260DE1A70047597D /* DTCustomColoredAccessory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTCustomColoredAccessory.h; sourceTree = "<group>"; };
 		F8FDFEA8260DE1A70047597D /* DTCustomColoredAccessory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTCustomColoredAccessory.m; sourceTree = "<group>"; };
@@ -1805,16 +1767,6 @@
 			path = Libre2;
 			sourceTree = "<group>";
 		};
-		F80ED2E8236F68D90005C035 /* M5StackSettingsViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				F80ED2E9236F68F90005C035 /* SettingsViewM5StackBluetoothSettingsViewModel.swift */,
-				F80ED2EA236F68F90005C035 /* SettingsViewM5StackGeneralSettingsViewModel.swift */,
-				F80ED2EB236F68F90005C035 /* SettingsViewM5StackWiFiSettingsViewModel.swift */,
-			);
-			path = M5StackSettingsViewModels;
-			sourceTree = "<group>";
-		};
 		F816E0E02432A4D1009EE65B /* Blucon */ = {
 			isa = PBXGroup;
 			children = (
@@ -1985,7 +1937,6 @@
 				F8A2BC1F25DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMDropletTransmitterDelegate.swift */,
 				F8A2BC2025DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMBlueReaderTransmitterDelegate.swift */,
 				F8A2BC2125DB0D6D001D1E78 /* BluetoothPeripheralManager.swift */,
-				F8A2BC2225DB0D6D001D1E78 /* BluetoothPeripheralManager+M5StackBluetoothTransmitterDelegate.swift */,
 				F8A2BC2325DB0D6D001D1E78 /* BluetoothPeripheralManaging.swift */,
 				F8A2BC2425DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMDexcomG4TransmitterDelegate.swift */,
 				F8A2BC2525DB0D6D001D1E78 /* BluetoothPeripheralManager+WatlaaBluetoothTransmitterDelegate.swift */,
@@ -2199,15 +2150,6 @@
 				F8A2BC4425DB2679001D1E78 /* AtomResponseType.swift */,
 			);
 			path = Atom;
-			sourceTree = "<group>";
-		};
-		F8A389CD232A6A6F0010F405 /* M5StackSettingsViewController */ = {
-			isa = PBXGroup;
-			children = (
-				F80ED2E8236F68D90005C035 /* M5StackSettingsViewModels */,
-				F8A389CE232AE2E90010F405 /* M5StackSettingsViewController.swift */,
-			);
-			path = M5StackSettingsViewController;
 			sourceTree = "<group>";
 		};
 		F8AC425121ADEBD60078C348 = {
@@ -2474,7 +2416,6 @@
 				F8B3A841227F090D004BA588 /* SettingsViewController.swift */,
 				F8B3A851227F2743004BA588 /* AlertsSettingsViewController */,
 				F8B3A84E227F26F8004BA588 /* AlertTypesSettingsViewController */,
-				F8A389CD232A6A6F0010F405 /* M5StackSettingsViewController */,
 				4EE66F092733EADF00548A46 /* MoreSettingsViewController */,
 				F8B3A837227F090D004BA588 /* SettingsViewModels */,
 				F8A389E6232ECE7E0010F405 /* SettingsViewUtilities.swift */,
@@ -2491,7 +2432,6 @@
 				F8B3A839227F090D004BA588 /* SettingsViewDexcomSettingsViewModel.swift */,
 				F8B3A83E227F090D004BA588 /* SettingsViewGeneralSettingsViewModel.swift */,
 				F8B3A83C227F090D004BA588 /* SettingsViewHealthKitSettingsViewModel.swift */,
-				F8A389EA233175A10010F405 /* SettingsViewM5StackSettingsViewModel.swift */,
 				F8B3A83B227F090D004BA588 /* SettingsViewNightScoutSettingsViewModel.swift */,
 				F8B3A83D227F090D004BA588 /* SettingsViewSpeakSettingsViewModel.swift */,
 				4752B4052635878E0081D551 /* SettingsViewStatisticsSettingsViewModel.swift */,
@@ -2743,8 +2683,6 @@
 				F816E0F424367131009EE65B /* GNSEntry+CoreDataProperties.swift */,
 				F80D916324F5B3DE006840B5 /* Libre2+CoreDataClass.swift */,
 				F80D916224F5B3DE006840B5 /* Libre2+CoreDataProperties.swift */,
-				F804870A2336D90200EBDDB7 /* M5Stack+CoreDataClass.swift */,
-				F804870B2336D90200EBDDB7 /* M5Stack+CoreDataProperties.swift */,
 				F8C97851242AA70C00A09483 /* MiaoMiao+CoreDataClass.swift */,
 				F8C97852242AA70C00A09483 /* MiaoMiao+CoreDataProperties.swift */,
 				F85DC2F121CFE3D400B9F74A /* Sensor+CoreDataClass.swift */,
@@ -2790,7 +2728,6 @@
 			children = (
 				F830992123C291EE005741DF /* watlaa */,
 				F8F971AE23A5914C00C3F17D /* CGM */,
-				F8F971AF23A5914C00C3F17D /* M5 */,
 				F8F971B323A5914C00C3F17D /* Generic */,
 			);
 			path = BluetoothPeripheral;
@@ -2803,31 +2740,6 @@
 				F8DF765923E350B100063910 /* Dexcom */,
 			);
 			path = CGM;
-			sourceTree = "<group>";
-		};
-		F8F971AF23A5914C00C3F17D /* M5 */ = {
-			isa = PBXGroup;
-			children = (
-				F8F971B023A5914C00C3F17D /* M5Stack */,
-				F8F971B223A5914C00C3F17D /* M5StickC */,
-			);
-			path = M5;
-			sourceTree = "<group>";
-		};
-		F8F971B023A5914C00C3F17D /* M5Stack */ = {
-			isa = PBXGroup;
-			children = (
-				F8F971B123A5914C00C3F17D /* M5Stack+BluetoothPeripheral.swift */,
-			);
-			path = M5Stack;
-			sourceTree = "<group>";
-		};
-		F8F971B223A5914C00C3F17D /* M5StickC */ = {
-			isa = PBXGroup;
-			children = (
-				F8F9724823A69DAE00C3F17D /* M5StickC.swift */,
-			);
-			path = M5StickC;
 			sourceTree = "<group>";
 		};
 		F8F971B323A5914C00C3F17D /* Generic */ = {
@@ -2845,7 +2757,6 @@
 			children = (
 				F830991E23C291E2005741DF /* watlaa */,
 				F8F971BA23A5915900C3F17D /* CGM */,
-				F8F971F523A5915900C3F17D /* M5Stack */,
 				F8F971FF23A5915900C3F17D /* Generic */,
 			);
 			path = BluetoothTransmitter;
@@ -3035,36 +2946,6 @@
 			path = Generic;
 			sourceTree = "<group>";
 		};
-		F8F971F523A5915900C3F17D /* M5Stack */ = {
-			isa = PBXGroup;
-			children = (
-				F8F971F623A5915900C3F17D /* M5StackBluetoothTransmitter.swift */,
-				F8F971FE23A5915900C3F17D /* M5StackBluetoothTransmitterDelegate.swift */,
-				F8F971FB23A5915900C3F17D /* M5StackMessages */,
-				F8F971F723A5915900C3F17D /* M5StackTransmitterOpCode.swift */,
-				F8F971F823A5915900C3F17D /* Utilities */,
-			);
-			path = M5Stack;
-			sourceTree = "<group>";
-		};
-		F8F971F823A5915900C3F17D /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				F8F971F923A5915900C3F17D /* M5StackPacket.swift */,
-				F8F971FA23A5915900C3F17D /* M5StackUtilities.swift */,
-			);
-			path = Utilities;
-			sourceTree = "<group>";
-		};
-		F8F971FB23A5915900C3F17D /* M5StackMessages */ = {
-			isa = PBXGroup;
-			children = (
-				F8F971FC23A5915900C3F17D /* M5StackAuthenticateTXMessage.swift */,
-				F8F971FD23A5915900C3F17D /* M5StackReadBlePassWordTxMessage.swift */,
-			);
-			path = M5StackMessages;
-			sourceTree = "<group>";
-		};
 		F8F971FF23A5915900C3F17D /* Generic */ = {
 			isa = PBXGroup;
 			children = (
@@ -3079,26 +2960,8 @@
 			children = (
 				F8DF766923ED9AF100063910 /* CGM */,
 				F830992423C32226005741DF /* watlaa */,
-				F8F9723A23A5934300C3F17D /* M5StickC */,
-				F8F9723723A5928D00C3F17D /* M5Stack */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		F8F9723723A5928D00C3F17D /* M5Stack */ = {
-			isa = PBXGroup;
-			children = (
-				F8F9723823A5928D00C3F17D /* M5StackBluetoothPeripheralViewModel.swift */,
-			);
-			path = M5Stack;
-			sourceTree = "<group>";
-		};
-		F8F9723A23A5934300C3F17D /* M5StickC */ = {
-			isa = PBXGroup;
-			children = (
-				F8F9723D23A593C000C3F17D /* M5StickCBluetoothPeripheralViewModel.swift */,
-			);
-			path = M5StickC;
 			sourceTree = "<group>";
 		};
 		F8FDFEA6260DE1A70047597D /* CustomColoredDisclosureIndicator */ = {
@@ -3564,12 +3427,10 @@
 				F80D916D24F82A17006840B5 /* CGMLibre2TransmitterDelegate.swift in Sources */,
 				F8B955EB2591355200C06016 /* CGMLibre2Transmitter+TestData.swift in Sources */,
 				F8B3A85B2280CCD1004BA588 /* AlertSettingsViewController.swift in Sources */,
-				F8F9722E23A5915900C3F17D /* M5StackTransmitterOpCode.swift in Sources */,
 				F8F9720223A5915900C3F17D /* CGMG6Transmitter.swift in Sources */,
 				F816E0E22432A4D1009EE65B /* Blucon+BluetoothPeripheral.swift in Sources */,
 				F897E24B23FC86CF0075E0E8 /* CGMG5TransmitterDelegate.swift in Sources */,
 				F816E0F12433C31B009EE65B /* Blucon+CoreDataClass.swift in Sources */,
-				F8F9723323A5915900C3F17D /* M5StackBluetoothTransmitterDelegate.swift in Sources */,
 				4E2C95AA27375E570073D692 /* Card.swift in Sources */,
 				F8B3A81B227DEC92004BA588 /* SensorsAccessor.swift in Sources */,
 				4E9D79C1273BF04400B666C5 /* RoundedView.swift in Sources */,
@@ -3589,7 +3450,6 @@
 				F8C97856242AA86B00A09483 /* CGMMiaoMiaoTransmitterDelegate.swift in Sources */,
 				F898EDF6234A8A5700BFB79B /* UInt32.swift in Sources */,
 				F8B955B1258BEE9D00C06016 /* ConstantsSpeakReading.swift in Sources */,
-				F8F9723223A5915900C3F17D /* M5StackReadBlePassWordTxMessage.swift in Sources */,
 				4E9D798E273BEC5500B666C5 /* iOS.swift in Sources */,
 				F8A54AAF22D686CD00934E7A /* NightScoutBgReading.swift in Sources */,
 				F8DF765323E34F4500063910 /* DexcomG5+CoreDataClass.swift in Sources */,
@@ -3601,7 +3461,6 @@
 				F8025E4E21ED450300ECF0C0 /* Double.swift in Sources */,
 				4E9D79BB273BF04400B666C5 /* SwallowTouchesView.swift in Sources */,
 				F8F9723423A5915900C3F17D /* BluetoothTransmitterDelegate.swift in Sources */,
-				F8F9724923A69DAE00C3F17D /* M5StickC.swift in Sources */,
 				F8B3A853227F2743004BA588 /* AlertsSettingsViewController.swift in Sources */,
 				F8B3A849227F090E004BA588 /* SettingsViewSpeakSettingsViewModel.swift in Sources */,
 				F8BDD43F221B5BAF006EAB84 /* TextsErrorMessages.swift in Sources */,
@@ -3613,7 +3472,6 @@
 				F821CF56229BF43A005C1E43 /* AlertKind.swift in Sources */,
 				F85DC2ED21CFE2F500B9F74A /* BgReading+CoreDataProperties.swift in Sources */,
 				F8A2BC0D25DB0B12001D1E78 /* Atom+BluetoothPeripheral.swift in Sources */,
-				F8F9723123A5915900C3F17D /* M5StackAuthenticateTXMessage.swift in Sources */,
 				4E2C95BF275231F90073D692 /* Constants.swift in Sources */,
 				4E1CFF34274E475A0020F0F1 /* InitViewController.swift in Sources */,
 				F8F9721223A5915900C3F17D /* FirmwareVersionTxMessage.swift in Sources */,
@@ -3643,7 +3501,6 @@
 				F81D6D4822BD5F62005EFAE2 /* DexcomShareUploadManager.swift in Sources */,
 				F8C9784D2428052E00A09483 /* CGMSensorType.swift in Sources */,
 				F8A1586B22EDB967007F5B5D /* ConstantsMaster.swift in Sources */,
-				F8F9723923A5928D00C3F17D /* M5StackBluetoothPeripheralViewModel.swift in Sources */,
 				F8F9722B23A5915900C3F17D /* CGMTransmitterDelegate.swift in Sources */,
 				F80859292364D61B00F3829D /* UserDefaults+charts.swift in Sources */,
 				F8B955B7258D5E2000C06016 /* ConstantsHealthKit.swift in Sources */,
@@ -3667,7 +3524,6 @@
 				4752B4062635878E0081D551 /* SettingsViewStatisticsSettingsViewModel.swift in Sources */,
 				F897AAF92200F2D200CDDD10 /* CBPeripheralState.swift in Sources */,
 				F858CCED25AE4CD100786B91 /* LibreOOPWebError.swift in Sources */,
-				F8F971B623A5914D00C3F17D /* M5Stack+BluetoothPeripheral.swift in Sources */,
 				F830992323C291EE005741DF /* Watlaa+BluetoothPeripheral.swift in Sources */,
 				F821CF57229BF43A005C1E43 /* SnoozeParameters.swift in Sources */,
 				F830992823C32A13005741DF /* TextsWatlaaView.swift in Sources */,
@@ -3692,7 +3548,6 @@
 				F8A1586322EDB86E007F5B5D /* ConstantsSounds.swift in Sources */,
 				F8A1587322EDC893007F5B5D /* ConstantsDexcomShare.swift in Sources */,
 				F8A1586F22EDC7EE007F5B5D /* ConstantsSuspensionPrevention.swift in Sources */,
-				F80ED2EC236F68F90005C035 /* SettingsViewM5StackBluetoothSettingsViewModel.swift in Sources */,
 				4E9D79B8273BF04400B666C5 /* UIView+Animations.swift in Sources */,
 				F8C97850242A9FD500A09483 /* MiaoMiaoBluetoothPeripheralViewModel.swift in Sources */,
 				F8A2BC3325DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMDexcomG4TransmitterDelegate.swift in Sources */,
@@ -3727,16 +3582,13 @@
 				F8A2BC3725DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMMiaoMiaoTransmitterDelegate.swift in Sources */,
 				F8F7B8E6259A6EBF00C47B04 /* LibreSmoothing.swift in Sources */,
 				F808D2CA240325E40084B5DB /* CGMBubbleTransmitterDelegate.swift in Sources */,
-				F804870C2336D90200EBDDB7 /* M5Stack+CoreDataClass.swift in Sources */,
 				F825286C2443BEDC0067AF77 /* CGMG6TransmitterDelegate.swift in Sources */,
 				F8C97854242AA70D00A09483 /* MiaoMiao+CoreDataProperties.swift in Sources */,
 				F8F9720A23A5915900C3F17D /* DexcomTransmitterOpCode.swift in Sources */,
 				F8AC425E21ADEBD60078C348 /* AppDelegate.swift in Sources */,
 				F8A2BC0825DB09BE001D1E78 /* Atom+CoreDataProperties.swift in Sources */,
-				F804870D2336D90200EBDDB7 /* M5Stack+CoreDataProperties.swift in Sources */,
 				4E1CFF36274F89320020F0F1 /* StatisticsView.swift in Sources */,
 				F85FF3CD252F9FD7004E6FF1 /* SnoozeParameters+CoreDataProperties.swift in Sources */,
-				F8F9722F23A5915900C3F17D /* M5StackPacket.swift in Sources */,
 				F821CF8E22AB090C005C1E43 /* DatePickerViewController.swift in Sources */,
 				F8AF11F324B1279500AE5BA2 /* TextsLibreErrors.swift in Sources */,
 				F8691888239CEEFA0065B607 /* BluetoothPeripheralViewModel.swift in Sources */,
@@ -3744,7 +3596,6 @@
 				F8A1585322EDB602007F5B5D /* ConstantsBloodGlucose.swift in Sources */,
 				F85FB769255DE14600D1C39E /* ConstantsLibreSmoothing.swift in Sources */,
 				F8DF766023E38FC100063910 /* BLEPeripheral+CoreDataClass.swift in Sources */,
-				F80ED2EE236F68F90005C035 /* SettingsViewM5StackWiFiSettingsViewModel.swift in Sources */,
 				4E9D798C273BEC5500B666C5 /* VideoBuilder.swift in Sources */,
 				F8FDD6CB2553385000625B49 /* Array.swift in Sources */,
 				F8A389C823203E3E0010F405 /* ConstantsM5Stack.swift in Sources */,
@@ -3770,7 +3621,6 @@
 				F8252867243E50FE0067AF77 /* ConstantsLibre.swift in Sources */,
 				F8A1586D22EDB9BE007F5B5D /* ConstantsDexcomFollower.swift in Sources */,
 				F8F9720923A5915900C3F17D /* AESCrypt.m in Sources */,
-				F80ED2ED236F68F90005C035 /* SettingsViewM5StackGeneralSettingsViewModel.swift in Sources */,
 				4E2C95A827375E110073D692 /* OnlyImageTabbar.swift in Sources */,
 				F816E10A2437E7B8009EE65B /* CGMBlueReaderTransmitterDelegate.swift in Sources */,
 				4E2C95B8274BEC3F0073D692 /* RootPresenter.swift in Sources */,
@@ -3838,19 +3688,16 @@
 				F81D6D5222C27F18005EFAE2 /* BgReading+DexcomShare.swift in Sources */,
 				4EE66F132735064E00548A46 /* MainTabBarController.swift in Sources */,
 				4E9D79C2273BF04400B666C5 /* NotifyLayoutView.swift in Sources */,
-				F8F9723023A5915900C3F17D /* M5StackUtilities.swift in Sources */,
 				F8297F52238ECA3200D74D66 /* BluetoothPeripheralViewController.swift in Sources */,
 				F816E1312439E2DD009EE65B /* DexcomG4BluetoothPeripheralViewModel.swift in Sources */,
 				F821CF66229EE68B005C1E43 /* NightScoutFollowManager.swift in Sources */,
 				F8F9722423A5915900C3F17D /* LibreMeasurement.swift in Sources */,
 				F869188C23A044340065B607 /* TextsM5StackView.swift in Sources */,
-				F8F9722D23A5915900C3F17D /* M5StackBluetoothTransmitter.swift in Sources */,
 				E53D0491274390E000CA548E /* Common.swift in Sources */,
 				F808D2C8240323CA0084B5DB /* BubbleBluetoothPeripheralViewModel.swift in Sources */,
 				F8E6C79024CEC22A007C1199 /* TextsSnooze.swift in Sources */,
 				F8F9722C23A5915900C3F17D /* GlucoseData.swift in Sources */,
 				F8A389E7232ECE7E0010F405 /* SettingsViewUtilities.swift in Sources */,
-				F8A2BC3125DB0D6D001D1E78 /* BluetoothPeripheralManager+M5StackBluetoothTransmitterDelegate.swift in Sources */,
 				F8A2BC2D25DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMG5TransmitterDelegate.swift in Sources */,
 				F8FDFEA9260DE1A70047597D /* DTCustomColoredAccessory.m in Sources */,
 				F8B3A7DF226E48C1004BA588 /* SoundPlayer.swift in Sources */,
@@ -3871,10 +3718,8 @@
 				F898EDEC233F549100BFB79B /* UIBarButtonItem.swift in Sources */,
 				F816E0E42432A4FA009EE65B /* CGMBluconTransmitterDelegate.swift in Sources */,
 				4E9D79BE273BF04400B666C5 /* VerticalCenterTextLayer.swift in Sources */,
-				F8A389CF232AE2EA0010F405 /* M5StackSettingsViewController.swift in Sources */,
 				F821CF5E229BF43A005C1E43 /* BgReading+NightScout.swift in Sources */,
 				F8A2BC3025DB0D6D001D1E78 /* BluetoothPeripheralManager.swift in Sources */,
-				F8A389EB233175A10010F405 /* SettingsViewM5StackSettingsViewModel.swift in Sources */,
 				F816E1242439DB63009EE65B /* DexcomG4+BluetoothPeripheral.swift in Sources */,
 				4E6797642754FCE3009C36BB /* BottomSheet.swift in Sources */,
 				F8E5404C2522624800052CE5 /* ConstantsHousekeeping.swift in Sources */,
@@ -3892,7 +3737,6 @@
 				F85DC2EF21CFE2F500B9F74A /* Sensor+CoreDataProperties.swift in Sources */,
 				F8297F5A238EE14E00D74D66 /* TextsBluetoothPeripheralView.swift in Sources */,
 				F816E12A2439DF3A009EE65B /* DexcomG4+CoreDataClass.swift in Sources */,
-				F8F9723E23A593C000C3F17D /* M5StickCBluetoothPeripheralViewModel.swift in Sources */,
 				F8A2BC3525DB0D6D001D1E78 /* BluetoothPeripheralManager+BluetoothTransmitterDelegate.swift in Sources */,
 				F8F9722323A5915900C3F17D /* LibreDataParser.swift in Sources */,
 				F8E51D5F2448E2E8001C9E5A /* ConstantsShareWithLoop.swift in Sources */,

@@ -92,32 +92,6 @@ class BluetoothPeripheralManager: NSObject {
 
                 switch bluetoothPeripheralType {
                     
-                case .M5StackType:
-                    // no seperate handling needed for M5StickC because M5StickC is stored in coredata as M5Stack objecct, so it will be handled when going through case M5StackType
-                    // in other words this case will never be applicable
-                    break
-                    
-                case .M5StickCType:
-                    if let m5Stack = blePeripheral.m5Stack {
-                        
-                        // add it to the list of bluetoothPeripherals
-                        let index = insertInBluetoothPeripherals(bluetoothPeripheral: m5Stack)
-                        
-                        if m5Stack.blePeripheral.shouldconnect {
-                            
-                            // create an instance of M5StackBluetoothTransmitter, M5StackBluetoothTransmitter will automatically try to connect to the M5Stack with the address that is stored in m5Stack
-                            // add it to the array of bluetoothTransmitters
-                            bluetoothTransmitters.insert(M5StackBluetoothTransmitter(address: m5Stack.blePeripheral.address, name: m5Stack.blePeripheral.name, bluetoothTransmitterDelegate: self, m5StackBluetoothTransmitterDelegate: self, blePassword: m5Stack.blepassword, bluetoothPeripheralType: m5Stack.isM5StickC ? .M5StickCType : .M5StackType), at: index)
-                            
-                        } else {
-                            
-                            // bluetoothTransmitters array (which shoul dhave the same number of elements as bluetoothPeripherals) needs to have an empty row for the transmitter
-                            bluetoothTransmitters.insert(nil, at: index)
-                            
-                        }
-                        
-                    }
-                    
                 case .WatlaaType:
                     
                     if let watlaa = blePeripheral.watlaa {
@@ -498,13 +472,7 @@ class BluetoothPeripheralManager: NSObject {
                 
                 // using bluetoothPeripheralType here so that whenever bluetoothPeripheralType is extended with new cases, we don't forget to handle them
                 switch bluetoothPeripheralType {
-                    
-                case .M5StackType, .M5StickCType:
-                    
-                    if let m5StackBluetoothTransmitter = bluetoothTransmitter as? M5StackBluetoothTransmitter {
-                        _ = m5StackBluetoothTransmitter.writeBgReadingInfo(bgReading: bgReadingToSend[0])
-                    }
-                    
+                
                 case .WatlaaType:
                     // no need to send reading to watlaa in master mode
                     break
@@ -541,7 +509,7 @@ class BluetoothPeripheralManager: NSObject {
     /// - parameters:
     ///     - forBluetoothPeripheral : the bluetoothPeripheral for which bluetoothTransmitter should be returned
     ///     - createANewOneIfNecesssary : if bluetoothTransmitter is nil, then should one be created ?
-    public func getBluetoothTransmitter(for bluetoothPeripheral: BluetoothPeripheral, createANewOneIfNecesssary: Bool) -> BluetoothTransmitter? {
+    func getBluetoothTransmitter(for bluetoothPeripheral: BluetoothPeripheral, createANewOneIfNecesssary: Bool) -> BluetoothTransmitter? {
         
         if let index = firstIndexInBluetoothPeripherals(bluetoothPeripheral: bluetoothPeripheral) {
             
@@ -554,20 +522,6 @@ class BluetoothPeripheralManager: NSObject {
                 var newTransmitter: BluetoothTransmitter? = nil
                 
                 switch bluetoothPeripheral.bluetoothPeripheralType() {
-                    
-                case .M5StackType, .M5StickCType:
-                    
-                    if let m5Stack = bluetoothPeripheral as? M5Stack {
-                        
-                        // blePassword : first check if m5Stack has a blepassword configured. If not then user blepassword from userDefaults, which can also still be nil
-                        var blePassword = m5Stack.blepassword
-                        if blePassword == nil {
-                            blePassword = UserDefaults.standard.m5StackBlePassword
-                        }
-                        
-                        newTransmitter = M5StackBluetoothTransmitter(address: m5Stack.blePeripheral.address, name: m5Stack.blePeripheral.name, bluetoothTransmitterDelegate: self, m5StackBluetoothTransmitterDelegate: self, blePassword: blePassword, bluetoothPeripheralType: bluetoothPeripheral.bluetoothPeripheralType())
-                    }
-                    
                 case .WatlaaType:
                     
                     if let watlaa = bluetoothPeripheral as? Watlaa {
@@ -757,12 +711,6 @@ class BluetoothPeripheralManager: NSObject {
             // using switch through all cases, to make sure that new future types are supported
             switch bluetoothPeripheralType {
                 
-            case .M5StackType, .M5StickCType:
-                
-                if let bluetoothTransmitter = bluetoothTransmitter as? M5StackBluetoothTransmitter {
-                    return bluetoothTransmitter.bluetoothPeripheralType
-                }
-                
             case .WatlaaType:
                 
                 if bluetoothTransmitter is WatlaaBluetoothTransmitter {
@@ -840,11 +788,7 @@ class BluetoothPeripheralManager: NSObject {
     public func createNewTransmitter(type: BluetoothPeripheralType, transmitterId: String?, bluetoothTransmitterDelegate: BluetoothTransmitterDelegate?) -> BluetoothTransmitter {
         
         switch type {
-            
-        case .M5StackType, .M5StickCType:
-            
-            return M5StackBluetoothTransmitter(address: nil, name: nil, bluetoothTransmitterDelegate: bluetoothTransmitterDelegate ?? self, m5StackBluetoothTransmitterDelegate: self, blePassword: UserDefaults.standard.m5StackBlePassword, bluetoothPeripheralType: type)
-            
+
         case .WatlaaType:
             
             return WatlaaBluetoothTransmitter(address: nil, name: nil, cgmTransmitterDelegate: cgmTransmitterDelegate, bluetoothTransmitterDelegate: bluetoothTransmitterDelegate ?? self, watlaaBluetoothTransmitterDelegate: self,  sensorSerialNumber: nil, webOOPEnabled: nil, nonFixedSlopeEnabled: nil)
@@ -976,14 +920,6 @@ class BluetoothPeripheralManager: NSObject {
     
     /// when user changes M5Stack related settings, then the transmitter need to get that info, add observers
     private func addObservers() {
-        
-        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.m5StackWiFiName1.rawValue, options: .new, context: nil)
-        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.m5StackWiFiName2.rawValue, options: .new, context: nil)
-        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.m5StackWiFiName3.rawValue, options: .new, context: nil)
-        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.m5StackWiFiPassword1.rawValue, options: .new, context: nil)
-        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.m5StackWiFiPassword2.rawValue, options: .new, context: nil)
-        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.m5StackWiFiPassword3.rawValue, options: .new, context: nil)
-        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.m5StackBlePassword.rawValue, options: .new, context: nil)
         UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.bloodGlucoseUnitIsMgDl.rawValue, options: .new, context: nil)
         UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.nightScoutUrl.rawValue, options: .new, context: nil)
         UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.nightScoutAPIKey.rawValue, options: .new, context: nil)
@@ -1054,7 +990,9 @@ class BluetoothPeripheralManager: NSObject {
         // first check keyValueObserverTimeKeeper
         switch keyPathEnum {
             
-        case UserDefaults.Key.m5StackWiFiName1, UserDefaults.Key.m5StackWiFiName2, UserDefaults.Key.m5StackWiFiName3, UserDefaults.Key.m5StackWiFiPassword1, UserDefaults.Key.m5StackWiFiPassword2, UserDefaults.Key.m5StackWiFiPassword3, UserDefaults.Key.nightScoutAPIKey, UserDefaults.Key.nightScoutUrl, UserDefaults.Key.bloodGlucoseUnitIsMgDl, UserDefaults.Key.m5StackBlePassword :
+        case UserDefaults.Key.nightScoutAPIKey,
+            UserDefaults.Key.nightScoutUrl,
+            UserDefaults.Key.bloodGlucoseUnitIsMgDl :
             
             // transmittertype change triggered by user, should not be done within 200 ms
             if !keyValueObserverTimeKeeper.verifyKey(forKey: keyPathEnum.rawValue, withMinimumDelayMilliSeconds: 200) {
@@ -1068,117 +1006,29 @@ class BluetoothPeripheralManager: NSObject {
         
         // if changed from master to follower, then check if any of the bluetoothperipherals of type .CGM has shouldconnect true, and if yes set to false and inform user
         if keyPathEnum == .isMaster {
-            
             if !UserDefaults.standard.isMaster {
-            
                 for bluetoothPeripheral in bluetoothPeripherals {
-                    
-                    if bluetoothPeripheral.bluetoothPeripheralType().category() == .CGM {
+                    if bluetoothPeripheral.bluetoothPeripheralType().category() == .CGM &&
+                        bluetoothPeripheral.blePeripheral.shouldconnect {
+                        // force disconnect
+                        disconnect(fromBluetoothPeripheral: bluetoothPeripheral)
                         
-                        if bluetoothPeripheral.blePeripheral.shouldconnect {
-                                
-                            // force disconnect
-                            disconnect(fromBluetoothPeripheral: bluetoothPeripheral)
-                            
-                            // set bluetoothTransmitter to nil
-                            setBluetoothTransmitterToNil(forBluetoothPeripheral: bluetoothPeripheral)
-                            
-                        }
-                        
+                        // set bluetoothTransmitter to nil
+                        setBluetoothTransmitterToNil(forBluetoothPeripheral: bluetoothPeripheral)
                     }
                 }
             }
-            
         }
         
         // see for every bluetoothPeripheral, if the changed  UserDefaults value has impact on that bluetoothPeripheral
         for bluetoothPeripheral in bluetoothPeripherals {
-            
-            // if the there's no bluetoothTransmitter for this bluetoothPeripheral, then call parameterUpdateNeededAtNextConnect
-            guard let bluetoothTransmitter = getBluetoothTransmitter(for: bluetoothPeripheral, createANewOneIfNecesssary: false) else {
-
+            // if there's no bluetoothTransmitter for this bluetoothPeripheral, then call parameterUpdateNeededAtNextConnect
+            if getBluetoothTransmitter(for: bluetoothPeripheral, createANewOneIfNecesssary: false) == nil {
                 // seems to be bluetoothPeripheral which is currently disconnected - need to set parameterUpdateNeeded = true, so that all parameters will be sent as soon as reconnect occurs
                 bluetoothPeripheral.blePeripheral.parameterUpdateNeededAtNextConnect = true
-                
-                continue
-
             }
-            
-            // go through all bluetoothPeripheralType's with switch statement - this is to ensure that future types are not forgotten
-            // for each of them see if any of the observed values needs to be sent to the peripheral
-            switch bluetoothPeripheral.bluetoothPeripheralType() {
-                
-            case .M5StackType, .M5StickCType:
-                
-                guard let m5StackBluetoothTransmitter = bluetoothTransmitter as? M5StackBluetoothTransmitter else {
-                    trace("in observeValue, bluetoothPeripheral is of type M5Stack but bluetoothTransmitter is not M5StackBluetoothTransmitter", log: log, category: ConstantsLog.categoryBluetoothPeripheralManager, type: .error)
-                    return
-                }
-                
-                // check that bluetoothPeripheral is of type M5Stack, if not then this might be a coding error
-                guard let m5Stack = bluetoothPeripheral as? M5Stack else {
-                    trace("in observeValue, transmitter is of type M5StackBluetoothTransmitter but peripheral is not M5Stack", log: log, category: ConstantsLog.categoryBluetoothPeripheralManager, type: .error)
-                    return
-                }
-                
-                // is value successfully written or not
-                var success = false
-                
-                switch keyPathEnum {
-                    
-                case UserDefaults.Key.m5StackWiFiName1:
-                    success = m5StackBluetoothTransmitter.writeWifiName(name: UserDefaults.standard.m5StackWiFiName1, number: 1)
-                    
-                case UserDefaults.Key.m5StackWiFiName2:
-                    success = m5StackBluetoothTransmitter.writeWifiName(name: UserDefaults.standard.m5StackWiFiName2, number: 2)
-                    
-                case UserDefaults.Key.m5StackWiFiName3:
-                    success = m5StackBluetoothTransmitter.writeWifiName(name: UserDefaults.standard.m5StackWiFiName3, number: 3)
-                    
-                case UserDefaults.Key.m5StackWiFiPassword1:
-                    success = m5StackBluetoothTransmitter.writeWifiPassword(password: UserDefaults.standard.m5StackWiFiPassword1, number: 1)
-                    
-                case UserDefaults.Key.m5StackWiFiPassword2:
-                    success = m5StackBluetoothTransmitter.writeWifiPassword(password: UserDefaults.standard.m5StackWiFiPassword2, number: 2)
-                    
-                case UserDefaults.Key.m5StackWiFiPassword3:
-                    success = m5StackBluetoothTransmitter.writeWifiPassword(password: UserDefaults.standard.m5StackWiFiPassword3, number: 3)
-                    
-                case UserDefaults.Key.m5StackBlePassword:
-                    // only if the password in the settings is not nil, and if the m5Stack doesn't have a password yet, then we will store it in the M5Stack.
-                    if let blePassword = UserDefaults.standard.m5StackBlePassword, m5Stack.blepassword == nil {
-                        m5Stack.blepassword = blePassword
-                    }
-                    
-                case UserDefaults.Key.bloodGlucoseUnitIsMgDl:
-                    success = m5StackBluetoothTransmitter.writeBloodGlucoseUnit(isMgDl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
-                    
-                case UserDefaults.Key.nightScoutAPIKey:
-                    success = m5StackBluetoothTransmitter.writeNightScoutAPIKey(apiKey: UserDefaults.standard.nightScoutAPIKey)
-                    
-                case UserDefaults.Key.nightScoutUrl:
-                    success = m5StackBluetoothTransmitter.writeNightScoutUrl(url: UserDefaults.standard.nightScoutUrl)
-                    
-                default:
-                    break
-                }
-                
-                // if not successful then set needs parameter update to true for the m5Stack
-                if !success {
-                    bluetoothPeripheral.blePeripheral.parameterUpdateNeededAtNextConnect = true
-                }
-             
-            case .WatlaaType, .DexcomG5Type, .BubbleType, .MiaoMiaoType, .BluconType, .GNSentryType, .BlueReaderType, .DropletType, .DexcomG4Type, .DexcomG6Type, .Libre2Type, .AtomType:
-                
-                // nothing to check
-                break
-
-            }
-            
         }
-                
     }
-
 }
 
 // MARK: - conform to BluetoothPeripheralManaging
@@ -1186,28 +1036,18 @@ class BluetoothPeripheralManager: NSObject {
 extension BluetoothPeripheralManager: BluetoothPeripheralManaging {
     
     func requestNewReading() {
-        
         if let cgmTransmitter = getCGMTransmitter() {
-            
             cgmTransmitter.requestNewReading()
         }
-        
     }
 
     func getCGMTransmitter() -> CGMTransmitter? {
-        
         for bluetoothTransmitter in bluetoothTransmitters {
-            
             if transmitterIsCurrentlyUsedCGMTransmitter(bluetoothTransmitter: bluetoothTransmitter) {
-                
                 return bluetoothTransmitter as? CGMTransmitter
-                
             }
-            
         }
-        
         return nil
-        
     }
     
     func receivedNewValue(nonFixedSlopeEnabled: Bool, for bluetoothPeripheral: BluetoothPeripheral) {
