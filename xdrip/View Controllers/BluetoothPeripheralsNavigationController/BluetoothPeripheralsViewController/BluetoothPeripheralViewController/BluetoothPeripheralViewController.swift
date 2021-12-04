@@ -1031,28 +1031,22 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
         guard let bluetoothPeripheralViewModel = bluetoothPeripheralViewModel else {return nil}
 
         if section == 0 {
-            
             // title for first section
             return Texts_SettingsView.m5StackSectionTitleBluetooth
             
         } else if section >= numberOfGeneralSections() {
-            
             // title defined in viewmodel
             return bluetoothPeripheralViewModel.sectionTitle(forSection: section)
 
         } else if section == 2 {
-            
             // web oop section
             return Texts_SettingsView.labelWebOOP
             
         } else { //if section == 1
-            
             // non fixed section
             return Texts_SettingsView.labelNonFixed
-            
         }
     }
-    
 }
 
 // MARK: - extension BluetoothTransmitterDelegate
@@ -1060,48 +1054,37 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
 extension BluetoothPeripheralViewController: BluetoothTransmitterDelegate {
     
     func transmitterNeedsPairing(bluetoothTransmitter: BluetoothTransmitter) {
-        
         // handled in BluetoothPeripheralManager
         bluetoothPeripheralManager?.transmitterNeedsPairing(bluetoothTransmitter: bluetoothTransmitter)
-        
     }
     
     func successfullyPaired() {
-        
         // handled in BluetoothPeripheralManager
         bluetoothPeripheralManager?.successfullyPaired()
-        
     }
     
     func pairingFailed() {
-
         // need to inform also other delegates
         bluetoothPeripheralManager?.pairingFailed()
-
     }
     
     func didConnectTo(bluetoothTransmitter: BluetoothTransmitter) {
-
         // handled in BluetoothPeripheralManager
         bluetoothPeripheralManager?.didConnectTo(bluetoothTransmitter: bluetoothTransmitter)
         
         // refresh complete first section (only status and connection timestamp changed but reload complete section)
         tableView.reloadSections(IndexSet(integer: 0), with: .none)
-        
     }
     
     func didDisconnectFrom(bluetoothTransmitter: BluetoothTransmitter) {
-        
         // handled in BluetoothPeripheralManager
         bluetoothPeripheralManager?.didDisconnectFrom(bluetoothTransmitter: bluetoothTransmitter)
         
         // refresh complete first section (only status and connection timestamp changed but reload complete section)
         tableView.reloadSections(IndexSet(integer: 0), with: .none)
-
     }
     
     func deviceDidUpdateBluetoothState(state: CBManagerState, bluetoothTransmitter: BluetoothTransmitter) {
-
         // handled in BluetoothPeripheralManager
         bluetoothPeripheralManager?.deviceDidUpdateBluetoothState(state: state, bluetoothTransmitter: bluetoothTransmitter)
         
@@ -1109,34 +1092,19 @@ extension BluetoothPeripheralViewController: BluetoothTransmitterDelegate {
         // do this whenever the bluetooth status changes
         // refresh complete first section (only status and connection timestamp changed but reload complete section)
         tableView.reloadSections(IndexSet(integer: 0), with: .none)
-
     }
     
     func error(message: String) {
-        
         // need to inform also other delegates
         bluetoothPeripheralManager?.error(message: message)
         
         let alert = UIAlertController(title: Texts_Common.warning, message: message, actionHandler: nil)
         
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
-    
 }
 
 // MARK: - extension adding Segue Identifiers
-
-/// defines perform segue identifiers used within BluetoothPeripheralViewController
-extension BluetoothPeripheralViewController {
-    
-    public enum SegueIdentifiers:String {
-        
-        /// to go from BluetoothPeripheralsViewController to BluetoothPeripheralViewController
-        case BluetoothPeripheralsToBluetoothPeripheralSegueIdentifier = "BluetoothPeripheralsToBluetoothPeripheralSegueIdentifier"
-        
-    }
-    
-}
 
 /* EXPLANATION connect button text and status row detailed text
  For new ble

@@ -172,15 +172,15 @@ struct R: Rswift.Validatable {
 
     /// This struct is generated for `BluetoothPeripheralsViewController`, and contains static references to 1 segues.
     struct bluetoothPeripheralsViewController {
-      /// Segue identifier `BluetoothPeripheralsToBluetoothPeripheralSegueIdentifier`.
-      static let bluetoothPeripheralsToBluetoothPeripheralSegueIdentifier: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, BluetoothPeripheralsViewController, BluetoothPeripheralViewController> = Rswift.StoryboardSegueIdentifier(identifier: "BluetoothPeripheralsToBluetoothPeripheralSegueIdentifier")
+      /// Segue identifier `BluetoothPeripheral`.
+      static let bluetoothPeripheral: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, BluetoothPeripheralsViewController, BluetoothPeripheralViewController> = Rswift.StoryboardSegueIdentifier(identifier: "BluetoothPeripheral")
 
       #if os(iOS) || os(tvOS)
-      /// Optionally returns a typed version of segue `BluetoothPeripheralsToBluetoothPeripheralSegueIdentifier`.
+      /// Optionally returns a typed version of segue `BluetoothPeripheral`.
       /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
       /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      static func bluetoothPeripheralsToBluetoothPeripheralSegueIdentifier(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, BluetoothPeripheralsViewController, BluetoothPeripheralViewController>? {
-        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.bluetoothPeripheralsViewController.bluetoothPeripheralsToBluetoothPeripheralSegueIdentifier, segue: segue)
+      static func bluetoothPeripheral(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, BluetoothPeripheralsViewController, BluetoothPeripheralViewController>? {
+        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.bluetoothPeripheralsViewController.bluetoothPeripheral, segue: segue)
       }
       #endif
 

@@ -841,7 +841,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="dMM-nl-Zfn" id="Z76-9m-jPM"/>
-                        <segue destination="FJ0-eY-Fv0" kind="show" identifier="BluetoothPeripheralsToBluetoothPeripheralSegueIdentifier" id="BEa-Az-mem"/>
+                        <segue destination="FJ0-eY-Fv0" kind="show" identifier="BluetoothPeripheral" id="BEa-Az-mem"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ajO-AG-xfd" userLabel="First Responder" sceneMemberID="firstResponder"/>
