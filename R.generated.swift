@@ -5952,7 +5952,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let createCalendarEvent = Rswift.StringResource(key: "createCalendarEvent", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Days to Calculate?
+      /// en translation: Days to Calculate
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_daysToUseStatisticsTitle = Rswift.StringResource(key: "settingsviews_daysToUseStatisticsTitle", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -6036,7 +6036,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_useIFCCA1C = Rswift.StringResource(key: "settingsviews_useIFCCA1C", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: High Value:
+      /// en translation: High Value
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_highValue = Rswift.StringResource(key: "settingsviews_highValue", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -6064,7 +6064,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_license = Rswift.StringResource(key: "settingsviews_license", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Low Value:
+      /// en translation: Low Value
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_lowValue = Rswift.StringResource(key: "settingsviews_lowValue", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -6184,7 +6184,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, pt, fr, de, es, sv
       static let settingsviews_showSensorCountdown = Rswift.StringResource(key: "settingsviews_showSensorCountdown", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "pt", "fr", "de", "es", "sv"], comment: nil)
-      /// en translation: Show Statistics?
+      /// en translation: Show Statistics
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_showStatistics = Rswift.StringResource(key: "settingsviews_showStatistics", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -6260,11 +6260,11 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_uploadReadingstoDexcomShare = Rswift.StringResource(key: "settingsviews_uploadReadingstoDexcomShare", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Urgent High Value:
+      /// en translation: Urgent High Value
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_urgentHighValue = Rswift.StringResource(key: "settingsviews_urgentHighValue", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Urgent Low Value:
+      /// en translation: Urgent Low Value
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_urgentLowValue = Rswift.StringResource(key: "settingsviews_urgentLowValue", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -6574,7 +6574,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("createCalendarEvent", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Days to Calculate?
+      /// en translation: Days to Calculate
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static func settingsviews_daysToUseStatisticsTitle(preferredLanguages: [String]? = nil) -> String {
@@ -6891,7 +6891,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_useIFCCA1C", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: High Value:
+      /// en translation: High Value
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static func settingsviews_highValue(preferredLanguages: [String]? = nil) -> String {
@@ -6996,7 +6996,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_license", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Low Value:
+      /// en translation: Low Value
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static func settingsviews_lowValue(preferredLanguages: [String]? = nil) -> String {
@@ -7446,7 +7446,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_showSensorCountdown", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Show Statistics?
+      /// en translation: Show Statistics
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static func settingsviews_showStatistics(preferredLanguages: [String]? = nil) -> String {
@@ -7731,7 +7731,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_uploadReadingstoDexcomShare", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Urgent High Value:
+      /// en translation: Urgent High Value
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static func settingsviews_urgentHighValue(preferredLanguages: [String]? = nil) -> String {
@@ -7746,7 +7746,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_urgentHighValue", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Urgent Low Value:
+      /// en translation: Urgent Low Value
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static func settingsviews_urgentLowValue(preferredLanguages: [String]? = nil) -> String {
