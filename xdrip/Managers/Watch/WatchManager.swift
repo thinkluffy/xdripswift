@@ -98,15 +98,18 @@ class WatchManager: NSObject {
                                              unitIsMgDl: UserDefaults.standard.bloodGlucoseUnitIsMgDl).description
         
         // add trend if needed and available
-        if (!lastReading[0].hideSlope && UserDefaults.standard.displayTrendInCalendarEvent) {
+        if !lastReading[0].hideSlope {
             title = title + " " + lastReading[0].slopeArrow()
         }
         
         // add delta if needed
-        if UserDefaults.standard.displayDeltaInCalendarEvent && lastReading.count > 1 {
-            title = title + " " + lastReading[0].unitizedDeltaString(previousBgReading: lastReading[1], showUnit: UserDefaults.standard.displayUnitInCalendarEvent, highGranularity: true, mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
+        if lastReading.count > 1 {
+            title = title + " " + lastReading[0].unitizedDeltaString(previousBgReading: lastReading[1],
+                                                                     showUnit: true,
+                                                                     highGranularity: true,
+                                                                     mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
             
-        } else if UserDefaults.standard.displayUnitInCalendarEvent {
+        } else {
             // add unit if needed
             title = title + " " + (UserDefaults.standard.bloodGlucoseUnitIsMgDl ? Texts_Common.mgdl : Texts_Common.mmol)
         }

@@ -154,15 +154,6 @@ extension UserDefaults {
         /// selected calender id (name of the calendar) in which the event should be created
         case calenderId = "calenderId"
         
-        /// should trend be displayed yes or no
-        case displayTrendInCalendarEvent = "displayTrend"
-        
-        /// should delta be displayed yes or no
-        case displayDeltaInCalendarEvent = "displayDelta"
-        
-        /// should units be displayed yes or no
-        case displayUnitInCalendarEvent = "displayUnits"
-        
         /// calendar interval
         case calendarInterval = "calendarInterval"
         
@@ -908,36 +899,6 @@ extension UserDefaults {
         }
     }
     
-    /// this is for showing readings on watch via the calendar. Should trend be displayed  in calendar event, yes or no, default no
-    @objc dynamic var displayTrendInCalendarEvent: Bool {
-        get {
-            return bool(forKey: Key.displayTrendInCalendarEvent.rawValue)
-        }
-        set {
-            set(newValue, forKey: Key.displayTrendInCalendarEvent.rawValue)
-        }
-    }
-    
-    /// this is for showing readings on watch via the calendar. Should delta be displayed in calendar event, yes or no, default no
-    @objc dynamic var displayDeltaInCalendarEvent: Bool {
-        get {
-            return bool(forKey: Key.displayDeltaInCalendarEvent.rawValue)
-        }
-        set {
-            set(newValue, forKey: Key.displayDeltaInCalendarEvent.rawValue)
-        }
-    }
-    
-    /// this is for showing readings on watch via the calendar. Should unit be displayed in calendar event,  yes or no, default no
-    @objc dynamic var displayUnitInCalendarEvent: Bool {
-        get {
-            return bool(forKey: Key.displayUnitInCalendarEvent.rawValue)
-        }
-        set {
-            set(newValue, forKey: Key.displayUnitInCalendarEvent.rawValue)
-        }
-    }
-    
     /// speak readings interval in minutes
     @objc dynamic var calendarInterval: Int {
         get {
@@ -947,8 +908,6 @@ extension UserDefaults {
             set(newValue, forKey: Key.calendarInterval.rawValue)
         }
     }
-    
-
     
     // MARK: - =====  Other Settings ======
     

@@ -5951,7 +5951,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_build = Rswift.StringResource(key: "settingsviews_build", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Calendar To Use?
+      /// en translation: Calendar to Use
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let calenderId = Rswift.StringResource(key: "calenderId", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -6540,7 +6540,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_build", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Calendar To Use?
+      /// en translation: Calendar to Use
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static func calenderId(preferredLanguages: [String]? = nil) -> String {

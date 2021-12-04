@@ -11,17 +11,8 @@ fileprivate enum Setting:Int, CaseIterable {
     /// selected calender id (name of the calendar) in which the event should be created
     case calenderId = 1
     
-    /// should trend be displayed yes or no
-    case displayTrend = 2
-    
-    /// should delta be displayed yes or no
-    case displayDelta = 3
-    
-    /// should units be displayed yes or no
-    case displayUnits = 4
-    
     /// minimum time between two readings, for which event should be created (in minutes)
-    case calendarInterval = 5
+    case calendarInterval = 2
 
 }
 
@@ -57,20 +48,9 @@ class SettingsViewAppleWatchSettingsViewModel: SettingsViewModelProtocol {
         case .calenderId:
             return Texts_SettingsView.calenderId
             
-        case .displayTrend:
-            return Texts_SettingsView.displayTrendInCalendarEvent
-            
-        case .displayDelta:
-            return Texts_SettingsView.displayDeltaInCalendarEvent
-            
-        case .displayUnits:
-            return Texts_SettingsView.displayUnitInCalendarEvent
-            
         case .calendarInterval:
             return Texts_SettingsView.settingsviews_IntervalTitle
-
         }
-
     }
     
     func accessoryType(index: Int) -> UITableViewCell.AccessoryType {
@@ -107,9 +87,6 @@ class SettingsViewAppleWatchSettingsViewModel: SettingsViewModelProtocol {
         case .calenderId:
             return UITableViewCell.AccessoryType.disclosureIndicator
             
-        case .displayTrend, .displayDelta, .displayUnits:
-            return UITableViewCell.AccessoryType.none
-            
         case .calendarInterval:
             return UITableViewCell.AccessoryType.disclosureIndicator
             
@@ -125,7 +102,7 @@ class SettingsViewAppleWatchSettingsViewModel: SettingsViewModelProtocol {
         case .calenderId:
             return UserDefaults.standard.calenderId
             
-        case .createCalendarEvent, .displayTrend, .displayDelta, .displayUnits:
+        case .createCalendarEvent:
             return nil
             
         case .calendarInterval:
@@ -197,20 +174,9 @@ class SettingsViewAppleWatchSettingsViewModel: SettingsViewModelProtocol {
         case .calenderId:
             return nil
             
-        case .displayTrend:
-            return UISwitch(isOn: UserDefaults.standard.displayTrendInCalendarEvent, action: {(isOn:Bool) in UserDefaults.standard.displayTrendInCalendarEvent = isOn})
-            
-        case .displayDelta:
-            return UISwitch(isOn: UserDefaults.standard.displayDeltaInCalendarEvent, action: {(isOn:Bool) in UserDefaults.standard.displayDeltaInCalendarEvent = isOn})
-            
-        case .displayUnits:
-            return UISwitch(isOn: UserDefaults.standard.displayUnitInCalendarEvent, action: {(isOn:Bool) in UserDefaults.standard.displayUnitInCalendarEvent = isOn})
-            
         case .calendarInterval:
             return nil
-            
         }
-        
     }
     
     func numberOfRows() -> Int {
@@ -243,7 +209,7 @@ class SettingsViewAppleWatchSettingsViewModel: SettingsViewModelProtocol {
         
         switch setting {
             
-        case .createCalendarEvent, .displayDelta, .displayTrend, .displayUnits:
+        case .createCalendarEvent:
             
             // depending on status of authorization, we will either do nothing or show a message
             
@@ -293,7 +259,7 @@ class SettingsViewAppleWatchSettingsViewModel: SettingsViewModelProtocol {
                 
             }
             
-            return SettingsSelectedRowAction.selectFromList(title: Texts_SettingsView.labelTransmitterId, data: data, selectedRow: selectedRow, actionTitle: nil, cancelTitle: nil, actionHandler: {(index:Int) in
+            return SettingsSelectedRowAction.selectFromList(title: R.string.settingsViews.calenderId(), data: data, selectedRow: selectedRow, actionTitle: nil, cancelTitle: nil, actionHandler: {(index:Int) in
                 if index != selectedRow {
                     UserDefaults.standard.calenderId = data[index]
                 }
@@ -301,10 +267,21 @@ class SettingsViewAppleWatchSettingsViewModel: SettingsViewModelProtocol {
 
         case .calendarInterval:
         
-            return SettingsSelectedRowAction.askText(title: Texts_SettingsView.settingsviews_IntervalTitle, message: Texts_SettingsView.settingsviews_IntervalMessage, keyboardType: .numberPad, text: UserDefaults.standard.calendarInterval.description, placeHolder: "0", actionTitle: nil, cancelTitle: nil, actionHandler: {(interval:String) in if let interval = Int(interval) {UserDefaults.standard.calendarInterval = Int(interval)}}, cancelHandler: nil, inputValidator: nil)
-
+            return SettingsSelectedRowAction.askText(title: Texts_SettingsView.settingsviews_IntervalTitle,
+                                                     message: Texts_SettingsView.settingsviews_IntervalMessage,
+                                                     keyboardType: .numberPad,
+                                                     text: UserDefaults.standard.calendarInterval.description,
+                                                     placeHolder: "0",
+                                                     actionTitle: nil,
+                                                     cancelTitle: nil,
+                                                     actionHandler: { (interval: String) in
+                if let interval = Int(interval) {
+                    UserDefaults.standard.calendarInterval = Int(interval)
+                }
+            },
+                                                     cancelHandler: nil,
+                                                     inputValidator: nil)
         }
-        
     }
     
     func isEnabled(index: Int) -> Bool {

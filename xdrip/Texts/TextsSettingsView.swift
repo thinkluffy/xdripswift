@@ -368,18 +368,6 @@ class Texts_SettingsView {
     static let calenderId: String = {
         return NSLocalizedString("calenderId", tableName: filename, bundle: Bundle.main, value: "Calendar To Use?", comment: "Apple Watch Settings - text in row where user needs to select a calendar")
     }()
-
-    static let displayTrendInCalendarEvent: String = {
-        return NSLocalizedString("settingsviews_displayTrendInCalendarEvent", tableName: filename, bundle: Bundle.main, value: "Display Trend?", comment: "Apple Watch Settings - text in row where user needs to say if trend should be displayed or not")
-    }()
-    
-    static let displayUnitInCalendarEvent: String = {
-        return NSLocalizedString("displayUnitInCalendarEvent", tableName: filename, bundle: Bundle.main, value: "Dispaly Unit?", comment: "Apple Watch Settings - text in row where user needs to say if unit should be displayed or not")
-    }()
-    
-    static let displayDeltaInCalendarEvent: String = {
-        return NSLocalizedString("displayDeltaInCalendarEvent", tableName: filename, bundle: Bundle.main, value: "Dispaly Delta?", comment: "Apple Watch Settings - text in row where user needs to say if delta should be displayed or not")
-    }()
     
     static let infoCalendarAccessDeniedByUser: String = {
         return NSLocalizedString("infoCalendarAccessDeniedByUser", tableName: filename, bundle: Bundle.main, value: "You previously denied access to your Calendar.\n\nTo enable it go to your device settings, privacy, calendars and enable it", comment: "If user has earlier denied access to calendar, and then tries to activate creation of events in calendar, this message will be shown")

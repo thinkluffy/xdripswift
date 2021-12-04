@@ -5,9 +5,9 @@
 "settingsviews_highValue" = "血糖高值";
 "settingsviews_sectiontitletransmitter" = "发射器";
 "settingsviews_transmittertype" = "发射器类型";
-"settingsviews_transmitterid" = "发射器ID";
-"settingsviews_transmitterid_text_for_button" = "发射器ID";
-"settingsviews_givetransmitterid" = "输入发射器ID";
+"settingsviews_transmitterid" = "发射器 ID";
+"settingsviews_transmitterid_text_for_button" = "发射器 ID";
+"settingsviews_givetransmitterid" = "输入发射器 ID";
 "settingsviews_sectiontitlealerting" = "警报设置";
 "settingsviews_row_alert_types" = "警报类型";
 "settingsviews_row_alerts" = "警报";
@@ -127,7 +127,7 @@
 "sendTraceFile" = "Send Issue Report";
 
 /// nightscout settings, title of row
-"uploadSensorStartTime" = "Upload Sensor Start Time?";
+"uploadSensorStartTime" = "上传探头开始时间";
 
 /// name of setting for text color
 "m5stack_settingsviews_textColor" = "Text Color";
@@ -181,7 +181,7 @@
 "editScheduleTimePickerSubtitle" = "Change: ";
 
 /// Apple Watch Settings - text in row where user needs to select a calendar
-"calenderId" = "Calendar To Use?";
+"calenderId" = "日历类型";
 
 /// name of setting for back ground color
 "m5stack_settingsviews_backGroundColor" = "Background Color";

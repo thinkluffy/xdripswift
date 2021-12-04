@@ -178,7 +178,7 @@ public class BgReading: NSManagedObject {
     }
     
     /// creates string with difference from previous reading and also unit
-    func unitizedDeltaString(previousBgReading:BgReading?, showUnit:Bool, highGranularity:Bool, mgdl:Bool) -> String {
+    func unitizedDeltaString(previousBgReading:BgReading?, showUnit: Bool, highGranularity:Bool, mgdl:Bool) -> String {
         
         guard let previousBgReading = previousBgReading else {
             return "???"

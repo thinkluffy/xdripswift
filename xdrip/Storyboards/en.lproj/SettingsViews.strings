@@ -58,7 +58,7 @@
 "settingsviews_giveNightScoutAPIKey" = "Enter your API_SECRET";
 "editScheduleTimePickerSubtitle" = "Change: ";
 "timeScheduleViewTitle" = "On/Off Time Schedule for ";
-"uploadSensorStartTime" = "Upload Sensor Start Time?";
+"uploadSensorStartTime" = "Upload Sensor Start Time";
 "testUrlAndAPIKey" = "Test Connection?";
 "settingsviews_sectiontitlespeak" = "Voice";
 "settingsviews_speakBgReadings" = "Speak BG Readings?";
@@ -80,7 +80,7 @@
 "m5stack_settingsviews_brightness" = "Screen Brightness";
 "appleWatchSectionTitle" = "Apple Watch";
 "createCalendarEvent" = "Create Calendar Events?";
-"calenderId" = "Calendar To Use?";
+"calenderId" = "Calendar to Use";
 "settingsviews_displayTrendInCalendarEvent" = "Display Trend?";
 "displayUnitInCalendarEvent" = "Display Unit?";
 "displayDeltaInCalendarEvent" = "Display Delta?";
