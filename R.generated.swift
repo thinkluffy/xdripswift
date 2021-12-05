@@ -5928,7 +5928,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let m5stack_settingsviews_backGroundColor = Rswift.StringResource(key: "m5stack_settingsviews_backGroundColor", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Blood Glucose Units:
+      /// en translation: Blood Glucose Units
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_selectbgunit = Rswift.StringResource(key: "settingsviews_selectbgunit", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -6076,7 +6076,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_master = Rswift.StringResource(key: "settingsviews_master", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Master or Follower?
+      /// en translation: Master/Follower
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_masterorfollower = Rswift.StringResource(key: "settingsviews_masterorfollower", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -6484,7 +6484,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("m5stack_settingsviews_backGroundColor", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Blood Glucose Units:
+      /// en translation: Blood Glucose Units
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static func settingsviews_selectbgunit(preferredLanguages: [String]? = nil) -> String {
@@ -7041,7 +7041,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_master", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Master or Follower?
+      /// en translation: Master/Follower
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static func settingsviews_masterorfollower(preferredLanguages: [String]? = nil) -> String {

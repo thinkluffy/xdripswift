@@ -98,7 +98,7 @@ class GlucoseIndicator: UIView {
     private let valueLabelMgDl: UILabel = {
         let label = UILabel()
         label.textColor = ConstantsUI.contentBackgroundColor
-        label.font = .monospacedDigitSystemFont(ofSize: 45, weight: .regular)
+        label.font = .systemFont(ofSize: 45)
         label.text = "---"
         return label
     }()
@@ -206,14 +206,14 @@ class BgLabelInMmol: UIView {
     private let valueLabelMmolInt: UILabel = {
         let label = UILabel()
         label.textColor = ConstantsUI.contentBackgroundColor
-        label.font = .monospacedDigitSystemFont(ofSize: 50, weight: .bold)
+        label.font = .boldSystemFont(ofSize: 50)
         return label
     }()
     
     private let valueLabelMmolFraction: UILabel = {
         let label = UILabel()
         label.textColor = ConstantsUI.contentBackgroundColor
-        label.font = .monospacedDigitSystemFont(ofSize: 30, weight: .regular)
+        label.font = .systemFont(ofSize: 30)
         return label
     }()
     
