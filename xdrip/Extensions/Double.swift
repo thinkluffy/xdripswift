@@ -31,9 +31,10 @@ extension Double: RawRepresentable {
     }
     
     /// converts mmol to mgdl if parameter mgdl = false. If mgdl = true then just returns self
-    func mmolToMgdl(mgdl:Bool) -> Double {
+    func mmolToMgdl(mgdl: Bool) -> Double {
         if mgdl {
             return self
+            
         } else {
             return self.mmolToMgdl()
         }
@@ -51,9 +52,10 @@ extension Double: RawRepresentable {
     }
     
     /// takes self as Double as bloodglucose value, converts value to string, round. Number of digits after decimal seperator depends on the unit. For mg/dl 0 digits after decimal seperator, for mmol, 1 digit after decimal seperator
-    func bgValuetoString(mgdl:Bool) -> String {
+    func bgValuetoString(mgdl: Bool) -> String {
         if mgdl {
             return String(format:"%.0f", self)
+            
         } else {
             return String(format:"%.1f", self)
         }
@@ -61,17 +63,12 @@ extension Double: RawRepresentable {
     
     /// if mgdl, then returns self, unchanged. If not mgdl, return self rounded to 1 decimal place
     func bgValueRounded(mgdl: Bool) -> Double {
-        
         if mgdl {
-            
             return self.round(toDecimalPlaces: 0)
             
         } else {
-            
             return self.round(toDecimalPlaces: 1)
-            
         }
-        
     }
     
     /// converts mmol to mgdl if parametermgdl = false and, converts value to string, round. Number of digits after decimal seperator depends on the unit. For mg/dl 0 digits after decimal seperator, for mmol, 1 digit after decimal seperator
@@ -80,6 +77,7 @@ extension Double: RawRepresentable {
     func mgdlToMmolAndToString(mgdl: Bool) -> String {
         if mgdl {
             return String(format:"%.0f", self)
+            
         } else {
             return String(format:"%.1f", self.mgdlToMmol())
         }
@@ -90,7 +88,4 @@ extension Double: RawRepresentable {
         let asDate = Date(timeIntervalSince1970: self/1000)
         return asDate.description(with: .current)
     }
-    
 }
-
-

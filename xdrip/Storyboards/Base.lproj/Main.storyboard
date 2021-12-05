@@ -415,7 +415,7 @@
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="ic_statistics"/>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SY5-Dp-dbs" userLabel="ChartView" customClass="ScatterChartView" customModule="Charts">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SY5-Dp-dbs" customClass="GlucoseChart" customModule="xdrip" customModuleProvider="target">
                                         <rect key="frame" x="10" y="50" width="886" height="220"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
@@ -457,7 +457,7 @@
                         <outlet property="bgTimeLabel" destination="oJs-dA-XMT" id="Gm9-7P-EOh"/>
                         <outlet property="bgValueLabel" destination="EAM-NR-qaI" id="vbZ-vv-DVg"/>
                         <outlet property="chartCard" destination="spV-Wq-MSW" id="pKD-VV-eul"/>
-                        <outlet property="chartView" destination="SY5-Dp-dbs" id="PyF-dR-Z2C"/>
+                        <outlet property="glucoseChart" destination="SY5-Dp-dbs" id="noX-Fn-TNr"/>
                         <outlet property="lockMoveButton" destination="OLV-8i-eaU" id="3pN-De-h3G"/>
                         <outlet property="showStatisticsButton" destination="flu-ic-Zli" id="cg3-36-WYt"/>
                         <outlet property="titleBar" destination="9T5-Iq-CgP" id="m4R-NG-I8c"/>

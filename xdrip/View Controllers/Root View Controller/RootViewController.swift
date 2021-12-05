@@ -1786,7 +1786,8 @@ extension RootViewController: RootV {
     }
     
     func showChartReadings(_ readings: [BgReading]?, from fromDate: Date, to toDate: Date) {
-        glucoseChart.show(readings: readings, from: fromDate, to: toDate)
+        glucoseChart.show(readings: readings, from: fromDate, to: toDate, aheadSeconds: Date.minuteInSeconds * 10)
+        glucoseChart.moveCurrentToTrailing()
     }
 }
 

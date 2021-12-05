@@ -21,7 +21,7 @@ class ChartDetailsViewController: UIViewController {
     @IBOutlet weak var showStatisticsButton: UIButton!
     @IBOutlet weak var lockMoveButton: UIButton!
 
-    @IBOutlet weak var chartView: ScatterChartView!
+    @IBOutlet weak var glucoseChart: GlucoseChart!
 
     private var presenter: ChartDetailsP!
     
@@ -125,15 +125,15 @@ class ChartDetailsViewController: UIViewController {
         }
         
         lockMoveButton.onTap { [unowned self] btn in
-            if self.chartView.dragMoveHighlightFirst {
+            if self.glucoseChart.dragMoveHighlightFirst {
                 btn.setImage(R.image.ic_pushpin_unlock(), for: .normal)
                 btn.tintColor = .white
-                self.chartView.dragMoveHighlightFirst = false
+                self.glucoseChart.dragMoveHighlightFirst = false
 
             } else {
                 btn.setImage(R.image.ic_pushpin_lock()?.withRenderingMode(.alwaysTemplate), for: .normal)
                 btn.tintColor = ConstantsUI.accentRed
-                self.chartView.dragMoveHighlightFirst = true
+                self.glucoseChart.dragMoveHighlightFirst = true
             }
         }
         
@@ -141,98 +141,11 @@ class ChartDetailsViewController: UIViewController {
     }
     
     private func setupChart() {
-        chartView.delegate = self
-
-        chartView.dragEnabled = true
-        chartView.chartDescription?.enabled = false
-        chartView.setScaleEnabled(false)
-        chartView.pinchZoomEnabled = false
-        chartView.legend.enabled = false
-        
-        let xAxis = chartView.xAxis
-        xAxis.labelFont = .systemFont(ofSize: 12)
-        xAxis.labelTextColor = .white
-        xAxis.valueFormatter = HourAxisValueFormatter()
-        xAxis.labelPosition = .bottom
-        xAxis.gridColor = ConstantsUI.mainBackgroundColor
-        xAxis.gridLineWidth = 2
-        xAxis.axisLineColor = ConstantsUI.mainBackgroundColor
-        xAxis.axisLineWidth = 2
-        if selectedChartHoursId == ChartHours.H24 {
-            xAxis.granularity = Date.hourInSeconds * 3 // 2 hours do not work, why?
-            
-        } else {
-            xAxis.granularity = Date.hourInSeconds
-        }
-        xAxis.labelCount = 13 // make the x labels step by 1 hour, do not know why
-        
-        chartView.leftAxis.enabled = false
-
-        // leave space for limit labels outside viewport
-        chartView.setExtraOffsets(left: 0, top: 0, right: 30, bottom: 0)
-        
-        let showAsMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
-
-        let yAxis = chartView.rightAxis
-        yAxis.drawGridLinesEnabled = false
-        yAxis.drawLabelsEnabled = false
-        yAxis.axisLineColor = ConstantsUI.mainBackgroundColor
-        yAxis.axisLineWidth = 2
-        yAxis.axisMaximum = showAsMg ? 300 : 16.6
-        yAxis.axisMinimum = showAsMg ? 40 : 2.2
-        
-        let urgentHigh = UserDefaults.standard.urgentHighMarkValue.mgdlToMmol(mgdl: showAsMg)
-        let high = UserDefaults.standard.highMarkValue.mgdlToMmol(mgdl: showAsMg)
-        let low = UserDefaults.standard.lowMarkValue.mgdlToMmol(mgdl: showAsMg)
-
-        let urgentHighLine = ChartLimitLine(limit: urgentHigh, label: urgentHigh.bgValuetoString(mgdl: showAsMg))
-        urgentHighLine.lineWidth = 1
-        urgentHighLine.lineDashLengths = [5, 5]
-        urgentHighLine.labelPosition = .right
-        urgentHighLine.valueFont = .systemFont(ofSize: 12)
-        urgentHighLine.lineColor = .gray
-        urgentHighLine.valueTextColor = .white
-        
-        let highLine = ChartLimitLine(limit: high, label: high.bgValuetoString(mgdl: showAsMg))
-        highLine.lineWidth = 1
-        highLine.lineDashLengths = [5, 5]
-        highLine.labelPosition = .right
-        highLine.valueFont = .boldSystemFont(ofSize: 14)
-        highLine.lineColor = .gray
-        highLine.valueTextColor = .white
-        
-        let lowLine = ChartLimitLine(limit: low, label: low.bgValuetoString(mgdl: showAsMg))
-        lowLine.lineWidth = 1
-        lowLine.lineDashLengths = [5, 5]
-        lowLine.labelPosition = .right
-        lowLine.valueFont = .boldSystemFont(ofSize: 14)
-        lowLine.lineColor = .gray
-        lowLine.valueTextColor = .white
-        
-        let rangeTopLine = ChartLimitLine(limit: yAxis.axisMaximum,
-                                          label: yAxis.axisMaximum.bgValuetoString(mgdl: showAsMg))
-        rangeTopLine.lineWidth = 2
-        rangeTopLine.lineColor = ConstantsUI.mainBackgroundColor
-        rangeTopLine.labelPosition = .right
-        rangeTopLine.valueFont = .systemFont(ofSize: 12)
-        rangeTopLine.valueTextColor = .gray
-
-        let rangeBottomLine = ChartLimitLine(limit: yAxis.axisMinimum,
-                                             label: yAxis.axisMinimum.bgValuetoString(mgdl: showAsMg))
-        rangeBottomLine.lineWidth = 0
-        rangeBottomLine.lineColor = ConstantsUI.mainBackgroundColor
-        rangeBottomLine.labelPosition = .right
-        rangeBottomLine.valueFont = .systemFont(ofSize: 12)
-        rangeBottomLine.valueTextColor = .gray
-        
-        yAxis.removeAllLimitLines()
-        yAxis.addLimitLine(urgentHighLine)
-        yAxis.addLimitLine(highLine)
-        yAxis.addLimitLine(lowLine)
-        yAxis.addLimitLine(rangeTopLine)
-        yAxis.addLimitLine(rangeBottomLine)
-        
-        yAxis.drawLimitLinesBehindDataEnabled = true
+        glucoseChart.delegate = self
+        glucoseChart.dragEnabled = true
+        glucoseChart.highlightEnabled = true
+        glucoseChart.dateFormat = "HH:mm"
+        glucoseChart.chartHours = selectedChartHoursId
     }
     
     @objc private func exitButtonDidClick(_ button: UIButton) {
@@ -268,107 +181,17 @@ extension ChartDetailsViewController: ChartDetailsV {
         calendarTitle.showRightArrow = !isToday
         
         // reset selected bg time and value
-        chartView.highlightValues(nil)
+        glucoseChart.unHighlightAll()
         bgTimeLabel.text = "--:--"
         bgValueLabel.text = "---"
         bgValueLabel.textColor = .white
         
-        // setup chart
-        let showAsMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
-        
-        let urgentHighInMg = UserDefaults.standard.urgentHighMarkValue
-        let highInMg = UserDefaults.standard.highMarkValue
-        let lowInMg = UserDefaults.standard.lowMarkValue
-        let urgentLowInMg = UserDefaults.standard.urgentLowMarkValue
-        
-        guard let readings = readings, !readings.isEmpty else {
-            ChartDetailsViewController.log.i("reading is nil, nothing to show")
-            
-            // put a placeholder to avoid showing default No Data view
-            var placeholderEntries = [ChartDataEntry]()
-            let placeholdeEntry = ChartDataEntry(x: fromDate.timeIntervalSince1970, y: highInMg.mgdlToMmol(mgdl: showAsMg))
-            placeholderEntries.append(placeholdeEntry)
-            let placeholderDataSet = ScatterChartDataSet(entries: placeholderEntries)
-            placeholderDataSet.setColor(.clear)
-            
-            let data = ScatterChartData(dataSets: [
-                placeholderDataSet
-            ])
-            chartView.data = data
-            return
-        }
-        
-        var urgentHighValues = [ChartDataEntry]()
-        var highValues = [ChartDataEntry]()
-        var inRangeValues = [ChartDataEntry]()
-        var lowValues = [ChartDataEntry]()
-        var urgentLowValues = [ChartDataEntry]()
+        glucoseChart.show(readings: readings, from: fromDate, to: toDate)
 
-        let filteredReadings = filterReadingsIfNeeded(readings)
-
-        for r in filteredReadings {
-            let bgValue = showAsMg ? r.calculatedValue : r.calculatedValue.mgdlToMmol()
-            let chartDataEntry = ChartDataEntry(x: r.timeStamp.timeIntervalSince1970, y: bgValue)
-            if r.calculatedValue >= urgentHighInMg {
-                urgentHighValues.append(chartDataEntry)
-                
-            } else if r.calculatedValue >= highInMg {
-                highValues.append(chartDataEntry)
-                
-            } else if r.calculatedValue > lowInMg {
-                inRangeValues.append(chartDataEntry)
-                
-            } else if r.calculatedValue > urgentLowInMg {
-                lowValues.append(chartDataEntry)
-                
-            } else {
-                urgentLowValues.append(chartDataEntry)
-            }
-        }
-        
-        let urgentHighDataSet = ScatterChartDataSet(entries: urgentHighValues)
-        urgentHighDataSet.setColor(ConstantsGlucoseChart.glucoseUrgentRangeColor)
-        
-        let highDataSet = ScatterChartDataSet(entries: highValues)
-        highDataSet.setColor(ConstantsGlucoseChart.glucoseNotUrgentRangeColor)
-        
-        let inRangeDataSet = ScatterChartDataSet(entries: inRangeValues)
-        inRangeDataSet.setColor(ConstantsGlucoseChart.glucoseInRangeColor)
-        
-        let lowDataSet = ScatterChartDataSet(entries: lowValues)
-        lowDataSet.setColor(ConstantsGlucoseChart.glucoseNotUrgentRangeColor)
-        
-        let urgentLowDataSet = ScatterChartDataSet(entries: urgentLowValues)
-        urgentLowDataSet.setColor(ConstantsGlucoseChart.glucoseUrgentRangeColor)
-        
-        chartView.xAxis.axisMinimum = fromDate.timeIntervalSince1970
-        chartView.xAxis.axisMaximum = toDate.timeIntervalSince1970
-        
-        let data = ScatterChartData(dataSets: [
-            urgentHighDataSet,
-            highDataSet,
-            inRangeDataSet,
-            lowDataSet,
-            urgentLowDataSet
-        ])
-        
-        for s in data.dataSets {
-            guard let scatterDataSet = s as? ScatterChartDataSet else {
-                continue
-            }
-            applyDataSetStyle(dataSet: scatterDataSet)
-            applyDataShapeSize(dataSet: scatterDataSet)
-        }
-        chartView.data = data
-        
-        let xRange = calChartHoursSeconds(chartHoursId: selectedChartHoursId)
-        chartView.setVisibleXRange(minXRange: xRange, maxXRange: xRange)
-
-        // move current time to centerX
         if isToday && showingDate == nil {
-            chartView.moveViewToX(Date().timeIntervalSince1970 - xRange/2)
+            glucoseChart.moveCurrentToCenter()
         }
-
+        
         showingDate = fromDate
     }
     
@@ -411,28 +234,28 @@ extension ChartDetailsViewController: ChartDetailsV {
     }
 }
 
-extension ChartDetailsViewController: ChartViewDelegate {
+extension ChartDetailsViewController: GlucoseChartDelegate {
     
-    @objc func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+    func chartReadingSelected(_ glucoseChart: GlucoseChart, reading: BgReading) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
-        let timestamp = dateFormatter.string(from: Date(timeIntervalSince1970: entry.x))
-        ChartDetailsViewController.log.d("==> chartValueSelected, (\(timestamp), \(entry.y))")
+        let timestamp = dateFormatter.string(from: reading.timeStamp)
+        
+        let showMgDl = UserDefaults.standard.bloodGlucoseUnitIsMgDl
+        ChartDetailsViewController.log.d("==> chartValueSelected, (\(timestamp), \(reading.calculatedValue.mgdlToMmol(mgdl: showMgDl)))")
                 
         bgTimeLabel.text = timestamp
-        bgValueLabel.text = entry.y.bgValuetoString(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
+        bgValueLabel.text = reading.calculatedValue.mgdlToMmolAndToString(mgdl: showMgDl)
+                
+        let urgentHighInMg = UserDefaults.standard.urgentHighMarkValue
+        let highInMg = UserDefaults.standard.highMarkValue
+        let lowInMg = UserDefaults.standard.lowMarkValue
+        let urgentLowInMg = UserDefaults.standard.urgentLowMarkValue
         
-        let showAsMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
-        
-        let urgentHighInMg = UserDefaults.standard.urgentHighMarkValue.mgdlToMmol(mgdl: showAsMg)
-        let highInMg = UserDefaults.standard.highMarkValue.mgdlToMmol(mgdl: showAsMg)
-        let lowInMg = UserDefaults.standard.lowMarkValue.mgdlToMmol(mgdl: showAsMg)
-        let urgentLowInMg = UserDefaults.standard.urgentLowMarkValue.mgdlToMmol(mgdl: showAsMg)
-        
-        if entry.y >= urgentHighInMg || entry.y <= urgentLowInMg {
+        if reading.calculatedValue >= urgentHighInMg || reading.calculatedValue <= urgentLowInMg {
             bgValueLabel.textColor = ConstantsGlucoseChart.glucoseUrgentRangeColor
 
-        } else if entry.y >= highInMg || entry.y <= lowInMg {
+        } else if reading.calculatedValue >= highInMg || reading.calculatedValue <= lowInMg {
             bgValueLabel.textColor = ConstantsGlucoseChart.glucoseNotUrgentRangeColor
 
         } else {
@@ -440,13 +263,13 @@ extension ChartDetailsViewController: ChartViewDelegate {
         }
     }
     
-    @objc func chartValueNothingSelected(_ chartView: ChartViewBase) {
+    func chartReadingNothingSelected(_ glucoseChart: GlucoseChart) {
         bgTimeLabel.text = "--:--"
         bgValueLabel.text = "---"
         bgValueLabel.textColor = .white
     }
 }
-
+    
 extension ChartDetailsViewController: CalendarTitleDelegate {
     
     func calendarLeftButtonDidClick(_ calendarTitle: CalendarTitle, currentTime: Date) {
@@ -482,22 +305,23 @@ extension ChartDetailsViewController: SingleSelectionDelegate {
     
     func singleSelectionItemDidSelect(_ singleSelecton: SingleSelection, item: SingleSelectionItem) {
         selectedChartHoursId = item.id
+        glucoseChart.chartHours = selectedChartHoursId
         
-        let centerVisibleX = (chartView.highestVisibleX - chartView.lowestVisibleX) / 2 + chartView.lowestVisibleX
-
-        let xRange = calChartHoursSeconds(chartHoursId: selectedChartHoursId)
-        chartView.setVisibleXRange(minXRange: xRange, maxXRange: xRange)
-        
-        if selectedChartHoursId == ChartHours.H24 {
-            chartView.xAxis.granularity = Date.hourInSeconds * 3 // 2 hours do not work, why?
-            
-        } else {
-            chartView.xAxis.granularity = Date.hourInSeconds
-        }
-        chartView.notifyDataSetChanged()
-        
-        // keep center still center
-        chartView.moveViewToX(centerVisibleX - xRange / 2)
+//        let centerVisibleX = (chartView.highestVisibleX - chartView.lowestVisibleX) / 2 + chartView.lowestVisibleX
+//
+//        let xRange = calChartHoursSeconds(chartHoursId: selectedChartHoursId)
+//        chartView.setVisibleXRange(minXRange: xRange, maxXRange: xRange)
+//
+//        if selectedChartHoursId == ChartHours.H24 {
+//            chartView.xAxis.granularity = Date.hourInSeconds * 3 // 2 hours do not work, why?
+//
+//        } else {
+//            chartView.xAxis.granularity = Date.hourInSeconds
+//        }
+//        chartView.notifyDataSetChanged()
+//
+//        // keep center still center
+//        chartView.moveViewToX(centerVisibleX - xRange / 2)
     }
 }
 

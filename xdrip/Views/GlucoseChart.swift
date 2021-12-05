@@ -9,17 +9,28 @@
 import UIKit
 import Charts
 
+protocol GlucoseChartDelegate: AnyObject {
+    
+    func chartReadingSelected(_ glucoseChart: GlucoseChart, reading: BgReading)
+    
+    func chartReadingNothingSelected(_ glucoseChart: GlucoseChart)
+    
+}
+
 class GlucoseChart: UIView {
 
     private static let log = Log(type: GlucoseChart.self)
     
-    private lazy var chartView = ScatterChartView()
+    private lazy var chartView = LineChartView()
     
     private lazy var urgentHighLine = ChartLimitLine()
     private lazy var highLine = ChartLimitLine()
     private lazy var lowLine = ChartLimitLine()
     private lazy var rangeTopLine = ChartLimitLine()
     private lazy var rangeBottomLine = ChartLimitLine()
+    
+    private var chartHistoryDataSet: LineChartDataSet?
+    private var chartCurrentOneDataSet: LineChartDataSet?
 
     var chartHours = ChartHours.H3 {
         didSet {
@@ -27,7 +38,38 @@ class GlucoseChart: UIView {
         }
     }
     
-    private var chartCurrentDataSet: ScatterChartDataSet?
+    var dragMoveHighlightFirst: Bool {
+        get {
+            chartView.dragMoveHighlightFirst
+        }
+        set {
+            chartView.dragMoveHighlightFirst = newValue
+        }
+    }
+
+    var dragEnabled: Bool {
+        get {
+            chartView.dragEnabled
+        }
+        set {
+            chartView.dragEnabled = newValue
+        }
+    }
+
+    var dateFormat = "HH" {
+        didSet {
+            chartView.xAxis.valueFormatter = HourAxisValueFormatter(dateFormat: dateFormat)
+        }
+    }
+    
+    var highlightEnabled = false {
+        didSet {
+            chartHistoryDataSet?.highlightEnabled = highlightEnabled
+            chartCurrentOneDataSet?.highlightEnabled = highlightEnabled
+        }
+    }
+    
+    weak var delegate: GlucoseChartDelegate?
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -50,7 +92,7 @@ class GlucoseChart: UIView {
     }
     
     private func setupChart() {
-//        chartView.delegate = self
+        chartView.delegate = self
 
         chartView.dragEnabled = false
         chartView.chartDescription?.enabled = false
@@ -61,7 +103,7 @@ class GlucoseChart: UIView {
         let xAxis = chartView.xAxis
         xAxis.labelFont = .systemFont(ofSize: 12)
         xAxis.labelTextColor = .white
-        xAxis.valueFormatter = HourAxisValueFormatter()
+        xAxis.valueFormatter = HourAxisValueFormatter(dateFormat: dateFormat)
         xAxis.labelPosition = .bottom
         xAxis.gridColor = ConstantsUI.mainBackgroundColor
         xAxis.gridLineWidth = 2
@@ -182,7 +224,7 @@ class GlucoseChart: UIView {
         return filteredBgReadings
     }
     
-    func show(readings: [BgReading]?, from fromDate: Date, to toDate: Date) {
+    func show(readings: [BgReading]?, from fromDate: Date, to toDate: Date, aheadSeconds: Double = 0) {
         applySettings()
 
         // setup chart
@@ -200,8 +242,9 @@ class GlucoseChart: UIView {
             var placeholderEntries = [ChartDataEntry]()
             let placeholdeEntry = ChartDataEntry(x: fromDate.timeIntervalSince1970, y: highInMg.mgdlToMmol(mgdl: showAsMg))
             placeholderEntries.append(placeholdeEntry)
-            let placeholderDataSet = ScatterChartDataSet(entries: placeholderEntries)
+            let placeholderDataSet = LineChartDataSet(entries: placeholderEntries)
             placeholderDataSet.setColor(.clear)
+            placeholderDataSet.highlightEnabled = false
             
             let data = ScatterChartData(dataSets: [
                 placeholderDataSet
@@ -210,11 +253,7 @@ class GlucoseChart: UIView {
             return
         }
         
-        var urgentHighValues = [ChartDataEntry]()
-        var highValues = [ChartDataEntry]()
-        var inRangeValues = [ChartDataEntry]()
-        var lowValues = [ChartDataEntry]()
-        var urgentLowValues = [ChartDataEntry]()
+        var values = [ChartDataEntry]()
         var currentValues = [ChartDataEntry]()
         
         let filteredBgReadings = filterReadingsIfNeeded(readings)
@@ -227,6 +266,7 @@ class GlucoseChart: UIView {
             isLastReadingCurrent = false
         }
         
+        var circleColors = [NSUIColor]()
         for (i, r) in filteredBgReadings.enumerated() {
             let bgValue = showAsMg ? r.calculatedValue : r.calculatedValue.mgdlToMmol()
             let chartDataEntry = ChartDataEntry(x: r.timeStamp.timeIntervalSince1970, y: bgValue, data: r)
@@ -237,80 +277,81 @@ class GlucoseChart: UIView {
             }
             
             if r.calculatedValue >= urgentHighInMg {
-                urgentHighValues.append(chartDataEntry)
+                circleColors.append(ConstantsGlucoseChart.glucoseUrgentRangeColor)
 
             } else if r.calculatedValue >= highInMg {
-                highValues.append(chartDataEntry)
+                circleColors.append(ConstantsGlucoseChart.glucoseNotUrgentRangeColor)
                 
             } else if r.calculatedValue > lowInMg {
-                inRangeValues.append(chartDataEntry)
-                
+                circleColors.append(ConstantsGlucoseChart.glucoseInRangeColor)
+
             } else if r.calculatedValue >= urgentLowInMg {
-                lowValues.append(chartDataEntry)
-                    
-            } else {
-                urgentLowValues.append(chartDataEntry)
-            }
-        }
-        
-        let urgentHighDataSet = ScatterChartDataSet(entries: urgentHighValues)
-        urgentHighDataSet.setColor(ConstantsGlucoseChart.glucoseUrgentRangeColor)
-        
-        let highDataSet = ScatterChartDataSet(entries: highValues)
-        highDataSet.setColor(ConstantsGlucoseChart.glucoseNotUrgentRangeColor)
-        
-        let inRangeDataSet = ScatterChartDataSet(entries: inRangeValues)
-        inRangeDataSet.setColor(ConstantsGlucoseChart.glucoseInRangeColor)
-        
-        let lowDataSet = ScatterChartDataSet(entries: lowValues)
-        lowDataSet.setColor(ConstantsGlucoseChart.glucoseNotUrgentRangeColor)
-        
-        let urgentLowDataSet = ScatterChartDataSet(entries: urgentLowValues)
-        urgentLowDataSet.setColor(ConstantsGlucoseChart.glucoseUrgentRangeColor)
-        
-        let currentDataSet = ScatterChartDataSet(entries: currentValues)
-        if isLastReadingCurrent, let lr = filteredBgReadings.last {
-            if lr.calculatedValue >= urgentHighInMg || lr.calculatedValue <= urgentLowInMg {
-                currentDataSet.setColor(ConstantsGlucoseChart.glucoseUrgentRangeColor)
-                
-            } else if lr.calculatedValue >= highInMg || lr.calculatedValue <= lowInMg {
-                currentDataSet.setColor(ConstantsGlucoseChart.glucoseNotUrgentRangeColor)
+                circleColors.append(ConstantsGlucoseChart.glucoseNotUrgentRangeColor)
 
             } else {
-                currentDataSet.setColor(ConstantsGlucoseChart.glucoseInRangeColor)
+                circleColors.append(ConstantsGlucoseChart.glucoseUrgentRangeColor)
+            }
+            values.append(chartDataEntry)
+        }
+        
+        let dataSet = LineChartDataSet(entries: values)
+        let currentOneDataSet = LineChartDataSet(entries: currentValues)
+        
+        chartHistoryDataSet = dataSet
+        chartCurrentOneDataSet = currentOneDataSet
+
+        if isLastReadingCurrent, let lr = filteredBgReadings.last {
+            if lr.calculatedValue >= urgentHighInMg || lr.calculatedValue <= urgentLowInMg {
+                currentOneDataSet.setCircleColor(ConstantsGlucoseChart.glucoseUrgentRangeColor)
+                
+            } else if lr.calculatedValue >= highInMg || lr.calculatedValue <= lowInMg {
+                currentOneDataSet.setCircleColor(ConstantsGlucoseChart.glucoseNotUrgentRangeColor)
+
+            } else {
+                currentOneDataSet.setCircleColor(ConstantsGlucoseChart.glucoseInRangeColor)
             }
         }
-        chartCurrentDataSet = currentDataSet
+        currentOneDataSet.circleHoleColor = ConstantsUI.contentBackgroundColor
         
         chartView.xAxis.axisMinimum = fromDate.timeIntervalSince1970
         // append 10 miniuts to make the current dot more visible
-        chartView.xAxis.axisMaximum = toDate.timeIntervalSince1970 + Date.minuteInSeconds * 10
+        chartView.xAxis.axisMaximum = toDate.timeIntervalSince1970 + aheadSeconds
         
-        let data = ScatterChartData(dataSets: [
-            urgentHighDataSet,
-            highDataSet,
-            inRangeDataSet,
-            lowDataSet,
-            urgentLowDataSet,
-            currentDataSet
+        let data = LineChartData(dataSets: [
+            dataSet,
+            currentOneDataSet
         ])
         
         for s in data.dataSets {
-            guard let scatterDataSet = s as? ScatterChartDataSet else {
+            guard let dataSet = s as? LineChartDataSet else {
                 continue
             }
-            applyDataSetStyle(dataSet: scatterDataSet)
-            applyDataShapeSize(dataSet: scatterDataSet)
+            applyDataSetStyle(dataSet: dataSet)
+            applyDataShapeSize(dataSet: dataSet)
         }
         
-        applyCurrentDataSetStyle(dataSet: currentDataSet)
+        dataSet.circleColors = circleColors
+        applyCurrentDataShapeSize(dataSet: currentOneDataSet)
         
         chartView.data = data
-        
+    }
+    
+    func moveCurrentToTrailing() {
         let xRange = calChartHoursSeconds(chartHoursId: chartHours)
         chartView.setVisibleXRange(minXRange: xRange, maxXRange: xRange)
         
         chartView.moveViewToX(chartView.xAxis.axisMaximum  - xRange)
+    }
+    
+    func moveCurrentToCenter() {
+        let xRange = calChartHoursSeconds(chartHoursId: chartHours)
+        chartView.setVisibleXRange(minXRange: xRange, maxXRange: xRange)
+        
+        chartView.moveViewToX(Date().timeIntervalSince1970 - xRange/2)
+    }
+    
+    func unHighlightAll() {
+        chartView.highlightValues(nil)
     }
     
     private func calChartHoursSeconds(chartHoursId: Int) -> Double {
@@ -332,17 +373,18 @@ class GlucoseChart: UIView {
         return xRange
     }
     
-    private func applyDataSetStyle(dataSet: ScatterChartDataSet) {
-        dataSet.setScatterShape(.circle)
+    private func applyDataSetStyle(dataSet: LineChartDataSet) {
         dataSet.drawValuesEnabled = false
         dataSet.drawHorizontalHighlightIndicatorEnabled = false
-        dataSet.highlightColor = .white
         dataSet.axisDependency = .right
+        dataSet.lineWidth = 0
+        dataSet.setColor(.clear)
+        dataSet.highlightColor = .white
         
-        dataSet.highlightEnabled = false
+        dataSet.highlightEnabled = highlightEnabled
     }
-    
-    private func applyDataShapeSize(dataSet: ScatterChartDataSet) {
+
+    private func applyDataShapeSize(dataSet: LineChartDataSet) {
         let shapeSize: CGFloat
         switch chartHours
         {
@@ -360,13 +402,12 @@ class GlucoseChart: UIView {
             shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter3h
             break
         }
-        dataSet.scatterShapeSize = shapeSize
+        dataSet.circleRadius = shapeSize / 2
     }
     
-    private func applyCurrentDataSetStyle(dataSet: ScatterChartDataSet) {
-        dataSet.scatterShapeSize = dataSet.scatterShapeSize * 1.5
-        dataSet.scatterShapeHoleRadius = dataSet.scatterShapeSize * 0.25
-        dataSet.scatterShapeHoleColor = ConstantsUI.contentBackgroundColor
+    private func applyCurrentDataShapeSize(dataSet: LineChartDataSet) {
+        dataSet.circleRadius = dataSet.circleRadius * 1.5
+        dataSet.circleHoleRadius = dataSet.circleRadius * 0.5
     }
     
     private func applyChartHours() {
@@ -384,15 +425,15 @@ class GlucoseChart: UIView {
         
         if let data = chartView.data {
             for s in data.dataSets {
-                guard let scatterDataSet = s as? ScatterChartDataSet else {
+                guard let dataSet = s as? LineChartDataSet else {
                     continue
                 }
-                applyDataShapeSize(dataSet: scatterDataSet)
+                applyDataShapeSize(dataSet: dataSet)
             }
         }
         
-        if let currentDataSet = chartCurrentDataSet {
-            applyCurrentDataSetStyle(dataSet: currentDataSet)
+        if let currentOneDataSet = chartCurrentOneDataSet {
+            applyCurrentDataShapeSize(dataSet: currentOneDataSet)
         }
         
         chartView.notifyDataSetChanged()
@@ -402,13 +443,32 @@ class GlucoseChart: UIView {
     }
 }
 
+extension GlucoseChart: ChartViewDelegate {
+    
+    @objc func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        guard let reading = entry.data as? BgReading else {
+            return
+        }
+        delegate?.chartReadingSelected(self, reading: reading)
+    }
+    
+    @objc func chartValueNothingSelected(_ chartView: ChartViewBase) {
+        delegate?.chartReadingNothingSelected(self)
+    }
+}
+
 fileprivate class HourAxisValueFormatter: IAxisValueFormatter {
+    
+    let dateFormat: String
+    
+    init(dateFormat: String) {
+        self.dateFormat = dateFormat
+    }
     
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
         let date = Date(timeIntervalSince1970: value)
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH"
+        dateFormatter.dateFormat = dateFormat
         return dateFormatter.string(from: date)
     }
-    
 }
