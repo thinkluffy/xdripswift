@@ -1,9 +1,9 @@
 "alertsettingsview_screentitle" = "警报";
 "alertssettingsview_screentitle" = "编辑警报";
 "alerts_highalerttitle" = "高血糖警报";
-"alerts_veryhighalerttitle" = "非常高血糖警报";
+"alerts_veryhighalerttitle" = "紧急高血糖警报";
 "alerts_lowalerttitle" = "低血糖警报";
-"alerts_verylowalerttitle" = "极低血糖警报";
+"alerts_verylowalerttitle" = "紧急低血糖警报";
 "alerts_snooze" = "延后报警";
 "alerts_select_snooze_time" = "选择延后时间";
 "alerts_missedreadingalerttitle" = "数据读取缺失";

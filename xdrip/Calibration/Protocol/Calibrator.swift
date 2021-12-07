@@ -24,21 +24,21 @@ protocol Calibrator {
     ///     - nsManagedObjectContext: the nsmanagedobject context in which calibration should be created
     /// - returns:
     ///     - two Calibrations, stored in the context but context not saved. The first calibration and second. Can be nil values, if anything goes wrong in the algorithm
-    func initialCalibration(firstCalibrationBgValue:Double, firstCalibrationTimeStamp:Date, secondCalibrationBgValue:Double, sensor:Sensor, lastBgReadingsWithCalculatedValue0AndForSensor:inout Array<BgReading>, deviceName:String?, nsManagedObjectContext:NSManagedObjectContext) -> (firstCalibration: Calibration?, secondCalibration: Calibration?)
+    func initialCalibration(firstCalibrationBgValue: Double, firstCalibrationTimeStamp: Date, secondCalibrationBgValue: Double, sensor: Sensor, lastBgReadingsWithCalculatedValue0AndForSensor: inout Array<BgReading>, deviceName: String?, nsManagedObjectContext: NSManagedObjectContext) -> (firstCalibration: Calibration?, secondCalibration: Calibration?)
 
     /// create a new BgReading
     /// - parameters:
     ///     - rawData : the rawdata value
     ///     - timeStamp : optional, if nil then actualy date and time is used
     ///     - sensor : actual sensor, optional
-    ///     - last3Readings : result of call to BgReadings.getLatestBgReadings(3, sensor) sensor the current sensor and ignore calculatedValue and ignoreRawData both set to false - inout parameter to improve performance and also because it's an NSManagedObject
+    ///     - lastReadings : result of call to BgReadings.getLatestBgReadings(num, sensor) sensor the current sensor and ignore calculatedValue and ignoreRawData both set to false - inout parameter to improve performance and also because it's an NSManagedObject
     ///     - nsManagedObjectContext : the nsManagedObjectContext
     ///     - lastCalibrationsForActiveSensorInLastXDays :  result of call to getLatestCalibrations(howManyDays:4, forSensor: active sensor) - inout parameter to improve performance
     ///     - firstCalibration : result of call to Calibrations.firstCalibrationForActiveSensor
     ///     - lastCalibration : result of call to Calibrations.lastCalibrationForActiveSensor
     /// - returns:
     ///     - the created bgreading
-    func createNewBgReading(rawData:Double, timeStamp:Date?, sensor:Sensor?, last3Readings:inout Array<BgReading>, lastCalibrationsForActiveSensorInLastXDays:inout Array<Calibration>, firstCalibration:Calibration?, lastCalibration:Calibration?, deviceName:String?,  nsManagedObjectContext:NSManagedObjectContext ) -> BgReading
+    func createNewBgReading(rawData: Double, timeStamp: Date?, sensor: Sensor?, lastReadings: inout Array<BgReading>, lastCalibrationsForActiveSensorInLastXDays: inout Array<Calibration>, firstCalibration: Calibration?, lastCalibration: Calibration?, deviceName: String?, nsManagedObjectContext: NSManagedObjectContext ) -> BgReading
     
     /// creates a calibration, stored in the database, but context not saved. Also readings will be adpated, also not saved.
     /// - parameters:
@@ -46,7 +46,7 @@ protocol Calibrator {
     ///     - lastBgReading: latest bgreading
     ///     - lastCalibrationsForActiveSensorInLastXDays: ... the latest calibrations in x days, in Spike/xdripplus it's 4. Order by timestamp, large to small, ie the first is the youngest
     ///     - firstCalibration: the very first calibration for the sensor
-    func createNewCalibration(bgValue:Double, lastBgReading:BgReading, sensor:Sensor, lastCalibrationsForActiveSensorInLastXDays:inout Array<Calibration>, firstCalibration:Calibration,deviceName:String?, nsManagedObjectContext:NSManagedObjectContext) -> Calibration
+    func createNewCalibration(bgValue: Double, lastBgReading: BgReading, sensor: Sensor, lastCalibrationsForActiveSensorInLastXDays: inout Array<Calibration>, firstCalibration: Calibration, deviceName: String?, nsManagedObjectContext: NSManagedObjectContext) -> Calibration
     
     /// gives a description
     func description() -> String
@@ -129,7 +129,15 @@ extension Calibrator {
     ///     - lastCalibration : result of call to Calibrations.lastCalibrationForActiveSensor
     /// - returns:
     ///     - the created bgreading
-    func createNewBgReading(rawData:Double, timeStamp:Date?, sensor:Sensor?, last3Readings:inout Array<BgReading>, lastCalibrationsForActiveSensorInLastXDays:inout Array<Calibration>, firstCalibration:Calibration?, lastCalibration:Calibration?, deviceName:String?, nsManagedObjectContext:NSManagedObjectContext ) -> BgReading {
+    func createNewBgReading(rawData: Double,
+                            timeStamp: Date?,
+                            sensor: Sensor?,
+                            lastReadings: inout Array<BgReading>,
+                            lastCalibrationsForActiveSensorInLastXDays: inout Array<Calibration>,
+                            firstCalibration: Calibration?,
+                            lastCalibration: Calibration?,
+                            deviceName: String?,
+                            nsManagedObjectContext: NSManagedObjectContext ) -> BgReading {
         
         var timeStampToUse:Date = Date()
         if let timeStamp = timeStamp {
@@ -137,31 +145,30 @@ extension Calibrator {
         }
         
         let bgReading:BgReading = BgReading(
-            timeStamp:timeStampToUse,
-            sensor:sensor,
-            calibration:lastCalibration,
-            rawData:rawData / rawValueDivider,
-            deviceName:deviceName,
-            nsManagedObjectContext:nsManagedObjectContext
+            timeStamp: timeStampToUse,
+            sensor: sensor,
+            calibration: lastCalibration,
+            rawData: rawData / rawValueDivider,
+            deviceName: deviceName,
+            nsManagedObjectContext: nsManagedObjectContext
         )
         
-        calculateAgeAdjustedRawValue(for:bgReading, withSensor:sensor)
+        calculateAgeAdjustedRawValue(for: bgReading, withSensor: sensor)
         
         if let lastCalibration = lastCalibration, let firstCalibration = firstCalibration {
-            if (last3Readings.count > 0) {
-                let latest:BgReading = last3Readings[0]
+            if lastReadings.count > 0 {
+                let latest = lastReadings[0]
                 if var latestReadingCalibration = latest.calibration {
-                    if (latest.calibrationFlag && ((latest.timeStamp.toMillisecondsAsDouble() + (60000 * 20)) > timeStampToUse.toMillisecondsAsDouble()) && ((latestReadingCalibration.timeStamp.toMillisecondsAsDouble() + (60000 * 20)) > timeStampToUse.toMillisecondsAsDouble())) {
+                    if latest.calibrationFlag && ((latest.timeStamp.toMillisecondsAsDouble() + (60000 * 20)) > timeStampToUse.toMillisecondsAsDouble()) && ((latestReadingCalibration.timeStamp.toMillisecondsAsDouble() + (60000 * 20)) > timeStampToUse.toMillisecondsAsDouble()) {
                         rawValueOverride(for: &latestReadingCalibration, rawValue: weightedAverageRaw(timeA: latest.timeStamp, timeB: timeStampToUse, calibrationTime: latestReadingCalibration.timeStamp, rawA: latest.ageAdjustedRawValue, rawB: bgReading.ageAdjustedRawValue), lastCalibrationsForActiveSensorInLastXDays: &lastCalibrationsForActiveSensorInLastXDays, firstCalibration: firstCalibration, lastCalibration: lastCalibration)
                     }
                 }
-                bgReading.calculatedValue = ((lastCalibration.slope * bgReading.ageAdjustedRawValue) + lastCalibration.intercept)
-
+                bgReading.calculatedValue = (lastCalibration.slope * bgReading.ageAdjustedRawValue) + lastCalibration.intercept
             }
             updateCalculatedValue(for: bgReading)
         }
         
-        performCalculations(for: bgReading, last3Readings: &last3Readings)
+        performCalculations(for: bgReading, lastReadings: &lastReadings)
         
         return bgReading
     }
@@ -201,13 +208,14 @@ extension Calibrator {
         
         let latestCalibration = calibrations[0]
         
-        if (calibrations.count > 2) {
+        if calibrations.count > 2 {
             let denom = Double(readingsToBeAdjusted.count)
             var i = 0.0
             loop: for index in 0..<readingsToBeAdjusted.count {
                 if readingsToBeAdjusted[index].calculatedValue != 0.0 && !overwriteCalculatedValue {
                     //no further processing needed, all next readings should have a value != 0
                     break loop
+                    
                 } else {
                     let oldYValue = readingsToBeAdjusted[index].calculatedValue
                     let newYvalue = (readingsToBeAdjusted[index].ageAdjustedRawValue * latestCalibration.slope) + latestCalibration.intercept
@@ -215,7 +223,8 @@ extension Calibrator {
                     i += 1
                 }
             }
-        } else if (calibrations.count == 2) {
+            
+        } else if calibrations.count == 2 {
             loop: for index in 0..<readingsToBeAdjusted.count {
                 if readingsToBeAdjusted[index].calculatedValue != 0.0 && !overwriteCalculatedValue {
                     //no further processing needed, all next readings should have a value != 0
@@ -252,14 +261,14 @@ extension Calibrator {
     ///     - lastCalibrationsForActiveSensorInLastXDays :  result of call to getLatestCalibrations(howManyDays:4, forSensor: active sensor) - inout parameter to improve performance
     ///     - firstCalibration : result of call to Calibrations.firstCalibrationForActiveSensor
     ///     - lastCalibration : result of call to Calibrations.lastCalibrationForActiveSensor
-    private func calculateWLS(for calibration:Calibration, lastCalibrationsForActiveSensorInLastXDays:inout Array<Calibration>, firstCalibration:Calibration, lastCalibration:Calibration) {
+    private func calculateWLS(for calibration: Calibration, lastCalibrationsForActiveSensorInLastXDays: inout Array<Calibration>, firstCalibration: Calibration, lastCalibration: Calibration) {
         
-        var l:Double = 0
-        var m:Double = 0
-        var n:Double = 0
-        var p:Double = 0
-        var q:Double = 0
-        var w:Double
+        var l: Double = 0
+        var m: Double = 0
+        var n: Double = 0
+        var p: Double = 0
+        var q: Double = 0
+        var w: Double
         
         check(ifThisCalibration: calibration, isInThisList: &lastCalibrationsForActiveSensorInLastXDays)
         
@@ -333,8 +342,10 @@ extension Calibrator {
         loop1 : for (index, calibrationItem) in list.enumerated() {
             if calibration.timeStamp.toMillisecondsAsDouble() > calibrationItem.timeStamp.toMillisecondsAsDouble() {
                 list.insert(calibration, at: index)
+                
             } else if calibrationItem.id == calibration.id {
                 break loop1
+                
             } else if index == (list.count - 1) {
                 list.append(calibration)
             }
@@ -348,13 +359,15 @@ extension Calibrator {
     private func slopeOOBHandler(withStatus status:Int, withLast3CalibrationsForActiveSensor calibrations:Array<Calibration>) -> Double {
         let thisCalibration:Calibration = calibrations[0]
         
-        if(status == 0) {
+        if status == 0 {
             if calibrations.count == 3 {
                 if ((abs(thisCalibration.bg) < 30) && (calibrations[1].possibleBad)) {
                     return calibrations[1] .slope
+                    
                 } else {
                     return max(((-0.048) * (thisCalibration.sensorAgeAtTimeOfEstimation / (60000 * 60 * 24))) + 1.1, sParams.DEFAULT_LOW_SLOPE_LOW)
                 }
+                
             } else if calibrations.count == 2 {
                 return max(((-0.048) * (thisCalibration.sensorAgeAtTimeOfEstimation / (60000 * 60 * 24))) + 1.1, sParams.DEFAULT_LOW_SLOPE_HIGH)
             }
@@ -383,20 +396,20 @@ extension Calibrator {
     /// - parameters:
     ///     - bgReading : reading that needs to be updated
     ///     - last3Readings : result of call to BgReadings.getLatestBgReadings(3, sensor) sensor the current sensor and ignore calculatedValue and ignoreRawData both set to false - it's ok if there's less than 3 readings - inout parameter to improve performance
-    private func findNewCurve(for bgReading: BgReading, last3Readings:inout Array<BgReading>) {
+    private func findNewCurve(for bgReading: BgReading, last3Readings: inout Array<BgReading>) {
         //debuglogging("in findNewCurve with last3Readings.count = " + last3Readings.count.description)
         
-        var y3:Double
-        var x3:Double
-        var y2:Double
-        var x2:Double
-        var y1:Double
-        var x1:Double
-        var latest:BgReading
-        var secondlatest:BgReading
-        var thirdlatest:BgReading
+        var y3: Double
+        var x3: Double
+        var y2: Double
+        var x2: Double
+        var y1: Double
+        var x1: Double
+        var latest: BgReading
+        var secondlatest: BgReading
+        var thirdlatest: BgReading
         
-        if (last3Readings.count > 2) {
+        if last3Readings.count > 2 {
             latest = last3Readings[0]
             secondlatest = last3Readings[1]
             thirdlatest = last3Readings[2]
@@ -414,14 +427,14 @@ extension Calibrator {
             bgReading.b = (-y1*(x2+x3)/((x1-x2)*(x1-x3))-y2*(x1+x3)/((x2-x1)*(x2-x3))-y3*(x1+x2)/((x3-x1)*(x3-x2)))
             bgReading.c = (y1*x2*x3/((x1-x2)*(x1-x3))+y2*x1*x3/((x2-x1)*(x2-x3))+y3*x1*x2/((x3-x1)*(x3-x2)))
             
-        } else if (last3Readings.count == 2) {
+        } else if last3Readings.count == 2 {
             latest = last3Readings[0]
             secondlatest = last3Readings[1]
             y2 = latest.calculatedValue
             x2 = latest.timeStamp.toMillisecondsAsDouble()
             y1 = secondlatest.calculatedValue
             x1 = secondlatest.timeStamp.toMillisecondsAsDouble()
-            if (y1 == y2) {
+            if y1 == y2 {
                 bgReading.b = 0
                 
             } else {
@@ -560,10 +573,10 @@ extension Calibrator {
     /// - parameters:
     ///     - bgReading : reading that will be updated
     ///     - last3Readings : result of call to BgReadings.getLatestBgReadings(x, sensor) sensor the current sensor and ignore calculatedValue and ignoreRawData both set to false - inout parameter to improve performance
-    private func performCalculations(for bgReading: BgReading, last3Readings: inout Array<BgReading>)  {
-        findNewCurve(for: bgReading, last3Readings: &last3Readings)
-        findNewRawCurve(for: bgReading, last3Readings: &last3Readings)
-        findSlope(for: bgReading, last2Readings: &last3Readings)
+    private func performCalculations(for bgReading: BgReading, lastReadings: inout Array<BgReading>)  {
+        findNewCurve(for: bgReading, last3Readings: &lastReadings)
+        findNewRawCurve(for: bgReading, last3Readings: &lastReadings)
+        findSlope(for: bgReading, lastReadings: &lastReadings)
     }
     
     /// taken from xdripplus
@@ -572,21 +585,39 @@ extension Calibrator {
     ///
     /// - parameters:
     ///     - bgReading : reading that will be updated
-    ///     - last2Readings result of call to BgReadings.getLatestBgReadings(2, sensor) ignoreRawData and ignoreCalculatedValue false - inout parameter to improve performance
-    func findSlope(for bgReading: BgReading, last2Readings: inout Array<BgReading>) {
+    ///     - lastReadings result of call to BgReadings.getLatestBgReadings(num, sensor) ignoreRawData and ignoreCalculatedValue false - inout parameter to improve performance
+    func findSlope(for bgReading: BgReading, lastReadings: inout Array<BgReading>) {
         log.d("==> findSlope")
         bgReading.hideSlope = true
-        if (last2Readings.count >= 2) {
-            let (slope, hide) = bgReading.calculateSlope(lastBgReading:last2Readings[1]);
-            bgReading.calculatedValueSlope = slope
-            bgReading.hideSlope = hide
-            
-        } else if (last2Readings.count == 1) {
-            bgReading.calculatedValueSlope = 0
+        
+        guard lastReadings.count >= 2 else {
+           bgReading.calculatedValueSlope = 0
+           return
+        }
+        
+        var reading15minsAgo: BgReading?
+        
+        for i in 0 ... lastReadings.count - 1 {
+            if abs(bgReading.timeStamp.timeIntervalSince(lastReadings[i].timeStamp) - Date.minuteInSeconds * 15) < 20{
+                reading15minsAgo = lastReadings[i]
+                break
+            }
+        }
+        
+        let readingToCalculate: BgReading
+        
+        if let reading15minsAgo = reading15minsAgo {
+            readingToCalculate = reading15minsAgo
             
         } else {
-            bgReading.calculatedValueSlope = 0
+            readingToCalculate = lastReadings[1]
         }
+        
+        log.d("find slope with bgreadings, timeInterval: \(bgReading.timeStamp.timeIntervalSince(readingToCalculate.timeStamp)/60)m")
+
+        let (slope, hide) = bgReading.calculateSlope(with: readingToCalculate)
+        bgReading.calculatedValueSlope = slope
+        bgReading.hideSlope = hide
     }
 }
 

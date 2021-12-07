@@ -4,7 +4,7 @@ import AVFoundation
 import AudioToolbox
 
 /// instance of this class will do the follower functionality. Just make an instance, it will listen to the settings, do the regular download if needed - it could be deallocated when isMaster setting in Userdefaults changes, but that's not necessary to do
-class NightScoutFollowManager:NSObject {
+class NightScoutFollowManager: NSObject {
     
     // MARK: - public properties
     
@@ -112,17 +112,15 @@ class NightScoutFollowManager:NSObject {
     /// updates bgreading
     ///
     private func findSlope() -> (calculatedValueSlope: Double, hideSlope: Bool) {
-        
-        // init returnvalues
         var hideSlope = true
         var calculatedValueSlope = 0.0
 
         // get last readings
         let last2Readings = bgReadingsAccessor.getLatestBgReadings(limit: 3, howOld: 1, forSensor: nil, ignoreRawData: true, ignoreCalculatedValue: false)
         
-        // if more thant 2 readings, calculate slope and hie
+        // if more thant 2 readings, calculate slope and hide
         if last2Readings.count >= 2 {
-            let (slope, hide) = last2Readings[0].calculateSlope(lastBgReading: last2Readings[1]);
+            let (slope, hide) = last2Readings[0].calculateSlope(with: last2Readings[1]);
             calculatedValueSlope = slope
             hideSlope = hide
         }

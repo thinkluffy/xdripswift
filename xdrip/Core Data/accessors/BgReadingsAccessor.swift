@@ -60,12 +60,12 @@ class BgReadingsAccessor {
     ///     - if ignoreCalculatedValue = true, then value of calculatedValue will be ignored
     /// - returns: an array with readings, can be empty array.
     ///     Order by timestamp, descending meaning the reading at index 0 is the youngest
-    func getLatestBgReadings(limit:Int?, howOld:Int?, forSensor sensor:Sensor?, ignoreRawData:Bool, ignoreCalculatedValue:Bool) -> [BgReading] {
+    func getLatestBgReadings(limit: Int?, howOld: Int?, forSensor sensor: Sensor?, ignoreRawData: Bool, ignoreCalculatedValue: Bool) -> [BgReading] {
         
         // if maximum age specified then create fromdate
-        var fromDate:Date?
+        var fromDate: Date?
         if let howOld = howOld, howOld >= 0 {
-            fromDate = Date(timeIntervalSinceNow: Double(-howOld * 60 * 60 * 24))
+            fromDate = Date(timeIntervalSinceNow: -Double(howOld) * Date.dayInSeconds)
         }
         
         return getLatestBgReadings(limit: limit, fromDate: fromDate, forSensor: sensor, ignoreRawData: ignoreRawData, ignoreCalculatedValue: ignoreCalculatedValue)
@@ -82,7 +82,7 @@ class BgReadingsAccessor {
     ///     - if ignoreCalculatedValue = true, then value of calculatedValue will be ignored
     /// - returns: an array with readings, can be empty array.
     ///     Order by timestamp, descending meaning the reading at index 0 is the youngest
-   func getLatestBgReadings(limit:Int?, fromDate:Date?, forSensor sensor:Sensor?, ignoreRawData:Bool, ignoreCalculatedValue:Bool) -> [BgReading] {
+   func getLatestBgReadings(limit: Int?, fromDate: Date?, forSensor sensor: Sensor?, ignoreRawData: Bool, ignoreCalculatedValue: Bool) -> [BgReading] {
         
         var returnValue:[BgReading] = []
         
@@ -90,11 +90,12 @@ class BgReadingsAccessor {
         
         let bgReadings = fetchBgReadings(limit: limit, fromDate: fromDate)
         
-        loop: for (_,bgReading) in bgReadings.enumerated() {
+        loop: for bgReading in bgReadings {
             if ignoreSensorId {
                 if (bgReading.calculatedValue != 0.0 || ignoreCalculatedValue) && (bgReading.rawData != 0.0 || ignoreRawData) {
                     returnValue.append(bgReading)
                 }
+                
             } else {
                 if let readingsensor = bgReading.sensor {
                     if readingsensor.id == sensor!.id {
@@ -111,7 +112,6 @@ class BgReadingsAccessor {
                 }
             }
         }
-        
         return returnValue
     }
     
@@ -122,6 +122,7 @@ class BgReadingsAccessor {
         let readings = getLatestBgReadings(limit: 1, howOld: nil, forSensor: sensor, ignoreRawData: true, ignoreCalculatedValue: true)
         if readings.count > 0 {
             return readings.last
+            
         } else {
             return nil
         }

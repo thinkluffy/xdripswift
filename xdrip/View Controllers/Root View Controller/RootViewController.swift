@@ -507,7 +507,7 @@ final class RootViewController: UIViewController {
         // also for cases where calibration is not needed, we go through this code
         if let activeSensor = activeSensor, let calibrator = calibrator, let bgReadingsAccessor = bgReadingsAccessor {
             
-            trace("calibrator = %{public}@", log: log, category: ConstantsLog.categoryRootView, type: .info, calibrator.description())
+            RootViewController.log.i("calibrator: \(calibrator.description())")
             
             // initialize help variables
             var lastCalibrationsForActiveSensorInLastXDays = calibrationsAccessor.getLatestCalibrations(howManyDays: 4, forSensor: activeSensor)
@@ -620,15 +620,25 @@ final class RootViewController: UIViewController {
                     // check on glucoseLevelRaw > 0 because I've had a case where a faulty sensor was giving negative values
                     if glucose.glucoseLevelRaw > 0 {
                         
-                        // get latest3BgReadings
-                        var latest3BgReadings = bgReadingsAccessor.getLatestBgReadings(limit: 3, howOld: nil, forSensor: activeSensor, ignoreRawData: false, ignoreCalculatedValue: false)
+                        // get latest15BgReadings to make sure there is at least 15 mins readings to calculate slope
+                        var latest15BgReadings = bgReadingsAccessor.getLatestBgReadings(limit: 15,
+                                                                                        howOld: nil,
+                                                                                        forSensor: activeSensor,
+                                                                                        ignoreRawData: false,
+                                                                                        ignoreCalculatedValue: false)
                         
-                        let newReading = calibrator.createNewBgReading(rawData: glucose.glucoseLevelRaw, timeStamp: glucose.timeStamp, sensor: activeSensor, last3Readings: &latest3BgReadings, lastCalibrationsForActiveSensorInLastXDays: &lastCalibrationsForActiveSensorInLastXDays, firstCalibration: firstCalibrationForActiveSensor, lastCalibration: lastCalibrationForActiveSensor, deviceName: self.getCGMTransmitterDeviceName(for: cgmTransmitter), nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
+                        let newReading = calibrator.createNewBgReading(rawData: glucose.glucoseLevelRaw,
+                                                                       timeStamp: glucose.timeStamp,
+                                                                       sensor: activeSensor,
+                                                                       lastReadings: &latest15BgReadings,
+                                                                       lastCalibrationsForActiveSensorInLastXDays: &lastCalibrationsForActiveSensorInLastXDays,
+                                                                       firstCalibration: firstCalibrationForActiveSensor,
+                                                                       lastCalibration: lastCalibrationForActiveSensor,
+                                                                       deviceName: self.getCGMTransmitterDeviceName(for: cgmTransmitter),
+                                                                       nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
                         
                         if UserDefaults.standard.addDebugLevelLogsInTraceFileAndNSLog {
-                            
-                            trace("new reading created, timestamp = %{public}@, calculatedValue = %{public}@", log: self.log, category: ConstantsLog.categoryRootView, type: .info, newReading.timeStamp.description(with: .current), newReading.calculatedValue.description.replacingOccurrences(of: ".", with: ","))
-                            
+                            RootViewController.log.i("new reading created, timestamp: \(newReading.timeStamp.description(with: .current)), calculatedValue: \(newReading.calculatedValue.description.replacingOccurrences(of: ".", with: ","))")
                         }
                         
                         // save the newly created bgreading permenantly in coredata

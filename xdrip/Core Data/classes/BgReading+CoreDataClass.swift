@@ -220,13 +220,12 @@ public class BgReading: NSManagedObject {
     
     func currentSlope(previousBgReading: BgReading?) -> Double {
         if let previousBgReading = previousBgReading {
-            let (slope,_) = calculateSlope(lastBgReading: previousBgReading);
+            let (slope,_) = calculateSlope(with: previousBgReading);
             return slope
             
         } else {
             return 0.0
         }
-
     }
     
     /// taken over form xdripplus
@@ -236,13 +235,13 @@ public class BgReading: NSManagedObject {
     ///     - lastBgReading : last reading result of call to BgReadings.getLatestBgReadings(1, sensor) sensor the current sensor and ignore calculatedValue and ignoreRawData both set to false
     /// - returns:
     ///     - calculated slope and hideSlope
-    func calculateSlope(lastBgReading: BgReading) -> (Double, Bool) {
-        if timeStamp == lastBgReading.timeStamp ||
-            timeStamp.toMillisecondsAsDouble() - lastBgReading.timeStamp.toMillisecondsAsDouble() > Double(ConstantsBGGraphBuilder.maxSlopeInMinutes * 60 * 1000) {
+    func calculateSlope(with comparedReading: BgReading) -> (Double, Bool) {
+        if timeStamp == comparedReading.timeStamp ||
+            timeStamp.toMillisecondsAsDouble() - comparedReading.timeStamp.toMillisecondsAsDouble() > Double(ConstantsBGGraphBuilder.maxSlopeInMinutes * 60 * 1000) {
             return (0, true)
         }
         
-        return ((lastBgReading.calculatedValue - calculatedValue) / (lastBgReading.timeStamp.toMillisecondsAsDouble() - timeStamp.toMillisecondsAsDouble()), false)
+        return ((comparedReading.calculatedValue - calculatedValue) / (comparedReading.timeStamp.toMillisecondsAsDouble() - timeStamp.toMillisecondsAsDouble()), false)
     }
     
     /// slopeName for upload to NightScout

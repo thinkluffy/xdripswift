@@ -18,32 +18,32 @@ class NoCalibrator: Calibrator {
     ///     - rawData : the rawdata value
     ///     - timeStamp : optional, if nil then actualy date and time is used
     ///     - sensor : actual sensor, optional
-    ///     - last3Readings : empty array
+    ///     - lastReadings : empty array
     ///     - nsManagedObjectContext : the nsManagedObjectContext
     ///     - lastCalibrationsForActiveSensorInLastXDays : empty array
     ///     - firstCalibration : nil
     ///     - lastCalibration : nil
     /// - returns:
     ///     - the created bgreading
-    func createNewBgReading(rawData:Double, timeStamp:Date?, sensor:Sensor?, last3Readings:inout Array<BgReading>, lastCalibrationsForActiveSensorInLastXDays:inout Array<Calibration>, firstCalibration:Calibration?, lastCalibration:Calibration?, deviceName:String?, nsManagedObjectContext:NSManagedObjectContext ) -> BgReading {
+    func createNewBgReading(rawData: Double, timeStamp: Date?, sensor: Sensor?, lastReadings: inout Array<BgReading>, lastCalibrationsForActiveSensorInLastXDays: inout Array<Calibration>, firstCalibration: Calibration?, lastCalibration: Calibration?, deviceName: String?, nsManagedObjectContext: NSManagedObjectContext ) -> BgReading {
         
-        var timeStampToUse:Date = Date()
+        var timeStampToUse = Date()
         if let timeStamp = timeStamp {
             timeStampToUse = timeStamp
         }
         
-        let bgReading:BgReading = BgReading(
-            timeStamp:timeStampToUse,
-            sensor:sensor,
-            calibration:lastCalibration,
-            rawData:rawData,
-            deviceName:deviceName,
-            nsManagedObjectContext:nsManagedObjectContext
+        let bgReading = BgReading(
+            timeStamp: timeStampToUse,
+            sensor: sensor,
+            calibration: lastCalibration,
+            rawData: rawData,
+            deviceName: deviceName,
+            nsManagedObjectContext: nsManagedObjectContext
         )
         
         bgReading.calculatedValue = rawData
         
-        findSlope(for: bgReading, last2Readings: &last3Readings)
+        findSlope(for: bgReading, lastReadings: &lastReadings)
         
         return bgReading
     }
