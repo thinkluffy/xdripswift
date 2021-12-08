@@ -106,7 +106,6 @@ class WatchManager: NSObject {
         if lastReading.count > 1 {
             title = title + " " + lastReading[0].unitizedDeltaString(previousBgReading: lastReading[1],
                                                                      showUnit: true,
-                                                                     highGranularity: true,
                                                                      mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
             
         } else {

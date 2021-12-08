@@ -239,6 +239,11 @@ class GlucoseChart: UIView {
             GlucoseChart.log.i("readings are nil, nothing to show")
             
             // put a placeholder to avoid showing default No Data view
+            
+            chartView.xAxis.axisMinimum = fromDate.timeIntervalSince1970
+            // append 10 miniuts to make the current dot more visible
+            chartView.xAxis.axisMaximum = toDate.timeIntervalSince1970 + aheadSeconds
+            
             var placeholderEntries = [ChartDataEntry]()
             let placeholdeEntry = ChartDataEntry(x: fromDate.timeIntervalSince1970, y: highInMg.mgdlToMmol(mgdl: showAsMg))
             placeholderEntries.append(placeholdeEntry)

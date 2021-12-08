@@ -279,12 +279,20 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
         switch setting {
             
         case .name:
-            let alert = UIAlertController(title: Texts_AlertTypeSettingsView.alertTypeName, message: Texts_AlertTypeSettingsView.alertTypeGiveAName, keyboardType: .alphabet, text: name, placeHolder: nil, actionTitle: nil, cancelTitle: nil, actionHandler: { (text:String) in
+            let alert = UIAlertController(title: Texts_AlertTypeSettingsView.alertTypeName,
+                                          message: Texts_AlertTypeSettingsView.alertTypeGiveAName,
+                                          keyboardType: .default,
+                                          text: name, placeHolder: nil,
+                                          actionTitle: nil,
+                                          cancelTitle: nil,
+                                          actionHandler: { (text: String) in
                 self.name = text
                 tableView.reloadRows(at: [IndexPath(row: Setting.name.rawValue, section: 0)], with: .none)
-            }, cancelHandler: nil)
+            },
+                                          cancelHandler: nil)
             // present the alert
             self.present(alert, animated: true, completion: nil)
+            
         case .enabled:
             break // status is changed only when clicking the switch, not the row
         case .vibrate:

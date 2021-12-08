@@ -16,3 +16,9 @@ enum ChartHours {
     static let H12 = 3
     static let H24 = 4
 }
+
+
+enum Constants {
+    
+    static let minsToCalculateSlope = 10
+}

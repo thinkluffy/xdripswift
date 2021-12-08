@@ -4,6 +4,8 @@ import UIKit
 
 public class BgReading: NSManagedObject {
 
+    private static let log = Log(type: BgReading.self)
+    
     /// creates BgReading with given parameters.
     ///
     /// properties that are not in the parameter list get either value 0 or false (depending on type). id gets new value
@@ -42,7 +44,7 @@ public class BgReading: NSManagedObject {
     }
     
     /// log the contents to a string
-    public func log(_ indentation:String) -> String {
+    func print(_ indentation: String) -> String {
         var r:String = "bgreading = "
         r += "\n" + indentation + "timestamp = " + timeStamp.description + "\n"
         r += "\n" + indentation + "uniqueid = " + id
@@ -69,18 +71,18 @@ public class BgReading: NSManagedObject {
     
     var slopArrow: SlopeArrow {
         var arrow: SlopeArrow
-        let slope_by_minute = calculatedValueSlope * 60000
-        if (slope_by_minute <= (-3.5)) {
+        let slopeByMinute = calculatedValueSlope * 60000
+        if (slopeByMinute <= (-3.5)) {
             arrow = SlopeArrow.doubleDown
-        } else if (slope_by_minute <= (-2)) {
+        } else if (slopeByMinute <= (-2)) {
             arrow = SlopeArrow.singleDown
-        } else if (slope_by_minute <= (-1)) {
+        } else if (slopeByMinute <= (-1)) {
             arrow = SlopeArrow.fortyFiveDown
-        } else if (slope_by_minute <= (1)) {
+        } else if (slopeByMinute <= (1)) {
             arrow = SlopeArrow.flat
-        } else if (slope_by_minute <= (2)) {
+        } else if (slopeByMinute <= (2)) {
             arrow = SlopeArrow.fortyFiveUp
-        } else if (slope_by_minute <= (3.5)) {
+        } else if (slopeByMinute <= (3.5)) {
             arrow = SlopeArrow.singleUp
         } else {
             arrow = SlopeArrow.doubleUp
@@ -89,18 +91,18 @@ public class BgReading: NSManagedObject {
     }
     
     func slopeArrow() -> String {
-        let slope_by_minute = calculatedValueSlope * 60000
-        if (slope_by_minute <= (-3.5)) {
+        let slopeByMinute = calculatedValueSlope * 60000
+        if (slopeByMinute <= (-3.5)) {
             return "\u{2193}\u{2193}"
-        } else if (slope_by_minute <= (-2)) {
+        } else if (slopeByMinute <= (-2)) {
             return "\u{2193}"
-        } else if (slope_by_minute <= (-1)) {
+        } else if (slopeByMinute <= (-1)) {
             return "\u{2198}"
-        } else if (slope_by_minute <= (1)) {
+        } else if (slopeByMinute <= (1)) {
             return "\u{2192}"
-        } else if (slope_by_minute <= (2)) {
+        } else if (slopeByMinute <= (2)) {
             return "\u{2197}"
-        } else if (slope_by_minute <= (3.5)) {
+        } else if (slopeByMinute <= (3.5)) {
             return "\u{2191}"
         } else {
             return "\u{2191}\u{2191}"
@@ -108,20 +110,20 @@ public class BgReading: NSManagedObject {
     }
     
     func slopeOrdinal() -> Int {
-        let slope_by_minute = calculatedValueSlope * 60000
+        let slopeByMinute = calculatedValueSlope * 60000
         var ordinal = 0
         if(!hideSlope) {
-            if (slope_by_minute <= (-3.5)) {
+            if (slopeByMinute <= (-3.5)) {
                 ordinal = 7
-            } else if (slope_by_minute <= (-2)) {
+            } else if (slopeByMinute <= (-2)) {
                 ordinal = 6
-            } else if (slope_by_minute <= (-1)) {
+            } else if (slopeByMinute <= (-1)) {
                 ordinal = 5
-            } else if (slope_by_minute <= (1)) {
+            } else if (slopeByMinute <= (1)) {
                 ordinal = 4
-            } else if (slope_by_minute <= (2)) {
+            } else if (slopeByMinute <= (2)) {
                 ordinal = 3
-            } else if (slope_by_minute <= (3.5)) {
+            } else if (slopeByMinute <= (3.5)) {
                 ordinal = 2
             } else {
                 ordinal = 1
@@ -136,15 +138,18 @@ public class BgReading: NSManagedObject {
     
     /// creates string with bg value in correct unit or "HIGH" or "LOW", or other like ???
     static func unitizedString(calculatedValue: Double, unitIsMgDl:Bool) -> String {
-        var returnValue:String
-        if (calculatedValue >= 400) {
+        var returnValue: String
+        if calculatedValue >= 400 {
             returnValue = Texts_Common.HIGH
-        } else if (calculatedValue >= 40) {
+            
+        } else if calculatedValue >= 40 {
             returnValue = calculatedValue.mgdlToMmolAndToString(mgdl: unitIsMgDl)
-        } else if (calculatedValue > 12) {
+            
+        } else if calculatedValue > 12 {
             returnValue = Texts_Common.LOW
+            
         } else {
-            switch(calculatedValue) {
+            switch calculatedValue  {
             case 0:
                 returnValue = "??0"
                 break
@@ -178,8 +183,7 @@ public class BgReading: NSManagedObject {
     }
     
     /// creates string with difference from previous reading and also unit
-    func unitizedDeltaString(previousBgReading:BgReading?, showUnit: Bool, highGranularity:Bool, mgdl:Bool) -> String {
-        
+    func unitizedDeltaString(previousBgReading: BgReading?, showUnit: Bool, mgdl: Bool) -> String {
         guard let previousBgReading = previousBgReading else {
             return "???"
         }
@@ -190,37 +194,93 @@ public class BgReading: NSManagedObject {
         }
         
         // delta value recalculated aligned with time difference between previous and this reading
-        let value = currentSlope(previousBgReading: previousBgReading) * timeStamp.timeIntervalSince(previousBgReading.timeStamp) * 1000;
+        let value = currentSlope(previousBgReading: previousBgReading) * timeStamp.timeIntervalSince(previousBgReading.timeStamp) * 1000
 
-        if(abs(value) > 100){
+        if abs(value) > 100 {
             // a delta > 100 will not happen with real BG values -> problematic sensor data
             return "ERR";
         }
         
         let valueAsString = value.mgdlToMmolAndToString(mgdl: mgdl)
         
-        var deltaSign:String = ""
-        if (value > 0) { deltaSign = "+"; }
+        var deltaSign: String = ""
+        if value > 0 {
+            deltaSign = "+"
+        }
         
         // quickly check "value" and prevent "-0mg/dL" or "-0.0mmol/L" being displayed
-        if (mgdl) {
-            if (value > -1) && (value < 1) {
-                return "0" + (showUnit ? (" " + Texts_Common.mgdl):"");
+        if mgdl {
+            if value > -1 && value < 1 {
+                return "0" + (showUnit ? (" " + Texts_Common.mgdl) : "")
+                
             } else {
-                return deltaSign + valueAsString + (showUnit ? (" " + Texts_Common.mgdl):"");
+                return deltaSign + valueAsString + (showUnit ? (" " + Texts_Common.mgdl) : "")
             }
+            
         } else {
-            if (value > -0.1) && (value < 0.1) {
-                return "0.0" + (showUnit ? (" " + Texts_Common.mmol):"");
+            if value > -0.1 && value < 0.1 {
+                return "0.0" + (showUnit ? (" " + Texts_Common.mmol) : "")
+                
             } else {
-                return deltaSign + valueAsString + (showUnit ? (" " + Texts_Common.mmol):"");
+                return deltaSign + valueAsString + (showUnit ? (" " + Texts_Common.mmol) : "")
+            }
+        }
+    }
+    
+    /// creates string with difference from previous reading and also unit
+    func unitizedDeltaStringPerMin(previousBgReading: BgReading?, showUnit: Bool, mgdl: Bool) -> String {
+        guard let previousBgReading = previousBgReading else {
+            return "???"
+        }
+        
+        if timeStamp.timeIntervalSince(previousBgReading.timeStamp) > Double(ConstantsBGGraphBuilder.maxSlopeInMinutes * 60) {
+            // don't show delta if there are not enough values or the values are more than 20 mintes apart
+            return "???";
+        }
+        
+        // delta value recalculated aligned with time difference between previous and this reading
+        let changePerMinMg = currentSlope(previousBgReading: previousBgReading) * 1000 * Date.minuteInSeconds
+        BgReading.log.d("changePerMinMg: \(changePerMinMg)")
+
+        if abs(changePerMinMg) > 100 {
+            // a delta > 100 will not happen with real BG values -> problematic sensor data
+            return "ERR";
+        }
+        
+        let valueAsString: String
+        if mgdl {
+            valueAsString = String(format: "%.1f", changePerMinMg)
+            
+        } else {
+            valueAsString = String(format: "%.2f", changePerMinMg.mgdlToMmol())
+        }
+        
+        var deltaSign: String = ""
+        if changePerMinMg > 0 {
+            deltaSign = "+"
+        }
+        
+        if mgdl {
+            if changePerMinMg > -0.1 && changePerMinMg < 0.1 {
+                return "0" + (showUnit ? (" " + Texts_Common.mgdl) : "") + "/m"
+                
+            } else {
+                return deltaSign + valueAsString + (showUnit ? (" " + Texts_Common.mgdl) : "") + "/m"
+            }
+            
+        } else {
+            if changePerMinMg > -0.01 && changePerMinMg < 0.01 {
+                return "0.0" + (showUnit ? (" " + Texts_Common.mmol) : "") + "/m"
+                
+            } else {
+                return deltaSign + valueAsString + (showUnit ? (" " + Texts_Common.mmol) : "") + "/m"
             }
         }
     }
     
     func currentSlope(previousBgReading: BgReading?) -> Double {
         if let previousBgReading = previousBgReading {
-            let (slope,_) = calculateSlope(with: previousBgReading);
+            let (slope, _) = calculateSlope(with: previousBgReading)
             return slope
             
         } else {
@@ -234,7 +294,7 @@ public class BgReading: NSManagedObject {
     ///     - currentBgReading : reading for which slope is calculated
     ///     - lastBgReading : last reading result of call to BgReadings.getLatestBgReadings(1, sensor) sensor the current sensor and ignore calculatedValue and ignoreRawData both set to false
     /// - returns:
-    ///     - calculated slope and hideSlope
+    ///     - calculated slope (the delta of milliseconds) and hideSlope
     func calculateSlope(with comparedReading: BgReading) -> (Double, Bool) {
         if timeStamp == comparedReading.timeStamp ||
             timeStamp.toMillisecondsAsDouble() - comparedReading.timeStamp.toMillisecondsAsDouble() > Double(ConstantsBGGraphBuilder.maxSlopeInMinutes * 60 * 1000) {

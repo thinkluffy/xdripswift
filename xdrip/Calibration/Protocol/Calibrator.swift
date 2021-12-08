@@ -595,19 +595,19 @@ extension Calibrator {
            return
         }
         
-        var reading15minsAgo: BgReading?
+        var readingMinsAgo: BgReading?
         
         for i in 0 ... lastReadings.count - 1 {
-            if abs(bgReading.timeStamp.timeIntervalSince(lastReadings[i].timeStamp) - Date.minuteInSeconds * 15) < 20{
-                reading15minsAgo = lastReadings[i]
+            if abs(bgReading.timeStamp.timeIntervalSince(lastReadings[i].timeStamp) - Date.minuteInSeconds * Double(Constants.minsToCalculateSlope)) < 20 {
+                readingMinsAgo = lastReadings[i]
                 break
             }
         }
         
         let readingToCalculate: BgReading
         
-        if let reading15minsAgo = reading15minsAgo {
-            readingToCalculate = reading15minsAgo
+        if let readingMinsAgo = readingMinsAgo {
+            readingToCalculate = readingMinsAgo
             
         } else {
             readingToCalculate = lastReadings[1]

@@ -26,9 +26,6 @@ final class RootViewController: UIViewController {
     /// outlet for label that shows difference with previous reading
     @IBOutlet weak var diffLabelOutlet: UILabel!
     
-    /// outlet for label that shows the current reading
-    @IBOutlet weak var valueLabelOutlet: UILabel!
-    
     @IBOutlet weak var glucoseIndicator: GlucoseIndicator!
 
     /// outlet for chart
@@ -621,16 +618,16 @@ final class RootViewController: UIViewController {
                     if glucose.glucoseLevelRaw > 0 {
                         
                         // get latest15BgReadings to make sure there is at least 15 mins readings to calculate slope
-                        var latest15BgReadings = bgReadingsAccessor.getLatestBgReadings(limit: 15,
-                                                                                        howOld: nil,
-                                                                                        forSensor: activeSensor,
-                                                                                        ignoreRawData: false,
-                                                                                        ignoreCalculatedValue: false)
+                        var latestBgReadings = bgReadingsAccessor.getLatestBgReadings(limit: Constants.minsToCalculateSlope,
+                                                                                      howOld: nil,
+                                                                                      forSensor: activeSensor,
+                                                                                      ignoreRawData: false,
+                                                                                      ignoreCalculatedValue: false)
                         
                         let newReading = calibrator.createNewBgReading(rawData: glucose.glucoseLevelRaw,
                                                                        timeStamp: glucose.timeStamp,
                                                                        sensor: activeSensor,
-                                                                       lastReadings: &latest15BgReadings,
+                                                                       lastReadings: &latestBgReadings,
                                                                        lastCalibrationsForActiveSensorInLastXDays: &lastCalibrationsForActiveSensorInLastXDays,
                                                                        firstCalibration: firstCalibrationForActiveSensor,
                                                                        lastCalibration: lastCalibrationForActiveSensor,
@@ -813,8 +810,6 @@ final class RootViewController: UIViewController {
 //        chartOutlet.reloadChart()
         
         glucoseChart.chartHours = selectedChartHoursId
-
-        valueLabelOutlet.isHidden = true
     }
     
     @objc private func sensorIndicatorDidClick(_ sender: SensorIndicator) {
@@ -1187,7 +1182,7 @@ final class RootViewController: UIViewController {
                 calculatedValueAsString = calculatedValueAsString + " " + lastReading[0].slopeArrow()
             }
             if lastReading.count > 1 {
-                calculatedValueAsString = calculatedValueAsString + "      " + lastReading[0].unitizedDeltaString(previousBgReading: lastReading[1], showUnit: true, highGranularity: true, mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
+                calculatedValueAsString = calculatedValueAsString + "      " + lastReading[0].unitizedDeltaString(previousBgReading: lastReading[1], showUnit: true, mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
             }
             notificationContent.title = calculatedValueAsString
             
@@ -1239,18 +1234,12 @@ final class RootViewController: UIViewController {
         self.minutesLabelOutlet.textColor = UIColor.white
         
         // get latest reading, doesn't matter if it's for an active sensor or not, but it needs to have calculatedValue > 0 / which means, if user would have started a new sensor, but didn't calibrate yet, and a reading is received, then there's not going to be a latestReading
-        let latestReadings = bgReadingsAccessor.get2LatestBgReadings(minimumTimeIntervalInMinutes: 4.0)
+        // minus 20 secoonds for the readings may not be exactly 60 seconds per reading
+        let latestReadings = bgReadingsAccessor.get2LatestBgReadings(minimumTimeIntervalInSeconds: Double(Constants.minsToCalculateSlope) * Date.minuteInSeconds - 20)
         
         // if there's no readings, then give empty fields and make sure the text isn't styled with strikethrough
         guard latestReadings.count > 0 else {
-            
-            valueLabelOutlet.textColor = UIColor.darkGray
             diffLabelOutlet.text = ""
-                
-            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "---")
-            attributeString.addAttribute(.strikethroughStyle, value: 0, range: NSMakeRange(0, attributeString.length))
-            
-            valueLabelOutlet.attributedText = attributeString
             
             glucoseIndicator.reading = nil
             minutesLabelOutlet.text = "--:--"
@@ -1261,36 +1250,12 @@ final class RootViewController: UIViewController {
         // assign last reading
         let lastReading = latestReadings[0]
         
-        // assign last but one reading
-        let lastButOneReading = latestReadings.count > 1 ? latestReadings[1]:nil
-        
         let isMgDl = UserDefaults.standard.bloodGlucoseUnitIsMgDl
-
-        // start creating text for valueLabelOutlet, first the calculated value
-        var calculatedValueAsString = BgReading.unitizedString(calculatedValue: lastReading.calculatedValue,
-                                                               unitIsMgDl: isMgDl)
         
         var isReadingTooOld = false
         // if latestReading is older than 11 minutes, then it should be strikethrough
-        if lastReading.timeStamp < Date(timeIntervalSinceNow: -60.0 * 11) {
-            
-            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: calculatedValueAsString)
-            attributeString.addAttribute(.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
-            
-            valueLabelOutlet.attributedText = attributeString
+        if lastReading.timeStamp < Date(timeIntervalSinceNow: -Date.minuteInSeconds * 11) {
             isReadingTooOld = true
-            
-        } else {
-            if !lastReading.hideSlope {
-                calculatedValueAsString = calculatedValueAsString + " " + lastReading.slopeArrow()
-            }
-            
-            // no strikethrough needed, but attributedText may still be set to strikethrough from previous period during which there was no recent reading.
-            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: calculatedValueAsString)
-            attributeString.addAttribute(.strikethroughStyle, value: 0, range: NSMakeRange(0, attributeString.length))
-            
-            valueLabelOutlet.attributedText = attributeString
-            
         }
         
         glucoseIndicator.reading = (
@@ -1299,29 +1264,17 @@ final class RootViewController: UIViewController {
             slopeArrow: (isReadingTooOld || lastReading.hideSlope) ? nil : lastReading.slopArrow
         )
         
-                
-        // if data is stale (over 11 minutes old), show it as gray colour to indicate that it isn't current
-        // if not, then set color, depending on value lower than low mark or higher than high mark
-        // set both HIGH and LOW BG values to red as previous yellow for hig is now not so obvious due to in-range colour of green.
-        if lastReading.timeStamp < Date(timeIntervalSinceNow: -60 * 11) {
-            valueLabelOutlet.textColor = UIColor.lightGray
-        } else if lastReading.calculatedValue.bgValueRounded(mgdl: isMgDl) >= UserDefaults.standard.urgentHighMarkValueInUserChosenUnit.mmolToMgdl(mgdl: isMgDl).bgValueRounded(mgdl: isMgDl) || lastReading.calculatedValue.bgValueRounded(mgdl: isMgDl) <= UserDefaults.standard.urgentLowMarkValueInUserChosenUnit.mmolToMgdl(mgdl: isMgDl).bgValueRounded(mgdl: isMgDl) {
-            // BG is higher than urgentHigh or lower than urgentLow objectives
-            valueLabelOutlet.textColor = UIColor.red
-        } else if lastReading.calculatedValue.bgValueRounded(mgdl: isMgDl) >= UserDefaults.standard.highMarkValueInUserChosenUnit.mmolToMgdl(mgdl: isMgDl).bgValueRounded(mgdl: isMgDl) || lastReading.calculatedValue.bgValueRounded(mgdl: isMgDl) <= UserDefaults.standard.lowMarkValueInUserChosenUnit.mmolToMgdl(mgdl: isMgDl).bgValueRounded(mgdl: isMgDl) {
-            // BG is between urgentHigh/high and low/urgentLow objectives
-            valueLabelOutlet.textColor = UIColor.yellow
-        } else {
-            // BG is between high and low objectives so considered "in range"
-            valueLabelOutlet.textColor = UIColor.green
-        }
-        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "hh:mm"
         minutesLabelOutlet.text = dateFormatter.string(from: lastReading.timeStamp)
         
+        // assign last but one reading
+        let lastButOneReading = latestReadings.count > 1 ? latestReadings[1]: nil
+        
         // create delta text
-        diffLabelOutlet.text = lastReading.unitizedDeltaString(previousBgReading: lastButOneReading, showUnit: true, highGranularity: true, mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
+        diffLabelOutlet.text = lastReading.unitizedDeltaStringPerMin(previousBgReading: lastButOneReading,
+                                                                     showUnit: true,
+                                                                     mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
         
         // update the chart up to now
 //        updateChartWithResetEndDate()
@@ -1391,12 +1344,42 @@ final class RootViewController: UIViewController {
             return
         }
         
-        let bluetoothPeripheral = bluetoothPeripheralManager.getBluetoothPeripherals()[0]
-        
-        bluetoothPeripheralViewController.configure(bluetoothPeripheral: bluetoothPeripheral,
-                                                    bluetoothPeripheralManager: bluetoothPeripheralManager,
-                                                    expectedBluetoothPeripheralType: bluetoothPeripheral.bluetoothPeripheralType())
-        navigationController?.pushViewController(bluetoothPeripheralViewController, animated: true)
+        if activeSensor != nil {
+            // show current peripheral
+            let bluetoothPeripheral = bluetoothPeripheralManager.getBluetoothPeripherals()[0]
+            
+            bluetoothPeripheralViewController.configure(bluetoothPeripheral: bluetoothPeripheral,
+                                                        bluetoothPeripheralManager: bluetoothPeripheralManager,
+                                                        expectedBluetoothPeripheralType: bluetoothPeripheral.bluetoothPeripheralType())
+            navigationController?.pushViewController(bluetoothPeripheralViewController, animated: true)
+            
+        } else {
+            // the category has only CGM currently
+            // to add a peripheral
+            let pickerViewData = PickerViewData(withMainTitle: nil,
+                                                withSubTitle: Texts_BluetoothPeripheralsView.selectType,
+                                                withData: BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(withCategory: BluetoothPeripheralCategory.listOfCategories()[0]),
+                                                selectedRow: nil,
+                                                withPriority: nil,
+                                                actionButtonText: nil,
+                                                cancelButtonText: nil,
+                                                onActionClick: { (_ typeIndex: Int) in
+                
+                // get the selected BluetoothPeripheralType
+                if let type = BluetoothPeripheralType(rawValue: BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(withCategory: BluetoothPeripheralCategory.listOfCategories()[0])[typeIndex]) {
+                
+                    bluetoothPeripheralViewController.configure(bluetoothPeripheral: nil,
+                                                                bluetoothPeripheralManager: bluetoothPeripheralManager,
+                                                                expectedBluetoothPeripheralType: type)
+                    self.navigationController?.pushViewController(bluetoothPeripheralViewController, animated: true)
+                }
+            },
+                                                onCancelClick: nil,
+                                                didSelectRowHandler: nil)
+            
+            // create and present PickerViewController
+            PickerViewController.displayPickerViewController(pickerViewData: pickerViewData, parentController: self)
+        }
     }
     
     /// will show the status
@@ -1406,6 +1389,7 @@ final class RootViewController: UIViewController {
         var textToShow = Texts_HomeView.sensorStart + " : "
         if let activeSensor = activeSensor {
             textToShow += activeSensor.startDate.description(with: .current)
+            
         } else {
             textToShow += Texts_HomeView.notStarted
         }

@@ -100,7 +100,7 @@ final class BluetoothPeripheralsViewController: UIViewController {
                 fatalError("In BluetoothPeripheralsViewController, prepare for segue, viewcontroller is not BluetoothPeripheralViewController or coreDataManager is nil" )
             }
             
-            guard let expectedBluetoothPeripheralType = (sender as? BluetoothPeripheral) != nil ? (sender as! BluetoothPeripheral).bluetoothPeripheralType() : (sender as? BluetoothPeripheralType) != nil ? (sender as! BluetoothPeripheralType):nil  else {
+            guard let expectedBluetoothPeripheralType = (sender as? BluetoothPeripheral) != nil ? (sender as! BluetoothPeripheral).bluetoothPeripheralType() : (sender as? BluetoothPeripheralType) != nil ? (sender as! BluetoothPeripheralType): nil  else {
 
                 fatalError("In BluetoothPeripheralsViewController, prepare for segue, sender is not BluetoothPeripheral and not BluetoothPeripheralType" )
 
@@ -120,7 +120,6 @@ final class BluetoothPeripheralsViewController: UIViewController {
     /// user clicked add button
     private func addButtonAction() {
         // check that no other CGM has shouldconnect set to true
-        // the function otherCGMTransmitterHasShouldConnectTrue will also create an alert with info that only one CGM can be active
         // the function otherCGMTransmitterHasShouldConnectTrue will also create an alert with info that only one CGM can be active
         if BluetoothPeripheralsViewController.otherCGMTransmitterHasShouldConnectTrue(bluetoothPeripheralManager: bluetoothPeripheralManager,
                                                                                       uiViewController: self) {

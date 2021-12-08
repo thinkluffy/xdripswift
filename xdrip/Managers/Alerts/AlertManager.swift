@@ -100,7 +100,7 @@ class AlertManager: NSObject {
     ///     - maxAgeOfLastBgReadingInSeconds : for master mode max 1 minute should be ok, but for follower mode it could be interesting to take a higher value
     /// - returns:
     ///     - if true then an immediate notification is created (immediate being not a future planned, like missed reading), which contains the bg reading in the text - so there's no need to create an additional notificationwith the text in it
-    func checkAlerts(maxAgeOfLastBgReadingInSeconds:Double) -> Bool {
+    func checkAlerts(maxAgeOfLastBgReadingInSeconds: Double) -> Bool {
         
         // first of all remove all existing notifications, there should be only one open alert on the home screen. The most relevant one will be reraised
         uNUserNotificationCenter.removeDeliveredNotifications(withIdentifiers: alertNotificationIdentifers)
@@ -113,7 +113,7 @@ class AlertManager: NSObject {
         let latestBgReadings = bgReadingsAccessor.get2LatestBgReadings(minimumTimeIntervalInMinutes: 4.0)
         
         // get latest calibration
-        var lastCalibration:Calibration?
+        var lastCalibration: Calibration?
         if let latestSensor = sensorsAccessor.fetchActiveSensor() {
             lastCalibration = calibrationsAccessor.lastCalibrationForActiveSensor(withActivesensor: latestSensor)
         }
@@ -131,7 +131,7 @@ class AlertManager: NSObject {
                 // need to call checkAlert
                 
                 // if latestBgReadings[1] exists then assign it to lastButOneBgREading
-                var lastButOneBgREading:BgReading?
+                var lastButOneBgREading: BgReading?
                 if latestBgReadings.count > 1 {
                     lastButOneBgREading = latestBgReadings[1]
                 }
@@ -146,7 +146,7 @@ class AlertManager: NSObject {
                 
                 // only raise first alert group that's been tripped
                 // check the result to see if it's an alert kind that creates an immediate notification that contains the reading value
-                if let result = alertGroupsByPreference.first(where: { (alertGroup:[AlertKind]) -> Bool in
+                if let result = alertGroupsByPreference.first(where: { (alertGroup: [AlertKind]) -> Bool in
                     
                     checkAlertGroupAndFire(alertGroup, checkAlertAndFireHelper)
                     
@@ -158,7 +158,6 @@ class AlertManager: NSObject {
                             immediateNotificationCreated = true
                         }
                     }
-                    
                 }
                 
                 // the missed reading alert will be a future planned alert
@@ -167,12 +166,12 @@ class AlertManager: NSObject {
             } else {
                 trace("in checkAlerts, latestBgReadings is older than %{public}@ minutes", log: self.log, category: ConstantsLog.categoryAlertManager, type: .info, maxAgeOfLastBgReadingInSeconds.description)
             }
+            
         } else {
             trace("in checkAlerts, latestBgReadings.count == 0", log: self.log, category: ConstantsLog.categoryAlertManager, type: .info)
         }
         
         return immediateNotificationCreated
-        
     }
     
     /// Function to be called that receives the notification actions. Will handle the response. - called when user clicks a notification
@@ -452,14 +451,14 @@ class AlertManager: NSObject {
     }
     
     /// will check if the alert of type alertKind needs to be fired and also fires it, plays the sound, and if yes returns true, otherwise false
-    private func checkAlertAndFire(alertKind:AlertKind, lastBgReading:BgReading?, lastButOneBgREading:BgReading?, lastCalibration:Calibration?, transmitterBatteryInfo:TransmitterBatteryInfo?) -> Bool {
+    private func checkAlertAndFire(alertKind: AlertKind, lastBgReading: BgReading?, lastButOneBgREading: BgReading?, lastCalibration: Calibration?, transmitterBatteryInfo: TransmitterBatteryInfo?) -> Bool {
 
         trace("in checkAlertAndFire for alert = %{public}@", log: self.log, category: ConstantsLog.categoryAlertManager, type: .info, alertKind.descriptionForLogging())
         
         /// This is only for missed reading alert. How many minutes between now and the moment the snooze expires (meaning when is it not snoozed anymore)
         ///
         /// will be initialized later
-        var minimumDelayInSecondsToUse:Int?
+        var minimumDelayInSecondsToUse: Int?
         
         if let remainingSeconds = getSnoozeParameters(alertKind: alertKind).getSnoozeValue().remainingSeconds {
             trace("in checkAlertAndFire before calling getSnoozeValue for alert %{public}@, remaining seconds = %{public}@", log: self.log, category: ConstantsLog.categoryAlertManager, type: .info, alertKind.descriptionForLogging(), remainingSeconds.description)
@@ -482,7 +481,6 @@ class AlertManager: NSObject {
                 trace("in checkAlertAndFire, alert %{public}@ is currently snoozed", log: self.log, category: ConstantsLog.categoryAlertManager, type: .info, alertKind.descriptionForLogging())
                 return false
             }
-            
         }
         
         // get the applicable current and next alertType from core data
@@ -521,7 +519,6 @@ class AlertManager: NSObject {
                 if Date().minutesSinceMidNightLocalTime() + delayInSecondsToUse / 60 > nextAlertEntryStartValueToUse {
                     applicableAlertType = nextAlertEntry.alertType
                 }
-                
             }
 
             // create the content for the alert notification, set body and text, category
@@ -550,6 +547,7 @@ class AlertManager: NSObject {
                 if alertTypeSoundName == "" {
                     // no sound to play
                     soundToSet = ""
+                    
                 } else {
                     // a sound name has been found in the alertType different from empty string (ie a sound must be played and it's not the default iOS sound)
                     // need to find the corresponding sound file name in ConstantsSounds

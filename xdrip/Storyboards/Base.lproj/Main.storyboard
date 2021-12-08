@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rfm-D0-ioj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rfm-D0-ioj">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -45,14 +45,6 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B9A-0Y-PhM" customClass="GlucoseIndicator" customModule="xdrip" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="428" height="499"/>
                                                     </view>
-                                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="We3-bN-ffR">
-                                                        <rect key="frame" x="20" y="45" width="388" height="444"/>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <gestureRecognizers/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="90"/>
-                                                        <color key="textColor" systemColor="systemGreenColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fqv-ph-O5s" userLabel="ChartCard" customClass="Card" customModule="xdrip" customModuleProvider="target">
                                                         <rect key="frame" x="10" y="499" width="408" height="290"/>
                                                         <subviews>
@@ -150,8 +142,8 @@
                                                                     <constraint firstAttribute="height" constant="20" id="bZW-ee-7fA"/>
                                                                 </constraints>
                                                             </view>
-                                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V90-WH-dIE" customClass="CountDownView" customModule="xdrip" customModuleProvider="target">
-                                                                <rect key="frame" x="288" y="25" width="0.0" height="0.0"/>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V90-WH-dIE" customClass="CountDownView" customModule="xdrip" customModuleProvider="target">
+                                                                <rect key="frame" x="388" y="25" width="0.0" height="0.0"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
                                                         </subviews>
@@ -176,16 +168,11 @@
                                                     <constraint firstAttribute="trailing" secondItem="B9A-0Y-PhM" secondAttribute="trailing" id="1ug-ld-IKQ"/>
                                                     <constraint firstItem="B9A-0Y-PhM" firstAttribute="leading" secondItem="C16-NQ-F1Y" secondAttribute="leading" id="6Uu-OL-6iT"/>
                                                     <constraint firstAttribute="bottom" secondItem="Fqv-ph-O5s" secondAttribute="bottom" constant="10" id="Asd-Uc-cCh"/>
-                                                    <constraint firstItem="We3-bN-ffR" firstAttribute="leading" secondItem="C16-NQ-F1Y" secondAttribute="leading" constant="20" id="DjD-bz-O8N"/>
-                                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="We3-bN-ffR" secondAttribute="trailing" id="LWb-Rj-dfs"/>
                                                     <constraint firstItem="B9A-0Y-PhM" firstAttribute="bottom" secondItem="Fqv-ph-O5s" secondAttribute="top" id="Pfb-rq-JSF"/>
-                                                    <constraint firstItem="Fqv-ph-O5s" firstAttribute="top" secondItem="We3-bN-ffR" secondAttribute="bottom" constant="10" id="ViQ-DN-7he"/>
                                                     <constraint firstAttribute="trailing" secondItem="Fqv-ph-O5s" secondAttribute="trailing" constant="10" id="XaG-IP-8SC"/>
                                                     <constraint firstItem="Fqv-ph-O5s" firstAttribute="leading" secondItem="C16-NQ-F1Y" secondAttribute="leading" constant="10" id="a3i-Qb-fUj"/>
                                                     <constraint firstAttribute="trailing" secondItem="4Rp-y3-zdP" secondAttribute="trailing" id="a5U-Ip-gMn"/>
                                                     <constraint firstItem="4Rp-y3-zdP" firstAttribute="top" secondItem="C16-NQ-F1Y" secondAttribute="top" id="pp3-6a-uDF"/>
-                                                    <constraint firstItem="We3-bN-ffR" firstAttribute="centerX" secondItem="C16-NQ-F1Y" secondAttribute="centerX" id="vhA-TS-y2Z"/>
-                                                    <constraint firstItem="We3-bN-ffR" firstAttribute="top" secondItem="C16-NQ-F1Y" secondAttribute="top" constant="45" id="xak-Qv-s0j"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fOj-9i-xJA" userLabel="Lower Area">
@@ -285,7 +272,6 @@
                         <outlet property="snoozeButton" destination="Qv7-yV-rZx" id="HAy-KF-hmB"/>
                         <outlet property="statisticsDaysSelection" destination="15O-vf-6AT" id="aMB-Fa-NB2"/>
                         <outlet property="statisticsView" destination="MtJ-rx-OB9" id="u5w-qN-5Tq"/>
-                        <outlet property="valueLabelOutlet" destination="We3-bN-ffR" id="wtY-sZ-mev"/>
                         <segue destination="e8k-N5-VC0" kind="presentation" identifier="ChartDetails" animates="NO" modalPresentationStyle="fullScreen" id="2ut-7R-RIf"/>
                     </connections>
                 </viewController>
@@ -1001,7 +987,7 @@
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="add" id="ywX-on-I6d">
-                                <color key="tintColor" systemColor="systemYellowColor"/>
+                                <color key="tintColor" red="0.91764705882352937" green="0.1764705882352941" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="addButtonAction:" destination="Lnd-QQ-8Lc" id="e0q-ay-41d"/>
                                 </connections>
@@ -1074,7 +1060,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="etA-fM-tGh">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="wox-Vn-EKP">
-                            <color key="tintColor" systemColor="systemYellowColor"/>
+                            <color key="tintColor" red="0.91764705882352937" green="0.1764705882352941" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="addButtonAction:" destination="eUt-Xg-tDZ" id="pEw-ak-Nmt"/>
                             </connections>
@@ -1415,6 +1401,9 @@
             <point key="canvasLocation" x="3973" y="581"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="V90-WH-dIE"/>
+    </designables>
     <color key="tintColor" red="0.077760688960000005" green="0.092910580340000007" blue="0.192109853" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>
         <image name="ic_alarm" width="24" height="24"/>
@@ -1431,9 +1420,6 @@
         <image name="ic_tab_settings_h" width="24" height="24"/>
         <image name="logo-launchScreen.png" width="120" height="120"/>
         <image name="sensor14_14_alt" width="390" height="14"/>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

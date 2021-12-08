@@ -188,6 +188,15 @@ extension ChartDetailsViewController: ChartDetailsV {
         
         glucoseChart.show(readings: readings, from: fromDate, to: toDate)
 
+        if let readings = readings, !readings.isEmpty {
+            showStatisticsButton.enable()
+            lockMoveButton.enable()
+            
+        } else {
+            showStatisticsButton.disable()
+            lockMoveButton.disable()
+        }
+        
         if isToday && showingDate == nil {
             glucoseChart.moveCurrentToCenter()
         }

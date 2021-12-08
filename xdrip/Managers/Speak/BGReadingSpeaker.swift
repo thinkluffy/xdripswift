@@ -122,12 +122,12 @@ class BGReadingSpeaker: NSObject {
         // if delta needs to be spoken then compose delta
         if UserDefaults.standard.speakDelta {
             
-            var previousBgReading:BgReading?
+            var previousBgReading: BgReading?
             if lastReadings.count > 1 {previousBgReading = lastReadings[1]}
-            var currentDelta:String = bgReadingToSpeak.unitizedDeltaString(previousBgReading: previousBgReading, showUnit: false, highGranularity: true, mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
+            var currentDelta:String = bgReadingToSpeak.unitizedDeltaString(previousBgReading: previousBgReading, showUnit: false,  mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
             
             //Format current delta in case of anomalies
-            if currentDelta == "ERR" || currentDelta == "???"{
+            if currentDelta == "ERR" || currentDelta == "???" {
                 currentDelta = Texts_SpeakReading.deltanoncomputable
             }
             
