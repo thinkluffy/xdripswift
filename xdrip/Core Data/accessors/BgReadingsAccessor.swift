@@ -227,5 +227,4 @@ class BgReadingsAccessor {
         
         return bgReadings
     }
-    
 }

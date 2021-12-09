@@ -317,16 +317,6 @@ class Trace {
                 
                 switch bluetoothPeripheralType {
                     
-                case .DexcomG4Type:
-                    if let dexcomG4 = blePeripheral.dexcomG4 {
-                        
-                        traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
-                        
-                        // if needed additional specific info can be added
-                        traceInfo.appendStringAndNewLine("    batterylevel : " + dexcomG4.batteryLevel.description)
-                        
-                    }
-                    
                 case .DexcomG5Type:
                     if let dexcomG5 = blePeripheral.dexcomG5, !dexcomG5.isDexcomG6 {
                         

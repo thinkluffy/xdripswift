@@ -53,9 +53,6 @@ extension BLEPeripheral {
     @NSManaged var blucon: Blucon?
     
     // a BLEPeripheral should only have one of dexcomG5, watlaa, m5Stack, ...
-    @NSManaged var dexcomG4: DexcomG4?
-    
-    // a BLEPeripheral should only have one of dexcomG5, watlaa, m5Stack, ...
     @NSManaged var libre2: Libre2?
     
     // a BLEPeripheral should only have one of dexcomG5, watlaa, m5Stack, ...

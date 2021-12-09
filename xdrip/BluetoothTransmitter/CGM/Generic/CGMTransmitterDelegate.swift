@@ -15,11 +15,18 @@ protocol CGMTransmitterDelegate: AnyObject {
     ///     - glucoseData : array of RawGlucoseData, can be empty array, first entry is the youngest
     ///     - transmitterBatteryInfo : needed for battery level alarm
     ///     - sensorTimeInMinutes : sensor age in minutes, only if transmitter can give that info, eg MiaoMiao, otherwise nil
-    func cgmTransmitterInfoReceived(glucoseData:inout [GlucoseData], transmitterBatteryInfo: TransmitterBatteryInfo?, sensorTimeInMinutes:Int?)
+    func cgmTransmitterInfoReceived(glucoseData: inout [GlucoseData], transmitterBatteryInfo: TransmitterBatteryInfo?, sensorTimeInMinutes: Int?)
+    
+    func cgmTransmitterInfoDidChange()
     
     /// to pass some text error message, delegate can decide to show to user, log, ...
     func errorOccurred(xDripError: XdripError)
     
+    func cgmTransmitterPairingTooLate()
+    
+    func cgmTransmitterPairingDidSucceed()
+    
+    func cgmTransmitterPairingDidTimeOut()
 }
 
 

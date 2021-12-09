@@ -15,7 +15,7 @@ class DexcomShareUploadManager: NSObject {
     private let startRemoteMonitoringSessionPath = "Publisher/StartRemoteMonitoringSession"
     
     /// BgReadingsAccessor instance
-    private let bgReadingsAccessor:BgReadingsAccessor
+    private let bgReadingsAccessor = BgReadingsAccessor()
     
     /// to solve problem that sometemes UserDefaults key value changes is triggered twice for just one change
     private let keyValueObserverTimeKeeper:KeyValueObserverTimeKeeper = KeyValueObserverTimeKeeper()
@@ -42,12 +42,9 @@ class DexcomShareUploadManager: NSObject {
     
     /// initializer
     /// - parameters:
-    ///     - bgReadingsAccessor : needed to get latest readings
     ///     - messageHandler : in case errors occurs or other informational message to be shown to the user,  like credential check error, then this closure will be called with title and message
-    init(bgReadingsAccessor:BgReadingsAccessor, messageHandler:((_ title:String, _ message:String) -> Void)?) {
-        
+    init(messageHandler: ((_ title:String, _ message:String) -> Void)?) {
         // init properties
-        self.bgReadingsAccessor = bgReadingsAccessor
         self.messageHandler = messageHandler
         
         super.init()
