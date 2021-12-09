@@ -55,7 +55,8 @@ class StatisticsView: UIView {
         
         pieChartOutlet.outerRadius = 40
         pieChartOutlet.innerRadius = 15
-        
+        pieChartOutlet.clear()
+            
         // set the title labels to their correct localization
         self.lowTitleLabelOutlet.text = Texts_Common.lowStatistics
         self.inRangeTitleLabelOutlet.text = Texts_Common.inRangeStatistics
@@ -168,19 +169,27 @@ class StatisticsView: UIView {
         // cleart first, or the changed models have no effect
         pieChartOutlet.clear()
         
-        if (statistics.inRangeStatisticValue ?? 0) < 100 {
-            pieChartOutlet.models = [
-                PieSliceModel(value: Double(statistics.lowStatisticValue ?? 0),
-                              color: ConstantsStatistics.pieChartLowSliceColor),
-                PieSliceModel(value: Double(statistics.inRangeStatisticValue ?? 0),
-                              color: ConstantsStatistics.pieChartInRangeSliceColor),
-                PieSliceModel(value: Double(statistics.highStatisticValue ?? 0),
-                              color: ConstantsStatistics.pieChartHighSliceColor)
-            ]
+        if let inRangeStatisticValue = statistics.inRangeStatisticValue {
+            if inRangeStatisticValue < 100 {
+                pieChartOutlet.models = [
+                    PieSliceModel(value: Double(statistics.lowStatisticValue ?? 0),
+                                  color: ConstantsStatistics.pieChartLowSliceColor),
+                    PieSliceModel(value: Double(statistics.inRangeStatisticValue ?? 0),
+                                  color: ConstantsStatistics.pieChartInRangeSliceColor),
+                    PieSliceModel(value: Double(statistics.highStatisticValue ?? 0),
+                                  color: ConstantsStatistics.pieChartHighSliceColor)
+                ]
+                
+            } else {
+                // show a green circle at 100%
+                pieChartOutlet.models = [
+                    PieSliceModel(value: 1, color: ConstantsStatistics.pieChartInRangeSliceColor)
+                ]
+            }
+            
         } else {
-            // show a green circle at 100%
             pieChartOutlet.models = [
-                PieSliceModel(value: 1, color: ConstantsStatistics.pieChartInRangeSliceColor)
+                PieSliceModel(value: 1, color: .lightGray)
             ]
         }
     }

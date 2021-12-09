@@ -155,22 +155,16 @@ class CGMLibre2Transmitter:BluetoothTransmitter, CGMTransmitter {
             // if tempSensorSerialNumber != deviceName, then it means the user has connected to another (older?) Libre 2 with bluetooth than the one for which NFC scan was done, in that case, inform user
             // compare only the last 10 characters. Normally it should be 10, but for some reason, xDrip4iOS does not correctly decode the sensor uid, the first character is not correct
             if let deviceName = deviceName, sensorSerialNumber.serialNumber.suffix(9).uppercased() != deviceName.suffix(9) {
-                
                 bluetoothTransmitterDelegate?.error(message: TextsLibreNFC.connectedLibre2DoesNotMatchScannedLibre2)
                 
             } else {
-
                 // user should be informed not to scan with the Libre app
                 bluetoothTransmitterDelegate?.error(message: TextsLibreNFC.donotusethelibrelinkapp)
-
             }
-            
         }
-        
     }
 
     override func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        
         super.peripheral(peripheral, didUpdateValueFor: characteristic, error: error)
         
         // there should be already stored a value for libreSensorUID in the userdefaults at this moment, otherwise processing is not possible
@@ -200,29 +194,23 @@ class CGMLibre2Transmitter:BluetoothTransmitter, CGMTransmitter {
     }
     
     override func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
-        
         super.peripheral(peripheral, didUpdateNotificationStateFor: characteristic, error: error)
         
         // there should be already stored a value for libreSensorUID in the userdefaults at this moment, otherwise processing is not possible
         guard let libreSensorUID = UserDefaults.standard.libreSensorUID else {
-            
             trace("in peripheral didUpdateNotificationStateFor but libreSensorUID is not known, no further processing", log: log, category: ConstantsLog.categoryCGMLibre2, type: .info)
             
             return
-            
         }
         
         // there should be already stored a value for librePatchInfo in the userdefaults at this moment, otherwise processing is not possible
         guard let librePatchInfo = UserDefaults.standard.librePatchInfo else {
-            
             trace("in peripheral didUpdateNotificationStateFor but librePatchInfo is not known, no further processing", log: log, category: ConstantsLog.categoryCGMLibre2, type: .info)
             
             return
-            
         }
         
         if error == nil && characteristic.isNotifying {
-            
             UserDefaults.standard.libreActiveSensorUnlockCount += 1
             
             trace("sensorid as data =  %{public}@, patchinfo = %{public}@, unlockcode = %{public}@, unlockcount = %{public}@", log: log, category: ConstantsLog.categoryCGMLibre2, type: .info, libreSensorUID.toHexString(), librePatchInfo.toHexString(), UserDefaults.standard.libreActiveSensorUnlockCode.description, UserDefaults.standard.libreActiveSensorUnlockCount.description)
@@ -232,9 +220,7 @@ class CGMLibre2Transmitter:BluetoothTransmitter, CGMTransmitter {
             trace("in peripheral didUpdateNotificationStateFor, writing streaming unlock payload: %{public}@", log: log, category: ConstantsLog.categoryCGMLibre2, type: .info, unLockPayLoad.toHexString())
             
             _ = writeDataToPeripheral(data: unLockPayLoad, type: .withResponse)
-
         }
-        
     }
     
     // MARK: - helpers
@@ -249,12 +235,11 @@ class CGMLibre2Transmitter:BluetoothTransmitter, CGMTransmitter {
     public func processValue(value: Data, sensorUID: Data) {
         
         //check if buffer needs to be reset
-        if (Date() > startDate.addingTimeInterval(CGMLibre2Transmitter.maxWaitForpacketInSeconds)) {
+        if Date() > startDate.addingTimeInterval(CGMLibre2Transmitter.maxWaitForpacketInSeconds) {
             
             trace("in peripheral didUpdateValueFor, more than %{public}@ seconds since last update - or first update since app launch, resetting buffer", log: log, category: ConstantsLog.categoryCGMLibre2, type: .info, CGMLibre2Transmitter.maxWaitForpacketInSeconds.description)
             
             resetRxBuffer()
-            
         }
         
         // add new value to rxBuffer
@@ -262,7 +247,6 @@ class CGMLibre2Transmitter:BluetoothTransmitter, CGMTransmitter {
         
         // check if enough bytes are received, and if yes start processing
         if rxBuffer.count == expectedBufferSize {
-            
             do {
                 
                 // if libre1DerivedAlgorithmParameters not nil, but not matching serial number, then assign to nil (copied from LibreDataParser)
@@ -270,15 +254,12 @@ class CGMLibre2Transmitter:BluetoothTransmitter, CGMTransmitter {
                 // if libre1DerivedAlgorithmParameters is nil, but not weboopenabled, then also no further processing
                 // this may happen in case the serialNumber is not correctly read from NFC or stored in coredata - if all goes well this shouldn't occur
                 if isWebOOPEnabled() {
-
                     guard let libre1DerivedAlgorithmParameters = UserDefaults.standard.libre1DerivedAlgorithmParameters, libre1DerivedAlgorithmParameters.serialNumber == sensorSerialNumber else {
 
                         trace("web oop enabled but libre1DerivedAlgorithmParameters is nil or libre1DerivedAlgorithmParameters.serialNumber != sensorSerialNumber, no further processing", log: log, category: ConstantsLog.categoryCGMLibre2, type: .info)
                         
                         return
-
                     }
-                    
                 }
                 
                 // decrypt buffer and parse
@@ -292,7 +273,6 @@ class CGMLibre2Transmitter:BluetoothTransmitter, CGMTransmitter {
                 cGMLibre2TransmitterDelegate?.received(sensorTimeInMinutes: Int(parsedBLEData.sensorTimeInMinutes), from: self)
                 
             } catch {
-                
                 trace("in peripheral didUpdateValueFor, error while parsing/decrypting data =  %{public}@ ", log: log, category: ConstantsLog.categoryCGMLibre2, type: .info, error.localizedDescription)
                 
                 resetRxBuffer()
@@ -367,9 +347,7 @@ extension CGMLibre2Transmitter: LibreNFCDelegate {
                 UserDefaults.standard.libre1DerivedAlgorithmParameters = Libre1DerivedAlgorithmParameters(bytes: framCopy, serialNumber: serialNumber)
                 
             }
-            
         }
-        
     }
     
     func received(sensorUID: Data, patchInfo: Data) {
@@ -398,35 +376,25 @@ extension CGMLibre2Transmitter: LibreNFCDelegate {
                 cgmTransmitterDelegate?.newSensorDetected()
                 
                 cGMLibre2TransmitterDelegate?.received(serialNumber: receivedSensorSerialNumberAsString, from: self)
-
             }
             
         } else {
-            
             trace("could not created sensor serial number from received sensorUID, sensorUID = %{public}@", log: log, category: ConstantsLog.categoryCGMLibre2, type: .info, sensorUID.toHexString())
-            
         }
         
         trace("patchInfo received :  %{public}@", log: log, category: ConstantsLog.categoryCGMLibre2, type: .info, patchInfo.toHexString())
         
         UserDefaults.standard.librePatchInfo = patchInfo
-
     }
     
     func streamingEnabled(successful: Bool) {
-        
         if successful {
-
             trace("received streaming enabled message from NFC with result successful, setting unlockCount to 0", log: log, category: ConstantsLog.categoryCGMLibre2, type: .info)
             
             UserDefaults.standard.libreActiveSensorUnlockCount = 0
 
         } else {
-            
             trace("received streaming enabled message from NFC with result unsuccessful", log: log, category: ConstantsLog.categoryCGMLibre2, type: .info)
-
         }
-        
     }
-    
 }

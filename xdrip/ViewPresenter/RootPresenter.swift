@@ -14,30 +14,21 @@ class RootPresenter: RootP {
 
     private weak var view: RootV?
     
-    private var bgReadingsAccessor: BgReadingsAccessor!
-    private var healthKitManager: HealthKitManager?
-    private var bgReadingSpeaker: BGReadingSpeaker?
+    private let bgReadingsAccessor = BgReadingsAccessor()
+    private let healthKitManager = HealthKitManager()
+    private let bgReadingSpeaker = BGReadingSpeaker()
+    private let loopManager = LoopManager()
+    private let nightScoutFollowManager = NightScoutFollowManager()
+
     private var bluetoothPeripheralManager: BluetoothPeripheralManager?
-    private var loopManager: LoopManager?
-    
-    private var nightScoutFollowManager: NightScoutFollowManager?
 
     init(view: RootV) {
         self.view = view
+        self.nightScoutFollowManager.nightScoutFollowerDelegate = self
     }
     
-    func setup(bgReadingsAccessor: BgReadingsAccessor,
-               healthKitManager: HealthKitManager,
-               bgReadingSpeaker: BGReadingSpeaker,
-               bluetoothPeripheralManager: BluetoothPeripheralManager,
-               loopManager: LoopManager) {
-        self.bgReadingsAccessor = bgReadingsAccessor
-        self.healthKitManager = healthKitManager
-        self.bgReadingSpeaker = bgReadingSpeaker
+    func setup(bluetoothPeripheralManager: BluetoothPeripheralManager) {
         self.bluetoothPeripheralManager = bluetoothPeripheralManager
-        self.loopManager = loopManager
-        
-        nightScoutFollowManager = NightScoutFollowManager(nightScoutFollowerDelegate: self)
     }
     
     func loadChartReadings() {
@@ -49,11 +40,10 @@ class RootPresenter: RootP {
 
             let readings = self?.bgReadingsAccessor.getBgReadings(from: fromDate,
                                                                   to: toDate,
-                                                                  on: CoreDataManager.shared
-                                                                    .mainManagedObjectContext)
+                                                                  on: CoreDataManager.shared.mainManagedObjectContext)
            
             DispatchQueue.main.async {
-                self?.view?.showChartReadings(readings, from: fromDate, to: toDate)
+                self?.view?.show(chartReadings: readings, from: fromDate, to: toDate)
             }
         }
     }
@@ -76,12 +66,6 @@ class RootPresenter: RootP {
 extension RootPresenter: NightScoutFollowerDelegate {
     
     func nightScoutFollowerInfoReceived(followGlucoseDataArray: inout [NightScoutBgReading]) {
-        guard let bgReadingsAccessor = bgReadingsAccessor,
-              let nightScoutFollowManager = nightScoutFollowManager
-        else {
-            return
-        }
-        
         // assign value of timeStampLastBgReading
         var timeStampLastBgReading = Date(timeIntervalSince1970: 0)
 
@@ -112,15 +96,15 @@ extension RootPresenter: NightScoutFollowerDelegate {
             
             CoreDataManager.shared.saveChanges()
             
-            healthKitManager?.storeBgReadings()
-            bgReadingSpeaker?.speakNewReading(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp())
+            healthKitManager.storeBgReadings()
+            bgReadingSpeaker.speakNewReading(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp())
             bluetoothPeripheralManager?.sendLatestReading()
             
             // ask watchManager to process new reading, ignore last connection change timestamp because this is follower mode, there is no connection to a transmitter
             WatchManager.shared.processNewReading(lastConnectionStatusChangeTimeStamp: nil)
             
             // send also to loopmanager, not interesting for loop probably, but the data is also used for today widget
-            loopManager?.share()
+            loopManager.share()
             
             view?.showNewFollowerReading()
         }

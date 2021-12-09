@@ -17,16 +17,16 @@ class NightScoutFollowManager: NSObject {
     private var log = OSLog(subsystem: ConstantsLog.subSystem, category: ConstantsLog.categoryNightScoutFollowManager)
     
     /// when to do next download
-    private var nextFollowDownloadTimeStamp:Date
+    private var nextFollowDownloadTimeStamp: Date
         
     /// reference to BgReadingsAccessor
-    private var bgReadingsAccessor:BgReadingsAccessor
+    private var bgReadingsAccessor: BgReadingsAccessor
     
     /// delegate to pass back glucosedata
-    private (set) weak var nightScoutFollowerDelegate:NightScoutFollowerDelegate?
+    weak var nightScoutFollowerDelegate: NightScoutFollowerDelegate?
     
     /// AVAudioPlayer to use
-    private var audioPlayer:AVAudioPlayer?
+    private var audioPlayer: AVAudioPlayer?
     
     /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground - create playsoundtimer
     private let applicationManagerKeyResumePlaySoundTimer = "NightScoutFollowerManager-ResumePlaySoundTimer"
@@ -38,28 +38,25 @@ class NightScoutFollowManager: NSObject {
     private var invalidateDownLoadTimerClosure:(() -> Void)?
     
     // timer for playsound
-    private var playSoundTimer:RepeatingTimer?
+    private var playSoundTimer: RepeatingTimer?
 
     // MARK: - initializer
     
     /// initializer
-    public init(nightScoutFollowerDelegate:NightScoutFollowerDelegate) {
+    override init() {
         
         // initialize nextFollowDownloadTimeStamp to now, which is at the moment FollowManager is instantiated
         nextFollowDownloadTimeStamp = Date()
         
         // initialize non optional private properties
-        self.bgReadingsAccessor = BgReadingsAccessor()
-        self.nightScoutFollowerDelegate = nightScoutFollowerDelegate
+        bgReadingsAccessor = BgReadingsAccessor()
         
         // creat audioplayer
         do {
             // set up url to create audioplayer
             let soundFileName = ConstantsSuspensionPrevention.soundFileName
             if let url = Bundle.main.url(forResource: soundFileName, withExtension: "")  {
-
                 try audioPlayer = AVAudioPlayer(contentsOf: url)
-
             }
             
         } catch let error {

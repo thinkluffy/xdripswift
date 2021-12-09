@@ -225,6 +225,8 @@ class GlucoseChart: UIView {
     }
     
     func show(readings: [BgReading]?, from fromDate: Date, to toDate: Date, aheadSeconds: Double = 0) {
+        GlucoseChart.log.d("==> showReadings")
+        
         applySettings()
 
         // setup chart
@@ -245,13 +247,16 @@ class GlucoseChart: UIView {
             chartView.xAxis.axisMaximum = toDate.timeIntervalSince1970 + aheadSeconds
             
             var placeholderEntries = [ChartDataEntry]()
-            let placeholdeEntry = ChartDataEntry(x: fromDate.timeIntervalSince1970, y: highInMg.mgdlToMmol(mgdl: showAsMg))
-            placeholderEntries.append(placeholdeEntry)
+            let placeholderEntry = ChartDataEntry(x: toDate.timeIntervalSince1970, y: highInMg.mgdlToMmol(mgdl: showAsMg))
+            placeholderEntries.append(placeholderEntry)
             let placeholderDataSet = LineChartDataSet(entries: placeholderEntries)
             placeholderDataSet.setColor(.clear)
             placeholderDataSet.highlightEnabled = false
-            
-            let data = ScatterChartData(dataSets: [
+            placeholderDataSet.drawCirclesEnabled = false
+            placeholderDataSet.drawCircleHoleEnabled = false
+            placeholderDataSet.axisDependency = .right
+
+            let data = LineChartData(dataSets: [
                 placeholderDataSet
             ])
             chartView.data = data
@@ -341,7 +346,7 @@ class GlucoseChart: UIView {
         chartView.data = data
     }
     
-    func moveCurrentToTrailing() {
+    func moveXAxisToTrailing() {
         let xRange = calChartHoursSeconds(chartHoursId: chartHours)
         chartView.setVisibleXRange(minXRange: xRange, maxXRange: xRange)
         

@@ -12,17 +12,13 @@ protocol RootV: MVPV {
     
     func showNewFollowerReading()
     
-    func showChartReadings(_ readings: [BgReading]?, from fromDate: Date, to toDate: Date)
+    func show(chartReadings: [BgReading]?, from fromDate: Date, to toDate: Date)
 }
 
 protocol RootP: MVPP {
     
     // temp used during refactoring
-    func setup(bgReadingsAccessor: BgReadingsAccessor,
-               healthKitManager: HealthKitManager,
-               bgReadingSpeaker: BGReadingSpeaker,
-               bluetoothPeripheralManager: BluetoothPeripheralManager,
-               loopManager: LoopManager)
+    func setup(bluetoothPeripheralManager: BluetoothPeripheralManager)
     
     func loadChartReadings()
 }

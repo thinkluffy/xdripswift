@@ -381,11 +381,7 @@ final class RootViewController: UIViewController {
         // initialize statisticsManager
         statisticsManager = StatisticsManager()
         
-        presenter.setup(bgReadingsAccessor: bgReadingsAccessor,
-                        healthKitManager: healthKitManager,
-                        bgReadingSpeaker: bgReadingSpeaker,
-                        bluetoothPeripheralManager: bluetoothPeripheralManager!,
-                        loopManager: loopManager)
+        presenter.setup(bluetoothPeripheralManager: bluetoothPeripheralManager!)
     }
     
     /// process new glucose data received from transmitter.
@@ -725,9 +721,6 @@ final class RootViewController: UIViewController {
         
         sensorIndicator.addTarget(self, action: #selector(sensorIndicatorDidClick(_:)), for: .touchUpInside)
         
-        // at this moment, coreDataManager is not yet initialized, we're just calling here prerender and reloadChart to show the chart with x and y axis and gridlines, but without readings. The readings will be loaded once coreDataManager is setup, after which updateChart() will be called, which will initiate loading of readings from coredata
-//        chartOutlet.reloadChart()
-        
         glucoseChart.chartHours = selectedChartHoursId
     }
     
@@ -778,19 +771,14 @@ final class RootViewController: UIViewController {
         UserDefaults.standard.timeStampAppLaunch = Date()
         
         // this is the actual timer
-        var updateLabelsAndChartTimer:Timer?
+        var updateLabelsAndChartTimer: Timer?
         
         // create closure to invalide the timer, if it exists
         let invalidateUpdateLabelsAndChartTimer = {
-            
             if let updateLabelsAndChartTimer = updateLabelsAndChartTimer {
-                
                 updateLabelsAndChartTimer.invalidate()
-                
             }
-            
             updateLabelsAndChartTimer = nil
-            
         }
         
         // create closure that launches the timer to update the first view every x seconds, and returns the created timer
@@ -816,9 +804,7 @@ final class RootViewController: UIViewController {
             
             // updateLabelsAndChartTimer needs to be invalidated when app goes to background
             invalidateUpdateLabelsAndChartTimer()
-            
         })
-        
     }
     
     /// opens an alert, that requests user to enter a calibration value, and calibrates
@@ -1133,7 +1119,9 @@ final class RootViewController: UIViewController {
         // set minutesLabelOutlet.textColor to white, might still be red due to panning back in time
         minutesLabelOutlet.textColor = UIColor.white
         
-        // get latest reading, doesn't matter if it's for an active sensor or not, but it needs to have calculatedValue > 0 / which means, if user would have started a new sensor, but didn't calibrate yet, and a reading is received, then there's not going to be a latestReading
+        presenter.loadChartReadings()
+
+        // get latest readings, doesn't matter if it's for an active sensor or not, but it needs to have calculatedValue > 0 / which means, if user would have started a new sensor, but didn't calibrate yet, and a reading is received, then there's not going to be a latestReading
         // minus 20 secoonds for the readings may not be exactly 60 seconds per reading
         let latestReadings = bgReadingsAccessor.get2LatestBgReadings(minimumTimeIntervalInSeconds: Double(Constants.minsToCalculateSlope) * Date.minuteInSeconds - 20)
         
@@ -1175,11 +1163,6 @@ final class RootViewController: UIViewController {
         diffLabelOutlet.text = lastReading.unitizedDeltaStringPerMin(previousBgReading: lastButOneReading,
                                                                      showUnit: true,
                                                                      mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
-        
-        // update the chart up to now
-//        updateChartWithResetEndDate()
-        
-        presenter.loadChartReadings()
     }
     
     private func showBluetoothPeripheral() {
@@ -1225,33 +1208,6 @@ final class RootViewController: UIViewController {
             // create and present PickerViewController
             PickerViewController.displayPickerViewController(pickerViewData: pickerViewData, parentController: self)
         }
-    }
-    
-    /// will show the status
-    private func showStatus() {
-        // first sensor status
-        var textToShow = Texts_HomeView.sensorStart + " : "
-        if let activeSensor = activeSensor {
-            textToShow += activeSensor.startDate.description(with: .current)
-            
-        } else {
-            textToShow += Texts_HomeView.notStarted
-        }
-        
-        // add 2 newlines
-        textToShow += "\r\n\r\n"
-        
-        // add transmitterBatteryInfo if known
-        if let transmitterBatteryInfo = UserDefaults.standard.transmitterBatteryInfo {
-            textToShow += Texts_HomeView.transmitterBatteryLevel + " : " + transmitterBatteryInfo.description
-            // add 1 newline with last connection timestamp
-            textToShow += "\r\n\r\n"
-        }
-        
-        // display textoToshow
-        let alert = UIAlertController(title: Texts_HomeView.statusActionTitle, message: textToShow, actionHandler: nil)
-        
-        present(alert, animated: true, completion: nil)
     }
     
     /// stops the active sensor and sets sensorSerialNumber in UserDefaults to nil
@@ -1682,9 +1638,9 @@ extension RootViewController: RootV {
         showNewBGReadingToast()
     }
     
-    func showChartReadings(_ readings: [BgReading]?, from fromDate: Date, to toDate: Date) {
-        glucoseChart.show(readings: readings, from: fromDate, to: toDate, aheadSeconds: Date.minuteInSeconds * 10)
-        glucoseChart.moveCurrentToTrailing()
+    func show(chartReadings: [BgReading]?, from fromDate: Date, to toDate: Date) {
+        glucoseChart.show(readings: chartReadings, from: fromDate, to: toDate, aheadSeconds: Date.minuteInSeconds * 10)
+        glucoseChart.moveXAxisToTrailing()
     }
 }
 
