@@ -21,23 +21,20 @@ class HorizontalSheet: UIView {
         case trailing
     }
     
-    var contentView: HorizontalSheetContent? {
-        didSet {
-            if let theContent = contentView {
-                theContent.sheet = self
-            }
-        }
-    }
+    private var contentView: HorizontalSheetContent?
     
     var tapOutsideToDismiss = true
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    init(sheetContent: HorizontalSheetContent) {
+        contentView = sheetContent
+        super.init(frame: .zero)
+        
+        sheetContent.sheet = self
+        setup()
     }
     
     private func setup() {
@@ -63,7 +60,7 @@ class HorizontalSheet: UIView {
     }
     
     func show(in view: UIView, dimColor: UIColor = .black.withAlphaComponent(0.3), from direction: SlideInFrom = .trailing) {
-        guard let theContentView = contentView else {
+        guard let contentView = contentView else {
             return
         }
         
@@ -71,12 +68,12 @@ class HorizontalSheet: UIView {
         
         isUserInteractionEnabled = true
         
-        addSubview(theContentView)
+        addSubview(contentView)
         view.addSubview(self)
 
         frame = view.bounds
         
-        theContentView.snp.makeConstraints { make in
+        contentView.snp.makeConstraints { make in
             make.top.bottom.equalTo(self)
             if direction == .leading {
                 make.leading.equalTo(safeAreaLayoutGuide)
@@ -88,15 +85,15 @@ class HorizontalSheet: UIView {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             if direction == .leading {
-                theContentView.transform = CGAffineTransform(translationX: -theContentView.bounds.width, y: 0)
+                contentView.transform = CGAffineTransform(translationX: -contentView.bounds.width, y: 0)
                 
             } else {
-                theContentView.transform = CGAffineTransform(translationX: theContentView.bounds.width, y: 0)
+                contentView.transform = CGAffineTransform(translationX: contentView.bounds.width, y: 0)
             }
             
             UIView.animate(withDuration: 0.3) {
                 self.alpha = 1.0
-                theContentView.transform = CGAffineTransform(translationX: 0, y: 0)
+                contentView.transform = CGAffineTransform(translationX: 0, y: 0)
             }
         }
     }

@@ -205,9 +205,8 @@ extension ChartDetailsViewController: ChartDetailsV {
     }
     
     func show(statistics: StatisticsManager.Statistics, of date: Date) {
-        let sheet = HorizontalSheet()
         let content = StatisticsSheetContent(statistics: statistics, date: date)
-        sheet.contentView = content
+        let sheet = HorizontalSheet(sheetContent: content)
         sheet.show(in: view, dimColor: .black.withAlphaComponent(0.5))
     }
 
@@ -298,10 +297,9 @@ extension ChartDetailsViewController: CalendarTitleDelegate {
             return
         }
         
-        let sheet = HorizontalSheet()
         let content = DatePickerSheetContent(selectedDate: selectedDate)
         content.delegate = self
-        sheet.contentView = content
+        let sheet = HorizontalSheet(sheetContent: content)
         sheet.show(in: view, dimColor: .black.withAlphaComponent(0.5))
     }
 }
@@ -315,22 +313,6 @@ extension ChartDetailsViewController: SingleSelectionDelegate {
     func singleSelectionItemDidSelect(_ singleSelecton: SingleSelection, item: SingleSelectionItem) {
         selectedChartHoursId = item.id
         glucoseChart.chartHours = selectedChartHoursId
-        
-//        let centerVisibleX = (chartView.highestVisibleX - chartView.lowestVisibleX) / 2 + chartView.lowestVisibleX
-//
-//        let xRange = calChartHoursSeconds(chartHoursId: selectedChartHoursId)
-//        chartView.setVisibleXRange(minXRange: xRange, maxXRange: xRange)
-//
-//        if selectedChartHoursId == ChartHours.H24 {
-//            chartView.xAxis.granularity = Date.hourInSeconds * 3 // 2 hours do not work, why?
-//
-//        } else {
-//            chartView.xAxis.granularity = Date.hourInSeconds
-//        }
-//        chartView.notifyDataSetChanged()
-//
-//        // keep center still center
-//        chartView.moveViewToX(centerVisibleX - xRange / 2)
     }
 }
 

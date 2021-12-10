@@ -1205,8 +1205,7 @@ final class RootViewController: UIViewController {
                                                 onCancelClick: nil,
                                                 didSelectRowHandler: nil)
             
-            // create and present PickerViewController
-            PickerViewController.displayPickerViewController(pickerViewData: pickerViewData, parentController: self)
+            BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
         }
     }
     
@@ -1560,7 +1559,9 @@ extension RootViewController: UNUserNotificationCenterDelegate {
             // this will verify if it concerns an alert notification, if not pickerviewData will be nil
         } else if let pickerViewData = alertManager?.userNotificationCenter(center, willPresent: notification, withCompletionHandler: completionHandler) {
             
-            PickerViewController.displayPickerViewController(pickerViewData: pickerViewData, parentController: self)
+//            PickerViewController.displayPickerViewController(pickerViewData: pickerViewData, parentController: self)
+            
+            BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
             
         }  else if notification.request.identifier == ConstantsNotifications.notificationIdentifierForVolumeTest {
             // user is testing iOS Sound volume in the settings. Only the sound should be played, the alert itself will not be shown
@@ -1607,8 +1608,9 @@ extension RootViewController: UNUserNotificationCenterDelegate {
             if let pickerViewData = alertManager?.userNotificationCenter(center, didReceive: response) {
                 
                 trace("     userNotificationCenter didReceive, user pressed an alert notification to open the app", log: log, category: ConstantsLog.categoryRootView, type: .info)
-                PickerViewController.displayPickerViewController(pickerViewData: pickerViewData, parentController: self)
                 
+                BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
+
             } else {
                 // it as also not an alert notification that the user clicked, there might come in other types of notifications in the future
             }

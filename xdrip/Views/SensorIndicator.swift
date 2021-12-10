@@ -62,6 +62,6 @@ class SensorIndicator: UIControl {
     }
     
     override func prepareForInterfaceBuilder() {
-        invalidateIntrinsicContentSize()
+        initialize()
     }
 }

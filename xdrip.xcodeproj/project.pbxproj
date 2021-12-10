@@ -26,6 +26,8 @@
 		4E2C95B8274BEC3F0073D692 /* RootPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95B7274BEC3F0073D692 /* RootPresenter.swift */; };
 		4E2C95BC275230B10073D692 /* GlucoseChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95BB275230B10073D692 /* GlucoseChart.swift */; };
 		4E2C95BF275231F90073D692 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95BE275231F90073D692 /* Constants.swift */; };
+		4E2FF40427631EB6002DE2B0 /* BottomSheetPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2FF40327631EB6002DE2B0 /* BottomSheetPickerViewController.swift */; };
+		4E2FF40627633992002DE2B0 /* BetterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2FF40527633992002DE2B0 /* BetterButton.swift */; };
 		4E46D933275663AF00C79F86 /* CountDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46D932275663AF00C79F86 /* CountDownView.swift */; };
 		4E46D9372759086C00C79F86 /* HorizontalSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46D9362759086C00C79F86 /* HorizontalSheet.swift */; };
 		4E46D940275A565100C79F86 /* SensorIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46D93F275A565100C79F86 /* SensorIndicator.swift */; };
@@ -414,8 +416,6 @@
 		F8B3A81E227DEC92004BA588 /* BgReadingsAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A818227DEC92004BA588 /* BgReadingsAccessor.swift */; };
 		F8B3A81F227DEC92004BA588 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F8B3A819227DEC92004BA588 /* README.md */; };
 		F8B3A820227DEC92004BA588 /* AlertTypesAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A81A227DEC92004BA588 /* AlertTypesAccessor.swift */; };
-		F8B3A834227F08AC004BA588 /* PickerViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A832227F08AC004BA588 /* PickerViewData.swift */; };
-		F8B3A835227F08AC004BA588 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A833227F08AC004BA588 /* PickerViewController.swift */; };
 		F8B3A844227F090E004BA588 /* SettingsViewAlertSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A838227F090D004BA588 /* SettingsViewAlertSettingsViewModel.swift */; };
 		F8B3A845227F090E004BA588 /* SettingsViewDexcomSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A839227F090D004BA588 /* SettingsViewDexcomSettingsViewModel.swift */; };
 		F8B3A847227F090E004BA588 /* SettingsViewNightScoutSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A83B227F090D004BA588 /* SettingsViewNightScoutSettingsViewModel.swift */; };
@@ -660,6 +660,8 @@
 		4E2C95B7274BEC3F0073D692 /* RootPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPresenter.swift; sourceTree = "<group>"; };
 		4E2C95BB275230B10073D692 /* GlucoseChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseChart.swift; sourceTree = "<group>"; };
 		4E2C95BE275231F90073D692 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		4E2FF40327631EB6002DE2B0 /* BottomSheetPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetPickerViewController.swift; sourceTree = "<group>"; };
+		4E2FF40527633992002DE2B0 /* BetterButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetterButton.swift; sourceTree = "<group>"; };
 		4E46D932275663AF00C79F86 /* CountDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownView.swift; sourceTree = "<group>"; };
 		4E46D9362759086C00C79F86 /* HorizontalSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalSheet.swift; sourceTree = "<group>"; };
 		4E46D93F275A565100C79F86 /* SensorIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorIndicator.swift; sourceTree = "<group>"; };
@@ -1258,8 +1260,6 @@
 		F8B3A818227DEC92004BA588 /* BgReadingsAccessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BgReadingsAccessor.swift; sourceTree = "<group>"; };
 		F8B3A819227DEC92004BA588 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F8B3A81A227DEC92004BA588 /* AlertTypesAccessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertTypesAccessor.swift; sourceTree = "<group>"; };
-		F8B3A832227F08AC004BA588 /* PickerViewData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewData.swift; sourceTree = "<group>"; };
-		F8B3A833227F08AC004BA588 /* PickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
 		F8B3A838227F090D004BA588 /* SettingsViewAlertSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewAlertSettingsViewModel.swift; sourceTree = "<group>"; };
 		F8B3A839227F090D004BA588 /* SettingsViewDexcomSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewDexcomSettingsViewModel.swift; sourceTree = "<group>"; };
 		F8B3A83B227F090D004BA588 /* SettingsViewNightScoutSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewNightScoutSettingsViewModel.swift; sourceTree = "<group>"; };
@@ -1518,6 +1518,7 @@
 				4E9D7992273BF04400B666C5 /* FloatButton.swift */,
 				4E9D7994273BF04400B666C5 /* TableViewDataCreator.swift */,
 				4E9D7995273BF04400B666C5 /* MVP */,
+				4E2FF40527633992002DE2B0 /* BetterButton.swift */,
 				4E9D7998273BF04400B666C5 /* UIView+Animations.swift */,
 				4E9D7999273BF04400B666C5 /* BadgeView.swift */,
 				4E9D799A273BF04400B666C5 /* CircleLabel.swift */,
@@ -2340,7 +2341,6 @@
 			isa = PBXGroup;
 			children = (
 				F821CF8C22AB08F6005C1E43 /* Date Picker View Controller */,
-				F8B3A831227F08AC004BA588 /* Picker View Controller */,
 				F8B3A7F22278E0E7004BA588 /* SettingsViewModelProtocol.swift */,
 				F8B3A807227A2933004BA588 /* SettingsSelectedRowAction.swift */,
 			);
@@ -2368,15 +2368,6 @@
 				F8B3A836227F090D004BA588 /* SettingsViewController */,
 			);
 			path = SettingsNavigationController;
-			sourceTree = "<group>";
-		};
-		F8B3A831227F08AC004BA588 /* Picker View Controller */ = {
-			isa = PBXGroup;
-			children = (
-				F8B3A832227F08AC004BA588 /* PickerViewData.swift */,
-				F8B3A833227F08AC004BA588 /* PickerViewController.swift */,
-			);
-			path = "Picker View Controller";
 			sourceTree = "<group>";
 		};
 		F8B3A836227F090D004BA588 /* SettingsViewController */ = {
@@ -2483,6 +2474,7 @@
 				4E2C95BB275230B10073D692 /* GlucoseChart.swift */,
 				4E46D932275663AF00C79F86 /* CountDownView.swift */,
 				4E46D93F275A565100C79F86 /* SensorIndicator.swift */,
+				4E2FF40327631EB6002DE2B0 /* BottomSheetPickerViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3423,6 +3415,7 @@
 				F8A2BC3225DB0D6D001D1E78 /* BluetoothPeripheralManaging.swift in Sources */,
 				F85DC2F521CFE3D400B9F74A /* BgReading+CoreDataClass.swift in Sources */,
 				F816E11C2439243B009EE65B /* Droplet+CoreDataProperties.swift in Sources */,
+				4E2FF40427631EB6002DE2B0 /* BottomSheetPickerViewController.swift in Sources */,
 				F821CF56229BF43A005C1E43 /* AlertKind.swift in Sources */,
 				F85DC2ED21CFE2F500B9F74A /* BgReading+CoreDataProperties.swift in Sources */,
 				F8A2BC0D25DB0B12001D1E78 /* Atom+BluetoothPeripheral.swift in Sources */,
@@ -3488,7 +3481,6 @@
 				4E9D79BD273BF04400B666C5 /* StretchyHeaderCollectionViewLayout.swift in Sources */,
 				F8F971B723A5914D00C3F17D /* BluetoothPeripheralType.swift in Sources */,
 				F80610C4222D4E4D00D8F236 /* ActionClosureable-extension.swift in Sources */,
-				F8B3A835227F08AC004BA588 /* PickerViewController.swift in Sources */,
 				F821CF9522ADB0D7005C1E43 /* HealthKitManager.swift in Sources */,
 				F8B3A81D227DEC92004BA588 /* CalibrationsAccessor.swift in Sources */,
 				F821CF9D22AEF483005C1E43 /* BGReadingSpeaker.swift in Sources */,
@@ -3619,7 +3611,6 @@
 				4E9D79CA273BF04400B666C5 /* Ring.swift in Sources */,
 				F8B48A9422B2A705009BCC01 /* TextsSpeakReading.swift in Sources */,
 				F821CF5F229BF43A005C1E43 /* ApplicationManager.swift in Sources */,
-				F8B3A834227F08AC004BA588 /* PickerViewData.swift in Sources */,
 				F8177025248ED4DE00AA3600 /* Libre1DerivedAlgorithmParameters.swift in Sources */,
 				F8A2BC0425DB093B001D1E78 /* Atom+CoreDataClass.swift in Sources */,
 				F8F9722823A5915900C3F17D /* BluconUtilities.swift in Sources */,
@@ -3665,6 +3656,7 @@
 				47FB28082636B04200042FFB /* StatisticsManager.swift in Sources */,
 				4E01B1472742575400D00935 /* ChartDetailsPresenter.swift in Sources */,
 				F80D916424F5B3DE006840B5 /* Libre2+CoreDataProperties.swift in Sources */,
+				4E2FF40627633992002DE2B0 /* BetterButton.swift in Sources */,
 				F898EDEC233F549100BFB79B /* UIBarButtonItem.swift in Sources */,
 				F816E0E42432A4FA009EE65B /* CGMBluconTransmitterDelegate.swift in Sources */,
 				4E9D79BE273BF04400B666C5 /* VerticalCenterTextLayer.swift in Sources */,

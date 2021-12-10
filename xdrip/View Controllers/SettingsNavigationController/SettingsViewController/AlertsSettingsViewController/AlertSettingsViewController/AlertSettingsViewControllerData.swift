@@ -1,7 +1,7 @@
 import UIKit
 
 /// a case per type of attribute that can be set in an AlerSettingsView
-fileprivate enum Setting:Int, CaseIterable {
+fileprivate enum Setting: Int, CaseIterable {
     // case value must be the last in the series !! because it is not shown if the alertkind
     
     /// as of when is the alert applicable
@@ -279,9 +279,7 @@ extension AlertSettingsViewControllerData {
                 
             }, onCancelClick: {}, didSelectRowHandler: nil)
             
-            // create and present pickerviewcontroller
-            PickerViewController.displayPickerViewController(pickerViewData: pickerViewData, parentController: uIViewController)
-            
+            BottomSheetPickerViewController.show(in: uIViewController, pickerViewData: pickerViewData)
         }
     }
 }

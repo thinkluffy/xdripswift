@@ -105,8 +105,13 @@ extension SnoozeViewController: UITableViewDataSource {
             // changing from off to on. Means user wants to pre-snooze
             if isOn {
                 // create and display pickerViewData
-                PickerViewController.displayPickerViewController(pickerViewData: alertManager.createPickerViewData(forAlertKind: alertKind, content: nil, actionHandler: { reloadRow() }, cancelHandler: { reloadRow() }), parentController: self)
-                
+                let pickerViewData = alertManager.createPickerViewData(forAlertKind: alertKind,
+                                                                       content: nil,
+                                                                       actionHandler: { reloadRow() },
+                                                                       cancelHandler: { reloadRow() })
+                                                                       
+                BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
+
             } else {
                 // changing from on to off. Means user wants to unsnooze
                 alertManager.unSnooze(alertKind: alertKind)

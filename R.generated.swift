@@ -8344,7 +8344,6 @@ struct _R: Rswift.Validatable {
       let datePickerViewController = StoryboardViewControllerResource<DatePickerViewController>(identifier: "DatePickerViewController")
       let mainTabBarController = StoryboardViewControllerResource<MainTabBarController>(identifier: "MainTabBarController")
       let name = "Main"
-      let pickerViewController = StoryboardViewControllerResource<PickerViewController>(identifier: "PickerViewController")
       let snoozeAlarms = StoryboardViewControllerResource<SnoozeViewController>(identifier: "snoozeAlarms")
 
       func bluetoothPeripheral(_: Void = ()) -> BluetoothPeripheralViewController? {
@@ -8357,10 +8356,6 @@ struct _R: Rswift.Validatable {
 
       func mainTabBarController(_: Void = ()) -> MainTabBarController? {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: mainTabBarController)
-      }
-
-      func pickerViewController(_: Void = ()) -> PickerViewController? {
-        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: pickerViewController)
       }
 
       func snoozeAlarms(_: Void = ()) -> SnoozeViewController? {
@@ -8387,7 +8382,6 @@ struct _R: Rswift.Validatable {
         if _R.storyboard.main().bluetoothPeripheral() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'bluetoothPeripheral' could not be loaded from storyboard 'Main' as 'BluetoothPeripheralViewController'.") }
         if _R.storyboard.main().datePickerViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'datePickerViewController' could not be loaded from storyboard 'Main' as 'DatePickerViewController'.") }
         if _R.storyboard.main().mainTabBarController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'mainTabBarController' could not be loaded from storyboard 'Main' as 'MainTabBarController'.") }
-        if _R.storyboard.main().pickerViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'pickerViewController' could not be loaded from storyboard 'Main' as 'PickerViewController'.") }
         if _R.storyboard.main().snoozeAlarms() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'snoozeAlarms' could not be loaded from storyboard 'Main' as 'SnoozeViewController'.") }
       }
 

@@ -119,12 +119,10 @@ class SettingsViewUtilities {
                     if let didSelectRowHandler = didSelectRowHandler {
                         didSelectRowHandler(index)
                     }
-                    
                 })
                 
-                // create and present pickerviewcontroller
-                PickerViewController.displayPickerViewController(pickerViewData: pickerViewData, parentController: uIViewController)
-                
+                BottomSheetPickerViewController.show(in: uIViewController, pickerViewData: pickerViewData)
+
                 break
                 
             case .performSegue(let withIdentifier, let sender):
@@ -151,7 +149,6 @@ class SettingsViewUtilities {
                 uIViewController.present(alert, animated: true, completion: nil)
                 
             }
-
     }
 
     // MARK: private helper functions

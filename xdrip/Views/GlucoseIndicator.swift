@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 
+@IBDesignable
 class GlucoseIndicator: UIView {
     
     private static let log = Log(type: GlucoseIndicator.self)
@@ -199,6 +200,10 @@ class GlucoseIndicator: UIView {
         innerCircleBgLayer.frame.origin = CGPoint(x: boundsCenter.x - innerCircleBgLayer.bounds.size.width / 2,
                                                   y: boundsCenter.y - innerCircleBgLayer.bounds.size.height / 2)
     }
+    
+    override func prepareForInterfaceBuilder() {
+        initialize()
+    }
 }
 
 class BgLabelInMmol: UIView {
@@ -268,5 +273,9 @@ class BgLabelInMmol: UIView {
         let width = valueLabelMmolInt.intrinsicContentSize.width + valueLabelMmolFraction.intrinsicContentSize.width
         let height = valueLabelMmolInt.intrinsicContentSize.height
         return CGSize(width: width, height: height)
+    }
+    
+    override func prepareForInterfaceBuilder() {
+        initialize()
     }
 }

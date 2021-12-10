@@ -451,6 +451,10 @@ class GlucoseChart: UIView {
         // keep the latest time not changed
         chartView.moveViewToX(highestVisibleX - xRange)
     }
+    
+    override func prepareForInterfaceBuilder() {
+        initialize()
+    }
 }
 
 extension GlucoseChart: ChartViewDelegate {

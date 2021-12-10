@@ -12,22 +12,22 @@ class BottomSheetContent: SwallowTouchesView {
     
     weak var bottomSheet: BottomSheet?
     
+    func sheetWillDismiss() {
+        
+    }
 }
 
 class BottomSheet: UIView {
     
-    var contentView: BottomSheetContent? {
-        didSet {
-            if let theContent = contentView {
-                theContent.bottomSheet = self
-            }
-        }
-    }
+    private var contentView: BottomSheetContent?
     
     var tapOutsideToDismiss = true
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(sheetContent: BottomSheetContent) {
+        contentView = sheetContent
+        super.init(frame: .zero)
+        
+        sheetContent.bottomSheet = self
         setup()
     }
     
@@ -36,11 +36,12 @@ class BottomSheet: UIView {
     }
     
     private func setup() {
-        backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
         alpha = 0
     }
     
     func dismissView() {
+        contentView?.sheetWillDismiss()
+        
         UIView.animate(withDuration: 0.3, animations: {
             self.alpha = 0
         }) { _ in
@@ -57,29 +58,31 @@ class BottomSheet: UIView {
         }
     }
     
-    func show(in view: UIView){
-        guard let theContentView = contentView else {
+    func show(in view: UIView, dimColor: UIColor = .black.withAlphaComponent(0.3)) {
+        guard let contentView = contentView else {
             return
         }
         
+        backgroundColor = dimColor
+
         isUserInteractionEnabled = true
         
-        addSubview(theContentView)
+        addSubview(contentView)
         view.addSubview(self)
 
         frame = view.bounds
         
-        theContentView.snp.makeConstraints { (make) in
-            make.width.centerX.equalTo(self)
-            make.bottom.equalTo(self)
+        contentView.snp.makeConstraints { (make) in
+            make.leading.trailing.equalTo(self)
+            make.bottom.equalTo(safeAreaLayoutGuide)
         }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            theContentView.transform = CGAffineTransform(translationX: 0, y: theContentView.bounds.height)
+            contentView.transform = CGAffineTransform(translationX: 0, y: contentView.bounds.height)
 
             UIView.animate(withDuration: 0.3) {
                 self.alpha = 1.0
-                theContentView.transform = CGAffineTransform(translationX: 0, y: 0)
+                contentView.transform = CGAffineTransform(translationX: 0, y: 0)
             }
         }
     }
