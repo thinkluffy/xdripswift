@@ -28,6 +28,7 @@
 		4E2C95BF275231F90073D692 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95BE275231F90073D692 /* Constants.swift */; };
 		4E2FF40427631EB6002DE2B0 /* BottomSheetPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2FF40327631EB6002DE2B0 /* BottomSheetPickerViewController.swift */; };
 		4E2FF40627633992002DE2B0 /* BetterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2FF40527633992002DE2B0 /* BetterButton.swift */; };
+		4E2FF40827638FCB002DE2B0 /* BluetoothPeripheralImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2FF40727638FCB002DE2B0 /* BluetoothPeripheralImageView.swift */; };
 		4E46D933275663AF00C79F86 /* CountDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46D932275663AF00C79F86 /* CountDownView.swift */; };
 		4E46D9372759086C00C79F86 /* HorizontalSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46D9362759086C00C79F86 /* HorizontalSheet.swift */; };
 		4E46D940275A565100C79F86 /* SensorIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46D93F275A565100C79F86 /* SensorIndicator.swift */; };
@@ -662,6 +663,7 @@
 		4E2C95BE275231F90073D692 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4E2FF40327631EB6002DE2B0 /* BottomSheetPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetPickerViewController.swift; sourceTree = "<group>"; };
 		4E2FF40527633992002DE2B0 /* BetterButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetterButton.swift; sourceTree = "<group>"; };
+		4E2FF40727638FCB002DE2B0 /* BluetoothPeripheralImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheralImageView.swift; sourceTree = "<group>"; };
 		4E46D932275663AF00C79F86 /* CountDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownView.swift; sourceTree = "<group>"; };
 		4E46D9362759086C00C79F86 /* HorizontalSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalSheet.swift; sourceTree = "<group>"; };
 		4E46D93F275A565100C79F86 /* SensorIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorIndicator.swift; sourceTree = "<group>"; };
@@ -2475,6 +2477,7 @@
 				4E46D932275663AF00C79F86 /* CountDownView.swift */,
 				4E46D93F275A565100C79F86 /* SensorIndicator.swift */,
 				4E2FF40327631EB6002DE2B0 /* BottomSheetPickerViewController.swift */,
+				4E2FF40727638FCB002DE2B0 /* BluetoothPeripheralImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3469,6 +3472,7 @@
 				F8A1585522EDB706007F5B5D /* ConstantsCalibrationAlgorithms.swift in Sources */,
 				4752B4062635878E0081D551 /* SettingsViewStatisticsSettingsViewModel.swift in Sources */,
 				F897AAF92200F2D200CDDD10 /* CBPeripheralState.swift in Sources */,
+				4E2FF40827638FCB002DE2B0 /* BluetoothPeripheralImageView.swift in Sources */,
 				F858CCED25AE4CD100786B91 /* LibreOOPWebError.swift in Sources */,
 				F830992323C291EE005741DF /* Watlaa+BluetoothPeripheral.swift in Sources */,
 				F821CF57229BF43A005C1E43 /* SnoozeParameters.swift in Sources */,

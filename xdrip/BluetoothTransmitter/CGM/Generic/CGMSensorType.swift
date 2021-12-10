@@ -1,6 +1,6 @@
 import Foundation
 
-enum CGMSensorType:String, CaseIterable {
+enum CGMSensorType: String, CaseIterable {
     
     case Libre = "Libre"
     

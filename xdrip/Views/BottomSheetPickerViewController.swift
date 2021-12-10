@@ -215,9 +215,7 @@ fileprivate class PickerViewContent: BottomSheetContent {
     }
     
     override func sheetWillDismiss() {
-        if let cancelHandler = self.data.cancelHandler {
-            cancelHandler()
-        }
+        data.cancelHandler?()
     }
 }
 
@@ -232,9 +230,11 @@ extension PickerViewContent: UIPickerViewDelegate {
         selectedRow = row
         
         // call also didSelectRowHandler, if not nil, can be useful eg when pickerview contains list of sounds, sound can be played
-        if let didSelectRowHandler = data.didSelectRowHandler {
-            didSelectRowHandler(row)
-        }
+        data.didSelectRowHandler?(row)
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return 40
     }
 }
 

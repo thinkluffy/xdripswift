@@ -1306,8 +1306,10 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 37 images.
+  /// This `R.image` struct is generated, and contains static references to 39 images.
   struct image {
+    /// Image `dexcomG6`.
+    static let dexcomG6 = Rswift.ImageResource(bundle: R.hostingBundle, name: "dexcomG6")
     /// Image `ic_alarm_delay`.
     static let ic_alarm_delay = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_alarm_delay")
     /// Image `ic_alarm`.
@@ -1346,6 +1348,8 @@ struct R: Rswift.Validatable {
     static let ic_tab_settings = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_settings")
     /// Image `ic_to_portrait`.
     static let ic_to_portrait = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_to_portrait")
+    /// Image `libre`.
+    static let libre = Rswift.ImageResource(bundle: R.hostingBundle, name: "libre")
     /// Image `logo-launchScreen`.
     static let logoLaunchScreen = Rswift.ImageResource(bundle: R.hostingBundle, name: "logo-launchScreen")
     /// Image `sensor14_00`.
@@ -1382,6 +1386,13 @@ struct R: Rswift.Validatable {
     static let sensor14_13 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_13")
     /// Image `sensor14_14`.
     static let sensor14_14 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_14")
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "dexcomG6", bundle: ..., traitCollection: ...)`
+    static func dexcomG6(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.dexcomG6, compatibleWith: traitCollection)
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     /// `UIImage(named: "ic_alarm", bundle: ..., traitCollection: ...)`
@@ -1513,6 +1524,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ic_to_portrait", bundle: ..., traitCollection: ...)`
     static func ic_to_portrait(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ic_to_portrait, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "libre", bundle: ..., traitCollection: ...)`
+    static func libre(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.libre, compatibleWith: traitCollection)
     }
     #endif
 
@@ -5892,7 +5910,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_sectiontitleAbout = Rswift.StringResource(key: "settingsviews_sectiontitleAbout", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Account Name:
+      /// en translation: Account Name
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_dexcomShareAccountName = Rswift.StringResource(key: "settingsviews_dexcomShareAccountName", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -6136,7 +6154,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_resettransmitter = Rswift.StringResource(key: "settingsviews_resettransmitter", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Schedule:
+      /// en translation: Schedule
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let schedule = Rswift.StringResource(key: "schedule", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -6180,7 +6198,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_useobjectives = Rswift.StringResource(key: "settingsviews_useobjectives", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Show Sensor Countdown?
+      /// en translation: Show Sensor Countdown
       ///
       /// Locales: en, nl, pt, fr, de, es, sv
       static let settingsviews_showSensorCountdown = Rswift.StringResource(key: "settingsviews_showSensorCountdown", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "pt", "fr", "de", "es", "sv"], comment: nil)
@@ -6235,12 +6253,12 @@ struct R: Rswift.Validatable {
       /// en translation: Transmitter ID
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
-      static let settingsviews_transmitterid_text_for_button = Rswift.StringResource(key: "settingsviews_transmitterid_text_for_button", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Transmitter ID:
+      static let settingsviews_transmitterid = Rswift.StringResource(key: "settingsviews_transmitterid", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// en translation: Transmitter ID
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
-      static let settingsviews_transmitterid = Rswift.StringResource(key: "settingsviews_transmitterid", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Transmitter Type:
+      static let settingsviews_transmitterid_text_for_button = Rswift.StringResource(key: "settingsviews_transmitterid_text_for_button", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// en translation: Transmitter Type
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_transmittertype = Rswift.StringResource(key: "settingsviews_transmittertype", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -6268,7 +6286,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_urgentLowValue = Rswift.StringResource(key: "settingsviews_urgentLowValue", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Use Alternative Graphics?
+      /// en translation: Use Alternative Graphics
       ///
       /// Locales: en, nl, pt, fr, de, es, sv
       static let settingsviews_showSensorCountdownAlternativeGraphics = Rswift.StringResource(key: "settingsviews_showSensorCountdownAlternativeGraphics", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "pt", "fr", "de", "es", "sv"], comment: nil)
@@ -6349,7 +6367,7 @@ struct R: Rswift.Validatable {
         return String(format: format, locale: locale, value1)
       }
 
-      /// en translation: Account Name:
+      /// en translation: Account Name
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static func settingsviews_dexcomShareAccountName(preferredLanguages: [String]? = nil) -> String {
@@ -7266,7 +7284,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_resettransmitter", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Schedule:
+      /// en translation: Schedule
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static func schedule(preferredLanguages: [String]? = nil) -> String {
@@ -7431,7 +7449,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_useobjectives", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Show Sensor Countdown?
+      /// en translation: Show Sensor Countdown
       ///
       /// Locales: en, nl, pt, fr, de, es, sv
       static func settingsviews_showSensorCountdown(preferredLanguages: [String]? = nil) -> String {
@@ -7629,21 +7647,6 @@ struct R: Rswift.Validatable {
       /// en translation: Transmitter ID
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
-      static func settingsviews_transmitterid_text_for_button(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_transmitterid_text_for_button", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_transmitterid_text_for_button"
-        }
-
-        return NSLocalizedString("settingsviews_transmitterid_text_for_button", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Transmitter ID:
-      ///
-      /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static func settingsviews_transmitterid(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("settingsviews_transmitterid", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
@@ -7656,7 +7659,22 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_transmitterid", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Transmitter Type:
+      /// en translation: Transmitter ID
+      ///
+      /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
+      static func settingsviews_transmitterid_text_for_button(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("settingsviews_transmitterid_text_for_button", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
+          return "settingsviews_transmitterid_text_for_button"
+        }
+
+        return NSLocalizedString("settingsviews_transmitterid_text_for_button", tableName: "SettingsViews", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Transmitter Type
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static func settingsviews_transmittertype(preferredLanguages: [String]? = nil) -> String {
@@ -7761,7 +7779,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_urgentLowValue", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Use Alternative Graphics?
+      /// en translation: Use Alternative Graphics
       ///
       /// Locales: en, nl, pt, fr, de, es, sv
       static func settingsviews_showSensorCountdownAlternativeGraphics(preferredLanguages: [String]? = nil) -> String {

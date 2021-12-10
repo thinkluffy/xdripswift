@@ -155,10 +155,7 @@ final class BluetoothPeripheralsViewController: UIViewController {
         },
                                             onCancelClick: nil,
                                             didSelectRowHandler: nil)
-        
-        // create and present PickerViewController
-//        PickerViewController.displayPickerViewController(pickerViewData: pickerViewData, parentController: self)
-        
+                
         BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
     }
     

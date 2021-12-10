@@ -587,12 +587,12 @@ extension Calibrator {
     ///     - bgReading : reading that will be updated
     ///     - lastReadings result of call to BgReadings.getLatestBgReadings(num, sensor) ignoreRawData and ignoreCalculatedValue false - inout parameter to improve performance
     func findSlope(for bgReading: BgReading, lastReadings: inout Array<BgReading>) {
-        log.d("==> findSlope")
-        bgReading.hideSlope = true
+        log.d("==> findSlope, lastReadings.count: \(lastReadings.count)")
         
         guard lastReadings.count >= 2 else {
-           bgReading.calculatedValueSlope = 0
-           return
+            bgReading.hideSlope = true
+            bgReading.calculatedValueSlope = 0
+            return
         }
         
         var readingMinsAgo: BgReading?
@@ -607,13 +607,14 @@ extension Calibrator {
         let readingToCalculate: BgReading
         
         if let readingMinsAgo = readingMinsAgo {
+            log.d("found the readingMinsAgo with \(Constants.minsToCalculateSlope) mins")
             readingToCalculate = readingMinsAgo
             
         } else {
             readingToCalculate = lastReadings[1]
         }
         
-        log.d("find slope with bgreadings, timeInterval: \(bgReading.timeStamp.timeIntervalSince(readingToCalculate.timeStamp)/60)m")
+        log.d("find slope with bgReadings, timeInterval: \(bgReading.timeStamp.timeIntervalSince(readingToCalculate.timeStamp)/60)m")
 
         let (slope, hide) = bgReading.calculateSlope(with: readingToCalculate)
         bgReading.calculatedValueSlope = slope

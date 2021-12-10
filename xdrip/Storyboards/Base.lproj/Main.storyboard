@@ -760,8 +760,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YwN-xa-EuO" customClass="BluetoothPeripheralImageView" customModule="xdrip" customModuleProvider="target">
+                                <rect key="frame" x="114" y="98" width="200" height="200"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="Ai3-Qc-hsj"/>
+                                    <constraint firstAttribute="width" constant="200" id="JgQ-Dn-21s"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WtR-0P-RyL">
+                                <rect key="frame" x="20" y="270" width="78" height="38"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="Connect">
+                                    <color key="titleColor" red="0.9137254901960784" green="0.49803921568627452" blue="0.22352941176470587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="connectButtonAction:" destination="FJ0-eY-Fv0" eventType="touchUpInside" id="fQK-fo-hqh"/>
+                                </connections>
+                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="82M-Ti-NV0">
-                                <rect key="frame" x="0.0" y="136" width="428" height="756"/>
+                                <rect key="frame" x="0.0" y="308" width="428" height="584"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SettingsCell" textLabel="vbi-WE-Mvc" detailTextLabel="N1U-VA-CRw" style="IBUITableViewCellStyleValue1" id="dpi-qU-2Va">
@@ -791,25 +809,17 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WtR-0P-RyL">
-                                <rect key="frame" x="20" y="98" width="78" height="38"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <state key="normal" title="Connect">
-                                    <color key="titleColor" systemColor="systemYellowColor"/>
-                                </state>
-                                <connections>
-                                    <action selector="connectButtonAction:" destination="FJ0-eY-Fv0" eventType="touchUpInside" id="fQK-fo-hqh"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="jHe-GP-4Jf"/>
                         <color key="backgroundColor" red="0.13333333333333333" green="0.15294117647058825" blue="0.28235294117647058" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
+                            <constraint firstItem="YwN-xa-EuO" firstAttribute="top" secondItem="jHe-GP-4Jf" secondAttribute="top" constant="10" id="82h-db-SR1"/>
+                            <constraint firstItem="82M-Ti-NV0" firstAttribute="top" secondItem="WtR-0P-RyL" secondAttribute="bottom" id="L4J-Ib-9to"/>
                             <constraint firstItem="WtR-0P-RyL" firstAttribute="leading" secondItem="jHe-GP-4Jf" secondAttribute="leading" constant="20" id="ToR-DO-JrT"/>
                             <constraint firstItem="jHe-GP-4Jf" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="WtR-0P-RyL" secondAttribute="trailing" symbolic="YES" id="VoL-v2-1bY"/>
-                            <constraint firstItem="82M-Ti-NV0" firstAttribute="top" secondItem="WtR-0P-RyL" secondAttribute="bottom" id="aP0-31-V6e"/>
-                            <constraint firstItem="WtR-0P-RyL" firstAttribute="top" secondItem="jHe-GP-4Jf" secondAttribute="top" constant="10" id="fgv-Ep-w1A"/>
+                            <constraint firstItem="YwN-xa-EuO" firstAttribute="centerX" secondItem="jHe-GP-4Jf" secondAttribute="centerX" id="pQS-xX-Azv"/>
                             <constraint firstItem="jHe-GP-4Jf" firstAttribute="bottom" secondItem="82M-Ti-NV0" secondAttribute="bottom" id="qBc-5d-R7l"/>
+                            <constraint firstItem="82M-Ti-NV0" firstAttribute="top" secondItem="YwN-xa-EuO" secondAttribute="bottom" constant="10" id="uMb-JP-y0U"/>
                             <constraint firstItem="jHe-GP-4Jf" firstAttribute="trailing" secondItem="82M-Ti-NV0" secondAttribute="trailing" id="w0B-Wn-iY0"/>
                             <constraint firstItem="82M-Ti-NV0" firstAttribute="leading" secondItem="jHe-GP-4Jf" secondAttribute="leading" id="yg8-ad-aLX"/>
                         </constraints>
@@ -823,6 +833,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="bluetoothPeripheralImageView" destination="YwN-xa-EuO" id="xnJ-QO-NPG"/>
                         <outlet property="connectButtonOutlet" destination="WtR-0P-RyL" id="Sbx-db-Atn"/>
                         <outlet property="tableView" destination="82M-Ti-NV0" id="RQy-kH-bnc"/>
                         <outlet property="trashButtonOutlet" destination="N7o-Nz-l8g" id="Sz3-nt-e7r"/>
@@ -1337,9 +1348,6 @@
         <image name="sensor14_14_alt" width="390" height="14"/>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemYellowColor">
-            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

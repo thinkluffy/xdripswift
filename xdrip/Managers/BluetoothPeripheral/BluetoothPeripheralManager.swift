@@ -37,8 +37,8 @@ class BluetoothPeripheralManager: NSObject {
     ///
     /// this is to keep track of changes in cgmTransmitter (ie if switching from transmitter A to B)
     public var currentCgmTransmitterAddress: String? {
-        didSet(newValue) {
-            if newValue != currentCgmTransmitterAddress {
+        didSet {
+            if oldValue != currentCgmTransmitterAddress {
                 cgmTransmitterDelegate?.cgmTransmitterInfoDidChange()
             }
         }

@@ -34,7 +34,7 @@ protocol CGMTransmitter:AnyObject {
 }
 
 /// cgm transmitter types
-enum CGMTransmitterType:String, CaseIterable {
+enum CGMTransmitterType: String, CaseIterable {
     
     /// dexcom G4 using xdrip, xbridge, ...
     case dexcomG4 = "Dexcom G4"
