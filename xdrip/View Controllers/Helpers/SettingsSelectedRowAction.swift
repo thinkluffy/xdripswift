@@ -40,11 +40,10 @@ enum SettingsSelectedRowAction {
     /// - data: array of strings, items from which user can select
     /// - selectedRow: preselected item, index 0 is the first element
     /// - actionTitle: text in the button that allows the user to confirm the input (Example 'Ok'), if nil then default value "Ok" will be used
-    /// - cancelTitle: text in the button that allows the user to cancel the input (Example 'Cancel'), if nil then default value "Cancel" will be used
     /// - actionHandler: code to execute when user confirms input, with index of item that was selected by user, 0 = first element
     /// - cancelHandler: code to execute when user cancels input
     /// - didSelectRowHandler: code to execute when user selects an item before clicking ok or cancel, can be useful eg to play a selected sound so that user hears how it sounds
-    case selectFromList (title:String?, data:[String], selectedRow:Int?, actionTitle:String?, cancelTitle:String?, actionHandler: ((_ index: Int) -> Void), cancelHandler: (() -> Void)?, didSelectRowHandler: ((_ index: Int) -> Void)?)
+    case selectFromList (title:String?, data:[String], selectedRow:Int?, actionTitle:String?, actionHandler: ((_ index: Int) -> Void), cancelHandler: (() -> Void)?, didSelectRowHandler: ((_ index: Int) -> Void)?)
     
     /// performSegue to be done with specified identifier
     ///

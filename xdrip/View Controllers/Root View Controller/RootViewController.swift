@@ -1178,14 +1178,11 @@ final class RootViewController: UIViewController {
         } else {
             // the category has only CGM currently
             // to add a peripheral
-            let pickerViewData = PickerViewData(withTitle: Texts_BluetoothPeripheralsView.selectType,
-                                                withSubTitle: nil,
-                                                withData: BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(withCategory: BluetoothPeripheralCategory.listOfCategories()[0]),
-                                                selectedRow: nil,
-                                                withPriority: nil,
-                                                actionButtonText: nil,
-                                                cancelButtonText: nil,
-                                                onActionClick: { (_ typeIndex: Int) in
+            
+            let data = BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(withCategory: BluetoothPeripheralCategory.listOfCategories()[0])
+            
+            let pickerViewData = PickerViewDataBuilder(data: data, actionHandler: {
+                (_ typeIndex: Int) in
                 
                 // get the selected BluetoothPeripheralType
                 if let type = BluetoothPeripheralType(rawValue: BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(withCategory: BluetoothPeripheralCategory.listOfCategories()[0])[typeIndex]) {
@@ -1195,9 +1192,9 @@ final class RootViewController: UIViewController {
                                                                 expectedBluetoothPeripheralType: type)
                     self.navigationController?.pushViewController(bluetoothPeripheralViewController, animated: true)
                 }
-            },
-                                                onCancelClick: nil,
-                                                didSelectRowHandler: nil)
+            })
+                .title(Texts_BluetoothPeripheralsView.selectType)
+                .build()
             
             BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
         }

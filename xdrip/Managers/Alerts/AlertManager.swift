@@ -9,6 +9,8 @@ import AudioToolbox
 /// has all the logic but should be not or almost not aware of the kind of alerts that exists. The logic that is different per type of alert is defined in type AlertKind.
 class AlertManager: NSObject {
     
+    private static let log = Log(type: AlertManager.self)
+    
     // MARK: - private properties
   
     /// snoozeActionIdentifier for alert notification
@@ -304,55 +306,51 @@ class AlertManager: NSObject {
             }
         }
         
-        return PickerViewData(
-            withTitle: alertKind.alertTitle(),
-            withSubTitle: Texts_Alerts.selectSnoozeTime,
-            withData: snoozeValueStrings,
-            selectedRow: defaultRow,
-            withPriority: .high,
-            actionButtonText: Texts_Common.Ok,
-            cancelButtonText: Texts_Common.Cancel,
-            onActionClick: {(snoozeIndex: Int) -> Void in
-                // if sound is currently playing then stop it
-                SoundPlayer.shared.stopPlaying()
-                
-                // get snooze period
-                let snoozePeriod = self.snoozeValueMinutes[snoozeIndex]
-                
-                // snooze
-                trace("    snoozing alert %{public}@ for %{public}@ minutes (1)", log: self.log, category: ConstantsLog.categoryAlertManager, type: .info, alertKind.descriptionForLogging(), snoozePeriod.description)
-                self.getSnoozeParameters(alertKind: alertKind).snooze(snoozePeriodInMinutes: snoozePeriod)
+        let pickerViewActionHandler = { (snoozeIndex: Int) -> Void in
+            // if sound is currently playing then stop it
+            SoundPlayer.shared.stopPlaying()
+            
+            // get snooze period
+            let snoozePeriod = self.snoozeValueMinutes[snoozeIndex]
+            
+            // snooze
+            AlertManager.log.i("snoozing alert \(alertKind.descriptionForLogging()) for \(snoozePeriod.description) minutes (1)")
+            self.getSnoozeParameters(alertKind: alertKind).snooze(snoozePeriodInMinutes: snoozePeriod)
 
-                // save changes in coredata
-                CoreDataManager.shared.saveChanges()
+            // save changes in coredata
+            CoreDataManager.shared.saveChanges()
 
-                // if it's a missed reading alert, then cancel any planned missed reading alerts and reschedule
-                // if content is not nil, then it means a missed reading alert went off, the user clicked it, app opens, user clicks snooze, snoozing must be set
-                // if content is nil, then this is an alert snoozed via presnooze button, missed reading alert needs to recalculated.
-                if alertKind == .missedreading {
-                    if let content = content {
-                        // schedule missed reading alert with same content
-                        self.scheduleMissedReadingAlert(snoozePeriodInMinutes: snoozePeriod, content: content)
+            // if it's a missed reading alert, then cancel any planned missed reading alerts and reschedule
+            // if content is not nil, then it means a missed reading alert went off, the user clicked it, app opens, user clicks snooze, snoozing must be set
+            // if content is nil, then this is an alert snoozed via presnooze button, missed reading alert needs to recalculated.
+            if alertKind == .missedreading {
+                if let content = content {
+                    // schedule missed reading alert with same content
+                    self.scheduleMissedReadingAlert(snoozePeriodInMinutes: snoozePeriod, content: content)
 
-                    } else {
-                        _ = self.checkAlertAndFire(alertKind: .missedreading, lastBgReading: nil, lastButOneBgREading: nil, lastCalibration: nil, transmitterBatteryInfo: nil)
-                    }
+                } else {
+                    _ = self.checkAlertAndFire(alertKind: .missedreading, lastBgReading: nil, lastButOneBgREading: nil, lastCalibration: nil, transmitterBatteryInfo: nil)
                 }
-                
-                // if actionHandler supplied by caller not nil, then execute it
-                actionHandler?()
-            },
-            onCancelClick: {
-                () -> Void in
-
+            }
+            
+            // if actionHandler supplied by caller not nil, then execute it
+            actionHandler?()
+        }
+        
+        return PickerViewDataBuilder(data: snoozeValueStrings, actionHandler: pickerViewActionHandler)
+            .title(alertKind.alertTitle())
+            .subTitle(Texts_Alerts.selectSnoozeTime)
+            .selectedRow(defaultRow)
+            .priority(.high)
+            .actionTitle(Texts_Common.Ok)
+            .cancelHandler { () -> Void in
                 // if sound is currently playing then stop it
                 SoundPlayer.shared.stopPlaying()
 
                 // if cancelHandler supplied by caller not nil, then execute it
                 cancelHandler?()
-                                
-            }, didSelectRowHandler: nil
-        )
+            }
+            .build()
     }
 
     // MARK: - overriden functions

@@ -136,14 +136,11 @@ final class BluetoothPeripheralsViewController: UIViewController {
         }
         
         // the category has only CGM currently
-        let pickerViewData = PickerViewData(withTitle: Texts_BluetoothPeripheralsView.selectType,
-                                            withSubTitle: nil,
-                                            withData: BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(withCategory: BluetoothPeripheralCategory.listOfCategories()[0]),
-                                            selectedRow: nil,
-                                            withPriority: nil,
-                                            actionButtonText: nil,
-                                            cancelButtonText: nil,
-                                            onActionClick: { (_ typeIndex: Int) in
+        
+        let data = BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(withCategory: BluetoothPeripheralCategory.listOfCategories()[0])
+        
+        let pickerViewData = PickerViewDataBuilder(data: data, actionHandler: {
+            (_ typeIndex: Int) in
             
             // get the selected BluetoothPeripheralType
             let type = BluetoothPeripheralType(rawValue: BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(withCategory: BluetoothPeripheralCategory.listOfCategories()[0])[typeIndex])
@@ -152,10 +149,10 @@ final class BluetoothPeripheralsViewController: UIViewController {
             // in the sender we add the selected bluetoothperipheraltype
             self.performSegue(withIdentifier: R.segue.bluetoothPeripheralsViewController.bluetoothPeripheral, sender: type)
             
-        },
-                                            onCancelClick: nil,
-                                            didSelectRowHandler: nil)
-                
+        })
+            .title(Texts_BluetoothPeripheralsView.selectType)
+            .build()
+        
         BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
     }
     

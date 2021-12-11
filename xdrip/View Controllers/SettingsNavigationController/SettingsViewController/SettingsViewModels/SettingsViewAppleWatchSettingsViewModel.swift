@@ -259,7 +259,7 @@ class SettingsViewAppleWatchSettingsViewModel: SettingsViewModelProtocol {
                 
             }
             
-            return SettingsSelectedRowAction.selectFromList(title: R.string.settingsViews.calenderId(), data: data, selectedRow: selectedRow, actionTitle: nil, cancelTitle: nil, actionHandler: {(index:Int) in
+            return SettingsSelectedRowAction.selectFromList(title: R.string.settingsViews.calenderId(), data: data, selectedRow: selectedRow, actionTitle: nil, actionHandler: {(index:Int) in
                 if index != selectedRow {
                     UserDefaults.standard.calenderId = data[index]
                 }

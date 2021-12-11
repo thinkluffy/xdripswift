@@ -8,6 +8,12 @@
 
 import UIKit
 
+/// priority to apply in the pickerview. High can use other colors and or size, Up to the pickerview
+public enum PickerViewPriority {
+    case normal
+    case high
+}
+
 /// defines data typically available in a view that allows user to pick from a list : list of items, selected item, title, cancel lable, ok or add label, function to call when pressing cancel, function to call button when pressing add button
 public class PickerViewData {
     var title: String?
@@ -15,7 +21,6 @@ public class PickerViewData {
     var data: [String]
     var selectedRow: Int
     var actionTitle: String?
-    var cancelTitle: String?
     var actionHandler: ((_ index: Int) -> Void)
     var cancelHandler: (() -> Void)?
     var didSelectRowHandler: ((Int) -> Void)?
@@ -28,7 +33,6 @@ public class PickerViewData {
     ///     - withData : list of strings to select from
     ///     - selectedRow : default selected row in withData
     ///     - actionButtonText : text to show in the ok button, eg "Ok" or "Add"
-    ///     - cancelButtonText : text to show in the cancel button, eg "Cancel"
     ///     - onActionClick : closure to run when user clicks the actionButton
     ///     - onCancelClick : closure to run when user clicks the cancelButton
     ///     - didSelectRowHandler  : closure to run when user selects a row, even before clicking ok or cancel. Can be useful eg to play a sound
@@ -38,16 +42,14 @@ public class PickerViewData {
          selectedRow: Int?,
          withPriority priority: PickerViewPriority?,
          actionButtonText actionTitle: String?,
-         cancelButtonText cancelTitle: String?,
          onActionClick actionHandler: @escaping ((_ index: Int) -> Void),
          onCancelClick cancelHandler: (() -> Void)?,
-         didSelectRowHandler:((Int) -> Void)?) {
+         didSelectRowHandler: ((Int) -> Void)?) {
         self.title = title
         self.subTitle = subTitle
         self.data = data
         self.selectedRow = selectedRow != nil ? selectedRow!: 0
         self.actionTitle = actionTitle
-        self.cancelTitle = cancelTitle
         self.actionHandler = actionHandler
         self.cancelHandler = cancelHandler
         self.didSelectRowHandler = didSelectRowHandler
@@ -55,10 +57,69 @@ public class PickerViewData {
     }
 }
 
-/// priority to apply in the pickerview. High can use other colors and or size, Up to the pickerview
-public enum PickerViewPriority {
-    case normal
-    case high
+public class PickerViewDataBuilder {
+    
+    private var title: String?
+    private var subTitle: String?
+    private var data: [String]
+    private var selectedRow: Int?
+    private var actionTitle: String?
+    private var actionHandler: ((_ index: Int) -> Void)
+    private var cancelHandler: (() -> Void)?
+    private var didSelectRowHandler: ((Int) -> Void)?
+    private var priority: PickerViewPriority?
+    
+    public init(data: [String], actionHandler: @escaping ((_ index: Int) -> Void)) {
+        self.data = data
+        self.actionHandler = actionHandler
+    }
+    
+    public func title(_ title: String?) -> PickerViewDataBuilder {
+        self.title = title
+        return self
+    }
+    
+    public func subTitle(_ subTitle: String?) -> PickerViewDataBuilder {
+        self.subTitle = subTitle
+        return self
+    }
+    
+    public func selectedRow(_ selectedRow: Int?) -> PickerViewDataBuilder {
+        self.selectedRow = selectedRow
+        return self
+    }
+    
+    public func actionTitle(_ actionTitle: String?) -> PickerViewDataBuilder {
+        self.actionTitle = actionTitle
+        return self
+    }
+    
+    public func cancelHandler(_ cancelHandler: (() -> Void)?) -> PickerViewDataBuilder {
+        self.cancelHandler = cancelHandler
+        return self
+    }
+    
+    public func didSelectRowHandler(_ didSelectRowHandler: ((Int) -> Void)?) -> PickerViewDataBuilder {
+        self.didSelectRowHandler = didSelectRowHandler
+        return self
+    }
+    
+    public func priority(_ priority: PickerViewPriority?) -> PickerViewDataBuilder {
+        self.priority = priority
+        return self
+    }
+    
+    public func build() -> PickerViewData {
+        return PickerViewData(withTitle: title,
+                              withSubTitle: subTitle,
+                              withData: data,
+                              selectedRow: selectedRow,
+                              withPriority: priority,
+                              actionButtonText: actionTitle,
+                              onActionClick: actionHandler,
+                              onCancelClick: cancelHandler,
+                              didSelectRowHandler: didSelectRowHandler)
+    }
 }
 
 public class BottomSheetPickerViewController {

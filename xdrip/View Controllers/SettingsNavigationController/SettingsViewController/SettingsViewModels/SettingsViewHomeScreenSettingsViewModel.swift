@@ -112,7 +112,6 @@ struct SettingsViewHomeScreenSettingsViewModel: SettingsViewModelProtocol {
                                                             data: data,
                                                             selectedRow: selectedRow,
                                                             actionTitle: nil,
-                                                            cancelTitle: nil,
                                                             actionHandler: {(index: Int) in
                 if index != selectedRow {
                     UserDefaults.standard.chartHeight = heights[index]

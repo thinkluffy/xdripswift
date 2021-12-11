@@ -329,7 +329,7 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
             }
             
             // configure pickerViewData
-            let pickerViewData = PickerViewData(withTitle: Texts_AlertTypeSettingsView.alertTypePickSoundName, withSubTitle: nil, withData: sounds.soundNames, selectedRow: selectedRow, withPriority: nil, actionButtonText: nil, cancelButtonText: nil, onActionClick: {(_ index: Int) in
+            let pickerViewData = PickerViewData(withTitle: Texts_AlertTypeSettingsView.alertTypePickSoundName, withSubTitle: nil, withData: sounds.soundNames, selectedRow: selectedRow, withPriority: nil, actionButtonText: nil, onActionClick: {(_ index: Int) in
                 
                 // soundPlayer might still be playing, stop  it now
                 self.stopSoundPlayerIfPlaying()
