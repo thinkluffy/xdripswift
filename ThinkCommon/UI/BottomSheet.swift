@@ -44,6 +44,11 @@ class BottomSheet: UIView {
         
         UIView.animate(withDuration: 0.3, animations: {
             self.alpha = 0
+            if let contentView = self.contentView {
+                contentView.transform = CGAffineTransform(translationX: 0,
+                                                          y: contentView.bounds.height)
+            }
+
         }) { _ in
             self.removeFromSuperview()
             self.contentView?.removeFromSuperview()
