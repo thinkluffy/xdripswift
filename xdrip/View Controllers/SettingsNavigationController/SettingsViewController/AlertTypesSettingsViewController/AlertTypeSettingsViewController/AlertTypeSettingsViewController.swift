@@ -19,7 +19,7 @@ fileprivate enum Setting:Int, CaseIterable {
 }
 
 /// edit or add an alert types,
-final class AlertTypeSettingsViewController: UIViewController {
+final class AlertTypeSettingsViewController: SubSettingsViewController {
     
     // MARK: - IBOutlet's and IBAction's
     
@@ -329,7 +329,7 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
             }
             
             // configure pickerViewData
-            let pickerViewData = PickerViewData(withMainTitle: nil, withSubTitle: Texts_AlertTypeSettingsView.alertTypePickSoundName, withData: sounds.soundNames, selectedRow: selectedRow, withPriority: nil, actionButtonText: nil, cancelButtonText: nil, onActionClick: {(_ index: Int) in
+            let pickerViewData = PickerViewData(withTitle: Texts_AlertTypeSettingsView.alertTypePickSoundName, withSubTitle: nil, withData: sounds.soundNames, selectedRow: selectedRow, withPriority: nil, actionButtonText: nil, cancelButtonText: nil, onActionClick: {(_ index: Int) in
                 
                 // soundPlayer might still be playing, stop  it now
                 self.stopSoundPlayerIfPlaying()
@@ -337,9 +337,11 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
                 if index == 1 {
                     // default iOS sound was selected, set to nil
                     self.soundName = nil
+                    
                 } else if index == 0 {
                     // no sound to play
                     self.soundName = ""
+                    
                 } else {
                     self.soundName = sounds.soundNames[index]
                 }

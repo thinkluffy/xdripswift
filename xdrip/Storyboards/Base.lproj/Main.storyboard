@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rfm-D0-ioj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rfm-D0-ioj">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -901,7 +901,7 @@
                             <constraint firstItem="8jK-jB-QOG" firstAttribute="top" secondItem="w7L-LU-16C" secondAttribute="top" constant="12" id="uak-Fj-bNx" userLabel="Label.top = Safe Area.top"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="YQZ-eK-OoJ">
+                    <navigationItem key="navigationItem" id="YQZ-eK-OoJ">
                         <rightBarButtonItems>
                             <barButtonItem style="done" systemItem="done" id="Md3-u2-325">
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -910,7 +910,7 @@
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="trash" id="t3q-NU-FqE">
-                                <color key="tintColor" systemColor="systemRedColor"/>
+                                <color key="tintColor" red="0.91764705882352937" green="0.1764705882352941" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="trashButtonAction:" destination="Lnd-QQ-8Lc" id="bjE-6A-wfm"/>
                                 </connections>

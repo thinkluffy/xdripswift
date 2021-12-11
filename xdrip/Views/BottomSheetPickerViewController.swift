@@ -10,7 +10,7 @@ import UIKit
 
 /// defines data typically available in a view that allows user to pick from a list : list of items, selected item, title, cancel lable, ok or add label, function to call when pressing cancel, function to call button when pressing add button
 public class PickerViewData {
-    var mainTitle: String?
+    var title: String?
     var subTitle: String?
     var data: [String]
     var selectedRow: Int
@@ -32,7 +32,7 @@ public class PickerViewData {
     ///     - onActionClick : closure to run when user clicks the actionButton
     ///     - onCancelClick : closure to run when user clicks the cancelButton
     ///     - didSelectRowHandler  : closure to run when user selects a row, even before clicking ok or cancel. Can be useful eg to play a sound
-    init(withMainTitle mainTitle: String?,
+    init(withTitle title: String?,
          withSubTitle subTitle: String?,
          withData data: [String],
          selectedRow: Int?,
@@ -42,7 +42,7 @@ public class PickerViewData {
          onActionClick actionHandler: @escaping ((_ index: Int) -> Void),
          onCancelClick cancelHandler: (() -> Void)?,
          didSelectRowHandler:((Int) -> Void)?) {
-        self.mainTitle = mainTitle
+        self.title = title
         self.subTitle = subTitle
         self.data = data
         self.selectedRow = selectedRow != nil ? selectedRow!: 0
@@ -79,7 +79,7 @@ public class BottomSheetPickerViewController {
 fileprivate class PickerViewContent: BottomSheetContent {
     
     // maintitle on top of the pickerview
-    private let pickerViewMainTitle: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 25)
         label.textColor = .white
@@ -87,22 +87,20 @@ fileprivate class PickerViewContent: BottomSheetContent {
     }()
 
     // subtitle on top of the pickerview
-    private let pickerViewSubTitle: UILabel = {
+    private let subTitleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16)
         label.textColor = .lightText
         return label
     }()
 
-    // the pickerview itself
     private let pickerView: UIPickerView = {
         let view = UIPickerView()
         view.setValue(UIColor.white, forKeyPath: "textColor")
         return view
     }()
 
-    // the button to confirm changes
-    private let addButton: BetterButton = {
+    private let actionButton: BetterButton = {
         let button = BetterButton()
         button.cornerRadius = 5
         button.bgColor = ConstantsUI.accentRed
@@ -113,6 +111,8 @@ fileprivate class PickerViewContent: BottomSheetContent {
     }()
     
     private var selectedRow = 0
+    private var buttonDidClick = false
+    
     private let data: PickerViewData
     
     init(data: PickerViewData) {
@@ -134,7 +134,7 @@ fileprivate class PickerViewContent: BottomSheetContent {
 
         //set actionTitle
         if let addButtonTitle = data.actionTitle {
-            addButton.titleText = addButtonTitle
+            actionButton.titleText = addButtonTitle
         }
         
         // set selectedRow
@@ -142,16 +142,16 @@ fileprivate class PickerViewContent: BottomSheetContent {
         pickerView.selectRow(data.selectedRow, inComponent: 0, animated: false)
         
         // set picker maintitle
-        if let mainTitle = data.mainTitle {
-            pickerViewMainTitle.text = mainTitle
+        if let mainTitle = data.title {
+            titleLabel.text = mainTitle
             
         } else {
-            pickerViewMainTitle.text = ""
+            titleLabel.text = ""
         }
         
         // set title of pickerview
         if let subTitle = data.subTitle {
-            pickerViewSubTitle.text = subTitle
+            subTitleLabel.text = subTitle
         }
         
         /// TODO:- the actual color to be used should be defined somewhere else
@@ -162,18 +162,19 @@ fileprivate class PickerViewContent: BottomSheetContent {
             case .normal:
                 break
             case .high:
-                pickerViewMainTitle.textColor = ConstantsUI.accentRed
+                titleLabel.textColor = ConstantsUI.accentRed
             }
         }
         
-        addButton.addTarget(self, action: #selector(addButtonDidClick(_:)), for: .touchUpInside)
+        actionButton.addTarget(self, action: #selector(actionButtonDidClick(_:)), for: .touchUpInside)
             
         layout()
     }
     
-    @objc private func addButtonDidClick(_ button: UIControl) {
-        self.data.actionHandler(self.selectedRow)
-        self.bottomSheet?.dismissView()
+    @objc private func actionButtonDidClick(_ button: UIControl) {
+        buttonDidClick = true
+        data.actionHandler(self.selectedRow)
+        bottomSheet?.dismissView()
     }
 
     private func layout() {
@@ -181,33 +182,33 @@ fileprivate class PickerViewContent: BottomSheetContent {
         container.backgroundColor = ConstantsUI.mainBackgroundColor
         
         addSubview(container)
-        container.addSubview(pickerViewMainTitle)
-        container.addSubview(pickerViewSubTitle)
+        container.addSubview(titleLabel)
+        container.addSubview(subTitleLabel)
         container.addSubview(pickerView)
-        container.addSubview(addButton)
+        container.addSubview(actionButton)
         
         container.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
-        pickerViewMainTitle.snp.makeConstraints { make in
+        titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(20)
             make.centerX.equalToSuperview()
         }
         
-        pickerViewSubTitle.snp.makeConstraints { make in
-            make.top.equalTo(pickerViewMainTitle.snp.bottom).offset(10)
+        subTitleLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
         }
         
         pickerView.snp.makeConstraints { make in
-            make.top.equalTo(pickerViewSubTitle.snp.bottom)
+            make.top.equalTo(subTitleLabel.snp.bottom)
             make.width.centerX.equalToSuperview()
             make.height.equalTo(200)
-            make.bottom.equalTo(addButton.snp.top).offset(-10)
+            make.bottom.equalTo(actionButton.snp.top).offset(-10)
         }
         
-        addButton.snp.makeConstraints { make in
+        actionButton.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(10)
             make.bottom.equalToSuperview().offset(-10)
             make.height.equalTo(50)
@@ -215,7 +216,9 @@ fileprivate class PickerViewContent: BottomSheetContent {
     }
     
     override func sheetWillDismiss() {
-        data.cancelHandler?()
+        if !buttonDidClick {
+            data.cancelHandler?()
+        }
     }
 }
 

@@ -136,7 +136,7 @@ final class BluetoothPeripheralsViewController: UIViewController {
         }
         
         // the category has only CGM currently
-        let pickerViewData = PickerViewData(withMainTitle: Texts_BluetoothPeripheralsView.selectType,
+        let pickerViewData = PickerViewData(withTitle: Texts_BluetoothPeripheralsView.selectType,
                                             withSubTitle: nil,
                                             withData: BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(withCategory: BluetoothPeripheralCategory.listOfCategories()[0]),
                                             selectedRow: nil,

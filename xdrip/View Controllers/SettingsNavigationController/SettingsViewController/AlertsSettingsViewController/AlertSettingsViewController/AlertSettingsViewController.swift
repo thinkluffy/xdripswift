@@ -1,14 +1,14 @@
 import UIKit
 
 /// to update an existing alertentry
-final class AlertSettingsViewController: UIViewController {
+final class AlertSettingsViewController: SubSettingsViewController {
 
     // MARK: - Properties
     
-    var alertSettingsViewControllerData:AlertSettingsViewControllerData!
+    var alertSettingsViewControllerData: AlertSettingsViewControllerData!
     
     /// the alertentry being edited - will only be used , and in the end to update the alertentry
-    private var alertEntryAsNSObject:AlertEntry!
+    private var alertEntryAsNSObject: AlertEntry!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -27,9 +27,7 @@ final class AlertSettingsViewController: UIViewController {
         // if it's a missed reading alert, then set UserDefaults.standard.missedReadingAlertChanged
         // this will trigger the AlertManager to check if missed reading alert needs to be replanned
         if alertEntryAsNSObject.alertkind == AlertKind.missedreading.rawValue {
-            
             UserDefaults.standard.missedReadingAlertChanged = true
-            
         }
         
         // go back to the alerts settings screen
@@ -48,8 +46,6 @@ final class AlertSettingsViewController: UIViewController {
             let alert = UIAlertController(title: Texts_Alerts.confirmDeletionAlert, message: nil, actionHandler: {
                 CoreDataManager.shared.mainManagedObjectContext.delete(alertEntry)
                 CoreDataManager.shared.saveChanges()
-                // go back to alerts settings screen
-                self.performSegue(withIdentifier: SegueIdentifiers.unwindToAlertsSettingsViewController.rawValue, sender: self)
                 // go back to alerts settings screen
                 self.performSegue(withIdentifier: SegueIdentifiers.unwindToAlertsSettingsViewController.rawValue, sender: self)
             }, cancelHandler: nil)
@@ -81,7 +77,7 @@ final class AlertSettingsViewController: UIViewController {
     ///     - minimumStart : what's the minimum allowed value for the start
     ///     - maximumStart : what's the maximum allowed value for the start
     ///     - coreDataManager : reference to the coredatamanager
-    public func configure(alertEntry:AlertEntry, minimumStart:Int16, maximumStart:Int16) {
+    public func configure(alertEntry: AlertEntry, minimumStart: Int16, maximumStart: Int16) {
         
         // alertEntryAsNSObject will be used in the end when user clicks Trash or Done button
         self.alertEntryAsNSObject = alertEntry
@@ -91,6 +87,7 @@ final class AlertSettingsViewController: UIViewController {
             self.addButtonOutlet.enable()
             self.doneButtonOutlet.disable()
             self.trashButtonOutlet.isEnabled = self.alertSettingsViewControllerData.start != 0
+            
         }, toCallWhenUserChangesProperties: {
             self.addButtonOutlet.disable()
             self.doneButtonOutlet.enable()
@@ -121,7 +118,7 @@ final class AlertSettingsViewController: UIViewController {
         doneButtonOutlet.disable()
 
         // set toplabel text
-        topLabelOutlet.text = Texts_Common.update + " " + AlertSettingsViewControllerData.getAlertKind(alertKind: alertSettingsViewControllerData.alertKind).alertTitle()
+        topLabelOutlet.text = AlertSettingsViewControllerData.getAlertKind(alertKind: alertSettingsViewControllerData.alertKind).alertTitle()
         
         /// setup tableView datasource, delegate, seperatorInset
         if let tableView = tableView {
@@ -160,9 +157,6 @@ final class AlertSettingsViewController: UIViewController {
             break
         }
     }
-
-    // MARK: - private helper functions
-    
 }
 
 

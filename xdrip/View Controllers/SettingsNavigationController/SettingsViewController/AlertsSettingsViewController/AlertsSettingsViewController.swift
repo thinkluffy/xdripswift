@@ -1,6 +1,6 @@
 import UIKit
 
-final class AlertsSettingsViewController: UIViewController {
+final class AlertsSettingsViewController: SubSettingsViewController {
 
     // MARK: - Properties
     

@@ -270,7 +270,7 @@ extension AlertSettingsViewControllerData {
             }
             
             // configure pickerViewData
-            let pickerViewData = PickerViewData(withMainTitle: Texts_Alerts.alerttype, withSubTitle: nil, withData: allAlertTypeNames, selectedRow: selectedRow, withPriority: nil, actionButtonText: nil, cancelButtonText: nil, onActionClick: {(_ index: Int) in
+            let pickerViewData = PickerViewData(withTitle: Texts_Alerts.alerttype, withSubTitle: nil, withData: allAlertTypeNames, selectedRow: selectedRow, withPriority: nil, actionButtonText: nil, cancelButtonText: nil, onActionClick: {(_ index: Int) in
                 
                 self.alertType = allAlertTypes[index]
                 tableView.reloadRows(at: [IndexPath(row: Setting.alertType.rawValue, section: 0)], with: .none)

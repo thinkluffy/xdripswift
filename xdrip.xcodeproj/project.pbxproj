@@ -26,6 +26,7 @@
 		4E2C95B8274BEC3F0073D692 /* RootPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95B7274BEC3F0073D692 /* RootPresenter.swift */; };
 		4E2C95BC275230B10073D692 /* GlucoseChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95BB275230B10073D692 /* GlucoseChart.swift */; };
 		4E2C95BF275231F90073D692 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95BE275231F90073D692 /* Constants.swift */; };
+		4E2C95C32764601B0073D692 /* SubSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95C22764601B0073D692 /* SubSettingsViewController.swift */; };
 		4E2FF40427631EB6002DE2B0 /* BottomSheetPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2FF40327631EB6002DE2B0 /* BottomSheetPickerViewController.swift */; };
 		4E2FF40627633992002DE2B0 /* BetterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2FF40527633992002DE2B0 /* BetterButton.swift */; };
 		4E2FF40827638FCB002DE2B0 /* BluetoothPeripheralImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2FF40727638FCB002DE2B0 /* BluetoothPeripheralImageView.swift */; };
@@ -661,6 +662,7 @@
 		4E2C95B7274BEC3F0073D692 /* RootPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPresenter.swift; sourceTree = "<group>"; };
 		4E2C95BB275230B10073D692 /* GlucoseChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseChart.swift; sourceTree = "<group>"; };
 		4E2C95BE275231F90073D692 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		4E2C95C22764601B0073D692 /* SubSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubSettingsViewController.swift; sourceTree = "<group>"; };
 		4E2FF40327631EB6002DE2B0 /* BottomSheetPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetPickerViewController.swift; sourceTree = "<group>"; };
 		4E2FF40527633992002DE2B0 /* BetterButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetterButton.swift; sourceTree = "<group>"; };
 		4E2FF40727638FCB002DE2B0 /* BluetoothPeripheralImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheralImageView.swift; sourceTree = "<group>"; };
@@ -2376,6 +2378,7 @@
 			isa = PBXGroup;
 			children = (
 				F8B3A841227F090D004BA588 /* SettingsViewController.swift */,
+				4E2C95C22764601B0073D692 /* SubSettingsViewController.swift */,
 				F8B3A851227F2743004BA588 /* AlertsSettingsViewController */,
 				F8B3A84E227F26F8004BA588 /* AlertTypesSettingsViewController */,
 				4EE66F092733EADF00548A46 /* MoreSettingsViewController */,
@@ -3370,6 +3373,7 @@
 				F816E0F724367137009EE65B /* GNSEntry+CoreDataClass.swift in Sources */,
 				4E9D79B9273BF04400B666C5 /* BadgeView.swift in Sources */,
 				F8F9721923A5915900C3F17D /* CGMGNSEntryTransmitter.swift in Sources */,
+				4E2C95C32764601B0073D692 /* SubSettingsViewController.swift in Sources */,
 				F8B3A84A227F090E004BA588 /* SettingsViewGeneralSettingsViewModel.swift in Sources */,
 				4E9D7988273BEC5500B666C5 /* ConfigProxy.swift in Sources */,
 				F816E11A243923B2009EE65B /* Droplet+CoreDataClass.swift in Sources */,

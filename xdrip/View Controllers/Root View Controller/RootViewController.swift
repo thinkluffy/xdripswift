@@ -1184,7 +1184,7 @@ final class RootViewController: UIViewController {
         } else {
             // the category has only CGM currently
             // to add a peripheral
-            let pickerViewData = PickerViewData(withMainTitle: Texts_BluetoothPeripheralsView.selectType,
+            let pickerViewData = PickerViewData(withTitle: Texts_BluetoothPeripheralsView.selectType,
                                                 withSubTitle: nil,
                                                 withData: BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(withCategory: BluetoothPeripheralCategory.listOfCategories()[0]),
                                                 selectedRow: nil,

@@ -9,7 +9,7 @@
 import UIKit
 import MessageUI
 
-class MoreSettingsViewController: UIViewController {
+class MoreSettingsViewController: SubSettingsViewController {
     
     @IBOutlet weak var tableView: UITableView!
 

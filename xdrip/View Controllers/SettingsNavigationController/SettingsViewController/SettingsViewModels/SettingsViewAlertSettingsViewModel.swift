@@ -1,7 +1,7 @@
 import UIKit
 import AVFoundation
 
-fileprivate enum Setting:Int, CaseIterable {
+fileprivate enum Setting: Int, CaseIterable {
     
     /// alert types
     case alertTypes = 0
@@ -18,7 +18,7 @@ fileprivate enum Setting:Int, CaseIterable {
 }
 
 /// conforms to SettingsViewModelProtocol for all alert settings in the first sections screen
-struct SettingsViewAlertSettingsViewModel:SettingsViewModelProtocol {
+struct SettingsViewAlertSettingsViewModel: SettingsViewModelProtocol {
     
     func storeUIViewController(uIViewController: UIViewController) {}
 
@@ -39,10 +39,10 @@ struct SettingsViewAlertSettingsViewModel:SettingsViewModelProtocol {
 
         switch setting {
         case .alertTypes:
-            return .performSegue(withIdentifier: SettingsViewController.SegueIdentifiers.settingsToAlertTypeSettings.rawValue, sender: nil)
+            return .performSegue(withIdentifier: R.segue.xdripSettingsViewController.settingsToAlertTypeSettings.identifier, sender: nil)
             
         case .alerts:
-            return .performSegue(withIdentifier: SettingsViewController.SegueIdentifiers.settingsToAlertSettings.rawValue, sender: nil)
+            return .performSegue(withIdentifier: R.segue.xdripSettingsViewController.settingsToAlertSettings.identifier, sender: nil)
             
         case .volumeTestSoundPlayer:
             

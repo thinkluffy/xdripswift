@@ -305,7 +305,7 @@ class AlertManager: NSObject {
         }
         
         return PickerViewData(
-            withMainTitle: alertKind.alertTitle(),
+            withTitle: alertKind.alertTitle(),
             withSubTitle: Texts_Alerts.selectSnoozeTime,
             withData: snoozeValueStrings,
             selectedRow: defaultRow,

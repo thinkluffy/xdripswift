@@ -106,7 +106,7 @@ class SettingsViewUtilities {
             case let .selectFromList(title, data, selectedRow, actionTitle, cancelTitle, actionHandler, cancelHandler, didSelectRowHandler):
                 
                 // configure pickerViewData
-                let pickerViewData = PickerViewData(withMainTitle: nil, withSubTitle: title, withData: data, selectedRow: selectedRow, withPriority: nil, actionButtonText: actionTitle, cancelButtonText: cancelTitle, onActionClick: {(_ index: Int) in
+                let pickerViewData = PickerViewData(withTitle: title, withSubTitle: nil, withData: data, selectedRow: selectedRow, withPriority: nil, actionButtonText: actionTitle, cancelButtonText: cancelTitle, onActionClick: {(_ index: Int) in
                     actionHandler(index)
                     
                     // check if refresh is needed, either complete settingsview or individual section
@@ -114,8 +114,8 @@ class SettingsViewUtilities {
                     
                 }, onCancelClick: {
                     if let cancelHandler = cancelHandler { cancelHandler() }
-                }, didSelectRowHandler: {(_ index: Int) in
                     
+                }, didSelectRowHandler: {(_ index: Int) in
                     if let didSelectRowHandler = didSelectRowHandler {
                         didSelectRowHandler(index)
                     }

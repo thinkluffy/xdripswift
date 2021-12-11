@@ -3,7 +3,7 @@ import UIKit
 /// overview of alert types, in a tableview, with a button top right that allows adding alert types
 ///
 /// to edit or delete an alert type, user needs to click a row
-final class AlertTypesSettingsViewController: UIViewController {
+final class AlertTypesSettingsViewController: SubSettingsViewController {
     
     // MARK: - IBOutlet's and IBAction's
     

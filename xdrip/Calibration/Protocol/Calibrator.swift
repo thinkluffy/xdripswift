@@ -603,20 +603,17 @@ extension Calibrator {
                 break
             }
         }
-        
-        let readingToCalculate: BgReading
-        
-        if let readingMinsAgo = readingMinsAgo {
-            log.d("found the readingMinsAgo with \(Constants.minsToCalculateSlope) mins")
-            readingToCalculate = readingMinsAgo
-            
-        } else {
-            readingToCalculate = lastReadings[1]
+                
+        guard let readingMinsAgo = readingMinsAgo else {
+            log.w("Fail to find a reading with \(Constants.minsToCalculateSlope) mins ago")
+            bgReading.hideSlope = true
+            bgReading.calculatedValueSlope = 0
+            return
         }
         
-        log.d("find slope with bgReadings, timeInterval: \(bgReading.timeStamp.timeIntervalSince(readingToCalculate.timeStamp)/60)m")
+        log.d("Found slope with bgReadings, timeInterval: \(String.init(format: "%.1f", bgReading.timeStamp.timeIntervalSince(readingMinsAgo.timeStamp)/60)) mins")
 
-        let (slope, hide) = bgReading.calculateSlope(with: readingToCalculate)
+        let (slope, hide) = bgReading.calculateSlope(with: readingMinsAgo)
         bgReading.calculatedValueSlope = slope
         bgReading.hideSlope = hide
     }

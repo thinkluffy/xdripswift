@@ -1,7 +1,7 @@
 import UIKit
 
 /// to create a new alertentry
-final class NewAlertSettingsViewController:UIViewController {
+class NewAlertSettingsViewController: SubSettingsViewController {
  
     // MARK: - Properties
     

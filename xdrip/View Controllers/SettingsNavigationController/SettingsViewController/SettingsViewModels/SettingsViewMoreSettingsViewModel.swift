@@ -31,41 +31,32 @@ class SettingsViewMoreSettingsViewModel: SettingsViewModelProtocol {
     }
     
     func settingsRowText(index: Int) -> String {
-        
         guard let setting = Setting(rawValue: index) else { fatalError("Unexpected Section") }
         
         switch setting {
             
         case .more:
             return R.string.settingsViews.moreSettings()
-            
         }
-        
     }
     
     func accessoryType(index: Int) -> UITableViewCell.AccessoryType {
-        
         guard let setting = Setting(rawValue: index) else { fatalError("Unexpected Section") }
         
         switch setting {
             
         case .more:
             return .disclosureIndicator
-            
         }
-        
     }
     
     func detailedText(index: Int) -> String? {
-        
         guard let setting = Setting(rawValue: index) else { fatalError("Unexpected Section") }
         
         switch setting {
             
         case .more:
-            
             return nil
-            
         }
     }
     
@@ -78,27 +69,20 @@ class SettingsViewMoreSettingsViewModel: SettingsViewModelProtocol {
     }
     
     func onRowSelect(index: Int) -> SettingsSelectedRowAction {
-        
         guard let setting = Setting(rawValue: index) else { fatalError("Unexpected Section") }
         
         switch setting {
             
         case .more:
-            return .performSegue(withIdentifier: SettingsViewController.SegueIdentifiers.settingsToMore.rawValue, sender: nil)
+            return .performSegue(withIdentifier: R.segue.xdripSettingsViewController.settingsToMore.identifier, sender: nil)
         }
     }
     
     func isEnabled(index: Int) -> Bool {
-        
         return true
-        
     }
     
     func completeSettingsViewRefreshNeeded(index: Int) -> Bool {
-        
         return false
-        
     }
-    
-
 }

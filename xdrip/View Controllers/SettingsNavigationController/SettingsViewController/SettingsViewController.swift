@@ -137,21 +137,23 @@ final class SettingsViewController: UIViewController {
         
         configure()
     }
-
-    // MARK: - Private helper functions
     
     private func setupView() {
+        navigationController?.navigationBar.prefersLargeTitles = true
+
         setupTableView()
     }
 
     /// setup datasource, delegate, seperatorInset
     private func setupTableView() {
-        if let tableView = tableView {
-            // insert slightly the separator text so that it doesn't touch the safe area limit
-            tableView.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
-            tableView.dataSource = self
-            tableView.delegate = self
+        guard let tableView = tableView else {
+            return
         }
+        
+        // insert slightly the separator text so that it doesn't touch the safe area limit
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        tableView.dataSource = self
+        tableView.delegate = self
     }
 }
 
@@ -213,21 +215,5 @@ extension SettingsViewController:UITableViewDataSource, UITableViewDelegate {
         // apple doc says : Use this method to respond to taps in the detail button accessory view of a row. The table view does not call this method for other types of accessory views.
         // when user clicks on of the detail buttons, then consider this as row selected, for now - as it's only license that is using this button for now
         self.tableView(tableView, didSelectRowAt: indexPath)
-    }
-}
-
-/// defines perform segue identifiers used within settingsviewcontroller
-extension SettingsViewController {
-    
-    enum SegueIdentifiers: String {
-
-        /// to go from general settings screen to alert types screen
-        case settingsToAlertTypeSettings = "settingsToAlertTypeSettings"
-        
-        /// to go from general settings screen to alert screen
-        case settingsToAlertSettings = "settingsToAlertSettings"
-        
-        /// to go from general settings to more settings
-        case settingsToMore = "settingsToMore"
     }
 }
