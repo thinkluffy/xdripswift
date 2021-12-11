@@ -2,13 +2,13 @@ import Foundation
 import CoreBluetooth
 
 /// defines functions that every cgm transmitter should conform to
-protocol CGMTransmitter:AnyObject {
+protocol CGMTransmitter: AnyObject {
     
     /// to set nonFixedSlopeEnabled - called when user changes the setting
     ///
     /// for transmitters who don't support non fixed slopes, there's no need to implemented this function<br>
     /// ---  for transmitters who support non fixed (all Libre transmitters) this should be implemented
-    func setNonFixedSlopeEnabled(enabled:Bool)
+    func setNonFixedSlopeEnabled(enabled: Bool)
     
     /// is the CGMTransmitter nonFixed enabled or not
     func isNonFixedSlopeEnabled() -> Bool
@@ -17,7 +17,7 @@ protocol CGMTransmitter:AnyObject {
     ///
     /// for transmitters who don't support webOOP, there's no need to implemented this function<br>
     /// ---  for transmitters who support webOOP (Bubble, MiaoMiao, ..) this should be implemented
-    func setWebOOPEnabled(enabled:Bool)
+    func setWebOOPEnabled(enabled: Bool)
     
     /// is the CGMTransmitter web oop enabled or not
     func isWebOOPEnabled() -> Bool
@@ -29,7 +29,7 @@ protocol CGMTransmitter:AnyObject {
     func requestNewReading()
     
     /// maximum sensor age in minutes, nil if no maximum
-    func maxSensorAgeInDays() -> Int?
+    func maxSensorAgeInMinutes() -> Int?
     
 }
 

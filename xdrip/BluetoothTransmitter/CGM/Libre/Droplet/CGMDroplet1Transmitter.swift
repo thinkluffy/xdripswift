@@ -152,11 +152,8 @@ class CGMDroplet1Transmitter:BluetoothTransmitter, CGMTransmitter {
         // not supported for droplet
     }
     
-    func maxSensorAgeInDays() -> Int? {
-        
+    func maxSensorAgeInMinutes() -> Int? {
         // no supported for droplet
         return nil
-        
     }
-
 }

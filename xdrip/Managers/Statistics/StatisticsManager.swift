@@ -31,9 +31,7 @@ public final class StatisticsManager {
         operationQueue.maxConcurrentOperationCount = 1
         
     }
-    
-    // MARK: - public functions
-    
+        
     /// calculates statistics, will execute in background.
     /// - parameters:
     ///     - callback : will be called with result of calculations in UI thread

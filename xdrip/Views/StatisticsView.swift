@@ -11,6 +11,8 @@ import PieCharts
 
 class StatisticsView: UIView {
     
+    private static let log = Log(type: StatisticsView.self)
+    
     @IBOutlet weak var pieChartOutlet: PieChart!
     @IBOutlet weak var lowStatisticLabelOutlet: UILabel!
     @IBOutlet weak var inRangeStatisticLabelOutlet: UILabel!
@@ -77,6 +79,8 @@ class StatisticsView: UIView {
     }
     
     func show(statistics: StatisticsManager.Statistics, of date: Date) {
+        StatisticsView.log.d("==> showStatistics of date")
+        
         updateValues(statistics: statistics, animatePieChart: false)
         
         let dateFormatter = DateFormatter()
@@ -85,6 +89,8 @@ class StatisticsView: UIView {
     }
     
     func show(statistics: StatisticsManager.Statistics, daysToUseStatistics: Int, animatePieChart: Bool = false) {
+        StatisticsView.log.d("==> showStatistics, daysToUseStatistics: \(daysToUseStatistics)")
+
         updateValues(statistics: statistics, animatePieChart: animatePieChart)
         
         // show number of days calculated under the pie chart

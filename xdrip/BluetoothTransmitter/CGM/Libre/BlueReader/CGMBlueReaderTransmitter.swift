@@ -147,11 +147,8 @@ class CGMBlueReaderTransmitter:BluetoothTransmitter, CGMTransmitter {
         // not supported for blucon
     }
     
-    func maxSensorAgeInDays() -> Int? {
-        
+    func maxSensorAgeInMinutes() -> Int? {
         // not supported for bluereader
         return nil
-        
     }
-
 }

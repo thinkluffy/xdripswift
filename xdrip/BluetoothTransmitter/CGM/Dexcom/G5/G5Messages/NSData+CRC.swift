@@ -17,6 +17,7 @@ import Foundation
  [http://web.mit.edu/6.115/www/amulet/xmodem.htm]()
  */
 extension Collection where Element == UInt8 {
+    
     private var crcCCITTXModem: UInt16 {
         var crc: UInt16 = 0
 
@@ -26,6 +27,7 @@ extension Collection where Element == UInt8 {
             for _ in 0..<8 {
                 if crc & 0x8000 != 0 {
                     crc = crc << 1 ^ 0x1021
+                    
                 } else {
                     crc = crc << 1
                 }
@@ -42,6 +44,7 @@ extension Collection where Element == UInt8 {
 
 
 extension UInt8 {
+    
     var crc16: UInt16 {
         return [self].crc16
     }
@@ -49,6 +52,7 @@ extension UInt8 {
 
 
 extension Data {
+    
     var isCRCValid: Bool {
         return dropLast(2).crc16 == suffix(2).toInt()
     }

@@ -37,7 +37,7 @@
                                 <rect key="frame" x="0.0" y="44" width="428" height="799"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ha-9o-Vt6" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="428" height="1148"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="428" height="1138"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C16-NQ-F1Y" userLabel="Upper Area">
                                                 <rect key="frame" x="0.0" y="0.0" width="428" height="799"/>
@@ -176,7 +176,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fOj-9i-xJA" userLabel="Lower Area">
-                                                <rect key="frame" x="0.0" y="789" width="428" height="359"/>
+                                                <rect key="frame" x="0.0" y="789" width="428" height="349"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SBD-OB-ZNl" userLabel="StatisticsCard" customClass="Card" customModule="xdrip" customModuleProvider="target">
                                                         <rect key="frame" x="10" y="10" width="408" height="315"/>
@@ -207,22 +207,23 @@
                                                             <constraint firstItem="15O-vf-6AT" firstAttribute="top" secondItem="SBD-OB-ZNl" secondAttribute="top" constant="10" id="qKx-6y-5my"/>
                                                         </constraints>
                                                     </view>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sensor14_14_alt" translatesAutoresizingMaskIntoConstraints="NO" id="HZT-Dl-efY">
-                                                        <rect key="frame" x="10" y="335" width="408" height="14"/>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dBJ-8b-mK1" customClass="SensorCountdown" customModule="xdrip" customModuleProvider="target">
+                                                        <rect key="frame" x="15" y="335" width="398" height="4"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="14" id="bme-mE-jbV"/>
+                                                            <constraint firstAttribute="height" constant="4" id="NKr-sO-mwH"/>
                                                         </constraints>
-                                                    </imageView>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="bottom" secondItem="HZT-Dl-efY" secondAttribute="bottom" constant="10" id="2tZ-V2-Zzs"/>
-                                                    <constraint firstItem="SBD-OB-ZNl" firstAttribute="bottom" secondItem="HZT-Dl-efY" secondAttribute="top" constant="-10" id="F10-nt-x2m"/>
+                                                    <constraint firstItem="dBJ-8b-mK1" firstAttribute="top" secondItem="SBD-OB-ZNl" secondAttribute="bottom" constant="10" id="6p3-io-EnZ"/>
                                                     <constraint firstItem="SBD-OB-ZNl" firstAttribute="top" secondItem="fOj-9i-xJA" secondAttribute="top" constant="10" id="Gc4-t8-mFz"/>
                                                     <constraint firstItem="SBD-OB-ZNl" firstAttribute="leading" secondItem="fOj-9i-xJA" secondAttribute="leading" constant="10" id="Jj9-Yo-WBO"/>
-                                                    <constraint firstItem="HZT-Dl-efY" firstAttribute="leading" secondItem="fOj-9i-xJA" secondAttribute="leading" constant="10" id="SA9-ib-jSx"/>
                                                     <constraint firstAttribute="trailing" secondItem="SBD-OB-ZNl" secondAttribute="trailing" constant="10" id="Stp-Ef-NR5"/>
-                                                    <constraint firstAttribute="trailing" secondItem="HZT-Dl-efY" secondAttribute="trailing" constant="10" id="cbP-YR-fsp"/>
+                                                    <constraint firstAttribute="trailing" secondItem="dBJ-8b-mK1" secondAttribute="trailing" constant="15" id="T3h-g6-RsG"/>
+                                                    <constraint firstAttribute="bottom" secondItem="dBJ-8b-mK1" secondAttribute="bottom" constant="10" id="bLe-9s-3YJ"/>
+                                                    <constraint firstItem="dBJ-8b-mK1" firstAttribute="leading" secondItem="fOj-9i-xJA" secondAttribute="leading" constant="15" id="xa7-ij-6To"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -267,7 +268,7 @@
                         <outlet property="glucoseIndicator" destination="B9A-0Y-PhM" id="XSc-Au-W3T"/>
                         <outlet property="minutesLabelOutlet" destination="uyn-2k-K74" id="XXm-rq-Suy"/>
                         <outlet property="newReadingCountDownView" destination="V90-WH-dIE" id="0Er-nN-KPr"/>
-                        <outlet property="sensorCountdownOutlet" destination="HZT-Dl-efY" id="VOW-qS-jVs"/>
+                        <outlet property="sensorCountdown" destination="dBJ-8b-mK1" id="3fk-FQ-Ec0"/>
                         <outlet property="sensorIndicator" destination="Kba-Lh-TNW" id="OR9-m9-EfF"/>
                         <outlet property="snoozeButton" destination="Qv7-yV-rZx" id="HAy-KF-hmB"/>
                         <outlet property="statisticsDaysSelection" destination="15O-vf-6AT" id="aMB-Fa-NB2"/>
@@ -1345,7 +1346,9 @@
         <image name="ic_tab_settings" width="24" height="24"/>
         <image name="ic_tab_settings_h" width="24" height="24"/>
         <image name="logo-launchScreen.png" width="120" height="120"/>
-        <image name="sensor14_14_alt" width="390" height="14"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

@@ -28,7 +28,7 @@ extension WatlaaBluetoothTransmitter: CGMTransmitter {
         return webOOPEnabled
     }
 
-        func isNonFixedSlopeEnabled() -> Bool {
+    func isNonFixedSlopeEnabled() -> Bool {
         return nonFixedSlopeEnabled
     }
 
@@ -36,11 +36,8 @@ extension WatlaaBluetoothTransmitter: CGMTransmitter {
         _ = sendStartReadingCommand()
     }
     
-    func maxSensorAgeInDays() -> Int? {
-        
+    func maxSensorAgeInMinutes() -> Int? {
         // no max sensor age for Watlaa
         return nil
-        
     }
-
 }

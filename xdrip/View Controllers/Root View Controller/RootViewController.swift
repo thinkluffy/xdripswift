@@ -38,8 +38,8 @@ final class RootViewController: UIViewController {
     /// outlets for statistics view
     @IBOutlet weak var statisticsView: StatisticsView!
     
-    @IBOutlet weak var sensorCountdownOutlet: UIImageView!
-    
+    @IBOutlet weak var sensorCountdown: SensorCountdown!
+
     @IBAction func showChartDetailsButtonClicked(_ sender: UIButton) {
         performSegue(withIdentifier: R.segue.rootViewController.chartDetails, sender: self)
     }
@@ -1339,72 +1339,35 @@ final class RootViewController: UIViewController {
         }
         
         // statisticsManager will calculate the statistics in background thread and call the callback function in the main thread
-        statisticsManager?.calculateStatistics(fromDate: fromDate, toDate: nil, callback: { [weak self] statistics in
-            self?.statisticsView.show(statistics: statistics,
-                                      daysToUseStatistics: daysToUseStatistics,
-                                      animatePieChart: animatePieChart)
+        statisticsManager?.calculateStatistics(fromDate: fromDate, toDate: nil, callback: { statistics in
+            self.statisticsView.show(statistics: statistics,
+                                     daysToUseStatistics: daysToUseStatistics,
+                                     animatePieChart: animatePieChart)
         })
     }
     
     /// this function will check if the user is using a time-sensitive sensor (such as a 14 day Libre, calculate the days remaining and then update the imageUI with the relevant svg image from the project assets.
     private func updateSensorCountdown() {
         // if there's no active sensor, there's nothing to do or show
-        guard activeSensor != nil else {
-            sensorCountdownOutlet.isHidden = true
+        guard let activeSensor = activeSensor else {
+            sensorCountdown.isHidden = true
             return
         }
-        
-        // check that the sensor start date is not nil before unwrapping it
-        guard activeSensor?.startDate != nil else {
-            return
-        }
-        
+                
         // check if there is a transmitter connected (needed as Dexcom will only connect briefly every 5 minutes)
-        // if there is a transmitter connected, pull the current maxSensorAgeInDays and store in in UserDefaults
-        if let cgmTransmitter = self.bluetoothPeripheralManager?.getCGMTransmitter(), let maxDays = cgmTransmitter.maxSensorAgeInDays() {
-            UserDefaults.standard.maxSensorAgeInDays = maxDays
+        // if there is a transmitter connected, pull the current maxSensorAgeInMinutes and store in in UserDefaults
+        if let cgmTransmitter = self.bluetoothPeripheralManager?.getCGMTransmitter(), let maxMinutes = cgmTransmitter.maxSensorAgeInMinutes() {
+            UserDefaults.standard.maxSensorAgeInMinutes = maxMinutes
         }
         
         // check if the sensor type has a hard coded maximum sensor life previously stored.
-        if let maxSensorAgeInDays = UserDefaults.standard.maxSensorAgeInDays as Int?, maxSensorAgeInDays > 0 {
-        
-            // calculate how many hours the sensor has been used for since starting. We need to use hours instead of days because during the last day we need to see how many hours are left so that we can display the warning and urgent status graphics.
-            let currentSensorAgeInHours: Int = Calendar.current.dateComponents([.hour], from: activeSensor!.startDate - 5 * 60, to: Date()).hour!
-            
-            // we need to calculate the hours so that we can see if we need to show the yellow (<12hrs remaining) or red (<6hrs remaining) graphics
-            let sensorCountdownHoursRemaining: Int = (maxSensorAgeInDays * 24) - currentSensorAgeInHours
-            
-            // start programatically creating the asset name that we will loaded. This is based upon the max sensor days and the days "remaining". To get the full days, we need to round up the currentSensorAgeInHours to the nearest 24 hour block
-            var sensorCountdownAssetName: String = "sensor" +  String(maxSensorAgeInDays) + "_"
-
-            // find the amount of days remaining and add it to the asset name string. If there is less than 12 hours, add the corresponding warning/urgent label. If the sensor hours remaining is 0 or less, then the sensor is either expired or in the last 12 hours of "overtime" (e.g Libre sensors have an extra 12 hours before the stop working). If this happens, then instead of appending the days left, always show the "00" graphic.
-            if sensorCountdownHoursRemaining > 0 {
-                
-                sensorCountdownAssetName += String(format: "%02d", maxSensorAgeInDays - Int(round(Double(currentSensorAgeInHours / 24)) * 24) / 24)
-                
-                switch sensorCountdownHoursRemaining {
-
-                    case 7...12:
-                        sensorCountdownAssetName += "_warning"
-                    case 1...6:
-                        sensorCountdownAssetName += "_urgent"
-                    default: break
-
-                }
-                
-            } else {
-                sensorCountdownAssetName += "00"
-            }
-            
-            // update the UIImage
-            sensorCountdownOutlet.image = UIImage(named: sensorCountdownAssetName)
-            
-            // show the sensor countdown image
-            sensorCountdownOutlet.isHidden = false
+        if let maxSensorAgeInMinutes = UserDefaults.standard.maxSensorAgeInMinutes as Int?, maxSensorAgeInMinutes > 0 {
+            sensorCountdown.show(maxSensorAgeInMinutes: maxSensorAgeInMinutes, sensorStartDate: activeSensor.startDate)
+            sensorCountdown.isHidden = false
             
         } else {
             // this must be a sensor without a maxSensorAge , so just make sure to hide the sensor countdown image and do nothing
-            sensorCountdownOutlet.isHidden = true
+            sensorCountdown.isHidden = true
         }
     }
 }

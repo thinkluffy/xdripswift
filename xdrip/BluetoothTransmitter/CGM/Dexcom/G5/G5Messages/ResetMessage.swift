@@ -9,6 +9,7 @@ import Foundation
 
 
 struct ResetTxMessage: RespondableMessage {
+    
     typealias Response = ResetRxMessage
 
     var data: Data {
@@ -18,6 +19,7 @@ struct ResetTxMessage: RespondableMessage {
 
 
 struct ResetRxMessage: TransmitterRxMessage {
+    
     let status: Int
 
     init?(data: Data) {

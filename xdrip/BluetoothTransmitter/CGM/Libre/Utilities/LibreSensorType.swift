@@ -36,7 +36,6 @@ public enum LibreSensorType: String {
             return "Libre PRO H"
 
         }
-        
     }
     
     /// decrypts for libre2 and libreUs,
@@ -101,7 +100,6 @@ public enum LibreSensorType: String {
                 
                 return false
             }
-            
         }
         
         return true
@@ -142,17 +140,11 @@ public enum LibreSensorType: String {
     }
     
     /// maximum sensor age in days, nil if no maximum
-    func maxSensorAgeInDays() -> Int? {
+    func maxSensorAgeInMinutes() -> Int? {
         switch self {
-        case .libre1:
-            return 14
+        case .libre1, .libre1A2, .libre2:
+            return Int(14.5 * 24 * 60)
             
-        case .libre1A2:
-            return 14
-
-        case .libre2:
-            return 14
-
         case .libreUS:
             return nil
 

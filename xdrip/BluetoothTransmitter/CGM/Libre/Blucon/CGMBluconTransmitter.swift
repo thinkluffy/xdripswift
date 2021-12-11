@@ -555,12 +555,9 @@ extension CGMBluconTransmitter: CGMTransmitter {
         return false
     }
 
-    func maxSensorAgeInDays() -> Int? {
-        
+    func maxSensorAgeInMinutes() -> Int? {
         // not supported for blucon
         return nil
-        
     }
-
 }
 

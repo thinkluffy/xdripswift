@@ -363,13 +363,10 @@ class CGMAtomTransmitter:BluetoothTransmitter, CGMTransmitter {
                             trace("in peripheral didUpdateValueFor, could not create libreSensorSerialNumber", log: self.log, category: ConstantsLog.categoryCGMBubble, type: .info)
                             
                             return
-                            
                         }
-                    
-                        
                     }
-                } else {
                     
+                } else {
                     //value doesn't start with a known atomresponse
                     
                     //reset the buffer
@@ -379,13 +376,12 @@ class CGMAtomTransmitter:BluetoothTransmitter, CGMTransmitter {
                     
                 }
             }
+            
         } else {
             
             trace("in peripheral didUpdateValueFor, value is nil, no further processing", log: log, category: ConstantsLog.categoryCGMAtom, type: .error)
             
         }
-        
-        
     }
     
     // MARK: - helpers
@@ -401,19 +397,15 @@ class CGMAtomTransmitter:BluetoothTransmitter, CGMTransmitter {
     
     /// this transmitter supports oopWeb
     func setWebOOPEnabled(enabled: Bool) {
-        
         webOOPEnabled = enabled
         
         // immediately request a new reading
         // there's no check here to see if peripheral, characteristic, connection, etc.. exists, but that's no issue. If anything's missing, write will simply fail,
         _ = sendStartReadingCommand()
-        
     }
     
     func isWebOOPEnabled() -> Bool {
-        
         return webOOPEnabled
-        
     }
     
     func setNonFixedSlopeEnabled(enabled: Bool) {
@@ -423,31 +415,22 @@ class CGMAtomTransmitter:BluetoothTransmitter, CGMTransmitter {
         // immediately request a new reading
         // there's no check here to see if peripheral, characteristic, connection, etc.. exists, but that's no issue. If anything's missing, write will simply fail,
         _ = sendStartReadingCommand()
-        
     }
     
     func isNonFixedSlopeEnabled() -> Bool {
-        
         return nonFixedSlopeEnabled
-        
     }
     
     func requestNewReading() {
-        
         _ = sendStartReadingCommand()
-        
     }
     
     func cgmTransmitterType() -> CGMTransmitterType {
-        
         return .Atom
-        
     }
     
-    func maxSensorAgeInDays() -> Int? {
-        
-        return libreSensorType?.maxSensorAgeInDays()
-        
+    func maxSensorAgeInMinutes() -> Int? {
+        return libreSensorType?.maxSensorAgeInMinutes()
     }
 
 }

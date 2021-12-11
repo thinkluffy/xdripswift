@@ -2,7 +2,7 @@ import Foundation
 import CoreBluetooth
 import os
 
-class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
+class CGMG5Transmitter: BluetoothTransmitter, CGMTransmitter {
     
     // MARK: - public properties
     
@@ -243,10 +243,10 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
             default:
                 break
             }
+            
         } else {
             trace("    characteristicValue is nil", log: log, category: ConstantsLog.categoryCGMG5, type: .error)
         }
-        
     }
     
     override func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
@@ -346,17 +346,16 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
                                         trace("    writeControlCharacteristic is nil, can not send BatteryStatusTxMessage", log: log, category: ConstantsLog.categoryCGMG5, type: .error)
                                         
                                     }
+                                    
                                 } else {
                                     disconnect()
                                 }
-                            } else {
                                 
+                            } else {
                                 // request firmware now, next time request battery level
                                 requestFirmware = false
-
                                 if firmware == nil {
-
-                                    
+                            
                                 }
                             }
                             
@@ -519,7 +518,7 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
     // MARK: CGMTransmitter protocol functions
     
     /// to ask transmitter reset
-    func reset(requested:Bool) {
+    func reset(requested: Bool) {
         G5ResetRequested = requested
     }
 
@@ -547,13 +546,10 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
         // not supported for Dexcom G5
     }
     
-    func maxSensorAgeInDays() -> Int? {
-        
+    func maxSensorAgeInMinutes() -> Int? {
         // no max sensor age for Dexcom
         return nil
-        
     }
-
     
     // MARK:- helper functions
     
@@ -562,6 +558,7 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
         trace("sending getsensordata", log: log, category: ConstantsLog.categoryCGMG5, type: .info)
         if let writeControlCharacteristic = writeControlCharacteristic {
             _ = writeDataToPeripheral(data: SensorDataTxMessage().data, characteristicToWriteTo: writeControlCharacteristic, type: .withResponse)
+            
         } else {
             trace("    writeControlCharacteristic is nil, not getsensordata", log: log, category: ConstantsLog.categoryCGMG5, type: .error)
         }
@@ -573,6 +570,7 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
         if let writeControlCharacteristic = writeControlCharacteristic {
             _ = writeDataToPeripheral(data: ResetTxMessage().data, characteristicToWriteTo: writeControlCharacteristic, type: .withResponse)
             G5ResetRequested = false
+            
         } else {
             trace("    writeControlCharacteristic is nil, not sending G5 reset", log: log, category: ConstantsLog.categoryCGMG5, type: .error)
         }
@@ -583,12 +581,13 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
         let authMessage = AuthRequestTxMessage()
         if let receiveAuthenticationCharacteristic = receiveAuthenticationCharacteristic {
             _ = writeDataToPeripheral(data: authMessage.data, characteristicToWriteTo: receiveAuthenticationCharacteristic, type: .withResponse)
+            
         } else {
             trace("receiveAuthenticationCharacteristic is nil", log: log, category: ConstantsLog.categoryCGMG5, type: .error)
         }
     }
     
-    private func processResetRxMessage(value:Data) {
+    private func processResetRxMessage(value: Data) {
         if let resetRxMessage = ResetRxMessage(data: value) {
 
             trace("in processResetRxMessage, considering reset successful = %{public}@", log: log, category: ConstantsLog.categoryCGMG5, type: .info, (resetRxMessage.status == 0).description)
@@ -600,7 +599,7 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
         }
     }
     
-    private func processBatteryStatusRxMessage(value:Data) {
+    private func processBatteryStatusRxMessage(value: Data) {
         
         if let batteryStatusRxMessage = BatteryStatusRxMessage(data: value) {
 
@@ -611,15 +610,11 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
             cgmTransmitterDelegate?.cgmTransmitterInfoReceived(glucoseData: &emptyArray, transmitterBatteryInfo: TransmitterBatteryInfo.DexcomG5(voltageA: batteryStatusRxMessage.voltageA, voltageB: batteryStatusRxMessage.voltageB, resist: batteryStatusRxMessage.resist, runtime: batteryStatusRxMessage.runtime, temperature: batteryStatusRxMessage.temperature), sensorTimeInMinutes: nil)
             
         } else {
-            
             trace("batteryStatusRxMessage is nil", log: log, category: ConstantsLog.categoryCGMG5, type: .error)
-            
         }
-        
     }
     
-    private func processTransmitterVersionRxMessage(value:Data) {
-        
+    private func processTransmitterVersionRxMessage(value: Data) {
         if let transmitterVersionRxMessage = TransmitterVersionRxMessage(data: value) {
             
             // assign transmitterVersion
@@ -635,12 +630,12 @@ class CGMG5Transmitter:BluetoothTransmitter, CGMTransmitter {
     }
 
     /// calculates encryptionkey
-    private static func cryptKey(_ id:String) -> Data? {
+    private static func cryptKey(_ id: String) -> Data? {
         return "00\(id)00\(id)".data(using: .utf8)
     }
     
     /// compute hash
-    private static func computeHash(_ id:String, of data: Data) -> Data? {
+    private static func computeHash(_ id: String, of data: Data) -> Data? {
         guard data.count == 8 else {
             return nil
         }

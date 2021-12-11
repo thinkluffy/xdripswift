@@ -5,7 +5,7 @@ import CoreBluetooth
 #if canImport(CoreNFC)
 import CoreNFC
 
-class CGMLibre2Transmitter:BluetoothTransmitter, CGMTransmitter {
+class CGMLibre2Transmitter: BluetoothTransmitter, CGMTransmitter {
     
     // MARK: - properties
     
@@ -311,14 +311,14 @@ class CGMLibre2Transmitter:BluetoothTransmitter, CGMTransmitter {
         // not supported for Libre 2
     }
     
-    func maxSensorAgeInDays() -> Int? {
-        return libreSensorType?.maxSensorAgeInDays()
+    func maxSensorAgeInMinutes() -> Int? {
+        return libreSensorType?.maxSensorAgeInMinutes()
     }
 }
 
 #else
 
-class CGMLibre2Transmitter:BluetoothTransmitter, CGMTransmitter {
+class CGMLibre2Transmitter: BluetoothTransmitter, CGMTransmitter {
     
 }
 
