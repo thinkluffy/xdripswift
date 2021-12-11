@@ -14,6 +14,7 @@
 "settingsviews_urgentLowValue" = "Urgent Low Value";
 "settingsviews_useobjectives" = "Show Objectives in Graph";
 "settingsviews_showcoloredobjectives" = "Show Colored Lines";
+"settingsviews_chartHeight" = "Chart Height";
 "settingsviews_chartDots5MinsApart" = "Dots 5 Mins Apart";
 "settingsviews_sectiontitlestatistics" = "Statistics";
 "settingsviews_showStatistics" = "Show Statistics";

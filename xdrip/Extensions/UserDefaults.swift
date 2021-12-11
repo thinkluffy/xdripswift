@@ -44,6 +44,8 @@ extension UserDefaults {
         case lowMarkValue = "lowMarkValue"
         /// urgent low value
         case urgentLowMarkValue = "urgentLowMarkValue"
+        /// chart height, 220(12.2), 300(16.6) or 400(22.2)
+        case chartHeight = "chartHeight"
         /// bg dots in 5 minutes
         case chartDots5MinsApart = "chartDots5MinsApart"
 
@@ -376,7 +378,7 @@ extension UserDefaults {
     }
     
     /// the urgentlowmarkvalue in unit selected by user ie, mgdl or mmol
-    @objc dynamic var urgentLowMarkValueInUserChosenUnit:Double {
+    @objc dynamic var urgentLowMarkValueInUserChosenUnit: Double {
         get {
             //read currentvalue in mgdl
             var returnValue = double(forKey: Key.urgentLowMarkValue.rawValue)
@@ -491,6 +493,20 @@ extension UserDefaults {
         }
     }
     
+    /// the chart height, in mgdl
+    @objc dynamic var chartHeight: Double {
+        get {
+            var ret = double(forKey: Key.chartHeight.rawValue)
+            if ret == 0.0 {
+                ret = ConstantsBGGraphBuilder.defaultChartHeightInMgdl
+            }
+            return ret
+        }
+        set {
+            set(newValue, forKey: Key.chartHeight.rawValue)
+        }
+    }
+    
     /// show chart dots 5 minutes apart
     @objc dynamic var chartDots5MinsApart: Bool {
         get {
@@ -542,6 +558,7 @@ extension UserDefaults {
         get {
             if let transmitterTypeAsString = cgmTransmitterTypeAsString {
                 return CGMTransmitterType(rawValue: transmitterTypeAsString)
+                
             } else {
                 return nil
             }

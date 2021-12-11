@@ -181,8 +181,10 @@ class GlucoseChart: UIView {
     private func applySettings() {
         let showAsMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
 
+        let chartHeight = UserDefaults.standard.chartHeight
+        
         let yAxis = chartView.rightAxis
-        yAxis.axisMaximum = showAsMg ? 300 : 16.6
+        yAxis.axisMaximum = showAsMg ? chartHeight : chartHeight.mgdlToMmol()
         yAxis.axisMinimum = showAsMg ? 40 : 2.2
         
         let urgentHigh = UserDefaults.standard.urgentHighMarkValue.mgdlToMmol(mgdl: showAsMg)

@@ -547,8 +547,7 @@ class CGMG5Transmitter: BluetoothTransmitter, CGMTransmitter {
     }
     
     func maxSensorAgeInSeconds() -> Int? {
-        // no max sensor age for Dexcom
-        return nil
+        return Int(10 * Date.dayInSeconds)
     }
     
     // MARK:- helper functions

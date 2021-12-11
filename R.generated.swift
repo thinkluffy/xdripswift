@@ -5900,7 +5900,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.settingsViews` struct is generated, and contains static references to 108 localization keys.
+    /// This `R.string.settingsViews` struct is generated, and contains static references to 109 localization keys.
     struct settingsViews {
       /// en translation: API_SECRET
       ///
@@ -5966,6 +5966,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let editScheduleTimePickerSubtitle = Rswift.StringResource(key: "editScheduleTimePickerSubtitle", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// en translation: Chart Height
+      ///
+      /// Locales: en, zh
+      static let settingsviews_chartHeight = Rswift.StringResource(key: "settingsviews_chartHeight", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Create Calendar Events
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
@@ -6575,6 +6579,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("editScheduleTimePickerSubtitle", tableName: "SettingsViews", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Chart Height
+      ///
+      /// Locales: en, zh
+      static func settingsviews_chartHeight(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("settingsviews_chartHeight", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
+          return "settingsviews_chartHeight"
+        }
+
+        return NSLocalizedString("settingsviews_chartHeight", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
       /// en translation: Create Calendar Events
