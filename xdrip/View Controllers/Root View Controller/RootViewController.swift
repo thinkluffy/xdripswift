@@ -173,7 +173,7 @@ final class RootViewController: UIViewController {
         updateSensorCountdown()
         
         // update statistics related outlets
-        updateStatistics(animatePieChart: true, overrideApplicationState: true)
+        updateStatistics(animatePieChart: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -320,18 +320,12 @@ final class RootViewController: UIViewController {
         // add tracing when app will terminaten - this only works for non-suspended apps, probably (not tested) also works for apps that crash in the background
         ApplicationManager.shared.addClosureToRunWhenAppWillTerminate(key: applicationManagerKeyTraceAppWillTerminate, closure: {trace("Application will terminate", log: self.log, category: ConstantsLog.categoryRootView, type: .info)})
         
-//        ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground(key: applicationManagerKeyCleanMemoryGlucoseChartManager, closure: {
-//
-//            self.glucoseChartManager?.cleanUpMemory()
-//
-//        })
-        
         // reinitialise glucose chart and also to update labels and chart
         ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: applicationManagerKeyUpdateLabelsAndChart) { [weak self] in
             self?.updateLabelsAndChart(overrideApplicationState: true)
             self?.updateSensorCountdown()
             // update statistics related outlets
-            self?.updateStatistics(animatePieChart: false)
+            self?.updateStatistics(animatePieChart: false, doEvenAppNotActive: true)
         }
     }
     
@@ -1322,9 +1316,12 @@ final class RootViewController: UIViewController {
     
     
     // helper function to calculate the statistics and update the pie chart and label outlets
-    private func updateStatistics(animatePieChart: Bool = false, overrideApplicationState: Bool = false) {
+    private func updateStatistics(animatePieChart: Bool = false, doEvenAppNotActive: Bool = false) {
         // don't calculate statis if app is not running in the foreground
-        guard UIApplication.shared.applicationState == .active || overrideApplicationState else {return}
+        guard UIApplication.shared.applicationState == .active || doEvenAppNotActive else {
+            RootViewController.log.d("Skip updateStatistics, for app is NOT active")
+            return
+        }
         
         // get the maximum number of calculation days requested by the user
         let daysToUseStatistics = UserDefaults.standard.daysToUseStatistics
@@ -1339,11 +1336,11 @@ final class RootViewController: UIViewController {
         }
         
         // statisticsManager will calculate the statistics in background thread and call the callback function in the main thread
-        statisticsManager?.calculateStatistics(fromDate: fromDate, toDate: nil, callback: { statistics in
+        statisticsManager?.calculateStatistics(fromDate: fromDate, toDate: nil) { statistics in
             self.statisticsView.show(statistics: statistics,
                                      daysToUseStatistics: daysToUseStatistics,
                                      animatePieChart: animatePieChart)
-        })
+        }
     }
     
     /// this function will check if the user is using a time-sensitive sensor (such as a 14 day Libre, calculate the days remaining and then update the imageUI with the relevant svg image from the project assets.
@@ -1353,16 +1350,16 @@ final class RootViewController: UIViewController {
             sensorCountdown.isHidden = true
             return
         }
-                
+    
         // check if there is a transmitter connected (needed as Dexcom will only connect briefly every 5 minutes)
-        // if there is a transmitter connected, pull the current maxSensorAgeInMinutes and store in in UserDefaults
-        if let cgmTransmitter = self.bluetoothPeripheralManager?.getCGMTransmitter(), let maxMinutes = cgmTransmitter.maxSensorAgeInMinutes() {
-            UserDefaults.standard.maxSensorAgeInMinutes = maxMinutes
+        // if there is a transmitter connected, pull the current maxSensorAgeInSeconds and store in in UserDefaults
+        if let cgmTransmitter = self.bluetoothPeripheralManager?.getCGMTransmitter(), let maxSeconds = cgmTransmitter.maxSensorAgeInSeconds() {
+            UserDefaults.standard.maxSensorAgeInSeconds = maxSeconds
         }
         
         // check if the sensor type has a hard coded maximum sensor life previously stored.
-        if let maxSensorAgeInMinutes = UserDefaults.standard.maxSensorAgeInMinutes as Int?, maxSensorAgeInMinutes > 0 {
-            sensorCountdown.show(maxSensorAgeInMinutes: maxSensorAgeInMinutes, sensorStartDate: activeSensor.startDate)
+        if let maxSensorAgeInSeconds = UserDefaults.standard.maxSensorAgeInSeconds as Int?, maxSensorAgeInSeconds > 0 {
+            sensorCountdown.show(maxSensorAgeInSeconds: maxSensorAgeInSeconds, sensorStartDate: activeSensor.startDate)
             sensorCountdown.isHidden = false
             
         } else {
@@ -1652,7 +1649,7 @@ extension RootViewController: SingleSelectionDelegate {
                 break
             }
             
-            updateStatistics(animatePieChart: false, overrideApplicationState: false)
+            updateStatistics(animatePieChart: false)
         }
     }
 }

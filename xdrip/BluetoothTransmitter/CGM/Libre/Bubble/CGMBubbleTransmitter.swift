@@ -347,8 +347,8 @@ class CGMBubbleTransmitter:BluetoothTransmitter, CGMTransmitter {
         
     }
     
-    func maxSensorAgeInMinutes() -> Int? {
-        return libreSensorType?.maxSensorAgeInMinutes()
+    func maxSensorAgeInSeconds() -> Int? {
+        return libreSensorType?.maxSensorAgeInSeconds()
     }
 
     // MARK: - helpers

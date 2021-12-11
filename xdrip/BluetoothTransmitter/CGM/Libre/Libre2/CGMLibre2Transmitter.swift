@@ -311,8 +311,8 @@ class CGMLibre2Transmitter: BluetoothTransmitter, CGMTransmitter {
         // not supported for Libre 2
     }
     
-    func maxSensorAgeInMinutes() -> Int? {
-        return libreSensorType?.maxSensorAgeInMinutes()
+    func maxSensorAgeInSeconds() -> Int? {
+        return libreSensorType?.maxSensorAgeInSeconds()
     }
 }
 

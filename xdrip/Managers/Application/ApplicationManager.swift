@@ -33,42 +33,42 @@ class ApplicationManager {
     /// adds closure to run identified by key, when app moved to background
     ///
     /// closures are stored in a dictionary, key is the identifier
-    func addClosureToRunWhenAppDidEnterBackground(key:String, closure:@escaping () -> ()) {
+    func addClosureToRunWhenAppDidEnterBackground(key: String, closure: @escaping () -> ()) {
         closuresToRunWhenAppDidEnterBackground[key] = closure
     }
     
     /// adds closure to run identified by key, when app moved to foreground
     ///
     /// closures are stored in a dictionary, key is the identifier
-    func addClosureToRunWhenAppWillEnterForeground(key:String, closure:@escaping () -> ()) {
+    func addClosureToRunWhenAppWillEnterForeground(key: String, closure: @escaping () -> ()) {
         closuresToRunWhenAppWillEnterForeground[key] = closure
     }
     
     /// adds closure to run identified by key, when app will terminate
     ///
     /// closures are stored in a dictionary, key is the identifier
-    func addClosureToRunWhenAppWillTerminate(key:String, closure:@escaping () -> ()) {
+    func addClosureToRunWhenAppWillTerminate(key: String, closure: @escaping () -> ()) {
         closuresToRunWhenAppWillTerminate[key] = closure
     }
     
     /// removes closure to run identified by key, when app moved to background
     ///
     /// closures are stored in a dictionary, key is the identifier
-    func removeClosureToRunWhenAppDidEnterBackground(key:String) {
+    func removeClosureToRunWhenAppDidEnterBackground(key: String) {
         closuresToRunWhenAppDidEnterBackground[key] = nil
     }
     
     /// removes closure to run identified by key, when app moved to foreground
     ///
     /// closures are stored in a dictionary, key is the identifier
-    func removeClosureToRunWhenAppWillEnterForeground(key:String) {
+    func removeClosureToRunWhenAppWillEnterForeground(key: String) {
         closuresToRunWhenAppWillEnterForeground[key] = nil
     }
     
     /// removes closure to run identified by key, when app will terminate
     ///
     /// closures are stored in a dictionary, key is the identifier
-    func removeClosureToRunWhenAppWillTerminate(key:String) {
+    func removeClosureToRunWhenAppWillTerminate(key: String) {
         closuresToRunWhenAppWillTerminate[key] = nil
     }
     

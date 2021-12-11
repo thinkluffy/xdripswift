@@ -429,8 +429,8 @@ class CGMAtomTransmitter:BluetoothTransmitter, CGMTransmitter {
         return .Atom
     }
     
-    func maxSensorAgeInMinutes() -> Int? {
-        return libreSensorType?.maxSensorAgeInMinutes()
+    func maxSensorAgeInSeconds() -> Int? {
+        return libreSensorType?.maxSensorAgeInSeconds()
     }
 
 }

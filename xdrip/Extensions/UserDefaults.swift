@@ -56,8 +56,8 @@ extension UserDefaults {
         case useStandardStatisticsRange = "useStandardStatisticsRange"
         
         // Sensor Countdown settings
-        /// store the max sensor age in minutes if applicable to the active sensor type
-        case maxSensorAgeInMinutes = "maxSensorAgeInMinutes"
+        /// store the max sensor age in seconds if applicable to the active sensor type
+        case maxSensorAgeInSeconds = "maxSensorAgeInSeconds"
         
         
         // Transmitter
@@ -883,12 +883,12 @@ extension UserDefaults {
     
     
     /// store the maximum sensor life if applicable
-    var maxSensorAgeInMinutes: Int {
+    var maxSensorAgeInSeconds: Int {
         get {
-            return integer(forKey: Key.maxSensorAgeInMinutes.rawValue)
+            return integer(forKey: Key.maxSensorAgeInSeconds.rawValue)
         }
         set {
-            set(newValue, forKey: Key.maxSensorAgeInMinutes.rawValue)
+            set(newValue, forKey: Key.maxSensorAgeInSeconds.rawValue)
         }
     }
     

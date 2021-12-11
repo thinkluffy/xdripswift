@@ -33,10 +33,10 @@ class SensorCountdown: UIView {
         initialize()
     }
     
-    func show(maxSensorAgeInMinutes: Int, sensorStartDate: Date) {
-        SensorCountdown.log.d("==> show, maxSensorAgeInMinutes: \(maxSensorAgeInMinutes), sensorStartDate: \(sensorStartDate)")
+    func show(maxSensorAgeInSeconds: Int, sensorStartDate: Date) {
+        SensorCountdown.log.d("==> show, maxSensorAgeInSeconds: \(maxSensorAgeInSeconds), sensorStartDate: \(sensorStartDate)")
                 
-        let maxDays = maxSensorAgeInMinutes / 60 / 24
+        let maxDays = Int(Double(maxSensorAgeInSeconds) / Date.dayInSeconds)
         let blockWidth = (bounds.width + blockGap) / CGFloat(maxDays) - blockGap
         let blockHeight = bounds.height
 

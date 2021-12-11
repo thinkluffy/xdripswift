@@ -139,11 +139,12 @@ public enum LibreSensorType: String {
         }
     }
     
-    /// maximum sensor age in days, nil if no maximum
-    func maxSensorAgeInMinutes() -> Int? {
+    /// maximum sensor age in seconds, nil if no maximum
+    func maxSensorAgeInSeconds() -> Int? {
         switch self {
         case .libre1, .libre1A2, .libre2:
-            return Int(14.5 * 24 * 60)
+            // official 14 days plus 12 hours of "overtime" (e.g Libre sensors have an extra 12 hours before the stop working)
+            return Int(14.5 * Date.dayInSeconds)
             
         case .libreUS:
             return nil

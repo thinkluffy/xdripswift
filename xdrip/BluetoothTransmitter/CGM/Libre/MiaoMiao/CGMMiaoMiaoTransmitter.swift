@@ -325,8 +325,8 @@ class CGMMiaoMiaoTransmitter:BluetoothTransmitter, CGMTransmitter {
         return .miaomiao
     }
     
-    func maxSensorAgeInMinutes() -> Int? {
-        return libreSensorType?.maxSensorAgeInMinutes()
+    func maxSensorAgeInSeconds() -> Int? {
+        return libreSensorType?.maxSensorAgeInSeconds()
     }
 
     // MARK: - helpers

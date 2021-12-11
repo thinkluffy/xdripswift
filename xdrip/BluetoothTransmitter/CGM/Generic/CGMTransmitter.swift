@@ -28,8 +28,8 @@ protocol CGMTransmitter: AnyObject {
     /// only applicable for Libre transmitters. To request a new reading.
     func requestNewReading()
     
-    /// maximum sensor age in minutes, nil if no maximum
-    func maxSensorAgeInMinutes() -> Int?
+    /// maximum sensor age in seconds, nil if no maximum
+    func maxSensorAgeInSeconds() -> Int?
     
 }
 
