@@ -23,6 +23,8 @@ class BottomSheet: UIView {
     
     var tapOutsideToDismiss = true
     
+    private let dimMask = UIView()
+
     init(sheetContent: BottomSheetContent) {
         contentView = sheetContent
         super.init(frame: .zero)
@@ -36,14 +38,13 @@ class BottomSheet: UIView {
     }
     
     private func setup() {
-        alpha = 0
     }
     
     func dismissView() {
         contentView?.sheetWillDismiss()
         
         UIView.animate(withDuration: 0.3, animations: {
-            self.alpha = 0
+            self.dimMask.alpha = 0
             if let contentView = self.contentView {
                 contentView.transform = CGAffineTransform(translationX: 0,
                                                           y: contentView.bounds.height)
@@ -51,6 +52,7 @@ class BottomSheet: UIView {
 
         }) { _ in
             self.removeFromSuperview()
+            self.dimMask.removeFromSuperview()
             self.contentView?.removeFromSuperview()
             self.isUserInteractionEnabled = false
             self.contentView = nil
@@ -68,14 +70,17 @@ class BottomSheet: UIView {
             return
         }
         
-        backgroundColor = dimColor
-
+        dimMask.backgroundColor = dimColor
+        dimMask.alpha = 0
+        
         isUserInteractionEnabled = true
         
+        addSubview(dimMask)
         addSubview(contentView)
         view.addSubview(self)
 
         frame = view.bounds
+        dimMask.frame = bounds
         
         contentView.snp.makeConstraints { (make) in
             make.leading.trailing.equalTo(self)
@@ -86,7 +91,7 @@ class BottomSheet: UIView {
             contentView.transform = CGAffineTransform(translationX: 0, y: contentView.bounds.height)
 
             UIView.animate(withDuration: 0.3) {
-                self.alpha = 1.0
+                self.dimMask.alpha = 1.0
                 contentView.transform = CGAffineTransform(translationX: 0, y: 0)
             }
         }

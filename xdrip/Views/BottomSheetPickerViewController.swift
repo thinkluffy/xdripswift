@@ -239,18 +239,12 @@ fileprivate class PickerViewContent: BottomSheetContent {
     }
 
     private func layout() {
-        let container = UIView()
-        container.backgroundColor = ConstantsUI.mainBackgroundColor
+        backgroundColor = ConstantsUI.mainBackgroundColor
         
-        addSubview(container)
-        container.addSubview(titleLabel)
-        container.addSubview(subTitleLabel)
-        container.addSubview(pickerView)
-        container.addSubview(actionButton)
-        
-        container.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+        addSubview(titleLabel)
+        addSubview(subTitleLabel)
+        addSubview(pickerView)
+        addSubview(actionButton)
         
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(20)
