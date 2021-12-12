@@ -74,7 +74,7 @@ class SettingsViewMoreSettingsViewModel: SettingsViewModelProtocol {
         switch setting {
             
         case .more:
-            return .performSegue(withIdentifier: R.segue.xdripSettingsViewController.settingsToMore.identifier, sender: nil)
+            return .performSegue(withIdentifier: R.segue.legacySettingsViewController.settingsToMore.identifier, sender: nil)
         }
     }
     

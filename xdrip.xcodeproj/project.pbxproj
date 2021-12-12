@@ -28,6 +28,8 @@
 		4E2C95BF275231F90073D692 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95BE275231F90073D692 /* Constants.swift */; };
 		4E2C95C32764601B0073D692 /* SubSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95C22764601B0073D692 /* SubSettingsViewController.swift */; };
 		4E2C95C5276488210073D692 /* SensorCountdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95C4276488210073D692 /* SensorCountdown.swift */; };
+		4E2C95C7276632FC0073D692 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95C6276632FC0073D692 /* SettingsViewController.swift */; };
+		4E2C95C92766450E0073D692 /* CommonSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2C95C82766450E0073D692 /* CommonSettingsViewController.swift */; };
 		4E2FF40427631EB6002DE2B0 /* BottomSheetPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2FF40327631EB6002DE2B0 /* BottomSheetPickerViewController.swift */; };
 		4E2FF40627633992002DE2B0 /* BetterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2FF40527633992002DE2B0 /* BetterButton.swift */; };
 		4E2FF40827638FCB002DE2B0 /* BluetoothPeripheralImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2FF40727638FCB002DE2B0 /* BluetoothPeripheralImageView.swift */; };
@@ -424,7 +426,7 @@
 		F8B3A848227F090E004BA588 /* SettingsViewHealthKitSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A83C227F090D004BA588 /* SettingsViewHealthKitSettingsViewModel.swift */; };
 		F8B3A849227F090E004BA588 /* SettingsViewSpeakSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A83D227F090D004BA588 /* SettingsViewSpeakSettingsViewModel.swift */; };
 		F8B3A84A227F090E004BA588 /* SettingsViewGeneralSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A83E227F090D004BA588 /* SettingsViewGeneralSettingsViewModel.swift */; };
-		F8B3A84C227F090E004BA588 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A841227F090D004BA588 /* SettingsViewController.swift */; };
+		F8B3A84C227F090E004BA588 /* LegacySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A841227F090D004BA588 /* LegacySettingsViewController.swift */; };
 		F8B3A850227F26F8004BA588 /* AlertTypesSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A84F227F26F8004BA588 /* AlertTypesSettingsViewController.swift */; };
 		F8B3A853227F2743004BA588 /* AlertsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A852227F2743004BA588 /* AlertsSettingsViewController.swift */; };
 		F8B3A856227F28DC004BA588 /* AlertTypeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A855227F28DC004BA588 /* AlertTypeSettingsViewController.swift */; };
@@ -664,6 +666,8 @@
 		4E2C95BE275231F90073D692 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4E2C95C22764601B0073D692 /* SubSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubSettingsViewController.swift; sourceTree = "<group>"; };
 		4E2C95C4276488210073D692 /* SensorCountdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorCountdown.swift; sourceTree = "<group>"; };
+		4E2C95C6276632FC0073D692 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		4E2C95C82766450E0073D692 /* CommonSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonSettingsViewController.swift; sourceTree = "<group>"; };
 		4E2FF40327631EB6002DE2B0 /* BottomSheetPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetPickerViewController.swift; sourceTree = "<group>"; };
 		4E2FF40527633992002DE2B0 /* BetterButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetterButton.swift; sourceTree = "<group>"; };
 		4E2FF40727638FCB002DE2B0 /* BluetoothPeripheralImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheralImageView.swift; sourceTree = "<group>"; };
@@ -1270,7 +1274,7 @@
 		F8B3A83C227F090D004BA588 /* SettingsViewHealthKitSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewHealthKitSettingsViewModel.swift; sourceTree = "<group>"; };
 		F8B3A83D227F090D004BA588 /* SettingsViewSpeakSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewSpeakSettingsViewModel.swift; sourceTree = "<group>"; };
 		F8B3A83E227F090D004BA588 /* SettingsViewGeneralSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewGeneralSettingsViewModel.swift; sourceTree = "<group>"; };
-		F8B3A841227F090D004BA588 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		F8B3A841227F090D004BA588 /* LegacySettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacySettingsViewController.swift; sourceTree = "<group>"; };
 		F8B3A84F227F26F8004BA588 /* AlertTypesSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertTypesSettingsViewController.swift; sourceTree = "<group>"; };
 		F8B3A852227F2743004BA588 /* AlertsSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertsSettingsViewController.swift; sourceTree = "<group>"; };
 		F8B3A855227F28DC004BA588 /* AlertTypeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTypeSettingsViewController.swift; sourceTree = "<group>"; };
@@ -2376,13 +2380,15 @@
 		F8B3A836227F090D004BA588 /* SettingsViewController */ = {
 			isa = PBXGroup;
 			children = (
-				F8B3A841227F090D004BA588 /* SettingsViewController.swift */,
+				4E2C95C6276632FC0073D692 /* SettingsViewController.swift */,
+				4E2C95C82766450E0073D692 /* CommonSettingsViewController.swift */,
+				F8B3A841227F090D004BA588 /* LegacySettingsViewController.swift */,
 				4E2C95C22764601B0073D692 /* SubSettingsViewController.swift */,
+				F8A389E6232ECE7E0010F405 /* SettingsViewUtilities.swift */,
 				F8B3A851227F2743004BA588 /* AlertsSettingsViewController */,
 				F8B3A84E227F26F8004BA588 /* AlertTypesSettingsViewController */,
 				4EE66F092733EADF00548A46 /* MoreSettingsViewController */,
 				F8B3A837227F090D004BA588 /* SettingsViewModels */,
-				F8A389E6232ECE7E0010F405 /* SettingsViewUtilities.swift */,
 			);
 			path = SettingsViewController;
 			sourceTree = "<group>";
@@ -3461,6 +3467,7 @@
 				F80D917024F85C7A006840B5 /* Libre2+BluetoothPeripheral.swift in Sources */,
 				E53D0494274391C400CA548E /* WatchCommunicator.swift in Sources */,
 				F8F9721423A5915900C3F17D /* AuthChallengeRxMessage.swift in Sources */,
+				4E2C95C7276632FC0073D692 /* SettingsViewController.swift in Sources */,
 				F8025E5421EE8D2100ECF0C0 /* Libre1Calibrator.swift in Sources */,
 				F81FA00A228F53680028C70F /* TextsHomeView.swift in Sources */,
 				F8E3C3AD21FE551C00907A04 /* DexcomCalibrator.swift in Sources */,
@@ -3556,6 +3563,7 @@
 				F81F9FF822861E6D0028C70F /* KeyValueObserverTimeKeeper.swift in Sources */,
 				F8B3A858227F6971004BA588 /* UISwitch.swift in Sources */,
 				F8E6C78C24CDDB83007C1199 /* SnoozeViewController.swift in Sources */,
+				4E2C95C92766450E0073D692 /* CommonSettingsViewController.swift in Sources */,
 				F8AF11F824B1E6EE00AE5BA2 /* XdripError.swift in Sources */,
 				F8A2BC2F25DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMBlueReaderTransmitterDelegate.swift in Sources */,
 				F8F9722123A5915900C3F17D /* LibreSensorSerialNumber.swift in Sources */,
@@ -3627,7 +3635,7 @@
 				F8B3A79522635A25004BA588 /* AlertType+CoreDataProperties.swift in Sources */,
 				F8A2BBFD25D9D386001D1E78 /* AtomBluetoothPeripheralViewModel.swift in Sources */,
 				F8AF11FA24B1FB3500AE5BA2 /* DexcomError.swift in Sources */,
-				F8B3A84C227F090E004BA588 /* SettingsViewController.swift in Sources */,
+				F8B3A84C227F090E004BA588 /* LegacySettingsViewController.swift in Sources */,
 				F8F9720B23A5915900C3F17D /* SensorDataRxMessage.swift in Sources */,
 				F816E10C2437EA8E009EE65B /* BlueReader+CoreDataClass.swift in Sources */,
 				F8A2BC1425DB0B61001D1E78 /* CGMAtomTransmitter.swift in Sources */,

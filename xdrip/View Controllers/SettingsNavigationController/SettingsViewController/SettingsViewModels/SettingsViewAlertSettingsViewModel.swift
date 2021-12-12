@@ -39,10 +39,10 @@ struct SettingsViewAlertSettingsViewModel: SettingsViewModelProtocol {
 
         switch setting {
         case .alertTypes:
-            return .performSegue(withIdentifier: R.segue.xdripSettingsViewController.settingsToAlertTypeSettings.identifier, sender: nil)
+            return .performSegue(withIdentifier: R.segue.legacySettingsViewController.settingsToAlertTypeSettings.identifier, sender: nil)
             
         case .alerts:
-            return .performSegue(withIdentifier: R.segue.xdripSettingsViewController.settingsToAlertSettings.identifier, sender: nil)
+            return .performSegue(withIdentifier: R.segue.legacySettingsViewController.settingsToAlertSettings.identifier, sender: nil)
             
         case .volumeTestSoundPlayer:
             

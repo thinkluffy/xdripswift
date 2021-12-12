@@ -15,4 +15,13 @@ class SubSettingsViewController: UIViewController {
 
         navigationItem.largeTitleDisplayMode = .never
     }
+    
+    override var hidesBottomBarWhenPushed: Bool {
+        get {
+            return true
+        }
+        set {
+            super.hidesBottomBarWhenPushed = newValue
+        }
+    }
 }

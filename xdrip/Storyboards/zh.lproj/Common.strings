@@ -121,3 +121,5 @@
 
 /// literal translation needed
 "common_hourshort" = "小时";
+
+"howManyMinutes" = "%d 分钟";

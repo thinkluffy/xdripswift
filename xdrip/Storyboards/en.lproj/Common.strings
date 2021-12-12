@@ -48,3 +48,4 @@
 "common_statistics_bgReadingsCount" = "Readings";
 "common_statistics_stdDeviation" = "SD";
 "common_dontshowagain" = "Don't Show Again";
+"howManyMinutes" = "%d Mins";

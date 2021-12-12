@@ -31,17 +31,15 @@ class MoreSettingsViewController: SubSettingsViewController {
     
     private func buildData() {
         let tableDataBuilder = TableDataBuilder()
-            .configure(cellBackgroundColor: nil,
-                       titleTextColor: ConstantsUI.tableTitleColor,
+            .configure(titleTextColor: ConstantsUI.tableTitleColor,
                        detailTextColor: ConstantsUI.tableDetailTextColor,
-                       toggleButtonThumbColorOn: nil,
-                       toggleButtonBgColorOn: nil,
-                       sectionVerticalMargin: nil,
                        sectionHeaderColor: ConstantsUI.tableViewHeaderTextColor)
             
             // issue reporting
-            .section(headerTitle: R.string.settingsViews.sectionTitleTrace(), footerTitle: nil)
-            .operationCell(id: 1, title: R.string.settingsViews.sendTraceFile(), detailedText: nil, icon: nil, accessoryView: nil, didClick: { [unowned self] operationCell, idnexPath in
+            .section(headerTitle: R.string.settingsViews.sectionTitleTrace())
+            .operationCell(title: R.string.settingsViews.sendTraceFile(),
+                           didClick: {
+                [unowned self] operationCell, tableView, indexPath in
                 
                 // check if iOS device can send email, this depends of an email account is configured
                 if MFMailComposeViewController.canSendMail() {
@@ -64,8 +62,7 @@ class MoreSettingsViewController: SubSettingsViewController {
                         }
                         
                         self.present(mail, animated: true)
-                    
-                    }, cancelHandler: nil)
+                    })
                     
                     self.present(alert, animated: true, completion: nil)
                     
@@ -75,21 +72,21 @@ class MoreSettingsViewController: SubSettingsViewController {
                     self.present(alert, animated: true, completion: nil)
                 }
             })
-            .toggleCell(title: R.string.settingsViews.debugLevel(), isOn: UserDefaults.standard.addDebugLevelLogsInTraceFileAndNSLog, icon: nil, toggleDidChange: { from, to in
+            .toggleCell(title: R.string.settingsViews.debugLevel(), isOn: UserDefaults.standard.addDebugLevelLogsInTraceFileAndNSLog, toggleDidChange: { from, to in
                 UserDefaults.standard.addDebugLevelLogsInTraceFileAndNSLog = to
             })
             
             // about
-            .section(headerTitle: R.string.settingsViews.settingsviews_sectiontitleAbout(iOS.appDisplayName), footerTitle: nil)
-            .operationCell(id: 21, title: R.string.settingsViews.settingsviews_Version(), detailedText: iOS.appVersionName, icon: nil, accessoryView: nil, didClick: nil)
-            .operationCell(id: 22, title: R.string.settingsViews.settingsviews_build(), detailedText: "\(iOS.appVersionCode)", icon: nil, accessoryView: nil, didClick: nil)
+            .section(headerTitle: R.string.settingsViews.settingsviews_sectiontitleAbout(iOS.appDisplayName))
+            .operationCell(title: R.string.settingsViews.settingsviews_Version(), detailedText: iOS.appVersionName)
+            .operationCell(title: R.string.settingsViews.settingsviews_build(), detailedText: "\(iOS.appVersionCode)")
         
             // developer
-            .section(headerTitle: R.string.settingsViews.developerSettings(), footerTitle: nil)
-            .toggleCell(title: R.string.settingsViews.nslog(), isOn: UserDefaults.standard.NSLogEnabled, icon: nil, toggleDidChange: { from, to in
+            .section(headerTitle: R.string.settingsViews.developerSettings())
+            .toggleCell(title: R.string.settingsViews.nslog(), isOn: UserDefaults.standard.NSLogEnabled, toggleDidChange: { from, to in
                 UserDefaults.standard.NSLogEnabled = to
             })
-            .toggleCell(title: R.string.settingsViews.oslog(), isOn: UserDefaults.standard.OSLogEnabled, icon: nil, toggleDidChange: { from, to in
+            .toggleCell(title: R.string.settingsViews.oslog(), isOn: UserDefaults.standard.OSLogEnabled, toggleDidChange: { from, to in
                 UserDefaults.standard.OSLogEnabled = to
                 if to {
                     Log.level = Log.Level.verbose
