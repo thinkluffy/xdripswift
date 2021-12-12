@@ -47,6 +47,7 @@ class SlideInSheet: UIView {
     }
     
     private func setup() {
+        alpha = 0
     }
     
     func dismissView() {
@@ -141,6 +142,8 @@ class SlideInSheet: UIView {
         }
 
         DispatchQueue.main.async {
+            self.alpha = 1
+            
             switch slideInFrom {
             case .leading:
                 contentView.transform = CGAffineTransform(translationX: -contentView.bounds.width - iOS.safeAreaLeft,
