@@ -206,8 +206,8 @@ extension ChartDetailsViewController: ChartDetailsV {
     
     func show(statistics: StatisticsManager.Statistics, of date: Date) {
         let content = StatisticsSheetContent(statistics: statistics, date: date)
-        let sheet = HorizontalSheet(sheetContent: content)
-        sheet.show(in: view, dimColor: .black.withAlphaComponent(0.5))
+        let sheet = SlideInSheet(sheetContent: content)
+        sheet.show(in: view, dimColor: .black.withAlphaComponent(0.5), slideInFrom: .trailing)
     }
 
     private func calChartHoursSeconds(chartHoursId: Int) -> Double {
@@ -299,8 +299,8 @@ extension ChartDetailsViewController: CalendarTitleDelegate {
         
         let content = DatePickerSheetContent(selectedDate: selectedDate)
         content.delegate = self
-        let sheet = HorizontalSheet(sheetContent: content)
-        sheet.show(in: view, dimColor: .black.withAlphaComponent(0.5))
+        let sheet = SlideInSheet(sheetContent: content)
+        sheet.show(in: view, dimColor: .black.withAlphaComponent(0.5), slideInFrom: .trailing)
     }
 }
 
@@ -345,7 +345,7 @@ fileprivate protocol DatePickerSheetContentDelegate: AnyObject {
     func datePickerSheetContent(_ sheetContent: DatePickerSheetContent, didSelect date: Date)
 }
 
-fileprivate class DatePickerSheetContent: HorizontalSheetContent {
+fileprivate class DatePickerSheetContent: SlideInSheetContent {
     
     weak var delegate: DatePickerSheetContentDelegate?
         
@@ -364,13 +364,8 @@ fileprivate class DatePickerSheetContent: HorizontalSheetContent {
     }
     
     private func initialize() {
-        backgroundColor = .clear
+        backgroundColor = ConstantsUI.mainBackgroundColor
         
-        let container = UIView()
-        container.backgroundColor = ConstantsUI.mainBackgroundColor
-        
-        addSubview(container)
-
         let calendar = FSCalendar()
         calendar.appearance.headerTitleColor = .white
         calendar.appearance.headerDateFormat = "yyyy-MM"
@@ -387,11 +382,10 @@ fileprivate class DatePickerSheetContent: HorizontalSheetContent {
             
         calendar.delegate = self
         
-        container.addSubview(calendar)
+        addSubview(calendar)
 
-        container.snp.makeConstraints { make in
+        snp.makeConstraints { make in
             make.width.equalTo(320)
-            make.edges.equalToSuperview()
         }
         
         calendar.snp.makeConstraints { make in
@@ -412,7 +406,7 @@ extension DatePickerSheetContent: FSCalendarDelegate {
     }
 }
 
-fileprivate class StatisticsSheetContent: HorizontalSheetContent {
+fileprivate class StatisticsSheetContent: SlideInSheetContent {
         
     private let statistics: StatisticsManager.Statistics
     private let date: Date
@@ -429,20 +423,13 @@ fileprivate class StatisticsSheetContent: HorizontalSheetContent {
     }
     
     private func initialize() {
-        backgroundColor = .clear
+        backgroundColor = ConstantsUI.mainBackgroundColor
         
-        let container = UIView()
-        container.backgroundColor = ConstantsUI.mainBackgroundColor
-        
-        addSubview(container)
-
         let statisticsView = StatisticsView()
+        addSubview(statisticsView)
         
-        container.addSubview(statisticsView)
-
-        container.snp.makeConstraints { make in
+        snp.makeConstraints { make in
             make.width.equalTo(400)
-            make.edges.equalToSuperview()
         }
         
         statisticsView.snp.makeConstraints { make in

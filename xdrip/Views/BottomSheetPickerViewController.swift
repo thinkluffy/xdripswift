@@ -16,15 +16,15 @@ public enum PickerViewPriority {
 
 /// defines data typically available in a view that allows user to pick from a list : list of items, selected item, title, cancel lable, ok or add label, function to call when pressing cancel, function to call button when pressing add button
 public class PickerViewData {
-    var title: String?
-    var subTitle: String?
-    var data: [String]
-    var selectedRow: Int
-    var actionTitle: String?
-    var actionHandler: ((_ index: Int) -> Void)
-    var cancelHandler: (() -> Void)?
-    var didSelectRowHandler: ((Int) -> Void)?
-    var priority: PickerViewPriority?
+    private (set) var title: String?
+    private (set) var subTitle: String?
+    private (set) var data: [String]
+    private (set) var selectedRow: Int
+    private (set) var actionTitle: String?
+    private (set) var actionHandler: ((_ index: Int) -> Void)
+    private (set) var cancelHandler: (() -> Void)?
+    private (set) var didSelectRowHandler: ((Int) -> Void)?
+    private (set) var priority: PickerViewPriority?
     
     /// initializes PickerViewData.
     /// - parameters:
@@ -36,15 +36,15 @@ public class PickerViewData {
     ///     - onActionClick : closure to run when user clicks the actionButton
     ///     - onCancelClick : closure to run when user clicks the cancelButton
     ///     - didSelectRowHandler  : closure to run when user selects a row, even before clicking ok or cancel. Can be useful eg to play a sound
-    init(withTitle title: String?,
-         withSubTitle subTitle: String?,
-         withData data: [String],
-         selectedRow: Int?,
-         withPriority priority: PickerViewPriority?,
-         actionButtonText actionTitle: String?,
-         onActionClick actionHandler: @escaping ((_ index: Int) -> Void),
-         onCancelClick cancelHandler: (() -> Void)?,
-         didSelectRowHandler: ((Int) -> Void)?) {
+    public init(withTitle title: String?,
+                withSubTitle subTitle: String?,
+                withData data: [String],
+                selectedRow: Int?,
+                withPriority priority: PickerViewPriority?,
+                actionButtonText actionTitle: String?,
+                onActionClick actionHandler: @escaping ((_ index: Int) -> Void),
+                onCancelClick cancelHandler: (() -> Void)?,
+                didSelectRowHandler: ((Int) -> Void)?) {
         self.title = title
         self.subTitle = subTitle
         self.data = data
@@ -126,18 +126,18 @@ public class BottomSheetPickerViewController {
     
     public static func show(in viewController: UIViewController, pickerViewData: PickerViewData) {
         let content = PickerViewContent(data: pickerViewData)
-        let sheet = BottomSheet(sheetContent: content)
+        let sheet = SlideInSheet(sheetContent: content)
         
         if let view = viewController.tabBarController?.view {
-            sheet.show(in: view, dimColor: .black.withAlphaComponent(0.5))
+            sheet.show(in: view, dimColor: .black.withAlphaComponent(0.5), slideInFrom: .bottom)
             
         } else {
-            sheet.show(in: viewController.view, dimColor: .black.withAlphaComponent(0.5))
+            sheet.show(in: viewController.view, dimColor: .black.withAlphaComponent(0.5), slideInFrom: .bottom)
         }
     }
 }
 
-fileprivate class PickerViewContent: BottomSheetContent {
+fileprivate class PickerViewContent: SlideInSheetContent {
     
     // maintitle on top of the pickerview
     private let titleLabel: UILabel = {
@@ -235,7 +235,7 @@ fileprivate class PickerViewContent: BottomSheetContent {
     @objc private func actionButtonDidClick(_ button: UIControl) {
         buttonDidClick = true
         data.actionHandler(self.selectedRow)
-        bottomSheet?.dismissView()
+        sheet?.dismissView()
     }
 
     private func layout() {
@@ -247,7 +247,6 @@ fileprivate class PickerViewContent: BottomSheetContent {
         addSubview(actionButton)
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(20)
             make.centerX.equalToSuperview()
         }
         
@@ -265,8 +264,12 @@ fileprivate class PickerViewContent: BottomSheetContent {
         
         actionButton.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(10)
-            make.bottom.equalToSuperview().offset(-10)
-            make.height.equalTo(50)
+            make.height.equalTo(45)
+        }
+        
+        snp.makeConstraints { make in
+            make.top.equalTo(titleLabel).offset(-20)
+            make.bottom.equalTo(actionButton).offset(10)
         }
     }
     

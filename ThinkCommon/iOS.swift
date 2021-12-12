@@ -121,6 +121,14 @@ public class iOS {
         return UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
     }()
     
+    public static var safeAreaLeft: CGFloat = {
+        return UIApplication.shared.keyWindow?.safeAreaInsets.left ?? 0
+    }()
+    
+    public static var safeAreaRight: CGFloat = {
+        return UIApplication.shared.keyWindow?.safeAreaInsets.right ?? 0
+    }()
+    
     public static func openAppSettings() -> Bool {
         if let bundleIdentifier = Bundle.main.bundleIdentifier,
             let appSettings = URL(string: UIApplication.openSettingsURLString + bundleIdentifier) {

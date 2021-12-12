@@ -32,9 +32,8 @@
 		4E2FF40627633992002DE2B0 /* BetterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2FF40527633992002DE2B0 /* BetterButton.swift */; };
 		4E2FF40827638FCB002DE2B0 /* BluetoothPeripheralImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2FF40727638FCB002DE2B0 /* BluetoothPeripheralImageView.swift */; };
 		4E46D933275663AF00C79F86 /* CountDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46D932275663AF00C79F86 /* CountDownView.swift */; };
-		4E46D9372759086C00C79F86 /* HorizontalSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46D9362759086C00C79F86 /* HorizontalSheet.swift */; };
+		4E46D9372759086C00C79F86 /* SlideInSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46D9362759086C00C79F86 /* SlideInSheet.swift */; };
 		4E46D940275A565100C79F86 /* SensorIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46D93F275A565100C79F86 /* SensorIndicator.swift */; };
-		4E6797642754FCE3009C36BB /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6797632754FCE3009C36BB /* BottomSheet.swift */; };
 		4E9D7978273A983600B666C5 /* ChartDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D7977273A983600B666C5 /* ChartDetailsViewController.swift */; };
 		4E9D7986273BEC5500B666C5 /* BaseAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D797B273BEC5500B666C5 /* BaseAppDelegate.swift */; };
 		4E9D7987273BEC5500B666C5 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D797C273BEC5500B666C5 /* Log.swift */; };
@@ -669,9 +668,8 @@
 		4E2FF40527633992002DE2B0 /* BetterButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetterButton.swift; sourceTree = "<group>"; };
 		4E2FF40727638FCB002DE2B0 /* BluetoothPeripheralImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheralImageView.swift; sourceTree = "<group>"; };
 		4E46D932275663AF00C79F86 /* CountDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownView.swift; sourceTree = "<group>"; };
-		4E46D9362759086C00C79F86 /* HorizontalSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalSheet.swift; sourceTree = "<group>"; };
+		4E46D9362759086C00C79F86 /* SlideInSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInSheet.swift; sourceTree = "<group>"; };
 		4E46D93F275A565100C79F86 /* SensorIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorIndicator.swift; sourceTree = "<group>"; };
-		4E6797632754FCE3009C36BB /* BottomSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
 		4E9D7977273A983600B666C5 /* ChartDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDetailsViewController.swift; sourceTree = "<group>"; };
 		4E9D797B273BEC5500B666C5 /* BaseAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseAppDelegate.swift; sourceTree = "<group>"; };
 		4E9D797C273BEC5500B666C5 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
@@ -1544,8 +1542,7 @@
 				4E9D79AF273BF04400B666C5 /* RoundedButton.swift */,
 				4E9D79B0273BF04400B666C5 /* VerticalButton.swift */,
 				4E9D79B2273BF04400B666C5 /* Toast.swift */,
-				4E6797632754FCE3009C36BB /* BottomSheet.swift */,
-				4E46D9362759086C00C79F86 /* HorizontalSheet.swift */,
+				4E46D9362759086C00C79F86 /* SlideInSheet.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -3587,7 +3584,7 @@
 				F8B3A808227A2933004BA588 /* SettingsSelectedRowAction.swift in Sources */,
 				F8A5EEB2257CEC290085E660 /* LibreNFC.swift in Sources */,
 				F816E0F02433C31B009EE65B /* Blucon+CoreDataProperties.swift in Sources */,
-				4E46D9372759086C00C79F86 /* HorizontalSheet.swift in Sources */,
+				4E46D9372759086C00C79F86 /* SlideInSheet.swift in Sources */,
 				F8A2BC3925DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMLibre2TransmitterDelegate.swift in Sources */,
 				4EE66F052733D96800548A46 /* SettingsViewMoreSettingsViewModel.swift in Sources */,
 				F8A5EEAE25791F370085E660 /* Libre2BLEUtilities.swift in Sources */,
@@ -3674,7 +3671,6 @@
 				4E9D79BE273BF04400B666C5 /* VerticalCenterTextLayer.swift in Sources */,
 				F821CF5E229BF43A005C1E43 /* BgReading+NightScout.swift in Sources */,
 				F8A2BC3025DB0D6D001D1E78 /* BluetoothPeripheralManager.swift in Sources */,
-				4E6797642754FCE3009C36BB /* BottomSheet.swift in Sources */,
 				F8E5404C2522624800052CE5 /* ConstantsHousekeeping.swift in Sources */,
 				F8AF120124B9082000AE5BA2 /* Calibration+NightScout.swift in Sources */,
 				F808D2D2240329E80084B5DB /* Bubble+BluetoothPeripheral.swift in Sources */,
