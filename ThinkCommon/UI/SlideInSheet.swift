@@ -28,8 +28,10 @@ class SlideInSheet: UIView {
     
     var tapOutsideToDismiss = true
     
+    private weak var parentView: UIView?
     private let dimMask = UIView()
     private var contentView: SlideInSheetContent?
+    
     private var slideInFrom: SlideInFrom = .bottom
     
     required init?(coder aDecoder: NSCoder) {
@@ -45,7 +47,6 @@ class SlideInSheet: UIView {
     }
     
     private func setup() {
-        alpha = 0
     }
     
     func dismissView() {
@@ -83,6 +84,7 @@ class SlideInSheet: UIView {
             self.contentView?.removeFromSuperview()
             self.isUserInteractionEnabled = false
             self.contentView = nil
+            self.parentView = nil
         }
     }
     
@@ -100,6 +102,7 @@ class SlideInSheet: UIView {
         }
         
         self.slideInFrom = slideInFrom
+        parentView = view
         
         dimMask.backgroundColor = dimColor
         dimMask.alpha = 0
@@ -137,9 +140,7 @@ class SlideInSheet: UIView {
             }
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            self.alpha = 1
-
+        DispatchQueue.main.async {
             switch slideInFrom {
             case .leading:
                 contentView.transform = CGAffineTransform(translationX: -contentView.bounds.width - iOS.safeAreaLeft,
@@ -173,6 +174,15 @@ class SlideInSheet: UIView {
         super.touchesEnded(touches, with: event)
         if tapOutsideToDismiss {
             dismissView()
+        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if let parentView = parentView {
+            frame = parentView.bounds
+            dimMask.frame = bounds
         }
     }
 }
