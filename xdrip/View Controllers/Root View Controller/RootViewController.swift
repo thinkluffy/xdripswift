@@ -1356,7 +1356,7 @@ final class RootViewController: UIViewController {
         
         // check if the sensor type has a hard coded maximum sensor life previously stored.
         if let maxSensorAgeInSeconds = UserDefaults.standard.maxSensorAgeInSeconds as Int?, maxSensorAgeInSeconds > 0 {
-            sensorCountdown.show(maxSensorAgeInSeconds: maxSensorAgeInSeconds, sensorStartDate: activeSensor.startDate)
+            sensorCountdown.show(maxSensorAgeInSeconds: Double(maxSensorAgeInSeconds), sensorStartDate: activeSensor.startDate)
             sensorCountdown.isHidden = false
             
         } else {
