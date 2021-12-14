@@ -37,42 +37,191 @@ class CommonSettingsViewController: SubSettingsViewController {
     }
     
     private func buildData() {
-        tableData = TableDataBuilder()
+        var tableDataBuilder = TableDataBuilder()
             .configure(titleTextColor: ConstantsUI.tableTitleColor,
                        detailTextColor: ConstantsUI.tableDetailTextColor,
                        sectionHeaderColor: ConstantsUI.tableViewHeaderTextColor)
             
-            // common
+        tableDataBuilder = buildDataOfGeneral(builder: tableDataBuilder)
+        tableDataBuilder = buildDataOfHomeScreen(builder: tableDataBuilder)
+
+        tableData = tableDataBuilder.build()
+        
+        tableView.delegate = tableData
+        tableView.dataSource = tableData
+    }
+    
+    private func buildDataOfGeneral(builder: TableDataBuilder) -> TableDataBuilder {
+        return builder
             .section(headerTitle: R.string.settingsViews.settingsviews_sectiontitlegeneral())
-            .operationCell(title: R.string.settingsViews.settingsviews_selectbgunit(),
-                           detailedText: UserDefaults.standard.bloodGlucoseUnitIsMgDl ? R.string.common.common_mgdl() : R.string.common.common_mmol(),
-                           didClick: { operationCell, tableView, indexPath in
-                let isMgDlNow = !UserDefaults.standard.bloodGlucoseUnitIsMgDl
-                UserDefaults.standard.bloodGlucoseUnitIsMgDl = isMgDlNow
-                operationCell.detailedText = isMgDlNow ? R.string.common.common_mgdl() : R.string.common.common_mmol()
-                tableView.reloadSections(IndexSet(integer: indexPath.section), with: .none)
-            })
-            .operationCell(title: R.string.settingsViews.settingsviews_masterorfollower(),
-                           detailedText: UserDefaults.standard.isMaster ? R.string.settingsViews.settingsviews_master() : R.string.settingsViews.settingsviews_follower(),
-                           didClick: { [unowned self] operationCell, tableView, indexPath in
-                
-            })
             .toggleCell(title: R.string.settingsViews.settingsviews_showReadingInNotification(),
                         isOn: UserDefaults.standard.showReadingInNotification, toggleDidChange: { from, to in
                 UserDefaults.standard.showReadingInNotification = to
             })
             .operationCell(title: R.string.settingsViews.settingsviews_IntervalTitle(),
                            detailedText: R.string.common.howManyMinutes(UserDefaults.standard.notificationInterval),
-                           didClick: { [unowned self] operationCell, tableView, indexPath in
+                           didClick: {
+                [unowned self] operationCell, tableView, indexPath in
+                
+                let alert = UIAlertController(title: Texts_SettingsView.settingsviews_IntervalTitle,
+                                              message: Texts_SettingsView.settingsviews_IntervalMessage,
+                                              keyboardType: .numberPad,
+                                              text: UserDefaults.standard.notificationInterval.description,
+                                              placeHolder: "0",
+                                              actionTitle: nil,
+                                              cancelTitle: nil,
+                                              actionHandler: {
+                    (interval: String) in
+                    
+                    if let interval = Int(interval) {
+                        UserDefaults.standard.notificationInterval = Int(interval)
+                        operationCell.detailedText = R.string.common.howManyMinutes(UserDefaults.standard.notificationInterval)
+                        tableView.reloadRows(at: [indexPath], with: .none)
+                    }
+                },
+                                              cancelHandler: nil)
+                
+                self.present(alert, animated: true)
                 
             })
             .toggleCell(title: R.string.settingsViews.settingsviews_labelShowReadingInAppBadge(),
                         isOn: UserDefaults.standard.showReadingInAppBadge, toggleDidChange: { from, to in
                 UserDefaults.standard.showReadingInAppBadge = to
             })
-            .build()
-           
-        tableView.delegate = tableData
-        tableView.dataSource = tableData
+    }
+    
+    private func buildDataOfHomeScreen(builder: TableDataBuilder) -> TableDataBuilder {
+        let isMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
+        
+        return builder
+            .section(headerTitle: R.string.settingsViews.settingsviews_sectiontitlehomescreen())
+            .operationCell(title: R.string.settingsViews.settingsviews_urgentHighValue(),
+                           detailedText: UserDefaults.standard.urgentHighMarkValueInUserChosenUnit.bgValuetoString(mgdl: isMg),
+                           didClick: {
+                [unowned self] operationCell, tableView, indexPath in
+                
+                let alert = UIAlertController(title: Texts_SettingsView.labelUrgentHighValue,
+                                              message: nil,
+                                              keyboardType: isMg ? .numberPad : .decimalPad,
+                                              text: UserDefaults.standard.urgentHighMarkValueInUserChosenUnitRounded,
+                                              placeHolder: ConstantsBGGraphBuilder.defaultUrgentHighMarkInMgdl.description,
+                                              actionTitle: nil,
+                                              cancelTitle: nil,
+                                              actionHandler: {
+                    urgentHighMarkValue in
+                    
+                    UserDefaults.standard.urgentHighMarkValueInUserChosenUnitRounded = urgentHighMarkValue
+                    operationCell.detailedText = UserDefaults.standard.urgentHighMarkValueInUserChosenUnit.bgValuetoString(mgdl: isMg)
+                    tableView.reloadRows(at: [indexPath], with: .none)
+                },
+                                              cancelHandler: nil)
+                
+                self.present(alert, animated: true, completion: nil)
+            })
+            .operationCell(title: R.string.settingsViews.settingsviews_highValue(),
+                           detailedText: UserDefaults.standard.highMarkValueInUserChosenUnit.bgValuetoString(mgdl: isMg),
+                           didClick: {
+                [unowned self] operationCell, tableView, indexPath in
+                
+                let alert = UIAlertController(title: Texts_SettingsView.labelHighValue,
+                                              message: nil,
+                                              keyboardType: isMg ? .numberPad : .decimalPad,
+                                              text: UserDefaults.standard.highMarkValueInUserChosenUnitRounded,
+                                              placeHolder: ConstantsBGGraphBuilder.defaultHighMarkInMgdl.description,
+                                              actionTitle: nil,
+                                              cancelTitle: nil,
+                                              actionHandler: {
+                    highMarkValue in
+                    
+                    UserDefaults.standard.highMarkValueInUserChosenUnitRounded = highMarkValue
+                    operationCell.detailedText = UserDefaults.standard.highMarkValueInUserChosenUnit.bgValuetoString(mgdl: isMg)
+                    tableView.reloadRows(at: [indexPath], with: .none)
+                },
+                                              cancelHandler: nil)
+                
+                self.present(alert, animated: true, completion: nil)
+             })
+            .operationCell(title: R.string.settingsViews.settingsviews_lowValue(),
+                           detailedText: UserDefaults.standard.lowMarkValueInUserChosenUnit.bgValuetoString(mgdl: isMg),
+                           didClick: {
+                [unowned self] operationCell, tableView, indexPath in
+                
+                let alert = UIAlertController(title: Texts_SettingsView.labelLowValue,
+                                              message: nil,
+                                              keyboardType: isMg ? .numberPad : .decimalPad,
+                                              text: UserDefaults.standard.lowMarkValueInUserChosenUnitRounded,
+                                              placeHolder: ConstantsBGGraphBuilder.defaultLowMarkInMgdl.description,
+                                              actionTitle: nil,
+                                              cancelTitle: nil,
+                                              actionHandler: {
+                    lowMarkValue in
+                    
+                    UserDefaults.standard.lowMarkValueInUserChosenUnitRounded = lowMarkValue
+                    operationCell.detailedText = UserDefaults.standard.lowMarkValueInUserChosenUnit.bgValuetoString(mgdl: isMg)
+                    tableView.reloadRows(at: [indexPath], with: .none)
+                },
+                                              cancelHandler: nil)
+                
+                self.present(alert, animated: true, completion: nil)
+             })
+            .operationCell(title: R.string.settingsViews.settingsviews_urgentLowValue(),
+                           detailedText: UserDefaults.standard.urgentLowMarkValueInUserChosenUnit.bgValuetoString(mgdl: isMg),
+                           didClick: {
+                [unowned self] operationCell, tableView, indexPath in
+                 
+                let alert = UIAlertController(title: Texts_SettingsView.labelUrgentLowValue,
+                                              message: nil,
+                                              keyboardType: isMg ? .numberPad : .decimalPad,
+                                              text: UserDefaults.standard.urgentLowMarkValueInUserChosenUnitRounded,
+                                              placeHolder: ConstantsBGGraphBuilder.defaultUrgentLowMarkInMgdl.description,
+                                              actionTitle: nil,
+                                              cancelTitle: nil,
+                                              actionHandler: {
+                    urgentLowMarkValue in
+                    
+                    UserDefaults.standard.urgentLowMarkValueInUserChosenUnitRounded = urgentLowMarkValue
+                    operationCell.detailedText = UserDefaults.standard.urgentLowMarkValueInUserChosenUnit.bgValuetoString(mgdl: isMg)
+                    tableView.reloadRows(at: [indexPath], with: .none)
+                },
+                                              cancelHandler: nil)
+                
+                self.present(alert, animated: true, completion: nil)
+             })
+            .operationCell(title: R.string.settingsViews.settingsviews_chartHeight(),
+                           detailedText: UserDefaults.standard.chartHeight.mgdlToMmolAndToString(mgdl: isMg),
+                           didClick: {
+                [unowned self] operationCell, tableView, indexPath in
+                
+                let heights: [Double] = [220, 300, 400]
+                let shoAsMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
+                var data = [String]()
+                var selectedRow: Int?
+
+                for (i, h) in heights.enumerated() {
+                    data.append(h.mgdlToMmolAndToString(mgdl: shoAsMg))
+                    if UserDefaults.standard.chartHeight == h {
+                        selectedRow = i
+                    }
+                }
+                
+                let pickerViewData = PickerViewDataBuilder(data: data, actionHandler: { index in
+                    if index != selectedRow {
+                        UserDefaults.standard.chartHeight = heights[index]
+                        operationCell.detailedText = heights[index].mgdlToMmolAndToString(mgdl: isMg)
+                        tableView.reloadRows(at: [indexPath], with: .none)
+                    }
+                })
+                    .title(R.string.settingsViews.settingsviews_chartHeight())
+                    .selectedRow(selectedRow)
+                    .build()
+                
+                BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
+             })
+            .toggleCell(title: R.string.settingsViews.settingsviews_chartDots5MinsApart(),
+                        isOn: UserDefaults.standard.chartDots5MinsApart,
+                        toggleDidChange: {
+                from, to in
+                UserDefaults.standard.chartDots5MinsApart = to
+            })
     }
 }

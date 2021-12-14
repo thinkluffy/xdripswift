@@ -197,7 +197,7 @@ class BgReadingsAccessor {
     ///     - fromDate : if specified, only return readings with timestamp > fromDate
     /// - returns:
     ///     List of readings, descending, ie first is youngest
-    private func fetchBgReadings(limit:Int?, fromDate:Date?) -> [BgReading] {
+    private func fetchBgReadings(limit: Int?, fromDate: Date?) -> [BgReading] {
         let fetchRequest: NSFetchRequest<BgReading> = BgReading.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(BgReading.timeStamp), ascending: false)]
         

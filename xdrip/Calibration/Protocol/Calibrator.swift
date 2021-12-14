@@ -597,8 +597,11 @@ extension Calibrator {
         
         var readingMinsAgo: BgReading?
         
+        log.d("bgReading.timeStamp: \(bgReading.timeStamp)")
+        
         for i in (0 ..< lastReadings.count).reversed()  {
             let timeInterval = bgReading.timeStamp.timeIntervalSince(lastReadings[i].timeStamp)
+            log.d("lastReadings[\(i)].timeStamp: \(lastReadings[i].timeStamp), timeInterval: \(timeInterval)")
             if abs(timeInterval - Date.minuteInSeconds * Double(Constants.minsToCalculateSlope)) < 30 {
                 readingMinsAgo = lastReadings[i]
                 break

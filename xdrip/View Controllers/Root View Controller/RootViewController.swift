@@ -527,7 +527,7 @@ final class RootViewController: UIViewController {
                     if glucose.glucoseLevelRaw > 0 {
                         
                         // get latest15BgReadings to make sure there is at least 15 mins readings to calculate slope
-                        var latestBgReadings = bgReadingsAccessor.getLatestBgReadings(limit: Constants.minsToCalculateSlope,
+                        var latestBgReadings = bgReadingsAccessor.getLatestBgReadings(limit: Constants.minsToCalculateSlope + 5,
                                                                                       howOld: nil,
                                                                                       forSensor: activeSensor,
                                                                                       ignoreRawData: false,
