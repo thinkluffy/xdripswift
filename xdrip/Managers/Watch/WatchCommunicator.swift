@@ -120,7 +120,7 @@ extension WatchCommunicator {
 			interval5Mins: UserDefaults.standard.chartDots5MinsApart,
 			showAsMgDl: showAsMgDl,
 			min: (40).mgdlToMmol(mgdl: showAsMgDl),
-			max: (300).mgdlToMmol(mgdl: showAsMgDl),
+			max: UserDefaults.standard.chartHeight.mgdlToMmol(mgdl: showAsMgDl),
 			urgentMin: UserDefaults.standard.urgentLowMarkValue.mgdlToMmol(mgdl: showAsMgDl),
 			urgentMax: UserDefaults.standard.urgentHighMarkValue.mgdlToMmol(mgdl: showAsMgDl),
 			suggestMin: UserDefaults.standard.lowMarkValue.mgdlToMmol(mgdl: showAsMgDl),

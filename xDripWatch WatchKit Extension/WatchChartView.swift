@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Foundation
 
 struct ChartPoint {
 	var x: Int // TimeInterval since 1970
@@ -41,6 +42,17 @@ enum TimeRange {
 			return 3
 		case .hour6:
 			return 2
+		}
+	}
+	
+	var startTimeInterval: TimeInterval {
+		switch self {
+		case .hour1:
+			return Date().timeIntervalSince1970 - 60*60
+		case .hour3:
+			return Date().timeIntervalSince1970 - 3*60*60
+		case .hour6:
+			return Date().timeIntervalSince1970 - 6*60*60
 		}
 	}
 }
@@ -173,8 +185,8 @@ struct WatchChartView: View {
 			   else if values.count > 1 {
 				   // https://stackoverflow.com/questions/57244713/get-index-in-foreach-in-swiftui
 				   ForEach(values.indices, id: \.self) { i in
-					   let first: ChartPoint = values.first!
-					   let maxTimeInterval: CGFloat = CGFloat(Int(Date().timeIntervalSince1970) - first.x)
+					   let startTime: Int = Int(timeRange.startTimeInterval)
+					   let maxTimeInterval: CGFloat = CGFloat(Int(Date().timeIntervalSince1970) - startTime)
 					   let pathWidth = reader.size.width - RightLabelWidth
 //					   let avgRadius: CGFloat = pathWidth * 60 / maxTimeInterval
 //					   let radius = max(avgRadius, timeRange.chartPointRadius
@@ -182,7 +194,7 @@ struct WatchChartView: View {
 					   let value = values[i]
 					   // 0.47 0.9 2.8
 					   if value.y <= self.maxY && value.y >= self.minY {
-						   let x = (pathWidth - radius) * CGFloat(value.x - first.x) / maxTimeInterval
+						   let x = (pathWidth - radius) * CGFloat(value.x - startTime) / maxTimeInterval
 						   let height = reader.size.height * CGFloat((self.maxY - value.y) / (self.maxY - self.minY))
 						   Path { p in
 							   p.addEllipse(in:
