@@ -183,30 +183,27 @@ extension BluetoothPeripheralManager: BluetoothTransmitterDelegate {
         }
         
         // check that it's a peripheral for which we don't know yet the address
-        for buetoothPeripheral in bluetoothPeripherals {
+        if let buetoothPeripheral = bluetoothPeripheral, buetoothPeripheral.blePeripheral.address == deviceAddressNewTransmitter {
             
-            if buetoothPeripheral.blePeripheral.address == deviceAddressNewTransmitter {
-                
-                trace("in didConnect, transmitter address already known. This is not a new device, will disconnect", log: log, category: ConstantsLog.categoryBluetoothPeripheralManager, type: .info)
-                
-                // It's an already known BluetoothTransmitter, not storing this, on the contrary disconnecting because maybe it's a bluetoothTransmitter already known for which user has preferred not to connect to
-                // but before that store the current bluetoothTransmitterDelegate
-                let bluetoothTransmitterDelegate = bluetoothTransmitter.bluetoothTransmitterDelegate
-                bluetoothTransmitter.disconnect()
-                
-                // If we're actually waiting for a new scan result, then there's an instance of BluetoothTransmitter stored in tempBlueToothTransmitterWhileScanningForNewBluetoothPeripheral - but this one stopped scanning, so let's recreate an instance of BluetoothTransmitter
-                // transmitterTypeBeingScannedFor should be non nil here, unwrap
-                if let transmitterTypeBeingScannedFor = transmitterTypeBeingScannedFor {
+            trace("in didConnect, transmitter address already known. This is not a new device, will disconnect", log: log, category: ConstantsLog.categoryBluetoothPeripheralManager, type: .info)
+            
+            // It's an already known BluetoothTransmitter, not storing this, on the contrary disconnecting because maybe it's a bluetoothTransmitter already known for which user has preferred not to connect to
+            // but before that store the current bluetoothTransmitterDelegate
+            let bluetoothTransmitterDelegate = bluetoothTransmitter.bluetoothTransmitterDelegate
+            bluetoothTransmitter.disconnect()
+            
+            // If we're actually waiting for a new scan result, then there's an instance of BluetoothTransmitter stored in tempBlueToothTransmitterWhileScanningForNewBluetoothPeripheral - but this one stopped scanning, so let's recreate an instance of BluetoothTransmitter
+            // transmitterTypeBeingScannedFor should be non nil here, unwrap
+            if let transmitterTypeBeingScannedFor = transmitterTypeBeingScannedFor {
 
-                    self.tempBlueToothTransmitterWhileScanningForNewBluetoothPeripheral = createNewTransmitter(type: transmitterTypeBeingScannedFor, transmitterId: buetoothPeripheral.blePeripheral.transmitterId, bluetoothTransmitterDelegate: bluetoothTransmitterDelegate)
-                    
-                    _ = self.tempBlueToothTransmitterWhileScanningForNewBluetoothPeripheral?.startScanning()
+                self.tempBlueToothTransmitterWhileScanningForNewBluetoothPeripheral = createNewTransmitter(type: transmitterTypeBeingScannedFor, transmitterId: buetoothPeripheral.blePeripheral.transmitterId, bluetoothTransmitterDelegate: bluetoothTransmitterDelegate)
+                
+                _ = self.tempBlueToothTransmitterWhileScanningForNewBluetoothPeripheral?.startScanning()
 
-                }
-                
-                return
-                
             }
+            
+            return
+            
         }
         
         // it's a new peripheral that we will store. No need to continue scanning

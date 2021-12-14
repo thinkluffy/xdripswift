@@ -26,7 +26,7 @@ class SensorsAccessor {
         fetchRequest.predicate = predicate
 
         // define returnvalue
-        var returnValue:Sensor?
+        var returnValue: Sensor?
         
         CoreDataManager.shared.mainManagedObjectContext.performAndWait {
             do {

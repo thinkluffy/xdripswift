@@ -152,7 +152,7 @@ class BluetoothPeripheralViewController: UIViewController {
             // by clicking the button, app will stop trying to connect
             if bluetoothPeripheral.blePeripheral.shouldconnect {
                 connectButtonOutlet?.setTitle(Texts_BluetoothPeripheralView.donotconnect, for: .normal)
-                connectButtonOutlet?.isHidden = true
+                connectButtonOutlet?.isHidden = false
 
                 return Texts_BluetoothPeripheralView.tryingToConnect
             }

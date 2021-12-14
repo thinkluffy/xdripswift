@@ -1166,10 +1166,9 @@ final class RootViewController: UIViewController {
             return
         }
         
-        if activeSensor != nil {
+        
+        if let bluetoothPeripheral = bluetoothPeripheralManager.bluetoothPeripheral {
             // show current peripheral
-            let bluetoothPeripheral = bluetoothPeripheralManager.getBluetoothPeripherals()[0]
-            
             bluetoothPeripheralViewController.configure(bluetoothPeripheral: bluetoothPeripheral,
                                                         bluetoothPeripheralManager: bluetoothPeripheralManager,
                                                         expectedBluetoothPeripheralType: bluetoothPeripheral.bluetoothPeripheralType())
@@ -1398,6 +1397,7 @@ extension RootViewController: CGMTransmitterDelegate {
     }
     
     func cgmTransmitterInfoDidChange() {
+        RootViewController.log.d("==> cgmTransmitterInfoDidChange")
         
         // if cgmTransmitter not nil then reassign calibrator and set UserDefaults.standard.transmitterTypeAsString
         if let cgmTransmitter = bluetoothPeripheralManager?.getCGMTransmitter() {

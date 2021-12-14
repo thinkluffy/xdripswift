@@ -71,11 +71,7 @@ extension BluetoothPeripheralManager: CGMMiaoMiaoTransmitterDelegate {
     }
     
     private func findTransmitter(cGMMiaoMiaoTransmitter: CGMMiaoMiaoTransmitter) -> MiaoMiao? {
-        
-        guard let index = bluetoothTransmitters.firstIndex(of: cGMMiaoMiaoTransmitter), let miaoMiao = bluetoothPeripherals[index] as? MiaoMiao else {return nil}
-        
+        guard let miaoMiao = bluetoothPeripheral as? MiaoMiao else {return nil}
         return miaoMiao
-        
     }
-    
 }

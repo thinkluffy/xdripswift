@@ -133,7 +133,7 @@ class SensorCountdown: UIView {
         }
         
         let maxDays = Int((maxSensorAgeInSeconds / Date.dayInSeconds).rounded(.up))
-        let daysRemaining = Int((Double(hoursRemaining) / Date.dayInSeconds).rounded(.up))
+        let daysRemaining = Int((Double(hoursRemaining) / 24).rounded(.up))
         SensorCountdown.log.d("maxDays: \(maxDays), daysRemaining: \(daysRemaining)")
 
         let blockWidth = (bounds.width + blockGap) / CGFloat(maxDays) - blockGap

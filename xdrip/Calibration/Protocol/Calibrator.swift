@@ -597,8 +597,9 @@ extension Calibrator {
         
         var readingMinsAgo: BgReading?
         
-        for i in 0 ... lastReadings.count - 1 {
-            if abs(bgReading.timeStamp.timeIntervalSince(lastReadings[i].timeStamp) - Date.minuteInSeconds * Double(Constants.minsToCalculateSlope)) < 20 {
+        for i in (0 ..< lastReadings.count).reversed()  {
+            let timeInterval = bgReading.timeStamp.timeIntervalSince(lastReadings[i].timeStamp)
+            if abs(timeInterval - Date.minuteInSeconds * Double(Constants.minsToCalculateSlope)) < 30 {
                 readingMinsAgo = lastReadings[i]
                 break
             }

@@ -37,7 +37,7 @@ extension BluetoothPeripheralManager: CGMGNSEntryTransmitterDelegate {
     
     private func findTransmitter(cGMGNSEntryTransmitter: CGMGNSEntryTransmitter) -> GNSEntry? {
         
-        guard let index = bluetoothTransmitters.firstIndex(of: cGMGNSEntryTransmitter), let gNSEntry = bluetoothPeripherals[index] as? GNSEntry else {return nil}
+        guard let gNSEntry = bluetoothPeripheral as? GNSEntry else {return nil}
         
         return gNSEntry
         

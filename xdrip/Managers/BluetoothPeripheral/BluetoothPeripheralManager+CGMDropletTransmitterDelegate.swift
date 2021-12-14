@@ -15,11 +15,8 @@ extension BluetoothPeripheralManager: CGMDropletTransmitterDelegate {
     
     
     private func findTransmitter(cGMDropletTransmitter: CGMDroplet1Transmitter) -> Droplet? {
-        
-        guard let index = bluetoothTransmitters.firstIndex(of: cGMDropletTransmitter), let droplet = bluetoothPeripherals[index] as? Droplet else {return nil}
+        guard let droplet = bluetoothPeripheral as? Droplet else {return nil}
         
         return droplet
-        
     }
-    
 }

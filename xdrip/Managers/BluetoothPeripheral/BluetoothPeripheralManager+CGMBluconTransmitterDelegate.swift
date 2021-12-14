@@ -25,11 +25,8 @@ extension BluetoothPeripheralManager: CGMBluconTransmitterDelegate {
     }
  
     private func findTransmitter(cGMBluconTransmitter: CGMBluconTransmitter) -> Blucon? {
-        
-        guard let index = bluetoothTransmitters.firstIndex(of: cGMBluconTransmitter), let blucon = bluetoothPeripherals[index] as? Blucon else {return nil}
+        guard let blucon = bluetoothPeripheral as? Blucon else {return nil}
         
         return blucon
-        
     }
-
 }
