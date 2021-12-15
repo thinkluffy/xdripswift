@@ -29,7 +29,8 @@ struct SettingsViewStatisticsSettingsViewModel:SettingsViewModelProtocol {
         switch setting {
 
         case .useStandardStatisticsRange :
-            return UISwitch(isOn: UserDefaults.standard.useStandardStatisticsRange) { isOn in UserDefaults.standard.useStandardStatisticsRange = isOn
+            return UISwitch(isOn: UserDefaults.standard.useStandardStatisticsRange) { isOn in
+                UserDefaults.standard.useStandardStatisticsRange = isOn
             }
             
         case .useIFCCA1C :

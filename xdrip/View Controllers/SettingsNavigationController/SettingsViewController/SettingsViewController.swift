@@ -10,22 +10,58 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
-    @IBOutlet weak var tableView: UITableView!
-
+    private lazy var sloganLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 18)
+        label.textColor = .white.withAlphaComponent(0.6)
+        return label
+    }()
+    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .insetGrouped)
+        tableView.backgroundColor = ConstantsUI.mainBackgroundColor
+        return tableView
+    }()
+    
     private var tableData: TableData!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "zDrip"
+        title = iOS.appDisplayName
         
         setupView()
         
         buildData()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let firstOpenTime = UserDefaults.standard.firstOpenTime {
+            let interval = Date().timeIntervalSince(firstOpenTime)
+            let days = Int((interval / Date.dayInSeconds).rounded(.up))
+            sloganLabel.text = R.string.common.slogan(days)
+        }
+    }
+    
     private func setupView() {
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+        view.backgroundColor = ConstantsUI.mainBackgroundColor
+        
+        view.addSubview(sloganLabel)
+        view.addSubview(tableView)
+        
+        sloganLabel.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.leading.equalToSuperview().offset(18)
+        }
+        
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(sloganLabel.snp.bottom).offset(10)
+            make.leading.bottom.trailing.equalTo(view.safeAreaLayoutGuide)
+        }
     }
     
     private func buildData() {
@@ -83,14 +119,34 @@ class SettingsViewController: UIViewController {
         
             .operationCell(title: R.string.settingsViews.commonSettings(),
                            accessoryView: DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor),
-                           didClick: { [unowned self] operationCell, tableView, indexPath in
+                           didClick: {
+                [unowned self] operationCell, tableView, indexPath in
+                
                 let viewController = CommonSettingsViewController()
                 self.navigationController?.pushViewController(viewController, animated: true)
             })
-            .operationCell(title: "Legacy",
+            .operationCell(title: R.string.settingsViews.settingsviews_row_alerts(),
                            accessoryView: DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor),
-                           didClick: { [unowned self] operationCell, tableView, indexPath in
-                let viewController = R.storyboard.main.legacySettingsViewController()!
+                           didClick: {
+                [unowned self] operationCell, tableView, indexPath in
+                
+                let viewController = R.storyboard.main.totalAlertSettingsViewController()!
+                self.navigationController?.pushViewController(viewController, animated: true)
+            })
+            .operationCell(title: R.string.settingsViews.serviceIntegration(),
+                           accessoryView: DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor),
+                           didClick: {
+                [unowned self] operationCell, tableView, indexPath in
+                
+                let viewController = ServiceIntegrationSettingsViewController()
+                self.navigationController?.pushViewController(viewController, animated: true)
+            })
+            .operationCell(title: R.string.settingsViews.settingsviews_speakBgReadings(),
+                           accessoryView: DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor),
+                           didClick: {
+                [unowned self] operationCell, tableView, indexPath in
+                
+                let viewController = SpeakReadingSettingsViewController()
                 self.navigationController?.pushViewController(viewController, animated: true)
             })
             .build()

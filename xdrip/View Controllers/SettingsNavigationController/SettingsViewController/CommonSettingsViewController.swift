@@ -10,7 +10,7 @@ import UIKit
 
 class CommonSettingsViewController: SubSettingsViewController {
 
-    private let tableView: UITableView = {
+    private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.backgroundColor = ConstantsUI.mainBackgroundColor
         return tableView
@@ -29,10 +29,12 @@ class CommonSettingsViewController: SubSettingsViewController {
     }
     
     private func setupView() {
+        view.backgroundColor = ConstantsUI.mainBackgroundColor
+        
         view.addSubview(tableView)
         
         tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
@@ -44,6 +46,8 @@ class CommonSettingsViewController: SubSettingsViewController {
             
         tableDataBuilder = buildDataOfGeneral(builder: tableDataBuilder)
         tableDataBuilder = buildDataOfHomeScreen(builder: tableDataBuilder)
+        tableDataBuilder = buildDataOfStatistics(builder: tableDataBuilder)
+        tableDataBuilder = buildDataOfMore(builder: tableDataBuilder)
 
         tableData = tableDataBuilder.build()
         
@@ -222,6 +226,35 @@ class CommonSettingsViewController: SubSettingsViewController {
                         toggleDidChange: {
                 from, to in
                 UserDefaults.standard.chartDots5MinsApart = to
+            })
+    }
+    
+    private func buildDataOfStatistics(builder: TableDataBuilder) -> TableDataBuilder {
+        return builder
+            .section(headerTitle: R.string.settingsViews.settingsviews_sectiontitlestatistics())
+            .toggleCell(title: R.string.settingsViews.settingsviews_useStandardStatisticsRange(),
+                        isOn: UserDefaults.standard.useStandardStatisticsRange,
+                        toggleDidChange: {
+                from, to in
+                UserDefaults.standard.useStandardStatisticsRange = to
+            })
+            .toggleCell(title: R.string.settingsViews.settingsviews_useIFCCA1C(),
+                        isOn: UserDefaults.standard.useIFCCA1C,
+                        toggleDidChange: {
+                from, to in
+                UserDefaults.standard.useIFCCA1C = to
+            })
+    }
+    
+    private func buildDataOfMore(builder: TableDataBuilder) -> TableDataBuilder {
+        return builder
+            .section(headerTitle: R.string.settingsViews.sectionTitleMore())
+            .operationCell(title: R.string.settingsViews.moreSettings(),
+                           accessoryView: DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor),
+                           didClick: {
+                [unowned self] operationCell, tableView, indexPath in
+                let viewController = MoreSettingsViewController()
+                self.navigationController?.pushViewController(viewController, animated: true)
             })
     }
 }
