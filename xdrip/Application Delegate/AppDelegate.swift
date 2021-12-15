@@ -9,19 +9,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
-    private var log = OSLog(subsystem: ConstantsLog.subSystem, category: ConstantsLog.categoryAppDelegate)
-    
+    private static let log = Log(type: AppDelegate.self)
+
     // MARK: - Application Life Cycle
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         Log.setup(level: UserDefaults.standard.OSLogEnabled ? .verbose : .warning)
 
-        trace("in didFinishLaunchingWithOptions", log: log, category: ConstantsLog.categoryAppDelegate, type: .info)
+        AppDelegate.log.i("==> didFinishLaunchingWithOptions")
         		
         WatchCommunicator.register()
         
         setupUIComponents()
 
+        if UserDefaults.standard.firstOpenTime == nil {
+            onFreshInstall()
+        }
+        
         return true
     }
     
@@ -47,6 +51,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
+    }
+    
+    private func onFreshInstall() {
+        AppDelegate.log.i("==> onFreshInstall")
+        UserDefaults.standard.firstOpenTime = Date()
     }
 }
 

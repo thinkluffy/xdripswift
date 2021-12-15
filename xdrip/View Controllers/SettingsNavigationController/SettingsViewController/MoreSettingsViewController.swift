@@ -11,8 +11,12 @@ import MessageUI
 
 class MoreSettingsViewController: SubSettingsViewController {
     
-    @IBOutlet weak var tableView: UITableView!
-
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .insetGrouped)
+        tableView.backgroundColor = ConstantsUI.mainBackgroundColor
+        return tableView
+    }()
+    
     private var tableData: TableData!
     
     override func viewDidLoad() {
@@ -26,7 +30,13 @@ class MoreSettingsViewController: SubSettingsViewController {
     }
 
     private func setupView() {
-        tableView.backgroundColor = ConstantsUI.mainBackgroundColor
+        view.backgroundColor = ConstantsUI.mainBackgroundColor
+
+        view.addSubview(tableView)
+        
+        tableView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
     }
     
     private func buildData() {

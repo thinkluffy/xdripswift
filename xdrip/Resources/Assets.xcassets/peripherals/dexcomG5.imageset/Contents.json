@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "dexcomG6.png",
+      "filename" : "dexcomG5.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "dexcomG6@2x.png",
+      "filename" : "dexcomG5@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "dexcomG6@3x.png",
+      "filename" : "dexcomG5@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

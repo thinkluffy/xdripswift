@@ -187,45 +187,6 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This struct is generated for `LegacySettingsViewController`, and contains static references to 3 segues.
-    struct legacySettingsViewController {
-      /// Segue identifier `settingsToAlertSettings`.
-      static let settingsToAlertSettings: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, LegacySettingsViewController, xdrip.AlertsSettingsViewController> = Rswift.StoryboardSegueIdentifier(identifier: "settingsToAlertSettings")
-      /// Segue identifier `settingsToAlertTypeSettings`.
-      static let settingsToAlertTypeSettings: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, LegacySettingsViewController, xdrip.AlertTypesSettingsViewController> = Rswift.StoryboardSegueIdentifier(identifier: "settingsToAlertTypeSettings")
-      /// Segue identifier `settingsToMore`.
-      static let settingsToMore: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, LegacySettingsViewController, MoreSettingsViewController> = Rswift.StoryboardSegueIdentifier(identifier: "settingsToMore")
-
-      #if os(iOS) || os(tvOS)
-      /// Optionally returns a typed version of segue `settingsToAlertSettings`.
-      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
-      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      static func settingsToAlertSettings(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, LegacySettingsViewController, xdrip.AlertsSettingsViewController>? {
-        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.legacySettingsViewController.settingsToAlertSettings, segue: segue)
-      }
-      #endif
-
-      #if os(iOS) || os(tvOS)
-      /// Optionally returns a typed version of segue `settingsToAlertTypeSettings`.
-      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
-      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      static func settingsToAlertTypeSettings(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, LegacySettingsViewController, xdrip.AlertTypesSettingsViewController>? {
-        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.legacySettingsViewController.settingsToAlertTypeSettings, segue: segue)
-      }
-      #endif
-
-      #if os(iOS) || os(tvOS)
-      /// Optionally returns a typed version of segue `settingsToMore`.
-      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
-      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      static func settingsToMore(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, LegacySettingsViewController, MoreSettingsViewController>? {
-        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.legacySettingsViewController.settingsToMore, segue: segue)
-      }
-      #endif
-
-      fileprivate init() {}
-    }
-
     /// This struct is generated for `NewAlertSettingsViewController`, and contains static references to 1 segues.
     struct newAlertSettingsViewController {
       /// Segue identifier `unwindToAlertsSettingsViewController`.
@@ -254,6 +215,34 @@ struct R: Rswift.Validatable {
       /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
       static func chartDetails(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, RootViewController, ChartDetailsViewController>? {
         return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.rootViewController.chartDetails, segue: segue)
+      }
+      #endif
+
+      fileprivate init() {}
+    }
+
+    /// This struct is generated for `TotalAlertSettingsViewController`, and contains static references to 2 segues.
+    struct totalAlertSettingsViewController {
+      /// Segue identifier `alertTypesSettings`.
+      static let alertTypesSettings: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, TotalAlertSettingsViewController, xdrip.AlertTypesSettingsViewController> = Rswift.StoryboardSegueIdentifier(identifier: "alertTypesSettings")
+      /// Segue identifier `alertsSettings`.
+      static let alertsSettings: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, TotalAlertSettingsViewController, xdrip.AlertsSettingsViewController> = Rswift.StoryboardSegueIdentifier(identifier: "alertsSettings")
+
+      #if os(iOS) || os(tvOS)
+      /// Optionally returns a typed version of segue `alertTypesSettings`.
+      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
+      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
+      static func alertTypesSettings(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, TotalAlertSettingsViewController, xdrip.AlertTypesSettingsViewController>? {
+        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.totalAlertSettingsViewController.alertTypesSettings, segue: segue)
+      }
+      #endif
+
+      #if os(iOS) || os(tvOS)
+      /// Optionally returns a typed version of segue `alertsSettings`.
+      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
+      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
+      static func alertsSettings(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, TotalAlertSettingsViewController, xdrip.AlertsSettingsViewController>? {
+        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.totalAlertSettingsViewController.alertsSettings, segue: segue)
       }
       #endif
 
@@ -1306,8 +1295,10 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 39 images.
+  /// This `R.image` struct is generated, and contains static references to 40 images.
   struct image {
+    /// Image `dexcomG5`.
+    static let dexcomG5 = Rswift.ImageResource(bundle: R.hostingBundle, name: "dexcomG5")
     /// Image `dexcomG6`.
     static let dexcomG6 = Rswift.ImageResource(bundle: R.hostingBundle, name: "dexcomG6")
     /// Image `ic_alarm_delay`.
@@ -1386,6 +1377,13 @@ struct R: Rswift.Validatable {
     static let sensor14_13 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_13")
     /// Image `sensor14_14`.
     static let sensor14_14 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_14")
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "dexcomG5", bundle: ..., traitCollection: ...)`
+    static func dexcomG5(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.dexcomG5, compatibleWith: traitCollection)
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     /// `UIImage(named: "dexcomG6", bundle: ..., traitCollection: ...)`
@@ -5921,7 +5919,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.settingsViews` struct is generated, and contains static references to 110 localization keys.
+    /// This `R.string.settingsViews` struct is generated, and contains static references to 111 localization keys.
     struct settingsViews {
       /// en translation: API_SECRET
       ///
@@ -6203,6 +6201,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, pt, fr, de, es, sv
       static let settingsviews_sectiontitlesensorcountdown = Rswift.StringResource(key: "settingsviews_sectiontitlesensorcountdown", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "pt", "fr", "de", "es", "sv"], comment: nil)
+      /// en translation: Service Integration
+      ///
+      /// Locales: en, zh
+      static let serviceIntegration = Rswift.StringResource(key: "serviceIntegration", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Settings
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
@@ -7418,6 +7420,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_sectiontitlesensorcountdown", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
+      /// en translation: Service Integration
+      ///
+      /// Locales: en, zh
+      static func serviceIntegration(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("serviceIntegration", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
+          return "serviceIntegration"
+        }
+
+        return NSLocalizedString("serviceIntegration", tableName: "SettingsViews", bundle: bundle, comment: "")
+      }
+
       /// en translation: Settings
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
@@ -8419,10 +8436,10 @@ struct _R: Rswift.Validatable {
       let bluetoothPeripheral = StoryboardViewControllerResource<BluetoothPeripheralViewController>(identifier: "BluetoothPeripheral")
       let bundle = R.hostingBundle
       let datePickerViewController = StoryboardViewControllerResource<DatePickerViewController>(identifier: "DatePickerViewController")
-      let legacySettingsViewController = StoryboardViewControllerResource<LegacySettingsViewController>(identifier: "LegacySettingsViewController")
       let mainTabBarController = StoryboardViewControllerResource<MainTabBarController>(identifier: "MainTabBarController")
       let name = "Main"
       let snoozeAlarms = StoryboardViewControllerResource<SnoozeViewController>(identifier: "snoozeAlarms")
+      let totalAlertSettingsViewController = StoryboardViewControllerResource<TotalAlertSettingsViewController>(identifier: "TotalAlertSettingsViewController")
 
       func bluetoothPeripheral(_: Void = ()) -> BluetoothPeripheralViewController? {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: bluetoothPeripheral)
@@ -8432,16 +8449,16 @@ struct _R: Rswift.Validatable {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: datePickerViewController)
       }
 
-      func legacySettingsViewController(_: Void = ()) -> LegacySettingsViewController? {
-        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: legacySettingsViewController)
-      }
-
       func mainTabBarController(_: Void = ()) -> MainTabBarController? {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: mainTabBarController)
       }
 
       func snoozeAlarms(_: Void = ()) -> SnoozeViewController? {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: snoozeAlarms)
+      }
+
+      func totalAlertSettingsViewController(_: Void = ()) -> TotalAlertSettingsViewController? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: totalAlertSettingsViewController)
       }
 
       static func validate() throws {
@@ -8462,8 +8479,8 @@ struct _R: Rswift.Validatable {
         }
         if _R.storyboard.main().bluetoothPeripheral() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'bluetoothPeripheral' could not be loaded from storyboard 'Main' as 'BluetoothPeripheralViewController'.") }
         if _R.storyboard.main().datePickerViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'datePickerViewController' could not be loaded from storyboard 'Main' as 'DatePickerViewController'.") }
-        if _R.storyboard.main().legacySettingsViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'legacySettingsViewController' could not be loaded from storyboard 'Main' as 'LegacySettingsViewController'.") }
         if _R.storyboard.main().mainTabBarController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'mainTabBarController' could not be loaded from storyboard 'Main' as 'MainTabBarController'.") }
+        if _R.storyboard.main().totalAlertSettingsViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'totalAlertSettingsViewController' could not be loaded from storyboard 'Main' as 'TotalAlertSettingsViewController'.") }
         if _R.storyboard.main().snoozeAlarms() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'snoozeAlarms' could not be loaded from storyboard 'Main' as 'SnoozeViewController'.") }
       }
 

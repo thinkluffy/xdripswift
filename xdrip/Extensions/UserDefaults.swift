@@ -19,6 +19,9 @@ extension UserDefaults {
     public enum Key: String {
         // User configurable Settings
         
+        // Common
+        case firstOpenTimestamp = "firstOpenTimestamp"
+
         // General
         
         /// bloodglucose unit
@@ -228,6 +231,26 @@ extension UserDefaults {
     }
     
     // MARK: - =====  User Configurable Settings ======
+    
+    // MARK: Common
+    
+    @objc dynamic var firstOpenTime: Date? {
+        get {
+            let timeIntervalSince1970 = double(forKey: Key.firstOpenTimestamp.rawValue)
+            if timeIntervalSince1970 <= 0 {
+                return nil
+            }
+            return Date(timeIntervalSince1970: timeIntervalSince1970)
+        }
+        set {
+            if let date = newValue {
+                set(date.timeIntervalSince1970, forKey: Key.firstOpenTimestamp.rawValue)
+
+            } else {
+                set(0, forKey: Key.firstOpenTimestamp.rawValue)
+            }
+        }
+    }
     
     // MARK: General
     

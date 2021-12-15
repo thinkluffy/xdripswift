@@ -18,14 +18,15 @@ class BluetoothPeripheralImageView: UIImageView {
                 return
             }
             
-            if type == .Libre2Type {
+            switch type {
+            case .Libre2Type, .MiaoMiaoType, .BubbleType, .BluconType, .BlueReaderType, .DropletType, .GNSentryType, .WatlaaType, .AtomType:
                 image = R.image.libre()
-                
-            } else if type == .DexcomG6Type {
+
+            case .DexcomG6Type:
                 image = R.image.dexcomG6()
                 
-            } else {
-                image = R.image.libre()
+            case .DexcomG5Type:
+                image = R.image.dexcomG5()
             }
         }
     }

@@ -1,14 +1,34 @@
+//
+//  LegacySubSettingsViewController.swift
+//  xdrip
+//
+//  Created by Yuanbin Cai on 2021/12/15.
+//  Copyright © 2021 Johan Degraeve. All rights reserved.
+//
+
 import UIKit
 
-/// viewcontroller for first settings screen
-final class LegacySettingsViewController: SubSettingsViewController {
+class LegacySettingSection {
+    
+    private let viewModelProtocol: SettingsViewModelProtocol
+    
+    init(viewModelProtocol: SettingsViewModelProtocol) {
+        self.viewModelProtocol = viewModelProtocol
+    }
+    
+    func viewModel() -> SettingsViewModelProtocol {
+        return viewModelProtocol
+    }
+}
 
-    // MARK: - IBOutlet's and IPAction's
-    
-    @IBOutlet weak var tableView: UITableView!
-    
-    // MARK: - Private Properties
-            
+class LegacySubSettingsViewController: SubSettingsViewController {
+
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .insetGrouped)
+        tableView.backgroundColor = ConstantsUI.mainBackgroundColor
+        return tableView
+    }()
+                
     /// will show pop up with title and message
     private var messageHandler: ((String, String) -> Void)?
     
@@ -17,67 +37,20 @@ final class LegacySettingsViewController: SubSettingsViewController {
     
     /// array of viewmodels, one per section
     private var viewModels = [SettingsViewModelProtocol]()
+        
+    private var sections: [LegacySettingSection]?
     
-    private enum Section: Int, CaseIterable, SettingsProtocol {
-        
-        ///General settings - language, glucose unit
-        case general
-        
-        ///Home Screen settings - urgent high, high, target, low and urgent low values for guidelines
-        case homescreen
-        
-        /// statistics settings
-        case statistics
-        
-        /// alarms
-        case alarms
-        
-        ///nightscout settings
-        case nightscout
-        
-        ///dexcom share settings
-        case dexcom
-        
-        /// healthkit
-        case healthkit
-        
-        /// store bg values in healthkit
-        case speak
-        
-        /// Apple Watch settings
-        case AppleWatch
-        
-        /// more settings
-        case more
-        
-        func viewModel() -> SettingsViewModelProtocol {
-            switch self {
-                
-            case .general:
-                return SettingsViewGeneralSettingsViewModel()
-            case .homescreen:
-                return SettingsViewHomeScreenSettingsViewModel()
-            case .statistics:
-                return SettingsViewStatisticsSettingsViewModel()
-            case .alarms:
-                return SettingsViewAlertSettingsViewModel()
-            case .nightscout:
-                return SettingsViewNightScoutSettingsViewModel()
-            case .dexcom:
-                return SettingsViewDexcomSettingsViewModel()
-            case .healthkit:
-                return SettingsViewHealthKitSettingsViewModel()
-            case .speak:
-                return SettingsViewSpeakSettingsViewModel()
-            case .AppleWatch:
-                return SettingsViewAppleWatchSettingsViewModel()
-            case .more:
-                return SettingsViewMoreSettingsViewModel()
-            }
-        }
+    /// subclass should override this function
+    func configureSections() -> [LegacySettingSection]? {
+        return nil
     }
-        
+    
     private func configure() {
+        sections = configureSections()
+        guard let sections = sections else {
+            return
+        }
+        
         // create messageHandler
         messageHandler = { (title, message) in
             
@@ -104,7 +77,7 @@ final class LegacySettingsViewController: SubSettingsViewController {
         }
 
         // initialize viewModels
-        for section in Section.allCases {
+        for (i, section) in sections.enumerated() {
             // get a viewModel for the section
             let viewModel = section.viewModel()
             
@@ -118,20 +91,16 @@ final class LegacySettingsViewController: SubSettingsViewController {
             
             // store reload closure in the viewModel
             viewModel.storeRowReloadClosure(rowReloadClosure: {row in
-                self.tableView.reloadRows(at: [IndexPath(row: row, section: section.rawValue)], with: .none)
+                self.tableView.reloadRows(at: [IndexPath(row: row, section: i)], with: .none)
             })
 
             // store the viewModel
             self.viewModels.append(viewModel)
         }
     }
-
-    // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        title = Texts_SettingsView.screenTitle
         
         setupView()
         
@@ -139,26 +108,21 @@ final class LegacySettingsViewController: SubSettingsViewController {
     }
     
     private func setupView() {
-        setupTableView()
-    }
+        view.backgroundColor = ConstantsUI.mainBackgroundColor
 
-    /// setup datasource, delegate, seperatorInset
-    private func setupTableView() {
-        guard let tableView = tableView else {
-            return
+        view.addSubview(tableView)
+        
+        tableView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
         }
         
-        // insert slightly the separator text so that it doesn't touch the safe area limit
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
         tableView.dataSource = self
         tableView.delegate = self
     }
 }
 
-extension LegacySettingsViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    // MARK: - UITableViewDataSource protocol Methods
-    
+extension LegacySubSettingsViewController: UITableViewDataSource, UITableViewDelegate {
+        
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if let view = view as? UITableViewHeaderFooterView {
             view.textLabel?.textColor = ConstantsUI.tableViewHeaderTextColor
@@ -170,7 +134,7 @@ extension LegacySettingsViewController: UITableViewDataSource, UITableViewDelega
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return Section.allCases.count
+        return sections?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -189,9 +153,7 @@ extension LegacySettingsViewController: UITableViewDataSource, UITableViewDelega
         
         return cell
     }
-    
-    // MARK: - UITableViewDelegate protocol Methods
-    
+        
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
