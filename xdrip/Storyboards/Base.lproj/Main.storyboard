@@ -554,7 +554,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y9l-yM-uDB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="0.0" y="1355"/>
+            <point key="canvasLocation" x="-698" y="1287"/>
         </scene>
         <!--Bluetooth Peripheral Navigation Controller-->
         <scene sceneID="H1e-vw-iaX">
@@ -1082,6 +1082,7 @@
                     <connections>
                         <segue destination="cIX-mq-aLa" kind="relationship" relationship="viewControllers" id="llU-Ln-w7D"/>
                         <segue destination="FwD-2z-GTm" kind="relationship" relationship="viewControllers" id="aWk-QN-f3h"/>
+                        <segue destination="ldV-pU-RVf" kind="relationship" relationship="viewControllers" id="Mk5-7F-e9a"/>
                         <segue destination="dyf-bd-1WE" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                     </connections>
                 </tabBarController>
@@ -1133,6 +1134,45 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C5f-GP-Pwh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1541" y="581"/>
+        </scene>
+        <!--Notes Navigation Controller-->
+        <scene sceneID="6EA-KZ-Cfe">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="ldV-pU-RVf" userLabel="Notes Navigation Controller" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="ic_tab_notes" selectedImage="ic_tab_notes_h" id="Ntu-R6-isq"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="D8N-6t-AVZ">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" red="0.13333333333333333" green="0.15294117647058825" blue="0.28235294117647058" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="a2p-jF-zeG" kind="relationship" relationship="rootViewController" id="iv1-Qe-T7x"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yVw-ck-yel" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="729" y="1516"/>
+        </scene>
+        <!--Notes View Controller-->
+        <scene sceneID="1Xm-kM-JVL">
+            <objects>
+                <viewController id="a2p-jF-zeG" customClass="NotesViewController" customModule="xdrip" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QT5-LX-pIg">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="843"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="4ll-Ly-YmK"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Z9J-Pg-qmC"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pSb-OP-8FF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1541" y="1516"/>
         </scene>
         <!--New Alert Settings View Controller-->
         <scene sceneID="nz0-xh-MjX">
@@ -1260,6 +1300,8 @@
         <image name="ic_tab_bloodsugar_h" width="24" height="24"/>
         <image name="ic_tab_bluetooth" width="24" height="24"/>
         <image name="ic_tab_bluetooth_h" width="24" height="24"/>
+        <image name="ic_tab_notes" width="24" height="24"/>
+        <image name="ic_tab_notes_h" width="24" height="24"/>
         <image name="ic_tab_settings" width="24" height="24"/>
         <image name="ic_tab_settings_h" width="24" height="24"/>
         <image name="logo-launchScreen.png" width="120" height="120"/>

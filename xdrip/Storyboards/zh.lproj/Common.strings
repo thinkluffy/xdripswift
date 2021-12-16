@@ -123,4 +123,6 @@
 "common_hourshort" = "小时";
 
 "howManyMinutes" = "%d 分钟";
-"slogan" = "已经陪伴您 %d 天";
+"slogan" = "已经陪伴您 %d 个昼夜";
+"about" = "关于";
+"developerModeEnabled" = "开发者模式已开启";

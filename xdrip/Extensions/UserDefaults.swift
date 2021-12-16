@@ -21,6 +21,7 @@ extension UserDefaults {
         
         // Common
         case firstOpenTimestamp = "firstOpenTimestamp"
+        case fullFeatureMode = "fullFeatureMode"
 
         // General
         
@@ -252,20 +253,27 @@ extension UserDefaults {
         }
     }
     
+    @objc dynamic var isFullFeatureMode: Bool {
+        get {
+            return bool(forKey: Key.fullFeatureMode.rawValue)
+        }
+        set {
+            set(newValue, forKey: Key.fullFeatureMode.rawValue)
+        }
+    }
+    
     // MARK: General
     
     /// true if unit is mgdl, false if mmol is used
     @objc dynamic var bloodGlucoseUnitIsMgDl: Bool {
-        //default value for bool in userdefaults is false, false is for mgdl, true is for mmol
         get {
-            return !bool(forKey: Key.bloodGlucoseUnitIsMgDl.rawValue)
+            return bool(forKey: Key.bloodGlucoseUnitIsMgDl.rawValue)
         }
         set {
-            set(!newValue, forKey: Key.bloodGlucoseUnitIsMgDl.rawValue)
+            set(newValue, forKey: Key.bloodGlucoseUnitIsMgDl.rawValue)
 
             // setting to be stored also in shared userdefaults because it's used by the today widget
-            UserDefaults.storeInSharedUserDefaults(value: !newValue, forKey: Key.bloodGlucoseUnitIsMgDl.rawValue)
-            
+            UserDefaults.storeInSharedUserDefaults(value: newValue, forKey: Key.bloodGlucoseUnitIsMgDl.rawValue)
         }
     }
     

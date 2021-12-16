@@ -19,6 +19,8 @@
 		4E16CB502769F67F00A8A79E /* LegacySubSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E16CB4F2769F67F00A8A79E /* LegacySubSettingsViewController.swift */; };
 		4E16CB522769FCFA00A8A79E /* TotalAlertSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E16CB512769FCFA00A8A79E /* TotalAlertSettingsViewController.swift */; };
 		4E16CB54276A1E4E00A8A79E /* SpeakReadingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E16CB53276A1E4E00A8A79E /* SpeakReadingSettingsViewController.swift */; };
+		4E16CB56276B49F000A8A79E /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E16CB55276B49EF00A8A79E /* AboutViewController.swift */; };
+		4E16CB59276B865000A8A79E /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E16CB58276B865000A8A79E /* NotesViewController.swift */; };
 		4E1CFF34274E475A0020F0F1 /* InitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CFF33274E475A0020F0F1 /* InitViewController.swift */; };
 		4E1CFF36274F89320020F0F1 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CFF35274F89320020F0F1 /* StatisticsView.swift */; };
 		4E1CFF38274F89420020F0F1 /* StatisticsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E1CFF37274F89420020F0F1 /* StatisticsView.xib */; };
@@ -659,6 +661,8 @@
 		4E16CB4F2769F67F00A8A79E /* LegacySubSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacySubSettingsViewController.swift; sourceTree = "<group>"; };
 		4E16CB512769FCFA00A8A79E /* TotalAlertSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalAlertSettingsViewController.swift; sourceTree = "<group>"; };
 		4E16CB53276A1E4E00A8A79E /* SpeakReadingSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakReadingSettingsViewController.swift; sourceTree = "<group>"; };
+		4E16CB55276B49EF00A8A79E /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		4E16CB58276B865000A8A79E /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 		4E1CFF33274E475A0020F0F1 /* InitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitViewController.swift; sourceTree = "<group>"; };
 		4E1CFF35274F89320020F0F1 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		4E1CFF37274F89420020F0F1 /* StatisticsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatisticsView.xib; sourceTree = "<group>"; };
@@ -1509,6 +1513,14 @@
 			path = ViewPresenter;
 			sourceTree = "<group>";
 		};
+		4E16CB57276B85D800A8A79E /* NotesViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4E16CB58276B865000A8A79E /* NotesViewController.swift */,
+			);
+			path = NotesViewController;
+			sourceTree = "<group>";
+		};
 		4E9D7979273BEC1F00B666C5 /* ThinkCommon */ = {
 			isa = PBXGroup;
 			children = (
@@ -1660,13 +1672,13 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
-		F8025E5921F7861200ECF0C0 /* Root View Controller */ = {
+		F8025E5921F7861200ECF0C0 /* RootViewController */ = {
 			isa = PBXGroup;
 			children = (
 				F8AC425F21ADEBD60078C348 /* RootViewController.swift */,
 				F8E6C78B24CDDB83007C1199 /* SnoozeViewController.swift */,
 			);
-			path = "Root View Controller";
+			path = RootViewController;
 			sourceTree = "<group>";
 		};
 		F8025E5A21F7AFA100ECF0C0 /* Resources */ = {
@@ -2040,8 +2052,9 @@
 				4EE66F122735064E00548A46 /* MainTabBarController.swift */,
 				F8297F47238DCAD800D74D66 /* BluetoothPeripheralsNavigationController */,
 				F8B3A806227A28F9004BA588 /* Helpers */,
-				F8025E5921F7861200ECF0C0 /* Root View Controller */,
-				F8B3A823227E4B7D004BA588 /* SettingsNavigationController */,
+				F8025E5921F7861200ECF0C0 /* RootViewController */,
+				4E16CB57276B85D800A8A79E /* NotesViewController */,
+				F8B3A836227F090D004BA588 /* SettingsViewController */,
 				4E9D7977273A983600B666C5 /* ChartDetailsViewController.swift */,
 			);
 			path = "View Controllers";
@@ -2365,14 +2378,6 @@
 			path = accessors;
 			sourceTree = "<group>";
 		};
-		F8B3A823227E4B7D004BA588 /* SettingsNavigationController */ = {
-			isa = PBXGroup;
-			children = (
-				F8B3A836227F090D004BA588 /* SettingsViewController */,
-			);
-			path = SettingsNavigationController;
-			sourceTree = "<group>";
-		};
 		F8B3A836227F090D004BA588 /* SettingsViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2384,6 +2389,7 @@
 				4E16CB512769FCFA00A8A79E /* TotalAlertSettingsViewController.swift */,
 				4E16CB53276A1E4E00A8A79E /* SpeakReadingSettingsViewController.swift */,
 				4EE66F0A2733EB0D00548A46 /* MoreSettingsViewController.swift */,
+				4E16CB55276B49EF00A8A79E /* AboutViewController.swift */,
 				F8A389E6232ECE7E0010F405 /* SettingsViewUtilities.swift */,
 				F8B3A851227F2743004BA588 /* AlertsSettingsViewController */,
 				F8B3A84E227F26F8004BA588 /* AlertTypesSettingsViewController */,
@@ -3519,6 +3525,7 @@
 				4E9D79C0273BF04400B666C5 /* TabLayout.swift in Sources */,
 				F8F9720423A5915900C3F17D /* TransmitterVersionTxMessage.swift in Sources */,
 				F8DF765C23E350B100063910 /* DexcomG5+BluetoothPeripheral.swift in Sources */,
+				4E16CB59276B865000A8A79E /* NotesViewController.swift in Sources */,
 				4E9D798F273BEC5500B666C5 /* PThreadReadWriteLock.swift in Sources */,
 				F8F9720323A5915900C3F17D /* CGMG5Transmitter.swift in Sources */,
 				4E2C95B6274BEC120073D692 /* RootContract.swift in Sources */,
@@ -3699,6 +3706,7 @@
 				F8F9722923A5915900C3F17D /* CGMTransmitter.swift in Sources */,
 				4E16CB54276A1E4E00A8A79E /* SpeakReadingSettingsViewController.swift in Sources */,
 				F8A389ED23342EB10010F405 /* ConstantsNightScout.swift in Sources */,
+				4E16CB56276B49F000A8A79E /* AboutViewController.swift in Sources */,
 				F85FF3D1252F9FF9004E6FF1 /* SnoozeParameters+CoreDataClass.swift in Sources */,
 				4EE66F082733E01500548A46 /* R.generated.swift in Sources */,
 				4E9D79C5273BF04400B666C5 /* PinedHeaderCollectionViewLayout.swift in Sources */,

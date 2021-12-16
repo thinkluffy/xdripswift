@@ -14,5 +14,6 @@ target 'xdrip' do
   pod 'SwiftyJSON', '4.3.0'
   pod 'Charts', :tag => 'v3.6.2-th', :git => 'https://github.com/thinkluffy/Charts.git'
   pod 'FSCalendar', '2.8.2'
+  pod 'PopupDialog', '1.1.1'
 
 end

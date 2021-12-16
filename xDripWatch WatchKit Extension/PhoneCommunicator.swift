@@ -69,6 +69,7 @@ class PhoneCommunicator: NSObject {
 			DispatchQueue.main.async {
 				if let lastest = self.previousOne {
 					completion((lastest.date, lastest.value as! String))
+                    
 				} else {
 					completion(nil)
 				}
@@ -88,8 +89,7 @@ class PhoneCommunicator: NSObject {
 					return
 				}
 				let data = Common.DataTransformToWatch.init(dic: reply)
-				if let latest = data.latest
-				{
+				if let latest = data.latest {
 					print("requestLatest reply: \(reply)")
 					let showAsMgDl = data.config?.showAsMgDl ?? true
 					let slope = data.slope
@@ -98,11 +98,13 @@ class PhoneCommunicator: NSObject {
 										  slope.description)
 					self.previousOne = ObjectWithDate(date: latest.date, value: trendStr)
 					completion((latest.date, trendStr))
+                    
 				} else {
 					print("requestLatest formatter error reply: \(reply)")
 					completion(nil)
 				}
 			}
+            
 		} errorHandler: { error in
 			DispatchQueue.main.async {
 				print("requestLatest failed: \(error.localizedDescription)")
@@ -151,12 +153,13 @@ class PhoneCommunicator: NSObject {
 	}
 }
 
-
 extension PhoneCommunicator: WCSessionDelegate {
+    
 	func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
 		print("session activationDidCompleteWith \(activationState.rawValue), error: \(error?.localizedDescription ?? "nil")")
 		if activationState == .activated {
 			PhoneCommunicator.shared.startRequestChart()
+            
 		} else {
 			PhoneCommunicator.shared.stopRequestChart()
 		}
@@ -174,7 +177,13 @@ extension PhoneCommunicator: WCSessionDelegate {
 }
 extension PhoneCommunicator {
 	static func fakeConfig() -> Common.BgConfig {
-		Common.BgConfig(interval5Mins: true, showAsMgDl: false, min: 2.2, max: 16.6, urgentMin: 3.9, urgentMax: 10, suggestMin: 4.5, suggestMax: 7.8)
+		Common.BgConfig(interval5Mins: true,
+                        showAsMgDl: false,
+                        min: 2.2, max: 16.6,
+                        urgentMin: 3.9,
+                        urgentMax: 10,
+                        suggestMin: 4.5,
+                        suggestMax: 7.8)
 	}
 	
 	static func fakeRecently() -> [Common.BgInfo] {

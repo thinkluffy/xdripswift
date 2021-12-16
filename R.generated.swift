@@ -1295,7 +1295,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 40 images.
+  /// This `R.image` struct is generated, and contains static references to 25 images.
   struct image {
     /// Image `dexcomG5`.
     static let dexcomG5 = Rswift.ImageResource(bundle: R.hostingBundle, name: "dexcomG5")
@@ -1333,6 +1333,10 @@ struct R: Rswift.Validatable {
     static let ic_tab_bluetooth_h = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_bluetooth_h")
     /// Image `ic_tab_bluetooth`.
     static let ic_tab_bluetooth = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_bluetooth")
+    /// Image `ic_tab_notes_h`.
+    static let ic_tab_notes_h = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_notes_h")
+    /// Image `ic_tab_notes`.
+    static let ic_tab_notes = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_notes")
     /// Image `ic_tab_settings_h`.
     static let ic_tab_settings_h = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_settings_h")
     /// Image `ic_tab_settings`.
@@ -1343,40 +1347,6 @@ struct R: Rswift.Validatable {
     static let libre = Rswift.ImageResource(bundle: R.hostingBundle, name: "libre")
     /// Image `logo-launchScreen`.
     static let logoLaunchScreen = Rswift.ImageResource(bundle: R.hostingBundle, name: "logo-launchScreen")
-    /// Image `sensor14_00`.
-    static let sensor14_00 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_00")
-    /// Image `sensor14_01_urgent`.
-    static let sensor14_01_urgent = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_01_urgent")
-    /// Image `sensor14_01_warning`.
-    static let sensor14_01_warning = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_01_warning")
-    /// Image `sensor14_01`.
-    static let sensor14_01 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_01")
-    /// Image `sensor14_02`.
-    static let sensor14_02 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_02")
-    /// Image `sensor14_03`.
-    static let sensor14_03 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_03")
-    /// Image `sensor14_04`.
-    static let sensor14_04 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_04")
-    /// Image `sensor14_05`.
-    static let sensor14_05 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_05")
-    /// Image `sensor14_06`.
-    static let sensor14_06 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_06")
-    /// Image `sensor14_07`.
-    static let sensor14_07 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_07")
-    /// Image `sensor14_08`.
-    static let sensor14_08 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_08")
-    /// Image `sensor14_09`.
-    static let sensor14_09 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_09")
-    /// Image `sensor14_10`.
-    static let sensor14_10 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_10")
-    /// Image `sensor14_11`.
-    static let sensor14_11 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_11")
-    /// Image `sensor14_12`.
-    static let sensor14_12 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_12")
-    /// Image `sensor14_13`.
-    static let sensor14_13 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_13")
-    /// Image `sensor14_14`.
-    static let sensor14_14 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_14")
 
     #if os(iOS) || os(tvOS)
     /// `UIImage(named: "dexcomG5", bundle: ..., traitCollection: ...)`
@@ -1505,6 +1475,20 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_tab_notes", bundle: ..., traitCollection: ...)`
+    static func ic_tab_notes(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_tab_notes, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_tab_notes_h", bundle: ..., traitCollection: ...)`
+    static func ic_tab_notes_h(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_tab_notes_h, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "ic_tab_settings", bundle: ..., traitCollection: ...)`
     static func ic_tab_settings(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ic_tab_settings, compatibleWith: traitCollection)
@@ -1536,125 +1520,6 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "logo-launchScreen", bundle: ..., traitCollection: ...)`
     static func logoLaunchScreen(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.logoLaunchScreen, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_00", bundle: ..., traitCollection: ...)`
-    static func sensor14_00(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_00, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_01", bundle: ..., traitCollection: ...)`
-    static func sensor14_01(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_01, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_01_urgent", bundle: ..., traitCollection: ...)`
-    static func sensor14_01_urgent(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_01_urgent, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_01_warning", bundle: ..., traitCollection: ...)`
-    static func sensor14_01_warning(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_01_warning, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_02", bundle: ..., traitCollection: ...)`
-    static func sensor14_02(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_02, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_03", bundle: ..., traitCollection: ...)`
-    static func sensor14_03(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_03, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_04", bundle: ..., traitCollection: ...)`
-    static func sensor14_04(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_04, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_05", bundle: ..., traitCollection: ...)`
-    static func sensor14_05(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_05, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_06", bundle: ..., traitCollection: ...)`
-    static func sensor14_06(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_06, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_07", bundle: ..., traitCollection: ...)`
-    static func sensor14_07(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_07, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_08", bundle: ..., traitCollection: ...)`
-    static func sensor14_08(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_08, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_09", bundle: ..., traitCollection: ...)`
-    static func sensor14_09(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_09, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_10", bundle: ..., traitCollection: ...)`
-    static func sensor14_10(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_10, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_11", bundle: ..., traitCollection: ...)`
-    static func sensor14_11(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_11, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_12", bundle: ..., traitCollection: ...)`
-    static func sensor14_12(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_12, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_13", bundle: ..., traitCollection: ...)`
-    static func sensor14_13(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_13, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_14", bundle: ..., traitCollection: ...)`
-    static func sensor14_14(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_14, compatibleWith: traitCollection)
     }
     #endif
 
@@ -3070,12 +2935,16 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.common` struct is generated, and contains static references to 52 localization keys.
+    /// This `R.string.common` struct is generated, and contains static references to 54 localization keys.
     struct common {
       /// en translation: %d Mins
       ///
       /// Locales: en, zh
       static let howManyMinutes = Rswift.StringResource(key: "howManyMinutes", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: About
+      ///
+      /// Locales: en, zh
+      static let about = Rswift.StringResource(key: "about", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Add
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
@@ -3112,6 +2981,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static let delete = Rswift.StringResource(key: "delete", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fi", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// en translation: Developer Mode Enabled
+      ///
+      /// Locales: en, zh
+      static let developerModeEnabled = Rswift.StringResource(key: "developerModeEnabled", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Don't Show Again
       ///
       /// Locales: en, nl, pt, de, es, fr, sv
@@ -3298,6 +3171,21 @@ struct R: Rswift.Validatable {
         return String(format: format, locale: locale, value1)
       }
 
+      /// en translation: About
+      ///
+      /// Locales: en, zh
+      static func about(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("about", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "about"
+        }
+
+        return NSLocalizedString("about", tableName: "Common", bundle: bundle, comment: "")
+      }
+
       /// en translation: Add
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
@@ -3433,6 +3321,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("delete", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Developer Mode Enabled
+      ///
+      /// Locales: en, zh
+      static func developerModeEnabled(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("developerModeEnabled", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "developerModeEnabled"
+        }
+
+        return NSLocalizedString("developerModeEnabled", tableName: "Common", bundle: bundle, comment: "")
       }
 
       /// en translation: Don't Show Again
@@ -8493,6 +8396,8 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "ic_tab_bloodsugar_h", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_bloodsugar_h' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_bluetooth", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_bluetooth' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_bluetooth_h", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_bluetooth_h' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ic_tab_notes", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_notes' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ic_tab_notes_h", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_notes_h' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_settings", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_settings' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_settings_h", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_settings_h' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "logo-launchScreen.png", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'logo-launchScreen.png' is used in storyboard 'Main', but couldn't be loaded.") }

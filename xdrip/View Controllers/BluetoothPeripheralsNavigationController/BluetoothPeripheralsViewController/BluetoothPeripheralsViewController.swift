@@ -137,19 +137,24 @@ final class BluetoothPeripheralsViewController: UIViewController {
         
         // the category has only CGM currently
         
-        let data = BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(withCategory: BluetoothPeripheralCategory.listOfCategories()[0])
+        let data = BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(withCategory: .CGM,
+                                                                              isFullFeatureMode: UserDefaults.standard.isFullFeatureMode)
         
-        let pickerViewData = PickerViewDataBuilder(data: data, actionHandler: {
-            (_ typeIndex: Int) in
-            
-            // get the selected BluetoothPeripheralType
-            let type = BluetoothPeripheralType(rawValue: BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(withCategory: BluetoothPeripheralCategory.listOfCategories()[0])[typeIndex])
-            
-            // go to screen to add a new BluetoothPeripheral
-            // in the sender we add the selected bluetoothperipheraltype
-            self.performSegue(withIdentifier: R.segue.bluetoothPeripheralsViewController.bluetoothPeripheral, sender: type)
-            
-        })
+        let pickerViewData = PickerViewDataBuilder(
+            data: data,
+            actionHandler: {
+                (_ typeIndex: Int) in
+                
+                // get the selected BluetoothPeripheralType
+                let typeRawValue = BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(withCategory: .CGM,
+                                                                                              isFullFeatureMode: UserDefaults.standard.isFullFeatureMode)[typeIndex]
+                let type = BluetoothPeripheralType(rawValue: typeRawValue)
+                
+                // go to screen to add a new BluetoothPeripheral
+                // in the sender we add the selected bluetoothperipheraltype
+                self.performSegue(withIdentifier: R.segue.bluetoothPeripheralsViewController.bluetoothPeripheral, sender: type)
+                
+            })
             .title(Texts_BluetoothPeripheralsView.selectType)
             .build()
         
