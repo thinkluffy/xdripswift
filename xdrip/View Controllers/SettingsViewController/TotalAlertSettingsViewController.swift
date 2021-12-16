@@ -16,10 +16,8 @@ class TotalAlertSettingsViewController: LegacySubSettingsViewController {
     }
     
     override func configureSections() -> [LegacySettingSection]? {
-        var sections = [LegacySettingSection]()
-        
-        sections.append(LegacySettingSection(viewModelProtocol: SettingsViewAlertSettingsViewModel()))
-                    
-        return sections
+        return [
+            LegacySettingSection(viewModelProtocol: SettingsViewAlertSettingsViewModel())
+        ]
     }
 }

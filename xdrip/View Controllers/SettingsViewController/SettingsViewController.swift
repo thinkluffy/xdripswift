@@ -20,6 +20,7 @@ class SettingsViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.backgroundColor = ConstantsUI.mainBackgroundColor
+        tableView.alwaysBounceVertical = false
         return tableView
     }()
     
@@ -147,6 +148,14 @@ class SettingsViewController: UIViewController {
                 [unowned self] operationCell, tableView, indexPath in
                 
                 let viewController = SpeakReadingSettingsViewController()
+                self.navigationController?.pushViewController(viewController, animated: true)
+            })
+            .operationCell(title: R.string.common.about(),
+                           accessoryView: DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor),
+                           didClick: {
+                [unowned self] operationCell, tableView, indexPath in
+                
+                let viewController = AboutViewController()
                 self.navigationController?.pushViewController(viewController, animated: true)
             })
             .build()

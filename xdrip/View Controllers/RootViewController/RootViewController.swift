@@ -1169,29 +1169,35 @@ final class RootViewController: UIViewController {
         
         if let bluetoothPeripheral = bluetoothPeripheralManager.bluetoothPeripheral {
             // show current peripheral
-            bluetoothPeripheralViewController.configure(bluetoothPeripheral: bluetoothPeripheral,
-                                                        bluetoothPeripheralManager: bluetoothPeripheralManager,
-                                                        expectedBluetoothPeripheralType: bluetoothPeripheral.bluetoothPeripheralType())
+            bluetoothPeripheralViewController.configure(
+                bluetoothPeripheral: bluetoothPeripheral,
+                bluetoothPeripheralManager: bluetoothPeripheralManager,
+                expectedBluetoothPeripheralType: bluetoothPeripheral.bluetoothPeripheralType()
+            )
             navigationController?.pushViewController(bluetoothPeripheralViewController, animated: true)
             
         } else {
             // the category has only CGM currently
             // to add a peripheral
             
-            let data = BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(withCategory: BluetoothPeripheralCategory.listOfCategories()[0])
+            let data = BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(withCategory: .CGM,
+                                                                                  isFullFeatureMode: UserDefaults.standard.isFullFeatureMode)
             
-            let pickerViewData = PickerViewDataBuilder(data: data, actionHandler: {
-                (_ typeIndex: Int) in
+            let pickerViewData = PickerViewDataBuilder(
+                data: data,
+                actionHandler: {
+                    (_ typeIndex: Int) in
                 
-                // get the selected BluetoothPeripheralType
-                if let type = BluetoothPeripheralType(rawValue: BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(withCategory: BluetoothPeripheralCategory.listOfCategories()[0])[typeIndex]) {
-                
-                    bluetoothPeripheralViewController.configure(bluetoothPeripheral: nil,
-                                                                bluetoothPeripheralManager: bluetoothPeripheralManager,
-                                                                expectedBluetoothPeripheralType: type)
-                    self.navigationController?.pushViewController(bluetoothPeripheralViewController, animated: true)
-                }
-            })
+                    let typeRawValue = BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(withCategory: .CGM,
+                                                                                                  isFullFeatureMode: UserDefaults.standard.isFullFeatureMode)[typeIndex]
+                    // get the selected BluetoothPeripheralType
+                    if let type = BluetoothPeripheralType(rawValue: typeRawValue) {
+                        bluetoothPeripheralViewController.configure(bluetoothPeripheral: nil,
+                                                                    bluetoothPeripheralManager: bluetoothPeripheralManager,
+                                                                    expectedBluetoothPeripheralType: type)
+                        self.navigationController?.pushViewController(bluetoothPeripheralViewController, animated: true)
+                    }
+                })
                 .title(Texts_BluetoothPeripheralsView.selectType)
                 .build()
             
@@ -1211,49 +1217,6 @@ final class RootViewController: UIViewController {
         
         // now that the activeSensor object has been destroyed, update (hide) the sensor countdown graphic
         updateSensorCountdown()
-    }
-    
-    /// start a new sensor, ask user for starttime
-    private func startSensorAskUserForStarttime() {
-        
-        // craete datePickerViewData
-        let datePickerViewData = DatePickerViewData(withMainTitle: Texts_HomeView.startSensorActionTitle,
-                                                    withSubTitle: nil,
-                                                    datePickerMode: .dateAndTime,
-                                                    date: Date(),
-                                                    minimumDate: nil,
-                                                    maximumDate: Date(),
-                                                    okButtonText: Texts_Common.Ok,
-                                                    cancelButtonText: Texts_Common.Cancel,
-                                                    onOkClick: { (date) in
-            // set sensorStartTime
-            let sensorStartTime = date
-            self.activeSensor = Sensor(startDate: sensorStartTime, nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
-                
-                // save the newly created Sensor permenantly in coredata
-            CoreDataManager.shared.saveChanges()
-            
-        }, onCancelClick: nil)
-        
-        // if this is the first time user starts a sensor, give warning that time should be correct
-        // if not the first them, then immediately open the timePickAlertController
-        if !UserDefaults.standard.startSensorTimeInfoGiven {
-            let alert = UIAlertController(title: Texts_HomeView.startSensorActionTitle, message: Texts_HomeView.startSensorTimeInfo, actionHandler: {
-                
-                // create and present pickerviewcontroller
-                DatePickerViewController.displayDatePickerViewController(datePickerViewData: datePickerViewData, parentController: self)
-                
-                // no need to display sensor start time info next sensor start
-                UserDefaults.standard.startSensorTimeInfoGiven = true
-                
-            })
-            
-            self.present(alert, animated: true, completion: nil)
-            
-        } else {
-            DatePickerViewController.displayDatePickerViewController(datePickerViewData: datePickerViewData, parentController: self)
-        }
-        
     }
     
     private func getCGMTransmitterDeviceName(for cgmTransmitter: CGMTransmitter) -> String? {
