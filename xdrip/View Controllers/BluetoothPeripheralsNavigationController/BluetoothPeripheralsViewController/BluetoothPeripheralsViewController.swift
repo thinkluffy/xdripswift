@@ -1,5 +1,6 @@
 import UIKit
 import CoreBluetooth
+import PopupDialog
 
 /// uiviewcontroller to show list of BluetoothPeripherals, first uiviewcontroller when clicking the BluetoothPeripheral tab
 final class BluetoothPeripheralsViewController: UIViewController {
@@ -40,7 +41,11 @@ final class BluetoothPeripheralsViewController: UIViewController {
             if bluetoothPeripheral.bluetoothPeripheralType().category() == .CGM &&
                 bluetoothPeripheral.blePeripheral.shouldconnect {
             
-                uiViewController.present(UIAlertController(title: Texts_Common.warning, message: Texts_BluetoothPeripheralsView.noMultipleActiveCGMsAllowed, actionHandler: nil), animated: true, completion: nil)
+                uiViewController.present(PopupDialog(title: Texts_Common.warning,
+                                                     message: Texts_BluetoothPeripheralsView.noMultipleActiveCGMsAllowed,
+                                                     actionTitle: R.string.common.common_Ok(),
+                                                     actionHandler: nil),
+                                         animated: true)
                 
                 return true
             }
@@ -128,9 +133,10 @@ final class BluetoothPeripheralsViewController: UIViewController {
         
         // check the app is in master mode
         if !UserDefaults.standard.isMaster {
-            present(UIAlertController(title: Texts_Common.warning,
-                                      message: Texts_BluetoothPeripheralView.cannotActiveCGMInFollowerMode,
-                                      actionHandler: nil),
+            present(PopupDialog(title: Texts_Common.warning,
+                                message: Texts_BluetoothPeripheralView.cannotActiveCGMInFollowerMode,
+                                actionTitle: R.string.common.common_Ok(),
+                                actionHandler: nil),
                     animated: true)
             return
         }

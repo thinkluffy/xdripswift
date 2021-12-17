@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PopupDialog
 
 class LegacySettingSection {
     
@@ -33,7 +34,7 @@ class LegacySubSettingsViewController: SubSettingsViewController {
     private var messageHandler: ((String, String) -> Void)?
     
     /// UIAlertController used by messageHandler
-    private var messageHandlerUiAlertController: UIAlertController?
+    private var messageHandlerUiAlertController: UIViewController?
     
     /// array of viewmodels, one per section
     private var viewModels = [SettingsViewModelProtocol]()
@@ -56,7 +57,10 @@ class LegacySubSettingsViewController: SubSettingsViewController {
             
             // piece of code that we need two times
             let createAndPresentMessageHandlerUIAlertController = {
-                self.messageHandlerUiAlertController = UIAlertController(title: title, message: message, actionHandler: nil)
+                self.messageHandlerUiAlertController = PopupDialog(title: title,
+                                                                   message: message,
+                                                                   actionTitle: R.string.common.common_Ok(),
+                                                                   actionHandler: nil)
                 
                 if let messageHandlerUiAlertController = self.messageHandlerUiAlertController {
                     self.present(messageHandlerUiAlertController, animated: true, completion: nil)

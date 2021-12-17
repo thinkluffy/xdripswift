@@ -135,11 +135,11 @@
                                                                 <state key="normal" image="ic_calibrate"/>
                                                             </button>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kba-Lh-TNW" customClass="SensorIndicator" customModule="xdrip" customModuleProvider="target">
-                                                                <rect key="frame" x="398" y="15" width="20" height="20"/>
+                                                                <rect key="frame" x="388" y="5" width="40" height="40"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="20" id="3vw-Jc-Ssk"/>
-                                                                    <constraint firstAttribute="height" constant="20" id="bZW-ee-7fA"/>
+                                                                    <constraint firstAttribute="width" constant="40" id="3vw-Jc-Ssk"/>
+                                                                    <constraint firstAttribute="height" constant="40" id="bZW-ee-7fA"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V90-WH-dIE" customClass="CountDownView" customModule="xdrip" customModuleProvider="target">
@@ -150,9 +150,9 @@
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="Kba-Lh-TNW" firstAttribute="centerY" secondItem="4Rp-y3-zdP" secondAttribute="centerY" id="J2J-W2-czl"/>
-                                                            <constraint firstItem="Kba-Lh-TNW" firstAttribute="leading" secondItem="V90-WH-dIE" secondAttribute="trailing" constant="10" id="KPu-dF-IVP"/>
+                                                            <constraint firstItem="Kba-Lh-TNW" firstAttribute="leading" secondItem="V90-WH-dIE" secondAttribute="trailing" id="KPu-dF-IVP"/>
                                                             <constraint firstItem="tJt-7J-3U6" firstAttribute="centerY" secondItem="4Rp-y3-zdP" secondAttribute="centerY" id="LZP-nQ-dT2"/>
-                                                            <constraint firstAttribute="trailing" secondItem="Kba-Lh-TNW" secondAttribute="trailing" constant="10" id="QnK-c2-90b"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Kba-Lh-TNW" secondAttribute="trailing" id="QnK-c2-90b"/>
                                                             <constraint firstItem="Qv7-yV-rZx" firstAttribute="leading" secondItem="4Rp-y3-zdP" secondAttribute="leading" constant="10" id="WKf-MY-xf1"/>
                                                             <constraint firstItem="V90-WH-dIE" firstAttribute="centerY" secondItem="Kba-Lh-TNW" secondAttribute="centerY" id="boM-k0-k0u"/>
                                                             <constraint firstItem="tJt-7J-3U6" firstAttribute="leading" secondItem="Qv7-yV-rZx" secondAttribute="trailing" constant="10" id="iXX-EF-Kwn"/>

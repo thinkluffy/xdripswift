@@ -1,4 +1,5 @@
 import UIKit
+import PopupDialog
 
 extension UIAlertController {
     
@@ -7,8 +8,7 @@ extension UIAlertController {
     ///     - title : title, optional, used in init(title: title, message: message, preferredStyle: .alert)
     ///     - message : message, optional, used in init(title: title, message: message, preferredStyle: .alert)
     ///     - actionHandler : optional closure which will be executed when user clickx ok, without in- output
-    convenience init(title:String?, message:String?, actionHandler: (() -> Void)?) {
-
+    convenience init(title: String?, message: String?, actionHandler: (() -> Void)?) {
         self.init(title: title, message: message, preferredStyle: .alert)
 
         addAction(UIAlertAction(title: Texts_Common.Ok, style: .default, handler: { (action:UIAlertAction) in

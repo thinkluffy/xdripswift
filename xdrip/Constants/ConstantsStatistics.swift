@@ -16,9 +16,9 @@ enum ConstantsStatistics {
     static let pieChartAnimationSpeed = 0.3
     
     /// label colors for the statistics
-    static let labelLowColor = ConstantsUI.glucoseLowColor
-    static let labelInRangeColor = ConstantsUI.glucoseInRangeColor
-    static let labelHighColor = ConstantsUI.glucoseHighColor
+    static let labelLowColor = ConstantsUI.alertColor
+    static let labelInRangeColor = ConstantsUI.normalColor
+    static let labelHighColor = ConstantsUI.warningColor
     
     /// pie slice color for low
     static let pieChartLowSliceColor = labelLowColor

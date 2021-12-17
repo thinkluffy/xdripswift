@@ -1,4 +1,5 @@
 import UIKit
+import PopupDialog
 
 /// to update an existing alertentry
 final class AlertSettingsViewController: SubSettingsViewController {
@@ -43,12 +44,18 @@ final class AlertSettingsViewController: SubSettingsViewController {
         if let alertEntry = alertEntryAsNSObject {
             
             // first ask user if ok to delete and if yes delete
-            let alert = UIAlertController(title: Texts_Alerts.confirmDeletionAlert, message: nil, actionHandler: {
-                CoreDataManager.shared.mainManagedObjectContext.delete(alertEntry)
-                CoreDataManager.shared.saveChanges()
-                // go back to alerts settings screen
-                self.performSegue(withIdentifier: SegueIdentifiers.unwindToAlertsSettingsViewController.rawValue, sender: self)
-            }, cancelHandler: nil)
+            let alert = PopupDialog(
+                title: Texts_Alerts.confirmDeletionAlert,
+                message: nil,
+                actionTitle: R.string.common.delete(),
+                actionHandler: {
+                    CoreDataManager.shared.mainManagedObjectContext.delete(alertEntry)
+                    CoreDataManager.shared.saveChanges()
+                    // go back to alerts settings screen
+                    self.performSegue(withIdentifier: SegueIdentifiers.unwindToAlertsSettingsViewController.rawValue, sender: self)
+                },
+                cancelTitle: R.string.common.common_cancel()
+            )
             
             self.present(alert, animated: true, completion: nil)
             

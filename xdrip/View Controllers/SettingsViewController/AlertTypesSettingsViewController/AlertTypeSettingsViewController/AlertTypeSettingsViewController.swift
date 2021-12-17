@@ -1,4 +1,5 @@
 import UIKit
+import PopupDialog
 
 /// a case per type of attribute that can be set in an AlerTypeSettingsView
 fileprivate enum Setting:Int, CaseIterable {
@@ -36,12 +37,18 @@ final class AlertTypeSettingsViewController: SubSettingsViewController {
         // delete the alerttype if one exists
         if let alertTypeAsNSObject = alertTypeAsNSObject {
             // first ask user if ok to delete and if yes delete
-            let alert = UIAlertController(title: Texts_AlertTypeSettingsView.confirmDeletionAlertType + alertTypeAsNSObject.name + "?", message: nil, actionHandler: {
-                CoreDataManager.shared.mainManagedObjectContext.delete(alertTypeAsNSObject)
-                CoreDataManager.shared.saveChanges()
-                // go back to alerttypes settings screen
-                self.performSegue(withIdentifier: UnwindSegueIdentifiers.unwindToAlertTypesSettingsViewController.rawValue, sender: self)
-                }, cancelHandler: nil)
+            let alert = PopupDialog(
+                title: Texts_AlertTypeSettingsView.confirmDeletionAlertType + alertTypeAsNSObject.name + "?",
+                message: nil,
+                actionTitle: R.string.common.delete(),
+                actionHandler: {
+                    CoreDataManager.shared.mainManagedObjectContext.delete(alertTypeAsNSObject)
+                    CoreDataManager.shared.saveChanges()
+                    // go back to alerttypes settings screen
+                    self.performSegue(withIdentifier: UnwindSegueIdentifiers.unwindToAlertTypesSettingsViewController.rawValue, sender: self)
+                },
+                cancelTitle: R.string.common.common_cancel()
+            )
             
             self.present(alert, animated: true, completion: nil)
             
@@ -131,7 +138,10 @@ final class AlertTypeSettingsViewController: SubSettingsViewController {
             if alertTypeAlreadyStored.name == name && (alertTypeAsNSObject == nil || alertTypeAlreadyStored != alertTypeAsNSObject) {
                 
                 // define and present alertcontroller, this will show message and an ok button, without action when clicking ok
-                let alert = UIAlertController(title: Texts_Common.warning, message: Texts_AlertTypeSettingsView.alertTypeNameAlreadyExistsMessage, actionHandler: nil)
+                let alert = PopupDialog(title: Texts_Common.warning,
+                                        message: Texts_AlertTypeSettingsView.alertTypeNameAlreadyExistsMessage,
+                                        actionTitle: R.string.common.common_Ok(),
+                                        actionHandler: nil)
                 
                 self.present(alert, animated: true, completion: nil)
                 
@@ -148,6 +158,7 @@ final class AlertTypeSettingsViewController: SubSettingsViewController {
             alertTypeAsNSObject.snoozeperiod = snoozePeriod
             alertTypeAsNSObject.vibrate = vibrate
             alertTypeAsNSObject.soundname = soundName
+            
         } else {
             alertTypeAsNSObject = AlertType(enabled: enabled, name: name, overrideMute: overrideMute, snooze: snooze, snoozePeriod: Int(snoozePeriod), vibrate: vibrate, soundName: soundName, alertEntries: nil, nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
         }

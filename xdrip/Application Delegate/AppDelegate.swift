@@ -1,6 +1,7 @@
 import UIKit
 import CoreData
 import OSLog
+import PopupDialog
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -62,6 +63,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
     
     private func setupUIComponents() {
+        setupToast()
+        setupPopupDialog()
+    }
+    
+    private func setupToast() {
         // Toast
         var style = ToastStyle()
         style.backgroundColor = .white
@@ -72,6 +78,42 @@ extension AppDelegate {
         style.titleColor = .hex(0xff1f2033)
         style.messageColor = .hex(0xff1f2033)
         ToastManager.shared.style = style
+    }
+    
+    private func setupPopupDialog() {
+        // Customize dialog appearance
+        let pv = PopupDialogDefaultView.appearance()
+        pv.titleFont    = .boldSystemFont(ofSize: 18)
+        pv.titleColor   = .white
+        pv.messageFont  = .systemFont(ofSize: 14)
+        pv.messageColor = .white.withAlphaComponent(0.8)
+
+        // Customize the container view appearance
+        let pcv = PopupDialogContainerView.appearance()
+        pcv.backgroundColor = ConstantsUI.mainBackgroundColor
+        pcv.cornerRadius    = 10
+        pcv.shadowEnabled   = true
+        pcv.shadowColor     = .black
+
+        // Customize overlay appearance
+        let ov = PopupDialogOverlayView.appearance()
+        ov.blurEnabled     = false
+        ov.opacity         = 0.5
+        ov.color           = .black
+
+        // Customize default button appearance
+        let db = DefaultButton.appearance()
+        db.titleFont      = .systemFont(ofSize: 16)
+        db.titleColor     = .white
+        db.buttonColor    = ConstantsUI.accentRed
+        db.separatorColor = ConstantsUI.contentBackgroundColor
+
+        // Customize cancel button appearance
+        let cb = CancelButton.appearance()
+        cb.titleFont      = .systemFont(ofSize: 16)
+        cb.titleColor     = .white
+        cb.buttonColor    = ConstantsUI.mainBackgroundColor
+        cb.separatorColor = ConstantsUI.contentBackgroundColor
     }
 }
 

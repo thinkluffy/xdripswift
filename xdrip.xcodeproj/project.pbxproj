@@ -21,6 +21,7 @@
 		4E16CB54276A1E4E00A8A79E /* SpeakReadingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E16CB53276A1E4E00A8A79E /* SpeakReadingSettingsViewController.swift */; };
 		4E16CB56276B49F000A8A79E /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E16CB55276B49EF00A8A79E /* AboutViewController.swift */; };
 		4E16CB59276B865000A8A79E /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E16CB58276B865000A8A79E /* NotesViewController.swift */; };
+		4E16CB5B276CCA1C00A8A79E /* PopupDialog+SimpleToUse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E16CB5A276CCA1C00A8A79E /* PopupDialog+SimpleToUse.swift */; };
 		4E1CFF34274E475A0020F0F1 /* InitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CFF33274E475A0020F0F1 /* InitViewController.swift */; };
 		4E1CFF36274F89320020F0F1 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CFF35274F89320020F0F1 /* StatisticsView.swift */; };
 		4E1CFF38274F89420020F0F1 /* StatisticsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E1CFF37274F89420020F0F1 /* StatisticsView.xib */; };
@@ -663,6 +664,7 @@
 		4E16CB53276A1E4E00A8A79E /* SpeakReadingSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakReadingSettingsViewController.swift; sourceTree = "<group>"; };
 		4E16CB55276B49EF00A8A79E /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		4E16CB58276B865000A8A79E /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
+		4E16CB5A276CCA1C00A8A79E /* PopupDialog+SimpleToUse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PopupDialog+SimpleToUse.swift"; sourceTree = "<group>"; };
 		4E1CFF33274E475A0020F0F1 /* InitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitViewController.swift; sourceTree = "<group>"; };
 		4E1CFF35274F89320020F0F1 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		4E1CFF37274F89420020F0F1 /* StatisticsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatisticsView.xib; sourceTree = "<group>"; };
@@ -1660,6 +1662,7 @@
 				F8AF361A245D93ED00B5977B /* Int16.swift */,
 				F890E079247687AE008FB2EC /* URL.swift */,
 				F8A1850B25643B16000EF8A0 /* Double+Smoothable.swift */,
+				4E16CB5A276CCA1C00A8A79E /* PopupDialog+SimpleToUse.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3477,6 +3480,7 @@
 				F81FA00A228F53680028C70F /* TextsHomeView.swift in Sources */,
 				F8E3C3AD21FE551C00907A04 /* DexcomCalibrator.swift in Sources */,
 				F8F9723523A5915900C3F17D /* BluetoothTransmitter.swift in Sources */,
+				4E16CB5B276CCA1C00A8A79E /* PopupDialog+SimpleToUse.swift in Sources */,
 				F8F9721323A5915900C3F17D /* BatteryStatusRxMessage.swift in Sources */,
 				F8A2BC3825DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMBluconTransmitterDelegate.swift in Sources */,
 				F51B9F7D24B216CD00FC0643 /* Libre1NonFixedSlopeCalibrator.swift in Sources */,

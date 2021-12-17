@@ -7,6 +7,7 @@ import HealthKitUI
 import AVFoundation
 import PieCharts
 import Charts
+import PopupDialog
 
 /// viewcontroller for the home screen
 final class RootViewController: UIViewController {
@@ -353,13 +354,19 @@ final class RootViewController: UIViewController {
         
         // setup nightscout synchronizer
         nightScoutUploadManager = NightScoutUploadManager() { (title: String, message: String) in
-            let alert = UIAlertController(title: title, message: message, actionHandler: nil)
+            let alert = PopupDialog(title: title,
+                                    message: message,
+                                    actionTitle: R.string.common.common_Ok(),
+                                    actionHandler: nil)
             self.present(alert, animated: true, completion: nil)
         }
         
         // setup dexcomShareUploadManager
         dexcomShareUploadManager = DexcomShareUploadManager() { (title: String, message: String) in
-            let alert = UIAlertController(title: title, message: message, actionHandler: nil)
+            let alert = PopupDialog(title: title,
+                                    message: message,
+                                    actionTitle: R.string.common.common_Ok(),
+                                    actionHandler: nil)
             self.present(alert, animated: true, completion: nil)
         }
         
@@ -702,17 +709,17 @@ final class RootViewController: UIViewController {
         
         calibrateButton.onTap { [unowned self] _ in
             if let cgmTransmitter = self.bluetoothPeripheralManager?.getCGMTransmitter(), cgmTransmitter.isWebOOPEnabled() {
-                let alert = UIAlertController(title: Texts_Common.warning,
-                                              message: Texts_HomeView.calibrationNotNecessary,
-                                              actionHandler: nil)
-                self.present(alert, animated: true)
+                let dialog = PopupDialog(title: R.string.common.warning(),
+                                         message: R.string.homeView.calibrationNotNecessary(),
+                                         actionHandler: nil)
+                self.present(dialog, animated: true)
                 
             } else {
                 RootViewController.log.i("calibration : user clicked the calibrate button")
                 self.requestCalibration(userRequested: true)
             }
         }
-        
+                
         sensorIndicator.addTarget(self, action: #selector(sensorIndicatorDidClick(_:)), for: .touchUpInside)
         
         glucoseChart.chartHours = selectedChartHoursId
@@ -811,7 +818,11 @@ final class RootViewController: UIViewController {
             
             trace("in requestCalibration, calibrationsAccessor or cgmTransmitter is nil, no further processing", log: log, category: ConstantsLog.categoryRootView, type: .info)
             
-            self.present(UIAlertController(title: Texts_HomeView.info, message: Texts_HomeView.theresNoCGMTransmitterActive, actionHandler: nil), animated: true, completion: nil)
+            self.present(PopupDialog(title: Texts_HomeView.info,
+                                     message: Texts_HomeView.theresNoCGMTransmitterActive,
+                                     actionTitle: R.string.common.common_Ok(),
+                                     actionHandler: nil),
+                         animated: true)
             
             return
         }
@@ -821,7 +832,11 @@ final class RootViewController: UIViewController {
             
             trace("in requestCalibration, there is no active sensor, no further processing", log: log, category: ConstantsLog.categoryRootView, type: .info)
             
-            self.present(UIAlertController(title: Texts_HomeView.info, message: Texts_HomeView.startSensorBeforeCalibration, actionHandler: nil), animated: true, completion: nil)
+            self.present(PopupDialog(title: Texts_HomeView.info,
+                                     message: Texts_HomeView.startSensorBeforeCalibration,
+                                     actionTitle: R.string.common.common_Ok(),
+                                     actionHandler: nil),
+                         animated: true)
             
             return
             
@@ -830,7 +845,11 @@ final class RootViewController: UIViewController {
         // if it's a user requested calibration, but there's no calibration yet, then give info and return - first calibration will be requested by app via notification
         if calibrationsAccessor.firstCalibrationForActiveSensor(withActivesensor: activeSensor) == nil && userRequested {
             
-            self.present(UIAlertController(title: Texts_HomeView.info, message: Texts_HomeView.thereMustBeAreadingBeforeCalibration, actionHandler: nil), animated: true, completion: nil)
+            self.present(PopupDialog(title: Texts_HomeView.info,
+                                     message: Texts_HomeView.thereMustBeAreadingBeforeCalibration,
+                                     actionTitle: R.string.common.common_Ok(),
+                                     actionHandler: nil),
+                         animated: true)
             
             return
         }
@@ -843,7 +862,11 @@ final class RootViewController: UIViewController {
             (text:String) in
             
             guard let valueAsDouble = text.toDouble() else {
-                self.present(UIAlertController(title: Texts_Common.warning, message: Texts_Common.invalidValue, actionHandler: nil), animated: true, completion: nil)
+                self.present(PopupDialog(title: Texts_Common.warning,
+                                         message: Texts_Common.invalidValue,
+                                         actionTitle: R.string.common.common_Ok(),
+                                         actionHandler: nil),
+                             animated: true)
                 return
             }
             
@@ -1414,19 +1437,28 @@ extension RootViewController: CGMTransmitterDelegate {
     }
     
     func cgmTransmitterPairingTooLate() {
-        let alert = UIAlertController(title: Texts_Common.warning, message: Texts_HomeView.transmitterPairingTooLate, actionHandler: nil)
+        let alert = PopupDialog(title: Texts_Common.warning,
+                                message: Texts_HomeView.transmitterPairingTooLate,
+                                actionTitle: R.string.common.common_Ok(),
+                                actionHandler: nil)
         
        present(alert, animated: true, completion: nil)
     }
     
     func cgmTransmitterPairingDidSucceed() {
-        let alert = UIAlertController(title: Texts_HomeView.info, message: Texts_HomeView.transmitterPairingSuccessful, actionHandler: nil)
+        let alert = PopupDialog(title: Texts_HomeView.info,
+                                message: Texts_HomeView.transmitterPairingSuccessful,
+                                actionTitle: R.string.common.common_Ok(),
+                                actionHandler: nil)
         
         present(alert, animated: true, completion: nil)
     }
     
     func cgmTransmitterPairingDidTimeOut() {
-        let alert = UIAlertController(title: Texts_Common.warning, message: "time out", actionHandler: nil)
+        let alert = PopupDialog(title: Texts_Common.warning,
+                                message: "time out",
+                                actionTitle: R.string.common.common_Ok(),
+                                actionHandler: nil)
         
         present(alert, animated: true, completion: nil)
     }
@@ -1514,7 +1546,10 @@ extension RootViewController: UNUserNotificationCenterDelegate {
         } else if response.notification.request.identifier == ConstantsNotifications.NotificationIdentifierForSensorNotDetected.sensorNotDetected {
             
             // if user clicks notification "sensor not detected", then show uialert with title and body
-            let alert = UIAlertController(title: Texts_Common.warning, message: Texts_HomeView.sensorNotDetected, actionHandler: nil)
+            let alert = PopupDialog(title: Texts_Common.warning,
+                                    message: Texts_HomeView.sensorNotDetected,
+                                    actionTitle: R.string.common.common_Ok(),
+                                    actionHandler: nil)
             
             self.present(alert, animated: true, completion: nil)
             

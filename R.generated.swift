@@ -2935,7 +2935,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.common` struct is generated, and contains static references to 54 localization keys.
+    /// This `R.string.common` struct is generated, and contains static references to 55 localization keys.
     struct common {
       /// en translation: %d Mins
       ///
@@ -3061,6 +3061,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static let common_password = Rswift.StringResource(key: "common_password", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fi", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// en translation: Please Confirm
+      ///
+      /// Locales: en, zh
+      static let pleaseConfirm = Rswift.StringResource(key: "pleaseConfirm", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Readings
       ///
       /// Locales: en, zh
@@ -3621,6 +3625,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("common_password", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Please Confirm
+      ///
+      /// Locales: en, zh
+      static func pleaseConfirm(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("pleaseConfirm", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "pleaseConfirm"
+        }
+
+        return NSLocalizedString("pleaseConfirm", tableName: "Common", bundle: bundle, comment: "")
       }
 
       /// en translation: Readings

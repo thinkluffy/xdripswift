@@ -1,4 +1,5 @@
 import UIKit
+import PopupDialog
 
 /// defines static utility functions for view controllers
 class SettingsViewUtilities {
@@ -73,7 +74,10 @@ class SettingsViewUtilities {
                     if let inputValidator = inputValidator, let errorMessage = inputValidator(text) {
                         
                         // need to show the error message
-                        let alert = UIAlertController(title: Texts_Common.warning, message: errorMessage, actionHandler: nil)
+                        let alert = PopupDialog(title: Texts_Common.warning,
+                                                message: errorMessage,
+                                                actionTitle: R.string.common.common_Ok(),
+                                                actionHandler: nil)
                         
                         uIViewController.present(alert, animated: true, completion: nil)
                         
@@ -142,21 +146,33 @@ class SettingsViewUtilities {
                 
             case let .showInfoText(title, message, actionHandler):
                 
-                let alert = UIAlertController(title: title, message: message, actionHandler: actionHandler)
+                let alert = PopupDialog(title: title,
+                                        message: message,
+                                        actionTitle: R.string.common.common_Ok(),
+                                        actionHandler: actionHandler)
                 
                 uIViewController.present(alert, animated: true, completion: nil)
                 
             case let .askConfirmation(title, message, actionHandler, cancelHandler):
                 
                 // first ask user confirmation
-                let alert = UIAlertController(title: title, message: message, actionHandler: {
+                let alert = PopupDialog(
+                    title: title,
+                    message: message,
+                    actionHandler: {
                     
-                    actionHandler()
+                        actionHandler()
                     
-                    // check if refresh is needed, either complete settingsview or individual section
-                    self.checkIfReloadNeededAndReloadIfNeeded(tableView: tableView, viewModel: settingsViewModel, rowIndex: rowIndex, sectionIndex: sectionIndex)
+                        // check if refresh is needed, either complete settingsview or individual section
+                        self.checkIfReloadNeededAndReloadIfNeeded(tableView: tableView,
+                                                                  viewModel: settingsViewModel,
+                                                                  rowIndex: rowIndex,
+                                                                  sectionIndex: sectionIndex)
                     
-                }, cancelHandler: cancelHandler)
+                    },
+                    cancelTitle: R.string.common.common_cancel(),
+                    cancelHandler: cancelHandler
+                )
                 
                 uIViewController.present(alert, animated: true, completion: nil)
                 

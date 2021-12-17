@@ -11,9 +11,9 @@ enum ConstantsUI {
     
     static let accentRed = UIColor.rgba(234, 45, 100) // #ffea2d64
 
-    static let glucoseLowColor = UIColor.rgba(233, 127, 57)
-    static let glucoseInRangeColor = UIColor.rgba(72, 235, 56)
-    static let glucoseHighColor = ConstantsUI.accentRed
+    static let warningColor = UIColor.rgba(233, 127, 57)
+    static let normalColor = UIColor.rgba(72, 235, 56)
+    static let alertColor = ConstantsUI.accentRed
 
     /// color for section titles in grouped table views, example in settings view
     static let tableViewHeaderTextColor = UIColor.lightText

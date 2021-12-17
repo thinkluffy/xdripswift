@@ -1,5 +1,5 @@
 //
-//  AlertController.swift
+//  PopupDialog.swift
 //  xdrip
 //
 //  Created by Yuanbin Cai on 2021/12/17.
@@ -18,10 +18,12 @@ extension PopupDialog {
                      cancelTitle: String? = nil,
                      cancelHandler: (() -> Void)? = nil) {
         self.init(title: title,
-                                 message: message,
-                                 transitionStyle: .iOS,
-                                 tapGestureDismissal: false,
-                                 panGestureDismissal: false)
+                  message: message,
+                  buttonAlignment: .horizontal,
+                  transitionStyle: .iOS,
+                  tapGestureDismissal: false,
+                  panGestureDismissal: false)
+        
         let actionButton = DefaultButton(title: actionTitle) {
             if let actionHandler = actionHandler {
                 actionHandler()
