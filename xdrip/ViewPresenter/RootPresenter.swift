@@ -42,6 +42,19 @@ class RootPresenter: RootP {
             
             self?.view?.show(chartReadings: readings, from: fromDate, to: toDate)
         }
+        
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            let fromDate = Date(timeIntervalSinceNow: -Date.dayInSeconds)
+            let toDate = Date()
+         
+            let readings = self?.bgReadingsAccessor.getBgReadings(from: fromDate,
+                                                                  to: toDate,
+                                                                  on: CoreDataManager.shared.mainManagedObjectContext)
+        
+            DispatchQueue.main.async {
+                self?.view?.show(chartReadings: readings, from: fromDate, to: toDate)
+            }
+        }
     }
     
     // a long function just to get the timestamp of the last disconnect or reconnect. If not known then returns 1 1 1970
