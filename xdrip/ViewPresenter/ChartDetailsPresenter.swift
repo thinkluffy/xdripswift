@@ -40,12 +40,11 @@ class ChartDetailsPresenter: ChartDetailsP {
         
         let fromDate = Calendar.current.startOfDay(for: date)
         let toDate = Date(timeInterval: Date.dayInSeconds, since: fromDate)
-
-        let readings = bgReadingsAccessor.getBgReadings(from: fromDate,
-                                                        to: toDate,
-                                                        on: CoreDataManager.shared.mainManagedObjectContext)
-                
-        view?.show(readings: readings, from: fromDate, to: toDate)
+        
+        bgReadingsAccessor.getBgReadingsAsync(from: fromDate, to: toDate) {
+            [weak self] bgReadings in
+            self?.view?.show(readings: bgReadings, from: fromDate, to: toDate)
+        }
     }
     
     func loadStatistics(date: Date) {

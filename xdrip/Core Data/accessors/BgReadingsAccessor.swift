@@ -1,6 +1,7 @@
 import Foundation
 import CoreData
 import os
+import SwiftUI
 
 class BgReadingsAccessor {
     
@@ -172,6 +173,61 @@ class BgReadingsAccessor {
         }
         
         return bgReadings
+    }
+    
+    /// gets bgReadings, asynchronously, from main thread
+    /// - parameters:
+    ///     - to : if specified, only return readings with timestamp  smaller than fromDate (not equal to)
+    ///     - from : if specified, only return readings with timestamp greater than fromDate (not equal to)
+    func getBgReadingsAsync(from: Date?, to: Date?, completion: @escaping ([BgReading]?) -> Void) {
+        
+        let fetchRequest: NSFetchRequest<BgReading> = BgReading.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(BgReading.timeStamp), ascending: true)]
+        
+        // create predicate
+        if let from = from, to == nil {
+            let predicate = NSPredicate(format: "timeStamp > %@", NSDate(timeIntervalSince1970: from.timeIntervalSince1970))
+            fetchRequest.predicate = predicate
+            
+        } else if let to = to, from == nil {
+            let predicate = NSPredicate(format: "timeStamp < %@", NSDate(timeIntervalSince1970: to.timeIntervalSince1970))
+            fetchRequest.predicate = predicate
+            
+        } else if let to = to, let from = from {
+            let predicate = NSPredicate(format: "timeStamp < %@ AND timeStamp > %@", NSDate(timeIntervalSince1970: to.timeIntervalSince1970), NSDate(timeIntervalSince1970: from.timeIntervalSince1970))
+            fetchRequest.predicate = predicate
+        }
+        
+        let aysncFetchRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) {
+            result in
+            guard let bgReadings = result.finalResult else {
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
+                return
+            }
+            
+            DispatchQueue.main.async {
+                var ret = [BgReading]()
+                let mmoc = CoreDataManager.shared.mainManagedObjectContext
+                bgReadings.forEach { reading in
+                    if let copy = mmoc.object(with: reading.objectID) as? BgReading {
+                        ret.append(copy)
+                    }
+                }
+                completion(ret)
+            }
+        }
+
+        CoreDataManager.shared.privateManagedObjectContext.perform {
+            do {
+                try CoreDataManager.shared.privateManagedObjectContext.execute(aysncFetchRequest)
+
+            } catch {
+                let fetchError = error as NSError
+                trace("in getBgReadings, Unable to Execute BgReading Fetch Request : %{public}@", log: self.log, category: ConstantsLog.categoryApplicationDataBgReadings, type: .error, fetchError.localizedDescription)
+            }
+        }
     }
     
     /// deletes bgReading, synchronously, in the managedObjectContext's thread
