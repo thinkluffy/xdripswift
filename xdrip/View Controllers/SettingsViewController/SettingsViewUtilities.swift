@@ -107,7 +107,7 @@ class SettingsViewUtilities {
                 // check if refresh is needed, either complete settingsview or individual section
                 self.checkIfReloadNeededAndReloadIfNeeded(tableView: tableView, viewModel: settingsViewModel, rowIndex: rowIndex, sectionIndex: sectionIndex)
                 
-            case let .selectFromList(title, data, selectedRow, actionTitle, actionHandler, cancelHandler, didSelectRowHandler):
+            case let .selectFromList(title, message, data, selectedRow, actionTitle, actionHandler, cancelHandler, didSelectRowHandler):
                 
                 // configure pickerViewData
                 let pickerViewData = PickerViewDataBuilder(data: data, actionHandler: {
@@ -123,6 +123,7 @@ class SettingsViewUtilities {
                     
                 })
                     .title(title)
+                    .subTitle(message)
                     .selectedRow(selectedRow)
                     .actionTitle(actionTitle)
                     .cancelHandler {

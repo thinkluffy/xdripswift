@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PopupDialog
 
 class SettingsViewController: UIViewController {
 
@@ -79,17 +80,18 @@ class SettingsViewController: UIViewController {
                 // switching from master to follower will set cgm transmitter to nil and stop the sensor. If there's a sensor active then it's better to ask for a confirmation, if not then do the change without asking confirmation
                 if UserDefaults.standard.isMaster {
                     if SensorsAccessor().fetchActiveSensor() != nil {
-                        let alert = UIAlertController(title: R.string.common.warning(),
-                                                      message: R.string.settingsViews.warningChangeFromMasterToFollower(),
-                                                      preferredStyle: .alert)
-                        
-                        alert.addAction(UIAlertAction(title: R.string.common.common_Ok(), style: .default, handler: { _ in
-                            UserDefaults.standard.isMaster = false
-                            operationCell.detailedText = R.string.settingsViews.settingsviews_follower()
-                            tableView.reloadRows(at: [indexPath], with: .none)
-                        }))
-                        
-                        alert.addAction(UIAlertAction(title: R.string.common.common_cancel(), style: .cancel))
+                        let alert = PopupDialog(
+                            title: R.string.common.warning(),
+                            message: R.string.settingsViews.warningChangeFromMasterToFollower(),
+                            actionTitle: R.string.common.common_Ok(),
+                            actionHandler: {
+                                UserDefaults.standard.isMaster = false
+                                operationCell.detailedText = R.string.settingsViews.settingsviews_follower()
+                                tableView.reloadRows(at: [indexPath], with: .none)
+                            },
+                            cancelTitle: R.string.common.common_cancel(),
+                            cancelHandler: nil
+                        )
 
                         self.present(alert, animated: true)
                         

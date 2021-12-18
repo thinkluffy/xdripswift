@@ -68,7 +68,7 @@
 "settingsviews_speakTrend" = "Speak Trend";
 "settingsviews_speakDelta" = "Speak Delta";
 "settingsviews_IntervalTitle" = "Interval";
-"settingsviews_IntervalMessage" = "Minimum interval between two readings, in minutes";
+"settingsviews_IntervalMessage" = "Minimum interval between two readings";
 "settingsviews_sectiontitleAbout" = "About %@";
 "settingsviews_Version" = "Version";
 "settingsviews_license" = "License";

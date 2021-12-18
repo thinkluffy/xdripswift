@@ -67,25 +67,29 @@ class CommonSettingsViewController: SubSettingsViewController {
                            didClick: {
                 [unowned self] operationCell, tableView, indexPath in
                 
-                let alert = UIAlertController(title: Texts_SettingsView.settingsviews_IntervalTitle,
-                                              message: Texts_SettingsView.settingsviews_IntervalMessage,
-                                              keyboardType: .numberPad,
-                                              text: UserDefaults.standard.notificationInterval.description,
-                                              placeHolder: "0",
-                                              actionTitle: nil,
-                                              cancelTitle: nil,
-                                              actionHandler: {
-                    (interval: String) in
-                    
-                    if let interval = Int(interval) {
-                        UserDefaults.standard.notificationInterval = Int(interval)
-                        operationCell.detailedText = R.string.common.howManyMinutes(UserDefaults.standard.notificationInterval)
-                        tableView.reloadRows(at: [indexPath], with: .none)
-                    }
-                },
-                                              cancelHandler: nil)
+                var data = [String]()
+                for i in 1 ... 30 {
+                    data.append(R.string.common.howManyMinutes(i))
+                }
+                let selectedRow = UserDefaults.standard.notificationInterval - 1
                 
-                self.present(alert, animated: true)
+                let pickerViewData = PickerViewDataBuilder(
+                    data: data,
+                    actionHandler: {
+                        index in
+                        if index != selectedRow {
+                            UserDefaults.standard.notificationInterval = index + 1
+                            operationCell.detailedText = R.string.common.howManyMinutes(index + 1)
+                            tableView.reloadRows(at: [indexPath], with: .none)
+                        }
+                    }
+                )
+                    .title(Texts_SettingsView.settingsviews_IntervalTitle)
+                    .subTitle(Texts_SettingsView.settingsviews_IntervalMessage)
+                    .selectedRow(selectedRow)
+                    .build()
+                
+                BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
                 
             })
             .toggleCell(title: R.string.settingsViews.settingsviews_labelShowReadingInAppBadge(),
@@ -208,13 +212,17 @@ class CommonSettingsViewController: SubSettingsViewController {
                     }
                 }
                 
-                let pickerViewData = PickerViewDataBuilder(data: data, actionHandler: { index in
-                    if index != selectedRow {
-                        UserDefaults.standard.chartHeight = heights[index]
-                        operationCell.detailedText = heights[index].mgdlToMmolAndToString(mgdl: isMg)
-                        tableView.reloadRows(at: [indexPath], with: .none)
+                let pickerViewData = PickerViewDataBuilder(
+                    data: data,
+                    actionHandler: {
+                        index in
+                        if index != selectedRow {
+                            UserDefaults.standard.chartHeight = heights[index]
+                            operationCell.detailedText = heights[index].mgdlToMmolAndToString(mgdl: isMg)
+                            tableView.reloadRows(at: [indexPath], with: .none)
+                        }
                     }
-                })
+                )
                     .title(R.string.settingsViews.settingsviews_chartHeight())
                     .selectedRow(selectedRow)
                     .build()

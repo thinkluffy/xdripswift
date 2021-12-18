@@ -106,8 +106,7 @@ class SettingsViewAppleWatchSettingsViewModel: SettingsViewModelProtocol {
             return nil
             
         case .calendarInterval:
-            return UserDefaults.standard.calendarInterval.description
-
+            return R.string.common.howManyMinutes(UserDefaults.standard.calendarInterval)
         }
     }
 
@@ -259,28 +258,43 @@ class SettingsViewAppleWatchSettingsViewModel: SettingsViewModelProtocol {
                 
             }
             
-            return SettingsSelectedRowAction.selectFromList(title: R.string.settingsViews.calenderId(), data: data, selectedRow: selectedRow, actionTitle: nil, actionHandler: {(index:Int) in
-                if index != selectedRow {
-                    UserDefaults.standard.calenderId = data[index]
-                }
-            }, cancelHandler: nil, didSelectRowHandler: nil)
+            return .selectFromList(
+                title: R.string.settingsViews.calenderId(),
+                message: nil,
+                data: data,
+                selectedRow: selectedRow,
+                actionTitle: nil,
+                actionHandler: {
+                    (index: Int) in
+                    if index != selectedRow {
+                        UserDefaults.standard.calenderId = data[index]
+                    }
+                },
+                cancelHandler: nil,
+                didSelectRowHandler: nil)
 
         case .calendarInterval:
-        
-            return SettingsSelectedRowAction.askText(title: Texts_SettingsView.settingsviews_IntervalTitle,
-                                                     message: Texts_SettingsView.settingsviews_IntervalMessage,
-                                                     keyboardType: .numberPad,
-                                                     text: UserDefaults.standard.calendarInterval.description,
-                                                     placeHolder: "0",
-                                                     actionTitle: nil,
-                                                     cancelTitle: nil,
-                                                     actionHandler: { (interval: String) in
-                if let interval = Int(interval) {
-                    UserDefaults.standard.calendarInterval = Int(interval)
-                }
-            },
-                                                     cancelHandler: nil,
-                                                     inputValidator: nil)
+            var data = [String]()
+            for i in 1 ... 30 {
+                data.append(R.string.common.howManyMinutes(i))
+            }
+            let selectedRow = UserDefaults.standard.calendarInterval - 1
+            
+            return .selectFromList(
+                title: R.string.settingsViews.settingsviews_IntervalTitle(),
+                message: R.string.settingsViews.settingsviews_IntervalMessage(),
+                data: data,
+                selectedRow: selectedRow,
+                actionTitle: R.string.common.common_Ok(),
+                actionHandler: { index in
+                    if selectedRow != index {
+                        UserDefaults.standard.calendarInterval = index + 1
+                    }
+                },
+                cancelHandler: nil,
+                didSelectRowHandler: nil
+            )
+
         }
     }
     

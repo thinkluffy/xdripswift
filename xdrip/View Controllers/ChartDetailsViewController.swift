@@ -297,7 +297,7 @@ extension ChartDetailsViewController: CalendarTitleDelegate {
             return
         }
         
-        let content = DatePickerSheetContent(selectedDate: selectedDate)
+        let content = DatePickerSheetContent(selectedDate: selectedDate, slideInFrom: .trailing)
         content.delegate = self
         let sheet = SlideInSheet(sheetContent: content)
         sheet.show(in: view, dimColor: .black.withAlphaComponent(0.5), slideInFrom: .trailing)
@@ -318,7 +318,7 @@ extension ChartDetailsViewController: SingleSelectionDelegate {
 
 extension ChartDetailsViewController: DatePickerSheetContentDelegate {
     
-    fileprivate func datePickerSheetContent(_ sheetContent: DatePickerSheetContent, didSelect date: Date) {
+    func datePickerSheetContent(_ sheetContent: DatePickerSheetContent, didSelect date: Date) {
         // double check to avoid selecting a date in future
         guard date < Date() else {
             return
@@ -338,72 +338,6 @@ fileprivate class HourAxisValueFormatter: IAxisValueFormatter {
         return dateFormatter.string(from: date)
     }
     
-}
-
-fileprivate protocol DatePickerSheetContentDelegate: AnyObject {
-    
-    func datePickerSheetContent(_ sheetContent: DatePickerSheetContent, didSelect date: Date)
-}
-
-fileprivate class DatePickerSheetContent: SlideInSheetContent {
-    
-    weak var delegate: DatePickerSheetContentDelegate?
-        
-    private let selectedDate: Date?
-    
-    init(selectedDate: Date) {
-        self.selectedDate = selectedDate
-        super.init(frame: .zero)
-        initialize()
-    }
-    
-    required init?(coder: NSCoder) {
-        selectedDate = nil
-        super.init(coder: coder)
-        initialize()
-    }
-    
-    private func initialize() {
-        backgroundColor = ConstantsUI.mainBackgroundColor
-        
-        let calendar = FSCalendar()
-        calendar.appearance.headerTitleColor = .white
-        calendar.appearance.headerDateFormat = "yyyy-MM"
-        calendar.appearance.headerMinimumDissolvedAlpha = 0
-        calendar.appearance.titleDefaultColor = .white
-        calendar.appearance.weekdayTextColor = .white
-        calendar.appearance.todayColor = ConstantsUI.contentBackgroundColor
-        calendar.appearance.todaySelectionColor = ConstantsUI.accentRed
-        calendar.appearance.selectionColor = ConstantsUI.accentRed
-        
-        if let selectedDate = selectedDate {
-            calendar.select(selectedDate)
-        }
-            
-        calendar.delegate = self
-        
-        addSubview(calendar)
-
-        snp.makeConstraints { make in
-            make.width.equalTo(320)
-        }
-        
-        calendar.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(10)
-        }
-    }
-}
-
-extension DatePickerSheetContent: FSCalendarDelegate {
-    
-    // avoid selecting a date in future
-    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
-        date <= Date()
-    }
-    
-    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        delegate?.datePickerSheetContent(self, didSelect: date)
-    }
 }
 
 fileprivate class StatisticsSheetContent: SlideInSheetContent {

@@ -108,17 +108,20 @@ struct SettingsViewHomeScreenSettingsViewModel: SettingsViewModelProtocol {
                 }
             }
             
-            return SettingsSelectedRowAction.selectFromList(title: R.string.settingsViews.settingsviews_chartHeight(),
-                                                            data: data,
-                                                            selectedRow: selectedRow,
-                                                            actionTitle: nil,
-                                                            actionHandler: {(index: Int) in
-                if index != selectedRow {
-                    UserDefaults.standard.chartHeight = heights[index]
-                }
-            },
-                                                            cancelHandler: nil,
-                                                            didSelectRowHandler: nil)
+            return .selectFromList(
+                title: R.string.settingsViews.settingsviews_chartHeight(),
+                message: nil,
+                data: data,
+                selectedRow: selectedRow,
+                actionTitle: nil,
+                actionHandler: {
+                    (index: Int) in
+                    if index != selectedRow {
+                        UserDefaults.standard.chartHeight = heights[index]
+                    }
+                },
+                cancelHandler: nil,
+                didSelectRowHandler: nil)
             
         case .chartDots5MinsApart:
             return SettingsSelectedRowAction.callFunction(function: {

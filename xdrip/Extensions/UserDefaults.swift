@@ -302,7 +302,8 @@ extension UserDefaults {
     /// speak readings interval in minutes
     @objc dynamic var notificationInterval: Int {
         get {
-            return integer(forKey: Key.notificationInterval.rawValue)
+            let ret = integer(forKey: Key.notificationInterval.rawValue)
+            return ret == 0 ? 1 : ret
         }
         set {
             set(newValue, forKey: Key.notificationInterval.rawValue)
@@ -775,7 +776,8 @@ extension UserDefaults {
     /// speak readings interval in minutes
     @objc dynamic var speakInterval: Int {
         get {
-            return integer(forKey: Key.speakInterval.rawValue)
+            let ret = integer(forKey: Key.speakInterval.rawValue)
+            return ret == 0 ? 1 : ret
         }
         set {
             set(newValue, forKey: Key.speakInterval.rawValue)
@@ -819,7 +821,8 @@ extension UserDefaults {
     /// speak readings interval in minutes
     @objc dynamic var calendarInterval: Int {
         get {
-            return integer(forKey: Key.calendarInterval.rawValue)
+            let ret = integer(forKey: Key.calendarInterval.rawValue)
+            return ret == 0 ? 1 : ret
         }
         set {
             set(newValue, forKey: Key.calendarInterval.rawValue)

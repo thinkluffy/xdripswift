@@ -44,12 +44,35 @@ class SettingsViewSpeakSettingsViewModel:SettingsViewModelProtocol {
         switch setting {
         case .speakBgReadings:
             return .nothing
+            
         case .speakTrend:
             return .nothing
+            
         case .speakDelta:
             return .nothing
+            
         case .speakInterval:
-            return SettingsSelectedRowAction.askText(title: Texts_SettingsView.settingsviews_IntervalTitle, message: Texts_SettingsView.settingsviews_IntervalMessage, keyboardType: .numberPad, text: UserDefaults.standard.speakInterval.description, placeHolder: "0", actionTitle: nil, cancelTitle: nil, actionHandler: {(interval:String) in if let interval = Int(interval) {UserDefaults.standard.speakInterval = Int(interval)}}, cancelHandler: nil, inputValidator: nil)
+            var data = [String]()
+            for i in 1 ... 30 {
+                data.append(R.string.common.howManyMinutes(i))
+            }
+            let selectedRow = UserDefaults.standard.speakInterval - 1
+            
+            return .selectFromList(
+                title: R.string.settingsViews.settingsviews_IntervalTitle(),
+                message: R.string.settingsViews.settingsviews_IntervalMessage(),
+                data: data,
+                selectedRow: selectedRow,
+                actionTitle: R.string.common.common_Ok(),
+                actionHandler: { index in
+                    if selectedRow != index {
+                        UserDefaults.standard.speakInterval = index + 1
+                    }
+                },
+                cancelHandler: nil,
+                didSelectRowHandler: nil
+            )
+            
         case .speakBgReadingLanguage:
             
             //find index for languageCode type currently stored in userdefaults
@@ -61,11 +84,20 @@ class SettingsViewSpeakSettingsViewModel:SettingsViewModelProtocol {
                 selectedRow = ConstantsSpeakReadingLanguages.allLanguageNamesAndCodes.codes.firstIndex(of: Texts_SpeakReading.defaultLanguageCode)
             }
             
-            return SettingsSelectedRowAction.selectFromList(title: Texts_SettingsView.speakReadingLanguageSelection, data: ConstantsSpeakReadingLanguages.allLanguageNamesAndCodes.names, selectedRow: selectedRow, actionTitle: nil, actionHandler: {(index:Int) in
-                if index != selectedRow {
-                    UserDefaults.standard.speakReadingLanguageCode = ConstantsSpeakReadingLanguages.allLanguageNamesAndCodes.codes[index]
-                }
-            }, cancelHandler: nil, didSelectRowHandler: nil)
+            return .selectFromList(
+                title: Texts_SettingsView.speakReadingLanguageSelection,
+                message: nil,
+                data: ConstantsSpeakReadingLanguages.allLanguageNamesAndCodes.names,
+                selectedRow: selectedRow,
+                actionTitle: nil,
+                actionHandler: {
+                    (index: Int) in
+                    if index != selectedRow {
+                        UserDefaults.standard.speakReadingLanguageCode = ConstantsSpeakReadingLanguages.allLanguageNamesAndCodes.codes[index]
+                    }
+                },
+                cancelHandler: nil,
+                didSelectRowHandler: nil)
 
         }
     }
@@ -128,7 +160,7 @@ class SettingsViewSpeakSettingsViewModel:SettingsViewModelProtocol {
         case .speakDelta:
             return nil
         case .speakInterval:
-            return UserDefaults.standard.speakInterval.description
+            return R.string.common.howManyMinutes(UserDefaults.standard.speakInterval)
         case .speakBgReadingLanguage:
             return Texts_SpeakReading.languageName
         }

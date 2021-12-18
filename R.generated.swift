@@ -6072,7 +6072,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_daysToUseStatisticsMessage = Rswift.StringResource(key: "settingsviews_daysToUseStatisticsMessage", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Minimum interval between two readings, in minutes
+      /// en translation: Minimum interval between two readings
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_IntervalMessage = Rswift.StringResource(key: "settingsviews_IntervalMessage", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -7093,7 +7093,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_daysToUseStatisticsMessage", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Minimum interval between two readings, in minutes
+      /// en translation: Minimum interval between two readings
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static func settingsviews_IntervalMessage(preferredLanguages: [String]? = nil) -> String {

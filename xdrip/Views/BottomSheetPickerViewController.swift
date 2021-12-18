@@ -144,6 +144,7 @@ fileprivate class PickerViewContent: SlideInSheetContent {
         let label = UILabel()
         label.font = .systemFont(ofSize: 25)
         label.textColor = .white
+        label.textAlignment = .center
         return label
     }()
 
@@ -152,6 +153,9 @@ fileprivate class PickerViewContent: SlideInSheetContent {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16)
         label.textColor = .lightText
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.textAlignment = .center
         return label
     }()
 
@@ -247,12 +251,12 @@ fileprivate class PickerViewContent: SlideInSheetContent {
         addSubview(actionButton)
         
         titleLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(20)
         }
         
         subTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
-            make.centerX.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(20)
         }
         
         pickerView.snp.makeConstraints { make in

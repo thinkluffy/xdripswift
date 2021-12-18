@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import FSCalendar
 
 class NotesViewController: UIViewController {
 
     private static let log = Log(type: NotesViewController.self)
     
+    private var presenter: NotesP!
+
     private lazy var calendarTitle: CalendarTitle = {
         let calendarTitle = CalendarTitle()
         return calendarTitle
@@ -31,11 +34,27 @@ class NotesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        instancePresenter()
+
         title = "Notes"
         
         setupView()
         
         calendarTitle.dateTime = Date()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        presenter.onViewDidAppear()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        presenter.onViewWillDisappear()
+        super.viewWillDisappear(animated)
+    }
+    
+    private func instancePresenter() {
+        presenter = NotesPresenter(view: self)
     }
     
     private func setupView() {
@@ -60,5 +79,51 @@ class NotesViewController: UIViewController {
             make.leading.bottom.trailing.equalToSuperview()
             make.top.equalTo(titleBar.snp.bottom)
         }
+        
+        calendarTitle.delegate = self
     }
 }
+
+extension NotesViewController: NotesV {
+    
+}
+
+extension NotesViewController: CalendarTitleDelegate {
+    
+    func calendarLeftButtonDidClick(_ calendarTitle: CalendarTitle, currentTime: Date) {
+        if let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: currentTime) {
+            presenter.loadData(date: yesterday)
+        }
+    }
+    
+    func calendarRightButtonDidClick(_ calendarTitle: CalendarTitle, currentTime: Date) {
+        if let nextDay = Calendar.current.date(byAdding: .day, value: 1, to: currentTime) {
+            presenter.loadData(date: nextDay)
+        }
+    }
+    
+    func calendarTitleDidClick(_ calendarTitle: CalendarTitle) {
+        guard let selectedDate = calendarTitle.dateTime else {
+            return
+        }
+        
+        let content = DatePickerSheetContent(selectedDate: selectedDate, slideInFrom: .top)
+        content.delegate = self
+        let sheet = SlideInSheet(sheetContent: content)
+        sheet.show(in: view, dimColor: .black.withAlphaComponent(0.5), slideInFrom: .top)
+    }
+}
+
+extension NotesViewController: DatePickerSheetContentDelegate {
+    
+    func datePickerSheetContent(_ sheetContent: DatePickerSheetContent, didSelect date: Date) {
+        // double check to avoid selecting a date in future
+        guard date < Date() else {
+            return
+        }
+        
+        sheetContent.sheet?.dismissView()
+        presenter.loadData(date: date)
+    }
+}
+
