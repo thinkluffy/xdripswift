@@ -306,7 +306,7 @@ class AlertManager: NSObject {
             }
         }
         
-        let pickerViewActionHandler = { (snoozeIndex: Int) -> Void in
+        let pickerViewActionHandler = { (snoozeIndex: Int, rowData: String) -> Void in
             // if sound is currently playing then stop it
             SoundPlayer.shared.stopPlaying()
             

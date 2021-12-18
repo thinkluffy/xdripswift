@@ -340,44 +340,52 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
             }
             
             // configure pickerViewData
-            let pickerViewData = PickerViewData(withTitle: Texts_AlertTypeSettingsView.alertTypePickSoundName, withSubTitle: nil, withData: sounds.soundNames, selectedRow: selectedRow, withPriority: nil, actionButtonText: nil, onActionClick: {(_ index: Int) in
-                
-                // soundPlayer might still be playing, stop  it now
-                self.stopSoundPlayerIfPlaying()
-                
-                if index == 1 {
-                    // default iOS sound was selected, set to nil
-                    self.soundName = nil
+            let pickerViewData = PickerViewData(
+                withTitle: Texts_AlertTypeSettingsView.alertTypePickSoundName,
+                withSubTitle: nil,
+                withData: sounds.soundNames,
+                selectedRow: selectedRow,
+                withPriority: nil,
+                actionButtonText: nil, onActionClick: {
+                    (_ index: Int, _) in
                     
-                } else if index == 0 {
-                    // no sound to play
-                    self.soundName = ""
-                    
-                } else {
-                    self.soundName = sounds.soundNames[index]
-                }
-                tableView.reloadRows(at: [IndexPath(row: Setting.soundName.rawValue, section: 0)], with: .none)
-                
-            }, onCancelClick: {
-
-                // soundPlayer might still be playing, stop  it now
-                self.stopSoundPlayerIfPlaying()
-
-            }, didSelectRowHandler: {(_ index: Int) in
-                
-                // user scrolling through the sounds, a sound is selected (but ok not pressed yet), play the sound
-                if index == 0 || index == 1 {
-                    // if no sound or default iOS selected, then no sound will not be played - but also stop playing sound
+                    // soundPlayer might still be playing, stop  it now
                     self.stopSoundPlayerIfPlaying()
                     
-                } else {
-                    // stop playing
+                    if index == 1 {
+                        // default iOS sound was selected, set to nil
+                        self.soundName = nil
+                        
+                    } else if index == 0 {
+                        // no sound to play
+                        self.soundName = ""
+                        
+                    } else {
+                        self.soundName = sounds.soundNames[index]
+                    }
+                    tableView.reloadRows(at: [IndexPath(row: Setting.soundName.rawValue, section: 0)],
+                                         with: .none)
+                },
+                onCancelClick: {
+                    // soundPlayer might still be playing, stop  it now
                     self.stopSoundPlayerIfPlaying()
+                },
+                didSelectRowHandler: {(_ index: Int) in
                     
-                    // play the selected sound
-                    SoundPlayer.shared.playSound(soundFileName: sounds.fileNames[index - 2])
+                    // user scrolling through the sounds, a sound is selected (but ok not pressed yet), play the sound
+                    if index == 0 || index == 1 {
+                        // if no sound or default iOS selected, then no sound will not be played - but also stop playing sound
+                        self.stopSoundPlayerIfPlaying()
+                        
+                    } else {
+                        // stop playing
+                        self.stopSoundPlayerIfPlaying()
+                        
+                        // play the selected sound
+                        SoundPlayer.shared.playSound(soundFileName: sounds.fileNames[index - 2])
+                    }
                 }
-            })
+            )
             
             BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
 

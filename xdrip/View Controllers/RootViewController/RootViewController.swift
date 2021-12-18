@@ -48,31 +48,31 @@ final class RootViewController: UIViewController {
     // MARK: - Constants for ApplicationManager usage
     
     /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground - create updateLabelsAndChartTimer
-    private let applicationManagerKeyCreateupdateLabelsAndChartTimer = "RootViewController-CreateupdateLabelsAndChartTimer"
+    private let appManagerKeyCreateupdateLabelsAndChartTimer = "rvc://CreateupdateLabelsAndChartTimer"
     
     /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground
-    private let applicationManagerKeyInvalidateupdateLabelsAndChartTimerAndCloseSnoozeViewController = "RootViewController-InvalidateupdateLabelsAndChartTimerAndCloseSnoozeViewController"
+    private let appManagerKeyInvalidateupdateLabelsAndChartTimerAndCloseSnoozeViewController = "rvc://invalidateupdateLabelsAndChartTimerAndCloseSnoozeViewController"
     
     /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground - initial calibration
-    private let applicationManagerKeyInitialCalibration = "RootViewController-InitialCalibration"
+    private let appManagerKeyInitialCalibration = "rvc://initialCalibration"
     
     /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground -  isIdleTimerDisabled
-    private let applicationManagerKeyIsIdleTimerDisabled = "RootViewController-isIdleTimerDisabled"
+    private let appManagerKeyIsIdleTimerDisabled = "rvc://isIdleTimerDisabled"
     
     /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground - trace that app goes to background
-    private let applicationManagerKeyTraceAppGoesToBackGround = "applicationManagerKeyTraceAppGoesToBackGround"
+    private let appManagerKeyTraceAppGoesToBackGround = "rvc://traceAppGoesToBackGround"
     
     /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground - trace that app goes to background
-    private let applicationManagerKeyTraceAppGoesToForeground = "applicationManagerKeyTraceAppGoesToForeground"
+    private let appManagerKeyTraceAppGoesToForeground = "rvc://traceAppGoesToForeground"
     
     /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppWillTerminate - trace that app goes to background
-    private let applicationManagerKeyTraceAppWillTerminate = "applicationManagerKeyTraceAppWillTerminate"
+    private let appManagerKeyTraceAppWillTerminate = "rvc://traceAppWillTerminate"
     
     /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground - to initialize the glucoseChartManager and update labels and chart
-    private let applicationManagerKeyUpdateLabelsAndChart = "applicationManagerKeyUpdateLabelsAndChart"
+    private let appManagerKeyUpdateLabelsAndChart = "rvc://updateLabelsAndChart"
     
     /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground - to dismiss screenLockAlertController
-    private let applicationManagerKeyDismissScreenLockAlertController = "applicationManagerKeyDismissScreenLockAlertController"
+    private let appManagerKeyDismissScreenLockAlertController = "rvc://dismissScreenLockAlertController"
     
     // MARK: - Properties - other private properties
     
@@ -306,23 +306,29 @@ final class RootViewController: UIViewController {
         setupAVAudioSession()
         
         // user may have activated the screen lock function so that the screen stays open, when going back to background, set isIdleTimerDisabled back to false and update the UI so that it's ready to come to foreground when required.
-        ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground(key: applicationManagerKeyIsIdleTimerDisabled, closure: {
-            
+        ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground(key: appManagerKeyIsIdleTimerDisabled) {
             UIApplication.shared.isIdleTimerDisabled = false
-                        
-        })
+        }
         
         // add tracing when app goes from foreground to background
-        ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground(key: applicationManagerKeyTraceAppGoesToBackGround, closure: {trace("Application did enter background", log: self.log, category: ConstantsLog.categoryRootView, type: .info)})
+        ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground(key: appManagerKeyTraceAppGoesToBackGround) {
+            trace("Application did enter background", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
+        }
         
         // add tracing when app comes to foreground
-        ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: applicationManagerKeyTraceAppGoesToForeground, closure: {trace("Application will enter foreground", log: self.log, category: ConstantsLog.categoryRootView, type: .info)})
+        ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: appManagerKeyTraceAppGoesToForeground) {
+            trace("Application will enter foreground", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
+        }
         
         // add tracing when app will terminaten - this only works for non-suspended apps, probably (not tested) also works for apps that crash in the background
-        ApplicationManager.shared.addClosureToRunWhenAppWillTerminate(key: applicationManagerKeyTraceAppWillTerminate, closure: {trace("Application will terminate", log: self.log, category: ConstantsLog.categoryRootView, type: .info)})
+        ApplicationManager.shared.addClosureToRunWhenAppWillTerminate(key: appManagerKeyTraceAppWillTerminate) {
+            trace("Application will terminate", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
+        }
         
         // reinitialise glucose chart and also to update labels and chart
-        ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: applicationManagerKeyUpdateLabelsAndChart) { [weak self] in
+        ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: appManagerKeyUpdateLabelsAndChart) {
+            [weak self] in
+            
             self?.updateLabelsAndChart(overrideApplicationState: true)
             self?.updateSensorCountdown()
             // update statistics related outlets
@@ -794,10 +800,10 @@ final class RootViewController: UIViewController {
         updateLabelsAndChartTimer = createAndScheduleUpdateLabelsAndChartTimer()
         
         // updateLabelsAndChartTimer needs to be created when app comes back from background to foreground
-        ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: applicationManagerKeyCreateupdateLabelsAndChartTimer, closure: {updateLabelsAndChartTimer = createAndScheduleUpdateLabelsAndChartTimer()})
+        ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: appManagerKeyCreateupdateLabelsAndChartTimer, closure: {updateLabelsAndChartTimer = createAndScheduleUpdateLabelsAndChartTimer()})
         
         // when app goes to background
-        ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground(key: applicationManagerKeyInvalidateupdateLabelsAndChartTimerAndCloseSnoozeViewController, closure: {
+        ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground(key: appManagerKeyInvalidateupdateLabelsAndChartTimerAndCloseSnoozeViewController, closure: {
             
             // this is for the case that the snoozeViewController is shown. If not removed, then if user opens alert notification, the alert snooze wouldn't be shown
             // that's why, close the snoozeViewController
@@ -1001,10 +1007,10 @@ final class RootViewController: UIViewController {
         
         // we will not just count on it that the user will click the notification to open the app (assuming the app is in the background, if the app is in the foreground, then we come in another flow)
         // whenever app comes from-back to foreground, requestCalibration needs to be called
-        ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: applicationManagerKeyInitialCalibration, closure: {
+        ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: appManagerKeyInitialCalibration, closure: {
             
             // first of all reremove from application key manager
-            ApplicationManager.shared.removeClosureToRunWhenAppWillEnterForeground(key: self.applicationManagerKeyInitialCalibration)
+            ApplicationManager.shared.removeClosureToRunWhenAppWillEnterForeground(key: self.appManagerKeyInitialCalibration)
             
             // remove existing notification if any
             UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [ConstantsNotifications.NotificationIdentifiersForCalibration.initialCalibrationRequest])
@@ -1203,16 +1209,21 @@ final class RootViewController: UIViewController {
             // the category has only CGM currently
             // to add a peripheral
             
-            let data = BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(withCategory: .CGM,
-                                                                                  isFullFeatureMode: UserDefaults.standard.isFullFeatureMode)
+            let data = BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(
+                withCategory: .CGM,
+                isFullFeatureMode: UserDefaults.standard.isFullFeatureMode
+            )
             
             let pickerViewData = PickerViewDataBuilder(
                 data: data,
                 actionHandler: {
-                    (_ typeIndex: Int) in
+                    (_ typeIndex: Int, _) in
                 
-                    let typeRawValue = BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(withCategory: .CGM,
-                                                                                                  isFullFeatureMode: UserDefaults.standard.isFullFeatureMode)[typeIndex]
+                    let typeRawValue = BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(
+                        withCategory: .CGM,
+                        isFullFeatureMode: UserDefaults.standard.isFullFeatureMode
+                    )[typeIndex]
+                    
                     // get the selected BluetoothPeripheralType
                     if let type = BluetoothPeripheralType(rawValue: typeRawValue) {
                         bluetoothPeripheralViewController.configure(bluetoothPeripheral: nil,
@@ -1492,7 +1503,7 @@ extension RootViewController: UNUserNotificationCenterDelegate {
             requestCalibration(userRequested: false)
             
             /// remove applicationManagerKeyInitialCalibration from application key manager - there's no need to initiate the calibration via this closure
-            ApplicationManager.shared.removeClosureToRunWhenAppWillEnterForeground(key: self.applicationManagerKeyInitialCalibration)
+            ApplicationManager.shared.removeClosureToRunWhenAppWillEnterForeground(key: self.appManagerKeyInitialCalibration)
             
             // call completionhandler to avoid that notification is shown to the user
             completionHandler([])

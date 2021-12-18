@@ -76,7 +76,7 @@ class CommonSettingsViewController: SubSettingsViewController {
                 let pickerViewData = PickerViewDataBuilder(
                     data: data,
                     actionHandler: {
-                        index in
+                        index, _ in
                         if index != selectedRow {
                             UserDefaults.standard.notificationInterval = index + 1
                             operationCell.detailedText = R.string.common.howManyMinutes(index + 1)
@@ -215,7 +215,7 @@ class CommonSettingsViewController: SubSettingsViewController {
                 let pickerViewData = PickerViewDataBuilder(
                     data: data,
                     actionHandler: {
-                        index in
+                        index, _ in
                         if index != selectedRow {
                             UserDefaults.standard.chartHeight = heights[index]
                             operationCell.detailedText = heights[index].mgdlToMmolAndToString(mgdl: isMg)

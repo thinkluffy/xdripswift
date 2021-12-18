@@ -111,7 +111,7 @@ class SettingsViewUtilities {
                 
                 // configure pickerViewData
                 let pickerViewData = PickerViewDataBuilder(data: data, actionHandler: {
-                    (_ index: Int) in
+                    (_ index: Int, _) in
                     
                     actionHandler(index)
                     

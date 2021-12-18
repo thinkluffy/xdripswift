@@ -148,20 +148,23 @@ class BgReadingsAccessor {
         if let from = from, to == nil {
             let predicate = NSPredicate(format: "timeStamp > %@", NSDate(timeIntervalSince1970: from.timeIntervalSince1970))
             fetchRequest.predicate = predicate
+            
         } else if let to = to, from == nil {
             let predicate = NSPredicate(format: "timeStamp < %@", NSDate(timeIntervalSince1970: to.timeIntervalSince1970))
             fetchRequest.predicate = predicate
+            
         } else if let to = to, let from = from {
             let predicate = NSPredicate(format: "timeStamp < %@ AND timeStamp > %@", NSDate(timeIntervalSince1970: to.timeIntervalSince1970), NSDate(timeIntervalSince1970: from.timeIntervalSince1970))
             fetchRequest.predicate = predicate
         }
         
         var bgReadings = [BgReading]()
-        
+                
         managedObjectContext.performAndWait {
             do {
                 // Execute Fetch Request
                 bgReadings = try fetchRequest.execute()
+                
             } catch {
                 let fetchError = error as NSError
                 trace("in getBgReadings, Unable to Execute BgReading Fetch Request : %{public}@", log: self.log, category: ConstantsLog.categoryApplicationDataBgReadings, type: .error, fetchError.localizedDescription)
@@ -169,7 +172,6 @@ class BgReadingsAccessor {
         }
         
         return bgReadings
-
     }
     
     /// deletes bgReading, synchronously, in the managedObjectContext's thread

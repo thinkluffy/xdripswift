@@ -21,7 +21,7 @@ public class PickerViewData {
     private (set) var data: [String]
     private (set) var selectedRow: Int
     private (set) var actionTitle: String?
-    private (set) var actionHandler: ((_ index: Int) -> Void)
+    private (set) var actionHandler: ((_ index: Int, _ rowData: String) -> Void)
     private (set) var cancelHandler: (() -> Void)?
     private (set) var didSelectRowHandler: ((Int) -> Void)?
     private (set) var priority: PickerViewPriority?
@@ -42,7 +42,7 @@ public class PickerViewData {
                 selectedRow: Int?,
                 withPriority priority: PickerViewPriority?,
                 actionButtonText actionTitle: String?,
-                onActionClick actionHandler: @escaping ((_ index: Int) -> Void),
+                onActionClick actionHandler: @escaping ((_ index: Int, _ rowData: String) -> Void),
                 onCancelClick cancelHandler: (() -> Void)?,
                 didSelectRowHandler: ((Int) -> Void)?) {
         self.title = title
@@ -64,12 +64,12 @@ public class PickerViewDataBuilder {
     private var data: [String]
     private var selectedRow: Int?
     private var actionTitle: String?
-    private var actionHandler: ((_ index: Int) -> Void)
+    private var actionHandler: ((_ index: Int, _ rowData: String) -> Void)
     private var cancelHandler: (() -> Void)?
     private var didSelectRowHandler: ((Int) -> Void)?
     private var priority: PickerViewPriority?
     
-    public init(data: [String], actionHandler: @escaping ((_ index: Int) -> Void)) {
+    public init(data: [String], actionHandler: @escaping ((_ index: Int, _ rowData: String) -> Void)) {
         self.data = data
         self.actionHandler = actionHandler
     }
@@ -238,7 +238,7 @@ fileprivate class PickerViewContent: SlideInSheetContent {
     
     @objc private func actionButtonDidClick(_ button: UIControl) {
         buttonDidClick = true
-        data.actionHandler(self.selectedRow)
+        data.actionHandler(selectedRow, data.data[selectedRow])
         sheet?.dismissView()
     }
 

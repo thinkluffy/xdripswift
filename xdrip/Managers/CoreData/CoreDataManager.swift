@@ -16,10 +16,10 @@ public final class CoreDataManager {
     private var log = OSLog(subsystem: ConstantsLog.subSystem, category: ConstantsLog.categoryCoreDataManager)
     
     /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppWillTerminate
-    private let applicationManagerKeySaveChangesWhenAppTerminates = "applicationManagerKeySaveChangesWhenAppTerminates"
+    private let appManagerKeySaveChangesWhenAppTerminates = "cdm://saveChangesWhenAppTerminates"
 
     /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppWillTerminate
-    private let applicationManagerKeySaveChangesWhenAppGoesToBackground = "applicationManagerKeySaveChangesWhenAppGoesToBackground"
+    private let appManagerKeySaveChangesWhenAppGoesToBackground = "cdm://saveChangesWhenAppGoesToBackground"
     
 
     // MARK: -
@@ -121,10 +121,10 @@ public final class CoreDataManager {
         }
         
         // when app terminates, call saveChangesAtTermination, just in case that somewhere in the code saveChanges is not called when needed
-        ApplicationManager.shared.addClosureToRunWhenAppWillTerminate(key: applicationManagerKeySaveChangesWhenAppTerminates, closure: {self.saveChangesAtTermination()})
+        ApplicationManager.shared.addClosureToRunWhenAppWillTerminate(key: appManagerKeySaveChangesWhenAppTerminates, closure: {self.saveChangesAtTermination()})
         
         // when app goes to background, call saveChanges, just in case that somewhere in the code saveChanges is not called when needed
-        ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground(key: applicationManagerKeySaveChangesWhenAppGoesToBackground, closure: {self.saveChanges()})
+        ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground(key: appManagerKeySaveChangesWhenAppGoesToBackground, closure: {self.saveChanges()})
     }
 
     // MARK: -
