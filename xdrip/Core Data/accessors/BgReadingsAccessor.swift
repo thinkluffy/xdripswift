@@ -196,30 +196,52 @@ class BgReadingsAccessor {
             fetchRequest.predicate = predicate
         }
         
-        DispatchQueue.global(qos: .userInteractive).async {
-            
-            let moc = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-            moc.persistentStoreCoordinator = CoreDataManager.shared.persistentStoreCoordinator
-            
-            moc.perform {
-                do {
-                    let bgReadings = try fetchRequest.execute()
-                    
-                    DispatchQueue.main.async {
-                        var ret = [BgReading]()
-                        let mmoc = CoreDataManager.shared.mainManagedObjectContext
-                        bgReadings.forEach { reading in
-                            if let copy = mmoc.object(with: reading.objectID) as? BgReading {
-                                ret.append(copy)
-                            }
+//        DispatchQueue.global(qos: .userInteractive).async {
+//
+//            let moc = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+//            moc.parent = CoreDataManager.shared.privateManagedObjectContext
+//
+//            moc.perform {
+//                do {
+//                    let bgReadings = try fetchRequest.execute()
+//
+//                    DispatchQueue.main.async {
+//                        var ret = [BgReading]()
+//                        let mmoc = CoreDataManager.shared.mainManagedObjectContext
+//                        bgReadings.forEach { reading in
+//                            if let copy = mmoc.object(with: reading.objectID) as? BgReading {
+//                                ret.append(copy)
+//                            }
+//                        }
+//                        completion(ret)
+//                    }
+//
+//                } catch {
+//                    let fetchError = error as NSError
+//                    BgReadingsAccessor.log.e("in getBgReadings, Unable to Execute BgReading Fetch Request: \(fetchError.localizedDescription)")
+//                }
+//            }
+//        }
+        
+        let moc = CoreDataManager.shared.privateChildManagedObjectContext()
+        moc.perform {
+            do {
+                let bgReadings = try fetchRequest.execute()
+                
+                DispatchQueue.main.async {
+                    var ret = [BgReading]()
+                    let mmoc = CoreDataManager.shared.mainManagedObjectContext
+                    bgReadings.forEach { reading in
+                        if let copy = mmoc.object(with: reading.objectID) as? BgReading {
+                            ret.append(copy)
                         }
-                        completion(ret)
                     }
-                    
-                } catch {
-                    let fetchError = error as NSError
-                    BgReadingsAccessor.log.e("in getBgReadings, Unable to Execute BgReading Fetch Request: \(fetchError.localizedDescription)")
+                    completion(ret)
                 }
+
+            } catch {
+                let fetchError = error as NSError
+                BgReadingsAccessor.log.e("in getBgReadings, Unable to Execute BgReading Fetch Request: \(fetchError.localizedDescription)")
             }
         }
     }

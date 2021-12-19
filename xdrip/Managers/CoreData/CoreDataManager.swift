@@ -21,28 +21,23 @@ public final class CoreDataManager {
     /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppWillTerminate
     private let appManagerKeySaveChangesWhenAppGoesToBackground = "cdm://saveChangesWhenAppGoesToBackground"
     
-
-    // MARK: -
-    
     private var completion: CoreDataManagerCompletion!
-    
-    // MARK: -
-    
-    private(set) lazy var mainManagedObjectContext: NSManagedObjectContext = {
-        // Initialize Managed Object Context
+        
+    public private(set) lazy var mainManagedObjectContext: NSManagedObjectContext = {
         let managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        
-        // Configure Managed Object Context
         managedObjectContext.parent = self.privateManagedObjectContext
-        
         return managedObjectContext
     }()
     
-    private(set) lazy var privateManagedObjectContext: NSManagedObjectContext = {
+    public func privateChildManagedObjectContext() -> NSManagedObjectContext {
         let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        
+        managedObjectContext.parent = mainManagedObjectContext
+        return managedObjectContext
+    }
+    
+    private lazy var privateManagedObjectContext: NSManagedObjectContext = {
+        let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = self.persistentStoreCoordinator
-        
         return managedObjectContext
     }()
     
@@ -60,7 +55,7 @@ public final class CoreDataManager {
         return managedObjectModel
     }()
     
-    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
+    private lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
         return NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
     }()
     
@@ -93,9 +88,9 @@ public final class CoreDataManager {
     }
     
     // MARK: - Initialization
-    static let shared = CoreDataManager()
+    public static let shared = CoreDataManager()
 
-    func initialize(modelName: String, completion: @escaping CoreDataManagerCompletion) {
+    public func initialize(modelName: String, completion: @escaping CoreDataManagerCompletion) {
         // Set Properties
         self.modelName = modelName
         self.completion = completion

@@ -704,9 +704,7 @@ class BluetoothPeripheralViewController: UIViewController {
             self.infoAlertWhenScanningStarts = nil
             
         }
-        
     }
-    
 }
 
 
@@ -819,10 +817,6 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
         // default value for accessoryView is nil
         cell.accessoryView = nil
  
-        // create disclosureIndicator in color ConstantsUI.disclosureIndicatorColor
-        // will be used whenever accessoryType is to be set to disclosureIndicator
-        let disclosureAaccessoryView = DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor)
-
         //it's a Setting defined here in BluetoothPeripheralViewController
         // is it a bluetooth setting or web oop setting ?
         
@@ -843,13 +837,7 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
                 
                 cell.textLabel?.text = Texts_BluetoothPeripheralView.address
                 cell.detailTextLabel?.text = bluetoothPeripheral?.blePeripheral.address
-                if cell.detailTextLabel?.text == nil {
-                    cell.accessoryType = .none
-                    
-                } else {
-                    cell.accessoryType = .disclosureIndicator
-                    cell.accessoryView = disclosureAaccessoryView
-                }
+                cell.accessoryType = .none
                 
             case .connectionStatus:
                 
@@ -861,12 +849,7 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
                 
                 cell.textLabel?.text = Texts_SettingsView.labelTransmitterId
                 cell.detailTextLabel?.text = transmitterIdTempValue
-                
-                // if transmitterId already has a value, then it can't be changed anymore. To change it, user must delete the transmitter and recreate one.
-                cell.accessoryType = transmitterIdTempValue == nil ? .disclosureIndicator : .none
-                if (transmitterIdTempValue == nil) {
-                    cell.accessoryView = disclosureAaccessoryView
-                }
+                cell.accessoryType = .none
                 
             case .connectOrDisconnectTimeStamp:
                 
@@ -877,12 +860,12 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
                         cell.textLabel?.text = Texts_BluetoothPeripheralView.connectedAt
                         
                     } else {
-                        
                         cell.textLabel?.text = Texts_BluetoothPeripheralView.disConnectedAt
-                        
                     }
                     
-                    cell.detailTextLabel?.text = lastConnectionStatusChangeTimeStamp.toString(timeStyle: .short, dateStyle: .short)
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "MM-dd HH:mm"
+                    cell.detailTextLabel?.text = dateFormatter.string(from: lastConnectionStatusChangeTimeStamp)
                     
                 } else {
                     cell.textLabel?.text = Texts_BluetoothPeripheralView.connectedAt
@@ -948,7 +931,7 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
                     currentWebOOPEnabledValue = bluetoothPeripheral.blePeripheral.webOOPEnabled
                 }
                 
-                cell.accessoryView = UISwitch(isOn: currentWebOOPEnabledValue, action: { (isOn:Bool) in
+                cell.accessoryView = UISwitch(isOn: currentWebOOPEnabledValue, action: { (isOn: Bool) in
                     
                     self.bluetoothPeripheral?.blePeripheral.webOOPEnabled = isOn
                     
@@ -959,11 +942,8 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
                         
                         // if user switches on web oop, then we need to force also use of non-fixed slopes to off
                         if isOn {
-
                             bluetoothPeripheral.blePeripheral.nonFixedSlopeEnabled = false
-                            
                             bluetoothPeripheralManager.receivedNewValue(nonFixedSlopeEnabled: false, for: bluetoothPeripheral)
-                            
                         }
 
                         // reload the section for nonFixedSettingsSectionNumber, even though the value may not have changed, because possibly isUserInteractionEnabled needs to be set to false for the nonFixedSettingsSectionNumber UISwitch

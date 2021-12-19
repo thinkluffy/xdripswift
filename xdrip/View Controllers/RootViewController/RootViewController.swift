@@ -539,22 +539,26 @@ final class RootViewController: UIViewController {
                     // check on glucoseLevelRaw > 0 because I've had a case where a faulty sensor was giving negative values
                     if glucose.glucoseLevelRaw > 0 {
                         
-                        // get latest15BgReadings to make sure there is at least 15 mins readings to calculate slope
-                        var latestBgReadings = bgReadingsAccessor.getLatestBgReadings(limit: Constants.minsToCalculateSlope + 5,
-                                                                                      howOld: nil,
-                                                                                      forSensor: activeSensor,
-                                                                                      ignoreRawData: false,
-                                                                                      ignoreCalculatedValue: false)
+                        // get latest 15 BgReadings to make sure there is at least 15 mins readings to calculate slope
+                        var latestBgReadings = bgReadingsAccessor.getLatestBgReadings(
+                            limit: Constants.minsToCalculateSlope + 5,
+                            howOld: nil,
+                            forSensor: activeSensor,
+                            ignoreRawData: false,
+                            ignoreCalculatedValue: false
+                        )
                         
-                        let newReading = calibrator.createNewBgReading(rawData: glucose.glucoseLevelRaw,
-                                                                       timeStamp: glucose.timeStamp,
-                                                                       sensor: activeSensor,
-                                                                       lastReadings: &latestBgReadings,
-                                                                       lastCalibrationsForActiveSensorInLastXDays: &lastCalibrationsForActiveSensorInLastXDays,
-                                                                       firstCalibration: firstCalibrationForActiveSensor,
-                                                                       lastCalibration: lastCalibrationForActiveSensor,
-                                                                       deviceName: self.getCGMTransmitterDeviceName(for: cgmTransmitter),
-                                                                       nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
+                        let newReading = calibrator.createNewBgReading(
+                            rawData: glucose.glucoseLevelRaw,
+                            timeStamp: glucose.timeStamp,
+                            sensor: activeSensor,
+                            lastReadings: &latestBgReadings,
+                            lastCalibrationsForActiveSensorInLastXDays: &lastCalibrationsForActiveSensorInLastXDays,
+                            firstCalibration: firstCalibrationForActiveSensor,
+                            lastCalibration: lastCalibrationForActiveSensor,
+                            deviceName: self.getCGMTransmitterDeviceName(for: cgmTransmitter),
+                            nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext
+                        )
                         
                         if UserDefaults.standard.addDebugLevelLogsInTraceFileAndNSLog {
                             RootViewController.log.i("new reading created, timestamp: \(newReading.timeStamp.description(with: .current)), calculatedValue: \(newReading.calculatedValue.description.replacingOccurrences(of: ".", with: ","))")
@@ -584,7 +588,7 @@ final class RootViewController: UIViewController {
                     let latestReadings = bgReadingsAccessor.getLatestBgReadings(limit: 36, howOld: nil, forSensor: activeSensor, ignoreRawData: false, ignoreCalculatedValue: true)
                     
                     if latestReadings.count > 1 {
-                        trace("calibration : two readings received, no calibrations exist yet and not weboopenabled, request calibation to user", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
+                        trace("calibration: two readings received, no calibrations exist yet and not weboopenabled, request calibation to user", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
 
                         createInitialCalibrationRequest()
                     }
@@ -948,9 +952,9 @@ final class RootViewController: UIViewController {
         
         switch cgmTransmitterType {
         
-        case .dexcomG4, .dexcomG5, .dexcomG6:
+        case .dexcomG5, .dexcomG6:
             
-            trace("in getCalibrator, calibrator = DexcomCalibrator", log: log, category: ConstantsLog.categoryRootView, type: .info)
+            trace("in getCalibrator, calibrator: DexcomCalibrator", log: log, category: ConstantsLog.categoryRootView, type: .info)
             
             return DexcomCalibrator()
             
@@ -960,7 +964,7 @@ final class RootViewController: UIViewController {
                 
                 // received values are already calibrated
                 
-                trace("in getCalibrator, calibrator = NoCalibrator", log: log, category: ConstantsLog.categoryRootView, type: .info)
+                trace("in getCalibrator, calibrator: NoCalibrator", log: log, category: ConstantsLog.categoryRootView, type: .info)
                 
                 return NoCalibrator()
                 
@@ -968,7 +972,7 @@ final class RootViewController: UIViewController {
                 
                 // no oop web, non-fixed slope
                 
-                trace("in getCalibrator, calibrator = Libre1NonFixedSlopeCalibrator", log: log, category: ConstantsLog.categoryRootView, type: .info)
+                trace("in getCalibrator, calibrator: Libre1NonFixedSlopeCalibrator", log: log, category: ConstantsLog.categoryRootView, type: .info)
                 
                 return Libre1NonFixedSlopeCalibrator()
                 
@@ -976,14 +980,12 @@ final class RootViewController: UIViewController {
                 
                 // no oop web, fixed slope
                 
-                trace("in getCalibrator, calibrator = Libre1Calibrator", log: log, category: ConstantsLog.categoryRootView, type: .info)
+                trace("in getCalibrator, calibrator: Libre1Calibrator", log: log, category: ConstantsLog.categoryRootView, type: .info)
                 
                 return Libre1Calibrator()
                 
             }
-            
         }
-        
     }
     
     /// for debug purposes

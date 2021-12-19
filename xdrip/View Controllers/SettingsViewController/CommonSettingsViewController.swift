@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PopupDialog
 
 class CommonSettingsViewController: SubSettingsViewController {
 
@@ -108,21 +109,26 @@ class CommonSettingsViewController: SubSettingsViewController {
                            didClick: {
                 [unowned self] operationCell, tableView, indexPath in
                 
-                let alert = UIAlertController(title: Texts_SettingsView.labelUrgentHighValue,
-                                              message: nil,
-                                              keyboardType: isMg ? .numberPad : .decimalPad,
-                                              text: UserDefaults.standard.urgentHighMarkValueInUserChosenUnitRounded,
-                                              placeHolder: ConstantsBGGraphBuilder.defaultUrgentHighMarkInMgdl.description,
-                                              actionTitle: nil,
-                                              cancelTitle: nil,
-                                              actionHandler: {
+                let placeHolder = ConstantsBGGraphBuilder.defaultUrgentHighMarkInMgdl
+                    .mgdlToMmolAndToString(mgdl: isMg)
+                
+                let alert = PopupDialog(
+                    title: Texts_SettingsView.labelUrgentHighValue,
+                    message: nil,
+                    keyboardType: isMg ? .numberPad : .decimalPad,
+                    text: UserDefaults.standard.urgentHighMarkValueInUserChosenUnitRounded,
+                    placeHolder: placeHolder
+                ) {
                     urgentHighMarkValue in
                     
-                    UserDefaults.standard.urgentHighMarkValueInUserChosenUnitRounded = urgentHighMarkValue
+                    var input = urgentHighMarkValue
+                    if urgentHighMarkValue == "" {
+                        input = placeHolder
+                    }
+                    UserDefaults.standard.urgentHighMarkValueInUserChosenUnitRounded = input
                     operationCell.detailedText = UserDefaults.standard.urgentHighMarkValueInUserChosenUnit.bgValuetoString(mgdl: isMg)
                     tableView.reloadRows(at: [indexPath], with: .none)
-                },
-                                              cancelHandler: nil)
+                }
                 
                 self.present(alert, animated: true, completion: nil)
             })

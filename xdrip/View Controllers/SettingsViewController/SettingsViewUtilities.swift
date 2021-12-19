@@ -69,32 +69,37 @@ class SettingsViewUtilities {
                 
             case let .askText(title, message, keyboardType, text, placeHolder, actionTitle, cancelTitle, actionHandler, cancelHandler, inputValidator):
                 
-                let alert = UIAlertController(title: title, message: message, keyboardType: keyboardType, text: text, placeHolder: placeHolder, actionTitle: actionTitle, cancelTitle: cancelTitle, actionHandler: { (text:String) in
+                let dialog = PopupDialog(
+                    title: title,
+                    message: message,
+                    keyboardType: keyboardType,
+                    text: text,
+                    placeHolder: placeHolder,
+                    actionTitle: actionTitle ?? R.string.common.common_Ok(),
+                    actionHandler: {
+                        text in
+                        
+                        if let inputValidator = inputValidator, let errorMessage = inputValidator(text) {
+                            // need to show the error message
+                            let alert = PopupDialog(title: Texts_Common.warning,
+                                                    message: errorMessage,
+                                                    actionTitle: R.string.common.common_Ok(),
+                                                    actionHandler: nil)
+                            
+                            uIViewController.present(alert, animated: true, completion: nil)
+                            
+                        } else {
+                            actionHandler(text)
+                        }
+                        
+                        // check if refresh is needed, either complete settingsview or individual section
+                        self.checkIfReloadNeededAndReloadIfNeeded(tableView: tableView, viewModel: settingsViewModel, rowIndex: rowIndex, sectionIndex: sectionIndex)
+                    },
+                    cancelTitle: cancelTitle ?? R.string.common.common_cancel(),
+                    cancelHandler: cancelHandler
+                )
                     
-                    if let inputValidator = inputValidator, let errorMessage = inputValidator(text) {
-                        
-                        // need to show the error message
-                        let alert = PopupDialog(title: Texts_Common.warning,
-                                                message: errorMessage,
-                                                actionTitle: R.string.common.common_Ok(),
-                                                actionHandler: nil)
-                        
-                        uIViewController.present(alert, animated: true, completion: nil)
-                        
-                    } else {
-                        
-                        // do the action
-                        actionHandler(text)
-                        
-                    }
-                    
-                    // check if refresh is needed, either complete settingsview or individual section
-                    self.checkIfReloadNeededAndReloadIfNeeded(tableView: tableView, viewModel: settingsViewModel, rowIndex: rowIndex, sectionIndex: sectionIndex)
-                    
-                }, cancelHandler: cancelHandler)
-                
-                // present the alert
-                uIViewController.present(alert, animated: true, completion: nil)
+                uIViewController.present(dialog, animated: true)
                 
             case .nothing:
                 break

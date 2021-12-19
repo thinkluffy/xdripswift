@@ -111,10 +111,6 @@ extension Libre2BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
         // default value for accessoryView is nil
         cell.accessoryView = nil
         
-        // create disclosureIndicator in color ConstantsUI.disclosureIndicatorColor
-        // will be used whenever accessoryType is to be set to disclosureIndicator
-        let disclosureAaccessoryView = DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor)
-
         guard let setting = Settings(rawValue: rawValue) else { fatalError("Libre2BluetoothPeripheralViewModel update, unexpected setting") }
         
         switch setting {
@@ -123,14 +119,15 @@ extension Libre2BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
             
             cell.textLabel?.text = Texts_BluetoothPeripheralView.sensorSerialNumber
             cell.detailTextLabel?.text = libre2.blePeripheral.sensorSerialNumber
-            cell.accessoryType = .disclosureIndicator
-            cell.accessoryView = disclosureAaccessoryView
+            cell.accessoryType = .none
 
         case .sensorStartTime:
             
             cell.textLabel?.text = Texts_HomeView.sensorStart
             if let sensorTimeInMinutes = libre2.sensorTimeInMinutes {
-                cell.detailTextLabel?.text = Date(timeIntervalSinceNow: -Double(sensorTimeInMinutes*60)).toString(timeStyle: .short, dateStyle: .short)
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MM-dd HH:mm"
+                cell.detailTextLabel?.text = dateFormatter.string(from: Date(timeIntervalSinceNow: -Double(sensorTimeInMinutes*60)))
             }
             cell.accessoryType = .none
             
