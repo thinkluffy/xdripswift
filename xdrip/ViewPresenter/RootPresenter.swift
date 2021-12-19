@@ -39,21 +39,8 @@ class RootPresenter: RootP {
 
         bgReadingsAccessor.getBgReadingsAsync(from: fromDate, to: toDate) {
             [weak self] readings in
-            
+
             self?.view?.show(chartReadings: readings, from: fromDate, to: toDate)
-        }
-        
-        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
-            let fromDate = Date(timeIntervalSinceNow: -Date.dayInSeconds)
-            let toDate = Date()
-         
-            let readings = self?.bgReadingsAccessor.getBgReadings(from: fromDate,
-                                                                  to: toDate,
-                                                                  on: CoreDataManager.shared.mainManagedObjectContext)
-        
-            DispatchQueue.main.async {
-                self?.view?.show(chartReadings: readings, from: fromDate, to: toDate)
-            }
         }
     }
     
