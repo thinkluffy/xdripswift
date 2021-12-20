@@ -63,7 +63,7 @@ class PhoneCommunicator: NSObject {
 	}
 	
 	func requestLatest(completion: @escaping ((Date, String)?) -> Void) {
-//		completion((Date(timeIntervalSinceNow: -12 * 60), "5.6>"))
+//		completion((Date(timeIntervalSinceNow: -12 * 60), "5.6"))
 //		return
 		guard session.isReady else {
 			DispatchQueue.main.async {
@@ -92,10 +92,10 @@ class PhoneCommunicator: NSObject {
 				{
 					print("requestLatest reply: \(reply)")
 					let showAsMgDl = data.config?.showAsMgDl ?? true
-					let slope = data.slope
+					let slope = data.slope?.description ?? ""
 					let trendStr = String(format: "%.\(showAsMgDl ? 0 : 1)f %@",
 										  latest.value,
-										  slope.description)
+										  slope)
 					self.previousOne = ObjectWithDate(date: latest.date, value: trendStr)
 					completion((latest.date, trendStr))
 				} else {
@@ -121,7 +121,7 @@ class PhoneCommunicator: NSObject {
 //			self.usefulData.bgLatest = fake.last
 //			self.usefulData.bgInfoList = fake
 //			self.usefulData.bgConfig = PhoneCommunicator.fakeConfig()
-//			self.usefulData.slope = Common.BgSlope.flat
+//			self.usefulData.slope = nil
 //		}
 //		return
 		guard session.isReady else {
@@ -183,14 +183,18 @@ extension PhoneCommunicator {
 		let now = Date()
 		// 六小时前 - 现在
 		let start = Int(now.addingTimeInterval(-6*60*60).timeIntervalSince1970)
-		let end = Int(now.timeIntervalSince1970)//
-		for i in stride(from: start, to: end + 1, by: 60) {
+		let end = Int(now.timeIntervalSince1970)
+		var index = 0
+		for i in stride(from: start, to: end + 1, by: 5*60) {
+			index += 1
 			last = last + Double.random(in: -0.3...0.3)
 			last = min(16.6, max(2.2, last))
-			if Int.random(in: 0..<100) > 90{
+			if Int.random(in: 0..<100) > 80{
 				// 模拟90%的几率没数据
+				print(last, index)
 				continue
 			}
+			print(last)
 			let info = Common.BgInfo(date: Date(timeIntervalSince1970: TimeInterval(i)), value: last)
 			result.append(info)
 		}

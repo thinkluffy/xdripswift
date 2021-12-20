@@ -154,7 +154,7 @@ class Common {
 	}
 	
 	struct DataTransformToWatch {
-		var slope: BgSlope
+		var slope: BgSlope?
 		var latest: BgInfo?
 		// 以下两个成组出现
 		var recently: [BgInfo]?// 数据 从旧到新 排序
@@ -170,7 +170,7 @@ class Common {
 			return nil
 		}
 		
-		init(slope: BgSlope,
+		init(slope: BgSlope?,
 			 latest: BgInfo?,
 			 recently: [BgInfo]?,
 			 config: BgConfig?
@@ -190,8 +190,6 @@ class Common {
 		init(dic: [String: Any]) {
 			if let slope = dic["slope"] as? Int {
 				self.slope = BgSlope(rawValue: slope)!
-			} else {
-				fatalError("Date formatter Error")
 			}
 			if let latest = dic["latest"] as? [String : Any] {
 				self.latest = BgInfo(dic: latest)
@@ -212,11 +210,12 @@ class Common {
 		}
 		
 		func toDic() -> [String: Any] {
-			var result: [String: Any] = ["slope": slope.rawValue]
+			var result: [String: Any] = [:]
+			if let slope = slope {
+				result["slope"] = slope.rawValue
+			}
 			if let config = config {
 				result["config"] = config.toDic()
-			} else {
-				fatalError("Date formatter Error")
 			}
 			if let latest = latest {
 				result["latest"] = latest.toDic()

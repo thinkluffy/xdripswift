@@ -29,5 +29,5 @@ class UsefulData: ObservableObject {
 	@Published var bgLatest: Common.BgInfo?
 	@Published var bgInfoList: [Common.BgInfo] = []
 	@Published var bgConfig: Common.BgConfig?
-	@Published var slope: Common.BgSlope = .flat
+	@Published var slope: Common.BgSlope?
 }
