@@ -21,6 +21,7 @@ class NotesViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.backgroundColor = ConstantsUI.contentBackgroundColor
+        tableView.separatorColor = ConstantsUI.mainBackgroundColor
         return tableView
     }()
     
@@ -271,12 +272,12 @@ fileprivate class NoteTableViewCell: UITableViewCell {
         
         bgUnitLabel.snp.makeConstraints { make in
             make.leading.equalTo(bgLabel.snp.trailing).offset(10)
-            make.bottom.equalTo(bgLabel)
+            make.bottom.equalTo(bgLabel).offset(-5)
         }
         
         slopeLabel.snp.makeConstraints { make in
             make.leading.equalTo(bgLabel.snp.trailing).offset(10)
-            make.bottom.equalTo(bgUnitLabel.snp.top).offset(-5)
+            make.bottom.equalTo(bgUnitLabel.snp.top)
         }
         
         typeLabel.snp.makeConstraints { make in
