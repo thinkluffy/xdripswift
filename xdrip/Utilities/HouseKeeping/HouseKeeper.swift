@@ -11,11 +11,13 @@ class HouseKeeper {
     private var log = OSLog(subsystem: ConstantsLog.subSystem, category: ConstantsLog.categoryHouseKeeper)
     
     /// BgReadingsAccessor instance
-    private var bgReadingsAccessor:BgReadingsAccessor
+    private var bgReadingsAccessor: BgReadingsAccessor
     
     /// CalibrationsAccessor instance
-    private var calibrationsAccessor:CalibrationsAccessor
+    private var calibrationsAccessor: CalibrationsAccessor
     
+    private var notesAccessor: NotesAccessor
+
     // up to which date shall we delete old calibrations
     private var toDate: Date
 
@@ -24,7 +26,9 @@ class HouseKeeper {
     init() {
         bgReadingsAccessor = BgReadingsAccessor()
         calibrationsAccessor = CalibrationsAccessor()
-        toDate = Date(timeIntervalSinceNow: -ConstantsHousekeeping.retentionPeriodBgReadingsAndCalibrationsInDays*24*3600)
+        notesAccessor = NotesAccessor()
+        
+        toDate = Date(timeIntervalSinceNow: -ConstantsHousekeeping.retentionPeriodBgReadingsAndCalibrationsInDays * 24 * 3600)
     }
     
     // MARK: - public functions
@@ -33,19 +37,24 @@ class HouseKeeper {
     /// - cleanups are done asynchronously (ie function returns without waiting for the actual deletions
     public func doAppStartUpHouseKeeping() {
         // create private managed object context
-        let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        managedObjectContext.parent = CoreDataManager.shared.mainManagedObjectContext
+        let moc = CoreDataManager.shared.privateChildManagedObjectContext()
 
         // delete old readings on the private managedObjectContext, asynchronously
-        managedObjectContext.perform {
+        moc.perform {
             // delete old readings
-            self.deleteOldReadings(on: managedObjectContext)
+            self.deleteOldReadings(on: moc)
         }
         
         // delete old calibrations on the private managedObjectContext, asynchronously
-        managedObjectContext.perform {
+        moc.perform {
             // delete old calibrations
-            self.deleteOldCalibrations(on: managedObjectContext)
+            self.deleteOldCalibrations(on: moc)
+        }
+        
+        // delete old notes on the private managedObjectContext, asynchronously
+        moc.perform {
+            // delete old notes
+            self.deleteOldNotes(on: moc)
         }
     }
     
@@ -89,6 +98,22 @@ class HouseKeeper {
                 calibrationsAccessor.delete(calibration: oldCalibration, on: managedObjectContext)
                 CoreDataManager.shared.saveChanges()
             }
+        }
+    }
+    
+    /// deletes old notes. Notes older than ConstantsHousekeeping.retentionPeriodBgReadingsInDays will be deleted
+    private func deleteOldNotes(on managedObjectContext: NSManagedObjectContext) {
+        // get old notes to delete
+        let oldNotes = self.notesAccessor.getNotes(from: nil, to: self.toDate, on: managedObjectContext)
+        
+        if oldNotes.count > 0 {
+            trace("in deleteOldNotes, number of notes candidate for deletion : %{public}@, to date = %{public}@", log: self.log, category: ConstantsLog.categoryHouseKeeper, type: .info, oldNotes.count.description, self.toDate.description(with: .current))
+        }
+        
+        // delete them
+        for oldNote in oldNotes {
+            notesAccessor.delete(note: oldNote, on: managedObjectContext)
+            CoreDataManager.shared.saveChanges()
         }
     }
 }

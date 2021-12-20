@@ -141,10 +141,24 @@ class AlertManager: NSObject {
                 // alerts are checked in order of importance - there should be only one alert raised, except missed reading alert which will always be checked.
                 
                 // create helper to check and fire alerts
-                let checkAlertAndFireHelper = { (_ alertKind : AlertKind) -> Bool in self.checkAlertAndFire(alertKind: alertKind, lastBgReading: lastBgReading, lastButOneBgREading: lastButOneBgREading, lastCalibration: lastCalibration, transmitterBatteryInfo: transmitterBatteryInfo) }
+                let checkAlertAndFireHelper = {
+                    (_ alertKind: AlertKind) -> Bool in
+                    self.checkAlertAndFire(alertKind: alertKind,
+                                           lastBgReading: lastBgReading,
+                                           lastButOneBgReading: lastButOneBgREading,
+                                           lastCalibration: lastCalibration,
+                                           transmitterBatteryInfo: transmitterBatteryInfo)
+                }
                 
                 // specify the order in which alerts should be checked and group those with related snoozes
-                let alertGroupsByPreference: [[AlertKind]] = [[.fastdrop], [.verylow, .low], [.fastrise], [.veryhigh, .high], [.calibration], [.batterylow]]
+                let alertGroupsByPreference: [[AlertKind]] = [
+                    [.fastdrop],
+                    [.verylow, .low],
+                    [.fastrise],
+                    [.veryhigh, .high],
+                    [.calibration],
+                    [.batterylow]
+                ]
                 
                 // only raise first alert group that's been tripped
                 // check the result to see if it's an alert kind that creates an immediate notification that contains the reading value
@@ -329,7 +343,7 @@ class AlertManager: NSObject {
                     self.scheduleMissedReadingAlert(snoozePeriodInMinutes: snoozePeriod, content: content)
 
                 } else {
-                    _ = self.checkAlertAndFire(alertKind: .missedreading, lastBgReading: nil, lastButOneBgREading: nil, lastCalibration: nil, transmitterBatteryInfo: nil)
+                    _ = self.checkAlertAndFire(alertKind: .missedreading, lastBgReading: nil, lastButOneBgReading: nil, lastCalibration: nil, transmitterBatteryInfo: nil)
                 }
             }
             
@@ -380,7 +394,7 @@ class AlertManager: NSObject {
                         uNUserNotificationCenter.removeDeliveredNotifications(withIdentifiers: [AlertKind.missedreading.notificationIdentifier()])
                         uNUserNotificationCenter.removePendingNotificationRequests(withIdentifiers: [AlertKind.missedreading.notificationIdentifier()])
                         
-                        _ = checkAlertAndFire(alertKind: .missedreading, lastBgReading: latestBgReadings[0], lastButOneBgREading: nil, lastCalibration: nil, transmitterBatteryInfo: nil)
+                        _ = checkAlertAndFire(alertKind: .missedreading, lastBgReading: latestBgReadings[0], lastButOneBgReading: nil, lastCalibration: nil, transmitterBatteryInfo: nil)
 
                     }
                     
@@ -402,7 +416,7 @@ class AlertManager: NSObject {
     /// - returns:
     ///     - returns false early as soon as it finds a snoozed alert
     ///     - if no alert is snoozed, then returns true if as soon as one of the  alerts in the array is triggered
-    private func checkAlertGroupAndFire(_ alertGroup:[AlertKind], _ checkAlertAndFireHelper: (_ : AlertKind) -> Bool) -> Bool {
+    private func checkAlertGroupAndFire(_ alertGroup: [AlertKind], _ checkAlertAndFireHelper: (_ : AlertKind) -> Bool) -> Bool {
         for alertKind in alertGroup {
             // first check if the alert needs to fire, even if the alert would be snoozed, this will ensure logging.
             if checkAlertAndFireHelper(alertKind) {return true}
@@ -449,7 +463,11 @@ class AlertManager: NSObject {
     }
     
     /// will check if the alert of type alertKind needs to be fired and also fires it, plays the sound, and if yes returns true, otherwise false
-    private func checkAlertAndFire(alertKind: AlertKind, lastBgReading: BgReading?, lastButOneBgREading: BgReading?, lastCalibration: Calibration?, transmitterBatteryInfo: TransmitterBatteryInfo?) -> Bool {
+    private func checkAlertAndFire(alertKind: AlertKind,
+                                   lastBgReading: BgReading?,
+                                   lastButOneBgReading: BgReading?,
+                                   lastCalibration: Calibration?,
+                                   transmitterBatteryInfo: TransmitterBatteryInfo?) -> Bool {
 
         trace("in checkAlertAndFire for alert = %{public}@", log: self.log, category: ConstantsLog.categoryAlertManager, type: .info, alertKind.descriptionForLogging())
         
@@ -485,7 +503,7 @@ class AlertManager: NSObject {
         let (currentAlertEntry, nextAlertEntry) = alertEntriesAccessor.getCurrentAndNextAlertEntry(forAlertKind: alertKind, forWhen: Date(), alertTypesAccessor: alertTypesAccessor)
         
         // check if alert is required
-        let (alertNeeded, alertBody, alertTitle, delayInSeconds) = alertKind.alertNeeded(currentAlertEntry: currentAlertEntry, nextAlertEntry: nextAlertEntry, lastBgReading: lastBgReading, lastButOneBgREading, lastCalibration: lastCalibration, transmitterBatteryInfo: transmitterBatteryInfo)
+        let (alertNeeded, alertBody, alertTitle, delayInSeconds) = alertKind.alertNeeded(currentAlertEntry: currentAlertEntry, nextAlertEntry: nextAlertEntry, lastBgReading: lastBgReading, lastButOneBgReading, lastCalibration: lastCalibration, transmitterBatteryInfo: transmitterBatteryInfo)
         
         // create a new property for delayInSeconds, if it's nil then set to 0 - because returnvalue might either be nil or 0, to be treated in the same way
         var delayInSecondsToUse = delayInSeconds == nil ? 0 : delayInSeconds!
@@ -498,161 +516,165 @@ class AlertManager: NSObject {
             }
         }
         
-        if alertNeeded {
-            // alert needs to be raised
-            
-            // the applicable alertentry
-            var applicableAlertType = currentAlertEntry.alertType
-            
-            // if delayInSecondsToUse > 0, then possibly we need to use another alertType
-            if delayInSecondsToUse > 0, let nextAlertEntry = nextAlertEntry {
-                
-                // if start of nextAlertEntry < start of currentAlertEntry, then ad 24 hours, because it means the nextAlertEntry is actually the one of the day after
-                var nextAlertEntryStartValueToUse = nextAlertEntry.start
-                if nextAlertEntry.start < currentAlertEntry.start {
-                    nextAlertEntryStartValueToUse += nextAlertEntryStartValueToUse + 24 * 60
-                }
-
-                // check if current time + delayInSeconds falls within timezone of nextAlertEntry
-                if Date().minutesSinceMidNightLocalTime() + delayInSecondsToUse / 60 > nextAlertEntryStartValueToUse {
-                    applicableAlertType = nextAlertEntry.alertType
-                }
-            }
-
-            // create the content for the alert notification, set body and text, category
-            let content = UNMutableNotificationContent()
-            
-            // set body, text
-            if let alertBody = alertBody {content.body = alertBody}
-            if let alertTitle = alertTitle {content.title = alertTitle}
-            
-            // if snooze from notification in homescreen is needed then set the categoryIdentifier
-            if applicableAlertType.snooze {
-                content.categoryIdentifier = snoozeCategoryIdentifier
-            }
-
-            // The sound
-            // depending on mute override off or on, the sound will either be added to the notification content, or will be played by code here respectively - except if delayInSecondsToUse > 0, in which case we must use the sound in the notification
-            //
-            // soundToSet is the sound that will be played,
-            // if soundToSet is nil ==> then default sound must be used,
-            // if soundToSet = "" , empty string ==> no sound needs to be played
-            // Start with default sound
-            var soundToSet:String?
-            
-            // if applicableAlertType.soundname is nil, then keep soundToSet nil, otherwise find the sound file name
-            if let alertTypeSoundName = applicableAlertType.soundname {
-                if alertTypeSoundName == "" {
-                    // no sound to play
-                    soundToSet = ""
-                    
-                } else {
-                    // a sound name has been found in the alertType different from empty string (ie a sound must be played and it's not the default iOS sound)
-                    // need to find the corresponding sound file name in ConstantsSounds
-                    // start by setting it to to xdripalert, because the soundname found in the alert type might not be found in the list of sounds stored in the resources (although that shouldn't happen)
-                    soundToSet = "xdripalert.aif"
-                    soundloop: for sound in ConstantsSounds.allCases {
-                        // ConstantsSounds defines available sounds. Per case there a string which is the soundname as shown in the UI and the filename of the sound in the Resources folder, seperated by backslash
-                        // get array of indexes, of location of "/"
-                        let indexOfBackSlash = sound.rawValue.indexes(of: "/")
-                        // define range to get the soundname (as shown in UI)
-                        let soundNameRange = sound.rawValue.startIndex..<indexOfBackSlash[0]
-                        // now get the soundName in a string
-                        let soundName = String(sound.rawValue[soundNameRange])
-                        // check if it matches the soundname in the alerttype
-                        if soundName == alertTypeSoundName {
-                            // get indexOfBackSlash[0] + 1 because we don't need to backslash
-                            let indexOfBackSlashPlusOne = sound.rawValue.index(after: indexOfBackSlash[0])
-                            // get the range of the filename where the sound is stored
-                            let soundFileNameRange = indexOfBackSlashPlusOne..<sound.rawValue.endIndex
-                            // now get the filename
-                            soundToSet = String(sound.rawValue[soundFileNameRange])
-                            break soundloop
-                        }
-                    }
-                }
-            }
-            // now we have the name of the file that has the soundfilename, we'll use it later to assign it to the content
-            
-            // if soundToSet == nil, it means user selected the default iOS sound in the alert type, however we don't have the mp3, so if override mute is on and delayInSeconds = nil, then we need to be able to play the sound here with the soundplayer, so we set soundToSet to xdrip sound
-            if soundToSet == nil && applicableAlertType.overridemute && delayInSecondsToUse == 0 {
-                soundToSet = "xdripalert.aif"
-            }
-            
-            // assign the sound to the notification, or play it here, depending on value
-            if let soundToSet = soundToSet {
-                if soundToSet == "" {
-                    // no sound to play
-                } else {
-                    // if override mute is on, then play the sound via code here
-                    // also delayInSeconds must be nil, if delayInSeconds is not nil then we can not play the sound here at now, it must be added to the notification
-                    if applicableAlertType.overridemute && delayInSecondsToUse == 0 {
-                        // play the sound
-                        SoundPlayer.shared.playSound(soundFileName: soundToSet)
-                        
-                    } else {
-                        // mute should not be overriden, by adding the sound to the notification, we let iOS decide if the sound will be played or not
-                        content.sound = UNNotificationSound.init(named: UNNotificationSoundName.init(soundToSet))
-                    }
-                }
-            } else {
-                // default sound to be played
-                content.sound = UNNotificationSound.init(named: UNNotificationSoundName.init(""))
-            }
-            
-            // create the trigger, only for notifications with delay
-            var trigger:UNTimeIntervalNotificationTrigger?
-            if delayInSecondsToUse > 0 {
-                // set repeats to true
-                trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(Double(delayInSecondsToUse)), repeats: true)
-            }
-            
-            // create the notificationrequest
-            let notificationRequest = UNNotificationRequest(identifier: alertKind.notificationIdentifier(), content: content, trigger: trigger)
-            
-            // Add Request to User Notification Center
-            uNUserNotificationCenter.add(notificationRequest) { (error) in
-                if let error = error {
-                    trace("Unable to Add Notification Request %{public}@", log: self.log, category: ConstantsLog.categoryAlertManager, type: .error, error.localizedDescription)
-                }
-            }
-            
-            // if vibrate required , and if delay is nil, then vibrate
-            if delayInSecondsToUse == 0, currentAlertEntry.alertType.vibrate {
-                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-            }
-            
-            // log the result
-            trace("in checkAlert, raising alert %{public}@", log: self.log, category: ConstantsLog.categoryAlertManager, type: .info, alertKind.descriptionForLogging())
-            if delayInSecondsToUse > 0 {
-                trace("   delay = %{public}@ seconds, = %{public}@ minutes - which means this is a future planned alert, it will not go off now", log: self.log, category: ConstantsLog.categoryAlertManager, type: .info, delayInSecondsToUse.description, ((round(Double(delayInSecondsToUse)/60*10))/10).description)
-            }
-
-            // check if app is allowed to send local notification and if not write info to trace
-            UNUserNotificationCenter.current().getNotificationSettings { (notificationSettings) in
-                
-                switch notificationSettings.authorizationStatus {
-                case .denied:
-                    trace("   notificationSettings.authorizationStatus = denied", log: self.log, category: ConstantsLog.categoryAlertManager, type: .info)
-                case .notDetermined:
-                    trace("   notificationSettings.authorizationStatus = notDetermined", log: self.log, category: ConstantsLog.categoryAlertManager, type: .info)
-                case .authorized, .ephemeral:
-                    break
-                case .provisional:
-                    trace("   notificationSettings.authorizationStatus = provisional", log: self.log, category: ConstantsLog.categoryAlertManager, type: .info)
-                    
-                @unknown default:
-                    fatalError("unsupported authorizationStatus in AlertManager")
-                    
-                }
-            }
-            
-            return true
-            
-        } else {
+        if !alertNeeded {
             trace("in checkAlert, there's no need to raise alert %{public}@", log: self.log, category: ConstantsLog.categoryAlertManager, type: .info, alertKind.descriptionForLogging())
             return false
         }
+        
+        // alert needs to be raised
+        
+        // the applicable alertentry
+        var applicableAlertType = currentAlertEntry.alertType
+        
+        // if delayInSecondsToUse > 0, then possibly we need to use another alertType
+        if delayInSecondsToUse > 0, let nextAlertEntry = nextAlertEntry {
+            
+            // if start of nextAlertEntry < start of currentAlertEntry, then ad 24 hours, because it means the nextAlertEntry is actually the one of the day after
+            var nextAlertEntryStartValueToUse = nextAlertEntry.start
+            if nextAlertEntry.start < currentAlertEntry.start {
+                nextAlertEntryStartValueToUse += nextAlertEntryStartValueToUse + 24 * 60
+            }
+
+            // check if current time + delayInSeconds falls within timezone of nextAlertEntry
+            if Date().minutesSinceMidNightLocalTime() + delayInSecondsToUse / 60 > nextAlertEntryStartValueToUse {
+                applicableAlertType = nextAlertEntry.alertType
+            }
+        }
+
+        // create the content for the alert notification, set body and text, category
+        let content = UNMutableNotificationContent()
+        
+        // set body, text
+        if let alertBody = alertBody {content.body = alertBody}
+        if let alertTitle = alertTitle {content.title = alertTitle}
+        
+        // if snooze from notification in homescreen is needed then set the categoryIdentifier
+        if applicableAlertType.snooze {
+            content.categoryIdentifier = snoozeCategoryIdentifier
+        }
+
+        // The sound
+        // depending on mute override off or on, the sound will either be added to the notification content, or will be played by code here respectively - except if delayInSecondsToUse > 0, in which case we must use the sound in the notification
+        //
+        // soundToSet is the sound that will be played,
+        // if soundToSet is nil ==> then default sound must be used,
+        // if soundToSet = "" , empty string ==> no sound needs to be played
+        // Start with default sound
+        var soundToSet: String?
+        
+        // if applicableAlertType.soundname is nil, then keep soundToSet nil, otherwise find the sound file name
+        if let alertTypeSoundName = applicableAlertType.soundname {
+            if alertTypeSoundName == "" {
+                // no sound to play
+                soundToSet = ""
+                
+            } else {
+                // a sound name has been found in the alertType different from empty string (ie a sound must be played and it's not the default iOS sound)
+                // need to find the corresponding sound file name in ConstantsSounds
+                // start by setting it to to xdripalert, because the soundname found in the alert type might not be found in the list of sounds stored in the resources (although that shouldn't happen)
+                soundToSet = "xdripalert.aif"
+                soundloop: for sound in ConstantsSounds.allCases {
+                    // ConstantsSounds defines available sounds. Per case there a string which is the soundname as shown in the UI and the filename of the sound in the Resources folder, seperated by backslash
+                    // get array of indexes, of location of "/"
+                    let indexOfBackSlash = sound.rawValue.indexes(of: "/")
+                    // define range to get the soundname (as shown in UI)
+                    let soundNameRange = sound.rawValue.startIndex..<indexOfBackSlash[0]
+                    // now get the soundName in a string
+                    let soundName = String(sound.rawValue[soundNameRange])
+                    // check if it matches the soundname in the alerttype
+                    if soundName == alertTypeSoundName {
+                        // get indexOfBackSlash[0] + 1 because we don't need to backslash
+                        let indexOfBackSlashPlusOne = sound.rawValue.index(after: indexOfBackSlash[0])
+                        // get the range of the filename where the sound is stored
+                        let soundFileNameRange = indexOfBackSlashPlusOne..<sound.rawValue.endIndex
+                        // now get the filename
+                        soundToSet = String(sound.rawValue[soundFileNameRange])
+                        break soundloop
+                    }
+                }
+            }
+        }
+        // now we have the name of the file that has the soundfilename, we'll use it later to assign it to the content
+        
+        // if soundToSet == nil, it means user selected the default iOS sound in the alert type, however we don't have the mp3, so if override mute is on and delayInSeconds = nil, then we need to be able to play the sound here with the soundplayer, so we set soundToSet to xdrip sound
+        if soundToSet == nil && applicableAlertType.overridemute && delayInSecondsToUse == 0 {
+            soundToSet = "xdripalert.aif"
+        }
+        
+        // assign the sound to the notification, or play it here, depending on value
+        if let soundToSet = soundToSet {
+            if soundToSet == "" {
+                // no sound to play
+            } else {
+                // if override mute is on, then play the sound via code here
+                // also delayInSeconds must be nil, if delayInSeconds is not nil then we can not play the sound here at now, it must be added to the notification
+                if applicableAlertType.overridemute && delayInSecondsToUse == 0 {
+                    // play the sound
+                    SoundPlayer.shared.playSound(soundFileName: soundToSet)
+                    
+                } else {
+                    // mute should not be overriden, by adding the sound to the notification, we let iOS decide if the sound will be played or not
+                    content.sound = UNNotificationSound.init(named: UNNotificationSoundName.init(soundToSet))
+                }
+            }
+        } else {
+            // default sound to be played
+            content.sound = UNNotificationSound.init(named: UNNotificationSoundName.init(""))
+        }
+        
+        // create the trigger, only for notifications with delay
+        var trigger: UNTimeIntervalNotificationTrigger?
+        if delayInSecondsToUse > 0 {
+            // set repeats to true
+            trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(Double(delayInSecondsToUse)), repeats: true)
+        }
+        
+        // create the notificationrequest
+        let notificationRequest = UNNotificationRequest(identifier: alertKind.notificationIdentifier(), content: content, trigger: trigger)
+        
+        // Add Request to User Notification Center
+        uNUserNotificationCenter.add(notificationRequest) { (error) in
+            if let error = error {
+                trace("Unable to Add Notification Request %{public}@", log: self.log, category: ConstantsLog.categoryAlertManager, type: .error, error.localizedDescription)
+            }
+        }
+        
+        // if vibrate required , and if delay is nil, then vibrate
+        if delayInSecondsToUse == 0, currentAlertEntry.alertType.vibrate {
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        }
+        
+        // log the result
+        trace("in checkAlert, raising alert %{public}@", log: self.log, category: ConstantsLog.categoryAlertManager, type: .info, alertKind.descriptionForLogging())
+        if delayInSecondsToUse > 0 {
+            trace("   delay = %{public}@ seconds, = %{public}@ minutes - which means this is a future planned alert, it will not go off now", log: self.log, category: ConstantsLog.categoryAlertManager, type: .info, delayInSecondsToUse.description, ((round(Double(delayInSecondsToUse)/60*10))/10).description)
+        }
+
+        // check if app is allowed to send local notification and if not write info to trace
+        UNUserNotificationCenter.current().getNotificationSettings { (notificationSettings) in
+            
+            switch notificationSettings.authorizationStatus {
+            case .denied:
+                trace("   notificationSettings.authorizationStatus = denied", log: self.log, category: ConstantsLog.categoryAlertManager, type: .info)
+            case .notDetermined:
+                trace("   notificationSettings.authorizationStatus = notDetermined", log: self.log, category: ConstantsLog.categoryAlertManager, type: .info)
+            case .authorized, .ephemeral:
+                break
+            case .provisional:
+                trace("   notificationSettings.authorizationStatus = provisional", log: self.log, category: ConstantsLog.categoryAlertManager, type: .info)
+                
+            @unknown default:
+                fatalError("unsupported authorizationStatus in AlertManager")
+                
+            }
+        }
+        
+        // todo: avoid missedreading currently, too many of it
+        if alertKind != .missedreading {
+            NoteManager.shared.saveAlertNote(alertKind: alertKind, bgReading: lastBgReading)
+        }
+        
+        return true
     }
     
     /// - if it's a missed reading alert, then reschedule with a delay of snoozePeriodInMinutes, also with a repeat every snoozePeriodInMinutes

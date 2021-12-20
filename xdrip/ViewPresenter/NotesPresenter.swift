@@ -14,22 +14,19 @@ class NotesPresenter: NotesP {
 
     private weak var view: NotesV?
     
+    private let notesAccessor = NotesAccessor()
+    
     init(view: NotesV) {
         self.view = view
     }
     
     func loadData(date: Date) {
-        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
-//            let fromDate = Calendar.current.startOfDay(for: date)
-//            let toDate = Date(timeInterval: Date.dayInSeconds, since: fromDate)
-//
-//            let readings = self?.bgReadingsAccessor.getBgReadings(from: fromDate,
-//                                                                  to: toDate,
-//                                                                  on: CoreDataManager.shared.mainManagedObjectContext)
-//
-            DispatchQueue.main.async {
-//                self?.view?.show(readings: readings, from: fromDate, to: toDate)
-            }
+        let fromDate = Calendar.current.startOfDay(for: date)
+        let toDate = Date(timeInterval: Date.dayInSeconds, since: fromDate)
+        
+        notesAccessor.getNotesAsync(from: fromDate, to: toDate) {
+            [weak self] (notes: [Note]?) in
+            self?.view?.show(notes: notes, from: fromDate, to: toDate)
         }
     }
 }

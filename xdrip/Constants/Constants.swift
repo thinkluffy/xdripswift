@@ -21,4 +21,7 @@ enum ChartHours {
 enum Constants {
     
     static let minsToCalculateSlope = 10
+    
+    static let bgUnitMgDl = "mg/dL"
+    static let bgUnitMmol = "mmol/L"
 }

@@ -137,21 +137,26 @@ class CommonSettingsViewController: SubSettingsViewController {
                            didClick: {
                 [unowned self] operationCell, tableView, indexPath in
                 
-                let alert = UIAlertController(title: Texts_SettingsView.labelHighValue,
-                                              message: nil,
-                                              keyboardType: isMg ? .numberPad : .decimalPad,
-                                              text: UserDefaults.standard.highMarkValueInUserChosenUnitRounded,
-                                              placeHolder: ConstantsBGGraphBuilder.defaultHighMarkInMgdl.description,
-                                              actionTitle: nil,
-                                              cancelTitle: nil,
-                                              actionHandler: {
+                let placeHolder = ConstantsBGGraphBuilder.defaultHighMarkInMgdl
+                    .mgdlToMmolAndToString(mgdl: isMg)
+                
+                let alert = PopupDialog(
+                    title: Texts_SettingsView.labelHighValue,
+                    message: nil,
+                    keyboardType: isMg ? .numberPad : .decimalPad,
+                    text: UserDefaults.standard.highMarkValueInUserChosenUnitRounded,
+                    placeHolder: placeHolder
+                ) {
                     highMarkValue in
                     
-                    UserDefaults.standard.highMarkValueInUserChosenUnitRounded = highMarkValue
+                    var input = highMarkValue
+                    if highMarkValue == "" {
+                        input = placeHolder
+                    }
+                    UserDefaults.standard.highMarkValueInUserChosenUnitRounded = input
                     operationCell.detailedText = UserDefaults.standard.highMarkValueInUserChosenUnit.bgValuetoString(mgdl: isMg)
                     tableView.reloadRows(at: [indexPath], with: .none)
-                },
-                                              cancelHandler: nil)
+                }
                 
                 self.present(alert, animated: true, completion: nil)
              })
@@ -160,21 +165,26 @@ class CommonSettingsViewController: SubSettingsViewController {
                            didClick: {
                 [unowned self] operationCell, tableView, indexPath in
                 
-                let alert = UIAlertController(title: Texts_SettingsView.labelLowValue,
-                                              message: nil,
-                                              keyboardType: isMg ? .numberPad : .decimalPad,
-                                              text: UserDefaults.standard.lowMarkValueInUserChosenUnitRounded,
-                                              placeHolder: ConstantsBGGraphBuilder.defaultLowMarkInMgdl.description,
-                                              actionTitle: nil,
-                                              cancelTitle: nil,
-                                              actionHandler: {
+                let placeHolder = ConstantsBGGraphBuilder.defaultLowMarkInMgdl
+                    .mgdlToMmolAndToString(mgdl: isMg)
+                
+                let alert = PopupDialog(
+                    title: Texts_SettingsView.labelLowValue,
+                    message: nil,
+                    keyboardType: isMg ? .numberPad : .decimalPad,
+                    text: UserDefaults.standard.lowMarkValueInUserChosenUnitRounded,
+                    placeHolder: placeHolder
+                ) {
                     lowMarkValue in
                     
-                    UserDefaults.standard.lowMarkValueInUserChosenUnitRounded = lowMarkValue
+                    var input = lowMarkValue
+                    if lowMarkValue == "" {
+                        input = placeHolder
+                    }
+                    UserDefaults.standard.lowMarkValueInUserChosenUnitRounded = input
                     operationCell.detailedText = UserDefaults.standard.lowMarkValueInUserChosenUnit.bgValuetoString(mgdl: isMg)
                     tableView.reloadRows(at: [indexPath], with: .none)
-                },
-                                              cancelHandler: nil)
+                }
                 
                 self.present(alert, animated: true, completion: nil)
              })
@@ -182,22 +192,27 @@ class CommonSettingsViewController: SubSettingsViewController {
                            detailedText: UserDefaults.standard.urgentLowMarkValueInUserChosenUnit.bgValuetoString(mgdl: isMg),
                            didClick: {
                 [unowned self] operationCell, tableView, indexPath in
-                 
-                let alert = UIAlertController(title: Texts_SettingsView.labelUrgentLowValue,
-                                              message: nil,
-                                              keyboardType: isMg ? .numberPad : .decimalPad,
-                                              text: UserDefaults.standard.urgentLowMarkValueInUserChosenUnitRounded,
-                                              placeHolder: ConstantsBGGraphBuilder.defaultUrgentLowMarkInMgdl.description,
-                                              actionTitle: nil,
-                                              cancelTitle: nil,
-                                              actionHandler: {
+                
+                let placeHolder = ConstantsBGGraphBuilder.defaultUrgentLowMarkInMgdl
+                    .mgdlToMmolAndToString(mgdl: isMg)
+                
+                let alert = PopupDialog(
+                    title: Texts_SettingsView.labelUrgentLowValue,
+                    message: nil,
+                    keyboardType: isMg ? .numberPad : .decimalPad,
+                    text: UserDefaults.standard.urgentLowMarkValueInUserChosenUnitRounded,
+                    placeHolder: placeHolder
+                ) {
                     urgentLowMarkValue in
                     
-                    UserDefaults.standard.urgentLowMarkValueInUserChosenUnitRounded = urgentLowMarkValue
+                    var input = urgentLowMarkValue
+                    if urgentLowMarkValue == "" {
+                        input = placeHolder
+                    }
+                    UserDefaults.standard.urgentLowMarkValueInUserChosenUnitRounded = input
                     operationCell.detailedText = UserDefaults.standard.urgentLowMarkValueInUserChosenUnit.bgValuetoString(mgdl: isMg)
                     tableView.reloadRows(at: [indexPath], with: .none)
-                },
-                                              cancelHandler: nil)
+                }
                 
                 self.present(alert, animated: true, completion: nil)
              })

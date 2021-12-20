@@ -16,7 +16,7 @@ public class AlertEntry: NSManagedObject {
         start:Int,
         alertType:AlertType,
         nsManagedObjectContext: NSManagedObjectContext
-        ) {
+    ) {
         let entity = NSEntityDescription.entity(forEntityName: "AlertEntry", in: nsManagedObjectContext)!
         super.init(entity: entity, insertInto: nsManagedObjectContext)
         
