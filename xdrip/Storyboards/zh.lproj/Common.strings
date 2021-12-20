@@ -14,7 +14,7 @@
 "common_minute" = "分钟";
 "common_day" = "天";
 "common_week" = "周";
-"warning" ="警报 !";
+"warning" ="请注意";
 "update" = "更新";
 "add" = "添加";
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -121,3 +121,9 @@
 
 /// literal translation needed
 "common_hourshort" = "小时";
+
+"howManyMinutes" = "%d 分钟";
+"slogan" = "已经陪伴您 %d 个昼夜";
+"about" = "关于";
+"developerModeEnabled" = "开发者模式已开启";
+"pleaseConfirm" = "请确认";

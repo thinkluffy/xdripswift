@@ -68,7 +68,7 @@ extension BluetoothPeripheralManager: CGMAtomTransmitterDelegate {
     }
     
     private func findTransmitter(cGMAtomTransmitter: CGMAtomTransmitter) -> Atom? {
-        guard let index = bluetoothTransmitters.firstIndex(of: cGMAtomTransmitter), let atom = bluetoothPeripherals[index] as? Atom else {return nil}
+        guard let atom = bluetoothPeripheral as? Atom else {return nil}
         
         return atom
     }

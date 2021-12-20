@@ -22,17 +22,28 @@ class ChartDetailsPresenter: ChartDetailsP {
     }
     
     func loadData(date: Date) {
-        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
-            let fromDate = Calendar.current.startOfDay(for: date)
-            let toDate = Date(timeInterval: Date.dayInSeconds, since: fromDate)
-            
-            let readings = self?.bgReadingsAccessor.getBgReadings(from: fromDate,
-                                                                  to: toDate,
-                                                                  on: CoreDataManager.shared.mainManagedObjectContext)
-           
-            DispatchQueue.main.async {
-                self?.view?.show(readings: readings, from: fromDate, to: toDate)
-            }
+        
+        /// the async has no meaning, how to do it correctly?
+        
+//        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+//            let fromDate = Calendar.current.startOfDay(for: date)
+//            let toDate = Date(timeInterval: Date.dayInSeconds, since: fromDate)
+//
+//            let readings = self?.bgReadingsAccessor.getBgReadings(from: fromDate,
+//                                                                  to: toDate,
+//                                                                  on: CoreDataManager.shared.mainManagedObjectContext)
+//
+//            DispatchQueue.main.async {
+//                self?.view?.show(readings: readings, from: fromDate, to: toDate)
+//            }
+//        }
+        
+        let fromDate = Calendar.current.startOfDay(for: date)
+        let toDate = Date(timeInterval: Date.dayInSeconds, since: fromDate)
+
+        bgReadingsAccessor.getBgReadingsAsync(from: fromDate, to: toDate) {
+            [weak self] bgReadings in
+            self?.view?.show(readings: bgReadings, from: fromDate, to: toDate)
         }
     }
     
@@ -40,8 +51,9 @@ class ChartDetailsPresenter: ChartDetailsP {
         let fromDate = Calendar.current.startOfDay(for: date)
         let toDate = Date(timeInterval: Date.dayInSeconds, since: fromDate)
         
-        statisticsManager.calculateStatistics(fromDate: fromDate, toDate: toDate, callback: { [weak self] statistics in
+        statisticsManager.calculateStatistics(fromDate: fromDate, toDate: toDate) {
+            [weak self] statistics in
             self?.view?.show(statistics: statistics, of: date)
-        })
+        }
     }
 }

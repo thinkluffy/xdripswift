@@ -34,7 +34,7 @@ class SensorIndicator: UIControl {
         
         let boundsCenter = CGPoint(x: bounds.midX, y: bounds.midY)
         
-        let outerCircleRadius: CGFloat = min(bounds.width, bounds.height) / 2
+        let outerCircleRadius: CGFloat = min(min(bounds.width, bounds.height), 20) / 2
         
         var circlePathArea = CGRect(origin: .zero, size: CGSize(width: outerCircleRadius * 2, height: outerCircleRadius * 2))
         outerCircleBgLayer.path = UIBezierPath(ovalIn: circlePathArea).cgPath

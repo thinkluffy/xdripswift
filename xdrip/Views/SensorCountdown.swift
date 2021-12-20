@@ -14,7 +14,21 @@ class SensorCountdown: UIView {
     private static let log = Log(type: SensorCountdown.self)
     
     private let blockGap: CGFloat = 3
-
+    private let blockHeight: CGFloat = 4
+    private let totalHoursInHoursMode = 12
+    private let keptBlocksForTextInHoursMode = 2
+    
+    private var hoursMode = false
+    
+    private lazy var hoursRemainingTextLayer: CATextLayer = {
+        let layer = VerticalCenterTextLayer()
+        layer.foregroundColor = UIColor.white.cgColor
+        layer.fontSize = 12
+        layer.alignmentMode = .center
+        layer.contentsScale = UIScreen.main.scale
+        return layer
+    }()
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         initialize()
@@ -33,12 +47,97 @@ class SensorCountdown: UIView {
         initialize()
     }
     
-    func show(maxSensorAgeInSeconds: Int, sensorStartDate: Date) {
+    func show(maxSensorAgeInSeconds: Double, sensorStartDate: Date) {
         SensorCountdown.log.d("==> show, maxSensorAgeInSeconds: \(maxSensorAgeInSeconds), sensorStartDate: \(sensorStartDate)")
                 
-        let maxDays = Int(Double(maxSensorAgeInSeconds) / Date.dayInSeconds)
+        let sensorAge = Date().timeIntervalSince(sensorStartDate)
+        let hoursRemaining = Int(((maxSensorAgeInSeconds - sensorAge) / Date.hourInSeconds).rounded(.up))
+        
+        SensorCountdown.log.d("hoursRemaining: \(hoursRemaining)")
+        
+        if hoursRemaining <= 0 {
+            SensorCountdown.log.e("hours remaining is smaller than 0, hoursRemaining: \(hoursRemaining)")
+            isHidden = true
+            return
+        }
+        
+        isHidden = false
+        
+        if hoursRemaining <= totalHoursInHoursMode {
+            showHoursMode(hoursRemaining: hoursRemaining)
+            
+        } else {
+            showDaysMode(maxSensorAgeInSeconds: maxSensorAgeInSeconds, hoursRemaining: hoursRemaining)
+        }
+    }
+    
+    private func showHoursMode(hoursRemaining: Int) {
+        SensorCountdown.log.d("==> showHoursMode")
+        
+        if !hoursMode {
+            hoursMode = true
+            layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+        }
+        
+        let blockCount = totalHoursInHoursMode
+        let blockWidth = (bounds.width + blockGap) / CGFloat(blockCount + keptBlocksForTextInHoursMode) - blockGap
+        let blockY = (bounds.height - blockHeight) / 2
+        
+        if layer.sublayers == nil {
+            for i in 0 ..< blockCount {
+                let blockLayer = CALayer()
+                
+                blockLayer.frame = CGRect(x: (blockWidth + blockGap) * CGFloat(i),
+                                          y: blockY,
+                                          width: blockWidth,
+                                          height: blockHeight)
+                
+                layer.addSublayer(blockLayer)
+            }
+            
+            hoursRemainingTextLayer.frame = CGRect(x: (blockWidth + blockGap) * Double(blockCount),
+                                                   y: 0,
+                                                   width: blockWidth * 2,
+                                                   height: bounds.height)
+            layer.addSublayer(hoursRemainingTextLayer)
+        }
+        
+        let highlightColor = hoursRemaining <= 3 ? ConstantsGlucoseChart.glucoseUrgentRangeColor : ConstantsGlucoseChart.glucoseNotUrgentRangeColor
+        
+        guard let sublayers = layer.sublayers else {
+            return
+        }
+        
+        for (i, layer) in sublayers.enumerated() {
+            if i >= blockCount {
+                break
+            }
+            
+            if i < hoursRemaining {
+                layer.backgroundColor = highlightColor.cgColor
+                
+            } else {
+                layer.backgroundColor = ConstantsUI.tabBarBackgroundColor.cgColor
+            }
+        }
+        
+        hoursRemainingTextLayer.string = "\(hoursRemaining) H"
+    }
+    
+    private func showDaysMode(maxSensorAgeInSeconds: Double, hoursRemaining: Int) {
+        SensorCountdown.log.d("==> showDaysMode")
+
+        if hoursMode {
+            hoursMode = false
+            layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+        }
+        
+        let maxDays = Int((maxSensorAgeInSeconds / Date.dayInSeconds).rounded(.up))
+        let daysRemaining = Int((Double(hoursRemaining) / 24).rounded(.up))
+        SensorCountdown.log.d("maxDays: \(maxDays), daysRemaining: \(daysRemaining)")
+
         let blockWidth = (bounds.width + blockGap) / CGFloat(maxDays) - blockGap
-        let blockHeight = bounds.height
+        let blockY = (bounds.height - blockHeight) / 2
 
         if layer.sublayers == nil || layer.sublayers?.count != maxDays {
             layer.sublayers?.forEach { $0.removeFromSuperlayer() }
@@ -46,60 +145,27 @@ class SensorCountdown: UIView {
             for i in 0 ..< maxDays {
                 let blockLayer = CALayer()
                 
-                blockLayer.backgroundColor = ConstantsUI.tabBarBackgroundColor.cgColor
                 blockLayer.frame = CGRect(x: (blockWidth + blockGap) * CGFloat(i),
-                                          y: 0,
+                                          y: blockY,
                                           width: blockWidth,
                                           height: blockHeight)
                 
                 layer.addSublayer(blockLayer)
             }
         }
-        
-        updateDaysRemaining(maxSensorAgeInDays: maxDays, sensorStartDate: sensorStartDate)
-    }
-    
-    private func updateDaysRemaining(maxSensorAgeInDays: Int, sensorStartDate: Date) {
-        // calculate how many hours the sensor has been used for since starting. We need to use hours instead of days because during the last day we need to see how many hours are left so that we can display the warning and urgent status graphics.
-        let currentSensorAgeInHours: Int = Calendar.current.dateComponents([.hour], from: sensorStartDate - 5 * 60, to: Date()).hour!
-        
-        // we need to calculate the hours so that we can see if we need to show the yellow (<12hrs remaining) or red (<6hrs remaining) graphics
-        let sensorCountdownHoursRemaining: Int = (maxSensorAgeInDays * 24) - currentSensorAgeInHours
-        
-        // start programatically creating the asset name that we will loaded. This is based upon the max sensor days and the days "remaining". To get the full days, we need to round up the currentSensorAgeInHours to the nearest 24 hour block
-        let daysRemaining: Int
-        let highlightColor: UIColor
-        
-        // find the amount of days remaining and add it to the asset name string. If there is less than 12 hours, add the corresponding warning/urgent label. If the sensor hours remaining is 0 or less, then the sensor is either expired or in the last 12 hours of "overtime" (e.g Libre sensors have an extra 12 hours before the stop working). If this happens, then instead of appending the days left, always show the "00" graphic.
-        if sensorCountdownHoursRemaining > 0 {
-            daysRemaining = maxSensorAgeInDays - Int(round(Double(currentSensorAgeInHours / 24)) * 24) / 24
-            
-            switch sensorCountdownHoursRemaining {
-            case 7...12:
-                highlightColor = ConstantsGlucoseChart.glucoseNotUrgentRangeColor
-                
-            case 1...6:
-                highlightColor = ConstantsGlucoseChart.glucoseUrgentRangeColor
-                
-            default:
-                highlightColor = .gray
-            }
-            
-        } else {
-            daysRemaining = 0
-            highlightColor = ConstantsGlucoseChart.glucoseUrgentRangeColor
+
+        let highlightColor: UIColor = daysRemaining <= 1 ? ConstantsGlucoseChart.glucoseNotUrgentRangeColor : .gray
+
+        guard let layers = layer.sublayers else {
+            return
         }
         
-        if let blocks = layer.sublayers {
-            if daysRemaining > 0 {
-                for i in 0 ..< daysRemaining {
-                    blocks[i].backgroundColor = highlightColor.cgColor
-                }
+        for (i, layer) in layers.enumerated() {
+            if i < daysRemaining {
+                layer.backgroundColor = highlightColor.cgColor
                 
             } else {
-                for block in blocks {
-                    block.backgroundColor = highlightColor.cgColor
-                }
+                layer.backgroundColor = ConstantsUI.tabBarBackgroundColor.cgColor
             }
         }
     }
@@ -107,18 +173,39 @@ class SensorCountdown: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        guard let blocks = layer.sublayers else {
+        guard let sublayers = layer.sublayers else {
             return
         }
         
-        let blockWidth = (bounds.width + blockGap) / CGFloat(blocks.count) - blockGap
-        let blockHeight = bounds.height
+        let blockY = (bounds.height - blockHeight) / 2
         
-        for (i, block) in blocks.enumerated() {
-            block.frame = CGRect(x: (blockWidth + blockGap) * CGFloat(i),
-                                 y: 0,
-                                 width: blockWidth,
-                                 height: blockHeight)
+        if hoursMode {
+            let blockCount = totalHoursInHoursMode
+            let blockWidth = (bounds.width + blockGap) / CGFloat(blockCount + keptBlocksForTextInHoursMode) - blockGap
+            
+            for (i, layer) in sublayers.enumerated() {
+                if i < blockCount {
+                    layer.frame = CGRect(x: (blockWidth + blockGap) * CGFloat(i),
+                                         y: blockY,
+                                         width: blockWidth,
+                                         height: blockHeight)
+                }
+            }
+            
+            hoursRemainingTextLayer.frame = CGRect(x: (blockWidth + blockGap) * Double(blockCount),
+                                                   y: 0,
+                                                   width: blockWidth * 2,
+                                                   height: bounds.height)
+            
+        } else {
+            let blockWidth = (bounds.width + blockGap) / CGFloat(sublayers.count) - blockGap
+            
+            for (i, layer) in sublayers.enumerated() {
+                layer.frame = CGRect(x: (blockWidth + blockGap) * CGFloat(i),
+                                     y: blockY,
+                                     width: blockWidth,
+                                     height: blockHeight)
+            }
         }
     }
 }

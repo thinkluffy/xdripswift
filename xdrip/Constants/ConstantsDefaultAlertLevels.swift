@@ -2,7 +2,6 @@
 enum ConstantsDefaultAlertLevels {
     // default battery alert level, below this level an alert should be generated - this default value will be used when changing transmittertype
     static let defaultBatteryAlertLevelDexcomG5 = 300
-    static let defaultBatteryAlertLevelDexcomG4 = 210
     static let defaultBatteryAlertLevelMiaoMiao = 20
     static let defaultBatteryAlertLevelBubble = 20
     static let defaultBatteryAlertLevelGNSEntry = 20

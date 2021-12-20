@@ -71,7 +71,7 @@ extension WatchCommunicator: WCSessionDelegate {
         WatchCommunicator.log.d("session didReceiveMessage message : \(message)")
         
 		DispatchQueue.main.async { [unowned self] in
-            let message = Common.DataTransformToPhone.init(dic: message)
+            let message = Common.DataTransformToPhone(dic: message)
             let type = message.type
             var data: Common.DataTransformToWatch?
             let config = WatchCommunicator.getConfig()
@@ -104,10 +104,10 @@ extension WatchCommunicator: WCSessionDelegate {
 				   !latest.hideSlope {
                     slope = WatchCommunicator.convertSlope(of: latest.slopArrow)
                 }
-                data = Common.DataTransformToWatch.init(slope: slope,
-                                                        latest: recently.last,
-                                                        recently: recently,
-                                                        config: config)
+                data = Common.DataTransformToWatch(slope: slope,
+                                                   latest: recently.last,
+                                                   recently: recently,
+                                                   config: config)
             }
             replyHandler(data?.toDic() ?? [:])
 		}
@@ -149,7 +149,14 @@ extension WatchCommunicator {
 	}
 	
 	static func fakeConfig() -> Common.BgConfig {
-		Common.BgConfig(interval5Mins: true, showAsMgDl: true, min: 2.2, max: 16.6, urgentMin: 3.9, urgentMax: 10, suggestMin: 4.5, suggestMax: 7.8)
+		Common.BgConfig(interval5Mins: true,
+                        showAsMgDl: true,
+                        min: 2.2,
+                        max: 16.6,
+                        urgentMin: 3.9,
+                        urgentMax: 10,
+                        suggestMin: 4.5,
+                        suggestMax: 7.8)
 	}
 	
 	static func fakeRecently() -> [Common.BgInfo] {

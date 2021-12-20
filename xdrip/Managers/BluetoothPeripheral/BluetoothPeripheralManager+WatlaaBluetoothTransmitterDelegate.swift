@@ -23,7 +23,7 @@ extension BluetoothPeripheralManager: WatlaaBluetoothTransmitterDelegate {
     
     func received(watlaaBatteryLevel: Int, watlaaBluetoothTransmitter: WatlaaBluetoothTransmitter) {
         
-        guard let index = bluetoothTransmitters.firstIndex(of: watlaaBluetoothTransmitter), let watlaa = bluetoothPeripherals[index] as? Watlaa else {return}
+        guard let watlaa = bluetoothPeripheral as? Watlaa else {return}
         
         watlaa.watlaaBatteryLevel = watlaaBatteryLevel
         
@@ -33,7 +33,7 @@ extension BluetoothPeripheralManager: WatlaaBluetoothTransmitterDelegate {
     
     func received(transmitterBatteryLevel: Int, watlaaBluetoothTransmitter: WatlaaBluetoothTransmitter) {
         
-        guard let index = bluetoothTransmitters.firstIndex(of: watlaaBluetoothTransmitter), let watlaa = bluetoothPeripherals[index] as? Watlaa else {return}
+        guard let watlaa = bluetoothPeripheral as? Watlaa else {return}
         
         watlaa.transmitterBatteryLevel = transmitterBatteryLevel
         
@@ -43,7 +43,7 @@ extension BluetoothPeripheralManager: WatlaaBluetoothTransmitterDelegate {
     
     private func findTransmitter(watlaaTransmitter: WatlaaBluetoothTransmitter) -> Watlaa? {
         
-        guard let index = bluetoothTransmitters.firstIndex(of: watlaaTransmitter), let watlaa = bluetoothPeripherals[index] as? Watlaa else {return nil}
+        guard let watlaa = bluetoothPeripheral as? Watlaa else {return nil}
         
         return watlaa
         

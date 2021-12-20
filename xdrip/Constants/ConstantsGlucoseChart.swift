@@ -69,13 +69,13 @@ enum ConstantsGlucoseChart {
     static let guidelineTargetColor = UIColor.green.withAlphaComponent(0.3)
     
     /// glucose colors - for values in range
-    static let glucoseInRangeColor = ConstantsUI.glucoseInRangeColor
+    static let glucoseInRangeColor = ConstantsUI.normalColor
     
     /// glucose colors - for values higher than urgentHighMarkValue or lower than urgent LowMarkValue
-    static let glucoseUrgentRangeColor = ConstantsUI.accentRed
+    static let glucoseUrgentRangeColor = ConstantsUI.alertColor
 
     /// glucose colors - for values between highMarkValue and urgentHighMarkValue or between urgentLowMarkValue and lowMarkValue
-    static let glucoseNotUrgentRangeColor = ConstantsUI.glucoseLowColor
+    static let glucoseNotUrgentRangeColor = ConstantsUI.warningColor
     
     /// calibration circle color (inside circle)
     static let calibrationInsideColor = UIColor.red

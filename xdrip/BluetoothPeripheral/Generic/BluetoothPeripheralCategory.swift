@@ -16,21 +16,13 @@ enum BluetoothPeripheralCategory: String, CaseIterable {
         return 0
     }
     
-    /// gets list of  categories in array of strings, user will see those strings when selecting a category
-    static func listOfCategories() -> [String] {
-        var list = [String]()
-        for category in BluetoothPeripheralCategory.allCases{
-            list.append(category.rawValue)
-        }
-        return list
-    }
-    
-    /// - returns list of bluetooth peripheral type's rawValue,  that have a bluetoothperipheral category, that has withCategory as rawValue
+    /// - returns list of bluetooth peripheral type's rawValue,  that have a bluetoothperipheral category, that has withCategory
     /// - so it gives a list of bluetoothperipheral types for a specific bluetoothperipheral category
-    static func listOfBluetoothPeripheralTypes(withCategory rawValueOfTheCategory: String) -> [String] {
+    static func listOfBluetoothPeripheralTypes(withCategory category: BluetoothPeripheralCategory, isFullFeatureMode: Bool) -> [String] {
         var list = [String]()
         for bluetoothPeripheralType in BluetoothPeripheralType.allCases {
-            if bluetoothPeripheralType.category().rawValue == rawValueOfTheCategory {
+            if bluetoothPeripheralType.category() == category &&
+                (isFullFeatureMode || !bluetoothPeripheralType.onlyForFullFeatureMode()) {
                 list.append(bluetoothPeripheralType.rawValue)
             }
         }

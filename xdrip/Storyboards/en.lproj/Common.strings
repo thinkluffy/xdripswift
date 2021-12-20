@@ -48,3 +48,8 @@
 "common_statistics_bgReadingsCount" = "Readings";
 "common_statistics_stdDeviation" = "SD";
 "common_dontshowagain" = "Don't Show Again";
+"howManyMinutes" = "%d Mins";
+"slogan" = "Been with you for %d days";
+"about" = "About";
+"developerModeEnabled" = "Developer Mode Enabled";
+"pleaseConfirm" = "Please Confirm";

@@ -16,33 +16,28 @@ public final class CoreDataManager {
     private var log = OSLog(subsystem: ConstantsLog.subSystem, category: ConstantsLog.categoryCoreDataManager)
     
     /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppWillTerminate
-    private let applicationManagerKeySaveChangesWhenAppTerminates = "applicationManagerKeySaveChangesWhenAppTerminates"
+    private let appManagerKeySaveChangesWhenAppTerminates = "cdm://saveChangesWhenAppTerminates"
 
     /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppWillTerminate
-    private let applicationManagerKeySaveChangesWhenAppGoesToBackground = "applicationManagerKeySaveChangesWhenAppGoesToBackground"
-    
-
-    // MARK: -
+    private let appManagerKeySaveChangesWhenAppGoesToBackground = "cdm://saveChangesWhenAppGoesToBackground"
     
     private var completion: CoreDataManagerCompletion!
-    
-    // MARK: -
-    
-    private(set) lazy var mainManagedObjectContext: NSManagedObjectContext = {
-        // Initialize Managed Object Context
+        
+    public private(set) lazy var mainManagedObjectContext: NSManagedObjectContext = {
         let managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        
-        // Configure Managed Object Context
         managedObjectContext.parent = self.privateManagedObjectContext
-        
         return managedObjectContext
     }()
     
-    private(set) lazy var privateManagedObjectContext: NSManagedObjectContext = {
+    public func privateChildManagedObjectContext() -> NSManagedObjectContext {
         let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        
+        managedObjectContext.parent = mainManagedObjectContext
+        return managedObjectContext
+    }
+    
+    private lazy var privateManagedObjectContext: NSManagedObjectContext = {
+        let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = self.persistentStoreCoordinator
-        
         return managedObjectContext
     }()
     
@@ -93,9 +88,9 @@ public final class CoreDataManager {
     }
     
     // MARK: - Initialization
-    static let shared = CoreDataManager()
+    public static let shared = CoreDataManager()
 
-    func initialize(modelName: String, completion: @escaping CoreDataManagerCompletion) {
+    public func initialize(modelName: String, completion: @escaping CoreDataManagerCompletion) {
         // Set Properties
         self.modelName = modelName
         self.completion = completion
@@ -121,10 +116,10 @@ public final class CoreDataManager {
         }
         
         // when app terminates, call saveChangesAtTermination, just in case that somewhere in the code saveChanges is not called when needed
-        ApplicationManager.shared.addClosureToRunWhenAppWillTerminate(key: applicationManagerKeySaveChangesWhenAppTerminates, closure: {self.saveChangesAtTermination()})
+        ApplicationManager.shared.addClosureToRunWhenAppWillTerminate(key: appManagerKeySaveChangesWhenAppTerminates, closure: {self.saveChangesAtTermination()})
         
         // when app goes to background, call saveChanges, just in case that somewhere in the code saveChanges is not called when needed
-        ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground(key: applicationManagerKeySaveChangesWhenAppGoesToBackground, closure: {self.saveChanges()})
+        ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground(key: appManagerKeySaveChangesWhenAppGoesToBackground, closure: {self.saveChanges()})
     }
 
     // MARK: -

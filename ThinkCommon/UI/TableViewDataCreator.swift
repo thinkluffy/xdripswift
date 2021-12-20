@@ -145,13 +145,22 @@ public class TableCellOperation: TableCell {
     
     public var detailedText: String?
     public var accessaryView: UIView?
-    public let operationDidClick: ((_ operationCell: TableCellOperation, _ indexPath: IndexPath) -> Void)?
+    public var accessaryType: UITableViewCell.AccessoryType
+    public let operationDidClick: ((_ operationCell: TableCellOperation,
+                                    _ tableView: UITableView,
+                                    _ indexPath: IndexPath) -> Void)?
     
-    init(cellId: Int? = nil, title: String, detailedText: String? = nil, icon: UIImage? = nil, accessoryView: UIView? = nil,
-         didClick: ((_ operationCell: TableCellOperation, _ indexPath: IndexPath) -> Void)? = nil) {
+    init(cellId: Int? = nil,
+         title: String,
+         detailedText: String? = nil,
+         icon: UIImage? = nil,
+         accessoryView: UIView? = nil,
+         accessoryType: UITableViewCell.AccessoryType = .none,
+         didClick clickHandler: ((_ operationCell: TableCellOperation, _ tableView: UITableView, _ indexPath: IndexPath) -> Void)? = nil) {
         self.detailedText = detailedText
         self.accessaryView = accessoryView
-        self.operationDidClick = didClick
+        self.accessaryType = accessoryType
+        self.operationDidClick = clickHandler
         super.init(cellId: cellId, cellType: .operation, title: title, icon: icon)
     }
 }
@@ -238,6 +247,7 @@ extension TableData: UITableViewDelegate, UITableViewDataSource {
             applyCommon(cellView: row, cellData: cell, indexPath: indexPath)
             row.detailTextLabel?.text = operation.detailedText
             row.accessoryView = operation.accessaryView
+            row.accessoryType = operation.accessaryType
             return row
             
         } else { // toggle
@@ -262,7 +272,7 @@ extension TableData: UITableViewDelegate, UITableViewDataSource {
         guard let cellOperation = cell as? TableCellOperation else {
             return
         }
-        cellOperation.operationDidClick?(cellOperation, indexPath)
+        cellOperation.operationDidClick?(cellOperation, tableView, indexPath)
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -346,9 +356,9 @@ public class TableDataBuilder {
                           detailTextColor: UIColor? = nil,
                           toggleButtonThumbColorOn: UIColor? = nil,
                           toggleButtonThumbColorOff: UIColor? = nil,
-                          toggleButtonBgColorOn: UIColor?,
+                          toggleButtonBgColorOn: UIColor? = nil,
                           sectionVerticalMargin: CGFloat? = 0,
-                          sectionHeaderColor: UIColor?) -> TableDataBuilder {
+                          sectionHeaderColor: UIColor? = nil) -> TableDataBuilder {
         data.configure.cellBackgroundColor = cellBackgroundColor
         
         data.configure.titleTextColor = titleTextColor
@@ -369,17 +379,29 @@ public class TableDataBuilder {
         return self
     }
     
-    public func operationCell(id: Int? = nil, title: String, detailedText: String? = nil,
+    public func operationCell(id: Int? = nil,
+                              title: String,
+                              detailedText: String? = nil,
                               icon: UIImage? = nil,
+                              accessoryType: UITableViewCell.AccessoryType = .none,
                               accessoryView: UIView? = nil,
-                              didClick: ((_ operationCell: TableCellOperation, _ idnexPath: IndexPath) -> Void)? = nil) -> TableDataBuilder {
-        let cellOperation = TableCellOperation(cellId: id, title: title, detailedText: detailedText, icon: icon, accessoryView: accessoryView,
-                                               didClick: didClick)
+                              didClick clickHandler: ((_ operationCell: TableCellOperation,
+                                                       _ tableView: UITableView,
+                                                       _ indexPath: IndexPath) -> Void)? = nil) -> TableDataBuilder {
+        let cellOperation = TableCellOperation(cellId: id,
+                                               title: title,
+                                               detailedText: detailedText,
+                                               icon: icon,
+                                               accessoryView: accessoryView,
+                                               accessoryType: accessoryType,
+                                               didClick: clickHandler)
         data.addCell(cell: cellOperation)
         return self
     }
     
-    public func toggleCell(id: Int? = nil, title: String, isOn: Bool,
+    public func toggleCell(id: Int? = nil,
+                           title: String,
+                           isOn: Bool,
                            icon: UIImage? = nil,
                            toggleWillChange: ((_ from: Bool) -> Bool)? = nil,
                            toggleDidChange: ((_ from: Bool, _ to: Bool) -> Void)? = nil) -> TableDataBuilder {

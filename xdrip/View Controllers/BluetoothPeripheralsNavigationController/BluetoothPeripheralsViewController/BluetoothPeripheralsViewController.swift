@@ -1,5 +1,6 @@
 import UIKit
 import CoreBluetooth
+import PopupDialog
 
 /// uiviewcontroller to show list of BluetoothPeripherals, first uiviewcontroller when clicking the BluetoothPeripheral tab
 final class BluetoothPeripheralsViewController: UIViewController {
@@ -40,7 +41,11 @@ final class BluetoothPeripheralsViewController: UIViewController {
             if bluetoothPeripheral.bluetoothPeripheralType().category() == .CGM &&
                 bluetoothPeripheral.blePeripheral.shouldconnect {
             
-                uiViewController.present(UIAlertController(title: Texts_Common.warning, message: Texts_BluetoothPeripheralsView.noMultipleActiveCGMsAllowed, actionHandler: nil), animated: true, completion: nil)
+                uiViewController.present(PopupDialog(title: Texts_Common.warning,
+                                                     message: Texts_BluetoothPeripheralsView.noMultipleActiveCGMsAllowed,
+                                                     actionTitle: R.string.common.common_Ok(),
+                                                     actionHandler: nil),
+                                         animated: true)
                 
                 return true
             }
@@ -128,28 +133,39 @@ final class BluetoothPeripheralsViewController: UIViewController {
         
         // check the app is in master mode
         if !UserDefaults.standard.isMaster {
-            present(UIAlertController(title: Texts_Common.warning,
-                                      message: Texts_BluetoothPeripheralView.cannotActiveCGMInFollowerMode,
-                                      actionHandler: nil),
+            present(PopupDialog(title: Texts_Common.warning,
+                                message: Texts_BluetoothPeripheralView.cannotActiveCGMInFollowerMode,
+                                actionTitle: R.string.common.common_Ok(),
+                                actionHandler: nil),
                     animated: true)
             return
         }
         
         // the category has only CGM currently
         
-        let data = BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(withCategory: BluetoothPeripheralCategory.listOfCategories()[0])
+        let data = BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(
+            withCategory: .CGM,
+            isFullFeatureMode: UserDefaults.standard.isFullFeatureMode
+        )
         
-        let pickerViewData = PickerViewDataBuilder(data: data, actionHandler: {
-            (_ typeIndex: Int) in
-            
-            // get the selected BluetoothPeripheralType
-            let type = BluetoothPeripheralType(rawValue: BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(withCategory: BluetoothPeripheralCategory.listOfCategories()[0])[typeIndex])
-            
-            // go to screen to add a new BluetoothPeripheral
-            // in the sender we add the selected bluetoothperipheraltype
-            self.performSegue(withIdentifier: R.segue.bluetoothPeripheralsViewController.bluetoothPeripheral, sender: type)
-            
-        })
+        let pickerViewData = PickerViewDataBuilder(
+            data: data,
+            actionHandler: {
+                (_ typeIndex: Int, _) in
+                
+                // get the selected BluetoothPeripheralType
+                let typeRawValue = BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(
+                    withCategory: .CGM,
+                    isFullFeatureMode: UserDefaults.standard.isFullFeatureMode
+                )[typeIndex]
+                
+                let type = BluetoothPeripheralType(rawValue: typeRawValue)
+                
+                // go to screen to add a new BluetoothPeripheral
+                // in the sender we add the selected bluetoothperipheraltype
+                self.performSegue(withIdentifier: R.segue.bluetoothPeripheralsViewController.bluetoothPeripheral,
+                                  sender: type)
+            })
             .title(Texts_BluetoothPeripheralsView.selectType)
             .build()
         

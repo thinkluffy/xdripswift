@@ -111,10 +111,6 @@ extension Libre2BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
         // default value for accessoryView is nil
         cell.accessoryView = nil
         
-        // create disclosureIndicator in color ConstantsUI.disclosureIndicatorColor
-        // will be used whenever accessoryType is to be set to disclosureIndicator
-        let disclosureAaccessoryView = DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor)
-
         guard let setting = Settings(rawValue: rawValue) else { fatalError("Libre2BluetoothPeripheralViewModel update, unexpected setting") }
         
         switch setting {
@@ -123,14 +119,15 @@ extension Libre2BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
             
             cell.textLabel?.text = Texts_BluetoothPeripheralView.sensorSerialNumber
             cell.detailTextLabel?.text = libre2.blePeripheral.sensorSerialNumber
-            cell.accessoryType = .disclosureIndicator
-            cell.accessoryView = disclosureAaccessoryView
+            cell.accessoryType = .none
 
         case .sensorStartTime:
             
             cell.textLabel?.text = Texts_HomeView.sensorStart
             if let sensorTimeInMinutes = libre2.sensorTimeInMinutes {
-                cell.detailTextLabel?.text = Date(timeIntervalSinceNow: -Double(sensorTimeInMinutes*60)).toString(timeStyle: .short, dateStyle: .short)
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MM-dd HH:mm"
+                cell.detailTextLabel?.text = dateFormatter.string(from: Date(timeIntervalSinceNow: -Double(sensorTimeInMinutes*60)))
             }
             cell.accessoryType = .none
             
@@ -153,7 +150,8 @@ extension Libre2BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
             
             // serial text could be longer than screen width, clicking the row allows to see it in a pop up with more text place
             if let serialNumber = libre2.blePeripheral.sensorSerialNumber {
-                return .showInfoText(title: Texts_HomeView.info, message: Texts_BluetoothPeripheralView.sensorSerialNumber + " : " + serialNumber)
+                return .showInfoText(title: Texts_BluetoothPeripheralView.sensorSerialNumber,
+                                     message: serialNumber)
             }
 
         case .sensorStartTime:

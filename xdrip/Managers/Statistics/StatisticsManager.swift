@@ -64,10 +64,11 @@ public final class StatisticsManager {
 			var gviStatisticValue: Double?
 			var pgsStatisticValue: Double?
 
-            CoreDataManager.shared.privateManagedObjectContext.performAndWait {
+            let moc = CoreDataManager.shared.privateChildManagedObjectContext()
+            moc.performAndWait {
 
                 // lets get the readings from the bgReadingsAccessor
-                let readings = self.bgReadingsAccessor.getBgReadings(from: fromDate, to: toDate, on:  CoreDataManager.shared.privateManagedObjectContext)
+                let readings = self.bgReadingsAccessor.getBgReadings(from: fromDate, to: toDate, on:  moc)
                 
                 //if there are no available readings, return without doing anything
                 if readings.count == 0 {
@@ -115,7 +116,6 @@ public final class StatisticsManager {
                             previousValueTimeStamp = currentTimeStamp
                             
                         }
-                        
                     }
                 }
                 
@@ -125,10 +125,12 @@ public final class StatisticsManager {
                     if isMgDl {
                         lowLimitForTIR = ConstantsStatistics.standardisedLowValueForTIRInMgDl
                         highLimitForTIR = ConstantsStatistics.standardisedHighValueForTIRInMgDl
+                        
                     } else {
                         lowLimitForTIR = ConstantsStatistics.standardisedLowValueForTIRInMmol
                         highLimitForTIR = ConstantsStatistics.standardisedHighValueForTIRInMmol
                     }
+                    
                 } else {
                     lowLimitForTIR = UserDefaults.standard.lowMarkValueInUserChosenUnit
                     highLimitForTIR = UserDefaults.standard.highMarkValueInUserChosenUnit

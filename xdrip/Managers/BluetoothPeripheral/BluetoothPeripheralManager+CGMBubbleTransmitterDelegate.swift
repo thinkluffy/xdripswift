@@ -59,7 +59,6 @@ extension BluetoothPeripheralManager: CGMBubbleTransmitterDelegate {
     }
     
     func received(hardware: String, from cGMBubbleTransmitter: CGMBubbleTransmitter) {
-        
         guard let bubble = findTransmitter(cGMBubbleTransmitter: cGMBubbleTransmitter) else {return}
             
         // store hardware in bubble object
@@ -70,11 +69,7 @@ extension BluetoothPeripheralManager: CGMBubbleTransmitterDelegate {
     }
     
     private func findTransmitter(cGMBubbleTransmitter: CGMBubbleTransmitter) -> Bubble? {
-        
-        guard let index = bluetoothTransmitters.firstIndex(of: cGMBubbleTransmitter), let bubble = bluetoothPeripherals[index] as? Bubble else {return nil}
-        
+        guard let bubble = bluetoothPeripheral as? Bubble else {return nil}
         return bubble
-        
     }
-    
 }

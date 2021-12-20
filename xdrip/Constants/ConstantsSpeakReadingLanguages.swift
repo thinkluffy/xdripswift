@@ -3,7 +3,7 @@
 /// alphabetically ordered
 enum ConstantsSpeakReadingLanguages: String, CaseIterable {
     
-    case chinese = "Chinese/zh"
+    case chinese = "中文/zh"
     case dutch = "Dutch/nl"
     case english = "English/en"
     case french = "French/fr"

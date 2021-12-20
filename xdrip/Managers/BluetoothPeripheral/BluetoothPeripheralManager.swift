@@ -10,7 +10,7 @@ class BluetoothPeripheralManager: NSObject {
     
     /// - all currently known BluetoothPeripheral's (MStacks, cgmtransmitters, watlaa , ...)
     /// - stored by type of bluetoothperipherals. In BluetoothPeripheralType, if the first type is M5Stack, then the first set of peripherals in the array will be all M5Stacks, and so on
-    public var bluetoothPeripherals: [BluetoothPeripheral] = []
+    private var bluetoothPeripherals: [BluetoothPeripheral] = []
 
     /// the bluetoothTransmitter's, array must have the same size as bluetoothPeripherals. For each element in bluetoothPeripherals, there's an element at the same index in bluetoothTransmitters, which may be nil. nil value means user selected not to connect
     public var bluetoothTransmitters: [BluetoothTransmitter?] = []
@@ -1083,6 +1083,10 @@ extension BluetoothPeripheralManager: BluetoothPeripheralManaging {
     
     func getBluetoothPeripherals() -> [BluetoothPeripheral] {
         return bluetoothPeripherals
+    }
+    
+    var bluetoothPeripheral: BluetoothPeripheral? {
+        bluetoothPeripherals.isEmpty ? nil : bluetoothPeripherals.first!
     }
     
     func getBluetoothTransmitters() -> [BluetoothTransmitter] {

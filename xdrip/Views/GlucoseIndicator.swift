@@ -17,7 +17,7 @@ class GlucoseIndicator: UIView {
     var reading: (valueInMgDl: Double, showAsMgDl: Bool, slopeArrow: BgReading.SlopeArrow?)? {
         didSet {
             if let reading = reading {
-                GlucoseIndicator.log.d("show new reading, valueInMg: \(reading.valueInMgDl), asMg: \(reading.showAsMgDl), slope: \(reading.slopeArrow?.description ?? "nil")")
+                GlucoseIndicator.log.d("show new reading, valueInMg: \(String(format: "%.1f", reading.valueInMgDl)), asMg: \(reading.showAsMgDl), slope: \(reading.slopeArrow?.description ?? "nil")")
 
                 if !BgReading.isNormalValue(reading.valueInMgDl) {
                     valueLabelMgDl.text = BgReading.unitizedString(calculatedValue: reading.valueInMgDl,

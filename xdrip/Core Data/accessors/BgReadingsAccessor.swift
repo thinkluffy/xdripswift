@@ -1,13 +1,12 @@
 import Foundation
 import CoreData
 import os
+import SwiftUI
 
 class BgReadingsAccessor {
-    
-    // MARK: - Properties
-    
+        
     /// for logging
-    private var log = OSLog(subsystem: ConstantsLog.subSystem, category: ConstantsLog.categoryApplicationDataBgReadings)
+    private static let log = Log(type: BgReadingsAccessor.self)
     
     // MARK: - public functions
     
@@ -148,28 +147,103 @@ class BgReadingsAccessor {
         if let from = from, to == nil {
             let predicate = NSPredicate(format: "timeStamp > %@", NSDate(timeIntervalSince1970: from.timeIntervalSince1970))
             fetchRequest.predicate = predicate
+            
         } else if let to = to, from == nil {
             let predicate = NSPredicate(format: "timeStamp < %@", NSDate(timeIntervalSince1970: to.timeIntervalSince1970))
             fetchRequest.predicate = predicate
+            
         } else if let to = to, let from = from {
             let predicate = NSPredicate(format: "timeStamp < %@ AND timeStamp > %@", NSDate(timeIntervalSince1970: to.timeIntervalSince1970), NSDate(timeIntervalSince1970: from.timeIntervalSince1970))
             fetchRequest.predicate = predicate
         }
         
         var bgReadings = [BgReading]()
-        
+                
         managedObjectContext.performAndWait {
             do {
                 // Execute Fetch Request
                 bgReadings = try fetchRequest.execute()
+                
             } catch {
                 let fetchError = error as NSError
-                trace("in getBgReadings, Unable to Execute BgReading Fetch Request : %{public}@", log: self.log, category: ConstantsLog.categoryApplicationDataBgReadings, type: .error, fetchError.localizedDescription)
+                BgReadingsAccessor.log.e("in getBgReadings, Unable to Execute BgReading Fetch Request: \(fetchError.localizedDescription)")
             }
         }
         
         return bgReadings
+    }
+    
+    /// gets bgReadings, asynchronously, from main thread
+    /// - parameters:
+    ///     - to : if specified, only return readings with timestamp  smaller than fromDate (not equal to)
+    ///     - from : if specified, only return readings with timestamp greater than fromDate (not equal to)
+    func getBgReadingsAsync(from: Date?, to: Date?, completion: @escaping ([BgReading]?) -> Void) {
+        
+        let fetchRequest: NSFetchRequest<BgReading> = BgReading.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(BgReading.timeStamp), ascending: true)]
 
+        // create predicate
+        if let from = from, to == nil {
+            let predicate = NSPredicate(format: "timeStamp > %@", NSDate(timeIntervalSince1970: from.timeIntervalSince1970))
+            fetchRequest.predicate = predicate
+
+        } else if let to = to, from == nil {
+            let predicate = NSPredicate(format: "timeStamp < %@", NSDate(timeIntervalSince1970: to.timeIntervalSince1970))
+            fetchRequest.predicate = predicate
+
+        } else if let to = to, let from = from {
+            let predicate = NSPredicate(format: "timeStamp < %@ AND timeStamp > %@", NSDate(timeIntervalSince1970: to.timeIntervalSince1970), NSDate(timeIntervalSince1970: from.timeIntervalSince1970))
+            fetchRequest.predicate = predicate
+        }
+        
+//        DispatchQueue.global(qos: .userInteractive).async {
+//
+//            let moc = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+//            moc.parent = CoreDataManager.shared.privateManagedObjectContext
+//
+//            moc.perform {
+//                do {
+//                    let bgReadings = try fetchRequest.execute()
+//
+//                    DispatchQueue.main.async {
+//                        var ret = [BgReading]()
+//                        let mmoc = CoreDataManager.shared.mainManagedObjectContext
+//                        bgReadings.forEach { reading in
+//                            if let copy = mmoc.object(with: reading.objectID) as? BgReading {
+//                                ret.append(copy)
+//                            }
+//                        }
+//                        completion(ret)
+//                    }
+//
+//                } catch {
+//                    let fetchError = error as NSError
+//                    BgReadingsAccessor.log.e("in getBgReadings, Unable to Execute BgReading Fetch Request: \(fetchError.localizedDescription)")
+//                }
+//            }
+//        }
+        
+        let moc = CoreDataManager.shared.privateChildManagedObjectContext()
+        moc.perform {
+            do {
+                let bgReadings = try fetchRequest.execute()
+                
+                DispatchQueue.main.async {
+                    var ret = [BgReading]()
+                    let mmoc = CoreDataManager.shared.mainManagedObjectContext
+                    bgReadings.forEach { reading in
+                        if let copy = mmoc.object(with: reading.objectID) as? BgReading {
+                            ret.append(copy)
+                        }
+                    }
+                    completion(ret)
+                }
+
+            } catch {
+                let fetchError = error as NSError
+                BgReadingsAccessor.log.e("in getBgReadings, Unable to Execute BgReading Fetch Request: \(fetchError.localizedDescription)")
+            }
+        }
     }
     
     /// deletes bgReading, synchronously, in the managedObjectContext's thread
@@ -184,7 +258,7 @@ class BgReadingsAccessor {
                 try managedObjectContext.save()
                 
             } catch {
-                trace("in delete bgReading,  Unable to Save Changes, error.localizedDescription  = %{public}@", log: self.log, category: ConstantsLog.categoryApplicationDataBgReadings, type: .error, error.localizedDescription)
+                BgReadingsAccessor.log.e("in delete bgReading,  Unable to Save Changes, error: \(error.localizedDescription)")
             }
         }
     }
@@ -197,7 +271,7 @@ class BgReadingsAccessor {
     ///     - fromDate : if specified, only return readings with timestamp > fromDate
     /// - returns:
     ///     List of readings, descending, ie first is youngest
-    private func fetchBgReadings(limit:Int?, fromDate:Date?) -> [BgReading] {
+    private func fetchBgReadings(limit: Int?, fromDate: Date?) -> [BgReading] {
         let fetchRequest: NSFetchRequest<BgReading> = BgReading.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(BgReading.timeStamp), ascending: false)]
         
@@ -221,7 +295,7 @@ class BgReadingsAccessor {
                 
             } catch {
                 let fetchError = error as NSError
-                trace("in fetchBgReadings, Unable to Execute BgReading Fetch Request : %{public}@", log: self.log, category: ConstantsLog.categoryApplicationDataBgReadings, type: .error, fetchError.localizedDescription)
+                BgReadingsAccessor.log.e("in fetchBgReadings, Unable to Execute BgReading Fetch Request : \(fetchError.localizedDescription)")
             }
         }
         

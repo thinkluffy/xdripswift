@@ -78,7 +78,6 @@ enum BluetoothPeripheralType: String, CaseIterable {
             return AtomBluetoothPeripheralViewModel()
             
         }
-        
     }
     
     func createNewBluetoothPeripheral(withAddress address: String, withName name: String, nsManagedObjectContext: NSManagedObjectContext) -> BluetoothPeripheral {
@@ -152,7 +151,7 @@ enum BluetoothPeripheralType: String, CaseIterable {
     
     /// - returns nil if id to validate has expected length and type of characters etc.
     /// - returns error text if transmitterId is not ok
-    func validateTransmitterId(transmitterId:String) -> String? {
+    func validateTransmitterId(transmitterId: String) -> String? {
         
         switch self {
             
@@ -228,5 +227,15 @@ enum BluetoothPeripheralType: String, CaseIterable {
        case .Libre2Type:
             return true
        }
+    }
+    
+    func onlyForFullFeatureMode() -> Bool {
+        switch self {
+        case .Libre2Type, .DexcomG5Type, .DexcomG6Type:
+            return true
+            
+        default:
+            return false
+        }
     }
 }

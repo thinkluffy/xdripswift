@@ -15,15 +15,15 @@ struct ContentView: View {
 	func getChartPointList(_ interval5Mins: Bool, from list: [Common.BgInfo]) -> [ChartPoint] {
 		var result = [ChartPoint]()
 		var lastItem: Common.BgInfo? = nil
+        
 		for bg in list {
-			if interval5Mins == true
-				&& (lastItem != nil)
-				&& (abs(bg.date.timeIntervalSince(lastItem!.date)) < 4.5 * 60) {
+			if interval5Mins && lastItem != nil &&
+                abs(bg.date.timeIntervalSince(lastItem!.date)) <= 4.5 * 60 {
 				continue
 			}
 			lastItem = bg
 			result.append(ChartPoint(x: Int(bg.date.timeIntervalSince1970),
-								   y: bg.value))
+                                     y: bg.value))
 		}
 		return result
 	}

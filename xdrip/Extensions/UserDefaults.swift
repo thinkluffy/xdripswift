@@ -19,6 +19,10 @@ extension UserDefaults {
     public enum Key: String {
         // User configurable Settings
         
+        // Common
+        case firstOpenTimestamp = "firstOpenTimestamp"
+        case fullFeatureMode = "fullFeatureMode"
+
         // General
         
         /// bloodglucose unit
@@ -229,20 +233,47 @@ extension UserDefaults {
     
     // MARK: - =====  User Configurable Settings ======
     
+    // MARK: Common
+    
+    @objc dynamic var firstOpenTime: Date? {
+        get {
+            let timeIntervalSince1970 = double(forKey: Key.firstOpenTimestamp.rawValue)
+            if timeIntervalSince1970 <= 0 {
+                return nil
+            }
+            return Date(timeIntervalSince1970: timeIntervalSince1970)
+        }
+        set {
+            if let date = newValue {
+                set(date.timeIntervalSince1970, forKey: Key.firstOpenTimestamp.rawValue)
+
+            } else {
+                set(0, forKey: Key.firstOpenTimestamp.rawValue)
+            }
+        }
+    }
+    
+    @objc dynamic var isFullFeatureMode: Bool {
+        get {
+            return bool(forKey: Key.fullFeatureMode.rawValue)
+        }
+        set {
+            set(newValue, forKey: Key.fullFeatureMode.rawValue)
+        }
+    }
+    
     // MARK: General
     
     /// true if unit is mgdl, false if mmol is used
     @objc dynamic var bloodGlucoseUnitIsMgDl: Bool {
-        //default value for bool in userdefaults is false, false is for mgdl, true is for mmol
         get {
-            return !bool(forKey: Key.bloodGlucoseUnitIsMgDl.rawValue)
+            return bool(forKey: Key.bloodGlucoseUnitIsMgDl.rawValue)
         }
         set {
-            set(!newValue, forKey: Key.bloodGlucoseUnitIsMgDl.rawValue)
+            set(newValue, forKey: Key.bloodGlucoseUnitIsMgDl.rawValue)
 
             // setting to be stored also in shared userdefaults because it's used by the today widget
-            UserDefaults.storeInSharedUserDefaults(value: !newValue, forKey: Key.bloodGlucoseUnitIsMgDl.rawValue)
-            
+            UserDefaults.storeInSharedUserDefaults(value: newValue, forKey: Key.bloodGlucoseUnitIsMgDl.rawValue)
         }
     }
     
@@ -271,7 +302,8 @@ extension UserDefaults {
     /// speak readings interval in minutes
     @objc dynamic var notificationInterval: Int {
         get {
-            return integer(forKey: Key.notificationInterval.rawValue)
+            let ret = integer(forKey: Key.notificationInterval.rawValue)
+            return ret == 0 ? 1 : ret
         }
         set {
             set(newValue, forKey: Key.notificationInterval.rawValue)
@@ -410,7 +442,7 @@ extension UserDefaults {
     }
 
     /// the urgenthighmarkvalue in unit selected by user ie, mgdl or mmol - rounded
-    @objc dynamic var urgentHighMarkValueInUserChosenUnitRounded:String {
+    @objc dynamic var urgentHighMarkValueInUserChosenUnitRounded: String {
         get {
             return urgentHighMarkValueInUserChosenUnit.bgValuetoString(mgdl: bloodGlucoseUnitIsMgDl)
         }
@@ -744,7 +776,8 @@ extension UserDefaults {
     /// speak readings interval in minutes
     @objc dynamic var speakInterval: Int {
         get {
-            return integer(forKey: Key.speakInterval.rawValue)
+            let ret = integer(forKey: Key.speakInterval.rawValue)
+            return ret == 0 ? 1 : ret
         }
         set {
             set(newValue, forKey: Key.speakInterval.rawValue)
@@ -788,7 +821,8 @@ extension UserDefaults {
     /// speak readings interval in minutes
     @objc dynamic var calendarInterval: Int {
         get {
-            return integer(forKey: Key.calendarInterval.rawValue)
+            let ret = integer(forKey: Key.calendarInterval.rawValue)
+            return ret == 0 ? 1 : ret
         }
         set {
             set(newValue, forKey: Key.calendarInterval.rawValue)

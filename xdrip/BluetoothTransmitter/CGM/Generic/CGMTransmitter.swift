@@ -36,9 +36,6 @@ protocol CGMTransmitter: AnyObject {
 /// cgm transmitter types
 enum CGMTransmitterType: String, CaseIterable {
     
-    /// dexcom G4 using xdrip, xbridge, ...
-    case dexcomG4 = "Dexcom G4"
-    
     /// dexcom G5
     case dexcomG5 = "Dexcom G5"
     
@@ -77,7 +74,7 @@ enum CGMTransmitterType: String, CaseIterable {
         
         switch self {
             
-        case .dexcomG4, .dexcomG5, .dexcomG6 :
+        case .dexcomG5, .dexcomG6 :
             return .Dexcom
             
         case .miaomiao, .Bubble, .GNSentry, .Droplet1, .blueReader, .watlaa, .Blucon, .Libre2, .Atom:
@@ -95,10 +92,7 @@ enum CGMTransmitterType: String, CaseIterable {
     func canDetectNewSensor() -> Bool {
         
         switch self {
-            
-        case .dexcomG4:
-            return false
-            
+                        
         case .dexcomG5, .dexcomG6:
             return false
             
@@ -136,7 +130,7 @@ enum CGMTransmitterType: String, CaseIterable {
         
         switch self {
             
-        case .dexcomG4, .dexcomG5, .dexcomG6, .GNSentry, .Droplet1, .blueReader, .watlaa:
+        case .dexcomG5, .dexcomG6, .GNSentry, .Droplet1, .blueReader, .watlaa:
             return true
             
         case .miaomiao, .Bubble, .Blucon, .Libre2, .Atom:
@@ -149,9 +143,6 @@ enum CGMTransmitterType: String, CaseIterable {
     /// returns default battery alert level, below this level an alert should be generated - this default value will be used when changing transmittertype
     func defaultBatteryAlertLevel() -> Int {
         switch self {
-            
-        case .dexcomG4:
-            return ConstantsDefaultAlertLevels.defaultBatteryAlertLevelDexcomG4
             
         case .dexcomG5, .dexcomG6:
             return ConstantsDefaultAlertLevels.defaultBatteryAlertLevelDexcomG5
@@ -192,9 +183,6 @@ enum CGMTransmitterType: String, CaseIterable {
     func batteryUnit() -> String {
         
         switch self {
-            
-        case .dexcomG4:
-            return ""
             
         case .dexcomG5, .dexcomG6:
             return "voltA"

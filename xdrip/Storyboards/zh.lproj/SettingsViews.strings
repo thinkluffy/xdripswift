@@ -64,7 +64,7 @@
 "displayUnitInCalendarEvent" = "显示单位";
 
 /// When clicking the interval setting, a pop up asks for minimum number of minutes between two readings, this is the pop up message - this is used for setting the interval between two readings in BG notifications, Speak readings, Apple Watch
-"settingsviews_IntervalMessage" = "Minimum interval between two readings, in minutes";
+"settingsviews_IntervalMessage" = "两次读数之间的最小间隔";
 
 /// Apple Watch Settings - text in row where create event is enabled or disabled 
 "createCalendarEvent" = "创建日历事件";
@@ -177,7 +177,7 @@
 "describeProblem" = "Explain why you need to send the trace file with as much detail as possible. If you have already reported your problem in the Facebook support group '%@', then mention your facebook name in the e-mail";
 
 /// general settings, when switching from master to follower, if confirmation is asked, this message will be shown.
-"warningChangeFromMasterToFollower" = "Switching from master to follower will stop your current sensor. Do you want to continue?";
+"warningChangeFromMasterToFollower" = "切换到关注者模式将会停止您当前的探头。是否继续？";
 
 /// used for editing schedule for NightScout upload and Dexcom Share upload
 "editScheduleTimePickerSubtitle" = "Change: ";
@@ -261,3 +261,5 @@
 
 "sectionTitleMore" = "更多";
 "moreSettings" = "更多设置";
+"commonSettings" = "通用设置";
+"serviceIntegration" = "服务集成";

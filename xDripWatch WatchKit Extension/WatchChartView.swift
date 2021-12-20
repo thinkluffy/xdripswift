@@ -237,7 +237,16 @@ extension WatchChartView {
 
 struct ChartView_Previews: PreviewProvider {
     static var previews: some View {
-		WatchChartView(pointDigit: 0, min: 2.2 * 18, max: 16.6*18, urgentMin: 3.9*18, urgentMax: 10*18, suggestMin: 4.5*18, suggestMax: 7.8*18, values: WatchChartView.fakeValues().map{ ChartPoint(x: $0.x, y: $0.y * 18)})
+        let mmolToMg = 18.018
+		WatchChartView(pointDigit: 0,
+                       min: 2.2 * mmolToMg,
+                       max: 16.6 * mmolToMg,
+                       urgentMin: 3.9 * mmolToMg,
+                       urgentMax: 10 * mmolToMg,
+                       suggestMin: 4.5 * mmolToMg,
+                       suggestMax: 7.8 * mmolToMg,
+                       values: WatchChartView.fakeValues().map{ ChartPoint(x: $0.x, y: $0.y * 18)}
+        )
     }
 }
 

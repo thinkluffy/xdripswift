@@ -30,17 +30,17 @@ struct xdripApp: App {
 				print("onChange active")
 				PhoneCommunicator.shared.startRequestChart()
 				// Update any complications on active watch faces.
-			}
-			else if newScenePhase == .inactive {
+                
+			} else if newScenePhase == .inactive {
 				print("onChange inactive")
-			}
-			else if newScenePhase == .background {
+                
+            } else if newScenePhase == .background {
 				print("onChange background")
 				PhoneCommunicator.shared.stopRequestChart()
 				ComplicationController.reload()
 				WatchExtensionDelegate.fireBackgroundTasks()
-			}
-			else {
+                
+			} else {
 				print("onChange others: \(newScenePhase)")
 			}
 		}

@@ -221,39 +221,28 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This struct is generated for `SettingsViewController`, and contains static references to 3 segues.
-    struct xdripSettingsViewController {
-      /// Segue identifier `settingsToAlertSettings`.
-      static let settingsToAlertSettings: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, xdrip.SettingsViewController, xdrip.AlertsSettingsViewController> = Rswift.StoryboardSegueIdentifier(identifier: "settingsToAlertSettings")
-      /// Segue identifier `settingsToAlertTypeSettings`.
-      static let settingsToAlertTypeSettings: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, xdrip.SettingsViewController, xdrip.AlertTypesSettingsViewController> = Rswift.StoryboardSegueIdentifier(identifier: "settingsToAlertTypeSettings")
-      /// Segue identifier `settingsToMore`.
-      static let settingsToMore: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, xdrip.SettingsViewController, MoreSettingsViewController> = Rswift.StoryboardSegueIdentifier(identifier: "settingsToMore")
+    /// This struct is generated for `TotalAlertSettingsViewController`, and contains static references to 2 segues.
+    struct totalAlertSettingsViewController {
+      /// Segue identifier `alertTypesSettings`.
+      static let alertTypesSettings: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, TotalAlertSettingsViewController, xdrip.AlertTypesSettingsViewController> = Rswift.StoryboardSegueIdentifier(identifier: "alertTypesSettings")
+      /// Segue identifier `alertsSettings`.
+      static let alertsSettings: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, TotalAlertSettingsViewController, xdrip.AlertsSettingsViewController> = Rswift.StoryboardSegueIdentifier(identifier: "alertsSettings")
 
       #if os(iOS) || os(tvOS)
-      /// Optionally returns a typed version of segue `settingsToAlertSettings`.
+      /// Optionally returns a typed version of segue `alertTypesSettings`.
       /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
       /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      static func settingsToAlertSettings(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, xdrip.SettingsViewController, xdrip.AlertsSettingsViewController>? {
-        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.xdripSettingsViewController.settingsToAlertSettings, segue: segue)
+      static func alertTypesSettings(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, TotalAlertSettingsViewController, xdrip.AlertTypesSettingsViewController>? {
+        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.totalAlertSettingsViewController.alertTypesSettings, segue: segue)
       }
       #endif
 
       #if os(iOS) || os(tvOS)
-      /// Optionally returns a typed version of segue `settingsToAlertTypeSettings`.
+      /// Optionally returns a typed version of segue `alertsSettings`.
       /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
       /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      static func settingsToAlertTypeSettings(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, xdrip.SettingsViewController, xdrip.AlertTypesSettingsViewController>? {
-        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.xdripSettingsViewController.settingsToAlertTypeSettings, segue: segue)
-      }
-      #endif
-
-      #if os(iOS) || os(tvOS)
-      /// Optionally returns a typed version of segue `settingsToMore`.
-      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
-      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      static func settingsToMore(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, xdrip.SettingsViewController, MoreSettingsViewController>? {
-        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.xdripSettingsViewController.settingsToMore, segue: segue)
+      static func alertsSettings(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, TotalAlertSettingsViewController, xdrip.AlertsSettingsViewController>? {
+        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.totalAlertSettingsViewController.alertsSettings, segue: segue)
       }
       #endif
 
@@ -1306,8 +1295,10 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 39 images.
+  /// This `R.image` struct is generated, and contains static references to 25 images.
   struct image {
+    /// Image `dexcomG5`.
+    static let dexcomG5 = Rswift.ImageResource(bundle: R.hostingBundle, name: "dexcomG5")
     /// Image `dexcomG6`.
     static let dexcomG6 = Rswift.ImageResource(bundle: R.hostingBundle, name: "dexcomG6")
     /// Image `ic_alarm_delay`.
@@ -1342,6 +1333,10 @@ struct R: Rswift.Validatable {
     static let ic_tab_bluetooth_h = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_bluetooth_h")
     /// Image `ic_tab_bluetooth`.
     static let ic_tab_bluetooth = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_bluetooth")
+    /// Image `ic_tab_notes_h`.
+    static let ic_tab_notes_h = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_notes_h")
+    /// Image `ic_tab_notes`.
+    static let ic_tab_notes = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_notes")
     /// Image `ic_tab_settings_h`.
     static let ic_tab_settings_h = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_settings_h")
     /// Image `ic_tab_settings`.
@@ -1352,40 +1347,13 @@ struct R: Rswift.Validatable {
     static let libre = Rswift.ImageResource(bundle: R.hostingBundle, name: "libre")
     /// Image `logo-launchScreen`.
     static let logoLaunchScreen = Rswift.ImageResource(bundle: R.hostingBundle, name: "logo-launchScreen")
-    /// Image `sensor14_00`.
-    static let sensor14_00 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_00")
-    /// Image `sensor14_01_urgent`.
-    static let sensor14_01_urgent = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_01_urgent")
-    /// Image `sensor14_01_warning`.
-    static let sensor14_01_warning = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_01_warning")
-    /// Image `sensor14_01`.
-    static let sensor14_01 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_01")
-    /// Image `sensor14_02`.
-    static let sensor14_02 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_02")
-    /// Image `sensor14_03`.
-    static let sensor14_03 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_03")
-    /// Image `sensor14_04`.
-    static let sensor14_04 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_04")
-    /// Image `sensor14_05`.
-    static let sensor14_05 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_05")
-    /// Image `sensor14_06`.
-    static let sensor14_06 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_06")
-    /// Image `sensor14_07`.
-    static let sensor14_07 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_07")
-    /// Image `sensor14_08`.
-    static let sensor14_08 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_08")
-    /// Image `sensor14_09`.
-    static let sensor14_09 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_09")
-    /// Image `sensor14_10`.
-    static let sensor14_10 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_10")
-    /// Image `sensor14_11`.
-    static let sensor14_11 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_11")
-    /// Image `sensor14_12`.
-    static let sensor14_12 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_12")
-    /// Image `sensor14_13`.
-    static let sensor14_13 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_13")
-    /// Image `sensor14_14`.
-    static let sensor14_14 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sensor14_14")
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "dexcomG5", bundle: ..., traitCollection: ...)`
+    static func dexcomG5(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.dexcomG5, compatibleWith: traitCollection)
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     /// `UIImage(named: "dexcomG6", bundle: ..., traitCollection: ...)`
@@ -1507,6 +1475,20 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_tab_notes", bundle: ..., traitCollection: ...)`
+    static func ic_tab_notes(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_tab_notes, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_tab_notes_h", bundle: ..., traitCollection: ...)`
+    static func ic_tab_notes_h(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_tab_notes_h, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "ic_tab_settings", bundle: ..., traitCollection: ...)`
     static func ic_tab_settings(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ic_tab_settings, compatibleWith: traitCollection)
@@ -1538,125 +1520,6 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "logo-launchScreen", bundle: ..., traitCollection: ...)`
     static func logoLaunchScreen(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.logoLaunchScreen, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_00", bundle: ..., traitCollection: ...)`
-    static func sensor14_00(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_00, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_01", bundle: ..., traitCollection: ...)`
-    static func sensor14_01(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_01, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_01_urgent", bundle: ..., traitCollection: ...)`
-    static func sensor14_01_urgent(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_01_urgent, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_01_warning", bundle: ..., traitCollection: ...)`
-    static func sensor14_01_warning(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_01_warning, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_02", bundle: ..., traitCollection: ...)`
-    static func sensor14_02(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_02, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_03", bundle: ..., traitCollection: ...)`
-    static func sensor14_03(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_03, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_04", bundle: ..., traitCollection: ...)`
-    static func sensor14_04(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_04, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_05", bundle: ..., traitCollection: ...)`
-    static func sensor14_05(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_05, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_06", bundle: ..., traitCollection: ...)`
-    static func sensor14_06(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_06, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_07", bundle: ..., traitCollection: ...)`
-    static func sensor14_07(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_07, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_08", bundle: ..., traitCollection: ...)`
-    static func sensor14_08(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_08, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_09", bundle: ..., traitCollection: ...)`
-    static func sensor14_09(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_09, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_10", bundle: ..., traitCollection: ...)`
-    static func sensor14_10(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_10, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_11", bundle: ..., traitCollection: ...)`
-    static func sensor14_11(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_11, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_12", bundle: ..., traitCollection: ...)`
-    static func sensor14_12(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_12, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_13", bundle: ..., traitCollection: ...)`
-    static func sensor14_13(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_13, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "sensor14_14", bundle: ..., traitCollection: ...)`
-    static func sensor14_14(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.sensor14_14, compatibleWith: traitCollection)
     }
     #endif
 
@@ -3072,8 +2935,16 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.common` struct is generated, and contains static references to 50 localization keys.
+    /// This `R.string.common` struct is generated, and contains static references to 55 localization keys.
     struct common {
+      /// en translation: %d Mins
+      ///
+      /// Locales: en, zh
+      static let howManyMinutes = Rswift.StringResource(key: "howManyMinutes", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: About
+      ///
+      /// Locales: en, zh
+      static let about = Rswift.StringResource(key: "about", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Add
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
@@ -3086,6 +2957,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static let common_bloodglucoseunit_short = Rswift.StringResource(key: "common_bloodglucoseunit_short", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fi", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// en translation: Been with you for %d days
+      ///
+      /// Locales: en, zh
+      static let slogan = Rswift.StringResource(key: "slogan", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Blood Glucose Unit
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
@@ -3106,6 +2981,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static let delete = Rswift.StringResource(key: "delete", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fi", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// en translation: Developer Mode Enabled
+      ///
+      /// Locales: en, zh
+      static let developerModeEnabled = Rswift.StringResource(key: "developerModeEnabled", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Don't Show Again
       ///
       /// Locales: en, nl, pt, de, es, fr, sv
@@ -3182,6 +3061,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static let common_password = Rswift.StringResource(key: "common_password", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fi", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// en translation: Please Confirm
+      ///
+      /// Locales: en, zh
+      static let pleaseConfirm = Rswift.StringResource(key: "pleaseConfirm", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Readings
       ///
       /// Locales: en, zh
@@ -3275,6 +3158,38 @@ struct R: Rswift.Validatable {
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static let yellow = Rswift.StringResource(key: "yellow", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fi", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
 
+      /// en translation: %d Mins
+      ///
+      /// Locales: en, zh
+      static func howManyMinutes(_ value1: Int, preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          let format = NSLocalizedString("howManyMinutes", tableName: "Common", bundle: hostingBundle, comment: "")
+          return String(format: format, locale: applicationLocale, value1)
+        }
+
+        guard let (locale, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "howManyMinutes"
+        }
+
+        let format = NSLocalizedString("howManyMinutes", tableName: "Common", bundle: bundle, comment: "")
+        return String(format: format, locale: locale, value1)
+      }
+
+      /// en translation: About
+      ///
+      /// Locales: en, zh
+      static func about(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("about", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "about"
+        }
+
+        return NSLocalizedString("about", tableName: "Common", bundle: bundle, comment: "")
+      }
+
       /// en translation: Add
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
@@ -3318,6 +3233,23 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("common_bloodglucoseunit_short", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Been with you for %d days
+      ///
+      /// Locales: en, zh
+      static func slogan(_ value1: Int, preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          let format = NSLocalizedString("slogan", tableName: "Common", bundle: hostingBundle, comment: "")
+          return String(format: format, locale: applicationLocale, value1)
+        }
+
+        guard let (locale, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "slogan"
+        }
+
+        let format = NSLocalizedString("slogan", tableName: "Common", bundle: bundle, comment: "")
+        return String(format: format, locale: locale, value1)
       }
 
       /// en translation: Blood Glucose Unit
@@ -3393,6 +3325,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("delete", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Developer Mode Enabled
+      ///
+      /// Locales: en, zh
+      static func developerModeEnabled(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("developerModeEnabled", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "developerModeEnabled"
+        }
+
+        return NSLocalizedString("developerModeEnabled", tableName: "Common", bundle: bundle, comment: "")
       }
 
       /// en translation: Don't Show Again
@@ -3678,6 +3625,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("common_password", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Please Confirm
+      ///
+      /// Locales: en, zh
+      static func pleaseConfirm(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("pleaseConfirm", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "pleaseConfirm"
+        }
+
+        return NSLocalizedString("pleaseConfirm", tableName: "Common", bundle: bundle, comment: "")
       }
 
       /// en translation: Readings
@@ -5900,7 +5862,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.settingsViews` struct is generated, and contains static references to 109 localization keys.
+    /// This `R.string.settingsViews` struct is generated, and contains static references to 111 localization keys.
     struct settingsViews {
       /// en translation: API_SECRET
       ///
@@ -5970,6 +5932,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let settingsviews_chartHeight = Rswift.StringResource(key: "settingsviews_chartHeight", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Common Settings
+      ///
+      /// Locales: en, zh
+      static let commonSettings = Rswift.StringResource(key: "commonSettings", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Create Calendar Events
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
@@ -6106,7 +6072,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_daysToUseStatisticsMessage = Rswift.StringResource(key: "settingsviews_daysToUseStatisticsMessage", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Minimum interval between two readings, in minutes
+      /// en translation: Minimum interval between two readings
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_IntervalMessage = Rswift.StringResource(key: "settingsviews_IntervalMessage", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -6178,6 +6144,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, pt, fr, de, es, sv
       static let settingsviews_sectiontitlesensorcountdown = Rswift.StringResource(key: "settingsviews_sectiontitlesensorcountdown", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "pt", "fr", "de", "es", "sv"], comment: nil)
+      /// en translation: Service Integration
+      ///
+      /// Locales: en, zh
+      static let serviceIntegration = Rswift.StringResource(key: "serviceIntegration", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Settings
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
@@ -6594,6 +6564,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("settingsviews_chartHeight", tableName: "SettingsViews", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Common Settings
+      ///
+      /// Locales: en, zh
+      static func commonSettings(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("commonSettings", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
+          return "commonSettings"
+        }
+
+        return NSLocalizedString("commonSettings", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
       /// en translation: Create Calendar Events
@@ -7108,7 +7093,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_daysToUseStatisticsMessage", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Minimum interval between two readings, in minutes
+      /// en translation: Minimum interval between two readings
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static func settingsviews_IntervalMessage(preferredLanguages: [String]? = nil) -> String {
@@ -7376,6 +7361,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("settingsviews_sectiontitlesensorcountdown", tableName: "SettingsViews", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Service Integration
+      ///
+      /// Locales: en, zh
+      static func serviceIntegration(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("serviceIntegration", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
+          return "serviceIntegration"
+        }
+
+        return NSLocalizedString("serviceIntegration", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
       /// en translation: Settings
@@ -8382,6 +8382,7 @@ struct _R: Rswift.Validatable {
       let mainTabBarController = StoryboardViewControllerResource<MainTabBarController>(identifier: "MainTabBarController")
       let name = "Main"
       let snoozeAlarms = StoryboardViewControllerResource<SnoozeViewController>(identifier: "snoozeAlarms")
+      let totalAlertSettingsViewController = StoryboardViewControllerResource<TotalAlertSettingsViewController>(identifier: "TotalAlertSettingsViewController")
 
       func bluetoothPeripheral(_: Void = ()) -> BluetoothPeripheralViewController? {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: bluetoothPeripheral)
@@ -8399,6 +8400,10 @@ struct _R: Rswift.Validatable {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: snoozeAlarms)
       }
 
+      func totalAlertSettingsViewController(_: Void = ()) -> TotalAlertSettingsViewController? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: totalAlertSettingsViewController)
+      }
+
       static func validate() throws {
         if UIKit.UIImage(named: "ic_alarm", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_alarm' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_calibrate", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_calibrate' is used in storyboard 'Main', but couldn't be loaded.") }
@@ -8410,6 +8415,8 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "ic_tab_bloodsugar_h", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_bloodsugar_h' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_bluetooth", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_bluetooth' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_bluetooth_h", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_bluetooth_h' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ic_tab_notes", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_notes' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ic_tab_notes_h", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_notes_h' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_settings", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_settings' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_settings_h", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_settings_h' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "logo-launchScreen.png", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'logo-launchScreen.png' is used in storyboard 'Main', but couldn't be loaded.") }
@@ -8418,6 +8425,7 @@ struct _R: Rswift.Validatable {
         if _R.storyboard.main().bluetoothPeripheral() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'bluetoothPeripheral' could not be loaded from storyboard 'Main' as 'BluetoothPeripheralViewController'.") }
         if _R.storyboard.main().datePickerViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'datePickerViewController' could not be loaded from storyboard 'Main' as 'DatePickerViewController'.") }
         if _R.storyboard.main().mainTabBarController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'mainTabBarController' could not be loaded from storyboard 'Main' as 'MainTabBarController'.") }
+        if _R.storyboard.main().totalAlertSettingsViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'totalAlertSettingsViewController' could not be loaded from storyboard 'Main' as 'TotalAlertSettingsViewController'.") }
         if _R.storyboard.main().snoozeAlarms() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'snoozeAlarms' could not be loaded from storyboard 'Main' as 'SnoozeViewController'.") }
       }
 

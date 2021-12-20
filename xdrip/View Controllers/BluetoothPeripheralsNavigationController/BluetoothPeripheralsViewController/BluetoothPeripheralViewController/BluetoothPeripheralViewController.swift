@@ -1,6 +1,7 @@
 import UIKit
 import CoreBluetooth
 import os
+import PopupDialog
 
 fileprivate let generalSettingSectionNumber = 0
 
@@ -103,7 +104,7 @@ class BluetoothPeripheralViewController: UIViewController {
     private var nonFixedSettingsSectionIsShown = false
     
     /// when user starts scanning, info will be shown in UIAlertController. This will be
-    private var infoAlertWhenScanningStarts: UIAlertController?
+    private var infoAlertWhenScanningStarts: UIViewController?
     
     /// for trace
     private let log = OSLog(subsystem: ConstantsLog.subSystem, category: ConstantsLog.categoryBluetoothPeripheralViewController)
@@ -152,7 +153,7 @@ class BluetoothPeripheralViewController: UIViewController {
             // by clicking the button, app will stop trying to connect
             if bluetoothPeripheral.blePeripheral.shouldconnect {
                 connectButtonOutlet?.setTitle(Texts_BluetoothPeripheralView.donotconnect, for: .normal)
-                connectButtonOutlet?.isHidden = true
+                connectButtonOutlet?.isHidden = false
 
                 return Texts_BluetoothPeripheralView.tryingToConnect
             }
@@ -495,8 +496,11 @@ class BluetoothPeripheralViewController: UIViewController {
             UIApplication.shared.isIdleTimerDisabled = true
             
             // show info that user should keep the app in the foreground
-            self.infoAlertWhenScanningStarts = UIAlertController(title: Texts_HomeView.info, message: Texts_HomeView.startScanningInfo, actionHandler: nil)
-            self.present(self.infoAlertWhenScanningStarts!, animated:true)
+            self.infoAlertWhenScanningStarts = PopupDialog(title: Texts_HomeView.info,
+                                                           message: Texts_HomeView.startScanningInfo,
+                                                           actionTitle: R.string.common.common_Ok(),
+                                                           actionHandler: nil)
+            self.present(self.infoAlertWhenScanningStarts!, animated: true)
             
         case .alreadyScanning, .alreadyConnected, .connecting :
             
@@ -511,7 +515,10 @@ class BluetoothPeripheralViewController: UIViewController {
             trace("in handleScanningResult, scanning not started. Bluetooth is not on", log: log, category: ConstantsLog.categoryBluetoothPeripheralViewController, type: .error)
             
             // show info that user should switch on bluetooth
-            self.infoAlertWhenScanningStarts = UIAlertController(title: Texts_Common.warning, message: Texts_HomeView.bluetoothIsNotOn, actionHandler: nil)
+            self.infoAlertWhenScanningStarts = PopupDialog(title: Texts_Common.warning,
+                                                           message: Texts_HomeView.bluetoothIsNotOn,
+                                                           actionTitle: R.string.common.common_Ok(),
+                                                           actionHandler: nil)
             self.present(self.infoAlertWhenScanningStarts!, animated:true)
             
         case .other(let reason):
@@ -524,7 +531,10 @@ class BluetoothPeripheralViewController: UIViewController {
             trace("in handleScanningResult, scanning not started. Scanning result = unauthorized", log: log, category: ConstantsLog.categoryBluetoothPeripheralViewController, type: .error)
             
             // show info that user should switch on bluetooth
-            self.infoAlertWhenScanningStarts = UIAlertController(title: Texts_Common.warning, message: Texts_HomeView.bluetoothIsNotAuthorized, actionHandler: nil)
+            self.infoAlertWhenScanningStarts = PopupDialog(title: Texts_Common.warning,
+                                                           message: Texts_HomeView.bluetoothIsNotAuthorized,
+                                                           actionTitle: R.string.common.common_Ok(),
+                                                           actionHandler: nil)
             self.present(self.infoAlertWhenScanningStarts!, animated:true)
             
         case .unknown:
@@ -547,18 +557,22 @@ class BluetoothPeripheralViewController: UIViewController {
         var textToAdd = Texts_BluetoothPeripheralView.address + " " + bluetoothPeripheral.blePeripheral.address
         
         // first ask user if ok to delete and if yes delete
-        let alert = UIAlertController(title: Texts_BluetoothPeripheralView.confirmDeletionBluetoothPeripheral + " " + textToAdd + "?", message: nil, actionHandler: {
-            
-            // delete
-            bluetoothPeripheralManager.deleteBluetoothPeripheral(bluetoothPeripheral: bluetoothPeripheral)
-            
-            self.bluetoothPeripheral = nil
-            
-            // close the viewcontroller
-            self.navigationController?.popViewController(animated: true)
-            self.dismiss(animated: true, completion: nil)
-            
-        }, cancelHandler: nil)
+        let alert = PopupDialog(
+            title: Texts_BluetoothPeripheralView.confirmDeletionBluetoothPeripheral + " " + textToAdd + "?",
+            message: nil,
+            actionTitle: R.string.common.delete(),
+            actionHandler: {
+                // delete
+                bluetoothPeripheralManager.deleteBluetoothPeripheral(bluetoothPeripheral: bluetoothPeripheral)
+                
+                self.bluetoothPeripheral = nil
+                
+                // close the viewcontroller
+                self.navigationController?.popViewController(animated: true)
+                self.dismiss(animated: true, completion: nil)
+            },
+            cancelTitle: R.string.common.common_cancel()
+        )
         
         self.present(alert, animated:true)
     }
@@ -587,7 +601,12 @@ class BluetoothPeripheralViewController: UIViewController {
                 
                 // check if it's a CGM being activated and if so that app is in master mode
                 if expectedBluetoothPeripheralType.category() == .CGM, !UserDefaults.standard.isMaster {
-                    self.present(UIAlertController(title: Texts_Common.warning, message: Texts_BluetoothPeripheralView.cannotActiveCGMInFollowerMode, actionHandler: nil), animated: true, completion: nil)
+                    self.present(PopupDialog(title: Texts_Common.warning,
+                                             message: Texts_BluetoothPeripheralView.cannotActiveCGMInFollowerMode,
+                                             actionTitle: R.string.common.common_Ok(),
+                                             actionHandler: nil),
+                                 animated: true,
+                                 completion: nil)
                     
                     return
                 }
@@ -685,9 +704,7 @@ class BluetoothPeripheralViewController: UIViewController {
             self.infoAlertWhenScanningStarts = nil
             
         }
-        
     }
-    
 }
 
 
@@ -800,10 +817,6 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
         // default value for accessoryView is nil
         cell.accessoryView = nil
  
-        // create disclosureIndicator in color ConstantsUI.disclosureIndicatorColor
-        // will be used whenever accessoryType is to be set to disclosureIndicator
-        let disclosureAaccessoryView = DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor)
-
         //it's a Setting defined here in BluetoothPeripheralViewController
         // is it a bluetooth setting or web oop setting ?
         
@@ -824,13 +837,7 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
                 
                 cell.textLabel?.text = Texts_BluetoothPeripheralView.address
                 cell.detailTextLabel?.text = bluetoothPeripheral?.blePeripheral.address
-                if cell.detailTextLabel?.text == nil {
-                    cell.accessoryType = .none
-                    
-                } else {
-                    cell.accessoryType = .disclosureIndicator
-                    cell.accessoryView = disclosureAaccessoryView
-                }
+                cell.accessoryType = .none
                 
             case .connectionStatus:
                 
@@ -842,12 +849,7 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
                 
                 cell.textLabel?.text = Texts_SettingsView.labelTransmitterId
                 cell.detailTextLabel?.text = transmitterIdTempValue
-                
-                // if transmitterId already has a value, then it can't be changed anymore. To change it, user must delete the transmitter and recreate one.
-                cell.accessoryType = transmitterIdTempValue == nil ? .disclosureIndicator : .none
-                if (transmitterIdTempValue == nil) {
-                    cell.accessoryView = disclosureAaccessoryView
-                }
+                cell.accessoryType = .none
                 
             case .connectOrDisconnectTimeStamp:
                 
@@ -858,12 +860,12 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
                         cell.textLabel?.text = Texts_BluetoothPeripheralView.connectedAt
                         
                     } else {
-                        
                         cell.textLabel?.text = Texts_BluetoothPeripheralView.disConnectedAt
-                        
                     }
                     
-                    cell.detailTextLabel?.text = lastConnectionStatusChangeTimeStamp.toString(timeStyle: .short, dateStyle: .short)
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "MM-dd HH:mm"
+                    cell.detailTextLabel?.text = dateFormatter.string(from: lastConnectionStatusChangeTimeStamp)
                     
                 } else {
                     cell.textLabel?.text = Texts_BluetoothPeripheralView.connectedAt
@@ -929,7 +931,7 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
                     currentWebOOPEnabledValue = bluetoothPeripheral.blePeripheral.webOOPEnabled
                 }
                 
-                cell.accessoryView = UISwitch(isOn: currentWebOOPEnabledValue, action: { (isOn:Bool) in
+                cell.accessoryView = UISwitch(isOn: currentWebOOPEnabledValue, action: { (isOn: Bool) in
                     
                     self.bluetoothPeripheral?.blePeripheral.webOOPEnabled = isOn
                     
@@ -940,11 +942,8 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
                         
                         // if user switches on web oop, then we need to force also use of non-fixed slopes to off
                         if isOn {
-
                             bluetoothPeripheral.blePeripheral.nonFixedSlopeEnabled = false
-                            
                             bluetoothPeripheralManager.receivedNewValue(nonFixedSlopeEnabled: false, for: bluetoothPeripheral)
-                            
                         }
 
                         // reload the section for nonFixedSettingsSectionNumber, even though the value may not have changed, because possibly isUserInteractionEnabled needs to be set to false for the nonFixedSettingsSectionNumber UISwitch
@@ -992,7 +991,10 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
             case .address:
                 guard let bluetoothPeripheral = bluetoothPeripheral else {return}
                 
-                let alert = UIAlertController(title: Texts_BluetoothPeripheralView.address, message: bluetoothPeripheral.blePeripheral.address, actionHandler: nil)
+                let alert = PopupDialog(title: Texts_BluetoothPeripheralView.address,
+                                        message: bluetoothPeripheral.blePeripheral.address,
+                                        actionTitle: R.string.common.common_Ok(),
+                                        actionHandler: nil)
                 
                 // present the alert
                 self.present(alert, animated: true, completion: nil)
@@ -1112,7 +1114,10 @@ extension BluetoothPeripheralViewController: BluetoothTransmitterDelegate {
         // need to inform also other delegates
         bluetoothPeripheralManager?.error(message: message)
         
-        let alert = UIAlertController(title: Texts_Common.warning, message: message, actionHandler: nil)
+        let alert = PopupDialog(title: Texts_Common.warning,
+                                message: message,
+                                actionTitle: R.string.common.common_Ok(),
+                                actionHandler: nil)
         
         present(alert, animated: true, completion: nil)
     }

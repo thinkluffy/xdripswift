@@ -1,6 +1,7 @@
 import UIKit
 import CoreData
 import OSLog
+import PopupDialog
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -9,19 +10,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
-    private var log = OSLog(subsystem: ConstantsLog.subSystem, category: ConstantsLog.categoryAppDelegate)
-    
+    private static let log = Log(type: AppDelegate.self)
+
     // MARK: - Application Life Cycle
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         Log.setup(level: UserDefaults.standard.OSLogEnabled ? .verbose : .warning)
 
-        trace("in didFinishLaunchingWithOptions", log: log, category: ConstantsLog.categoryAppDelegate, type: .info)
+        AppDelegate.log.i("==> didFinishLaunchingWithOptions")
         		
         WatchCommunicator.register()
         
         setupUIComponents()
 
+        if UserDefaults.standard.firstOpenTime == nil {
+            onFreshInstall()
+        }
+        
         return true
     }
     
@@ -48,11 +53,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
     }
+    
+    private func onFreshInstall() {
+        AppDelegate.log.i("==> onFreshInstall")
+        UserDefaults.standard.firstOpenTime = Date()
+    }
 }
 
 extension AppDelegate {
     
     private func setupUIComponents() {
+        setupToast()
+        setupPopupDialog()
+    }
+    
+    private func setupToast() {
         // Toast
         var style = ToastStyle()
         style.backgroundColor = .white
@@ -63,6 +78,42 @@ extension AppDelegate {
         style.titleColor = .hex(0xff1f2033)
         style.messageColor = .hex(0xff1f2033)
         ToastManager.shared.style = style
+    }
+    
+    private func setupPopupDialog() {
+        // Customize dialog appearance
+        let pv = PopupDialogDefaultView.appearance()
+        pv.titleFont    = .boldSystemFont(ofSize: 18)
+        pv.titleColor   = .white
+        pv.messageFont  = .systemFont(ofSize: 14)
+        pv.messageColor = .white.withAlphaComponent(0.8)
+
+        // Customize the container view appearance
+        let pcv = PopupDialogContainerView.appearance()
+        pcv.backgroundColor = ConstantsUI.mainBackgroundColor
+        pcv.cornerRadius    = 10
+        pcv.shadowEnabled   = true
+        pcv.shadowColor     = .black
+
+        // Customize overlay appearance
+        let ov = PopupDialogOverlayView.appearance()
+        ov.blurEnabled     = false
+        ov.opacity         = 0.5
+        ov.color           = .black
+
+        // Customize default button appearance
+        let db = DefaultButton.appearance()
+        db.titleFont      = .systemFont(ofSize: 16)
+        db.titleColor     = .white
+        db.buttonColor    = ConstantsUI.accentRed
+        db.separatorColor = ConstantsUI.contentBackgroundColor
+
+        // Customize cancel button appearance
+        let cb = CancelButton.appearance()
+        cb.titleFont      = .systemFont(ofSize: 16)
+        cb.titleColor     = .white
+        cb.buttonColor    = ConstantsUI.mainBackgroundColor
+        cb.separatorColor = ConstantsUI.contentBackgroundColor
     }
 }
 
