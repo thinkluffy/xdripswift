@@ -34,7 +34,6 @@ struct ContentView: View {
 				if let bgLatest = usefulData.bgLatest {
 					HStack {
 						let isDataValid = Date().timeIntervalSince(bgLatest.date) <= Constants.DataValidTimeInterval
-						let trendStr = usefulData.slope.description
 						let color = self.getColor(of: bgLatest.value, config: config)
 						if config.showAsMgDl {
 							Text(String(format: "%.0f", bgLatest.value))
@@ -63,9 +62,9 @@ struct ContentView: View {
 							)
 						}
                         
-						if isDataValid {
+						if isDataValid, let slope = usefulData.slope {
 							// 有效期内
-							Text(trendStr)
+							Text(slope.description)
 								.font(.title)
 								.foregroundColor(color)
 						}

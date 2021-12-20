@@ -80,13 +80,15 @@ extension WatchCommunicator: WCSessionDelegate {
                 if let latestBg = self.watchManager.getLatest() {
                     let info = Common.BgInfo(date: latestBg.timeStamp,
                                              value: latestBg.calculatedValue.mgdlToMmol(mgdl: config.showAsMgDl))
-                    let slope: Common.BgSlope = WatchCommunicator.convertSlope(of: latestBg.slopArrow)
-                    data = Common.DataTransformToWatch(slope: slope,
-                                                       latest: info,
-                                                       recently: nil,
-                                                       config: config)
+                    var slope: Common.BgSlope?
+					if !latestBg.hideSlope {
+						slope = WatchCommunicator.convertSlope(of: latestBg.slopArrow)
+					}
+                    data = Common.DataTransformToWatch.init(slope: slope,
+                                                            latest: info,
+                                                            recently: nil,
+                                                            config: config)
                 }
-                
             } else if type == Common.MessageValues.recently {
                 let list = self.watchManager.getRecently(6).sorted { a, b in
                     a.timeStamp < b.timeStamp
@@ -97,10 +99,10 @@ extension WatchCommunicator: WCSessionDelegate {
                                              value: item.calculatedValue.mgdlToMmol(mgdl: config.showAsMgDl))
                     recently.append(info)
                 }
-                let latest = list.last
-                var slope = Common.BgSlope.flat
-                if latest != nil {
-                    slope = WatchCommunicator.convertSlope(of: latest!.slopArrow)
+				var slope: Common.BgSlope?
+				if let latest = list.last,
+				   !latest.hideSlope {
+                    slope = WatchCommunicator.convertSlope(of: latest.slopArrow)
                 }
                 data = Common.DataTransformToWatch(slope: slope,
                                                    latest: recently.last,

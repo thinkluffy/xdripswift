@@ -113,6 +113,6 @@ xcuserdata
 
 # CocoaPods
 /Pods
-
+Podfile.lock
 # wiki
 xdripswift.wiki/
