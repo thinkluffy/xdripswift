@@ -63,7 +63,7 @@ final class AlertTypeSettingsViewController: SubSettingsViewController {
     // MARK: - private properties
         
     /// the alerttype being edited - will only be used initially to initialize the temp properties used locally, and in the end to update the alerttype - if nil then it's about creating a new alertType
-    private var alertTypeAsNSObject:AlertType?
+    private var alertTypeAsNSObject: AlertType?
     
     // MARK:- alerttype temp properties
     
@@ -231,6 +231,7 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
                 self.enabled = isOn
                 tableView.reloadSections(IndexSet(integer: 0), with: .none)
             })
+            
         case .vibrate:
             cell.textLabel?.text = Texts_AlertTypeSettingsView.alertTypeVibrate
             cell.detailTextLabel?.text = nil
@@ -240,6 +241,7 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
                 self.vibrate = isOn
                 tableView.reloadRows(at: [IndexPath(row: Setting.vibrate.rawValue, section: 0)], with: .none) // just for case where status of switch is nog aligned with value
             })
+            
         case .snoozeViaNotification:
             cell.textLabel?.text = Texts_AlertTypeSettingsView.alertTypeSnoozeViaNotification
             cell.detailTextLabel?.text = nil
@@ -249,9 +251,10 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
                 self.snooze = isOn
                 tableView.reloadRows(at: [IndexPath(row: Setting.snoozeViaNotification.rawValue, section: 0)], with: .none) // just for case where status of switch is nog aligned with value
             })
+            
         case .defaultSnoozePeriod:
-            cell.textLabel?.text = Texts_AlertTypeSettingsView.alertTypeDefaultSnoozePeriod
-            cell.detailTextLabel?.text = snoozePeriod.description
+            cell.textLabel?.text = R.string.alertTypesSettingsView.alerttypesettingsview_defaultsnoozeperiod()
+            cell.detailTextLabel?.text = R.string.common.howManyMinutes(Int(snoozePeriod))
             cell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
             cell.accessoryView = disclosureAaccessoryView
             
@@ -290,35 +293,47 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
         switch setting {
             
         case .name:
-            let alert = UIAlertController(title: Texts_AlertTypeSettingsView.alertTypeName,
-                                          message: Texts_AlertTypeSettingsView.alertTypeGiveAName,
-                                          keyboardType: .default,
-                                          text: name, placeHolder: nil,
-                                          actionTitle: nil,
-                                          cancelTitle: nil,
-                                          actionHandler: { (text: String) in
+            
+            let dialog = PopupDialog(
+                title: Texts_AlertTypeSettingsView.alertTypeName,
+                message: nil,
+                keyboardType: .default,
+                text: name,
+                placeHolder: nil
+            ) {
+                text in
+                
                 self.name = text
                 tableView.reloadRows(at: [IndexPath(row: Setting.name.rawValue, section: 0)], with: .none)
-            },
-                                          cancelHandler: nil)
-            // present the alert
-            self.present(alert, animated: true, completion: nil)
+            }
+            present(dialog, animated: true)
             
         case .enabled:
-            break // status is changed only when clicking the switch, not the row
+            break
+            
         case .vibrate:
-        break // status is changed only when clicking the switch, not the row
+            break
+            
         case .snoozeViaNotification:
-        break // status is changed only when clicking the switch, not the row
+            break
+            
         case .defaultSnoozePeriod:
-            let alert = UIAlertController(title: Texts_AlertTypeSettingsView.alertTypeDefaultSnoozePeriod, message: Texts_AlertTypeSettingsView.alertTypeGiveSnoozePeriod, keyboardType: .numberPad, text: snoozePeriod.description, placeHolder: nil, actionTitle: nil, cancelTitle: nil, actionHandler: { (text:String) in
-                if let asdouble = text.toDouble() {
-                    self.snoozePeriod = Int16(asdouble)
-                    tableView.reloadRows(at: [IndexPath(row: Setting.defaultSnoozePeriod.rawValue, section: 0)], with: .none)
+            let dialog = PopupDialog(
+                title: R.string.alertTypesSettingsView.alerttypesettingsview_defaultsnoozeperiod(),
+                message: Texts_AlertTypeSettingsView.alertTypeGiveSnoozePeriod,
+                keyboardType: .numberPad,
+                text: snoozePeriod.description,
+                placeHolder: nil,
+                actionHandler: { text in
+                    if let asdouble = text.toDouble() {
+                        self.snoozePeriod = Int16(asdouble)
+                        tableView.reloadRows(at: [IndexPath(row: Setting.defaultSnoozePeriod.rawValue, section: 0)], with: .none)
+                    }
                 }
-            }, cancelHandler: nil)
+            )
+            
             // present the alert
-            self.present(alert, animated: true, completion: nil)
+            self.present(dialog, animated: true)
 
         case .soundName:
             // create array of all sounds and sound filenames, inclusive default ios sound and also empty string, which is "no sound"
@@ -330,6 +345,7 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
             var selectedRow = 0 // this corresponds to no sound
             if soundName == nil {
                 selectedRow = 1// default ios sound is on position 1
+                
             } else {
                 for (index, soundNameInList) in sounds.soundNames.enumerated() {
                     if soundNameInList == soundName {

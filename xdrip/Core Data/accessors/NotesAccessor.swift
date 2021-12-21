@@ -103,30 +103,4 @@ class NotesAccessor {
             }
         }
     }
-    
-    func deleteMissedReadsing(on managedObjectContext: NSManagedObjectContext) {
-        let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Note.timeStamp), ascending: false)]
-        
-        let predicate = NSPredicate(format: "noteType = %d", NoteManager.NoteType.missedReading.rawValue)
-        fetchRequest.predicate = predicate
-        
-        var notes = [Note]()
-        
-        managedObjectContext.performAndWait {
-            do {
-                // Execute Fetch Request
-                notes = try fetchRequest.execute()
-                
-                notes.forEach { note in
-                    managedObjectContext.delete(note)
-                }
-                try managedObjectContext.save()
-                
-            } catch {
-                let fetchError = error as NSError
-                NotesAccessor.log.e("Unable to Execute Note Fetch Request: \(fetchError.localizedDescription)")
-            }
-        }
-    }
 }

@@ -669,10 +669,7 @@ class AlertManager: NSObject {
             }
         }
         
-        // todo: avoid missedreading currently, too many of it
-        if alertKind != .missedreading {
-            NoteManager.shared.saveAlertNote(alertKind: alertKind, bgReading: lastBgReading)
-        }
+        NoteManager.shared.saveAlertNoteIfNeeded(alertKind: alertKind, bgReading: lastBgReading)
         
         return true
     }

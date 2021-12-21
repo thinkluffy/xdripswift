@@ -121,7 +121,7 @@ class GlucoseChart: UIView {
         chartView.leftAxis.enabled = false
 
         // leave space for limit labels outside viewport
-        chartView.setExtraOffsets(left: 0, top: 0, right: 30, bottom: 0)
+        chartView.setExtraOffsets(left: 0, top: 0, right: 35, bottom: 0)
         
         let yAxis = chartView.rightAxis
         yAxis.drawGridLinesEnabled = false

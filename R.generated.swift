@@ -1574,7 +1574,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static let alerttypenamealreadyexistsmessages = Rswift.StringResource(key: "alerttypenamealreadyexistsmessages", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Default Snooze Time (mins)
+      /// en translation: Default Snooze Time
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static let alerttypesettingsview_defaultsnoozeperiod = Rswift.StringResource(key: "alerttypesettingsview_defaultsnoozeperiod", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -1683,7 +1683,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("alerttypenamealreadyexistsmessages", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
       }
 
-      /// en translation: Default Snooze Time (mins)
+      /// en translation: Default Snooze Time
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static func alerttypesettingsview_defaultsnoozeperiod(preferredLanguages: [String]? = nil) -> String {
@@ -2256,7 +2256,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static let disConnectedAt = Rswift.StringResource(key: "disConnectedAt", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "es", "fr", "de", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-      /// en translation: Do you want to delete bluetooth device: 
+      /// en translation: Do you want to delete bluetooth device?
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static let confirmDeletionPeripheral = Rswift.StringResource(key: "confirmDeletionPeripheral", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "es", "fr", "de", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
@@ -2479,7 +2479,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("disConnectedAt", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
-      /// en translation: Do you want to delete bluetooth device: 
+      /// en translation: Do you want to delete bluetooth device?
       ///
       /// Locales: en, ar, fi, pt, nl, es, fr, de, it, pl-PL, ru, sl, zh, sv
       static func confirmDeletionPeripheral(preferredLanguages: [String]? = nil) -> String {
@@ -4249,7 +4249,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.homeView` struct is generated, and contains static references to 39 localization keys.
+    /// This `R.string.homeView` struct is generated, and contains static references to 40 localization keys.
     struct homeView {
       /// en translation: Bluetooth is not on. Switch on bluetooth first and then try again.
       ///
@@ -4275,6 +4275,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
       static let startsensortimeinfo = Rswift.StringResource(key: "startsensortimeinfo", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// en translation: Keep %@ open in the foreground until a connection is made. Don't exit the app and don't lock your iPhone.
+      ///
+      /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
+      static let startScanningInfo = Rswift.StringResource(key: "startScanningInfo", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: Last Connection
       ///
       /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
@@ -4303,10 +4307,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
       static let scanbluetoothdeviceactiontitle = Rswift.StringResource(key: "scanbluetoothdeviceactiontitle", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Scanning Started.  Keep %@ open in the foreground until a connection is made.  (There's no need to turn off Auto-Lock. Just don't press the home button and don't lock your iPhone)
+      /// en translation: Scanning Started
       ///
-      /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
-      static let startScanningInfo = Rswift.StringResource(key: "startScanningInfo", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// Locales: en, zh
+      static let startScanningTitle = Rswift.StringResource(key: "startScanningTitle", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Scanning for Transmitter...
       ///
       /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
@@ -4498,6 +4502,23 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("startsensortimeinfo", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
+      /// en translation: Keep %@ open in the foreground until a connection is made. Don't exit the app and don't lock your iPhone.
+      ///
+      /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
+      static func startScanningInfo(_ value1: String, preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          let format = NSLocalizedString("startScanningInfo", tableName: "HomeView", bundle: hostingBundle, comment: "")
+          return String(format: format, locale: applicationLocale, value1)
+        }
+
+        guard let (locale, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
+          return "startScanningInfo"
+        }
+
+        let format = NSLocalizedString("startScanningInfo", tableName: "HomeView", bundle: bundle, comment: "")
+        return String(format: format, locale: locale, value1)
+      }
+
       /// en translation: Last Connection
       ///
       /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
@@ -4603,21 +4624,19 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("scanbluetoothdeviceactiontitle", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
-      /// en translation: Scanning Started.  Keep %@ open in the foreground until a connection is made.  (There's no need to turn off Auto-Lock. Just don't press the home button and don't lock your iPhone)
+      /// en translation: Scanning Started
       ///
-      /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
-      static func startScanningInfo(_ value1: String, preferredLanguages: [String]? = nil) -> String {
+      /// Locales: en, zh
+      static func startScanningTitle(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
-          let format = NSLocalizedString("startScanningInfo", tableName: "HomeView", bundle: hostingBundle, comment: "")
-          return String(format: format, locale: applicationLocale, value1)
+          return NSLocalizedString("startScanningTitle", tableName: "HomeView", bundle: hostingBundle, comment: "")
         }
 
-        guard let (locale, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "startScanningInfo"
+        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
+          return "startScanningTitle"
         }
 
-        let format = NSLocalizedString("startScanningInfo", tableName: "HomeView", bundle: bundle, comment: "")
-        return String(format: format, locale: locale, value1)
+        return NSLocalizedString("startScanningTitle", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
       /// en translation: Scanning for Transmitter...

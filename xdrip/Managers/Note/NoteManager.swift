@@ -18,10 +18,7 @@ class NoteManager {
         case urgentHigh = 3
         case fastDrop = 4
         case fastRise = 5
-        case missedReading = 6
-        case needCalibration = 7
-        case batteryLow = 8
-        case userInputText = 9
+        case userInputText = 6
         
         func toString() -> String {
             switch self {
@@ -36,13 +33,7 @@ class NoteManager {
             case .fastDrop:
                 return "Drop Fast"
             case .fastRise:
-                return "Rist Fast"
-            case .missedReading:
-                return "Missed Reading"
-            case .needCalibration:
-                return "Need Calibration"
-            case .batteryLow:
-                return "Low Battery"
+                return "Rise Fast"
             case .userInputText:
                 return "Input Text"
             }
@@ -53,7 +44,7 @@ class NoteManager {
     
     static let shared = NoteManager()
     
-    private static func alertKindToNoteType(alertKind: AlertKind) -> NoteType {
+    private static func alertKindToNoteType(alertKind: AlertKind) -> NoteType? {
         switch alertKind {
         case .verylow:
             return .urgentLow
@@ -67,20 +58,21 @@ class NoteManager {
             return .fastRise
         case .fastdrop:
             return .fastDrop
-        case .missedreading:
-            return .missedReading
-        case .calibration:
-            return .needCalibration
-        case .batterylow:
-            return .batteryLow
+        default:
+            return nil
         }
     }
     
-    func saveAlertNote(alertKind: AlertKind, bgReading: BgReading?) {
+    func saveAlertNoteIfNeeded(alertKind: AlertKind, bgReading: BgReading?) {
+        
+        guard let noteType = NoteManager.alertKindToNoteType(alertKind: alertKind) else {
+            NoteManager.log.i("Not an interest alert kind")
+            return
+        }
         
         _ = Note(
             timeStamp: Date(),
-            noteType: NoteManager.alertKindToNoteType(alertKind: alertKind),
+            noteType: noteType,
             bg: bgReading?.calculatedValue ?? 0,
             slopeArrow: bgReading?.slopArrow,
             noteContent: nil,

@@ -292,10 +292,10 @@ extension UserDefaults {
     @objc dynamic var showReadingInNotification: Bool {
         // default value for bool in userdefaults is false, as default we want readings to be shown
         get {
-            return !bool(forKey: Key.showReadingInNotification.rawValue)
+            return bool(forKey: Key.showReadingInNotification.rawValue)
         }
         set {
-            set(!newValue, forKey: Key.showReadingInNotification.rawValue)
+            set(newValue, forKey: Key.showReadingInNotification.rawValue)
         }
     }
     
@@ -324,14 +324,10 @@ extension UserDefaults {
     // MARK: Home Screen Settings
     
     /// the urgenthighmarkvalue in unit selected by user ie, mgdl or mmol
-    @objc dynamic var urgentHighMarkValueInUserChosenUnit:Double {
+    @objc dynamic var urgentHighMarkValueInUserChosenUnit: Double {
         get {
             //read currentvalue in mgdl
-            var returnValue = double(forKey: Key.urgentHighMarkValue.rawValue)
-            // if 0 set to defaultvalue
-            if returnValue == 0.0 {
-                returnValue = ConstantsBGGraphBuilder.defaultUrgentHighMarkInMgdl
-            }
+            var returnValue = urgentHighMarkValue
             if !bloodGlucoseUnitIsMgDl {
                 returnValue = returnValue.mgdlToMmol()
             }
@@ -346,15 +342,23 @@ extension UserDefaults {
         }
     }
     
-    /// the highmarkvalue in unit selected by user ie, mgdl or mmol
-    @objc dynamic var highMarkValueInUserChosenUnit:Double {
+    /// the urgentHighMarkValue in mgdl
+    @objc dynamic var urgentHighMarkValue: Double {
         get {
             //read currentvalue in mgdl
-            var returnValue = double(forKey: Key.highMarkValue.rawValue)
-            // if 0 set to defaultvalue
-            if returnValue == 0.0 {
-                returnValue = ConstantsBGGraphBuilder.defaultHighMarkInMgdl
+            var ret = double(forKey: Key.urgentHighMarkValue.rawValue)
+            if ret == 0 {
+                ret = ConstantsBGGraphBuilder.defaultUrgentHighMarkInMgdl
             }
+            return ret
+        }
+    }
+    
+    /// the highmarkvalue in unit selected by user ie, mgdl or mmol
+    @objc dynamic var highMarkValueInUserChosenUnit: Double {
+        get {
+            //read currentvalue in mgdl
+            var returnValue = highMarkValue
             if !bloodGlucoseUnitIsMgDl {
                 returnValue = returnValue.mgdlToMmol()
             }
@@ -373,7 +377,11 @@ extension UserDefaults {
     @objc dynamic var highMarkValue: Double {
         get {
             //read currentvalue in mgdl
-            return double(forKey: Key.highMarkValue.rawValue)
+            var ret = double(forKey: Key.highMarkValue.rawValue)
+            if ret == 0 {
+                ret = ConstantsBGGraphBuilder.defaultHighMarkInMgdl
+            }
+            return ret
         }
     }
     
@@ -381,11 +389,7 @@ extension UserDefaults {
     @objc dynamic var lowMarkValueInUserChosenUnit:Double {
         get {
             //read currentvalue in mgdl
-            var returnValue = double(forKey: Key.lowMarkValue.rawValue)
-            // if 0 set to defaultvalue
-            if returnValue == 0.0 {
-                returnValue = ConstantsBGGraphBuilder.defaultLowMarkInMgdl
-            }
+            var returnValue = lowMarkValue
             if !bloodGlucoseUnitIsMgDl {
                 returnValue = returnValue.mgdlToMmol()
             }
@@ -405,7 +409,11 @@ extension UserDefaults {
     @objc dynamic var lowMarkValue: Double {
         get {
             //read currentvalue in mgdl
-            return double(forKey: Key.lowMarkValue.rawValue)
+            var ret = double(forKey: Key.lowMarkValue.rawValue)
+            if ret == 0 {
+                ret = ConstantsBGGraphBuilder.defaultLowMarkInMgdl
+            }
+            return ret
         }
     }
     
@@ -413,11 +421,7 @@ extension UserDefaults {
     @objc dynamic var urgentLowMarkValueInUserChosenUnit: Double {
         get {
             //read currentvalue in mgdl
-            var returnValue = double(forKey: Key.urgentLowMarkValue.rawValue)
-            // if 0 set to defaultvalue
-            if returnValue == 0.0 {
-                returnValue = ConstantsBGGraphBuilder.defaultUrgentLowMarkInMgdl
-            }
+            var returnValue = urgentLowMarkValue
             if !bloodGlucoseUnitIsMgDl {
                 returnValue = returnValue.mgdlToMmol()
             }
@@ -437,7 +441,11 @@ extension UserDefaults {
     @objc dynamic var urgentLowMarkValue: Double {
         get {
             //read currentvalue in mgdl
-            return double(forKey: Key.urgentLowMarkValue.rawValue)
+            var ret = double(forKey: Key.urgentLowMarkValue.rawValue)
+            if ret == 0 {
+                ret = ConstantsBGGraphBuilder.defaultUrgentLowMarkInMgdl
+            }
+            return ret
         }
     }
 
@@ -457,14 +465,6 @@ extension UserDefaults {
             if let value = value {
                 UserDefaults.storeInSharedUserDefaults(value: value, forKey: Key.urgentHighMarkValue.rawValue)
             }
-        }
-    }
-    
-    /// the urgentHighMarkValue in mgdl
-    @objc dynamic var urgentHighMarkValue: Double {
-        get {
-            //read currentvalue in mgdl
-            return double(forKey: Key.urgentHighMarkValue.rawValue)
         }
     }
 

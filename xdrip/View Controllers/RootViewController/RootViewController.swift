@@ -560,18 +560,22 @@ final class RootViewController: UIViewController {
                             nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext
                         )
                         
-                        if UserDefaults.standard.addDebugLevelLogsInTraceFileAndNSLog {
-                            RootViewController.log.i("new reading created, timestamp: \(newReading.timeStamp.description(with: .current)), calculatedValue: \(newReading.calculatedValue.description.replacingOccurrences(of: ".", with: ","))")
-                        }
+                        RootViewController.log.i("new reading created, timestamp: \(newReading.timeStamp.description(with: .current)), calculatedValue: \(newReading.calculatedValue.description.replacingOccurrences(of: ".", with: ","))")
                         
                         // save the newly created bgreading permenantly in coredata
                         CoreDataManager.shared.saveChanges()
                         
-                        // a new reading was created
-                        newReadingCreated = true
-                        
-                        // set timeStampLastBgReading to new timestamp
-                        timeStampLastBgReading = glucose.timeStamp
+                        // check whether the reading is not bigger than max bg
+                        if newReading.calculatedValue < Double(Constants.maxBgMgDl) {
+                            // a new reading was created
+                            newReadingCreated = true
+                            
+                            // set timeStampLastBgReading to new timestamp
+                            timeStampLastBgReading = glucose.timeStamp
+                            
+                        } else {
+                            RootViewController.log.w("BgReading is bigger than max bg, ignore it. Reading: \(newReading.calculatedValue), max: \(Constants.maxBgMgDl)")
+                        }
                         
                     } else {
                         RootViewController.log.i("reading skipped, rawValue <= 0, looks like a faulty sensor")
@@ -580,53 +584,55 @@ final class RootViewController: UIViewController {
             }
             
             // if a new reading is created, create either initial calibration request or bgreading notification - upload to nightscout and check alerts
-            if newReadingCreated {
-                // only if no webOOPEnabled : if no two calibration exist yet then create calibration request notification, otherwise a bgreading notification and update labels
-                if firstCalibrationForActiveSensor == nil && lastCalibrationForActiveSensor == nil && !cgmTransmitter.isWebOOPEnabled() {
-                    
-                    // there must be at least 2 readings
-                    let latestReadings = bgReadingsAccessor.getLatestBgReadings(limit: 36, howOld: nil, forSensor: activeSensor, ignoreRawData: false, ignoreCalculatedValue: true)
-                    
-                    if latestReadings.count > 1 {
-                        trace("calibration: two readings received, no calibrations exist yet and not weboopenabled, request calibation to user", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
+            if !newReadingCreated {
+                return
+            }
+            
+            // only if no webOOPEnabled : if no two calibration exist yet then create calibration request notification, otherwise a bgreading notification and update labels
+            if firstCalibrationForActiveSensor == nil && lastCalibrationForActiveSensor == nil && !cgmTransmitter.isWebOOPEnabled() {
+                
+                // there must be at least 2 readings
+                let latestReadings = bgReadingsAccessor.getLatestBgReadings(limit: 36, howOld: nil, forSensor: activeSensor, ignoreRawData: false, ignoreCalculatedValue: true)
+                
+                if latestReadings.count > 1 {
+                    trace("calibration: two readings received, no calibrations exist yet and not weboopenabled, request calibation to user", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
 
-                        createInitialCalibrationRequest()
-                    }
-                    
-                } else {
-                    // check alerts, create notification, set app badge
-                    checkAlertsCreateNotificationAndSetAppBadge()
-                    
-                    // update all text in  first screen
-                    updateLabelsAndChart(overrideApplicationState: false)
-                    
-                    // update statistics related outlets
-                    updateStatistics(animatePieChart: false)
-                    
-                    // update sensor countdown graphic
-                    updateSensorCountdown()
+                    createInitialCalibrationRequest()
                 }
                 
-                nightScoutUploadManager?.upload(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp())
+            } else {
+                // check alerts, create notification, set app badge
+                checkAlertsCreateNotificationAndSetAppBadge()
                 
-                healthKitManager.storeBgReadings()
+                // update all text in  first screen
+                updateLabelsAndChart(overrideApplicationState: false)
                 
-                bgReadingSpeaker.speakNewReading(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp())
+                // update statistics related outlets
+                updateStatistics(animatePieChart: false)
                 
-                dexcomShareUploadManager?.upload(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp())
-                
-                bluetoothPeripheralManager?.sendLatestReading()
-                
-                WatchManager.shared.processNewReading(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp())
-                
-                loopManager.share()
-                
-                showNewBGReadingToast()
-                
-                // should check how offen the Transmitter get new reading
-                newReadingCountDownView.reset(to: 60)
-                newReadingCountDownView.startCountDown()
+                // update sensor countdown graphic
+                updateSensorCountdown()
             }
+            
+            nightScoutUploadManager?.upload(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp())
+            
+            healthKitManager.storeBgReadings()
+            
+            bgReadingSpeaker.speakNewReading(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp())
+            
+            dexcomShareUploadManager?.upload(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp())
+            
+            bluetoothPeripheralManager?.sendLatestReading()
+            
+            WatchManager.shared.processNewReading(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp())
+            
+            loopManager.share()
+            
+            showNewBGReadingToast()
+            
+            // should check how offen the Transmitter get new reading
+            newReadingCountDownView.reset(to: 60)
+            newReadingCountDownView.startCountDown()
         }
     }
     
@@ -797,7 +803,7 @@ final class RootViewController: UIViewController {
             // check if timer already exists, if so invalidate it
             invalidateUpdateLabelsAndChartTimer()
             // now recreate, schedule and return
-            return Timer.scheduledTimer(timeInterval: ConstantsHomeView.updateHomeViewIntervalInSeconds, target: self, selector: #selector(self.updateLabelsAndChart), userInfo: nil, repeats: true)
+            return Timer.scheduledTimer(timeInterval: Constants.updateHomeViewIntervalInSeconds, target: self, selector: #selector(self.updateLabelsAndChart), userInfo: nil, repeats: true)
         }
         
         // call scheduleUpdateLabelsAndChartTimer function now - as the function setupUpdateLabelsAndChartTimer is called from viewdidload, it will be called immediately after app launch
@@ -867,9 +873,14 @@ final class RootViewController: UIViewController {
         // assign deviceName, needed in the closure when creating alert. As closures can create strong references (to bluetoothTransmitter in this case), I'm fetching the deviceName here
         let deviceName = bluetoothTransmitter.deviceName
         
-        // let alert = UIAlertController(title: "test title", message: "test message", keyboardType: .numberPad, text: nil, placeHolder: "...", actionTitle: nil, cancelTitle: nil, actionHandler: {_ in }, cancelHandler: nil)
-        let alert = UIAlertController(title: Texts_Calibrations.enterCalibrationValue, message: nil, keyboardType: UserDefaults.standard.bloodGlucoseUnitIsMgDl ? .numberPad:.decimalPad, text: nil, placeHolder: "...", actionTitle: nil, cancelTitle: nil, actionHandler: {
-            (text:String) in
+        let dialog = PopupDialog(
+            title: Texts_Calibrations.enterCalibrationValue,
+            message: nil,
+            keyboardType: UserDefaults.standard.bloodGlucoseUnitIsMgDl ? .numberPad:.decimalPad,
+            text: nil,
+            placeHolder: "..."
+        ) {
+            text in
             
             guard let valueAsDouble = text.toDouble() else {
                 self.present(PopupDialog(title: Texts_Common.warning,
@@ -937,12 +948,10 @@ final class RootViewController: UIViewController {
                 self.loopManager.share()
                 
             }
-            
-        }, cancelHandler: nil)
+        }
         
         // present the alert
-        self.present(alert, animated: true, completion: nil)
-        
+        self.present(dialog, animated: true)
     }
     
     /// this is just some functionality which is used frequently

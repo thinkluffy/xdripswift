@@ -258,6 +258,7 @@ class NightScoutFollowManager: NSObject {
                                         // insert entry chronologically sorted, first is the youngest
                                         if followGlucoseDataArray.count == 0 {
                                             followGlucoseDataArray.append(followGlucoseData)
+                                            
                                         } else {
                                             var elementInserted = false
                                             loop : for (index, element) in followGlucoseDataArray.enumerated() {

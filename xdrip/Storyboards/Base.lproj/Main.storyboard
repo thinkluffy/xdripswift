@@ -726,7 +726,7 @@
                                 <rect key="frame" x="20" y="270" width="78" height="38"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <state key="normal" title="Connect">
-                                    <color key="titleColor" red="0.9137254901960784" green="0.49803921568627452" blue="0.22352941176470587" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.91764705882352937" green="0.1764705882352941" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="connectButtonAction:" destination="FJ0-eY-Fv0" eventType="touchUpInside" id="fQK-fo-hqh"/>

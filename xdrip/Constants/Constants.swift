@@ -20,8 +20,13 @@ enum ChartHours {
 
 enum Constants {
     
+    /// how often to update the labels in the homeview (ie label with latest reading, minutes ago, etc..)
+    static let updateHomeViewIntervalInSeconds = 30.0
+    
     static let minsToCalculateSlope = 10
     
     static let bgUnitMgDl = "mg/dL"
     static let bgUnitMmol = "mmol/L"
+    
+    static let maxBgMgDl = 540 // 30 mmmol/L
 }

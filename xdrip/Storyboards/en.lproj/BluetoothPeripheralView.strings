@@ -3,7 +3,7 @@
 "connected" = "Connected";
 "notConnected" = "Not Connected";
 "donotconnect" = "Stop Scanning";
-"confirmDeletionPeripheral" = "Do you want to delete bluetooth device: ";
+"confirmDeletionPeripheral" = "Do you want to delete bluetooth device?";
 "SensorSerialNumber" = "Serial Number";
 "sensorType" = "Sensor Type";
 "serialNumber" = "Serial Number";
