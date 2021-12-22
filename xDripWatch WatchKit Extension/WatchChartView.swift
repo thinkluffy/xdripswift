@@ -62,12 +62,12 @@ struct WatchChartView: View {
 	private let RightLabelWidth: CGFloat = 25
 	
 	private var pointDigit:Int
-	private var minY: Double!
-	private var maxY: Double!
-	private var urgentMin: Double!
-	private var urgentMax: Double!
-	private var suggestMin: Double!
-	private var suggestMax: Double!
+	private var chartLow: Double!
+	private var chartHigh: Double!
+	private var urgentLow: Double!
+	private var urgentHigh: Double!
+	private var suggestLow: Double!
+	private var suggestHigh: Double!
 	private var originValues: [ChartPoint]!
 	
 	private var last1hour = [ChartPoint]()
@@ -77,23 +77,23 @@ struct WatchChartView: View {
 	@State private var timeRange: TimeRange
 	
 	init(pointDigit: Int = 1,
-		 min: Double, max: Double,
-		 urgentMin: Double, urgentMax: Double,
-		 suggestMin: Double, suggestMax: Double,
+		 chartLow: Double, chartHigh: Double,
+		 urgentLow: Double, urgentHigh: Double,
+		 suggestLow: Double, suggestHigh: Double,
 		 values: [ChartPoint]) {
 		self.pointDigit = pointDigit
-		self.minY = min
-		self.maxY = max
-		self.urgentMin = urgentMin
-		self.urgentMax = urgentMax
-		self.suggestMin = suggestMin
-		self.suggestMax = suggestMax
+		self.chartLow = chartLow
+		self.chartHigh = chartHigh
+		self.urgentLow = urgentLow
+		self.urgentHigh = urgentHigh
+		self.suggestLow = suggestLow
+		self.suggestHigh = suggestHigh
 		self.originValues = values
 		
 		let oneHour = 60 * 60
 		for value in originValues {
-			if value.y > self.maxY {
-				self.maxY = value.y
+			if value.y > self.chartHigh {
+				self.chartHigh = value.y
 			}
 			switch Int(Date().timeIntervalSince1970) - value.x {
 			case 0...oneHour:
@@ -127,19 +127,19 @@ struct WatchChartView: View {
 			   let font = Font.system(size: 12)
 			   let textWidth: CGFloat = RightLabelWidth
 			   let textHeight: CGFloat = 20
-			   let suggestMinY = reader.size.height * CGFloat((self.maxY - self.suggestMin) / (self.maxY - self.minY))// + textHeight/2
-			   let suggestMaxY = reader.size.height * CGFloat((self.maxY - self.suggestMax) / (self.maxY - self.minY))// - textHeight/2
+			   let suggestMinY = reader.size.height * CGFloat((self.chartHigh - self.suggestLow) / (self.chartHigh - self.chartLow))// + textHeight/2
+			   let suggestMaxY = reader.size.height * CGFloat((self.chartHigh - self.suggestHigh) / (self.chartHigh - self.chartLow))// - textHeight/2
 			   Text(timeRange.shortTitle)
 				   .font(font)
 				   .foregroundColor(Color.secondary)
 				   .frame(width: 40, height: textHeight)
 				   .position(x: 20, y: textHeight/2) // 顺序不能变
-			   Text(String(format: "%.\(self.pointDigit)f", self.suggestMax))
+			   Text(String(format: "%.\(self.pointDigit)f", self.suggestHigh))
 				   .font(font)
 				   .foregroundColor(Color.secondary)
 				   .frame(width: textWidth, height: textHeight)
 				   .position(x: reader.size.width - textWidth/2, y: suggestMaxY)
-			   Text(String(format: "%.\(self.pointDigit)f", self.suggestMin))
+			   Text(String(format: "%.\(self.pointDigit)f", self.suggestLow))
 				   .font(font)
 				   .foregroundColor(Color.secondary)
 				   .frame(width: textWidth, height: textHeight)
@@ -147,19 +147,23 @@ struct WatchChartView: View {
 		   }
 		   // 绘制两支横向辅导线,一支竖线辅导线
 		   GeometryReader { reader in
-			   let minY = reader.size.height * CGFloat((self.maxY - self.suggestMin) / (self.maxY - self.minY))
-			   let maxY = reader.size.height * CGFloat((self.maxY - self.suggestMax) / (self.maxY - self.minY))
+			   let minY = reader.size.height * CGFloat((self.chartHigh - self.suggestLow) / (self.chartHigh - self.chartLow))
+			   let maxY = reader.size.height * CGFloat((self.chartHigh - self.suggestHigh) / (self.chartHigh - self.chartLow))
 			   let minX: CGFloat = 0
 			   let maxX = reader.size.width
 			   let verticalMaxX = maxX - RightLabelWidth
 			   Group {
 				   Path { p in
 					   // 低线
-					   p.move(to: CGPoint(x: minX, y: minY))
-					   p.addLine(to: CGPoint(x: verticalMaxX, y: minY))
+					   if minY > 0 && minY < reader.size.height {
+						   p.move(to: CGPoint(x: minX, y: minY))
+						   p.addLine(to: CGPoint(x: verticalMaxX, y: minY))
+					   }
 					   // 高线
-					   p.move(to: CGPoint(x: minX, y: maxY))
-					   p.addLine(to: CGPoint(x: verticalMaxX, y: maxY))
+					   if maxY > 0 && maxY < reader.size.height {
+						   p.move(to: CGPoint(x: minX, y: maxY))
+						   p.addLine(to: CGPoint(x: verticalMaxX, y: maxY))
+					   }
 				   }.stroke(Color.secondary, style: StrokeStyle(dash: [2,4]))
 				   Path { p in
 					   // 竖线
@@ -175,7 +179,7 @@ struct WatchChartView: View {
 				   let value = values.first!
 				   let radius: CGFloat = 10
 				   Path { p in
-					   let height = reader.size.height * CGFloat((self.maxY - value.y) / (self.maxY - self.minY))
+					   let height = reader.size.height * CGFloat((self.chartHigh - value.y) / (self.chartHigh - self.chartLow))
 					   p.addEllipse(in: CGRect(x: reader.size.width/2 - radius/2,
 										  y: height - radius/2,
 										  width: radius,
@@ -193,9 +197,9 @@ struct WatchChartView: View {
 					   let radius = timeRange.chartPointRadius
 					   let value = values[i]
 					   // 0.47 0.9 2.8
-					   if value.y <= self.maxY && value.y >= self.minY {
+					   if value.y <= self.chartHigh && value.y >= self.chartLow {
 						   let x = (pathWidth - radius) * CGFloat(value.x - startTime) / maxTimeInterval
-						   let height = reader.size.height * CGFloat((self.maxY - value.y) / (self.maxY - self.minY))
+						   let height = reader.size.height * CGFloat((self.chartHigh - value.y) / (self.chartHigh - self.chartLow))
 						   Path { p in
 							   p.addEllipse(in:
 											   CGRect(x: x,
@@ -225,10 +229,10 @@ struct WatchChartView: View {
 
 extension WatchChartView {
 	private func getColor(of value: Double) -> Color {
-		if value > self.urgentMax || value < self.urgentMin {
+		if value > self.urgentHigh || value < self.urgentLow {
 			return Constants.glucoseRed
 		}
-		else if value > self.suggestMax || value < self.suggestMin {
+		else if value > self.suggestHigh || value < self.suggestLow {
 			return Constants.glucoseYellow
 		}
 		return Constants.glucoseGreen
@@ -239,12 +243,12 @@ struct ChartView_Previews: PreviewProvider {
     static var previews: some View {
         let mmolToMg = 18.018
 		WatchChartView(pointDigit: 0,
-                       min: 2.2 * mmolToMg,
-                       max: 16.6 * mmolToMg,
-                       urgentMin: 3.9 * mmolToMg,
-                       urgentMax: 10 * mmolToMg,
-                       suggestMin: 4.5 * mmolToMg,
-                       suggestMax: 7.8 * mmolToMg,
+                       chartLow: 2.2 * mmolToMg,
+                       chartHigh: 16.6 * mmolToMg,
+                       urgentLow: 0,//3.9 * mmolToMg,
+                       urgentHigh: 0,//10 * mmolToMg,
+                       suggestLow: 0,//4.5 * mmolToMg,
+                       suggestHigh: 0,//7.8 * mmolToMg,
                        values: WatchChartView.fakeValues().map{ ChartPoint(x: $0.x, y: $0.y * 18)}
         )
     }

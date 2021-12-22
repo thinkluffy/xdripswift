@@ -73,62 +73,62 @@ class Common {
 	struct BgConfig {
 		var interval5Mins: Bool
 		var showAsMgDl: Bool
-		var min: Double
-		var max: Double
-		var urgentMin: Double
-		var urgentMax: Double
-		var suggestMin: Double
-		var suggestMax: Double
+		var chartLow: Double
+		var chartHigh: Double
+		var urgentLow: Double
+		var urgentHigh: Double
+		var suggestLow: Double
+		var suggestHigh: Double
 		
 		init(interval5Mins: Bool,
 			 showAsMgDl: Bool,
-			 min: Double,
-			 max: Double,
-			 urgentMin: Double,
-			 urgentMax: Double,
-			 suggestMin: Double,
-			 suggestMax: Double) {
+			 chartLow: Double,
+			 chartHigh: Double,
+			 urgentLow: Double,
+			 urgentHigh: Double,
+			 suggestLow: Double,
+			 suggestHigh: Double) {
 			self.interval5Mins = interval5Mins
 			self.showAsMgDl = showAsMgDl
-			self.min = min
-			self.max = max
-			self.urgentMin = urgentMin
-			self.urgentMax = urgentMax
-			self.suggestMin = suggestMin
-			self.suggestMax = suggestMax
+			self.chartLow = chartLow
+			self.chartHigh = chartHigh
+			self.urgentLow = urgentLow
+			self.urgentHigh = urgentHigh
+			self.suggestLow = suggestLow
+			self.suggestHigh = suggestHigh
 		}
 		
 		init(dic: [String: Any]) {
 			guard let interval5Mins = dic["interval5Mins"] as? Bool,
 				  let showAsMgDl = dic["showAsMgDl"] as? Bool,
-				  let min = dic["min"] as? Double,
-				  let max = dic["max"] as? Double,
-				  let urgentMin = dic["urgentMin"] as? Double,
-				  let urgentMax = dic["urgentMax"] as? Double,
-				  let suggestMin = dic["suggestMin"] as? Double,
-				  let suggestMax = dic["suggestMax"] as? Double
+				  let chartLow = dic["chartLow"] as? Double,
+				  let chartHigh = dic["chartHigh"] as? Double,
+				  let urgentLow = dic["urgentLow"] as? Double,
+				  let urgentHigh = dic["urgentHigh"] as? Double,
+				  let suggestLow = dic["suggestLow"] as? Double,
+				  let suggestHigh = dic["suggestHigh"] as? Double
 			else {
 				fatalError("Date formatter Error")
 			}
 			self.interval5Mins = interval5Mins
 			self.showAsMgDl = showAsMgDl
-			self.min = min
-			self.max = max
-			self.urgentMin = urgentMin
-			self.urgentMax = urgentMax
-			self.suggestMin = suggestMin
-			self.suggestMax = suggestMax
+			self.chartLow = chartLow
+			self.chartHigh = chartHigh
+			self.urgentLow = urgentLow
+			self.urgentHigh = urgentHigh
+			self.suggestLow = suggestLow
+			self.suggestHigh = suggestHigh
 		}
 		
 		func toDic() -> [String: Any] {
 			return ["interval5Mins": interval5Mins,
 					"showAsMgDl": showAsMgDl,
-					"min": min,
-					"max": max,
-					"urgentMin": urgentMin,
-					"urgentMax": urgentMax,
-					"suggestMin": suggestMin,
-					"suggestMax": suggestMax]
+					"chartLow": chartLow,
+					"chartHigh": chartHigh,
+					"urgentLow": urgentLow,
+					"urgentHigh": urgentHigh,
+					"suggestLow": suggestLow,
+					"suggestHigh": suggestHigh]
 		}
 	}
 	
