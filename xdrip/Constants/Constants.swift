@@ -30,3 +30,9 @@ enum Constants {
     
     static let maxBgMgDl = 540 // 30 mmmol/L
 }
+
+
+enum EventBusEvents {
+    
+    static let newNote = "newNote"
+}

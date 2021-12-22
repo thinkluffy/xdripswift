@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import SwiftEventBus
 
 class NoteManager {
     
@@ -81,6 +81,7 @@ class NoteManager {
         
         do {
             try CoreDataManager.shared.mainManagedObjectContext.save()
+            SwiftEventBus.post(EventBusEvents.newNote)
             
         } catch let error {
             NoteManager.log.e("Fail to save Note, \(error.localizedDescription)")
@@ -100,7 +101,8 @@ class NoteManager {
         
         do {
             try CoreDataManager.shared.mainManagedObjectContext.save()
-            
+            SwiftEventBus.post(EventBusEvents.newNote)
+
         } catch let error {
             NoteManager.log.e("Fail to save Note, \(error.localizedDescription)")
         }

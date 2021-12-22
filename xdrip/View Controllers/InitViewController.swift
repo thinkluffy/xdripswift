@@ -16,12 +16,29 @@ class InitViewController: UIViewController {
         super.viewDidLoad()
         
         CoreDataManager.shared.initialize(modelName: ConstantsCoreData.modelName) {
-            self.showMainViewController()
+            if !UserDefaults.standard.isAgreementAgreed {
+                self.showAgreementViewController()
+                
+            } else {
+                self.showMainViewController()
+            }
         }
     }
-
+    
+    private func showAgreementViewController() {
+        let viewController = AgreementViewController()
+        viewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        present(viewController, animated: false)
+    }
+    
     private func showMainViewController() {
-        let mainViewController = R.storyboard.main.mainTabBarController()!
-        view.window?.rootViewController = mainViewController
+        let viewController = R.storyboard.main.mainTabBarController()!
+        view.window?.rootViewController = viewController
+    }
+    
+    func agreementDidAgree() {
+        dismiss(animated: false) {
+            self.showMainViewController()
+        }
     }
 }

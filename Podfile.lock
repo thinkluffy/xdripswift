@@ -16,6 +16,7 @@ PODS:
     - R.swift.Library (~> 5.3.0)
   - R.swift.Library (5.3.0)
   - SnapKit (5.0.1)
+  - SwiftEventBus (5.0.0)
   - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
@@ -28,6 +29,7 @@ DEPENDENCIES:
   - PopupDialog (from `https://github.com/thinkluffy/PopupDialog.git`, tag `1.1.1-th`)
   - R.swift (= 5.4.0)
   - SnapKit (= 5.0.1)
+  - SwiftEventBus (from `https://github.com/cesarferreira/SwiftEventBus.git`, tag `5.0.1`)
   - SwiftyJSON (= 4.3.0)
 
 SPEC REPOS:
@@ -51,6 +53,9 @@ EXTERNAL SOURCES:
   PopupDialog:
     :git: https://github.com/thinkluffy/PopupDialog.git
     :tag: 1.1.1-th
+  SwiftEventBus:
+    :git: https://github.com/cesarferreira/SwiftEventBus.git
+    :tag: 5.0.1
 
 CHECKOUT OPTIONS:
   ActionClosurable:
@@ -62,6 +67,9 @@ CHECKOUT OPTIONS:
   PopupDialog:
     :git: https://github.com/thinkluffy/PopupDialog.git
     :tag: 1.1.1-th
+  SwiftEventBus:
+    :git: https://github.com/cesarferreira/SwiftEventBus.git
+    :tag: 5.0.1
 
 SPEC CHECKSUMS:
   ActionClosurable: 92729a0f0bb4b38d2744319ea8282a3ce8fb1e0a
@@ -75,8 +83,9 @@ SPEC CHECKSUMS:
   R.swift: c533450b0f7dc494e0993f5f1a1db925d84c3006
   R.swift.Library: 0fc583cb55a99e28901299cc451614cad1161962
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  SwiftEventBus: b30f617a6aca5a9336464b4d3f5931034762f2d5
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 0cd4175f60ce5d9a338b1a45c39d24f04ff69fb3
+PODFILE CHECKSUM: 34df3ec912228d7c83485091638bd983defb529b
 
 COCOAPODS: 1.9.1

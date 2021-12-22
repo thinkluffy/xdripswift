@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftEventBus
 
 class NotesPresenter: NotesP {
   
@@ -18,6 +19,22 @@ class NotesPresenter: NotesP {
     
     init(view: NotesV) {
         self.view = view
+    }
+    
+    func onViewDidAppear() {
+        SwiftEventBus.onMainThread(self, name: EventBusEvents.newNote) { [weak self] result in
+            guard let view = self?.view else {
+                return
+            }
+            
+            if view.isShowingNotesOfToday {
+                self?.loadData(date: Date())
+            }
+        }
+    }
+    
+    func onViewWillDisappear() {
+        SwiftEventBus.unregister(self)
     }
     
     func loadData(date: Date) {

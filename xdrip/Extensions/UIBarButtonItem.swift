@@ -11,5 +11,4 @@ extension UIBarButtonItem {
     public func disable() {
         isEnabled = false
     }
-    
 }

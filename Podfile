@@ -15,5 +15,6 @@ target 'xdrip' do
   pod 'Charts', :tag => 'v3.6.2-th', :git => 'https://github.com/thinkluffy/Charts.git'
   pod 'FSCalendar', '2.8.2'
   pod 'PopupDialog', :tag => '1.1.1-th', :git => 'https://github.com/thinkluffy/PopupDialog.git'
+  pod 'SwiftEventBus', :tag => '5.0.1', :git => 'https://github.com/cesarferreira/SwiftEventBus.git'
 
 end

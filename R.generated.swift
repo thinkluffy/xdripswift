@@ -1295,7 +1295,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 25 images.
+  /// This `R.image` struct is generated, and contains static references to 28 images.
   struct image {
     /// Image `dexcomG5`.
     static let dexcomG5 = Rswift.ImageResource(bundle: R.hostingBundle, name: "dexcomG5")
@@ -1311,8 +1311,14 @@ struct R: Rswift.Validatable {
     static let ic_arrow_right = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_arrow_right")
     /// Image `ic_calibrate`.
     static let ic_calibrate = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_calibrate")
+    /// Image `ic_check`.
+    static let ic_check = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_check")
     /// Image `ic_clock`.
     static let ic_clock = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_clock")
+    /// Image `ic_fastdrop`.
+    static let ic_fastdrop = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_fastdrop")
+    /// Image `ic_fastrise`.
+    static let ic_fastrise = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_fastrise")
     /// Image `ic_pushpin_lock`.
     static let ic_pushpin_lock = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_pushpin_lock")
     /// Image `ic_pushpin_unlock`.
@@ -1398,9 +1404,30 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_check", bundle: ..., traitCollection: ...)`
+    static func ic_check(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_check, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "ic_clock", bundle: ..., traitCollection: ...)`
     static func ic_clock(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ic_clock, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_fastdrop", bundle: ..., traitCollection: ...)`
+    static func ic_fastdrop(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_fastdrop, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_fastrise", bundle: ..., traitCollection: ...)`
+    static func ic_fastrise(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_fastrise, compatibleWith: traitCollection)
     }
     #endif
 
@@ -2935,8 +2962,12 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.common` struct is generated, and contains static references to 55 localization keys.
+    /// This `R.string.common` struct is generated, and contains static references to 59 localization keys.
     struct common {
+      /// en translation: %@ must not be used to make medical decisions. It is a research and education tool only and is provided as-is without warranty of any kind, either expressed or implied, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose. The entire risk as to the quality and performance of the program is with you. Should the program prove defective, you assume the cost of all necessary servicing, repair, or correction.
+      ///
+      /// Locales: en, zh
+      static let agreement = Rswift.StringResource(key: "agreement", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: %d Mins
       ///
       /// Locales: en, zh
@@ -2985,6 +3016,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let developerModeEnabled = Rswift.StringResource(key: "developerModeEnabled", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Disclaimer
+      ///
+      /// Locales: en, zh
+      static let disclaimer = Rswift.StringResource(key: "disclaimer", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Don't Show Again
       ///
       /// Locales: en, nl, pt, de, es, fr, sv
@@ -3065,6 +3100,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let pleaseConfirm = Rswift.StringResource(key: "pleaseConfirm", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Privacy Policy
+      ///
+      /// Locales: en, zh
+      static let privacyPolicy = Rswift.StringResource(key: "privacyPolicy", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Readings
       ///
       /// Locales: en, zh
@@ -3077,6 +3116,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static let sensorStatus = Rswift.StringResource(key: "sensorStatus", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fi", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// en translation: Start to Use
+      ///
+      /// Locales: en, zh
+      static let start_to_use = Rswift.StringResource(key: "start_to_use", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Today
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
@@ -3157,6 +3200,23 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static let yellow = Rswift.StringResource(key: "yellow", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fi", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+
+      /// en translation: %@ must not be used to make medical decisions. It is a research and education tool only and is provided as-is without warranty of any kind, either expressed or implied, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose. The entire risk as to the quality and performance of the program is with you. Should the program prove defective, you assume the cost of all necessary servicing, repair, or correction.
+      ///
+      /// Locales: en, zh
+      static func agreement(_ value1: String, preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          let format = NSLocalizedString("agreement", tableName: "Common", bundle: hostingBundle, comment: "")
+          return String(format: format, locale: applicationLocale, value1)
+        }
+
+        guard let (locale, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "agreement"
+        }
+
+        let format = NSLocalizedString("agreement", tableName: "Common", bundle: bundle, comment: "")
+        return String(format: format, locale: locale, value1)
+      }
 
       /// en translation: %d Mins
       ///
@@ -3340,6 +3400,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("developerModeEnabled", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Disclaimer
+      ///
+      /// Locales: en, zh
+      static func disclaimer(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("disclaimer", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "disclaimer"
+        }
+
+        return NSLocalizedString("disclaimer", tableName: "Common", bundle: bundle, comment: "")
       }
 
       /// en translation: Don't Show Again
@@ -3642,6 +3717,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("pleaseConfirm", tableName: "Common", bundle: bundle, comment: "")
       }
 
+      /// en translation: Privacy Policy
+      ///
+      /// Locales: en, zh
+      static func privacyPolicy(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("privacyPolicy", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "privacyPolicy"
+        }
+
+        return NSLocalizedString("privacyPolicy", tableName: "Common", bundle: bundle, comment: "")
+      }
+
       /// en translation: Readings
       ///
       /// Locales: en, zh
@@ -3685,6 +3775,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("sensorStatus", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Start to Use
+      ///
+      /// Locales: en, zh
+      static func start_to_use(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("start_to_use", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "start_to_use"
+        }
+
+        return NSLocalizedString("start_to_use", tableName: "Common", bundle: bundle, comment: "")
       }
 
       /// en translation: Today
@@ -4285,8 +4390,8 @@ struct R: Rswift.Validatable {
       static let lastconnection = Rswift.StringResource(key: "lastconnection", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: Lock
       ///
-      /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
-      static let lock = Rswift.StringResource(key: "lock", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
+      static let lock = Rswift.StringResource(key: "lock", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: New BG Reading
       ///
       /// Locales: en, zh
@@ -4317,8 +4422,8 @@ struct R: Rswift.Validatable {
       static let scanbluetoothdeviceongoing = Rswift.StringResource(key: "scanbluetoothdeviceongoing", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: Screen Lock Enabled
       ///
-      /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
-      static let screenlocktitle = Rswift.StringResource(key: "screenlocktitle", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
+      static let screenlocktitle = Rswift.StringResource(key: "screenlocktitle", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: Sensor
       ///
       /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
@@ -4373,8 +4478,8 @@ struct R: Rswift.Validatable {
       static let licenseinfo = Rswift.StringResource(key: "licenseinfo", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: This will keep the screen awake until you move to another app or click Unlock.  It is recommended that you keep the phone plugged into a charger to prevent battery drain.
       ///
-      /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
-      static let screenlockinfo = Rswift.StringResource(key: "screenlockinfo", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
+      static let screenlockinfo = Rswift.StringResource(key: "screenlockinfo", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: Too late! The Transmitter has already been disconnected. You should get a new pairing request in a few minutes.
       ///
       /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
@@ -4389,8 +4494,8 @@ struct R: Rswift.Validatable {
       static let transmitterpairingattempttimeout = Rswift.StringResource(key: "transmitterpairingattempttimeout", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: Unlock
       ///
-      /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
-      static let unlock = Rswift.StringResource(key: "unlock", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
+      static let unlock = Rswift.StringResource(key: "unlock", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: When using the Libre algoritm, it is not necessary to calibrate the sensor.
       ///
       /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
@@ -4536,7 +4641,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Lock
       ///
-      /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
+      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
       static func lock(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("lock", tableName: "HomeView", bundle: hostingBundle, comment: "")
@@ -4656,7 +4761,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Screen Lock Enabled
       ///
-      /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
+      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
       static func screenlocktitle(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("screenlocktitle", tableName: "HomeView", bundle: hostingBundle, comment: "")
@@ -4866,7 +4971,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: This will keep the screen awake until you move to another app or click Unlock.  It is recommended that you keep the phone plugged into a charger to prevent battery drain.
       ///
-      /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
+      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
       static func screenlockinfo(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("screenlockinfo", tableName: "HomeView", bundle: hostingBundle, comment: "")
@@ -4926,7 +5031,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Unlock
       ///
-      /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
+      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
       static func unlock(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("unlock", tableName: "HomeView", bundle: hostingBundle, comment: "")

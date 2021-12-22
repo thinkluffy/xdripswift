@@ -34,6 +34,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
 		// Call the handler with the last entry date you can currently provide or nil if you can't support future timelines
 		handler(Date().addingTimeInterval(Constants.DataValidTimeInterval))
 	}
+    
 	// MARK: - Timeline Population
 	
 	func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
@@ -50,7 +51,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
 	
 	func getPlaceholderTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
 		let dateProvider = CLKTimeTextProvider(date: Date())
-		let text = "--"
+		let text = "---"
 		let textProvider = CLKSimpleTextProvider(text: text, shortText: text)
 		
 		let imageProvider = CLKFullColorImageProvider(fullColorImage: self.getImage(from: text) ?? UIImage(named: "128")!)
@@ -58,31 +59,35 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
 		let template = getTemplate(for: complication, dateProvider: dateProvider, textProvider: textProvider, imageProvider: imageProvider)
 		handler(template)
 	}
-
 }
 
 
 extension ComplicationController {
+    
 	func createTimelineEntry(for complication: CLKComplication, date: Date, completion: @escaping ((CLKComplicationTimelineEntry?) -> Void)) {
 		PhoneCommunicator.shared.requestLatest { result in
 			if let result = result {
 				let dateProvider = CLKTimeTextProvider(date: result.0)
-				let text = Date().timeIntervalSince(result.0) > Constants.DataValidTimeInterval ? "--" : result.1
+				let text = Date().timeIntervalSince(result.0) > Constants.DataValidTimeInterval ? "---" : result.1
 				let textProvider = CLKSimpleTextProvider(text: text, shortText: text)
 				
 				let imageProvider = CLKFullColorImageProvider(fullColorImage: self.getImage(from: text) ?? UIImage(named: "128")!)
 
 				let template: CLKComplicationTemplate? = self.getTemplate(for: complication, dateProvider: dateProvider, textProvider: textProvider, imageProvider: imageProvider)
+                
 				if let template = template {
 					completion(CLKComplicationTimelineEntry(date: date, complicationTemplate: template))
+                    
 				} else {
 					completion(nil)
 				}
+                
 			} else {
 				completion(nil)
 			}
 		}
 	}
+    
 	func getTemplate(for complication: CLKComplication,
 					 dateProvider: CLKTimeTextProvider,
 					 textProvider: CLKSimpleTextProvider,
@@ -122,6 +127,7 @@ extension ComplicationController {
 
 
 extension ComplicationController {
+    
 	func getImage(from text: String) -> UIImage? {
 		let maxWidth: CGFloat = 162
 		let maxHeight: CGFloat = 69

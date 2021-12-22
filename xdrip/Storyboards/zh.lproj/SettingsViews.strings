@@ -129,7 +129,7 @@
 "sendTraceFile" = "Send Issue Report";
 
 /// nightscout settings, title of row
-"uploadSensorStartTime" = "上传探头开始时间";
+"uploadSensorStartTime" = "上传传感器开始时间";
 
 /// name of setting for text color
 "m5stack_settingsviews_textColor" = "Text Color";
@@ -177,7 +177,7 @@
 "describeProblem" = "Explain why you need to send the trace file with as much detail as possible. If you have already reported your problem in the Facebook support group '%@', then mention your facebook name in the e-mail";
 
 /// general settings, when switching from master to follower, if confirmation is asked, this message will be shown.
-"warningChangeFromMasterToFollower" = "切换到关注者模式将会停止您当前的探头。是否继续？";
+"warningChangeFromMasterToFollower" = "切换到关注者模式将会停止您当前的传感器。是否继续？";
 
 /// used for editing schedule for NightScout upload and Dexcom Share upload
 "editScheduleTimePickerSubtitle" = "Change: ";

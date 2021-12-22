@@ -79,6 +79,9 @@
 		4E9D79D1273BF04400B666C5 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D79B2273BF04400B666C5 /* Toast.swift */; };
 		4E9D79D7273E683100B666C5 /* logo-launchScreen@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E9D79D6273E683100B666C5 /* logo-launchScreen@3x.png */; };
 		4E9D79D9273E695C00B666C5 /* CalendarTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D79D8273E695C00B666C5 /* CalendarTitle.swift */; };
+		4EB0DE692772F35C00DBF7C1 /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB0DE682772F35C00DBF7C1 /* WebViewViewController.swift */; };
+		4EB0DE6B27735AC500DBF7C1 /* AgreementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB0DE6A27735AC500DBF7C1 /* AgreementViewController.swift */; };
+		4EB0DE6D277364D200DBF7C1 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB0DE6C277364D200DBF7C1 /* Checkbox.swift */; };
 		4EC48D0C2770599B00EEB0BA /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC48D0A2770599B00EEB0BA /* Note+CoreDataClass.swift */; };
 		4EC48D0D2770599B00EEB0BA /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC48D0B2770599B00EEB0BA /* Note+CoreDataProperties.swift */; };
 		4EC48D0F277059E600EEB0BA /* BgReading+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC48D0E277059E600EEB0BA /* BgReading+CoreDataProperties.swift */; };
@@ -728,6 +731,9 @@
 		4E9D79B2273BF04400B666C5 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		4E9D79D6273E683100B666C5 /* logo-launchScreen@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-launchScreen@3x.png"; sourceTree = "<group>"; };
 		4E9D79D8273E695C00B666C5 /* CalendarTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTitle.swift; sourceTree = "<group>"; };
+		4EB0DE682772F35C00DBF7C1 /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
+		4EB0DE6A27735AC500DBF7C1 /* AgreementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementViewController.swift; sourceTree = "<group>"; };
+		4EB0DE6C277364D200DBF7C1 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		4EC48D0A2770599B00EEB0BA /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4EC48D0B2770599B00EEB0BA /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4EC48D0E277059E600EEB0BA /* BgReading+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BgReading+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -1579,6 +1585,7 @@
 				4E9D79B0273BF04400B666C5 /* VerticalButton.swift */,
 				4E9D79B2273BF04400B666C5 /* Toast.swift */,
 				4E46D9362759086C00C79F86 /* SlideInSheet.swift */,
+				4EB0DE6C277364D200DBF7C1 /* Checkbox.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -2074,6 +2081,7 @@
 			isa = PBXGroup;
 			children = (
 				4E1CFF33274E475A0020F0F1 /* InitViewController.swift */,
+				4EB0DE6A27735AC500DBF7C1 /* AgreementViewController.swift */,
 				4EE66F122735064E00548A46 /* MainTabBarController.swift */,
 				F8297F47238DCAD800D74D66 /* BluetoothPeripheralsNavigationController */,
 				F8B3A806227A28F9004BA588 /* Helpers */,
@@ -2081,6 +2089,7 @@
 				4E16CB57276B85D800A8A79E /* NotesViewController */,
 				F8B3A836227F090D004BA588 /* SettingsViewController */,
 				4E9D7977273A983600B666C5 /* ChartDetailsViewController.swift */,
+				4EB0DE682772F35C00DBF7C1 /* WebViewViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -3454,6 +3463,7 @@
 				F8F9722623A5915900C3F17D /* BluconTransmitterOpCode.swift in Sources */,
 				F8025E4E21ED450300ECF0C0 /* Double.swift in Sources */,
 				4E9D79BB273BF04400B666C5 /* SwallowTouchesView.swift in Sources */,
+				4EB0DE6D277364D200DBF7C1 /* Checkbox.swift in Sources */,
 				F8F9723423A5915900C3F17D /* BluetoothTransmitterDelegate.swift in Sources */,
 				F8B3A853227F2743004BA588 /* AlertsSettingsViewController.swift in Sources */,
 				F8B3A849227F090E004BA588 /* SettingsViewSpeakSettingsViewModel.swift in Sources */,
@@ -3468,6 +3478,7 @@
 				F821CF56229BF43A005C1E43 /* AlertKind.swift in Sources */,
 				F8A2BC0D25DB0B12001D1E78 /* Atom+BluetoothPeripheral.swift in Sources */,
 				4E2C95BF275231F90073D692 /* Constants.swift in Sources */,
+				4EB0DE692772F35C00DBF7C1 /* WebViewViewController.swift in Sources */,
 				4E1CFF34274E475A0020F0F1 /* InitViewController.swift in Sources */,
 				F8F9721223A5915900C3F17D /* FirmwareVersionTxMessage.swift in Sources */,
 				F80D916824F7086D006840B5 /* Libre2BluetoothPeripheralViewModel.swift in Sources */,
@@ -3755,6 +3766,7 @@
 				F8DF766223E390D100063910 /* BLEPeripheral+CoreDataProperties.swift in Sources */,
 				F8A1585F22EDB81E007F5B5D /* ConstantsLog.swift in Sources */,
 				F8A1586522EDB89D007F5B5D /* ConstantsDefaultAlertTypeSettings.swift in Sources */,
+				4EB0DE6B27735AC500DBF7C1 /* AgreementViewController.swift in Sources */,
 				F816E11624391A02009EE65B /* Droplet+BluetoothPeripheral.swift in Sources */,
 				F8FDFEAD260DE1B90047597D /* ConstantsUI.swift in Sources */,
 			);

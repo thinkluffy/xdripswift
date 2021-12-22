@@ -21,6 +21,9 @@ extension UserDefaults {
         
         // Common
         case firstOpenTimestamp = "firstOpenTimestamp"
+        case firstOpenVersionCode = "firstOpenVersionCode"
+        case currentVersionCode = "currentVersionCode"
+        case isAgreementAgreed = "isAgreementAgreed"
         case fullFeatureMode = "fullFeatureMode"
 
         // General
@@ -250,6 +253,33 @@ extension UserDefaults {
             } else {
                 set(0, forKey: Key.firstOpenTimestamp.rawValue)
             }
+        }
+    }
+    
+    @objc dynamic var firstOpenVersionCode: Int {
+        get {
+            return integer(forKey: Key.firstOpenVersionCode.rawValue)
+        }
+        set {
+            set(newValue, forKey: Key.firstOpenVersionCode.rawValue)
+        }
+    }
+    
+    @objc dynamic var currentVersionCode: Int {
+        get {
+            return integer(forKey: Key.currentVersionCode.rawValue)
+        }
+        set {
+            set(newValue, forKey: Key.currentVersionCode.rawValue)
+        }
+    }
+    
+    @objc dynamic var isAgreementAgreed: Bool {
+        get {
+            return bool(forKey: Key.isAgreementAgreed.rawValue)
+        }
+        set {
+            set(newValue, forKey: Key.isAgreementAgreed.rawValue)
         }
     }
     

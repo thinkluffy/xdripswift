@@ -4,12 +4,12 @@
 "statusactiontitle" = "状态";
 "scanbluetoothdeviceactiontitle" = "扫描发射器";
 "forgetbluetoothdeviceactiontitle" = "取消配对";
-"startsensor" = "启动探头";
-"stopsensor" = "停止探头";
-"startsensortimeinfo" = "在下一个对话框中，您需要设置探头插入的日期和时间。输入正确的日期和时间是非常重要的。尤其是对数据的准确度。";
+"startsensor" = "启动传感器";
+"stopsensor" = "停止传感器";
+"startsensortimeinfo" = "在下一个对话框中，您需要设置传感器插入的日期和时间。输入正确的日期和时间是非常重要的。尤其是对数据的准确度。";
 "scanbluetoothdeviceongoing" = "正在扫描发射器";
 "bluetoothisnoton" = "蓝牙未打开。 打开蓝牙并再次尝试。不要从设备的设置里直接配对。扫描和配对都应该在 app 上进行。";
-"sensorstart" = "启动探头";
+"sensorstart" = "启动传感器";
 "notstarted" = "未启动";
 "notknown" = "未知";
 "lastconnection" = "上次连接";
@@ -18,9 +18,9 @@
 "licenseinfo" = "该程序是免费软件基金会发布的通用公共许可证条款下可使用的免费软件。包括第三版以及后续的新版本。这个程序的设计是希望会有用，但不做任何保证。 登录 http://www.gnu.org/licenses/gpl.txt 可获取更多详细信息 ";
 "transmitterinfo" = "首先进入设置选择你的发射器类型，并输入发射器 ID。根据发射器类型, 返回主页扫描发射器。德康 G5 无需点击开始扫描。";
 "info" = "信息";
-"startsensorbeforecalibration" = "探头未启动结束之前，无法输入校准值。";
+"startsensorbeforecalibration" = "传感器未启动结束之前，无法输入校准值。";
 "theremustbeareadingbeforecalibration" = "在输入指血之前，必须测两次血糖。当输入一个指血值时，会要求你再次输入另外一个。";
-"sensornotdetected" = "未检测到探头。请检查发射器是否正确安装在探头上。";
+"sensornotdetected" = "未检测到传感器。请检查发射器是否正确安装在传感器上。";
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////   Translation needed - remove this header after translation                       /////
@@ -35,7 +35,7 @@
 "transmitternotpaired" = "发射没有和 iPhone 配对。请打开软件。";
 
 /// when user starts scanning for bluetooth device, but bluetooth is not authorized
-"bluetoothIsNotAuthorized" = "You did not give bluetooth permission for %@. Go to the settings, find the %@ app, and enable Bluetooth.";
+"bluetoothIsNotAuthorized" = "%@ 没有蓝牙权限。在系统设置里， 找到 %@，并开启蓝牙。";
 
 /// To give info to user that the transmitter pairing requeset timed out
 "transmitterpairingattempttimeout" = "Transmitter did not reply to pairing request.";
@@ -50,7 +50,7 @@
 "transmitterpairingtoolate" = "Too late! The Transmitter has already been disconnected. You should get a new pairing request in a few minutes.";
 
 /// Literally 'Sensor', used as name in the button in the home screen, but also in text in pop ups
-"sensor" = "探头";
+"sensor" = "传感器";
 
 /// To give result about transitter result in notification body, successful
 "success" = "成功";
@@ -59,26 +59,9 @@
 "dexcomBatteryTooLow" = "发射器电量过低！";
 
 /// if web oop enabled, and also if transmitter supports this, user clicks calibrate button, but calibration is not possible
-"calibrationNotNecessary" = "使用瞬感算法时，不可以校准探头。";
+"calibrationNotNecessary" = "使用瞬感算法时，不可以校准传感器。";
 
 /// To give result about transitter result in notification body, failed
 "failed" = "Failed";
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-/////   Translation needed - remove this header after translation                       /////
-/////////////////////////////////////////////////////////////////////////////////////////////
-
-/// Text in button on home screen
-"unlock" = "Unlock";
-
-/// Text in button on home screen
-"lock" = "Lock";
-
-/// Screen Lock Title
-"screenlocktitle" = "Screen Lock Enabled";
-
-/// Info message to explain screen lock function
-"screenlockinfo" = "This will keep the screen awake until you move to another app or click Unlock.\r\n\nIt is recommended that you keep the phone plugged into a charger to prevent battery drain.";
-
 
 "toast_new_bg_reading" = "新血糖值";

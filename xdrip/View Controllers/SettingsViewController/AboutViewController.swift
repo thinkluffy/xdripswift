@@ -114,6 +114,17 @@ class AboutViewController: LegacySubSettingsViewController {
                     self.view.makeToast(R.string.common.developerModeEnabled(), duration: 2, position: .bottom)
                 }
             })
+            .operationCell(title: R.string.common.privacyPolicy(),
+                           accessoryView: DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor),
+                           didClick: {
+                [unowned self] operationCell, tableView, indexPath in
+                
+                if let url = URL(string: "https://baidu.com") {
+                    let viewController = WebViewViewController(url: url, title: R.string.common.privacyPolicy())
+                    navigationController?.pushViewController(viewController, animated: true)
+                }
+            })
+
             .build()
         
         tableView.delegate = tableData

@@ -10,6 +10,8 @@ import Foundation
 
 protocol NotesV: MVPV {
     
+    var isShowingNotesOfToday: Bool {get}
+    
     func show(notes: [Note]?, from fromDate: Date, to toDate: Date)
 
 }

@@ -25,6 +25,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if UserDefaults.standard.firstOpenTime == nil {
             onFreshInstall()
+            UserDefaults.standard.firstOpenTime = Date()
+            UserDefaults.standard.firstOpenVersionCode = iOS.appVersionCode
+            
+        } else {
+            let versionCode = iOS.appVersionCode
+            if versionCode > UserDefaults.standard.currentVersionCode {
+                onUpgrade(from: UserDefaults.standard.currentVersionCode, to: versionCode)
+                UserDefaults.standard.currentVersionCode = versionCode
+                
+            } else {
+                onNormalStart()
+            }
         }
         
         return true
@@ -56,7 +68,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func onFreshInstall() {
         AppDelegate.log.i("==> onFreshInstall")
-        UserDefaults.standard.firstOpenTime = Date()
+    }
+    
+    private func onUpgrade(from fromVersion: Int, to toVersion: Int) {
+        AppDelegate.log.i("==> onUpgrade, \(fromVersion) -> \(toVersion)")
+    }
+
+    private func onNormalStart() {
+        AppDelegate.log.i("==> onNormalStart")
     }
 }
 

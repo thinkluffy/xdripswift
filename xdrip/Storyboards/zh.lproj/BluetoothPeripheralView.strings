@@ -25,13 +25,13 @@
 "confirmDeletionPeripheral" = "确人删除蓝牙设备吗？";
 
 /// BluetoothPeripheral view, text of the cell with the sensor type (only used for Libre)
-"sensorType" = "探头类型:";
+"sensorType" = "传感器类型";
 
 /// BluetoothPeripheral view, text of the cell with the serial number (this is not the sensor serial number
 "serialNumber" = "序列号";
 
 /// BluetoothPeripheral view, text of the cell with the sensor serial number
-"SensorSerialNumber" = "探头序列号";
+"SensorSerialNumber" = "传感器序列号";
 
 /// 
 "notConnected" = "未连接上";

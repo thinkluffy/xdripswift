@@ -170,7 +170,7 @@ fileprivate class PickerViewContent: SlideInSheetContent {
         button.cornerRadius = 5
         button.bgColor = ConstantsUI.accentRed
         button.titleColor = .white
-        button.titleFont = .systemFont(ofSize: 20)
+        button.titleFont = .systemFont(ofSize: 18)
         button.titleText = R.string.common.common_Ok()
         return button
     }()

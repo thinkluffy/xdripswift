@@ -21,7 +21,7 @@ class NotesViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.backgroundColor = ConstantsUI.contentBackgroundColor
-        tableView.separatorColor = ConstantsUI.mainBackgroundColor
+        tableView.separatorColor = .white.withAlphaComponent(0.1)
         return tableView
     }()
     
@@ -51,7 +51,7 @@ class NotesViewController: UIViewController {
         super.viewDidAppear(animated)
         presenter.onViewDidAppear()
         
-        presenter.loadData(date: Date())
+        presenter.loadData(date: showingDate ?? Date())
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -105,14 +105,18 @@ extension NotesViewController: NotesV {
         
         self.notes = notes
         
-        if let notes = notes {
-            notes.forEach { note in
-                print("----> \(note.noteType): \(note.bg) at \(note.timeStamp)")
-            }
-        }
+//        if let notes = notes {
+//            notes.forEach { note in
+//                print("----> \(note.noteType): \(note.bg) at \(note.timeStamp)")
+//            }
+//        }
         showingDate = fromDate
         
         tableView.reloadData()
+    }
+    
+    var isShowingNotesOfToday: Bool {
+        showingDate != nil && Calendar.current.isDateInToday(showingDate!)
     }
 }
 
@@ -129,30 +133,54 @@ extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as! NoteTableViewCell
         
-        let bgColor: UIColor
-        if note.bg >= UserDefaults.standard.urgentHighMarkValue ||
-            note.bg <= UserDefaults.standard.urgentLowMarkValue {
-            bgColor = ConstantsGlucoseChart.glucoseUrgentRangeColor
-            
-        } else if note.bg >= UserDefaults.standard.highMarkValue ||
-                    note.bg <= UserDefaults.standard.lowMarkValue  {
-            bgColor = ConstantsGlucoseChart.glucoseNotUrgentRangeColor
+        let noteType = NoteManager.NoteType(rawValue: Int(note.noteType))
+        
+        let typeIcon: UIImage?
+        let highlightColor: UIColor
 
-        } else {
-            bgColor = ConstantsGlucoseChart.glucoseInRangeColor
+        switch noteType {
+        case .fastDrop:
+            typeIcon = R.image.ic_fastdrop()?.withRenderingMode(.alwaysTemplate)
+        
+        case .fastRise:
+            typeIcon = R.image.ic_fastrise()?.withRenderingMode(.alwaysTemplate)
+
+        default:
+            typeIcon = R.image.ic_tab_bloodsugar_h()?.withRenderingMode(.alwaysTemplate)
         }
-        cell.bgStatusBlockHint.backgroundColor = bgColor
+        
+        switch noteType {
+        case .urgentHigh, .urgentLow:
+            highlightColor = ConstantsGlucoseChart.glucoseUrgentRangeColor
+
+        case .low, .high:
+            highlightColor = ConstantsGlucoseChart.glucoseNotUrgentRangeColor
+
+        case .fastDrop:
+            highlightColor = ConstantsGlucoseChart.glucoseUrgentRangeColor
+
+        case .fastRise:
+            highlightColor = ConstantsGlucoseChart.glucoseNotUrgentRangeColor
+
+        case .userInputText:
+            highlightColor = ConstantsGlucoseChart.glucoseInRangeColor
+            
+        default:
+            highlightColor = ConstantsGlucoseChart.glucoseInRangeColor
+        }
+        
+        cell.colorBlock.backgroundColor = highlightColor
+        cell.typeIconImageView.image = typeIcon
+        cell.tintColor = highlightColor
         
         let isMgDl = UserDefaults.standard.bloodGlucoseUnitIsMgDl
         
         cell.bgLabel.text = note.bg.mgdlToMmolAndToString(mgdl: isMgDl)
-        cell.bgLabel.textColor = bgColor
 
         cell.bgUnitLabel.text = isMgDl ? Constants.bgUnitMgDl : Constants.bgUnitMmol
         cell.slopeLabel.text = BgReading.SlopeArrow(rawValue: Int(note.slopeArrow))?.description
         
-        let noteType = NoteManager.NoteType(rawValue: Int(note.noteType))
-        cell.typeLabel.text = noteType?.toString()
+        cell.contentLabel.text = note.noteContent
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
@@ -164,6 +192,10 @@ extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        65
     }
 }
 
@@ -208,13 +240,18 @@ extension NotesViewController: DatePickerSheetContentDelegate {
 
 fileprivate class NoteTableViewCell: UITableViewCell {
     
-    lazy var bgStatusBlockHint: UIView = {
+    lazy var typeIconImageView: UIImageView = {
+        UIImageView()
+    }()
+    
+    lazy var colorBlock: UIView = {
         UIView()
     }()
     
     lazy var bgLabel: UILabel = {
         let label = UILabel()
-        label.font = .monospacedDigitSystemFont(ofSize: 30, weight: .regular)
+        label.font = .monospacedDigitSystemFont(ofSize: 35, weight: .light)
+        label.textColor = .white
         return label
     }()
     
@@ -227,12 +264,12 @@ fileprivate class NoteTableViewCell: UITableViewCell {
     
     lazy var bgUnitLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 12)
+        label.font = .systemFont(ofSize: 12, weight: .light)
         label.textColor = .white
         return label
     }()
     
-    lazy var typeLabel: UILabel = {
+    lazy var contentLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
         return label
@@ -241,7 +278,7 @@ fileprivate class NoteTableViewCell: UITableViewCell {
     lazy var timeStampLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = .systemFont(ofSize: 14)
+        label.font = .monospacedDigitSystemFont(ofSize: 14, weight: .regular)
         return label
     }()
     
@@ -252,35 +289,42 @@ fileprivate class NoteTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        contentView.addSubview(bgStatusBlockHint)
+        contentView.addSubview(colorBlock)
+        contentView.addSubview(typeIconImageView)
         contentView.addSubview(bgLabel)
         contentView.addSubview(slopeLabel)
         contentView.addSubview(bgUnitLabel)
-        contentView.addSubview(typeLabel)
+        contentView.addSubview(contentLabel)
         contentView.addSubview(timeStampLabel)
 
-        bgStatusBlockHint.snp.makeConstraints { make in
-            make.width.equalTo(8)
-            make.leading.equalToSuperview()
+        colorBlock.snp.makeConstraints { make in
+            make.width.equalTo(5)
             make.top.bottom.equalToSuperview().inset(1)
+            make.leading.top.bottom.equalToSuperview()
+        }
+        
+        typeIconImageView.snp.makeConstraints { make in
+            make.size.equalTo(20)
+            make.leading.equalToSuperview().offset(15)
+            make.centerY.equalToSuperview()
         }
         
         bgLabel.snp.makeConstraints { make in
-            make.leading.equalTo(bgStatusBlockHint.snp.trailing).offset(10)
+            make.leading.equalTo(typeIconImageView.snp.trailing).offset(10)
             make.centerY.equalToSuperview()
         }
         
         bgUnitLabel.snp.makeConstraints { make in
-            make.leading.equalTo(bgLabel.snp.trailing).offset(10)
+            make.leading.equalTo(bgLabel.snp.trailing).offset(5)
             make.bottom.equalTo(bgLabel).offset(-5)
         }
         
         slopeLabel.snp.makeConstraints { make in
-            make.leading.equalTo(bgLabel.snp.trailing).offset(10)
+            make.leading.equalTo(bgUnitLabel)
             make.bottom.equalTo(bgUnitLabel.snp.top)
         }
         
-        typeLabel.snp.makeConstraints { make in
+        contentLabel.snp.makeConstraints { make in
             make.leading.equalTo(bgLabel.snp.trailing).offset(70)
             make.centerY.equalToSuperview()
         }
@@ -288,11 +332,6 @@ fileprivate class NoteTableViewCell: UITableViewCell {
         timeStampLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().offset(-10)
-        }
-        
-        contentView.snp.makeConstraints { make in
-            make.height.equalTo(65)
-            make.leading.trailing.equalToSuperview()
         }
     }
 }
