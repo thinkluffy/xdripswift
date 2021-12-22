@@ -300,7 +300,7 @@ fileprivate class NoteTableViewCell: UITableViewCell {
         colorBlock.snp.makeConstraints { make in
             make.width.equalTo(5)
             make.top.bottom.equalToSuperview().inset(1)
-            make.leading.top.bottom.equalToSuperview()
+            make.leading.equalToSuperview()
         }
         
         typeIconImageView.snp.makeConstraints { make in
