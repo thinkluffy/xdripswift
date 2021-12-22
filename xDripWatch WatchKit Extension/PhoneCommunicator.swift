@@ -179,11 +179,12 @@ extension PhoneCommunicator {
 	static func fakeConfig() -> Common.BgConfig {
 		Common.BgConfig(interval5Mins: true,
                         showAsMgDl: false,
-                        min: 2.2, max: 16.6,
-                        urgentMin: 3.9,
-                        urgentMax: 10,
-                        suggestMin: 4.5,
-                        suggestMax: 7.8)
+                        chartLow: 2.2,
+						chartHigh: 16.6,
+                        urgentLow: 0,//3.9,
+                        urgentHigh: 0,//10,
+                        suggestLow: 0,//4.5,
+						suggestHigh: 0)//7.8)
 	}
 	
 	static func fakeRecently() -> [Common.BgInfo] {
@@ -196,8 +197,8 @@ extension PhoneCommunicator {
 		var index = 0
 		for i in stride(from: start, to: end + 1, by: 5*60) {
 			index += 1
-			last = last + Double.random(in: -0.3...0.3)
-			last = min(16.6, max(2.2, last))
+			last = last + Double.random(in: -0.9...0.9)
+			last = min(30, max(2.2, last))
 			if Int.random(in: 0..<100) > 80{
 				// 模拟90%的几率没数据
 				print(last, index)

@@ -77,12 +77,12 @@ struct ContentView: View {
                 
 				if usefulData.bgInfoList.count > 0 {
 					WatchChartView(pointDigit: config.showAsMgDl ? 0 : 1,
-                                   min: config.min,
-                                   max: config.max,
-                                   urgentMin: config.urgentMin,
-                                   urgentMax: config.urgentMax,
-                                   suggestMin: config.suggestMin,
-                                   suggestMax: config.suggestMax,
+                                   chartLow: config.chartLow,
+                                   chartHigh: config.chartHigh,
+                                   urgentLow: config.urgentLow,
+                                   urgentHigh: config.urgentHigh,
+                                   suggestLow: config.suggestLow,
+                                   suggestHigh: config.suggestHigh,
 								   values: getChartPointList(config.interval5Mins, from: usefulData.bgInfoList))
 				}
 			}
@@ -108,10 +108,10 @@ struct ContentView_Previews: PreviewProvider {
 extension ContentView {
     
 	private func getColor(of value: Double, config: Common.BgConfig) -> Color {
-		if value > config.urgentMax || value < config.urgentMin {
+		if value > config.urgentHigh || value < config.urgentLow {
 			return Constants.glucoseRed
             
-		} else if value > config.suggestMax || value < config.suggestMin {
+		} else if value > config.suggestHigh || value < config.suggestLow {
 			return Constants.glucoseYellow
 		}
 		return Color.white

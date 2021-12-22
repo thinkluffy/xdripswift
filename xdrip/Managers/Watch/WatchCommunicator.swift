@@ -121,12 +121,12 @@ extension WatchCommunicator {
 		return Common.BgConfig(
 			interval5Mins: UserDefaults.standard.chartDots5MinsApart,
 			showAsMgDl: showAsMgDl,
-			min: (40).mgdlToMmol(mgdl: showAsMgDl),
-			max: UserDefaults.standard.chartHeight.mgdlToMmol(mgdl: showAsMgDl),
-			urgentMin: UserDefaults.standard.urgentLowMarkValue.mgdlToMmol(mgdl: showAsMgDl),
-			urgentMax: UserDefaults.standard.urgentHighMarkValue.mgdlToMmol(mgdl: showAsMgDl),
-			suggestMin: UserDefaults.standard.lowMarkValue.mgdlToMmol(mgdl: showAsMgDl),
-			suggestMax: UserDefaults.standard.highMarkValue.mgdlToMmol(mgdl: showAsMgDl))
+			chartLow: (40).mgdlToMmol(mgdl: showAsMgDl),
+			chartHigh: UserDefaults.standard.chartHeight.mgdlToMmol(mgdl: showAsMgDl),
+			urgentLow: UserDefaults.standard.urgentLowMarkValue.mgdlToMmol(mgdl: showAsMgDl),
+			urgentHigh: UserDefaults.standard.urgentHighMarkValue.mgdlToMmol(mgdl: showAsMgDl),
+			suggestLow: UserDefaults.standard.lowMarkValue.mgdlToMmol(mgdl: showAsMgDl),
+			suggestHigh: UserDefaults.standard.highMarkValue.mgdlToMmol(mgdl: showAsMgDl))
 	}
 	
 	static func convertSlope(of arrow: BgReading.SlopeArrow) -> Common.BgSlope {
@@ -151,12 +151,12 @@ extension WatchCommunicator {
 	static func fakeConfig() -> Common.BgConfig {
 		Common.BgConfig(interval5Mins: true,
                         showAsMgDl: true,
-                        min: 2.2,
-                        max: 16.6,
-                        urgentMin: 3.9,
-                        urgentMax: 10,
-                        suggestMin: 4.5,
-                        suggestMax: 7.8)
+						chartLow: 2.2,
+						chartHigh: 16.6,
+                        urgentLow: 3.9,
+                        urgentHigh: 10,
+                        suggestLow: 4.5,
+						suggestHigh: 7.8)
 	}
 	
 	static func fakeRecently() -> [Common.BgInfo] {
