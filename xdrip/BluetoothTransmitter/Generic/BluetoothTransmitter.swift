@@ -554,7 +554,7 @@ class BluetoothTransmitter: NSObject, CBCentralManagerDelegate, CBPeripheralDele
             
             // if it's an existing device, then restore identifier key will contain the device address, which is unique worldwide
             // the application name is also in the identifier key
-            cBCentralManagerOptionRestoreIdentifierKeyToUse = ConstantsHomeView.applicationName + "-" + deviceAddress
+            cBCentralManagerOptionRestoreIdentifierKeyToUse = iOS.appDisplayName + "-" + deviceAddress
             
         } else {
 
@@ -562,7 +562,7 @@ class BluetoothTransmitter: NSObject, CBCentralManagerDelegate, CBPeripheralDele
 
             // if it's a new device, then restore identifier key will contain random string
             // the application name is also in the identifier key
-            cBCentralManagerOptionRestoreIdentifierKeyToUse = ConstantsHomeView.applicationName + "-" + String((0..<24).map{ _ in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".randomElement()!})
+            cBCentralManagerOptionRestoreIdentifierKeyToUse = iOS.appDisplayName + "-" + String((0..<24).map{ _ in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".randomElement()!})
             
         }
         

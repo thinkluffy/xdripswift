@@ -331,6 +331,7 @@ public class BgReading: NSManagedObject {
     }
 
     enum SlopeArrow: Int, CustomStringConvertible {
+        
         case doubleDown = 1
         case singleDown = 2
         case fortyFiveDown = 3

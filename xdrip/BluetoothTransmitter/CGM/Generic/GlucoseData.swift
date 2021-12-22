@@ -5,21 +5,15 @@ public class GlucoseData {
     
     var timeStamp:Date
 
-    var glucoseLevelRaw:Double
+    var glucoseLevelRaw: Double
 
-    init(timeStamp:Date, glucoseLevelRaw:Double) {
-        
+    init(timeStamp: Date, glucoseLevelRaw: Double) {
         self.timeStamp = timeStamp
-        
         self.glucoseLevelRaw = glucoseLevelRaw
-        
     }
 
     var description: String {
-        
-        return "timeStamp = " + timeStamp.description(with: .current) + ", glucoseLevelRaw = " + glucoseLevelRaw.description
-        
+        return "timeStamp: " + timeStamp.description(with: .current) + ", glucoseLevelRaw: " + glucoseLevelRaw.description
     }
-    
 }
 

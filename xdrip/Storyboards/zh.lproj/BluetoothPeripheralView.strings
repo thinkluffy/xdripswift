@@ -22,7 +22,7 @@
 "cannotActiveCGMInFollowerMode" = "You can not activate a CGM in Follower Mode";
 
 /// Bluetooth Peripheral view, when user clicks the trash button - this is not the complete sentence, it will be followed by 'name'
-"confirmDeletionPeripheral" = "Do you want to delete bluetooth device: ";
+"confirmDeletionPeripheral" = "确人删除蓝牙设备吗？";
 
 /// BluetoothPeripheral view, text of the cell with the sensor type (only used for Libre)
 "sensorType" = "探头类型:";

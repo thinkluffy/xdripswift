@@ -1,7 +1,7 @@
 import Foundation
 
 /// low, high, very low, very high, ...
-public enum AlertKind:Int, CaseIterable {
+public enum AlertKind: Int, CaseIterable {
     
     // when adding alertkinds, add new cases at the end (ie 9, ...)
     // if this is done in the middle ((eg rapid rise alert might seem better positioned after veryhigh), then a database migration would be required, because the rawvalue is stored as Int16 in the coredata, namely the alertkind - and also in SnoozeParameters

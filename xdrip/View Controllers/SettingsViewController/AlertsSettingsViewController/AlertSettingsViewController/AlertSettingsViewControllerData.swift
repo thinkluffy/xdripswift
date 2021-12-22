@@ -1,4 +1,5 @@
 import UIKit
+import PopupDialog
 
 /// a case per type of attribute that can be set in an AlerSettingsView
 fileprivate enum Setting: Int, CaseIterable {
@@ -227,28 +228,30 @@ extension AlertSettingsViewControllerData {
             if AlertSettingsViewControllerData.getAlertKind(alertKind: alertKind).valueNeedsConversionToMmol() && !UserDefaults.standard.bloodGlucoseUnitIsMgDl {
                 keyboardType = .decimalPad
             }
-            let alert = UIAlertController(title: AlertSettingsViewControllerData.getAlertKind(alertKind: alertKind).alertTitle(), message: Texts_Alerts.changeAlertValue + " (" + alertKindAsAlertKind.valueUnitText(transmitterType: UserDefaults.standard.cgmTransmitterType) + ")", keyboardType: keyboardType, text: Double(value).mgdlToMmolAndToString(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl || !AlertSettingsViewControllerData.getAlertKind(alertKind: self.alertKind).valueNeedsConversionToMmol()), placeHolder: nil, actionTitle: nil, cancelTitle: nil, actionHandler: { (text:String) in
+            
+            let dialog = PopupDialog(
+                title: AlertSettingsViewControllerData.getAlertKind(alertKind: alertKind).alertTitle(),
+                message: Texts_Alerts.changeAlertValue + " (" + alertKindAsAlertKind.valueUnitText(transmitterType: UserDefaults.standard.cgmTransmitterType) + ")",
+                keyboardType: keyboardType,
+                text: Double(value).mgdlToMmolAndToString(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl || !AlertSettingsViewControllerData.getAlertKind(alertKind: self.alertKind).valueNeedsConversionToMmol()),
+                placeHolder: nil
+            ) {
+                text in
                 
                 if var asdouble = text.toDouble() {
-                    
                     if !UserDefaults.standard.bloodGlucoseUnitIsMgDl && AlertSettingsViewControllerData.getAlertKind(alertKind: self.alertKind).valueNeedsConversionToMmol() {
                         asdouble = asdouble.mmolToMgdl()
                     }
                     
                     if asdouble < 32767.0 {
-                        
                         self.value = Int16(asdouble)
                         tableView.reloadRows(at: [IndexPath(row: Setting.value.rawValue, section: 0)], with: .none)
                         // checkIfPropertiesChanged
                         self.checkIfPropertiesChanged()
-                        
                     }
                 }
-                
-            }, cancelHandler: nil)
-            
-            // present the alert
-            uIViewController.present(alert, animated: true, completion: nil)
+            }
+            uIViewController.present(dialog, animated: true)
             
         case .alertType:
             

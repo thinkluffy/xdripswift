@@ -30,10 +30,6 @@ class Texts_AlertTypeSettingsView {
         return NSLocalizedString("alerttypesettingsview_snoozevianotification", tableName: filename, bundle: Bundle.main, value: "Snooze Via Notification", comment: "when editing an alert type, field title for Snooze Via Notification")
     }()
     
-    static let alertTypeDefaultSnoozePeriod: String = {
-        return NSLocalizedString("alerttypesettingsview_defaultsnoozeperiod", tableName: filename, bundle: Bundle.main, value: "Default Snooze Time (mins)", comment: "when editing an alert type, field title for Snooze Period")
-    }()
-    
     static let alertTypeOverrideMute: String = {
         return NSLocalizedString("alerttypesettingsview_overridemute", tableName: filename, bundle: Bundle.main, value: "Override Mute", comment: "when editing an alert type, field title for Override Mute")
     }()

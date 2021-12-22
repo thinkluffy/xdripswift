@@ -144,7 +144,7 @@ extension Calibrator {
             timeStampToUse = timeStamp
         }
         
-        let bgReading:BgReading = BgReading(
+        let bgReading = BgReading(
             timeStamp: timeStampToUse,
             sensor: sensor,
             calibration: lastCalibration,
@@ -179,7 +179,7 @@ extension Calibrator {
     ///     - lastBgReading: latest bgreading
     ///     - lastCalibrationsForActiveSensorInLastXDays: ... the latest calibrations in x days, in Spike/xdripplus it's 4. Order by timestamp, large to small, ie the first is the youngest
     ///     - firstCalibration: the very first calibration for the sensor
-    func createNewCalibration(bgValue:Double, lastBgReading:BgReading, sensor:Sensor, lastCalibrationsForActiveSensorInLastXDays:inout Array<Calibration>, firstCalibration:Calibration, deviceName:String?, nsManagedObjectContext:NSManagedObjectContext) -> Calibration {
+    func createNewCalibration(bgValue: Double, lastBgReading: BgReading, sensor: Sensor, lastCalibrationsForActiveSensorInLastXDays: inout Array<Calibration>, firstCalibration: Calibration, deviceName: String?, nsManagedObjectContext: NSManagedObjectContext) -> Calibration {
         let estimatedRawBg = getEstimatedRawBg(withTimeStamp: Date(), withLast1Reading: lastBgReading)
         
         let calibration = Calibration(timeStamp: Date(), sensor: sensor, bg: bgValue, rawValue: lastBgReading.rawData, adjustedRawValue: lastBgReading.ageAdjustedRawValue, sensorConfidence: max(((-0.0018 * bgValue * bgValue) + (0.6657 * bgValue) + 36.7505) / 100, 0), rawTimeStamp: lastBgReading.timeStamp, slope: 0.0, intercept: 0.0, distanceFromEstimate: abs(bgValue - lastBgReading.calculatedValue), estimateRawAtTimeOfCalibration: abs(estimatedRawBg - lastBgReading.ageAdjustedRawValue) > 20 ? lastBgReading.ageAdjustedRawValue : estimatedRawBg, slopeConfidence: min(max(((4 - abs((lastBgReading.calculatedValueSlope) * 60000))/4), 0), 1), deviceName:deviceName, nsManagedObjectContext: nsManagedObjectContext)
@@ -200,7 +200,7 @@ extension Calibrator {
     ///     - readingsToBeAdjusted: must be the latest readings
     ///     - calibrations: latest calibrations, timestamp large to small (ie young to old). There should be minimum 2 calibrations, if less then the function will not do anything.
     ///     - overwriteCalculatedValue: if true, then if calculatedValue of readingsToBeAdjusted will be overriden, if false, then only readingsToBeAdjusted with calculatedValue = 0.0 will be overwritten
-    private func adjustRecentBgReadings(readingsToBeAdjusted:inout Array<BgReading>, calibrations:inout Array<Calibration>, overwriteCalculatedValue:Bool) {
+    private func adjustRecentBgReadings(readingsToBeAdjusted: inout Array<BgReading>, calibrations: inout Array<Calibration>, overwriteCalculatedValue: Bool) {
         
         guard calibrations.count > 0 else {
            return
@@ -248,7 +248,7 @@ extension Calibrator {
     ///     - lastCalibrationsForActiveSensorInLastXDays :  result of call to getLatestCalibrations(howManyDays:4, forSensor: active sensor) - inout parameter to improve performance
     ///     - firstCalibration : result of call to Calibrations.firstCalibrationForActiveSensor
     ///     - lastCalibration : result of call to Calibrations.lastCalibrationForActiveSensor
-    private func rawValueOverride(for calibration:inout Calibration, rawValue:Double, lastCalibrationsForActiveSensorInLastXDays:inout Array<Calibration>, firstCalibration:Calibration, lastCalibration:Calibration) {
+    private func rawValueOverride(for calibration: inout Calibration, rawValue: Double, lastCalibrationsForActiveSensorInLastXDays: inout Array<Calibration>, firstCalibration: Calibration, lastCalibration: Calibration) {
         
         calibration.estimateRawAtTimeOfCalibration = rawValue
         calculateWLS(for: calibration, lastCalibrationsForActiveSensorInLastXDays: &lastCalibrationsForActiveSensorInLastXDays, firstCalibration: firstCalibration, lastCalibration: lastCalibration)
@@ -338,7 +338,7 @@ extension Calibrator {
     /// - parameters:
     ///     - calibration : calibration to check if it's in the list
     ///     - list : list to check
-    private func check(ifThisCalibration calibration:Calibration, isInThisList list:inout Array<Calibration>) {
+    private func check(ifThisCalibration calibration: Calibration, isInThisList list: inout Array<Calibration>) {
         loop1 : for (index, calibrationItem) in list.enumerated() {
             if calibration.timeStamp.toMillisecondsAsDouble() > calibrationItem.timeStamp.toMillisecondsAsDouble() {
                 list.insert(calibration, at: index)
@@ -356,7 +356,7 @@ extension Calibrator {
     /// - parameters:
     ///     - status : status
     ///     - calibrations : last 3 calibrations for the active sensor
-    private func slopeOOBHandler(withStatus status:Int, withLast3CalibrationsForActiveSensor calibrations:Array<Calibration>) -> Double {
+    private func slopeOOBHandler(withStatus status: Int, withLast3CalibrationsForActiveSensor calibrations: [Calibration]) -> Double {
         let thisCalibration:Calibration = calibrations[0]
         
         if status == 0 {

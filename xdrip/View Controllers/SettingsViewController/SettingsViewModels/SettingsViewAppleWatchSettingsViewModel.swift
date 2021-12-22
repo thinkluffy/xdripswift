@@ -216,7 +216,7 @@ class SettingsViewAppleWatchSettingsViewModel: SettingsViewModelProtocol {
                 
             case .denied:
                 // by clicking row, show info how to authorized
-                return SettingsSelectedRowAction.showInfoText(title: Texts_Common.warning, message: Texts_SettingsView.infoCalendarAccessDeniedByUser + " " + ConstantsHomeView.applicationName)
+                return SettingsSelectedRowAction.showInfoText(title: Texts_Common.warning, message: Texts_SettingsView.infoCalendarAccessDeniedByUser + " " + iOS.appDisplayName)
                 
             case .notDetermined, .authorized:
                 // if notDetermined or authorized, the uiview is shown, and app should only react on clicking the uiview, not the row

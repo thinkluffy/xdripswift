@@ -11,7 +11,7 @@ class NewAlertSettingsViewController: SubSettingsViewController {
     
     // MARK: - Properties
     
-    var alertSettingsViewControllerData:AlertSettingsViewControllerData!
+    var alertSettingsViewControllerData: AlertSettingsViewControllerData!
 
     @IBAction func doneButtonAction(_ sender: UIBarButtonItem) {
         

@@ -87,7 +87,7 @@ class BgReadingsAccessor {
     ///     Order by timestamp, descending meaning the reading at index 0 is the youngest
    func getLatestBgReadings(limit: Int?, fromDate: Date?, forSensor sensor: Sensor?, ignoreRawData: Bool, ignoreCalculatedValue: Bool) -> [BgReading] {
         
-        var returnValue:[BgReading] = []
+        var returnValue: [BgReading] = []
         
         let ignoreSensorId = sensor == nil ? true:false
         
@@ -145,15 +145,20 @@ class BgReadingsAccessor {
         
         // create predicate
         if let from = from, to == nil {
-            let predicate = NSPredicate(format: "timeStamp > %@", NSDate(timeIntervalSince1970: from.timeIntervalSince1970))
+            let predicate = NSPredicate(format: "timeStamp > %@ AND calculatedValue < %d",
+                                        NSDate(timeIntervalSince1970: from.timeIntervalSince1970),
+                                        Constants.maxBgMgDl)
             fetchRequest.predicate = predicate
             
         } else if let to = to, from == nil {
-            let predicate = NSPredicate(format: "timeStamp < %@", NSDate(timeIntervalSince1970: to.timeIntervalSince1970))
+            let predicate = NSPredicate(format: "timeStamp < %@ AND calculatedValue < %d", NSDate(timeIntervalSince1970: to.timeIntervalSince1970), Constants.maxBgMgDl)
             fetchRequest.predicate = predicate
             
         } else if let to = to, let from = from {
-            let predicate = NSPredicate(format: "timeStamp < %@ AND timeStamp > %@", NSDate(timeIntervalSince1970: to.timeIntervalSince1970), NSDate(timeIntervalSince1970: from.timeIntervalSince1970))
+            let predicate = NSPredicate(format: "timeStamp < %@ AND timeStamp > %@ AND calculatedValue < %d",
+                                        NSDate(timeIntervalSince1970: to.timeIntervalSince1970),
+                                        NSDate(timeIntervalSince1970: from.timeIntervalSince1970),
+                                        Constants.maxBgMgDl)
             fetchRequest.predicate = predicate
         }
         
@@ -184,44 +189,24 @@ class BgReadingsAccessor {
 
         // create predicate
         if let from = from, to == nil {
-            let predicate = NSPredicate(format: "timeStamp > %@", NSDate(timeIntervalSince1970: from.timeIntervalSince1970))
+            let predicate = NSPredicate(format: "timeStamp > %@ AND calculatedValue < %d",
+                                        NSDate(timeIntervalSince1970: from.timeIntervalSince1970),
+                                        Constants.maxBgMgDl)
             fetchRequest.predicate = predicate
 
         } else if let to = to, from == nil {
-            let predicate = NSPredicate(format: "timeStamp < %@", NSDate(timeIntervalSince1970: to.timeIntervalSince1970))
+            let predicate = NSPredicate(format: "timeStamp < %@ AND calculatedValue < %d",
+                                        NSDate(timeIntervalSince1970: to.timeIntervalSince1970),
+                                        Constants.maxBgMgDl)
             fetchRequest.predicate = predicate
 
         } else if let to = to, let from = from {
-            let predicate = NSPredicate(format: "timeStamp < %@ AND timeStamp > %@", NSDate(timeIntervalSince1970: to.timeIntervalSince1970), NSDate(timeIntervalSince1970: from.timeIntervalSince1970))
+            let predicate = NSPredicate(format: "timeStamp < %@ AND timeStamp > %@ AND calculatedValue < %d",
+                                        NSDate(timeIntervalSince1970: to.timeIntervalSince1970),
+                                        NSDate(timeIntervalSince1970: from.timeIntervalSince1970),
+                                        Constants.maxBgMgDl)
             fetchRequest.predicate = predicate
         }
-        
-//        DispatchQueue.global(qos: .userInteractive).async {
-//
-//            let moc = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-//            moc.parent = CoreDataManager.shared.privateManagedObjectContext
-//
-//            moc.perform {
-//                do {
-//                    let bgReadings = try fetchRequest.execute()
-//
-//                    DispatchQueue.main.async {
-//                        var ret = [BgReading]()
-//                        let mmoc = CoreDataManager.shared.mainManagedObjectContext
-//                        bgReadings.forEach { reading in
-//                            if let copy = mmoc.object(with: reading.objectID) as? BgReading {
-//                                ret.append(copy)
-//                            }
-//                        }
-//                        completion(ret)
-//                    }
-//
-//                } catch {
-//                    let fetchError = error as NSError
-//                    BgReadingsAccessor.log.e("in getBgReadings, Unable to Execute BgReading Fetch Request: \(fetchError.localizedDescription)")
-//                }
-//            }
-//        }
         
         let moc = CoreDataManager.shared.privateChildManagedObjectContext()
         moc.perform {
@@ -277,7 +262,9 @@ class BgReadingsAccessor {
         
         // if fromDate specified then create predicate
         if let fromDate = fromDate {
-            let predicate = NSPredicate(format: "timeStamp > %@", NSDate(timeIntervalSince1970: fromDate.timeIntervalSince1970))
+            let predicate = NSPredicate(format: "timeStamp > %@ AND calculatedValue < %d",
+                                        NSDate(timeIntervalSince1970: fromDate.timeIntervalSince1970),
+                                        Constants.maxBgMgDl)
             fetchRequest.predicate = predicate
         }
         

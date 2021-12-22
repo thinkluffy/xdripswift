@@ -19,10 +19,6 @@ class Texts_BluetoothPeripheralView {
     static let donotconnect: String = {
         return NSLocalizedString("donotconnect", tableName: filename, bundle: Bundle.main, value: "Stop Scanning", comment: "text in button top right, this button will disable automatic connect")
     }()
-    
-    static let confirmDeletionBluetoothPeripheral: String = {
-        return NSLocalizedString("confirmDeletionPeripheral", tableName: filename, bundle: Bundle.main, value: "Do you want to delete bluetooth device: ", comment: "Bluetooth Peripheral view, when user clicks the trash button - this is not the complete sentence, it will be followed by 'name'")
-    }()
 
     static let sensorSerialNumber: String = {
         return NSLocalizedString("SensorSerialNumber", tableName: filename, bundle: Bundle.main, value: "Sensor Serial Number:", comment: "BluetoothPeripheral view, text of the cell with the sensor serial number")

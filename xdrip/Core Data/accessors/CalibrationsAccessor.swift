@@ -124,12 +124,11 @@ class CalibrationsAccessor {
             // save changes to coredata
             do {
                 try managedObjectContext.save()
+                
             } catch {
                 trace("in delete calibration,  Unable to Save Changes, error.localizedDescription  = %{public}@", log: self.log, category: ConstantsLog.categoryApplicationDataCalibrations, type: .error, error.localizedDescription)
             }
-
         }
-                
     }
     
 

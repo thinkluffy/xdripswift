@@ -496,8 +496,8 @@ class BluetoothPeripheralViewController: UIViewController {
             UIApplication.shared.isIdleTimerDisabled = true
             
             // show info that user should keep the app in the foreground
-            self.infoAlertWhenScanningStarts = PopupDialog(title: Texts_HomeView.info,
-                                                           message: Texts_HomeView.startScanningInfo,
+            self.infoAlertWhenScanningStarts = PopupDialog(title: R.string.homeView.startScanningTitle(),
+                                                           message: R.string.homeView.startScanningInfo(iOS.appDisplayName),
                                                            actionTitle: R.string.common.common_Ok(),
                                                            actionHandler: nil)
             self.present(self.infoAlertWhenScanningStarts!, animated: true)
@@ -553,13 +553,12 @@ class BluetoothPeripheralViewController: UIViewController {
         // unwrap bluetoothPeripheralManager
         guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {return}
         
-        // textToAdd is either 'address' + the address, or 'alias' + the alias, depending if alias has a value
-        var textToAdd = Texts_BluetoothPeripheralView.address + " " + bluetoothPeripheral.blePeripheral.address
+        let textToAdd = Texts_BluetoothPeripheralView.address + ": " + bluetoothPeripheral.blePeripheral.address
         
         // first ask user if ok to delete and if yes delete
         let alert = PopupDialog(
-            title: Texts_BluetoothPeripheralView.confirmDeletionBluetoothPeripheral + " " + textToAdd + "?",
-            message: nil,
+            title: R.string.common.pleaseConfirm(),
+            message: R.string.bluetoothPeripheralView.confirmDeletionPeripheral() + "\n" + textToAdd,
             actionTitle: R.string.common.delete(),
             actionHandler: {
                 // delete
