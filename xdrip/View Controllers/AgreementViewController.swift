@@ -20,7 +20,7 @@ class AgreementViewController: UIViewController {
     
     private lazy var contentTextView: UITextView = {
         let textView = UITextView()
-        textView.backgroundColor = ConstantsUI.mainBackgroundColor
+        textView.backgroundColor = .clear
         textView.isSelectable = false
         
         let paraph = NSMutableParagraphStyle()
@@ -40,6 +40,8 @@ class AgreementViewController: UIViewController {
     private lazy var checkbox: Checkbox = {
         let checkbox = Checkbox()
         checkbox.isSelected = false
+        checkbox.text = R.string.common.btn_understand_and_agree()
+        checkbox.textColor = .white
         return checkbox
     }()
     
@@ -50,6 +52,7 @@ class AgreementViewController: UIViewController {
         button.titleFont = .systemFont(ofSize: 18)
         button.bgColor = ConstantsUI.accentRed
         button.cornerRadius = 5
+        button.isDisabled = true
         return button
     }()
     
@@ -67,7 +70,13 @@ class AgreementViewController: UIViewController {
         view.backgroundColor = ConstantsUI.mainBackgroundColor
 
         view.addSubview(disclaimerLabel)
-        view.addSubview(contentTextView)
+        
+        let wrapperView = UIView()
+        wrapperView.backgroundColor = ConstantsUI.contentBackgroundColor
+        
+        view.addSubview(wrapperView)
+        wrapperView.addSubview(contentTextView)
+        
         view.addSubview(checkbox)
         view.addSubview(startToUseButton)
         
@@ -76,16 +85,19 @@ class AgreementViewController: UIViewController {
             make.top.equalTo(view.layoutMarginsGuide).offset(20)
         }
         
-        contentTextView.snp.makeConstraints { make in
+        wrapperView.snp.makeConstraints { make in
             make.top.equalTo(disclaimerLabel.snp.bottom).offset(20)
-            make.leading.trailing.equalTo(view.layoutMarginsGuide).inset(10)
+            make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(checkbox.snp.top).offset(-10)
+        }
+        
+        contentTextView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(10)
         }
         
         checkbox.snp.makeConstraints { make in
             make.bottom.equalTo(startToUseButton.snp.top).offset(-10)
             make.centerX.equalToSuperview()
-            make.size.equalTo(20)
         }
         
         startToUseButton.snp.makeConstraints { make in
@@ -93,8 +105,8 @@ class AgreementViewController: UIViewController {
             make.leading.bottom.trailing.equalTo(view.layoutMarginsGuide).inset(10)
         }
 
-        checkbox.onSelectStateChagned() { [unowned self] checkbox, selected in
-            self.startToUseButton.isEnabled = selected
+        checkbox.onSelectionStateDidChange() { [unowned self] checkbox, isSelected in
+            self.startToUseButton.isDisabled = !isSelected
         }
         startToUseButton.addTarget(self, action: #selector(agreeButtonDidClick(_:)), for: .touchUpInside)
     }

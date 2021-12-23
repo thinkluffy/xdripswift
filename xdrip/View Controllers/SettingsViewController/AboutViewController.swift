@@ -119,7 +119,7 @@ class AboutViewController: LegacySubSettingsViewController {
                            didClick: {
                 [unowned self] operationCell, tableView, indexPath in
                 
-                if let url = URL(string: "https://baidu.com") {
+                if let url = URL(string: Constants.privacyPolicyUrl) {
                     let viewController = WebViewViewController(url: url, title: R.string.common.privacyPolicy())
                     navigationController?.pushViewController(viewController, animated: true)
                 }

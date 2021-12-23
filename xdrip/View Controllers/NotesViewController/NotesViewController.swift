@@ -139,14 +139,20 @@ extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
         let highlightColor: UIColor
 
         switch noteType {
+        case .urgentHigh, .high:
+            typeIcon = R.image.ic_bg_high()
+            
+        case .urgentLow, .low:
+            typeIcon = R.image.ic_bg_low()
+            
         case .fastDrop:
-            typeIcon = R.image.ic_fastdrop()?.withRenderingMode(.alwaysTemplate)
+            typeIcon = R.image.ic_fastdrop()
         
         case .fastRise:
-            typeIcon = R.image.ic_fastrise()?.withRenderingMode(.alwaysTemplate)
+            typeIcon = R.image.ic_fastrise()
 
         default:
-            typeIcon = R.image.ic_tab_bloodsugar_h()?.withRenderingMode(.alwaysTemplate)
+            typeIcon = R.image.ic_note_userinput()
         }
         
         switch noteType {
@@ -154,7 +160,8 @@ extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
             highlightColor = ConstantsGlucoseChart.glucoseUrgentRangeColor
 
         case .low, .high:
-            highlightColor = ConstantsGlucoseChart.glucoseNotUrgentRangeColor
+//            highlightColor = ConstantsGlucoseChart.glucoseNotUrgentRangeColor
+            highlightColor = .clear
 
         case .fastDrop:
             highlightColor = ConstantsGlucoseChart.glucoseUrgentRangeColor
@@ -169,9 +176,9 @@ extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
             highlightColor = ConstantsGlucoseChart.glucoseInRangeColor
         }
         
-        cell.colorBlock.backgroundColor = highlightColor
+        cell.backgroundColor = highlightColor.withAlphaComponent(0.15)
         cell.typeIconImageView.image = typeIcon
-        cell.tintColor = highlightColor
+//        cell.tintColor = highlightColor
         
         let isMgDl = UserDefaults.standard.bloodGlucoseUnitIsMgDl
         
@@ -244,10 +251,6 @@ fileprivate class NoteTableViewCell: UITableViewCell {
         UIImageView()
     }()
     
-    lazy var colorBlock: UIView = {
-        UIView()
-    }()
-    
     lazy var bgLabel: UILabel = {
         let label = UILabel()
         label.font = .monospacedDigitSystemFont(ofSize: 35, weight: .light)
@@ -289,22 +292,15 @@ fileprivate class NoteTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        contentView.addSubview(colorBlock)
         contentView.addSubview(typeIconImageView)
         contentView.addSubview(bgLabel)
         contentView.addSubview(slopeLabel)
         contentView.addSubview(bgUnitLabel)
         contentView.addSubview(contentLabel)
         contentView.addSubview(timeStampLabel)
-
-        colorBlock.snp.makeConstraints { make in
-            make.width.equalTo(5)
-            make.top.bottom.equalToSuperview().inset(1)
-            make.leading.equalToSuperview()
-        }
         
         typeIconImageView.snp.makeConstraints { make in
-            make.size.equalTo(20)
+            make.size.equalTo(25)
             make.leading.equalToSuperview().offset(15)
             make.centerY.equalToSuperview()
         }

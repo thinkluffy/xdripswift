@@ -8,122 +8,124 @@
 
 import UIKit
 
-@IBDesignable open class Checkbox: UIButton {
+@IBDesignable
+public class Checkbox: UIView {
 
-    /*
-    * Variable describes UICheckbox padding
-    */
-    @IBInspectable open var padding: CGFloat = CGFloat(15)
-
-   /*
-   * Variable describes UICheckbox border width
-   */
-    @IBInspectable open var borderWidth: CGFloat = 2.0 {
+    @IBInspectable
+    public var isSelected: Bool = false {
         didSet {
-            layer.borderWidth = borderWidth
+            if isSelected {
+                checkmark.image = selectedCheckmarkImage
+                
+            } else {
+                checkmark.image = notSelectedCheckmarkImage
+            }
         }
-    }
-
-    /*
-    * Variable stores UICheckbox border color
-    */
-    @IBInspectable open var borderColor: UIColor = UIColor.lightGray {
-        didSet {
-            layer.borderColor = borderColor.cgColor
-        }
-    }
-
-    /*
-    * Variable stores UICheckbox border radius
-    */
-    @IBInspectable open var cornerRadius: CGFloat = 5.0 {
-        didSet {
-            layer.cornerRadius = cornerRadius
-        }
-    }
-
-    /*
-    * Variable to store current UICheckbox select status
-    */
-    override open var isSelected: Bool {
-        didSet {
-            super.isSelected = isSelected
-            onSelectStateChangedCallback?(self, isSelected)
-        }
-    }
-
-    /*
-    * Callback for handling checkbox status change
-    */
-    private var onSelectStateChangedCallback: ((_ checkbox: Checkbox, _ selected: Bool) -> Void)?
-
-    open func onSelectStateChagned(_ onChagned: @escaping ((_ checkbox: Checkbox, _ selected: Bool) -> Void)) {
-        onSelectStateChangedCallback = onChagned
     }
     
-    // MARK: Init
-    /*
-    * Create a new instance of a UICheckbox
-    */
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        initDefaultParams()
-    }
-
-    /*
-    * Create a new instance of a UICheckbox
-    */
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        initDefaultParams()
+    @IBInspectable
+    public var text: String? {
+        didSet {
+            textLabel.text = text
+            invalidateIntrinsicContentSize()
+        }
     }
     
-    /*
-     * Increase UICheckbox 'clickability' area for better UX
-     */
-    override open func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+    @IBInspectable
+    public var textColor: UIColor = .darkText {
+        didSet {
+            textLabel.textColor = textColor
+        }
+    }
+    
+    @IBInspectable
+    public var textFont: UIFont = .systemFont(ofSize: 16) {
+        didSet {
+            textLabel.font = textFont
+            invalidateIntrinsicContentSize()
+        }
+    }
+    
+    @IBInspectable
+    public var checkmarkColor: UIColor = .white {
+        didSet {
+            checkmark.tintColor = checkmarkColor
+        }
+    }
+    
+    private lazy var checkmark: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = notSelectedCheckmarkImage
+        return imageView
+    }()
+    
+    private lazy var textLabel: UILabel = {
+        let label = UILabel()
+        label.font = textFont
+        label.textColor = textColor
+        return label
+    }()
+    
+    private lazy var selectedCheckmarkImage: UIImage? = {
+        UIImage(named: "ic_checkbox_h")
+    }()
+    
+    private lazy var notSelectedCheckmarkImage: UIImage? = {
+        UIImage(named: "ic_checkbox")
+    }()
+    
+    private var selectionStateDidChangeCallback: ((_ checkbox: Checkbox, _ newSelection: Bool) -> Void)?
+    
+    init() {
+        super.init(frame: .zero)
+        initialize()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        initialize()
+    }
+    
+    private func initialize() {
+        addSubview(checkmark)
+        addSubview(textLabel)
         
-        let newBound = CGRect(
-            x: self.bounds.origin.x - padding,
-            y: self.bounds.origin.y - padding,
-            width: self.bounds.width + 2 * padding,
-            height: self.bounds.width + 2 * padding
-        )
+        checkmark.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.size.equalTo(30)
+        }
         
-        return newBound.contains(point)
+        textLabel.snp.makeConstraints { make in
+            make.leading.equalTo(checkmark.snp.trailing).offset(10)
+            make.centerY.equalToSuperview()
+        }
+        
+        snp.makeConstraints { make in
+            make.leading.equalTo(checkmark)
+            make.trailing.equalTo(textLabel)
+            make.top.bottom.equalTo(checkmark)
+        }
+        
+        addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                    action: #selector(viewDidClick(tap:))))
     }
     
-    override open func prepareForInterfaceBuilder() {
-        setTitle("", for: UIControl.State())
+    public override var intrinsicContentSize: CGSize {
+        CGSize(width: checkmark.intrinsicContentSize.width + 10 + textLabel.intrinsicContentSize.width,
+               height: max(checkmark.intrinsicContentSize.height, textLabel.intrinsicContentSize.height))
     }
     
-}
-
-// MARK: Private methods
-public extension Checkbox {
-
-    fileprivate func initDefaultParams() {
-        addTarget(self, action: #selector(Checkbox.checkboxTapped), for: .touchUpInside)
-        setTitle(nil, for: UIControl.State())
-
-        clipsToBounds = true
-
-        setCheckboxImage()
+    public func onSelectionStateDidChange(_ selectionStateDidChangeCallback: @escaping (_ checkbox: Checkbox, _ newSelection: Bool) -> Void) {
+        self.selectionStateDidChangeCallback = selectionStateDidChangeCallback
     }
     
-    fileprivate func setCheckboxImage() {
-//        let frameworkBundle = Bundle(for: Checkbox.self)
-//        let bundleURL = frameworkBundle.resourceURL?.appendingPathComponent("UICheckbox.bundle")
-//        let resourceBundle = Bundle(url: bundleURL!)
-        let image = R.image.ic_check()
-        imageView?.contentMode = .scaleAspectFit
-
-        setImage(nil, for: UIControl.State())
-        setImage(image, for: .selected)
-        setImage(image, for: .highlighted)
-    }
-
-    @objc fileprivate func checkboxTapped(_ sender: Checkbox) {
+    @objc private func viewDidClick(tap: UITapGestureRecognizer) {
         isSelected = !isSelected
+        selectionStateDidChangeCallback?(self, isSelected)
+    }
+    
+    public override func prepareForInterfaceBuilder() {
+        initialize()
+        text = "Some cool text goes here"
     }
 }

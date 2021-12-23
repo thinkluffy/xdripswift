@@ -29,6 +29,8 @@ enum Constants {
     static let bgUnitMmol = "mmol/L"
     
     static let maxBgMgDl = 540 // 30 mmmol/L
+    
+    static let privacyPolicyUrl = "https://getcallapps.github.io/zdrip/privacy_policy"
 }
 
 

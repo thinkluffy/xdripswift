@@ -82,6 +82,7 @@
 		4EB0DE692772F35C00DBF7C1 /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB0DE682772F35C00DBF7C1 /* WebViewViewController.swift */; };
 		4EB0DE6B27735AC500DBF7C1 /* AgreementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB0DE6A27735AC500DBF7C1 /* AgreementViewController.swift */; };
 		4EB0DE6D277364D200DBF7C1 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB0DE6C277364D200DBF7C1 /* Checkbox.swift */; };
+		4EB0DE6F27744EB500DBF7C1 /* Common.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EB0DE6E27744EB500DBF7C1 /* Common.xcassets */; };
 		4EC48D0C2770599B00EEB0BA /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC48D0A2770599B00EEB0BA /* Note+CoreDataClass.swift */; };
 		4EC48D0D2770599B00EEB0BA /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC48D0B2770599B00EEB0BA /* Note+CoreDataProperties.swift */; };
 		4EC48D0F277059E600EEB0BA /* BgReading+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC48D0E277059E600EEB0BA /* BgReading+CoreDataProperties.swift */; };
@@ -734,6 +735,7 @@
 		4EB0DE682772F35C00DBF7C1 /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 		4EB0DE6A27735AC500DBF7C1 /* AgreementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementViewController.swift; sourceTree = "<group>"; };
 		4EB0DE6C277364D200DBF7C1 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
+		4EB0DE6E27744EB500DBF7C1 /* Common.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Common.xcassets; sourceTree = "<group>"; };
 		4EC48D0A2770599B00EEB0BA /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4EC48D0B2770599B00EEB0BA /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4EC48D0E277059E600EEB0BA /* BgReading+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BgReading+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -1554,6 +1556,7 @@
 				4E9D7984273BEC5500B666C5 /* PThreadReadWriteLock.swift */,
 				4E9D797E273BEC5500B666C5 /* Utils.swift */,
 				4E9D7981273BEC5500B666C5 /* VideoBuilder.swift */,
+				4EB0DE6E27744EB500DBF7C1 /* Common.xcassets */,
 			);
 			path = ThinkCommon;
 			sourceTree = "<group>";
@@ -3186,6 +3189,7 @@
 				F82437BC24CB7A9900BED341 /* Siri_Device_Muted.caf in Resources */,
 				F824377024CB7A9800BED341 /* Siri_Alert_Urgent_Low_Glucose.caf in Resources */,
 				F82437A824CB7A9900BED341 /* Sunny.caf in Resources */,
+				4EB0DE6F27744EB500DBF7C1 /* Common.xcassets in Resources */,
 				F8BDD448221C9D70006EAB84 /* ErrorMessages.strings in Resources */,
 				F82437CE24CB7A9900BED341 /* Cartoon_Ascend_Climb_Sneaky.caf in Resources */,
 				F824379F24CB7A9900BED341 /* Sci-Fi_Incoming_Message_Alert.caf in Resources */,

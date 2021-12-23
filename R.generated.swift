@@ -1295,7 +1295,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 28 images.
+  /// This `R.image` struct is generated, and contains static references to 36 images.
   struct image {
     /// Image `dexcomG5`.
     static let dexcomG5 = Rswift.ImageResource(bundle: R.hostingBundle, name: "dexcomG5")
@@ -1309,16 +1309,32 @@ struct R: Rswift.Validatable {
     static let ic_arrow_left = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_arrow_left")
     /// Image `ic_arrow_right`.
     static let ic_arrow_right = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_arrow_right")
+    /// Image `ic_bg_high`.
+    static let ic_bg_high = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_bg_high")
+    /// Image `ic_bg_low`.
+    static let ic_bg_low = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_bg_low")
     /// Image `ic_calibrate`.
     static let ic_calibrate = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_calibrate")
-    /// Image `ic_check`.
-    static let ic_check = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_check")
+    /// Image `ic_checkbox_h`.
+    static let ic_checkbox_h = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_checkbox_h")
+    /// Image `ic_checkbox`.
+    static let ic_checkbox = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_checkbox")
     /// Image `ic_clock`.
     static let ic_clock = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_clock")
+    /// Image `ic_edit`.
+    static let ic_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_edit")
     /// Image `ic_fastdrop`.
     static let ic_fastdrop = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_fastdrop")
     /// Image `ic_fastrise`.
     static let ic_fastrise = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_fastrise")
+    /// Image `ic_note_food`.
+    static let ic_note_food = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_note_food")
+    /// Image `ic_note_insulin`.
+    static let ic_note_insulin = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_note_insulin")
+    /// Image `ic_note_sport`.
+    static let ic_note_sport = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_note_sport")
+    /// Image `ic_note_userinput`.
+    static let ic_note_userinput = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_note_userinput")
     /// Image `ic_pushpin_lock`.
     static let ic_pushpin_lock = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_pushpin_lock")
     /// Image `ic_pushpin_unlock`.
@@ -1397,6 +1413,20 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_bg_high", bundle: ..., traitCollection: ...)`
+    static func ic_bg_high(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_bg_high, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_bg_low", bundle: ..., traitCollection: ...)`
+    static func ic_bg_low(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_bg_low, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "ic_calibrate", bundle: ..., traitCollection: ...)`
     static func ic_calibrate(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ic_calibrate, compatibleWith: traitCollection)
@@ -1404,9 +1434,16 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_check", bundle: ..., traitCollection: ...)`
-    static func ic_check(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_check, compatibleWith: traitCollection)
+    /// `UIImage(named: "ic_checkbox", bundle: ..., traitCollection: ...)`
+    static func ic_checkbox(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_checkbox, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_checkbox_h", bundle: ..., traitCollection: ...)`
+    static func ic_checkbox_h(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_checkbox_h, compatibleWith: traitCollection)
     }
     #endif
 
@@ -1414,6 +1451,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ic_clock", bundle: ..., traitCollection: ...)`
     static func ic_clock(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ic_clock, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_edit", bundle: ..., traitCollection: ...)`
+    static func ic_edit(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_edit, compatibleWith: traitCollection)
     }
     #endif
 
@@ -1428,6 +1472,34 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ic_fastrise", bundle: ..., traitCollection: ...)`
     static func ic_fastrise(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ic_fastrise, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_note_food", bundle: ..., traitCollection: ...)`
+    static func ic_note_food(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_note_food, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_note_insulin", bundle: ..., traitCollection: ...)`
+    static func ic_note_insulin(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_note_insulin, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_note_sport", bundle: ..., traitCollection: ...)`
+    static func ic_note_sport(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_note_sport, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_note_userinput", bundle: ..., traitCollection: ...)`
+    static func ic_note_userinput(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_note_userinput, compatibleWith: traitCollection)
     }
     #endif
 
@@ -2962,7 +3034,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.common` struct is generated, and contains static references to 59 localization keys.
+    /// This `R.string.common` struct is generated, and contains static references to 60 localization keys.
     struct common {
       /// en translation: %@ must not be used to make medical decisions. It is a research and education tool only and is provided as-is without warranty of any kind, either expressed or implied, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose. The entire risk as to the quality and performance of the program is with you. Should the program prove defective, you assume the cost of all necessary servicing, repair, or correction.
       ///
@@ -3052,6 +3124,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static let common_statistics_high = Rswift.StringResource(key: "common_statistics_high", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fi", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// en translation: I understand and agree
+      ///
+      /// Locales: en, zh
+      static let btn_understand_and_agree = Rswift.StringResource(key: "btn_understand_and_agree", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: In Range
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
@@ -3535,6 +3611,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("common_statistics_high", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: I understand and agree
+      ///
+      /// Locales: en, zh
+      static func btn_understand_and_agree(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("btn_understand_and_agree", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "btn_understand_and_agree"
+        }
+
+        return NSLocalizedString("btn_understand_and_agree", tableName: "Common", bundle: bundle, comment: "")
       }
 
       /// en translation: In Range

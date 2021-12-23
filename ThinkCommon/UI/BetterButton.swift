@@ -56,7 +56,17 @@ public class BetterButton: UIControl {
     
     public var titleColor: UIColor = .white {
         didSet {
-            titleLabel.textColor = titleColor
+            if !isDisabled {
+                titleLabel.textColor = titleColor
+            }
+        }
+    }
+    
+    public var titleColorWhenDisabled: UIColor = .darkText {
+        didSet {
+            if isDisabled {
+                titleLabel.textColor = titleColor
+            }
         }
     }
     
@@ -114,10 +124,12 @@ public class BetterButton: UIControl {
         didSet {
             if isDisabled {
                 contentView.backgroundColor = .rgba(224, 224, 224)
+                titleLabel.textColor = titleColorWhenDisabled
                 isUserInteractionEnabled = false
                 
             } else {
                 contentView.backgroundColor = _bgColor
+                titleLabel.textColor = titleColor
                 isUserInteractionEnabled = true
             }
         }
