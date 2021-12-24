@@ -1600,22 +1600,6 @@
 			path = MVP;
 			sourceTree = "<group>";
 		};
-		4EB0DE762775CF6000DBF7C1 /* BluetoothPeripheralsNavigationController */ = {
-			isa = PBXGroup;
-			children = (
-				4EB0DE772775CF6000DBF7C1 /* BluetoothPeripheralsViewController */,
-			);
-			path = BluetoothPeripheralsNavigationController;
-			sourceTree = "<group>";
-		};
-		4EB0DE772775CF6000DBF7C1 /* BluetoothPeripheralsViewController */ = {
-			isa = PBXGroup;
-			children = (
-				4EB0DE782775CF6000DBF7C1 /* BluetoothPeripheralViewController */,
-			);
-			path = BluetoothPeripheralsViewController;
-			sourceTree = "<group>";
-		};
 		4EB0DE782775CF6000DBF7C1 /* BluetoothPeripheralViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2130,12 +2114,12 @@
 		F85DC2FA21D2CD3000B9F74A /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4EB0DE762775CF6000DBF7C1 /* BluetoothPeripheralsNavigationController */,
 				4E1CFF33274E475A0020F0F1 /* InitViewController.swift */,
 				4EB0DE6A27735AC500DBF7C1 /* AgreementViewController.swift */,
 				4EE66F122735064E00548A46 /* MainTabBarController.swift */,
 				F8B3A806227A28F9004BA588 /* Helpers */,
 				F8025E5921F7861200ECF0C0 /* RootViewController */,
+				4EB0DE782775CF6000DBF7C1 /* BluetoothPeripheralViewController */,
 				4E16CB57276B85D800A8A79E /* NotesViewController */,
 				F8B3A836227F090D004BA588 /* SettingsViewController */,
 				4E9D7977273A983600B666C5 /* ChartDetailsViewController.swift */,
