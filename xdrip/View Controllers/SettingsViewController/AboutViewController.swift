@@ -85,8 +85,12 @@ class AboutViewController: LegacySubSettingsViewController {
             .configure(titleTextColor: ConstantsUI.tableTitleColor,
                        detailTextColor: ConstantsUI.tableDetailTextColor,
                        sectionHeaderColor: ConstantsUI.tableViewHeaderTextColor)
-            
-            .operationCell(title: R.string.settingsViews.settingsviews_Version(), detailedText: iOS.appVersionName)
+        
+#if DEBUG
+            .operationCell(title: R.string.settingsViews.settingsviews_Version(), detailedText: "v\(iOS.appVersionName)-DEBUG")
+#else
+            .operationCell(title: R.string.settingsViews.settingsviews_Version(), detailedText: "v\(iOS.appVersionName)")
+#endif
             .operationCell(title: R.string.settingsViews.settingsviews_build(), detailedText: "\(iOS.appVersionCode)", didClick: { [unowned self] operationCell, tableView, indexPath in
                 
                 guard !UserDefaults.standard.isFullFeatureMode else {

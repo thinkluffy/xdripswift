@@ -95,6 +95,17 @@ class DeveloperViewController: UIViewController {
                 alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 self.present(alert, animated: true)
             })
+            .operationCell(title: "Reset Agreement", didClick: {
+                [unowned self] operationCell, tableView, indexPath in
+                
+                let alert = UIAlertController(title: "Reset Agreement", message: "Sure to reset?", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Reset", style: .destructive, handler: { action in
+                    UserDefaults.standard.isAgreementAgreed = false
+                    self.navigationController?.view.makeToast("Agreement has been reset", duration: 2.0, position: .bottom)
+                }))
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                self.present(alert, animated: true)
+            })
             .build()
         
         tableView.delegate = tableData

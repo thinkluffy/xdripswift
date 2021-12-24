@@ -200,15 +200,21 @@ public enum AlertKind: Int, CaseIterable {
                     // first check if lastBgReading not nil and calculatedValue > 0.0, never know that it's not been checked by caller
                     if lastBgReading.calculatedValue == 0.0 {return (false, nil, nil, nil)}
                     // now do the actual check if alert is applicable or not
-                    if lastBgReading.calculatedValue.bgValueRounded(mgdl: isMg) < Double(currentAlertEntry.value).bgValueRounded(mgdl: isMg) {
+                    if lastBgReading.calculatedValue <= Double(currentAlertEntry.value) {
                         return (
                             true,
                             lastBgReading.unitizedDeltaString(previousBgReading: lastButOneBgReading, showUnit: true,  mgdl: isMg),
                             createAlertTitleForBgReadingAlerts(bgReading: lastBgReading, alertKind: self),
                             nil
                         )
-                    } else {return (false, nil, nil, nil)}
-                } else {return (false, nil, nil, nil)}
+                        
+                    } else {
+                        return (false, nil, nil, nil)
+                    }
+                    
+                } else {
+                    return (false, nil, nil, nil)
+                }
             
         case .high,.veryhigh:
                 // if alertEntry not enabled, return false
@@ -218,15 +224,21 @@ public enum AlertKind: Int, CaseIterable {
                     // first check if calculatedValue > 0.0, never know that it's not been checked by caller
                     if lastBgReading.calculatedValue == 0.0 {return (false, nil, nil, nil)}
                     // now do the actual check if alert is applicable or not
-                    if lastBgReading.calculatedValue.bgValueRounded(mgdl: isMg) > Double(currentAlertEntry.value).bgValueRounded(mgdl: isMg) {
+                    if lastBgReading.calculatedValue >= Double(currentAlertEntry.value) {
                         return (
                             true,
                             lastBgReading.unitizedDeltaStringPerMin(withSlope: lastBgReading.calculatedValueSlope, showUnit: true,  mgdl: isMg),
                             createAlertTitleForBgReadingAlerts(bgReading: lastBgReading, alertKind: self),
                             nil
                         )
-                    } else {return (false, nil, nil, nil)}
-                } else {return (false, nil, nil, nil)}
+                        
+                    } else {
+                        return (false, nil, nil, nil)
+                    }
+                    
+                } else {
+                    return (false, nil, nil, nil)
+                }
             
         case .fastdrop:
             // if alertEntry not enabled, return false

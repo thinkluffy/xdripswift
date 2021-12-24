@@ -982,17 +982,30 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
             switch setting {
                 
             case .address:
-                guard let bluetoothPeripheral = bluetoothPeripheral else {return}
+                guard let bluetoothPeripheral = bluetoothPeripheral else {
+                    return
+                }
                 
-                let alert = PopupDialog(title: Texts_BluetoothPeripheralView.address,
+                let dialog = PopupDialog(title: Texts_BluetoothPeripheralView.address,
                                         message: bluetoothPeripheral.blePeripheral.address,
                                         actionTitle: R.string.common.common_Ok(),
                                         actionHandler: nil)
                 
-                // present the alert
-                self.present(alert, animated: true, completion: nil)
+                self.present(dialog, animated: true)
                 
-            case .name, .connectionStatus:
+            case .name:
+                guard let bluetoothPeripheral = bluetoothPeripheral else {
+                    return
+                }
+
+                let dialog = PopupDialog(title: R.string.common.name(),
+                                        message: bluetoothPeripheral.blePeripheral.name,
+                                        actionTitle: R.string.common.common_Ok(),
+                                        actionHandler: nil)
+                
+                self.present(dialog, animated: true)
+                
+            case .connectionStatus:
                 break
         
             case .connectOrDisconnectTimeStamp:
