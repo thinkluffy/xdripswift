@@ -36,7 +36,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NFCReaderUsageDescription</key>
-	<string>xDrip4iO5 uses NFC to scan Libre sensors.</string>
+	<string>zDrip uses NFC to scan Libre sensors.</string>
 	<key>NSAppTransportSecurity</key>
 	<dict/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
