@@ -23,7 +23,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f8c-za-Ywc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="747" y="-861"/>
+            <point key="canvasLocation" x="847" y="-288"/>
         </scene>
         <!--Root View Controller-->
         <scene sceneID="hNz-n2-bh7">
@@ -283,7 +283,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1607.9439252336447" y="-861.12311015118792"/>
+            <point key="canvasLocation" x="1709" y="-288"/>
         </scene>
         <!--Snooze View Controller-->
         <scene sceneID="m7D-YP-6gx">
@@ -353,7 +353,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lDU-f7-mwF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2431" y="-861"/>
+            <point key="canvasLocation" x="847" y="-965"/>
         </scene>
         <!--Chart Details View Controller-->
         <scene sceneID="fuN-Ta-fCp">
@@ -452,7 +452,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cGQ-yy-XSU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2430.8411214953271" y="-1556.3714902807776"/>
+            <point key="canvasLocation" x="3074" y="-288"/>
         </scene>
         <!--Total Alert Settings View Controller-->
         <scene sceneID="zTg-0K-ghp">
@@ -556,30 +556,6 @@
             </objects>
             <point key="canvasLocation" x="-698" y="1287"/>
         </scene>
-        <!--Bluetooth Peripheral Navigation Controller-->
-        <scene sceneID="H1e-vw-iaX">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FwD-2z-GTm" userLabel="Bluetooth Peripheral Navigation Controller" customClass="BluetoothPeripheralNavigationController" customModule="xdrip" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="ic_tab_bluetooth" selectedImage="ic_tab_bluetooth_h" id="sgT-p5-hUt"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="mye-hD-w2u">
-                        <rect key="frame" x="0.0" y="44" width="428" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" red="0.13333333333333333" green="0.15294117647058825" blue="0.28235294117647058" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </textAttributes>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="E45-Z1-hcE" kind="relationship" relationship="rootViewController" id="T8s-QM-PHX"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jbk-qM-hX3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="746" y="-155"/>
-        </scene>
         <!--Alerts Settings View Controller-->
         <scene sceneID="cJz-P0-7kQ">
             <objects>
@@ -640,72 +616,6 @@
             </objects>
             <point key="canvasLocation" x="3142" y="581"/>
         </scene>
-        <!--Bluetooth Peripherals View Controller-->
-        <scene sceneID="0Ef-2k-ynF">
-            <objects>
-                <viewController id="E45-Z1-hcE" userLabel="Bluetooth Peripherals View Controller" customClass="BluetoothPeripheralsViewController" customModule="xdrip" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="i06-al-mW1">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="843"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="dMM-nl-Zfn">
-                                <rect key="frame" x="0.0" y="88" width="428" height="755"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SettingsCell" textLabel="0QS-QO-ffs" detailTextLabel="Mfz-72-6g0" style="IBUITableViewCellStyleValue1" id="FCD-AT-hwi">
-                                        <rect key="frame" x="20" y="49" width="388" height="43.666667938232422"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FCD-AT-hwi" id="FU1-LI-A2c">
-                                            <rect key="frame" x="0.0" y="0.0" width="388" height="43.666667938232422"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0QS-QO-ffs">
-                                                    <rect key="frame" x="20" y="11.999999999999998" width="33" height="20.333333333333332"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Mfz-72-6g0">
-                                                    <rect key="frame" x="324.33333333333331" y="11.999999999999998" width="43.666666666666664" height="20.333333333333332"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.078431372550000003" green="0.094117647060000004" blue="0.19215686269999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="EvW-JA-i05"/>
-                        <color key="backgroundColor" red="0.1333333333" green="0.1529411765" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="dMM-nl-Zfn" firstAttribute="top" secondItem="EvW-JA-i05" secondAttribute="top" id="29Q-kv-s6U"/>
-                            <constraint firstItem="EvW-JA-i05" firstAttribute="trailing" secondItem="dMM-nl-Zfn" secondAttribute="trailing" id="RW4-82-iS1"/>
-                            <constraint firstItem="EvW-JA-i05" firstAttribute="bottom" secondItem="dMM-nl-Zfn" secondAttribute="bottom" id="eJN-bF-vxa"/>
-                            <constraint firstItem="dMM-nl-Zfn" firstAttribute="leading" secondItem="EvW-JA-i05" secondAttribute="leading" id="tBD-7H-z2z"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="IRh-fS-FQG">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Vzx-sW-4v4">
-                            <color key="tintColor" red="0.91764705882352937" green="0.1764705882352941" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="addButtonAction:" destination="E45-Z1-hcE" id="FHj-U1-3eb"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="tableView" destination="dMM-nl-Zfn" id="Z76-9m-jPM"/>
-                        <segue destination="FJ0-eY-Fv0" kind="show" identifier="BluetoothPeripheral" id="BEa-Az-mem"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ajO-AG-xfd" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1541" y="-155"/>
-        </scene>
         <!--Bluetooth Peripheral View Controller-->
         <scene sceneID="fw3-II-GI1">
             <objects>
@@ -715,7 +625,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YwN-xa-EuO" customClass="BluetoothPeripheralImageView" customModule="xdrip" customModuleProvider="target">
-                                <rect key="frame" x="114" y="98" width="200" height="200"/>
+                                <rect key="frame" x="114" y="54" width="200" height="200"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="Ai3-Qc-hsj"/>
@@ -723,7 +633,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WtR-0P-RyL">
-                                <rect key="frame" x="20" y="270" width="78" height="38"/>
+                                <rect key="frame" x="20" y="226" width="78" height="38"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <state key="normal" title="Connect">
                                     <color key="titleColor" red="0.91764705882352937" green="0.1764705882352941" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -733,7 +643,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="82M-Ti-NV0">
-                                <rect key="frame" x="0.0" y="308" width="428" height="584"/>
+                                <rect key="frame" x="0.0" y="264" width="428" height="628"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SettingsCell" textLabel="vbi-WE-Mvc" detailTextLabel="N1U-VA-CRw" style="IBUITableViewCellStyleValue1" id="dpi-qU-2Va">
@@ -795,7 +705,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kwG-Zz-t1q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2341.1214953271028" y="-155.50755939524839"/>
+            <point key="canvasLocation" x="1709" y="-965"/>
         </scene>
         <!--Alert Settings View Controller-->
         <scene sceneID="sgW-JX-gdP">
@@ -1081,7 +991,6 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="cIX-mq-aLa" kind="relationship" relationship="viewControllers" id="llU-Ln-w7D"/>
-                        <segue destination="FwD-2z-GTm" kind="relationship" relationship="viewControllers" id="aWk-QN-f3h"/>
                         <segue destination="ldV-pU-RVf" kind="relationship" relationship="viewControllers" id="Mk5-7F-e9a"/>
                         <segue destination="dyf-bd-1WE" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                     </connections>
@@ -1298,8 +1207,6 @@
         <image name="ic_statistics" width="24" height="24"/>
         <image name="ic_tab_bloodsugar" width="24" height="24"/>
         <image name="ic_tab_bloodsugar_h" width="24" height="24"/>
-        <image name="ic_tab_bluetooth" width="24" height="24"/>
-        <image name="ic_tab_bluetooth_h" width="24" height="24"/>
         <image name="ic_tab_notes" width="24" height="24"/>
         <image name="ic_tab_notes_h" width="24" height="24"/>
         <image name="ic_tab_settings" width="24" height="24"/>

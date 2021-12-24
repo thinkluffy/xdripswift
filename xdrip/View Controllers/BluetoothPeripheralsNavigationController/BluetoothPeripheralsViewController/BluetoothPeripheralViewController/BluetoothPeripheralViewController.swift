@@ -592,12 +592,6 @@ class BluetoothPeripheralViewController: UIViewController {
                 setShouldConnectToFalse(for: bluetoothPeripheral)
                 
             } else {
-                // check if it's a CGM being activated and if so that there's no other cgm which has shouldconnect = true
-                if expectedBluetoothPeripheralType.category() == .CGM, BluetoothPeripheralsViewController.self.otherCGMTransmitterHasShouldConnectTrue(bluetoothPeripheralManager: self.bluetoothPeripheralManager, uiViewController: self) {
-                    
-                    return
-                }
-                
                 // check if it's a CGM being activated and if so that app is in master mode
                 if expectedBluetoothPeripheralType.category() == .CGM, !UserDefaults.standard.isMaster {
                     self.present(PopupDialog(title: Texts_Common.warning,

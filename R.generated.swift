@@ -89,7 +89,7 @@ struct R: Rswift.Validatable {
   }
 
   #if os(iOS) || os(tvOS)
-  /// This `R.segue` struct is generated, and contains static references to 8 view controllers.
+  /// This `R.segue` struct is generated, and contains static references to 7 view controllers.
   struct segue {
     /// This struct is generated for `AlertSettingsViewController`, and contains static references to 2 segues.
     struct alertSettingsViewController {
@@ -164,23 +164,6 @@ struct R: Rswift.Validatable {
       /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
       static func alertsToAlertSettings(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, xdrip.AlertsSettingsViewController, AlertSettingsViewController>? {
         return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.xdripAlertsSettingsViewController.alertsToAlertSettings, segue: segue)
-      }
-      #endif
-
-      fileprivate init() {}
-    }
-
-    /// This struct is generated for `BluetoothPeripheralsViewController`, and contains static references to 1 segues.
-    struct bluetoothPeripheralsViewController {
-      /// Segue identifier `BluetoothPeripheral`.
-      static let bluetoothPeripheral: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, BluetoothPeripheralsViewController, BluetoothPeripheralViewController> = Rswift.StoryboardSegueIdentifier(identifier: "BluetoothPeripheral")
-
-      #if os(iOS) || os(tvOS)
-      /// Optionally returns a typed version of segue `BluetoothPeripheral`.
-      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
-      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      static func bluetoothPeripheral(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, BluetoothPeripheralsViewController, BluetoothPeripheralViewController>? {
-        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.bluetoothPeripheralsViewController.bluetoothPeripheral, segue: segue)
       }
       #endif
 
@@ -1303,7 +1286,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 36 images.
+  /// This `R.image` struct is generated, and contains static references to 34 images.
   struct image {
     /// Image `dexcomG5`.
     static let dexcomG5 = Rswift.ImageResource(bundle: R.hostingBundle, name: "dexcomG5")
@@ -1359,10 +1342,6 @@ struct R: Rswift.Validatable {
     static let ic_tab_bloodsugar_h = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_bloodsugar_h")
     /// Image `ic_tab_bloodsugar`.
     static let ic_tab_bloodsugar = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_bloodsugar")
-    /// Image `ic_tab_bluetooth_h`.
-    static let ic_tab_bluetooth_h = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_bluetooth_h")
-    /// Image `ic_tab_bluetooth`.
-    static let ic_tab_bluetooth = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_bluetooth")
     /// Image `ic_tab_notes_h`.
     static let ic_tab_notes_h = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_notes_h")
     /// Image `ic_tab_notes`.
@@ -1564,20 +1543,6 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ic_tab_bloodsugar_h", bundle: ..., traitCollection: ...)`
     static func ic_tab_bloodsugar_h(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ic_tab_bloodsugar_h, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_tab_bluetooth", bundle: ..., traitCollection: ...)`
-    static func ic_tab_bluetooth(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_tab_bluetooth, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_tab_bluetooth_h", bundle: ..., traitCollection: ...)`
-    static func ic_tab_bluetooth_h(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_tab_bluetooth_h, compatibleWith: traitCollection)
     }
     #endif
 
@@ -8636,8 +8601,6 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "ic_statistics", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_statistics' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_bloodsugar", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_bloodsugar' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_bloodsugar_h", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_bloodsugar_h' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ic_tab_bluetooth", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_bluetooth' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ic_tab_bluetooth_h", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_bluetooth_h' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_notes", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_notes' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_notes_h", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_notes_h' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_settings", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_settings' is used in storyboard 'Main', but couldn't be loaded.") }

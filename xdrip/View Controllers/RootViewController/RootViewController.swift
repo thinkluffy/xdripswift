@@ -8,6 +8,7 @@ import AVFoundation
 import PieCharts
 import Charts
 import PopupDialog
+import FirebasePerformance
 
 /// viewcontroller for the home screen
 final class RootViewController: UIViewController {
@@ -296,9 +297,6 @@ final class RootViewController: UIViewController {
             }
         }
         
-        // setup self as delegate for tabbarcontroller
-        tabBarController?.delegate = self
-        
         // setup the timer logic for updating the view regularly
         setupUpdateLabelsAndChartTimer()
         
@@ -396,6 +394,12 @@ final class RootViewController: UIViewController {
     ///     - glucoseData : array with new readings
     ///     - sensorTimeInMinutes : should be present only if it's the first reading(s) being processed for a specific sensor and is needed if it's a transmitterType that returns true to the function canDetectNewSensor
     private func processNewGlucoseData(glucoseData: inout [GlucoseData], sensorTimeInMinutes: Int?) {
+        let performanceTrace = Performance.startTrace(name: PerformanceTraceName.processNewGlucoseData)
+
+        defer {
+            performanceTrace?.stop()
+        }
+        
         // unwrap calibrationsAccessor and coreDataManager and cgmTransmitter
         guard let cgmTransmitter = bluetoothPeripheralManager?.getCGMTransmitter() else {
             RootViewController.log.e("in processNewGlucoseData, calibrationsAccessor or coreDataManager or cgmTransmitter is nil")
@@ -1483,20 +1487,6 @@ extension RootViewController: CGMTransmitterDelegate {
                                 actionHandler: nil)
         
         present(alert, animated: true, completion: nil)
-    }
-}
-
-// MARK: - conform to UITabBarControllerDelegate protocol
-
-/// conform to UITabBarControllerDelegate, want to receive info when user clicks specific tabs
-extension RootViewController: UITabBarControllerDelegate {
-    
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        // check which tab is being clicked
-        if let navigationController = viewController as? BluetoothPeripheralNavigationController,
-            let bluetoothPeripheralManager = bluetoothPeripheralManager {
-            navigationController.configure(bluetoothPeripheralManager: bluetoothPeripheralManager)
-        }
     }
 }
 

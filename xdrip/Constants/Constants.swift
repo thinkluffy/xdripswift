@@ -38,3 +38,8 @@ enum EventBusEvents {
     
     static let newNote = "newNote"
 }
+
+enum PerformanceTraceName {
+    
+    static let processNewGlucoseData = "ProcessNewGlucoseData"
+}
