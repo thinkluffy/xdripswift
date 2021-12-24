@@ -46,12 +46,8 @@ class MoreSettingsViewController: SubSettingsViewController {
                        sectionHeaderColor: ConstantsUI.tableViewHeaderTextColor)
             
             // developer
-            .section(headerTitle: R.string.settingsViews.developerSettings())
-            .toggleCell(title: R.string.settingsViews.nslog(), isOn: UserDefaults.standard.NSLogEnabled, toggleDidChange: { from, to in
-                UserDefaults.standard.NSLogEnabled = to
-            })
-            .toggleCell(title: R.string.settingsViews.oslog(), isOn: UserDefaults.standard.OSLogEnabled, toggleDidChange: { from, to in
-                UserDefaults.standard.OSLogEnabled = to
+            .toggleCell(title: "Log", isOn: UserDefaults.standard.LogEnabled, toggleDidChange: { from, to in
+                UserDefaults.standard.LogEnabled = to
                 if to {
                     Log.level = Log.Level.verbose
                     

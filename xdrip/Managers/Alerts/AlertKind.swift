@@ -185,7 +185,7 @@ public enum AlertKind: Int, CaseIterable {
     ///     - alertbody : AlertBody, AlertTitle and delay are used if an alert needs to be raised for the notification.
     ///     - alerttitle : AlertBody, AlertTitle and delay are used if an alert needs to be raised for the notification.
     ///     - delayInSeconds : If delayInSeconds not nil and > 0 or if delayInSeconds is nil, then the alert will be a future planned Alert. This will only be applicable to missed reading alerts.
-    func alertNeeded(currentAlertEntry: AlertEntry, nextAlertEntry: AlertEntry?, lastBgReading: BgReading?, _ lastButOneBgReading: BgReading?, lastCalibration: Calibration?, transmitterBatteryInfo: TransmitterBatteryInfo?) -> (alertNeeded: Bool, alertBody: String?, alertTitle: String?, delayInSeconds: Int?) {
+    func alertNeeded(currentAlertEntry: AlertEntry, nextAlertEntry: AlertEntry?, lastBgReading: BgReading?, lastButOneBgReading: BgReading?, lastCalibration: Calibration?, transmitterBatteryInfo: TransmitterBatteryInfo?) -> (alertNeeded: Bool, alertBody: String?, alertTitle: String?, delayInSeconds: Int?) {
         
         let isMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
         
@@ -221,7 +221,7 @@ public enum AlertKind: Int, CaseIterable {
                     if lastBgReading.calculatedValue.bgValueRounded(mgdl: isMg) > Double(currentAlertEntry.value).bgValueRounded(mgdl: isMg) {
                         return (
                             true,
-                            lastBgReading.unitizedDeltaString(previousBgReading: lastButOneBgReading, showUnit: true,  mgdl: isMg),
+                            lastBgReading.unitizedDeltaStringPerMin(withSlope: lastBgReading.calculatedValueSlope, showUnit: true,  mgdl: isMg),
                             createAlertTitleForBgReadingAlerts(bgReading: lastBgReading, alertKind: self),
                             nil
                         )
@@ -229,57 +229,83 @@ public enum AlertKind: Int, CaseIterable {
                 } else {return (false, nil, nil, nil)}
             
         case .fastdrop:
-                // if alertEntry not enabled, return false
-                if !currentAlertEntry.alertType.enabled {return (false, nil, nil, nil)}
+            // if alertEntry not enabled, return false
+            guard currentAlertEntry.alertType.enabled, let lastBgReading = lastBgReading else {
+                return (false, nil, nil, nil)
+            }
+            
+            if !lastBgReading.hideSlope && lastBgReading.calculatedValue != 0 &&
+                (lastBgReading.slopArrow == .doubleDown || lastBgReading.slopArrow == .singleDown) {
+                return (
+                    true,
+                    lastBgReading.unitizedDeltaStringPerMin(withSlope: lastBgReading.calculatedValueSlope, showUnit: true, mgdl: isMg),
+                    createAlertTitleForBgReadingAlerts(bgReading: lastBgReading, alertKind: self),
+                    nil
+                )
+            }
+            return (false, nil, nil, nil)
 
-                if let lastBgReading = lastBgReading, let lastButOneBgReading = lastButOneBgReading {
-                    
-                    // lastbut one reading and last reading shoud be maximum 5 minutes apart
-                    if (lastBgReading.timeStamp.timeIntervalSince(lastButOneBgReading.timeStamp)) < 5 * 60 {
-                        
-                        // first check if calculatedValue > 0.0, never know that it's not been checked by caller
-                        if lastBgReading.calculatedValue == 0.0 || lastButOneBgReading.calculatedValue == 0.0 {return (false, nil, nil, nil)}
-                        // now do the actual check if alert is applicable or not
-                        if lastButOneBgReading.calculatedValue.bgValueRounded(mgdl: isMg) - lastBgReading.calculatedValue.bgValueRounded(mgdl: isMg) > Double(currentAlertEntry.value).bgValueRounded(mgdl: isMg) {
-                            return (
-                                true,
-                                lastBgReading.unitizedDeltaString(previousBgReading: lastButOneBgReading, showUnit: true, mgdl: isMg),
-                                createAlertTitleForBgReadingAlerts(bgReading: lastBgReading, alertKind: self),
-                                nil
-                            )
-                        } else {return (false, nil, nil, nil)}
-
-                    } else {return (false, nil, nil, nil)}
-                    
-                } else {return (false, nil, nil, nil)}
+//            if let lastBgReading = lastBgReading, let lastButOneBgReading = lastButOneBgReading {
+//
+//                // lastbut one reading and last reading shoud be maximum 5 minutes apart
+//                if (lastBgReading.timeStamp.timeIntervalSince(lastButOneBgReading.timeStamp)) < 5 * 60 {
+//
+//                    // first check if calculatedValue > 0.0, never know that it's not been checked by caller
+//                    if lastBgReading.calculatedValue == 0.0 || lastButOneBgReading.calculatedValue == 0.0 {return (false, nil, nil, nil)}
+//                    // now do the actual check if alert is applicable or not
+//                    if lastButOneBgReading.calculatedValue.bgValueRounded(mgdl: isMg) - lastBgReading.calculatedValue.bgValueRounded(mgdl: isMg) > Double(currentAlertEntry.value).bgValueRounded(mgdl: isMg) {
+//                        return (
+//                            true,
+//                            lastBgReading.unitizedDeltaString(previousBgReading: lastButOneBgReading, showUnit: true, mgdl: isMg),
+//                            createAlertTitleForBgReadingAlerts(bgReading: lastBgReading, alertKind: self),
+//                            nil
+//                        )
+//                    } else {return (false, nil, nil, nil)}
+//
+//                } else {return (false, nil, nil, nil)}
+//
+//            } else {return (false, nil, nil, nil)}
 
         case .fastrise:
-                // if alertEntry not enabled, return false
-                if !currentAlertEntry.alertType.enabled {return (false, nil, nil, nil)}
+            // if alertEntry not enabled, return false
+            guard currentAlertEntry.alertType.enabled, let lastBgReading = lastBgReading else {
+                return (false, nil, nil, nil)
+            }
 
-                if let lastBgReading = lastBgReading, let lastButOneBgReading = lastButOneBgReading {
-                    
-                    // lastbut one reading and last reading shoud be maximum 5 minutes apart
-                    if lastBgReading.timeStamp.timeIntervalSince(lastButOneBgReading.timeStamp) < 5 * 60 {
-
-                        // first check if calculatedValue > 0.0, never know that it's not been checked by caller
-                        if lastBgReading.calculatedValue == 0.0 || lastButOneBgReading.calculatedValue == 0.0 {
-                            return (false, nil, nil, nil)
-                        }
-                        
-                        // now do the actual check if alert is applicable or not
-                        if lastBgReading.calculatedValue.bgValueRounded(mgdl: isMg) - lastButOneBgReading.calculatedValue.bgValueRounded(mgdl: isMg) > Double(currentAlertEntry.value).bgValueRounded(mgdl: isMg) {
-                            return (
-                                true,
-                                lastBgReading.unitizedDeltaString(previousBgReading: lastButOneBgReading, showUnit: true, mgdl: isMg),
-                                createAlertTitleForBgReadingAlerts(bgReading: lastBgReading, alertKind: self),
-                                nil
-                            )
-                        } else {return (false, nil, nil, nil)}
-
-                    } else {return (false, nil, nil, nil)}
-                    
-                } else {return (false, nil, nil, nil)}
+            if !lastBgReading.hideSlope && lastBgReading.calculatedValue != 0  &&
+                (lastBgReading.slopArrow == .doubleUp || lastBgReading.slopArrow == .singleUp) {
+                return (
+                    true,
+                    lastBgReading.unitizedDeltaString(previousBgReading: lastButOneBgReading, showUnit: true, mgdl: isMg),
+                    createAlertTitleForBgReadingAlerts(bgReading: lastBgReading, alertKind: self),
+                    nil
+                )
+            }
+            return (false, nil, nil, nil)
+            
+//            if let lastBgReading = lastBgReading, let lastButOneBgReading = lastButOneBgReading {
+//
+//                // lastbut one reading and last reading shoud be maximum 5 minutes apart
+//                if lastBgReading.timeStamp.timeIntervalSince(lastButOneBgReading.timeStamp) < 5 * 60 {
+//
+//                    // first check if calculatedValue > 0.0, never know that it's not been checked by caller
+//                    if lastBgReading.calculatedValue == 0.0 || lastButOneBgReading.calculatedValue == 0.0 {
+//                        return (false, nil, nil, nil)
+//                    }
+//
+//                    // now do the actual check if alert is applicable or not
+//                    if lastBgReading.calculatedValue.bgValueRounded(mgdl: isMg) - lastButOneBgReading.calculatedValue.bgValueRounded(mgdl: isMg) > Double(currentAlertEntry.value).bgValueRounded(mgdl: isMg) {
+//                        return (
+//                            true,
+//                            lastBgReading.unitizedDeltaString(previousBgReading: lastButOneBgReading, showUnit: true, mgdl: isMg),
+//                            createAlertTitleForBgReadingAlerts(bgReading: lastBgReading, alertKind: self),
+//                            nil
+//                        )
+//                    } else {return (false, nil, nil, nil)}
+//
+//                } else {return (false, nil, nil, nil)}
+//
+//            } else {return (false, nil, nil, nil)}
 
         case .missedreading:
             // if no valid lastbgreading then there's definitely no need to plan an alert

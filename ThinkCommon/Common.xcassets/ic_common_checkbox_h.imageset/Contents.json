@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "ic_checkbox.svg",
+      "filename" : "ic_common_checkbox_h.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "ic_common_checkbox_h@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "ic_common_checkbox_h@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -136,50 +136,50 @@ extension NotesViewController: UITableViewDelegate, UITableViewDataSource {
         let noteType = NoteManager.NoteType(rawValue: Int(note.noteType))
         
         let typeIcon: UIImage?
-        let highlightColor: UIColor
-
-        switch noteType {
-        case .urgentHigh, .high:
-            typeIcon = R.image.ic_bg_high()
-            
-        case .urgentLow, .low:
-            typeIcon = R.image.ic_bg_low()
-            
-        case .fastDrop:
-            typeIcon = R.image.ic_fastdrop()
-        
-        case .fastRise:
-            typeIcon = R.image.ic_fastrise()
-
-        default:
-            typeIcon = R.image.ic_note_userinput()
-        }
+        let typeIconColor: UIColor
+        let backgroundColor: UIColor
         
         switch noteType {
-        case .urgentHigh, .urgentLow:
-            highlightColor = ConstantsGlucoseChart.glucoseUrgentRangeColor
-
-        case .low, .high:
-//            highlightColor = ConstantsGlucoseChart.glucoseNotUrgentRangeColor
-            highlightColor = .clear
-
+        case .urgentHigh:
+            typeIcon = R.image.ic_bg_high()?.withRenderingMode(.alwaysTemplate)
+            typeIconColor = ConstantsUI.alertColor
+            backgroundColor = ConstantsUI.alertColor.withAlphaComponent(0.15)
+            
+        case .high:
+            typeIcon = R.image.ic_bg_high()?.withRenderingMode(.alwaysTemplate)
+            typeIconColor = ConstantsUI.warningColor
+            backgroundColor = .clear
+            
+        case .urgentLow:
+            typeIcon = R.image.ic_bg_low()?.withRenderingMode(.alwaysTemplate)
+            typeIconColor = ConstantsUI.alertColor
+            backgroundColor = ConstantsUI.alertColor.withAlphaComponent(0.15)
+            
+        case .low:
+            typeIcon = R.image.ic_bg_low()?.withRenderingMode(.alwaysTemplate)
+            typeIconColor = ConstantsUI.warningColor
+            backgroundColor = .clear
+            
         case .fastDrop:
-            highlightColor = ConstantsGlucoseChart.glucoseUrgentRangeColor
-
+            typeIcon = R.image.ic_fastdrop()?.withRenderingMode(.alwaysTemplate)
+            typeIconColor = ConstantsUI.alertColor
+            backgroundColor = ConstantsUI.alertColor.withAlphaComponent(0.15)
+            
         case .fastRise:
-            highlightColor = ConstantsGlucoseChart.glucoseNotUrgentRangeColor
-
-        case .userInputText:
-            highlightColor = ConstantsGlucoseChart.glucoseInRangeColor
+            typeIcon = R.image.ic_fastrise()?.withRenderingMode(.alwaysTemplate)
+            typeIconColor = ConstantsUI.alertColor
+            backgroundColor = ConstantsUI.alertColor.withAlphaComponent(0.15)
             
         default:
-            highlightColor = ConstantsGlucoseChart.glucoseInRangeColor
+            typeIcon = R.image.ic_note_userinput()?.withRenderingMode(.alwaysTemplate)
+            typeIconColor = .white
+            backgroundColor = .clear
         }
         
-        cell.backgroundColor = highlightColor.withAlphaComponent(0.15)
         cell.typeIconImageView.image = typeIcon
-//        cell.tintColor = highlightColor
-        
+        cell.tintColor = typeIconColor
+        cell.backgroundColor = backgroundColor
+
         let isMgDl = UserDefaults.standard.bloodGlucoseUnitIsMgDl
         
         cell.bgLabel.text = note.bg.mgdlToMmolAndToString(mgdl: isMgDl)

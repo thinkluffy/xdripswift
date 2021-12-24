@@ -74,7 +74,7 @@ func trace(_ message: StaticString, log:OSLog, category: String, type: OSLogType
     guard let traceFileName = traceFileName else {return}
     
     // if oslog is enabled in settings, then do os_log
-    if UserDefaults.standard.OSLogEnabled {
+    if UserDefaults.standard.LogEnabled {
 
         switch args.count {
             
@@ -174,13 +174,6 @@ func trace(_ message: StaticString, log:OSLog, category: String, type: OSLogType
     
     // create timeStamp to use in NSLog and tracefile
     let timeStamp = dateFormatNSLog.string(from: Date())
-    
-    // nslog if enabled and if type = debug, then check also if debug logging is required
-    if UserDefaults.standard.NSLogEnabled && (type != .debug || (type == .debug && UserDefaults.standard.addDebugLevelLogsInTraceFileAndNSLog)) {
-        
-        NSLog("%@", ConstantsLog.tracePrefix + " " + timeStamp + " " + applicationVersion + " " + buildNumber + " " + category + " " + actualMessage)
-        
-    }
     
     // write trace to file, only if type is not .debug or type is .debug and addDebugLevelLogsInTraceFileAndNSLog is true
     if type != .debug || (type == .debug && UserDefaults.standard.addDebugLevelLogsInTraceFileAndNSLog) {

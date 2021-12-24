@@ -211,36 +211,25 @@ public class BgReading: NSManagedObject {
         // quickly check "value" and prevent "-0mg/dL" or "-0.0mmol/L" being displayed
         if mgdl {
             if value > -1 && value < 1 {
-                return "0" + (showUnit ? (" " + Texts_Common.mgdl) : "")
+                return "0" + (showUnit ? (" " + Constants.bgUnitMgDl) : "")
                 
             } else {
-                return deltaSign + valueAsString + (showUnit ? (" " + Texts_Common.mgdl) : "")
+                return deltaSign + valueAsString + (showUnit ? (" " + Constants.bgUnitMgDl) : "")
             }
             
         } else {
             if value > -0.1 && value < 0.1 {
-                return "0.0" + (showUnit ? (" " + Texts_Common.mmol) : "")
+                return "0.0" + (showUnit ? (" " + Constants.bgUnitMmol) : "")
                 
             } else {
-                return deltaSign + valueAsString + (showUnit ? (" " + Texts_Common.mmol) : "")
+                return deltaSign + valueAsString + (showUnit ? (" " + Constants.bgUnitMmol) : "")
             }
         }
     }
     
-    /// creates string with difference from previous reading and also unit
-    func unitizedDeltaStringPerMin(previousBgReading: BgReading?, showUnit: Bool, mgdl: Bool) -> String {
-        guard let previousBgReading = previousBgReading else {
-            return "???"
-        }
-        
-        if timeStamp.timeIntervalSince(previousBgReading.timeStamp) > Double(ConstantsBGGraphBuilder.maxSlopeInMinutes * 60) {
-            // don't show delta if there are not enough values or the values are more than 20 mintes apart
-            return "???";
-        }
-        
-        // delta value recalculated aligned with time difference between previous and this reading
-        let changePerMinMg = currentSlope(previousBgReading: previousBgReading) * 1000 * Date.minuteInSeconds
-        BgReading.log.d("changePerMinMg: \(changePerMinMg)")
+    func unitizedDeltaStringPerMin(withSlope slope: Double, showUnit: Bool, mgdl: Bool) -> String {
+        let changePerMinMg = slope * 1000 * Date.minuteInSeconds
+        BgReading.log.d("changePerMinMg: \(String(format: "%.2f mg/dL/min", changePerMinMg))")
 
         if abs(changePerMinMg) > 100 {
             // a delta > 100 will not happen with real BG values -> problematic sensor data
@@ -262,20 +251,34 @@ public class BgReading: NSManagedObject {
         
         if mgdl {
             if changePerMinMg > -0.1 && changePerMinMg < 0.1 {
-                return "0" + (showUnit ? (" " + Texts_Common.mgdl) : "") + "/m"
+                return "0" + (showUnit ? (" " + Constants.bgUnitMgDl) : "") + "/m"
                 
             } else {
-                return deltaSign + valueAsString + (showUnit ? (" " + Texts_Common.mgdl) : "") + "/m"
+                return deltaSign + valueAsString + (showUnit ? (" " + Constants.bgUnitMgDl) : "") + "/m"
             }
             
         } else {
             if changePerMinMg > -0.01 && changePerMinMg < 0.01 {
-                return "0.0" + (showUnit ? (" " + Texts_Common.mmol) : "") + "/m"
+                return "0.0" + (showUnit ? (" " + Constants.bgUnitMmol) : "") + "/m"
                 
             } else {
-                return deltaSign + valueAsString + (showUnit ? (" " + Texts_Common.mmol) : "") + "/m"
+                return deltaSign + valueAsString + (showUnit ? (" " + Constants.bgUnitMmol) : "") + "/m"
             }
         }
+    }
+    
+    /// creates string with difference from previous reading and also unit
+    func unitizedDeltaStringPerMin(previousBgReading: BgReading?, showUnit: Bool, mgdl: Bool) -> String {
+        guard let previousBgReading = previousBgReading else {
+            return "???"
+        }
+        
+        if timeStamp.timeIntervalSince(previousBgReading.timeStamp) > Double(ConstantsBGGraphBuilder.maxSlopeInMinutes * 60) {
+            // don't show delta if there are not enough values or the values are more than 20 mintes apart
+            return "???";
+        }
+        
+        return unitizedDeltaStringPerMin(withSlope: currentSlope(previousBgReading: previousBgReading), showUnit: showUnit, mgdl: mgdl)
     }
     
     func currentSlope(previousBgReading: BgReading?) -> Double {

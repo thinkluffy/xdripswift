@@ -32,11 +32,15 @@ class InitViewController: UIViewController {
     }
     
     private func showMainViewController() {
+        UserDefaults.standard.launchCount = UserDefaults.standard.launchCount + 1
+
         let viewController = R.storyboard.main.mainTabBarController()!
         view.window?.rootViewController = viewController
     }
     
     func agreementDidAgree() {
+        UserDefaults.standard.isAgreementAgreed = true
+        
         dismiss(animated: false) {
             self.showMainViewController()
         }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PopupDialog
 
 class AboutViewController: LegacySubSettingsViewController {
 
@@ -73,6 +74,10 @@ class AboutViewController: LegacySubSettingsViewController {
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(copyRightLabel.snp.top).offset(-10)
         }
+        
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(copyrightDidLongPress(_:)))
+        copyRightLabel.addGestureRecognizer(longPressGesture)
+        copyRightLabel.isUserInteractionEnabled = true
     }
     
     private func buildData() {
@@ -129,5 +134,31 @@ class AboutViewController: LegacySubSettingsViewController {
         
         tableView.delegate = tableData
         tableView.dataSource = tableData
+    }
+    
+    @objc private func copyrightDidLongPress(_ gesture: UILongPressGestureRecognizer) {
+        guard gesture.state == .began else {
+            return
+        }
+        
+        if UserDefaults.standard.isDeveloperConsoleOpened {
+            let vc = DeveloperViewController()
+            navigationController?.pushViewController(vc, animated: true)
+            return
+        }
+        
+        let dialog = PopupDialog(title: "Should I open the door", message: nil, keyboardType: .default, text: nil, placeHolder: nil) {
+            text in
+            let sanded = text + "zd" + text.reversed()
+            // goodluck#1
+            if "7545387dc50ba53e7c3e37f04b5def118e82544bbbe47ac4eb10837a8a3b05a3" == sanded.sha256 {
+                UserDefaults.standard.isDeveloperConsoleOpened = true
+
+                let vc = DeveloperViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+        
+        present(dialog, animated: true)
     }
 }

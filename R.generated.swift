@@ -289,7 +289,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.file` struct is generated, and contains static references to 125 files.
+  /// This `R.file` struct is generated, and contains static references to 126 files.
   struct file {
     /// Resource file `1-millisecond-of-silence.mp3`.
     static let millisecondOfSilenceMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "1-millisecond-of-silence", pathExtension: "mp3")
@@ -367,6 +367,8 @@ struct R: Rswift.Validatable {
     static let ghost_HoverCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Ghost_Hover", pathExtension: "caf")
     /// Resource file `Good_Morning.caf`.
     static let good_MorningCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Good_Morning", pathExtension: "caf")
+    /// Resource file `GoogleService-Info.plist`.
+    static let googleServiceInfoPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "GoogleService-Info", pathExtension: "plist")
     /// Resource file `Hell_Yeah_Somewhat_Calmer.caf`.
     static let hell_Yeah_Somewhat_CalmerCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Hell_Yeah_Somewhat_Calmer", pathExtension: "caf")
     /// Resource file `In_A_Hurry.caf`.
@@ -767,6 +769,12 @@ struct R: Rswift.Validatable {
     /// `bundle.url(forResource: "Good_Morning", withExtension: "caf")`
     static func good_MorningCaf(_: Void = ()) -> Foundation.URL? {
       let fileResource = R.file.good_MorningCaf
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "GoogleService-Info", withExtension: "plist")`
+    static func googleServiceInfoPlist(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.googleServiceInfoPlist
       return fileResource.bundle.url(forResource: fileResource)
     }
 
@@ -1315,12 +1323,12 @@ struct R: Rswift.Validatable {
     static let ic_bg_low = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_bg_low")
     /// Image `ic_calibrate`.
     static let ic_calibrate = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_calibrate")
-    /// Image `ic_checkbox_h`.
-    static let ic_checkbox_h = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_checkbox_h")
-    /// Image `ic_checkbox`.
-    static let ic_checkbox = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_checkbox")
     /// Image `ic_clock`.
     static let ic_clock = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_clock")
+    /// Image `ic_common_checkbox_h`.
+    static let ic_common_checkbox_h = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_common_checkbox_h")
+    /// Image `ic_common_checkbox`.
+    static let ic_common_checkbox = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_common_checkbox")
     /// Image `ic_edit`.
     static let ic_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_edit")
     /// Image `ic_fastdrop`.
@@ -1434,23 +1442,23 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_checkbox", bundle: ..., traitCollection: ...)`
-    static func ic_checkbox(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_checkbox, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_checkbox_h", bundle: ..., traitCollection: ...)`
-    static func ic_checkbox_h(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_checkbox_h, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "ic_clock", bundle: ..., traitCollection: ...)`
     static func ic_clock(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ic_clock, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_common_checkbox", bundle: ..., traitCollection: ...)`
+    static func ic_common_checkbox(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_common_checkbox, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_common_checkbox_h", bundle: ..., traitCollection: ...)`
+    static func ic_common_checkbox_h(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_common_checkbox_h, compatibleWith: traitCollection)
     }
     #endif
 

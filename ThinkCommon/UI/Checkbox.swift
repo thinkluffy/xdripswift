@@ -67,11 +67,11 @@ public class Checkbox: UIView {
     }()
     
     private lazy var selectedCheckmarkImage: UIImage? = {
-        UIImage(named: "ic_checkbox_h")
+        UIImage(named: "ic_common_checkbox_h")?.withRenderingMode(.alwaysTemplate)
     }()
     
     private lazy var notSelectedCheckmarkImage: UIImage? = {
-        UIImage(named: "ic_checkbox")
+        UIImage(named: "ic_common_checkbox")?.withRenderingMode(.alwaysTemplate)
     }()
     
     private var selectionStateDidChangeCallback: ((_ checkbox: Checkbox, _ newSelection: Bool) -> Void)?
@@ -92,7 +92,7 @@ public class Checkbox: UIView {
         
         checkmark.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.size.equalTo(30)
+            make.size.equalTo(20)
         }
         
         textLabel.snp.makeConstraints { make in

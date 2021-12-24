@@ -42,6 +42,7 @@ class AgreementViewController: UIViewController {
         checkbox.isSelected = false
         checkbox.text = R.string.common.btn_understand_and_agree()
         checkbox.textColor = .white
+        checkbox.checkmarkColor = .white
         return checkbox
     }()
     
@@ -88,7 +89,7 @@ class AgreementViewController: UIViewController {
         wrapperView.snp.makeConstraints { make in
             make.top.equalTo(disclaimerLabel.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(checkbox.snp.top).offset(-10)
+            make.bottom.equalTo(checkbox.snp.top).offset(-20)
         }
         
         contentTextView.snp.makeConstraints { make in
@@ -96,7 +97,7 @@ class AgreementViewController: UIViewController {
         }
         
         checkbox.snp.makeConstraints { make in
-            make.bottom.equalTo(startToUseButton.snp.top).offset(-10)
+            make.bottom.equalTo(startToUseButton.snp.top).offset(-20)
             make.centerX.equalToSuperview()
         }
         

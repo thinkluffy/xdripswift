@@ -24,10 +24,12 @@ extension UserDefaults {
         case firstOpenVersionCode = "firstOpenVersionCode"
         case currentVersionCode = "currentVersionCode"
         case isAgreementAgreed = "isAgreementAgreed"
-        case fullFeatureMode = "fullFeatureMode"
+        case isDeveloperConsoleOpened = "isDeveloperConsoleOpened"
+        case launchCount = "launchCount"
 
         // General
-        
+        case fullFeatureMode = "fullFeatureMode"
+
         /// bloodglucose unit
         case bloodGlucoseUnitIsMgDl = "bloodGlucoseUnit"
         /// urgent high value
@@ -190,12 +192,9 @@ extension UserDefaults {
 
         /// G6 factor2 - for testing G6 scaling
         case G6v2ScalingFactor2 = "G6v2ScalingFactor2"
-        
-        /// NSLog enabled or not
-        case NSLogEnabled = "NSLogEnabled"
                 
-        /// OSLogEnabled enabled or not
-        case OSLogEnabled = "OSLogEnabled"
+        /// LogEnabled enabled or not
+        case LogEnabled = "LogEnabled"
         
         /// case smooth libre values
         case smoothLibreValues = "smoothLibreValues"
@@ -282,7 +281,27 @@ extension UserDefaults {
             set(newValue, forKey: Key.isAgreementAgreed.rawValue)
         }
     }
+
+    @objc dynamic var isDeveloperConsoleOpened: Bool {
+        get {
+            return bool(forKey: Key.isDeveloperConsoleOpened.rawValue)
+        }
+        set {
+            set(newValue, forKey: Key.isDeveloperConsoleOpened.rawValue)
+        }
+    }
     
+    @objc dynamic var launchCount: Int {
+        get {
+            return integer(forKey: Key.launchCount.rawValue)
+        }
+        set {
+            set(newValue, forKey: Key.launchCount.rawValue)
+        }
+    }
+    
+    // MARK: General
+
     @objc dynamic var isFullFeatureMode: Bool {
         get {
             return bool(forKey: Key.fullFeatureMode.rawValue)
@@ -291,8 +310,6 @@ extension UserDefaults {
             set(newValue, forKey: Key.fullFeatureMode.rawValue)
         }
     }
-    
-    // MARK: General
     
     /// true if unit is mgdl, false if mmol is used
     @objc dynamic var bloodGlucoseUnitIsMgDl: Bool {
@@ -1017,16 +1034,6 @@ extension UserDefaults {
         }
     }
     
-    /// NSLogEnabled - default false
-    var NSLogEnabled: Bool {
-        get {
-            return bool(forKey: Key.NSLogEnabled.rawValue)
-        }
-        set {
-            set(newValue, forKey: Key.NSLogEnabled.rawValue)
-        }
-    }
-    
     /// smoothLibreValues - default false
     var smoothLibreValues: Bool {
         get {
@@ -1097,13 +1104,13 @@ extension UserDefaults {
         }
     }
     
-    /// OSLogEnabled - default false
-    var OSLogEnabled: Bool {
+    /// LogEnabled - default false
+    var LogEnabled: Bool {
         get {
-            return bool(forKey: Key.OSLogEnabled.rawValue)
+            return bool(forKey: Key.LogEnabled.rawValue)
         }
         set {
-            set(newValue, forKey: Key.OSLogEnabled.rawValue)
+            set(newValue, forKey: Key.LogEnabled.rawValue)
         }
     }
     

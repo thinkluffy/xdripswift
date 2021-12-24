@@ -2,12 +2,11 @@ import UIKit
 import CoreData
 import OSLog
 import PopupDialog
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
-    // MARK: - Properties
-    
+        
     var window: UIWindow?
     
     private static let log = Log(type: AppDelegate.self)
@@ -15,10 +14,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Application Life Cycle
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        Log.setup(level: UserDefaults.standard.OSLogEnabled ? .verbose : .warning)
+        Log.setup(level: UserDefaults.standard.LogEnabled ? .verbose : .warning)
 
         AppDelegate.log.i("==> didFinishLaunchingWithOptions")
-        		
+        
+        FirebaseApp.configure()
+        
         WatchCommunicator.register()
         
         setupUIComponents()
@@ -27,7 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             onFreshInstall()
             UserDefaults.standard.firstOpenTime = Date()
             UserDefaults.standard.firstOpenVersionCode = iOS.appVersionCode
-            
+            UserDefaults.standard.currentVersionCode = iOS.appVersionCode
+
         } else {
             let versionCode = iOS.appVersionCode
             if versionCode > UserDefaults.standard.currentVersionCode {
