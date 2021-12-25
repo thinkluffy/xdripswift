@@ -5,18 +5,18 @@ import PopupDialog
 fileprivate enum Setting:Int, CaseIterable {
     /// is it enabled or not
     case enabled = 0
-    /// the name of the alert type
-    case name = 1
     /// vibrate or not
-    case vibrate = 2
+    case vibrate = 1
     /// sound name
-    case soundName = 3
+    case soundName = 2
     /// override mute or not
-    case overridemute = 4
+    case overridemute = 3
     /// snooze Via Notification on homescreen or not
-    case snoozeViaNotification = 5
+    case snoozeViaNotification = 4
     /// default snoozeperiod when snoozing from homescreen
-    case defaultSnoozePeriod = 6
+    case defaultSnoozePeriod = 5
+    /// the name of the alert type
+    case name = 6
 }
 
 /// edit or add an alert types,
@@ -69,7 +69,7 @@ final class AlertTypeSettingsViewController: SubSettingsViewController {
     
     // following properties are used to temporary store alertType attributes which can be modified. The actual update of the alertType being processed will be done only when the user clicks the done button
     private var enabled = ConstantsDefaultAlertTypeSettings.enabled
-    private var name = ConstantsDefaultAlertTypeSettings.name
+    private var name: String? = nil
     private var overrideMute = ConstantsDefaultAlertTypeSettings.overrideMute
     private var snooze = ConstantsDefaultAlertTypeSettings.snooze
     private var snoozePeriod = ConstantsDefaultAlertTypeSettings.snoozePeriod
@@ -130,11 +130,73 @@ final class AlertTypeSettingsViewController: SubSettingsViewController {
     
     /// to do when user cliks done button
     private func doneButtonAction() {
+        if name == nil {
+            saveNewAlertType()
+            
+        } else {
+            updateAlertType()
+        }
+    }
+    
+    private func saveNewAlertType() {
+        let dialog = PopupDialog(
+            title: Texts_AlertTypeSettingsView.alertTypeName,
+            message: nil,
+            keyboardType: .default,
+            text: nil,
+            placeHolder: nil
+        ) {
+            text in
+            
+            var hasDuplicatedName = false
+            // first check if name is a unique name
+            let alertTypesAccessor = AlertTypesAccessor()
+            for alertTypeAlreadyStored in alertTypesAccessor.getAllAlertTypes() {
+                // if name == alertTypeAlreadyStored.name and alertTypeAlreadyStored is not the same object as alertTypeAsNSObject then not ok
+                if alertTypeAlreadyStored.name == text {
+                    // shake the dialog
+                    hasDuplicatedName = true
+                    break
+                }
+            }
+            
+            if text.isEmpty || hasDuplicatedName {
+                return
+            }
+            
+            self.alertTypeAsNSObject = AlertType(
+                enabled: self.enabled,
+                name: text,
+                overrideMute: self.overrideMute,
+                snooze: self.snooze,
+                snoozePeriod: Int(self.snoozePeriod),
+                vibrate: self.vibrate,
+                soundName: self.soundName,
+                alertEntries: nil,
+                nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext
+            )
+            
+            // save the alerttype
+            CoreDataManager.shared.saveChanges()
+            
+            // go back to alerttypes settings screen
+            self.performSegue(withIdentifier: UnwindSegueIdentifiers.unwindToAlertTypesSettingsViewController.rawValue,
+                              sender: self)
+        }
+        
+        present(dialog, animated: true)
+    }
+    
+    private func updateAlertType() {
+        guard let alertTypeAsNSObject = alertTypeAsNSObject, let name = name else {
+            return
+        }
+
         // first check if name is a unique name
         let alertTypesAccessor = AlertTypesAccessor()
         for alertTypeAlreadyStored in alertTypesAccessor.getAllAlertTypes() {
             // if name == alertTypeAlreadyStored.name and alertTypeAlreadyStored is not the same object as alertTypeAsNSObject then not ok
-            if alertTypeAlreadyStored.name == name && (alertTypeAsNSObject == nil || alertTypeAlreadyStored != alertTypeAsNSObject) {
+            if alertTypeAlreadyStored.name == name && alertTypeAlreadyStored != alertTypeAsNSObject {
                 
                 // define and present alertcontroller, this will show message and an ok button, without action when clicking ok
                 let alert = PopupDialog(title: Texts_Common.warning,
@@ -148,19 +210,13 @@ final class AlertTypeSettingsViewController: SubSettingsViewController {
             }
         }
         
-        // now either store the updated alertType or create a new one
-        if let alertTypeAsNSObject = alertTypeAsNSObject {
-            alertTypeAsNSObject.name = name
-            alertTypeAsNSObject.enabled = enabled
-            alertTypeAsNSObject.overridemute = overrideMute
-            alertTypeAsNSObject.snooze = snooze
-            alertTypeAsNSObject.snoozeperiod = snoozePeriod
-            alertTypeAsNSObject.vibrate = vibrate
-            alertTypeAsNSObject.soundname = soundName
-            
-        } else {
-            alertTypeAsNSObject = AlertType(enabled: enabled, name: name, overrideMute: overrideMute, snooze: snooze, snoozePeriod: Int(snoozePeriod), vibrate: vibrate, soundName: soundName, alertEntries: nil, nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
-        }
+        alertTypeAsNSObject.name = name
+        alertTypeAsNSObject.enabled = enabled
+        alertTypeAsNSObject.overridemute = overrideMute
+        alertTypeAsNSObject.snooze = snooze
+        alertTypeAsNSObject.snoozeperiod = snoozePeriod
+        alertTypeAsNSObject.vibrate = vibrate
+        alertTypeAsNSObject.soundname = soundName
         
         // save the alerttype
         CoreDataManager.shared.saveChanges()
@@ -193,8 +249,10 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
             return 2
         }
         
-        // if snooze via notifiation screen not enabled, then don't show
-        //if !snooze {return Setting.allCases.count - 1}
+        // adding a new type, ask user to input name when done button clicked
+        if name == nil {
+            return Setting.allCases.count - 1
+        }
         return Setting.allCases.count
     }
     
@@ -217,7 +275,6 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
         case .name:
             cell.textLabel?.text = Texts_AlertTypeSettingsView.alertTypeName
             cell.detailTextLabel?.text = name
-            cell.accessoryType = UITableViewCell.AccessoryType.none
 
         case .enabled:
             cell.textLabel?.text = Texts_AlertTypeSettingsView.alertTypeEnabled

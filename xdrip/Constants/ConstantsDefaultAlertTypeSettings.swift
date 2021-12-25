@@ -2,7 +2,6 @@
 enum ConstantsDefaultAlertTypeSettings {
     
     static let enabled = true
-    static let name = Texts_Common.default0
     static let overrideMute = true
     static let snooze = true
     static let snoozePeriod = Int16(15)
