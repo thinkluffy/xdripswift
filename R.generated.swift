@@ -1638,10 +1638,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static let alerttypessettingsview_screentitle = Rswift.StringResource(key: "alerttypessettingsview_screentitle", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Allow Snooze Via Notification?
-      ///
-      /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
-      static let alerttypesettingsview_snoozevianotification = Rswift.StringResource(key: "alerttypesettingsview_snoozevianotification", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: An Alarm Type with this name already exists. Use a different name
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
@@ -1650,7 +1646,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static let alerttypesettingsview_defaultsnoozeperiod = Rswift.StringResource(key: "alerttypesettingsview_defaultsnoozeperiod", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Delete Alarm Type: 
+      /// en translation: Delete Alarm Type
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static let confirmdeletionalerttype = Rswift.StringResource(key: "confirmdeletionalerttype", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -1658,7 +1654,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static let alerttypesettingsview_screentitle = Rswift.StringResource(key: "alerttypesettingsview_screentitle", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Enabled?
+      /// en translation: Enabled
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static let alerttypesettingsview_enabled = Rswift.StringResource(key: "alerttypesettingsview_enabled", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -1670,7 +1666,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static let alertTypeNoSound = Rswift.StringResource(key: "alertTypeNoSound", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Override Mute?
+      /// en translation: Override Mute
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static let alerttypesettingsview_overridemute = Rswift.StringResource(key: "alerttypesettingsview_overridemute", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -1678,6 +1674,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static let alerttypesettingsview_givesnoozeperiod = Rswift.StringResource(key: "alerttypesettingsview_givesnoozeperiod", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// en translation: Snooze Via Notification
+      ///
+      /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
+      static let alerttypesettingsview_snoozevianotification = Rswift.StringResource(key: "alerttypesettingsview_snoozevianotification", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: Sound
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
@@ -1686,7 +1686,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static let alerttypesettingsview_picksoundname = Rswift.StringResource(key: "alerttypesettingsview_picksoundname", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Vibrate?
+      /// en translation: Vibrate
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static let alerttypesettingsview_vibrate = Rswift.StringResource(key: "alerttypesettingsview_vibrate", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -1725,21 +1725,6 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("alerttypessettingsview_screentitle", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
       }
 
-      /// en translation: Allow Snooze Via Notification?
-      ///
-      /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
-      static func alerttypesettingsview_snoozevianotification(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerttypesettingsview_snoozevianotification", tableName: "AlertTypesSettingsView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "AlertTypesSettingsView", preferredLanguages: preferredLanguages) else {
-          return "alerttypesettingsview_snoozevianotification"
-        }
-
-        return NSLocalizedString("alerttypesettingsview_snoozevianotification", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
-      }
-
       /// en translation: An Alarm Type with this name already exists. Use a different name
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
@@ -1770,7 +1755,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("alerttypesettingsview_defaultsnoozeperiod", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
       }
 
-      /// en translation: Delete Alarm Type: 
+      /// en translation: Delete Alarm Type
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static func confirmdeletionalerttype(preferredLanguages: [String]? = nil) -> String {
@@ -1800,7 +1785,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("alerttypesettingsview_screentitle", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
       }
 
-      /// en translation: Enabled?
+      /// en translation: Enabled
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static func alerttypesettingsview_enabled(preferredLanguages: [String]? = nil) -> String {
@@ -1845,7 +1830,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("alertTypeNoSound", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
       }
 
-      /// en translation: Override Mute?
+      /// en translation: Override Mute
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static func alerttypesettingsview_overridemute(preferredLanguages: [String]? = nil) -> String {
@@ -1873,6 +1858,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("alerttypesettingsview_givesnoozeperiod", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Snooze Via Notification
+      ///
+      /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
+      static func alerttypesettingsview_snoozevianotification(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("alerttypesettingsview_snoozevianotification", tableName: "AlertTypesSettingsView", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "AlertTypesSettingsView", preferredLanguages: preferredLanguages) else {
+          return "alerttypesettingsview_snoozevianotification"
+        }
+
+        return NSLocalizedString("alerttypesettingsview_snoozevianotification", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
       }
 
       /// en translation: Sound
@@ -1905,7 +1905,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("alerttypesettingsview_picksoundname", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
       }
 
-      /// en translation: Vibrate?
+      /// en translation: Vibrate
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static func alerttypesettingsview_vibrate(preferredLanguages: [String]? = nil) -> String {
@@ -1948,7 +1948,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: nl, zh, en, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static let alertsettingsview_screentitle = Rswift.StringResource(key: "alertsettingsview_screentitle", tableName: "Alerts", bundle: R.hostingBundle, locales: ["nl", "zh", "en", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Apply from:
+      /// en translation: Apply from
       ///
       /// Locales: nl, zh, en, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static let alertstart = Rswift.StringResource(key: "alertstart", tableName: "Alerts", bundle: R.hostingBundle, locales: ["nl", "zh", "en", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -2000,18 +2000,18 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: nl, zh, en, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static let alerts_batterylow = Rswift.StringResource(key: "alerts_batterylow", tableName: "Alerts", bundle: R.hostingBundle, locales: ["nl", "zh", "en", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// en translation: Urgent High Alarm
+      ///
+      /// Locales: nl, zh, en, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
+      static let alerts_veryhighalerttitle = Rswift.StringResource(key: "alerts_veryhighalerttitle", tableName: "Alerts", bundle: R.hostingBundle, locales: ["nl", "zh", "en", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// en translation: Urgent Low Alarm
+      ///
+      /// Locales: nl, zh, en, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
+      static let alerts_verylowalerttitle = Rswift.StringResource(key: "alerts_verylowalerttitle", tableName: "Alerts", bundle: R.hostingBundle, locales: ["nl", "zh", "en", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: Value
       ///
       /// Locales: nl, zh, en, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static let alertvalue = Rswift.StringResource(key: "alertvalue", tableName: "Alerts", bundle: R.hostingBundle, locales: ["nl", "zh", "en", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Very High Alarm
-      ///
-      /// Locales: nl, zh, en, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
-      static let alerts_veryhighalerttitle = Rswift.StringResource(key: "alerts_veryhighalerttitle", tableName: "Alerts", bundle: R.hostingBundle, locales: ["nl", "zh", "en", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Very Low Alarm
-      ///
-      /// Locales: nl, zh, en, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
-      static let alerts_verylowalerttitle = Rswift.StringResource(key: "alerts_verylowalerttitle", tableName: "Alerts", bundle: R.hostingBundle, locales: ["nl", "zh", "en", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
 
       /// en translation: Alarm Type
       ///
@@ -2043,7 +2043,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("alertsettingsview_screentitle", tableName: "Alerts", bundle: bundle, comment: "")
       }
 
-      /// en translation: Apply from:
+      /// en translation: Apply from
       ///
       /// Locales: nl, zh, en, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static func alertstart(preferredLanguages: [String]? = nil) -> String {
@@ -2238,22 +2238,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("alerts_batterylow", tableName: "Alerts", bundle: bundle, comment: "")
       }
 
-      /// en translation: Value
-      ///
-      /// Locales: nl, zh, en, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
-      static func alertvalue(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alertvalue", tableName: "Alerts", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Alerts", preferredLanguages: preferredLanguages) else {
-          return "alertvalue"
-        }
-
-        return NSLocalizedString("alertvalue", tableName: "Alerts", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Very High Alarm
+      /// en translation: Urgent High Alarm
       ///
       /// Locales: nl, zh, en, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static func alerts_veryhighalerttitle(preferredLanguages: [String]? = nil) -> String {
@@ -2268,7 +2253,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("alerts_veryhighalerttitle", tableName: "Alerts", bundle: bundle, comment: "")
       }
 
-      /// en translation: Very Low Alarm
+      /// en translation: Urgent Low Alarm
       ///
       /// Locales: nl, zh, en, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static func alerts_verylowalerttitle(preferredLanguages: [String]? = nil) -> String {
@@ -2281,6 +2266,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("alerts_verylowalerttitle", tableName: "Alerts", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Value
+      ///
+      /// Locales: nl, zh, en, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
+      static func alertvalue(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("alertvalue", tableName: "Alerts", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Alerts", preferredLanguages: preferredLanguages) else {
+          return "alertvalue"
+        }
+
+        return NSLocalizedString("alertvalue", tableName: "Alerts", bundle: bundle, comment: "")
       }
 
       fileprivate init() {}

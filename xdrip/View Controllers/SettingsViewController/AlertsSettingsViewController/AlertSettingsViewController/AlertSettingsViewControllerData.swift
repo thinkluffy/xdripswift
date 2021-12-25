@@ -26,42 +26,42 @@ class AlertSettingsViewControllerData: NSObject, UITableViewDataSource, UITableV
     
     // following properties are used to store alertEntry attributes which can be modified.
     /// start of alertEntry being modified
-    public var start:Int16
+    public var start: Int16
     /// will be used to compare original value to changed value, to detect changes on the screen
-    private let tempStart:Int16
+    private let tempStart: Int16
     
     /// value of alertEntry being modified
-    public var value:Int16
+    public var value: Int16
     
     /// will be used to compare original value to changed value, to detect changes on the screen
-    private let tempValue:Int16
+    private let tempValue: Int16
     
     /// alertKind of alertEntry being modified
-    public var alertKind:Int16
+    public var alertKind: Int16
     
     /// will be used to compare original value to changed value, to detect changes on the screen
-    private let tempAlertKind:Int16
+    private let tempAlertKind: Int16
     
     /// alertType of alertEntry being modified, default nil because it can't be initialized
-    public var alertType:AlertType
+    public var alertType: AlertType
     
     /// will be used to compare original value to changed value, to detect changes on the screen
-    private let tempAlertType:AlertType
+    private let tempAlertType: AlertType
     
     /// when modifying the start value, this is the minimum value
-    public var minimumStart:Int16
+    public var minimumStart: Int16
     
     /// when modifying the start value , this is the maximum value
-    public var maximumStart:Int16 = Int16(24 * 60 - 1) // default one minute before midnight
+    public var maximumStart: Int16 = Int16(24 * 60 - 1) // default one minute before midnight
     
     /// a reference to the UIViewController
-    public var uIViewController:UIViewController
+    public var uIViewController: UIViewController
         
     /// when user changes properties, before pressing save button, this function will be called, can be set by AlertSettingsViewController which can assign to closure that disables "Add" button
-    private var toCallWhenUserChangesProperties:(() -> ())?
+    private var toCallWhenUserChangesProperties: (() -> ())?
     
     /// user may have changed some properties, but changes them back to original value, AlertSettingsViewController can re-enable the add button and even disable the save button
-    private var toCallWhenUserResetsProperties:(() -> ())?
+    private var toCallWhenUserResetsProperties: (() -> ())?
 
     // MARK:- initializer
     
@@ -95,6 +95,7 @@ class AlertSettingsViewControllerData: NSObject, UITableViewDataSource, UITableV
             if let toCallWhenUserResetsProperties = toCallWhenUserResetsProperties {
                 toCallWhenUserResetsProperties()
             }
+            
         } else {
             if let toCallWhenUserChangesProperties = toCallWhenUserChangesProperties {
                 toCallWhenUserChangesProperties()
@@ -108,18 +109,14 @@ class AlertSettingsViewControllerData: NSObject, UITableViewDataSource, UITableV
 extension AlertSettingsViewControllerData {
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        
         if let view = view as? UITableViewHeaderFooterView {
-            
             view.textLabel?.textColor = ConstantsUI.tableViewHeaderTextColor
-            
         }
-        
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // if no need to show alertvalue, then return count 1 less, value is the last row, it won't be shown
-        if AlertSettingsViewControllerData.getAlertKind(alertKind: alertKind).needsAlertValue() || alertType.enabled {
+        if AlertSettingsViewControllerData.getAlertKind(alertKind: alertKind).needsAlertValue() {
             return Setting.allCases.count
             
         } else {

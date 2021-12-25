@@ -70,7 +70,8 @@ final class AlertSettingsViewController: SubSettingsViewController {
     @IBAction func addButtonAction(_ sender: UIBarButtonItem) {
         // user clicks add button, need to perform segue to open new alertsettingsviewcontroller
         // sender = alertKind, minimumStart value for new alert = current alert + 1, maximumstart for new alert which is equal to maximumstart of current alertentry
-        self.performSegue(withIdentifier:NewAlertSettingsViewController.SegueIdentifiers.alertToNewAlertSettings.rawValue, sender: (alertSettingsViewControllerData.alertKind, alertSettingsViewControllerData.start + 1, alertSettingsViewControllerData.maximumStart))
+        performSegue(withIdentifier:NewAlertSettingsViewController.SegueIdentifiers.alertToNewAlertSettings.rawValue,
+                     sender: (alertSettingsViewControllerData.alertKind, alertSettingsViewControllerData.start + 1, alertSettingsViewControllerData.maximumStart))
     }
     
     
@@ -129,8 +130,6 @@ final class AlertSettingsViewController: SubSettingsViewController {
         
         /// setup tableView datasource, delegate, seperatorInset
         if let tableView = tableView {
-            // insert slightly the separator text so that it doesn't touch the safe area limit
-            tableView.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
             tableView.dataSource = alertSettingsViewControllerData
             tableView.delegate = alertSettingsViewControllerData
         }

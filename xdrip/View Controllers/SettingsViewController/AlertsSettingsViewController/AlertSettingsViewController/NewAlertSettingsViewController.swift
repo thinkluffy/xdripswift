@@ -38,19 +38,21 @@ class NewAlertSettingsViewController: SubSettingsViewController {
     ///     - maximumStart : what's the maximum allowed value for the start
     public func configure(alertKind: AlertKind, minimumStart: Int16, maximumStart: Int16) {
         // initialize alertSettingsViewControllerData
-        alertSettingsViewControllerData = AlertSettingsViewControllerData(start: minimumStart,
-                                                                          value: Int16(alertKind.defaultAlertValue()),
-                                                                          alertKind: Int16(alertKind.rawValue),
-                                                                          alertType: AlertTypesAccessor().getDefaultAlertType(),
-                                                                          minimumStart: minimumStart,
-                                                                          maximumStart: maximumStart,
-                                                                          uIViewController: self,
-                                                                          toCallWhenUserResetsProperties: {
-            self.doneButtonOutlet.disable()
-            
-        }, toCallWhenUserChangesProperties: {
-            self.doneButtonOutlet.enable()
-        })
+        alertSettingsViewControllerData = AlertSettingsViewControllerData(
+            start: minimumStart,
+            value: Int16(alertKind.defaultAlertValue()),
+            alertKind: Int16(alertKind.rawValue),
+            alertType: AlertTypesAccessor().getDefaultAlertType(),
+            minimumStart: minimumStart,
+            maximumStart: maximumStart,
+            uIViewController: self,
+            toCallWhenUserResetsProperties: {
+                self.doneButtonOutlet.disable()
+            },
+            toCallWhenUserChangesProperties: {
+                self.doneButtonOutlet.enable()
+            }
+        )
     }
     
     // MARK: - View Life Cycle

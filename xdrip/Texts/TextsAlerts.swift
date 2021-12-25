@@ -10,7 +10,7 @@ class Texts_Alerts {
     }()
     
     static let veryHighAlertTitle: String = {
-        return NSLocalizedString("alerts_veryhighalerttitle", tableName: filename, bundle: Bundle.main, value: "Very High Alarm", comment: "When very high alert rises, this is the start of the text shown in the title of the alert notification, also in alert settings list, for the name of the alert")
+        return NSLocalizedString("alerts_veryhighalerttitle", tableName: filename, bundle: Bundle.main, value: "Urgent High Alarm", comment: "When very high alert rises, this is the start of the text shown in the title of the alert notification, also in alert settings list, for the name of the alert")
     }()
     
     static let lowAlertTitle: String = {
@@ -18,7 +18,7 @@ class Texts_Alerts {
     }()
     
     static let veryLowAlertTitle: String = {
-        return NSLocalizedString("alerts_verylowalerttitle", tableName: filename, bundle: Bundle.main, value: "Very Low Alarm", comment: "When very low alert rises, this is the start of the text shown in the title of the alert notification, also in alert settings list, for the name of the alert")
+        return NSLocalizedString("alerts_verylowalerttitle", tableName: filename, bundle: Bundle.main, value: "Urgent Low Alarm", comment: "When very low alert rises, this is the start of the text shown in the title of the alert notification, also in alert settings list, for the name of the alert")
     }()
     
     static let missedReadingAlertTitle: String = {
@@ -58,7 +58,7 @@ class Texts_Alerts {
     }()
 
     static let alertStart: String = {
-        return NSLocalizedString("alertstart", tableName: filename, bundle: Bundle.main, value: "Apply from:", comment: "an alentry is applicable as of a certain timestamp in the day, this is the text in the field in the settings screen that allows to modify this timestamp")
+        return NSLocalizedString("alertstart", tableName: filename, bundle: Bundle.main, value: "Apply from", comment: "an alentry is applicable as of a certain timestamp in the day, this is the text in the field in the settings screen that allows to modify this timestamp")
     }()
     
     static let alertValue: String = {

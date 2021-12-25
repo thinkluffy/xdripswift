@@ -43,6 +43,7 @@ final class AlertsSettingsViewController: SubSettingsViewController {
         super.viewDidLoad()
         
         title = Texts_Alerts.alertsScreenTitle
+        
         setupView()
     }
     
@@ -71,11 +72,13 @@ final class AlertsSettingsViewController: SubSettingsViewController {
             let mappedSectionNumber = AlertKind.alertKindRawValue(forSection: section)
             
             // minimumStart should be 1 minute higher than start of previous row, except if this is the first row, then minimumStart is 0
-            var minimumStart:Int16 = 0
-            if row > 0 {minimumStart = alertEntriesPerAlertKind[mappedSectionNumber][row - 1].start + 1}
+            var minimumStart: Int16 = 0
+            if row > 0 {
+                minimumStart = alertEntriesPerAlertKind[mappedSectionNumber][row - 1].start + 1
+            }
             
             // maximumStart is start of next row - 1 minute, except if this is the last row
-            var maximumStart:Int16 = 24 * 60 - 1
+            var maximumStart: Int16 = 24 * 60 - 1
             if row < alertEntriesPerAlertKind[mappedSectionNumber].count - 1 {
                 maximumStart = alertEntriesPerAlertKind[mappedSectionNumber][row + 1].start - 1
             }
@@ -84,6 +87,7 @@ final class AlertsSettingsViewController: SubSettingsViewController {
             vc.configure(alertEntry: alertEntriesPerAlertKind[mappedSectionNumber][row],
                          minimumStart: minimumStart,
                          maximumStart: maximumStart)
+            
         default:
             // shouldn't happen because we're in alertssettings view here
             break
@@ -94,11 +98,6 @@ final class AlertsSettingsViewController: SubSettingsViewController {
     
     // setup the view
     private func setupView() {
-        setupTableView()
-    }
-
-    /// setup datasource, delegate, seperatorInset
-    private func setupTableView() {
         if let tableView = tableView {
             // insert slightly the separator text so that it doesn't touch the safe area limit
             tableView.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
@@ -106,7 +105,6 @@ final class AlertsSettingsViewController: SubSettingsViewController {
             tableView.delegate = self
         }
     }
-    
 }
 
 extension AlertsSettingsViewController:UITableViewDataSource, UITableViewDelegate {
@@ -114,13 +112,9 @@ extension AlertsSettingsViewController:UITableViewDataSource, UITableViewDelegat
     // MARK: - UITableViewDataSource and UITableViewDelegate protocol Methods
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        
         if let view = view as? UITableViewHeaderFooterView {
-            
             view.textLabel?.textColor = ConstantsUI.tableViewHeaderTextColor
-            
         }
-        
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -156,6 +150,7 @@ extension AlertsSettingsViewController:UITableViewDataSource, UITableViewDelegat
             // only bg level alerts would need conversion
             if alertKind.valueNeedsConversionToMmol() {
                 textLabelToUse = textLabelToUse + Double(alertValue).mgdlToMmolAndToString(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
+                
             } else {
                 textLabelToUse = textLabelToUse + alertValue.description
             }
@@ -188,7 +183,8 @@ extension AlertsSettingsViewController:UITableViewDataSource, UITableViewDelegat
         
         tableView.deselectRow(at: indexPath, animated: true)
         // sender = tuple with section and row index
-        self.performSegue(withIdentifier:AlertSettingsViewController.SegueIdentifiers.alertsToAlertSettings.rawValue, sender: (indexPath.section, indexPath.row))
+        performSegue(withIdentifier: AlertSettingsViewController.SegueIdentifiers.alertsToAlertSettings.rawValue,
+                     sender: (indexPath.section, indexPath.row))
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

@@ -50,7 +50,7 @@ final class AlertTypeSettingsViewController: SubSettingsViewController {
                 cancelTitle: R.string.common.common_cancel()
             )
             
-            self.present(alert, animated: true, completion: nil)
+            present(alert, animated: true, completion: nil)
             
         } else {
             // go back to alerttypes settings screen
@@ -109,6 +109,7 @@ final class AlertTypeSettingsViewController: SubSettingsViewController {
         if let alertEntries = alertTypeAsNSObject?.alertEntries, alertEntries.count > 0 {
             trashButtonOutlet.disable()
         }
+        
         if alertTypeAsNSObject == nil {
             trashButtonOutlet.disable()
         }
@@ -121,16 +122,14 @@ final class AlertTypeSettingsViewController: SubSettingsViewController {
     /// setup datasource, delegate, seperatorInset
     private func setupTableView() {
         if let tableView = tableView {
-            // insert slightly the separator text so that it doesn't touch the safe area limit
-            tableView.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
             tableView.dataSource = self
             tableView.delegate = self
+            tableView.indicatorStyle = .white
         }
     }
     
     /// to do when user cliks done button
     private func doneButtonAction() {
-        
         // first check if name is a unique name
         let alertTypesAccessor = AlertTypesAccessor()
         for alertTypeAlreadyStored in alertTypesAccessor.getAllAlertTypes() {
@@ -143,7 +142,7 @@ final class AlertTypeSettingsViewController: SubSettingsViewController {
                                         actionTitle: R.string.common.common_Ok(),
                                         actionHandler: nil)
                 
-                self.present(alert, animated: true, completion: nil)
+                present(alert, animated: true, completion: nil)
                 
                 return
             }
@@ -176,7 +175,6 @@ final class AlertTypeSettingsViewController: SubSettingsViewController {
             SoundPlayer.shared.stopPlaying()
         }
     }
-    
 }
 
 extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDelegate {
@@ -226,31 +224,31 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
             cell.textLabel?.text = Texts_AlertTypeSettingsView.alertTypeEnabled
             cell.detailTextLabel?.text = nil
             cell.accessoryType = UITableViewCell.AccessoryType.none
-            cell.accessoryView = UISwitch(isOn: enabled, action: {
-                (isOn:Bool) in
+            cell.accessoryView = UISwitch(isOn: enabled) {
+                (isOn: Bool) in
                 self.enabled = isOn
                 tableView.reloadSections(IndexSet(integer: 0), with: .none)
-            })
+            }
             
         case .vibrate:
             cell.textLabel?.text = Texts_AlertTypeSettingsView.alertTypeVibrate
             cell.detailTextLabel?.text = nil
             cell.accessoryType = UITableViewCell.AccessoryType.none
-            cell.accessoryView = UISwitch(isOn: vibrate, action: {
-                (isOn:Bool) in
+            cell.accessoryView = UISwitch(isOn: vibrate) {
+                (isOn: Bool) in
                 self.vibrate = isOn
                 tableView.reloadRows(at: [IndexPath(row: Setting.vibrate.rawValue, section: 0)], with: .none) // just for case where status of switch is nog aligned with value
-            })
+            }
             
         case .snoozeViaNotification:
             cell.textLabel?.text = Texts_AlertTypeSettingsView.alertTypeSnoozeViaNotification
             cell.detailTextLabel?.text = nil
             cell.accessoryType = UITableViewCell.AccessoryType.none
-            cell.accessoryView = UISwitch(isOn: snooze, action: {
-                (isOn:Bool) in
+            cell.accessoryView = UISwitch(isOn: snooze) {
+                (isOn: Bool) in
                 self.snooze = isOn
                 tableView.reloadRows(at: [IndexPath(row: Setting.snoozeViaNotification.rawValue, section: 0)], with: .none) // just for case where status of switch is nog aligned with value
-            })
+            }
             
         case .defaultSnoozePeriod:
             cell.textLabel?.text = R.string.alertTypesSettingsView.alerttypesettingsview_defaultsnoozeperiod()
@@ -268,11 +266,11 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
             cell.textLabel?.text = Texts_AlertTypeSettingsView.alertTypeOverrideMute
             cell.detailTextLabel?.text = nil
             cell.accessoryType = UITableViewCell.AccessoryType.none
-            cell.accessoryView = UISwitch(isOn: overrideMute, action: {
-                (isOn:Bool) in
+            cell.accessoryView = UISwitch(isOn: overrideMute) {
+                (isOn: Bool) in
                 self.overrideMute = isOn
                 tableView.reloadRows(at: [IndexPath(row: Setting.overridemute.rawValue, section: 0)], with: .none) // just for case where status of switch is nog aligned with value
-            })
+            }
         }
         
         return cell
@@ -333,7 +331,7 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
             )
             
             // present the alert
-            self.present(dialog, animated: true)
+            present(dialog, animated: true)
 
         case .soundName:
             // create array of all sounds and sound filenames, inclusive default ios sound and also empty string, which is "no sound"
@@ -413,6 +411,7 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
     
 /// defines perform segue identifiers used within AlertTypeSettingsViewController - there's only one at the moment, but there could be more in the future, that's why it's an enum
 extension AlertTypeSettingsViewController {
+    
     public enum SegueIdentifiers:String {
         
         /// to go from alerttypes settings screen to alert type settings screen

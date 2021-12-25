@@ -95,8 +95,10 @@ public enum AlertKind: Int, CaseIterable {
     /// probably only useful in UI - named AlertKind and not AlertType because there's already an AlertType which has a different goal
     func needsAlertValue() -> Bool {
         switch self {
-        case .low, .high, .verylow,.veryhigh,.missedreading,.calibration,.batterylow,.fastdrop,.fastrise:
+        case .low, .high, .verylow, .veryhigh, .missedreading, .calibration, .batterylow:
             return true
+        case  .fastdrop, .fastrise:
+            return false
         }
     }
     

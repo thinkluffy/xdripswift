@@ -72,17 +72,17 @@ public class BgReading: NSManagedObject {
     var slopArrow: SlopeArrow {
         var arrow: SlopeArrow
         let slopeByMinute = calculatedValueSlope * 60000
-        if (slopeByMinute <= (-3.5)) {
+        if slopeByMinute <= -3.5 {
             arrow = SlopeArrow.doubleDown
-        } else if (slopeByMinute <= (-2)) {
+        } else if slopeByMinute <= -2 {
             arrow = SlopeArrow.singleDown
-        } else if (slopeByMinute <= (-1)) {
+        } else if slopeByMinute <= -1 {
             arrow = SlopeArrow.fortyFiveDown
-        } else if (slopeByMinute <= (1)) {
+        } else if slopeByMinute <= 1 {
             arrow = SlopeArrow.flat
-        } else if (slopeByMinute <= (2)) {
+        } else if slopeByMinute <= 2 {
             arrow = SlopeArrow.fortyFiveUp
-        } else if (slopeByMinute <= (3.5)) {
+        } else if slopeByMinute <= 3.5 {
             arrow = SlopeArrow.singleUp
         } else {
             arrow = SlopeArrow.doubleUp

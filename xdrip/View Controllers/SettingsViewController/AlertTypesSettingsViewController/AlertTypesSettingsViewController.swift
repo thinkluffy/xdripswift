@@ -15,7 +15,7 @@ final class AlertTypesSettingsViewController: SubSettingsViewController {
 
     // user clicks the add button, to add new alert type
     @IBAction func addButtonAction(_ sender: UIBarButtonItem) {
-        self.performSegue(withIdentifier:AlertTypeSettingsViewController.SegueIdentifiers.alertTypesToAlertTypeSettings.rawValue, sender: nil)
+        performSegue(withIdentifier: AlertTypeSettingsViewController.SegueIdentifiers.alertTypesToAlertTypeSettings.rawValue, sender: nil)
     }
     
     // MARK: - Private Properties
@@ -63,8 +63,8 @@ final class AlertTypesSettingsViewController: SubSettingsViewController {
     /// setup datasource, delegate, seperatorInset
     private func setupTableView() {
         if let tableView = tableView {
-            // insert slightly the separator text so that it doesn't touch the safe area limit
-            tableView.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+            tableView.indicatorStyle = .white
+
             tableView.dataSource = self
             tableView.delegate = self
         }
@@ -76,13 +76,9 @@ extension AlertTypesSettingsViewController: UITableViewDataSource, UITableViewDe
     // MARK: - UITableViewDataSource and UITableViewDelegate protocol Methods
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        
         if let view = view as? UITableViewHeaderFooterView {
-            
             view.textLabel?.textColor = ConstantsUI.tableViewHeaderTextColor
-            
         }
-        
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -114,9 +110,7 @@ extension AlertTypesSettingsViewController: UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         tableView.deselectRow(at: indexPath, animated: true)
         self.performSegue(withIdentifier:AlertTypeSettingsViewController.SegueIdentifiers.alertTypesToAlertTypeSettings.rawValue, sender: alertTypesAccessor.getAllAlertTypes()[indexPath.row])
     }
-
 }
