@@ -16,11 +16,20 @@ class ServiceIntegrationSettingsViewController: LegacySubSettingsViewController 
     }
     
     override func configureSections() -> [LegacySettingSection]? {
-        return [
-            LegacySettingSection(viewModelProtocol: SettingsViewNightScoutSettingsViewModel()),
-            LegacySettingSection(viewModelProtocol: SettingsViewDexcomSettingsViewModel()),
-            LegacySettingSection(viewModelProtocol: SettingsViewHealthKitSettingsViewModel()),
-            LegacySettingSection(viewModelProtocol: SettingsViewAppleWatchSettingsViewModel())
-        ]                    
+        if UserDefaults.standard.isFullFeatureMode {
+            return [
+                LegacySettingSection(viewModelProtocol: SettingsViewNightScoutSettingsViewModel()),
+                LegacySettingSection(viewModelProtocol: SettingsViewDexcomSettingsViewModel()),
+                LegacySettingSection(viewModelProtocol: SettingsViewHealthKitSettingsViewModel()),
+                LegacySettingSection(viewModelProtocol: SettingsViewAppleWatchSettingsViewModel())
+            ]
+            
+        } else {
+            return [
+                LegacySettingSection(viewModelProtocol: SettingsViewNightScoutSettingsViewModel()),
+                LegacySettingSection(viewModelProtocol: SettingsViewHealthKitSettingsViewModel()),
+                LegacySettingSection(viewModelProtocol: SettingsViewAppleWatchSettingsViewModel())
+            ]
+        }
     }
 }

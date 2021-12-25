@@ -95,6 +95,7 @@ extension AppDelegate {
         style.verticalMargin = 80
         style.verticalPadding = 10
         style.horizontalPadding = 20
+        style.maxWidth = 200
         style.slideInAndOut = true
         style.titleColor = .hex(0xff1f2033)
         style.messageColor = .hex(0xff1f2033)
