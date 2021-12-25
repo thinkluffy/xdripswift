@@ -17,6 +17,6 @@ target 'xdrip' do
   pod 'PopupDialog', :tag => '1.1.1-th', :git => 'https://github.com/thinkluffy/PopupDialog.git'
   pod 'SwiftEventBus', :tag => '5.0.1', :git => 'https://github.com/cesarferreira/SwiftEventBus.git'
 
-  pod 'Firebase', '8.8.0', :subspecs => ['AnalyticsWithoutAdIdSupport', 'Crashlytics', 'Performance', 'RemoteConfig']
+  pod 'Firebase', '8.10.0', :subspecs => ['AnalyticsWithoutAdIdSupport', 'Crashlytics', 'Performance', 'RemoteConfig']
 
 end
