@@ -156,4 +156,8 @@ class CGMDroplet1Transmitter:BluetoothTransmitter, CGMTransmitter {
         // no supported for droplet
         return nil
     }
+    
+    var newReadingPeriodInSeconds: Int? {
+        5 * 60
+    }
 }

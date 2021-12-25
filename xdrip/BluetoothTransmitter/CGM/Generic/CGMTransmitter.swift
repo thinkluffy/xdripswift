@@ -31,6 +31,8 @@ protocol CGMTransmitter: AnyObject {
     /// maximum sensor age in seconds, nil if no maximum
     func maxSensorAgeInSeconds() -> Int?
     
+    /// how offen the transmitter can get a new reading
+    var newReadingPeriodInSeconds: Int? {get}
 }
 
 /// cgm transmitter types

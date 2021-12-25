@@ -76,6 +76,7 @@ class CountDownView: UIView {
             timer?.invalidate()
             timer = nil
         }
+        countDownLabel.text = nil
     }
     
     override var intrinsicContentSize: CGSize {

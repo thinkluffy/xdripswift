@@ -151,4 +151,8 @@ class CGMBlueReaderTransmitter:BluetoothTransmitter, CGMTransmitter {
         // not supported for bluereader
         return nil
     }
+    
+    var newReadingPeriodInSeconds: Int? {
+        5 * 60
+    }
 }

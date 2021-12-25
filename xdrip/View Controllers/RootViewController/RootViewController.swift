@@ -635,8 +635,14 @@ final class RootViewController: UIViewController {
             showNewBGReadingToast()
             
             // should check how offen the Transmitter get new reading
-            newReadingCountDownView.reset(to: 60)
-            newReadingCountDownView.startCountDown()
+            if let cgmTransmitter = bluetoothPeripheralManager?.getCGMTransmitter(),
+               let newReadingPeriodInSeconds = cgmTransmitter.newReadingPeriodInSeconds {
+                newReadingCountDownView.reset(to: newReadingPeriodInSeconds)
+                newReadingCountDownView.startCountDown()
+                
+            } else {
+                newReadingCountDownView.stopCountCown()
+            }
         }
     }
     

@@ -433,6 +433,9 @@ class CGMAtomTransmitter:BluetoothTransmitter, CGMTransmitter {
         return libreSensorType?.maxSensorAgeInSeconds()
     }
 
+    var newReadingPeriodInSeconds: Int? {
+        5 * 60
+    }
 }
 
 

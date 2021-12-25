@@ -40,4 +40,9 @@ extension WatlaaBluetoothTransmitter: CGMTransmitter {
         // no max sensor age for Watlaa
         return nil
     }
+    
+    var newReadingPeriodInSeconds: Int? {
+        nil
+    }
+
 }

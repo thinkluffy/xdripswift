@@ -329,6 +329,10 @@ class CGMMiaoMiaoTransmitter:BluetoothTransmitter, CGMTransmitter {
         return libreSensorType?.maxSensorAgeInSeconds()
     }
 
+    var newReadingPeriodInSeconds: Int? {
+        5 * 60
+    }
+    
     // MARK: - helpers
     
     /// reset rxBuffer, reset startDate, set resendPacketCounter to 0

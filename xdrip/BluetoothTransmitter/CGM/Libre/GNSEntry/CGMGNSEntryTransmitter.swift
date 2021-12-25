@@ -267,6 +267,10 @@ class CGMGNSEntryTransmitter:BluetoothTransmitter, CGMTransmitter {
         return nil
     }
 
+    var newReadingPeriodInSeconds: Int? {
+        5 * 60
+    }
+    
     // MARK: CBCentralManager overriden functions
     
     override func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {

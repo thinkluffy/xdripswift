@@ -559,5 +559,9 @@ extension CGMBluconTransmitter: CGMTransmitter {
         // not supported for blucon
         return nil
     }
+    
+    var newReadingPeriodInSeconds: Int? {
+        5 * 60
+    }
 }
 

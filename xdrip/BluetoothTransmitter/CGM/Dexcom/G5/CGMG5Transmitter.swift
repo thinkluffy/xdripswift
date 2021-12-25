@@ -550,6 +550,10 @@ class CGMG5Transmitter: BluetoothTransmitter, CGMTransmitter {
         return Int(10 * Date.dayInSeconds)
     }
     
+    var newReadingPeriodInSeconds: Int? {
+        5 * 60
+    }
+    
     // MARK:- helper functions
     
     /// sends SensorTxMessage to transmitter

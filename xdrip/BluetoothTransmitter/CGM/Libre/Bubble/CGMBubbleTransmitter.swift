@@ -351,6 +351,10 @@ class CGMBubbleTransmitter:BluetoothTransmitter, CGMTransmitter {
         return libreSensorType?.maxSensorAgeInSeconds()
     }
 
+    var newReadingPeriodInSeconds: Int? {
+        5 * 60
+    }
+    
     // MARK: - helpers
     
     /// reset rxBuffer, reset startDate, stop packetRxMonitorTimer, set resendPacketCounter to 0

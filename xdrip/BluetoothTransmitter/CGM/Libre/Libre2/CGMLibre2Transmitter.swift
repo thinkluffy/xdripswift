@@ -7,6 +7,7 @@ import CoreNFC
 
 class CGMLibre2Transmitter: BluetoothTransmitter, CGMTransmitter {
     
+    
     // MARK: - properties
     
     /// service to be discovered
@@ -313,6 +314,10 @@ class CGMLibre2Transmitter: BluetoothTransmitter, CGMTransmitter {
     
     func maxSensorAgeInSeconds() -> Int? {
         return libreSensorType?.maxSensorAgeInSeconds()
+    }
+    
+    var newReadingPeriodInSeconds: Int? {
+        60
     }
 }
 
