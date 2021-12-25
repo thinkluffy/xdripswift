@@ -188,9 +188,10 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         // if the alerttype is not enabled, then only show the enable UISwitch and the name of the alerttype
-        if !enabled {return 2}
+        if !enabled {
+            return 2
+        }
         
         // if snooze via notifiation screen not enabled, then don't show
         //if !snooze {return Setting.allCases.count - 1}
@@ -202,14 +203,13 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
         cell.textLabel?.textColor = ConstantsUI.tableTitleColor
         cell.detailTextLabel?.textColor = ConstantsUI.tableDetailTextColor
         
-        guard let setting = Setting(rawValue: indexPath.row) else { fatalError("AlertTypeSettingsViewController cellForRowAt, Unexpected setting") }
+        guard let setting = Setting(rawValue: indexPath.row) else {
+            fatalError("AlertTypeSettingsViewController cellForRowAt, Unexpected setting")
+        }
         
         // default value for accessoryView is nil
         cell.accessoryView = nil
-        
-        // create disclosureIndicator in color ConstantsUI.disclosureIndicatorColor
-        // will be used whenever accessoryType is to be set to disclosureIndicator
-        let disclosureAaccessoryView = DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor)
+        cell.accessoryType = .none
 
         // configure the cell depending on setting
         switch setting {
@@ -217,13 +217,11 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
         case .name:
             cell.textLabel?.text = Texts_AlertTypeSettingsView.alertTypeName
             cell.detailTextLabel?.text = name
-            cell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
-            cell.accessoryView = disclosureAaccessoryView
-            
+            cell.accessoryType = UITableViewCell.AccessoryType.none
+
         case .enabled:
             cell.textLabel?.text = Texts_AlertTypeSettingsView.alertTypeEnabled
             cell.detailTextLabel?.text = nil
-            cell.accessoryType = UITableViewCell.AccessoryType.none
             cell.accessoryView = UISwitch(isOn: enabled) {
                 (isOn: Bool) in
                 self.enabled = isOn
@@ -233,7 +231,6 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
         case .vibrate:
             cell.textLabel?.text = Texts_AlertTypeSettingsView.alertTypeVibrate
             cell.detailTextLabel?.text = nil
-            cell.accessoryType = UITableViewCell.AccessoryType.none
             cell.accessoryView = UISwitch(isOn: vibrate) {
                 (isOn: Bool) in
                 self.vibrate = isOn
@@ -243,7 +240,6 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
         case .snoozeViaNotification:
             cell.textLabel?.text = Texts_AlertTypeSettingsView.alertTypeSnoozeViaNotification
             cell.detailTextLabel?.text = nil
-            cell.accessoryType = UITableViewCell.AccessoryType.none
             cell.accessoryView = UISwitch(isOn: snooze) {
                 (isOn: Bool) in
                 self.snooze = isOn
@@ -253,19 +249,14 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
         case .defaultSnoozePeriod:
             cell.textLabel?.text = R.string.alertTypesSettingsView.alerttypesettingsview_defaultsnoozeperiod()
             cell.detailTextLabel?.text = R.string.common.howManyMinutes(Int(snoozePeriod))
-            cell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
-            cell.accessoryView = disclosureAaccessoryView
             
         case .soundName:
             cell.textLabel?.text = Texts_AlertTypeSettingsView.alertTypeSound
             cell.detailTextLabel?.text = soundName != nil ? soundName! == "" ? Texts_AlertTypeSettingsView.alertTypeNoSound : soundName! : Texts_AlertTypeSettingsView.alertTypeDefaultIOSSound
-            cell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
-            cell.accessoryView = disclosureAaccessoryView
             
         case .overridemute:
             cell.textLabel?.text = Texts_AlertTypeSettingsView.alertTypeOverrideMute
             cell.detailTextLabel?.text = nil
-            cell.accessoryType = UITableViewCell.AccessoryType.none
             cell.accessoryView = UISwitch(isOn: overrideMute) {
                 (isOn: Bool) in
                 self.overrideMute = isOn

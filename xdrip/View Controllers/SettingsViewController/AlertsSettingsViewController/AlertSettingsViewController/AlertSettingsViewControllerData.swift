@@ -146,11 +146,13 @@ extension AlertSettingsViewControllerData {
             cell.detailTextLabel?.text = Int(start).convertMinutesToTimeAsString()
             if start == 0 {// alertEntry with start time 0, time can't be changed
                 cell.accessoryType = UITableViewCell.AccessoryType.none
+                
             } else {
                 cell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
                 // set color of disclosureIndicator to ConstantsUI.disclosureIndicatorColor
                 cell.accessoryView = DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor)
             }
+            
         case .value:
             // note that value will not be shown if alerttype not enabled or alertkind doesn't need a value, means if that's the case, setting will never be .value
             cell.textLabel?.text = Texts_Alerts.alertValue + (alertKindAsAlertKind.valueUnitText(transmitterType: UserDefaults.standard.cgmTransmitterType) != "" ? (" (" + alertKindAsAlertKind.valueUnitText(transmitterType: UserDefaults.standard.cgmTransmitterType) + ")"):"")
@@ -270,14 +272,17 @@ extension AlertSettingsViewControllerData {
             }
             
             // configure pickerViewData
-            let pickerViewData = PickerViewDataBuilder(data: allAlertTypeNames, actionHandler: {
-                (_ index: Int, _) in
-                
-                self.alertType = allAlertTypes[index]
-                tableView.reloadRows(at: [IndexPath(row: Setting.alertType.rawValue, section: 0)], with: .none)
-                // checkIfPropertiesChanged
-                self.checkIfPropertiesChanged()
-            })
+            let pickerViewData = PickerViewDataBuilder(
+                data: allAlertTypeNames,
+                actionHandler: {
+                    (_ index: Int, _) in
+                    
+                    self.alertType = allAlertTypes[index]
+                    tableView.reloadRows(at: [IndexPath(row: Setting.alertType.rawValue, section: 0)], with: .none)
+                    // checkIfPropertiesChanged
+                    self.checkIfPropertiesChanged()
+                }
+            )
                 .title(Texts_Alerts.alerttype)
                 .selectedRow(selectedRow)
                 .build()
@@ -289,14 +294,15 @@ extension AlertSettingsViewControllerData {
 
 // helper functions
 extension AlertSettingsViewControllerData {
+    
     /// helper function to get AlertKind from int16, if not possible then fatal error is thrown
-    class public func getAlertKind(alertKind:Int16) -> AlertKind {
+    class public func getAlertKind(alertKind: Int16) -> AlertKind {
         if let alertKind = AlertKind(rawValue: Int(alertKind)) {return alertKind}
         else {fatalError("in AlertSettingsViewControllerData, getAlertKind, could not create AlertKind from Int16 value" )}
     }
     
     /// helper to check if alertType exists and if yes return it unwrapped, else fatalerror
-    class public func getAlertType(alertType:AlertType?) -> AlertType {
+    class public func getAlertType(alertType: AlertType?) -> AlertType {
         if let alertType = alertType {return alertType}
         else {fatalError("in AlertSettingsViewControllerData, getAlertType, alertType is nil" )}
     }
