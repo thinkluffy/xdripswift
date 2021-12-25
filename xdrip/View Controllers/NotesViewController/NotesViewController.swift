@@ -22,6 +22,7 @@ class NotesViewController: UIViewController {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.backgroundColor = ConstantsUI.contentBackgroundColor
         tableView.separatorColor = .white.withAlphaComponent(0.1)
+        tableView.indicatorStyle = .white
         return tableView
     }()
     
@@ -327,7 +328,7 @@ fileprivate class NoteTableViewCell: UITableViewCell {
         
         timeStampLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-10)
+            make.trailing.equalToSuperview().offset(-15)
         }
     }
 }

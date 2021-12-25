@@ -14,6 +14,7 @@ class CommonSettingsViewController: SubSettingsViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.backgroundColor = ConstantsUI.mainBackgroundColor
+        tableView.showsVerticalScrollIndicator = false
         return tableView
     }()
     

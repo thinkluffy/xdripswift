@@ -111,7 +111,7 @@
 		CE1B2FE125D0264B00F642F5 /* Main.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B2FD425D0264900F642F5 /* Main.strings */; };
 		E53D045327438C5F00CA548E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E53D045227438C5F00CA548E /* Assets.xcassets */; };
 		E53D045927438C5F00CA548E /* xDripWatch WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E53D045827438C5F00CA548E /* xDripWatch WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		E53D047027438C6100CA548E /* zDrip.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = E53D045027438C5D00CA548E /* zDrip.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E53D047027438C6100CA548E /* zDripWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = E53D045027438C5D00CA548E /* zDripWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E53D047927438CED00CA548E /* xdripApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D047827438CEC00CA548E /* xdripApp.swift */; };
 		E53D048027438D0100CA548E /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = E53D047A27438D0000CA548E /* PushNotificationPayload.apns */; };
 		E53D048327438D0100CA548E /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D047D27438D0000CA548E /* ComplicationController.swift */; };
@@ -584,7 +584,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				E53D047027438C6100CA548E /* zDrip.app in Embed Watch Content */,
+				E53D047027438C6100CA548E /* zDripWatch.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -779,7 +779,7 @@
 		CE1B2FDE25D0264B00F642F5 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Snooze.strings; sourceTree = "<group>"; };
 		CE1B2FDF25D0264B00F642F5 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/BluetoothPeripheralView.strings; sourceTree = "<group>"; };
 		CE1B2FE425D026B400F642F5 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Common.strings; sourceTree = "<group>"; };
-		E53D045027438C5D00CA548E /* zDrip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zDrip.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E53D045027438C5D00CA548E /* zDripWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zDripWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E53D045227438C5F00CA548E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E53D045827438C5F00CA548E /* xDripWatch WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "xDripWatch WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E53D047827438CEC00CA548E /* xdripApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = xdripApp.swift; sourceTree = "<group>"; };
@@ -2222,7 +2222,7 @@
 			children = (
 				F8AC425A21ADEBD60078C348 /* xdrip.app */,
 				F870D3D125126A49008967B0 /* xDrip4iOS Widget.appex */,
-				E53D045027438C5D00CA548E /* zDrip.app */,
+				E53D045027438C5D00CA548E /* zDripWatch.app */,
 				E53D045827438C5F00CA548E /* xDripWatch WatchKit Extension.appex */,
 			);
 			name = Products;
@@ -2231,7 +2231,6 @@
 		F8AC425C21ADEBD60078C348 /* xdrip */ = {
 			isa = PBXGroup;
 			children = (
-				F8A5EEC5257EDC910085E660 /* xdripDebug.entitlements */,
 				F85DC2FB21D2CD7000B9F74A /* Application Delegate */,
 				F8F971AD23A5914C00C3F17D /* BluetoothPeripheral */,
 				F8F971B923A5915900C3F17D /* BluetoothTransmitter */,
@@ -2250,6 +2249,7 @@
 				F85DC2FA21D2CD3000B9F74A /* View Controllers */,
 				F8BECB00235CE3E20060DAE1 /* Views */,
 				F8A54B0A22D9215500934E7A /* xdrip-Bridging-Header.h */,
+				F8A5EEC5257EDC910085E660 /* xdripDebug.entitlements */,
 				F821CF9822AE589E005C1E43 /* xdrip.entitlements */,
 				4E9D79D6273E683100B666C5 /* logo-launchScreen@3x.png */,
 				4EE66F072733E01500548A46 /* R.generated.swift */,
@@ -2976,7 +2976,7 @@
 			);
 			name = xDripWatch;
 			productName = xDripWatch;
-			productReference = E53D045027438C5D00CA548E /* zDrip.app */;
+			productReference = E53D045027438C5D00CA548E /* zDripWatch.app */;
 			productType = "com.apple.product-type.application.watchapp2";
 		};
 		E53D045727438C5F00CA548E /* xDripWatch WatchKit Extension */ = {
@@ -4374,7 +4374,7 @@
 				);
 				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip.watchkitapp;
-				PRODUCT_NAME = zDrip;
+				PRODUCT_NAME = zDripWatch;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -4409,7 +4409,7 @@
 				);
 				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip.watchkitapp;
-				PRODUCT_NAME = zDrip;
+				PRODUCT_NAME = zDripWatch;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;

@@ -258,7 +258,6 @@ struct R: Rswift.Validatable {
     static let comAppleDeveloperHealthkit = true
 
     struct comAppleDeveloperNfcReadersessionFormats {
-      static let ndeF = infoPlistString(path: ["com.apple.developer.nfc.readersession.formats"], key: "NDEF") ?? "NDEF"
       static let taG = infoPlistString(path: ["com.apple.developer.nfc.readersession.formats"], key: "TAG") ?? "TAG"
 
       fileprivate init() {}
