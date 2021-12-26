@@ -1586,7 +1586,7 @@ extension RootViewController: UNUserNotificationCenterDelegate {
 }
 
 extension RootViewController: RootV {
-    
+   
     func showNewFollowerReading() {
         // update all text in first screen
         updateLabelsAndChart(overrideApplicationState: false)
@@ -1606,6 +1606,11 @@ extension RootViewController: RootV {
     func show(chartReadings: [BgReading]?, from fromDate: Date, to toDate: Date) {
         glucoseChart.show(readings: chartReadings, from: fromDate, to: toDate, aheadSeconds: Date.minuteInSeconds * 10)
         glucoseChart.moveXAxisToTrailing()
+    }
+    
+    func showSnoozeAlertsStatus(hasSnoozedAlerts: Bool) {
+        let image = hasSnoozedAlerts ? R.image.ic_alarm_snoozed() : R.image.ic_alarm()
+        snoozeButton.setImage(image, for: .normal)
     }
 }
 

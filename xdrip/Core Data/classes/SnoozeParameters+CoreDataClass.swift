@@ -5,10 +5,10 @@ import CoreData
 public class SnoozeParameters: NSManagedObject {
     
     init(
-        alertKind:AlertKind,
+        alertKind: AlertKind,
         snoozePeriodInMinutes: Int16,
         snoozeTimeStamp: Date?,
-        nsManagedObjectContext:NSManagedObjectContext
+        nsManagedObjectContext: NSManagedObjectContext
     ) {
         let entity = NSEntityDescription.entity(forEntityName: "SnoozeParameters", in: nsManagedObjectContext)!
         super.init(entity: entity, insertInto: nsManagedObjectContext)
@@ -16,7 +16,6 @@ public class SnoozeParameters: NSManagedObject {
         self.snoozePeriodInMinutes = snoozePeriodInMinutes
         self.alertKind = Int16(alertKind.rawValue)
         self.snoozeTimeStamp = snoozeTimeStamp
-
     }
     
     private override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftEventBus
 
 class RootPresenter: RootP {
 
@@ -42,6 +43,22 @@ class RootPresenter: RootP {
 
             self?.view?.show(chartReadings: readings, from: fromDate, to: toDate)
         }
+    }
+    
+    func onViewDidAppear() {
+        view?.showSnoozeAlertsStatus(hasSnoozedAlerts: AlertManager.shared.hasSnoozedAlerts)
+        
+        SwiftEventBus.onMainThread(self, name: EventBusEvents.snoozeAlertsStatusChanged) { [weak self] result in
+            guard let view = self?.view else {
+                return
+            }
+            
+            view.showSnoozeAlertsStatus(hasSnoozedAlerts: AlertManager.shared.hasSnoozedAlerts)
+        }
+    }
+    
+    func onViewWillDisappear() {
+        SwiftEventBus.unregister(self)
     }
     
     // a long function just to get the timestamp of the last disconnect or reconnect. If not known then returns 1 1 1970

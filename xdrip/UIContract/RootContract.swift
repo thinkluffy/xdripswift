@@ -13,6 +13,8 @@ protocol RootV: MVPV {
     func showNewFollowerReading()
     
     func show(chartReadings: [BgReading]?, from fromDate: Date, to toDate: Date)
+    
+    func showSnoozeAlertsStatus(hasSnoozedAlerts: Bool)
 }
 
 protocol RootP: MVPP {

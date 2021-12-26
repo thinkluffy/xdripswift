@@ -2,7 +2,7 @@ import Foundation
 import os
 import UserNotifications
 import AudioToolbox
-
+import SwiftEventBus
 
 /// has a function to check if an alert needs to be raised, and also raised the alert notification if needed.
 ///
@@ -264,6 +264,15 @@ class AlertManager: NSObject {
         return snoozeParameters[alertKind.rawValue]
     }
 
+    var hasSnoozedAlerts: Bool {
+        for s in snoozeParameters {
+            if s.getSnoozeValue().isSnoozed {
+                return true
+            }
+        }
+        return false
+    }
+    
     /// Function to be called that receives the notification actions. Will handle the response. completionHandler will not necessarily be called. Only if the identifier (response.notification.request.identifier) is one of the alert notification identifers, then it will handle the response and also call completionhandler.
     /// called when notification created while app is in foreground
     ///
@@ -300,6 +309,7 @@ class AlertManager: NSObject {
         // save changes in coredata
         CoreDataManager.shared.saveChanges()
         
+        SwiftEventBus.post(EventBusEvents.snoozeAlertsStatusChanged)
     }
     
     /// creates PickerViewData which allows user to snooze an alert.
@@ -338,6 +348,8 @@ class AlertManager: NSObject {
 
             // save changes in coredata
             CoreDataManager.shared.saveChanges()
+            
+            SwiftEventBus.post(EventBusEvents.snoozeAlertsStatusChanged)
 
             // if it's a missed reading alert, then cancel any planned missed reading alerts and reschedule
             // if content is not nil, then it means a missed reading alert went off, the user clicked it, app opens, user clicks snooze, snoozing must be set
@@ -374,7 +386,7 @@ class AlertManager: NSObject {
 
     // MARK: - overriden functions
     
-    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         
         if let keyPath = keyPath {
             

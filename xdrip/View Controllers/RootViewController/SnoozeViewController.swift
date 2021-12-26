@@ -20,6 +20,7 @@ final class SnoozeViewController: UIViewController {
         if let tableView = tableView {
             tableView.dataSource = self
             tableView.delegate = self
+            tableView.showsVerticalScrollIndicator = false
         }
     }
 }

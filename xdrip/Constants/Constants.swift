@@ -36,6 +36,7 @@ enum Constants {
 
 enum EventBusEvents {
     
+    static let snoozeAlertsStatusChanged = "snoozeAlertsStatusChanged"
     static let newNote = "newNote"
 }
 

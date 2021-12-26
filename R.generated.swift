@@ -1292,8 +1292,8 @@ struct R: Rswift.Validatable {
     static let dexcomG5 = Rswift.ImageResource(bundle: R.hostingBundle, name: "dexcomG5")
     /// Image `dexcomG6`.
     static let dexcomG6 = Rswift.ImageResource(bundle: R.hostingBundle, name: "dexcomG6")
-    /// Image `ic_alarm_delay`.
-    static let ic_alarm_delay = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_alarm_delay")
+    /// Image `ic_alarm_snoozed`.
+    static let ic_alarm_snoozed = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_alarm_snoozed")
     /// Image `ic_alarm`.
     static let ic_alarm = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_alarm")
     /// Image `ic_arrow_left`.
@@ -1379,9 +1379,9 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_alarm_delay", bundle: ..., traitCollection: ...)`
-    static func ic_alarm_delay(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_alarm_delay, compatibleWith: traitCollection)
+    /// `UIImage(named: "ic_alarm_snoozed", bundle: ..., traitCollection: ...)`
+    static func ic_alarm_snoozed(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_alarm_snoozed, compatibleWith: traitCollection)
     }
     #endif
 
