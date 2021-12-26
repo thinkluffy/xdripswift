@@ -99,17 +99,14 @@
 /// In case user tries to send trace file via email but error occurs.
 "failedToSendEmail" = "Failed to Send Email";
 
-/// shown on top of the first settings screen
-"m5stack_settingsviews_settingstitle" = "M5 Stack Settings";
-
 /// M5 stack bluetooth  settings, pop up that asks user to enter the password
 "m5stack_settingsviews_giveBluetoothPassword" = "Enter Bluetooth Password";
 
 /// used in settings, section Info, title of the version setting
-"settingsviews_Version" = "Version";
+"settingsviews_Version" = "版本";
 
 /// used in settings, section Info, title of the build setting
-"settingsviews_build" = "Build";
+"settingsviews_build" = "构件号";
 
 /// nightscout settings, where user can select to use schedule or not
 "settingsviews_useSchedule" = "Use Upload Schedule?";

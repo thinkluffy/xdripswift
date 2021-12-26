@@ -73,7 +73,7 @@
 "settingsviews_sectiontitleAbout" = "Over %@";
 "settingsviews_Version" = "Versie";
 "settingsviews_license" = "Licentie";
-"settingsviews_build" = "Build:";
+"settingsviews_build" = "Build";
 "m5stack_settingsviews_settingstitle" = "M5 Stack Instellingen";
 "m5stack_settingsviews_textColor" = "Tekstkleur";
 "m5stack_settingsviews_backGroundColor" = "Achtergrondkleur";
