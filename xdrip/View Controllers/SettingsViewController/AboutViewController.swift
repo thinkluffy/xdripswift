@@ -152,7 +152,7 @@ class AboutViewController: LegacySubSettingsViewController {
         }
         
         let dialog = PopupDialog(title: "Should I open the door", message: nil, keyboardType: .default, text: nil, placeHolder: nil) {
-            text in
+            _, text in
             let sanded = text + "zd" + text.reversed()
             // goodluck#1
             if "7545387dc50ba53e7c3e37f04b5def118e82544bbbe47ac4eb10837a8a3b05a3" == sanded.sha256 {

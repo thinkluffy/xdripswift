@@ -47,7 +47,8 @@ extension PopupDialog {
                      text: String?,
                      placeHolder: String?,
                      actionTitle: String = R.string.common.common_Ok(),
-                     actionHandler: @escaping ((_ text: String) -> Void),
+                     dismissOnActionButtonTap: Bool = true,
+                     actionHandler: @escaping ((_ dialog: PopupDialog, _ text: String) -> Void),
                      cancelTitle: String = R.string.common.common_cancel(),
                      cancelHandler: (() -> Void)? = nil) {
         
@@ -65,9 +66,9 @@ extension PopupDialog {
                   tapGestureDismissal: false,
                   panGestureDismissal: false)
         
-        let actionButton = DefaultButton(title: actionTitle) {
+        let actionButton = DefaultButton(title: actionTitle, dismissOnTap: dismissOnActionButtonTap) {
             if let inputText = inputViewController.inputText {
-                actionHandler(inputText)
+                actionHandler(self, inputText)
             }
         }
         addButton(actionButton)

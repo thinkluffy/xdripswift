@@ -235,7 +235,7 @@ extension AlertSettingsViewControllerData {
                 text: Double(value).mgdlToMmolAndToString(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl || !AlertSettingsViewControllerData.getAlertKind(alertKind: self.alertKind).valueNeedsConversionToMmol()),
                 placeHolder: nil
             ) {
-                text in
+                _, text in
                 
                 if var asdouble = text.toDouble() {
                     if !UserDefaults.standard.bloodGlucoseUnitIsMgDl && AlertSettingsViewControllerData.getAlertKind(alertKind: self.alertKind).valueNeedsConversionToMmol() {

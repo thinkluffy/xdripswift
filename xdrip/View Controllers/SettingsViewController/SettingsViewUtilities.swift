@@ -77,7 +77,7 @@ class SettingsViewUtilities {
                     placeHolder: placeHolder,
                     actionTitle: actionTitle ?? R.string.common.common_Ok(),
                     actionHandler: {
-                        text in
+                        _, text in
                         
                         if let inputValidator = inputValidator, let errorMessage = inputValidator(text) {
                             // need to show the error message

@@ -57,8 +57,4 @@ class Texts_AlertTypeSettingsView {
     static let alertTypeNoSound: String = {
         return NSLocalizedString("alerttypesettingsview_nosound", tableName: filename, bundle: Bundle.main, value: "No Sound", comment: "when selecting the sound of an alert type, this is for no sound")
     }()
-    
-    static let alertTypeNameAlreadyExistsMessage: String = {
-        return NSLocalizedString("alerttypenamealreadyexistsmessages", tableName: filename, bundle: Bundle.main, value: "An Alarm Type with this name already exists. Use a different name", comment: "when adding a new alert type, but the name is already used for another alert type, this is the error messages")
-    }()
 }

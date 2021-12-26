@@ -84,7 +84,7 @@ final class RootViewController: UIViewController {
     private let keyValueObserverTimeKeeper:KeyValueObserverTimeKeeper = KeyValueObserverTimeKeeper()
     
     /// calibrator to be used for calibration, value will depend on transmitter type
-    private var calibrator:Calibrator?
+    private var calibrator: Calibrator?
     
     /// BgReadingsAccessor instance
     private let bgReadingsAccessor = BgReadingsAccessor()
@@ -93,16 +93,13 @@ final class RootViewController: UIViewController {
     private let calibrationsAccessor = CalibrationsAccessor()
     
     /// NightScoutUploadManager instance
-    private var nightScoutUploadManager:NightScoutUploadManager?
-    
-    /// AlerManager instance
-    private var alertManager:AlertManager?
+    private var nightScoutUploadManager: NightScoutUploadManager?
     
     /// LoopManager instance
     private let loopManager = LoopManager()
     
     /// SoundPlayer instance
-    private var soundPlayer:SoundPlayer?
+    private var soundPlayer: SoundPlayer?
     
     /// dexcomShareUploadManager instance
     private var dexcomShareUploadManager: DexcomShareUploadManager?
@@ -379,9 +376,6 @@ final class RootViewController: UIViewController {
         
         // to initialize UserDefaults.standard.transmitterTypeAsString
         cgmTransmitterInfoDidChange()
-        
-        // setup alertmanager
-        alertManager = AlertManager()
         
         // initialize statisticsManager
         statisticsManager = StatisticsManager()
@@ -729,7 +723,6 @@ final class RootViewController: UIViewController {
                 return
             }
             
-            snoozeAlarmsViewController.configure(alertManager: self.alertManager)
             self.present(snoozeAlarmsViewController, animated: true)
         }
         
@@ -890,7 +883,7 @@ final class RootViewController: UIViewController {
             text: nil,
             placeHolder: "..."
         ) {
-            text in
+            _, text in
             
             guard let valueAsDouble = text.toDouble() else {
                 self.present(PopupDialog(title: Texts_Common.warning,
@@ -1297,24 +1290,21 @@ final class RootViewController: UIViewController {
     /// call alertManager.checkAlerts, and calls createBgReadingNotificationAndSetAppBadge with overrideShowReadingInNotification true or false, depending if immediate notification was created or not
     private func checkAlertsCreateNotificationAndSetAppBadge() {
         // unwrap alerts and check alerts
-        if let alertManager = alertManager {
-            
             // check if an immediate alert went off that shows the current reading
-            if alertManager.checkAlerts(maxAgeOfLastBgReadingInSeconds: ConstantsFollower.maximumBgReadingAgeForAlertsInSeconds) {
-                
-                // an immediate alert went off that shows the current reading
-                
-                // possibily the app is in the foreground now
-                // if user would have opened SnoozeViewController now, then close it, otherwise the alarm picker view will not be shown
-                closeSnoozeViewController()
-                
-                // only update badge is required, (if enabled offcourse)
-                createBgReadingNotificationAndSetAppBadge(overrideShowReadingInNotification: true)
-                
-            } else {
-                // update notification and app badge
-                createBgReadingNotificationAndSetAppBadge(overrideShowReadingInNotification: false)
-            }
+        if AlertManager.shared.checkAlerts(maxAgeOfLastBgReadingInSeconds: ConstantsFollower.maximumBgReadingAgeForAlertsInSeconds) {
+            
+            // an immediate alert went off that shows the current reading
+            
+            // possibily the app is in the foreground now
+            // if user would have opened SnoozeViewController now, then close it, otherwise the alarm picker view will not be shown
+            closeSnoozeViewController()
+            
+            // only update badge is required, (if enabled offcourse)
+            createBgReadingNotificationAndSetAppBadge(overrideShowReadingInNotification: true)
+            
+        } else {
+            // update notification and app badge
+            createBgReadingNotificationAndSetAppBadge(overrideShowReadingInNotification: false)
         }
     }
     
@@ -1527,7 +1517,7 @@ extension RootViewController: UNUserNotificationCenterDelegate {
             bluetoothPeripheralManager?.initiatePairing()
             
             // this will verify if it concerns an alert notification, if not pickerviewData will be nil
-        } else if let pickerViewData = alertManager?.userNotificationCenter(center, willPresent: notification, withCompletionHandler: completionHandler) {
+        } else if let pickerViewData = AlertManager.shared.userNotificationCenter(center, willPresent: notification, withCompletionHandler: completionHandler) {
             
 //            PickerViewController.displayPickerViewController(pickerViewData: pickerViewData, parentController: self)
             
@@ -1578,7 +1568,7 @@ extension RootViewController: UNUserNotificationCenterDelegate {
         } else {
             
             // it's not an initial calibration request notification that the user clicked, by calling alertManager?.userNotificationCenter, we check if it was an alert notification that was clicked and if yes pickerViewData will have the list of alert snooze values
-            if let pickerViewData = alertManager?.userNotificationCenter(center, didReceive: response) {
+            if let pickerViewData = AlertManager.shared.userNotificationCenter(center, didReceive: response) {
                 
                 trace("     userNotificationCenter didReceive, user pressed an alert notification to open the app", log: log, category: ConstantsLog.categoryRootView, type: .info)
                 

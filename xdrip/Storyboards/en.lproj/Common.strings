@@ -19,7 +19,7 @@
 "common_hourshort" = "H";
 "common_dayshort" = "d";
 "common_todayshort" = "Today";
-"warning" ="Warning!";
+"warning" ="Warning";
 "update" = "Edit";
 "add" = "Add";
 "yes" = "Yes";
@@ -29,7 +29,7 @@
 "white" = "white";
 "yellow" = "yellow";
 "name" = "Name";
-"WiFi" = "WiFi";
+"WiFi" = "Wi-Fi";
 "on" = "On";
 "off" = "Off";
 "delete" = "Delete";
@@ -37,7 +37,8 @@
 "firmware" = "Firmware";
 "hardware" = "Hardware";
 "unknown" = "Unknown";
-"sensorStatus" = "Sensor status:";
+"save" = "Save";
+"sensorStatus" = "Sensor status";
 "invalidAccountOrPassword" = "Invalid account or password";
 "common_statistics_low" = "Low";
 "common_statistics_inRange" = "In Range";

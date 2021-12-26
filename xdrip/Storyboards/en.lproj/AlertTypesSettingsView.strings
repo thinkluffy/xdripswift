@@ -3,7 +3,7 @@
 "alerttypesettingsview_name" = "Name";
 "alerttypesettingsview_enabled" = "Enabled";
 "alerttypesettingsview_vibrate" = "Vibrate";
-"alerttypesettingsview_snoozevianotification" = "Snooze Via Notification";
+"alerttypesettingsview_snoozevianotification" = "Snooze via Notification";
 "alerttypesettingsview_defaultsnoozeperiod" = "Default Snooze Time";
 "alerttypesettingsview_overridemute" = "Override Mute";
 "alerttypesettingsview_sound" = "Sound";
@@ -12,6 +12,6 @@
 "alerttypesettingsview_givesnoozeperiod" = "Snooze Time in Minutes";
 "alerttypesettingsview_picksoundname" = "Sound Name";
 "alertTypeNoSound" = "No Sound";
-"alerttypenamealreadyexistsmessages" = "An Alarm Type with this name already exists. Use a different name";
+"alertTypeNameAlreadyExists" = "Name already exists";
 "confirmdeletionalerttype" = "Delete Alarm Type \"%@\"?";
 

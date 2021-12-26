@@ -1638,10 +1638,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static let alerttypessettingsview_screentitle = Rswift.StringResource(key: "alerttypessettingsview_screentitle", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: An Alarm Type with this name already exists. Use a different name
-      ///
-      /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
-      static let alerttypenamealreadyexistsmessages = Rswift.StringResource(key: "alerttypenamealreadyexistsmessages", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: Default Snooze Time
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
@@ -1662,6 +1658,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static let alerttypesettingsview_name = Rswift.StringResource(key: "alerttypesettingsview_name", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// en translation: Name already exists
+      ///
+      /// Locales: en, zh
+      static let alertTypeNameAlreadyExists = Rswift.StringResource(key: "alertTypeNameAlreadyExists", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: No Sound
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
@@ -1674,7 +1674,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static let alerttypesettingsview_givesnoozeperiod = Rswift.StringResource(key: "alerttypesettingsview_givesnoozeperiod", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Snooze Via Notification
+      /// en translation: Snooze via Notification
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static let alerttypesettingsview_snoozevianotification = Rswift.StringResource(key: "alerttypesettingsview_snoozevianotification", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -1723,21 +1723,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("alerttypessettingsview_screentitle", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: An Alarm Type with this name already exists. Use a different name
-      ///
-      /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
-      static func alerttypenamealreadyexistsmessages(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerttypenamealreadyexistsmessages", tableName: "AlertTypesSettingsView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "AlertTypesSettingsView", preferredLanguages: preferredLanguages) else {
-          return "alerttypenamealreadyexistsmessages"
-        }
-
-        return NSLocalizedString("alerttypenamealreadyexistsmessages", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
       }
 
       /// en translation: Default Snooze Time
@@ -1817,6 +1802,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("alerttypesettingsview_name", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
       }
 
+      /// en translation: Name already exists
+      ///
+      /// Locales: en, zh
+      static func alertTypeNameAlreadyExists(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("alertTypeNameAlreadyExists", tableName: "AlertTypesSettingsView", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "AlertTypesSettingsView", preferredLanguages: preferredLanguages) else {
+          return "alertTypeNameAlreadyExists"
+        }
+
+        return NSLocalizedString("alertTypeNameAlreadyExists", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
+      }
+
       /// en translation: No Sound
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
@@ -1862,7 +1862,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("alerttypesettingsview_givesnoozeperiod", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
       }
 
-      /// en translation: Snooze Via Notification
+      /// en translation: Snooze via Notification
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static func alerttypesettingsview_snoozevianotification(preferredLanguages: [String]? = nil) -> String {
@@ -3009,7 +3009,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.common` struct is generated, and contains static references to 60 localization keys.
+    /// This `R.string.common` struct is generated, and contains static references to 61 localization keys.
     struct common {
       /// en translation: %@ must not be used to make medical decisions. It is a research and education tool only and is provided as-is without warranty of any kind, either expressed or implied, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose. The entire risk as to the quality and performance of the program is with you. Should the program prove defective, you assume the cost of all necessary servicing, repair, or correction.
       ///
@@ -3163,7 +3163,11 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let common_statistics_stdDeviation = Rswift.StringResource(key: "common_statistics_stdDeviation", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Sensor status:
+      /// en translation: Save
+      ///
+      /// Locales: en, zh
+      static let save = Rswift.StringResource(key: "save", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Sensor status
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static let sensorStatus = Rswift.StringResource(key: "sensorStatus", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fi", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -3183,11 +3187,11 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static let unknown = Rswift.StringResource(key: "unknown", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fi", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Warning!
+      /// en translation: Warning
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static let warning = Rswift.StringResource(key: "warning", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fi", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: WiFi
+      /// en translation: Wi-Fi
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static let wiFi = Rswift.StringResource(key: "WiFi", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fi", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -3828,7 +3832,22 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("common_statistics_stdDeviation", tableName: "Common", bundle: bundle, comment: "")
       }
 
-      /// en translation: Sensor status:
+      /// en translation: Save
+      ///
+      /// Locales: en, zh
+      static func save(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("save", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "save"
+        }
+
+        return NSLocalizedString("save", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Sensor status
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static func sensorStatus(preferredLanguages: [String]? = nil) -> String {
@@ -3903,7 +3922,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("unknown", tableName: "Common", bundle: bundle, comment: "")
       }
 
-      /// en translation: Warning!
+      /// en translation: Warning
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static func warning(preferredLanguages: [String]? = nil) -> String {
@@ -3918,7 +3937,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("warning", tableName: "Common", bundle: bundle, comment: "")
       }
 
-      /// en translation: WiFi
+      /// en translation: Wi-Fi
       ///
       /// Locales: en, nl, zh, pt, ar, fi, de, es, fr, it, pl-PL, ru, sl, sv
       static func wiFi(preferredLanguages: [String]? = nil) -> String {

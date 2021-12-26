@@ -47,19 +47,19 @@ class AlertManager: NSObject {
     private let uNUserNotificationCenter: UNUserNotificationCenter
         
     /// snooze times in minutes
-    private let snoozeValueMinutes = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75, 90, 120, 150, 180, 240, 300, 360, 420, 480, 540, 600, 1440, 10080]
+    let snoozeValueMinutes = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75, 90, 120, 150, 180, 240, 300, 360, 420, 480, 540, 600, 1440, 10080]
     
     /// snooze times as shown to the user, actual strings will be replaced during init
-    private var snoozeValueStrings = ["5 minutes", "10 minutes", "15 minutes", "20 minutes", "25 minutes", "30 minutes", "35 minutes",
-                                                   "40 minutes", "45 minutes", "50 minutes", "55 minutes", "1 hour", "1 hour 15 minutes", "1,5 hours", "2 hours", "2,5 hours", "3 hours", "4 hours",
+    var snoozeValueStrings = ["5 minutes", "10 minutes", "15 minutes", "20 minutes", "25 minutes", "30 minutes", "35 minutes",
+                                                   "40 minutes", "45 minutes", "50 minutes", "55 minutes", "1 hour", "1 hour 15 minutes", "1.5 hours", "2 hours", "2.5 hours", "3 hours", "4 hours",
                                                    "5 hours", "6 hours", "7 hours", "8 hours", "9 hours", "10 hours", "1 day", "1 week"]
     
     /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground - for closure that will stop playing sound
     private let applicationManagerKeyStopPlayingSound = "AlertManager-stopplayingsound"
     
-    // MARK: - initializer
-    
-    override init() {
+    static let shared = AlertManager()
+        
+    private override init() {
         // initialize properties
         self.bgReadingsAccessor = BgReadingsAccessor()
         self.alertTypesAccessor = AlertTypesAccessor()
@@ -76,7 +76,12 @@ class AlertManager: NSObject {
         
         // in snoozeValueStrings, replace all occurrences of minutes, minute, etc... by language dependent value
         for (index, _) in snoozeValueStrings.enumerated() {
-            snoozeValueStrings[index] = snoozeValueStrings[index].replacingOccurrences(of: "minutes", with: Texts_Common.minutes).replacingOccurrences(of: "hour", with: Texts_Common.hour).replacingOccurrences(of: "hours", with: Texts_Common.hours).replacingOccurrences(of: "day", with: Texts_Common.day).replacingOccurrences(of: "week", with: Texts_Common.week)
+            snoozeValueStrings[index] = snoozeValueStrings[index]
+                .replacingOccurrences(of: "minutes", with: Texts_Common.minutes)
+                .replacingOccurrences(of: "hours", with: Texts_Common.hours)
+                .replacingOccurrences(of: "hour", with: Texts_Common.hour)
+                .replacingOccurrences(of: "day", with: Texts_Common.day)
+                .replacingOccurrences(of: "week", with: Texts_Common.week)
         }
         
         //  initialize array of alertNotifications
@@ -303,7 +308,7 @@ class AlertManager: NSObject {
     ///     - content : possible this pickerViewData is requested after user clicked an alert notification, in that case content is the content of that notification. It allows to re-use the sound, delay, etc. If nil then this is used for presnooze
     ///     - actionHandler : optional closure to execute after user clicks the ok button, the snooze it'self will be done by the pickerViewData, can be used for example to change the contents of a cell
     ///     - cancelHandler : optional closure to execute after user clicks the cancel button.
-    func createPickerViewData(forAlertKind alertKind:AlertKind,
+    func createPickerViewData(forAlertKind alertKind: AlertKind,
                               content: UNNotificationContent?,
                               actionHandler: (() -> Void)?,
                               cancelHandler: (() -> Void)?) -> PickerViewData {

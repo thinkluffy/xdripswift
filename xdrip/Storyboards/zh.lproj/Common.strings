@@ -59,9 +59,10 @@
 
 /// literally 'Cancel'
 "common_cancel" = "取消";
+"save" = "保存";
 
 /// white
-"white" = "white";
+"white" = "白色";
 
 /// WiFi
 "WiFi" = "Wi-Fi";

@@ -120,7 +120,7 @@ class CommonSettingsViewController: SubSettingsViewController {
                     text: UserDefaults.standard.urgentHighMarkValueInUserChosenUnitRounded,
                     placeHolder: placeHolder
                 ) {
-                    urgentHighMarkValue in
+                    _, urgentHighMarkValue in
                     
                     var input = urgentHighMarkValue
                     if urgentHighMarkValue == "" {
@@ -148,7 +148,7 @@ class CommonSettingsViewController: SubSettingsViewController {
                     text: UserDefaults.standard.highMarkValueInUserChosenUnitRounded,
                     placeHolder: placeHolder
                 ) {
-                    highMarkValue in
+                    _, highMarkValue in
                     
                     var input = highMarkValue
                     if highMarkValue == "" {
@@ -176,7 +176,7 @@ class CommonSettingsViewController: SubSettingsViewController {
                     text: UserDefaults.standard.lowMarkValueInUserChosenUnitRounded,
                     placeHolder: placeHolder
                 ) {
-                    lowMarkValue in
+                    _, lowMarkValue in
                     
                     var input = lowMarkValue
                     if lowMarkValue == "" {
@@ -204,7 +204,7 @@ class CommonSettingsViewController: SubSettingsViewController {
                     text: UserDefaults.standard.urgentLowMarkValueInUserChosenUnitRounded,
                     placeHolder: placeHolder
                 ) {
-                    urgentLowMarkValue in
+                    _, urgentLowMarkValue in
                     
                     var input = urgentLowMarkValue
                     if urgentLowMarkValue == "" {

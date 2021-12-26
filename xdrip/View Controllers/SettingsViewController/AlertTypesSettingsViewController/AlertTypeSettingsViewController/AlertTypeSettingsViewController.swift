@@ -32,36 +32,10 @@ final class AlertTypeSettingsViewController: SubSettingsViewController {
         doneButtonAction()
     }
     
-    // to delete the alert type
-    @IBAction func trashButtonAction(_ sender: UIBarButtonItem) {
-        // delete the alerttype if one exists
-        if let alertTypeAsNSObject = alertTypeAsNSObject {
-            // first ask user if ok to delete and if yes delete
-            let alert = PopupDialog(
-                title: R.string.common.pleaseConfirm(),
-                message: R.string.alertTypesSettingsView.confirmdeletionalerttype(alertTypeAsNSObject.name),
-                actionTitle: R.string.common.delete(),
-                actionHandler: {
-                    CoreDataManager.shared.mainManagedObjectContext.delete(alertTypeAsNSObject)
-                    CoreDataManager.shared.saveChanges()
-                    // go back to alerttypes settings screen
-                    self.performSegue(withIdentifier: UnwindSegueIdentifiers.unwindToAlertTypesSettingsViewController.rawValue, sender: self)
-                },
-                cancelTitle: R.string.common.common_cancel()
-            )
-            
-            present(alert, animated: true, completion: nil)
-            
-        } else {
-            // go back to alerttypes settings screen
-            performSegue(withIdentifier: UnwindSegueIdentifiers.unwindToAlertTypesSettingsViewController.rawValue, sender: self)
-        }
-    }
-
-    @IBOutlet weak var trashButtonOutlet: UIBarButtonItem!
-    
     // MARK: - private properties
         
+    private let alertTypesAccessor = AlertTypesAccessor()
+
     /// the alerttype being edited - will only be used initially to initialize the temp properties used locally, and in the end to update the alerttype - if nil then it's about creating a new alertType
     private var alertTypeAsNSObject: AlertType?
     
@@ -104,23 +78,6 @@ final class AlertTypeSettingsViewController: SubSettingsViewController {
     // MARK: - View Methods
     
     private func setupView() {
-        
-        // if the alerttype still has alertEntries linked to it, or if it's about creating a new (yet unexisting) alerttype, then the trashbutton should be disabled
-        if let alertEntries = alertTypeAsNSObject?.alertEntries, alertEntries.count > 0 {
-            trashButtonOutlet.disable()
-        }
-        
-        if alertTypeAsNSObject == nil {
-            trashButtonOutlet.disable()
-        }
-        
-        setupTableView()
-    }
-    
-    // MARK: - private helper functions
-    
-    /// setup datasource, delegate, seperatorInset
-    private func setupTableView() {
         if let tableView = tableView {
             tableView.dataSource = self
             tableView.delegate = self
@@ -144,25 +101,35 @@ final class AlertTypeSettingsViewController: SubSettingsViewController {
             message: nil,
             keyboardType: .default,
             text: nil,
-            placeHolder: nil
+            placeHolder: nil,
+            actionTitle: R.string.common.save(),
+            dismissOnActionButtonTap: false
         ) {
-            text in
+            dialog, text in
+            
+            if text.isEmpty {
+                dialog.shake()
+                return
+            }
             
             var hasDuplicatedName = false
             // first check if name is a unique name
-            let alertTypesAccessor = AlertTypesAccessor()
-            for alertTypeAlreadyStored in alertTypesAccessor.getAllAlertTypes() {
+            for alertTypeAlreadyStored in self.alertTypesAccessor.getAllAlertTypes() {
                 // if name == alertTypeAlreadyStored.name and alertTypeAlreadyStored is not the same object as alertTypeAsNSObject then not ok
                 if alertTypeAlreadyStored.name == text {
-                    // shake the dialog
                     hasDuplicatedName = true
                     break
                 }
             }
             
-            if text.isEmpty || hasDuplicatedName {
+            if hasDuplicatedName {
+                dialog.shake()
+                
+                self.view.makeToast(R.string.alertTypesSettingsView.alertTypeNameAlreadyExists(), duration: 2, position: .bottom)
                 return
             }
+            
+            dialog.dismiss()
             
             self.alertTypeAsNSObject = AlertType(
                 enabled: self.enabled,
@@ -193,14 +160,13 @@ final class AlertTypeSettingsViewController: SubSettingsViewController {
         }
 
         // first check if name is a unique name
-        let alertTypesAccessor = AlertTypesAccessor()
         for alertTypeAlreadyStored in alertTypesAccessor.getAllAlertTypes() {
             // if name == alertTypeAlreadyStored.name and alertTypeAlreadyStored is not the same object as alertTypeAsNSObject then not ok
             if alertTypeAlreadyStored.name == name && alertTypeAlreadyStored != alertTypeAsNSObject {
                 
                 // define and present alertcontroller, this will show message and an ok button, without action when clicking ok
                 let alert = PopupDialog(title: Texts_Common.warning,
-                                        message: Texts_AlertTypeSettingsView.alertTypeNameAlreadyExistsMessage,
+                                        message: R.string.alertTypesSettingsView.alertTypeNameAlreadyExists(),
                                         actionTitle: R.string.common.common_Ok(),
                                         actionHandler: nil)
                 
@@ -234,29 +200,51 @@ final class AlertTypeSettingsViewController: SubSettingsViewController {
 }
 
 extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    // MARK: - UITableViewDataSource and UITableViewDelegate protocol Methods
-    
+        
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if let view = view as? UITableViewHeaderFooterView {
             view.textLabel?.textColor = ConstantsUI.tableViewHeaderTextColor
         }
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // if the alerttype is not enabled, then only show the enable UISwitch and the name of the alerttype
-        if !enabled {
-            return 2
+    func numberOfSections(in tableView: UITableView) -> Int {
+        // section 1 is the delete tableview cell, return 1 to hide the delete row
+        
+        // the type is used by alert entries
+        if let alertEntries = alertTypeAsNSObject?.alertEntries, alertEntries.count > 0 {
+            return 1
         }
         
-        // adding a new type, ask user to input name when done button clicked
-        if name == nil {
-            return Setting.allCases.count - 1
+        // create a new type
+        if alertTypeAsNSObject == nil {
+            return 1
         }
-        return Setting.allCases.count
+        
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            // adding a new type, ask user to input name when done button clicked
+            if name == nil {
+                return Setting.allCases.count - 1
+            }
+            return Setting.allCases.count
+            
+        } else {
+            // section 1 is the delete section
+            return 1
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.section == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "tableCellDelete") ?? DeleteTableViewCell(style: .default, reuseIdentifier: "tableCellDelete")
+            return cell
+        }
+        
+        // section 0
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableCell") ?? UITableViewCell(style: .value1, reuseIdentifier: "tableCell")
         cell.textLabel?.textColor = ConstantsUI.tableTitleColor
         cell.detailTextLabel?.textColor = ConstantsUI.tableDetailTextColor
@@ -324,14 +312,36 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
         return cell
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        // only 1 section, namely the list of alert types
-        return 1
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        // the delete section
+        
+        if indexPath.section == 1 {
+            // delete the alerttype if one exists
+            if let alertTypeAsNSObject = alertTypeAsNSObject {
+                // first ask user if ok to delete and if yes delete
+                let alert = PopupDialog(
+                    title: R.string.common.pleaseConfirm(),
+                    message: R.string.alertTypesSettingsView.confirmdeletionalerttype(alertTypeAsNSObject.name),
+                    actionTitle: R.string.common.delete(),
+                    actionHandler: {
+                        CoreDataManager.shared.mainManagedObjectContext.delete(alertTypeAsNSObject)
+                        CoreDataManager.shared.saveChanges()
+                        // go back to alerttypes settings screen
+                        self.performSegue(withIdentifier: UnwindSegueIdentifiers.unwindToAlertTypesSettingsViewController.rawValue, sender: self)
+                    },
+                    cancelTitle: R.string.common.common_cancel()
+                )
+                
+                present(alert, animated: true, completion: nil)
+                
+            } else {
+                // go back to alerttypes settings screen
+                performSegue(withIdentifier: UnwindSegueIdentifiers.unwindToAlertTypesSettingsViewController.rawValue, sender: self)
+            }
+            return
+        }
         
         guard let setting = Setting(rawValue: indexPath.row) else { fatalError("AlertTypeSettingsViewController didSelectRowAt, Unexpected setting") }
         
@@ -339,15 +349,31 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
         switch setting {
             
         case .name:
-            
             let dialog = PopupDialog(
                 title: Texts_AlertTypeSettingsView.alertTypeName,
                 message: nil,
                 keyboardType: .default,
                 text: name,
-                placeHolder: nil
+                placeHolder: nil,
+                actionTitle: R.string.common.save(),
+                dismissOnActionButtonTap: false
             ) {
-                text in
+                dialog, text in
+                
+                if text.isEmpty {
+                    dialog.shake()
+                    return
+                }
+                
+                for alertTypeAlreadyStored in self.alertTypesAccessor.getAllAlertTypes() {
+                    if alertTypeAlreadyStored.name == text && alertTypeAlreadyStored != self.alertTypeAsNSObject {
+                        // duplicated name
+                        dialog.shake()
+                        return
+                    }
+                }
+                
+                dialog.dismiss()
                 
                 self.name = text
                 tableView.reloadRows(at: [IndexPath(row: Setting.name.rawValue, section: 0)], with: .none)
@@ -364,23 +390,31 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
             break
             
         case .defaultSnoozePeriod:
-            let dialog = PopupDialog(
-                title: R.string.alertTypesSettingsView.alerttypesettingsview_defaultsnoozeperiod(),
-                message: Texts_AlertTypeSettingsView.alertTypeGiveSnoozePeriod,
-                keyboardType: .numberPad,
-                text: snoozePeriod.description,
-                placeHolder: nil,
-                actionHandler: { text in
-                    if let asdouble = text.toDouble() {
-                        self.snoozePeriod = Int16(asdouble)
-                        tableView.reloadRows(at: [IndexPath(row: Setting.defaultSnoozePeriod.rawValue, section: 0)], with: .none)
-                    }
+            let snoozeMinutes = AlertManager.shared.snoozeValueMinutes
+            var selectedRow: Int?
+            
+            for (i, snoozeMinute) in snoozeMinutes.enumerated() {
+                if snoozeMinute == snoozePeriod {
+                    selectedRow = i
+                    break
+                }
+            }
+            
+            let pickerViewData = PickerViewDataBuilder(
+                data:  AlertManager.shared.snoozeValueStrings,
+                actionHandler: {
+                    index, rowData in
+                    
+                    self.snoozePeriod = Int16(snoozeMinutes[index])
+                    tableView.reloadRows(at: [IndexPath(row: Setting.defaultSnoozePeriod.rawValue, section: 0)], with: .none)
                 }
             )
+                .title(R.string.alertTypesSettingsView.alerttypesettingsview_defaultsnoozeperiod())
+                .selectedRow(selectedRow)
+                .build()
             
-            // present the alert
-            present(dialog, animated: true)
-
+            BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
+            
         case .soundName:
             // create array of all sounds and sound filenames, inclusive default ios sound and also empty string, which is "no sound"
             var sounds = ConstantsSounds.allSoundsBySoundNameAndFileName()

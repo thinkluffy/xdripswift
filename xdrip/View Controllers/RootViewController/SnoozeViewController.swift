@@ -7,13 +7,6 @@ final class SnoozeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var titleLabel: UILabel!
     
-    // reference to alertManager
-    private var alertManager: AlertManager?
-        
-    func configure(alertManager: AlertManager?) {
-        self.alertManager = alertManager
-    }
-    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
@@ -22,19 +15,9 @@ final class SnoozeViewController: UIViewController {
         titleLabel.text = Texts_HomeView.snoozeButton
         setupView()
     }
-    
-    // MARK: - private helper functions
-    
-    // setup the view
+        
     private func setupView() {
-        setupTableView()
-    }
-    
-    /// setup datasource, delegate, seperatorInset
-    private func setupTableView() {
         if let tableView = tableView {
-            // insert slightly the separator text so that it doesn't touch the safe area limit
-            tableView.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
             tableView.dataSource = self
             tableView.delegate = self
         }
@@ -65,13 +48,8 @@ extension SnoozeViewController: UITableViewDataSource {
             fatalError("In SnoozeViewController, cellForRowAt, could not create alertKind")
         }
         
-        // unwrap alertManager
-        guard let alertManager = alertManager else {
-            fatalError("In SnoozeViewController, cellForRowAt, alertmanager is nil")
-        }
-        
         // get snoozeParameters for the alertKind
-        let (isSnoozed, remainingSeconds) = alertManager.getSnoozeParameters(alertKind: alertKind).getSnoozeValue() 
+        let (isSnoozed, remainingSeconds) = AlertManager.shared.getSnoozeParameters(alertKind: alertKind).getSnoozeValue()
 
         if isSnoozed {
             guard let remainingSeconds = remainingSeconds else {
@@ -97,7 +75,8 @@ extension SnoozeViewController: UITableViewDataSource {
         cell.accessoryType = .none
         
         // uiswitch will be on if currently snoozed, off if currently not snoozed
-        cell.accessoryView = UISwitch(isOn: isSnoozed, action: { (isOn:Bool) in
+        cell.accessoryView = UISwitch(isOn: isSnoozed) {
+            (isOn: Bool) in
             
             // closure to reload the row after user clicked form on to off, or from off to on and selected a snoozeperiod
             let reloadRow = { tableView.reloadRows(at: [IndexPath(row: 0, section: indexPath.section)], with: .none)}
@@ -105,20 +84,22 @@ extension SnoozeViewController: UITableViewDataSource {
             // changing from off to on. Means user wants to pre-snooze
             if isOn {
                 // create and display pickerViewData
-                let pickerViewData = alertManager.createPickerViewData(forAlertKind: alertKind,
-                                                                       content: nil,
-                                                                       actionHandler: { reloadRow() },
-                                                                       cancelHandler: { reloadRow() })
+                let pickerViewData = AlertManager.shared.createPickerViewData(
+                    forAlertKind: alertKind,
+                    content: nil,
+                    actionHandler: { reloadRow() },
+                    cancelHandler: { reloadRow() }
+                )
                                                                        
                 BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
 
             } else {
                 // changing from on to off. Means user wants to unsnooze
-                alertManager.unSnooze(alertKind: alertKind)
+                AlertManager.shared.unSnooze(alertKind: alertKind)
                 
                 reloadRow()
             }
-        })
+        }
         
         return cell
     }
