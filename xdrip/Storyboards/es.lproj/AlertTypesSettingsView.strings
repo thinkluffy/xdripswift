@@ -13,4 +13,4 @@
 "alerttypesettingsview_picksoundname" = "Nombre de Sonido";
 "alertTypeNoSound" = "Sin Sonido";
 "alerttypenamealreadyexistsmessages" = "Ya existe un Tipo de Alarma con este nombre. Usar otro nombre";
-"confirmdeletionalerttype" = "Borrar Tipo de Alarma: ";
+"confirmdeletionalerttype" = "Borrar Tipo de Alarma: %@?";

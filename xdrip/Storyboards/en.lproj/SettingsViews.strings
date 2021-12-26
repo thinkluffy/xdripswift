@@ -7,7 +7,6 @@
 "settingsviews_showReadingInNotification" = "Show BG in Notifications?";
 "settingsviews_labelShowReadingInAppBadge" = "Show BG in the App Badge?";
 "settingsviews_multipleAppBadgeValueWith10" = "Multiply App Badge Reading by 10?";
-"settingsviews_showClockWhenScreenIsLocked" = "Show Clock when Locked?";
 "settingsviews_urgentHighValue" = "Urgent High Value";
 "settingsviews_highValue" = "High Value";
 "settingsviews_lowValue" = "Low Value";
@@ -32,7 +31,7 @@
 "settingsviews_givetransmitterid" = "Enter Transmitter ID";
 "settingsviews_resettransmitter" = "Reset Transmitter";
 "settingsviews_webooptransmitter" = "Use Libre Algorithm";
-"settingsviews_nonfixedtransmitter" = "Enable Multi-point Calibration";
+"settingsviews_nonfixedtransmitter" = "Multi-point Calibration";
 "settingsviews_labelNonFixed" = "Multi-point Calibration";
 "settingsviews_labelWebOOP" = "xDrip or Libre Algorithm";
 "transmitterId8OrHigherNotSupported" = "Transmitters with ID 8Gxxxx or newer are not currently supported!";
@@ -55,8 +54,8 @@
 "settingsviews_useSchedule" = "Use Upload Schedule";
 "schedule" = "Schedule";
 "settingsviews_giveNightScoutUrl" = "Enter your NightScout URL";
-"settingsviews_nightScoutAPIKey" = "API_SECRET";
-"settingsviews_giveNightScoutAPIKey" = "Enter your API_SECRET";
+"settingsviews_nightScoutAPIKey" = "API Secret";
+"settingsviews_giveNightScoutAPIKey" = "Enter your API Secret";
 "editScheduleTimePickerSubtitle" = "Change ";
 "timeScheduleViewTitle" = "On/Off Time Schedule for ";
 "uploadSensorStartTime" = "Upload Sensor Start Time";
@@ -73,7 +72,6 @@
 "settingsviews_Version" = "Version";
 "settingsviews_license" = "License";
 "settingsviews_build" = "Build";
-"m5stack_settingsviews_settingstitle" = "M5 Stack Settings";
 "m5stack_settingsviews_textColor" = "Text Color";
 "m5stack_settingsviews_backGroundColor" = "Background Color";
 "m5stack_settingsviews_sectiontitlebluetooth" = "Bluetooth";
@@ -102,7 +100,6 @@
 "nightScoutPort" = "Port (optional)";
 "developerSettings" = "Developer Settings";
 "smoothLibreValues" = "Smooth Libre Values";
-"nslog" = "NSLog";
 "oslog" = "OSLog";
 "settingsviews_sectiontitlehomescreen" = "Home Screen";
  

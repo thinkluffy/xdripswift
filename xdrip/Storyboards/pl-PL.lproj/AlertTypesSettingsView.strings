@@ -40,7 +40,7 @@
 "alerttypesettingsview_defaultiossound" = "iOS Sound";
 
 /// when trying to delete an alert type, user needs to confirm first, this is the message
-"confirmdeletionalerttype" = "Delete Alarm Type";
+"confirmdeletionalerttype" = "Delete Alarm Type: %@?";
 
 /// when adding a new alert type, but the name is already used for another alert type, this is the error messages
 "alerttypenamealreadyexistsmessages" = "An Alarm Type with this name already exists. Use a different name";

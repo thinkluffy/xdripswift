@@ -13,5 +13,5 @@
 "alerttypesettingsview_picksoundname" = "Geluid Naam";
 "alertTypeNoSound" = "Geen Geluid";
 "alerttypenamealreadyexistsmessages" = "Een Alarm Type met deze naam bestaat reeds. Gebruik een andere naam";
-"confirmdeletionalerttype" = "Verwijder Alarm Type: ";
+"confirmdeletionalerttype" = "Verwijder Alarm Type: %@?";
 

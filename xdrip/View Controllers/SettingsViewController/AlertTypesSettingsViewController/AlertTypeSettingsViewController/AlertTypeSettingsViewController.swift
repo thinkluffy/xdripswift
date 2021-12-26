@@ -38,8 +38,8 @@ final class AlertTypeSettingsViewController: SubSettingsViewController {
         if let alertTypeAsNSObject = alertTypeAsNSObject {
             // first ask user if ok to delete and if yes delete
             let alert = PopupDialog(
-                title: Texts_AlertTypeSettingsView.confirmDeletionAlertType + alertTypeAsNSObject.name + "?",
-                message: nil,
+                title: R.string.common.pleaseConfirm(),
+                message: R.string.alertTypesSettingsView.confirmdeletionalerttype(alertTypeAsNSObject.name),
                 actionTitle: R.string.common.delete(),
                 actionHandler: {
                     CoreDataManager.shared.mainManagedObjectContext.delete(alertTypeAsNSObject)

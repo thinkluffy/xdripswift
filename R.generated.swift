@@ -1626,7 +1626,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.string` struct is generated, and contains static references to 20 localization tables.
+  /// This `R.string` struct is generated, and contains static references to 19 localization tables.
   struct string {
     /// This `R.string.alertTypesSettingsView` struct is generated, and contains static references to 16 localization keys.
     struct alertTypesSettingsView {
@@ -1646,7 +1646,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static let alerttypesettingsview_defaultsnoozeperiod = Rswift.StringResource(key: "alerttypesettingsview_defaultsnoozeperiod", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Delete Alarm Type
+      /// en translation: Delete Alarm Type "%@"?
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
       static let confirmdeletionalerttype = Rswift.StringResource(key: "confirmdeletionalerttype", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "ar", "fi", "pt", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -1755,19 +1755,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("alerttypesettingsview_defaultsnoozeperiod", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
       }
 
-      /// en translation: Delete Alarm Type
+      /// en translation: Delete Alarm Type "%@"?
       ///
       /// Locales: en, nl, zh, ar, fi, pt, de, es, fr, it, pl-PL, ru, sl, sv
-      static func confirmdeletionalerttype(preferredLanguages: [String]? = nil) -> String {
+      static func confirmdeletionalerttype(_ value1: String, preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("confirmdeletionalerttype", tableName: "AlertTypesSettingsView", bundle: hostingBundle, comment: "")
+          let format = NSLocalizedString("confirmdeletionalerttype", tableName: "AlertTypesSettingsView", bundle: hostingBundle, comment: "")
+          return String(format: format, locale: applicationLocale, value1)
         }
 
-        guard let (_, bundle) = localeBundle(tableName: "AlertTypesSettingsView", preferredLanguages: preferredLanguages) else {
+        guard let (locale, bundle) = localeBundle(tableName: "AlertTypesSettingsView", preferredLanguages: preferredLanguages) else {
           return "confirmdeletionalerttype"
         }
 
-        return NSLocalizedString("confirmdeletionalerttype", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
+        let format = NSLocalizedString("confirmdeletionalerttype", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
+        return String(format: format, locale: locale, value1)
       }
 
       /// en translation: Edit Alarm Type
@@ -5557,259 +5559,6 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.m5StackView` struct is generated, and contains static references to 13 localization keys.
-    struct m5StackView {
-      /// en translation: Are you sure you want to power off the M5Stack?
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static let powerOffConfirm = Rswift.StringResource(key: "powerOffConfirm", tableName: "M5StackView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-      /// en translation: Authentication to M5Stack Failed, either set the pre-configured password in the Settings, or, if the M5Stack does not have a preconfigured password then reset the M5Stack. M5Stack will disconnect now. You can make a new attempt by clicking 
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static let authenticationFailureWarning = Rswift.StringResource(key: "authenticationFailureWarning", tableName: "M5StackView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-      /// en translation: Connect to WiFi
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static let connectToWiFi = Rswift.StringResource(key: "connectToWiFi", tableName: "M5StackView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-      /// en translation: Go to
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static let m5StackSoftWareHelpText = Rswift.StringResource(key: "m5StackSoftWareHelpText", tableName: "M5StackView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-      /// en translation: M5Stack
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static let m5StackViewscreenTitle = Rswift.StringResource(key: "m5StackViewscreenTitle", tableName: "M5StackView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-      /// en translation: M5Stack
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static let screenTitle = Rswift.StringResource(key: "screenTitle", tableName: "M5StackView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-      /// en translation: M5Stack must be connected to be able to power it off
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static let deviceMustBeConnectedToPowerOff = Rswift.StringResource(key: "deviceMustBeConnectedToPowerOff", tableName: "M5StackView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-      /// en translation: M5Stack must be reset in order to generate a new temporary password. When done click 
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static let m5StackResetRequiredWarning = Rswift.StringResource(key: "m5StackResetRequiredWarning", tableName: "M5StackView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-      /// en translation: M5StickC
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static let m5StickCViewscreenTitle = Rswift.StringResource(key: "m5StickCViewscreenTitle", tableName: "M5StackView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-      /// en translation: Power Off
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static let powerOff = Rswift.StringResource(key: "powerOff", tableName: "M5StackView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-      /// en translation: Where to find the M5Stack software?
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static let m5StackSoftWhereHelpCellText = Rswift.StringResource(key: "m5StackSoftWhereHelpCellText", tableName: "M5StackView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-      /// en translation: Where to find the M5StickC software?
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static let m5StickCSoftWhereHelpCellText = Rswift.StringResource(key: "m5StickCSoftWhereHelpCellText", tableName: "M5StackView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-      /// en translation: You need to set the password in the Settings
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static let blePasswordMissingWarning = Rswift.StringResource(key: "blePasswordMissingWarning", tableName: "M5StackView", bundle: R.hostingBundle, locales: ["en", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "zh", "sv"], comment: nil)
-
-      /// en translation: Are you sure you want to power off the M5Stack?
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static func powerOffConfirm(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("powerOffConfirm", tableName: "M5StackView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "M5StackView", preferredLanguages: preferredLanguages) else {
-          return "powerOffConfirm"
-        }
-
-        return NSLocalizedString("powerOffConfirm", tableName: "M5StackView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Authentication to M5Stack Failed, either set the pre-configured password in the Settings, or, if the M5Stack does not have a preconfigured password then reset the M5Stack. M5Stack will disconnect now. You can make a new attempt by clicking 
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static func authenticationFailureWarning(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("authenticationFailureWarning", tableName: "M5StackView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "M5StackView", preferredLanguages: preferredLanguages) else {
-          return "authenticationFailureWarning"
-        }
-
-        return NSLocalizedString("authenticationFailureWarning", tableName: "M5StackView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Connect to WiFi
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static func connectToWiFi(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("connectToWiFi", tableName: "M5StackView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "M5StackView", preferredLanguages: preferredLanguages) else {
-          return "connectToWiFi"
-        }
-
-        return NSLocalizedString("connectToWiFi", tableName: "M5StackView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Go to
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static func m5StackSoftWareHelpText(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("m5StackSoftWareHelpText", tableName: "M5StackView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "M5StackView", preferredLanguages: preferredLanguages) else {
-          return "m5StackSoftWareHelpText"
-        }
-
-        return NSLocalizedString("m5StackSoftWareHelpText", tableName: "M5StackView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: M5Stack
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static func m5StackViewscreenTitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("m5StackViewscreenTitle", tableName: "M5StackView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "M5StackView", preferredLanguages: preferredLanguages) else {
-          return "m5StackViewscreenTitle"
-        }
-
-        return NSLocalizedString("m5StackViewscreenTitle", tableName: "M5StackView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: M5Stack
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static func screenTitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("screenTitle", tableName: "M5StackView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "M5StackView", preferredLanguages: preferredLanguages) else {
-          return "screenTitle"
-        }
-
-        return NSLocalizedString("screenTitle", tableName: "M5StackView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: M5Stack must be connected to be able to power it off
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static func deviceMustBeConnectedToPowerOff(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("deviceMustBeConnectedToPowerOff", tableName: "M5StackView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "M5StackView", preferredLanguages: preferredLanguages) else {
-          return "deviceMustBeConnectedToPowerOff"
-        }
-
-        return NSLocalizedString("deviceMustBeConnectedToPowerOff", tableName: "M5StackView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: M5Stack must be reset in order to generate a new temporary password. When done click 
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static func m5StackResetRequiredWarning(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("m5StackResetRequiredWarning", tableName: "M5StackView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "M5StackView", preferredLanguages: preferredLanguages) else {
-          return "m5StackResetRequiredWarning"
-        }
-
-        return NSLocalizedString("m5StackResetRequiredWarning", tableName: "M5StackView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: M5StickC
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static func m5StickCViewscreenTitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("m5StickCViewscreenTitle", tableName: "M5StackView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "M5StackView", preferredLanguages: preferredLanguages) else {
-          return "m5StickCViewscreenTitle"
-        }
-
-        return NSLocalizedString("m5StickCViewscreenTitle", tableName: "M5StackView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Power Off
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static func powerOff(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("powerOff", tableName: "M5StackView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "M5StackView", preferredLanguages: preferredLanguages) else {
-          return "powerOff"
-        }
-
-        return NSLocalizedString("powerOff", tableName: "M5StackView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Where to find the M5Stack software?
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static func m5StackSoftWhereHelpCellText(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("m5StackSoftWhereHelpCellText", tableName: "M5StackView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "M5StackView", preferredLanguages: preferredLanguages) else {
-          return "m5StackSoftWhereHelpCellText"
-        }
-
-        return NSLocalizedString("m5StackSoftWhereHelpCellText", tableName: "M5StackView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Where to find the M5StickC software?
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static func m5StickCSoftWhereHelpCellText(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("m5StickCSoftWhereHelpCellText", tableName: "M5StackView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "M5StackView", preferredLanguages: preferredLanguages) else {
-          return "m5StickCSoftWhereHelpCellText"
-        }
-
-        return NSLocalizedString("m5StickCSoftWhereHelpCellText", tableName: "M5StackView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: You need to set the password in the Settings
-      ///
-      /// Locales: en, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, zh, sv
-      static func blePasswordMissingWarning(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("blePasswordMissingWarning", tableName: "M5StackView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "M5StackView", preferredLanguages: preferredLanguages) else {
-          return "blePasswordMissingWarning"
-        }
-
-        return NSLocalizedString("blePasswordMissingWarning", tableName: "M5StackView", bundle: bundle, comment: "")
-      }
-
-      fileprivate init() {}
-    }
-
     /// This `R.string.main` struct is generated, and contains static references to 7 localization keys.
     struct main {
       /// en translation: Bluetooth
@@ -5963,7 +5712,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
       static let nightscouttestresult_verificationsuccessfulalerttitle = Rswift.StringResource(key: "nightscouttestresult_verificationsuccessfulalerttitle", tableName: "NightScoutTestResult", bundle: R.hostingBundle, locales: ["en", "zh", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Your Nightscout URL and API_SECRET must be set before you can run the test
+      /// en translation: Your Nightscout URL and API Secret must be set before you can run the test
       ///
       /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
       static let warningAPIKeyOrURLIsnil = Rswift.StringResource(key: "warningAPIKeyOrURLIsnil", tableName: "NightScoutTestResult", bundle: R.hostingBundle, locales: ["en", "zh", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -6017,7 +5766,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("nightscouttestresult_verificationsuccessfulalerttitle", tableName: "NightScoutTestResult", bundle: bundle, comment: "")
       }
 
-      /// en translation: Your Nightscout URL and API_SECRET must be set before you can run the test
+      /// en translation: Your Nightscout URL and API Secret must be set before you can run the test
       ///
       /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
       static func warningAPIKeyOrURLIsnil(preferredLanguages: [String]? = nil) -> String {
@@ -6050,13 +5799,13 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.settingsViews` struct is generated, and contains static references to 111 localization keys.
+    /// This `R.string.settingsViews` struct is generated, and contains static references to 108 localization keys.
     struct settingsViews {
       /// en translation: 5 Mins per Dot
       ///
       /// Locales: en, zh
       static let settingsviews_chartDots5MinsApart = Rswift.StringResource(key: "settingsviews_chartDots5MinsApart", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: API_SECRET
+      /// en translation: API Secret
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_nightScoutAPIKey = Rswift.StringResource(key: "settingsviews_nightScoutAPIKey", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -6156,10 +5905,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let displayUnitInCalendarEvent = Rswift.StringResource(key: "displayUnitInCalendarEvent", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Enable Multi-point Calibration
-      ///
-      /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
-      static let settingsviews_nonfixedtransmitter = Rswift.StringResource(key: "settingsviews_nonfixedtransmitter", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: Enable Nightscout
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
@@ -6180,7 +5925,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_giveDexcomShareSerialNumber = Rswift.StringResource(key: "settingsviews_giveDexcomShareSerialNumber", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Enter your API_SECRET
+      /// en translation: Enter your API Secret
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_giveNightScoutAPIKey = Rswift.StringResource(key: "settingsviews_giveNightScoutAPIKey", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -6244,10 +5989,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_lowValue = Rswift.StringResource(key: "settingsviews_lowValue", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: M5 Stack Settings
-      ///
-      /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
-      static let m5stack_settingsviews_settingstitle = Rswift.StringResource(key: "m5stack_settingsviews_settingstitle", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: Master
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
@@ -6276,14 +6017,14 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_labelNonFixed = Rswift.StringResource(key: "settingsviews_labelNonFixed", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// en translation: Multi-point Calibration
+      ///
+      /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
+      static let settingsviews_nonfixedtransmitter = Rswift.StringResource(key: "settingsviews_nonfixedtransmitter", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: Multiply App Badge Reading by 10?
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_multipleAppBadgeValueWith10 = Rswift.StringResource(key: "settingsviews_multipleAppBadgeValueWith10", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: NSLog
-      ///
-      /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
-      static let nslog = Rswift.StringResource(key: "nslog", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: NightScout
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
@@ -6348,10 +6089,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_labelShowReadingInAppBadge = Rswift.StringResource(key: "settingsviews_labelShowReadingInAppBadge", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: Show Clock when Locked?
-      ///
-      /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
-      static let settingsviews_showClockWhenScreenIsLocked = Rswift.StringResource(key: "settingsviews_showClockWhenScreenIsLocked", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: Show Colored Lines
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
@@ -6512,7 +6249,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_chartDots5MinsApart", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: API_SECRET
+      /// en translation: API Secret
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static func settingsviews_nightScoutAPIKey(preferredLanguages: [String]? = nil) -> String {
@@ -6889,21 +6626,6 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("displayUnitInCalendarEvent", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Enable Multi-point Calibration
-      ///
-      /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
-      static func settingsviews_nonfixedtransmitter(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_nonfixedtransmitter", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_nonfixedtransmitter"
-        }
-
-        return NSLocalizedString("settingsviews_nonfixedtransmitter", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
       /// en translation: Enable Nightscout
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
@@ -6979,7 +6701,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_giveDexcomShareSerialNumber", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Enter your API_SECRET
+      /// en translation: Enter your API Secret
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static func settingsviews_giveNightScoutAPIKey(preferredLanguages: [String]? = nil) -> String {
@@ -7221,21 +6943,6 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_lowValue", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: M5 Stack Settings
-      ///
-      /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
-      static func m5stack_settingsviews_settingstitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("m5stack_settingsviews_settingstitle", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "m5stack_settingsviews_settingstitle"
-        }
-
-        return NSLocalizedString("m5stack_settingsviews_settingstitle", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
       /// en translation: Master
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
@@ -7341,6 +7048,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_labelNonFixed", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
+      /// en translation: Multi-point Calibration
+      ///
+      /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
+      static func settingsviews_nonfixedtransmitter(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("settingsviews_nonfixedtransmitter", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
+          return "settingsviews_nonfixedtransmitter"
+        }
+
+        return NSLocalizedString("settingsviews_nonfixedtransmitter", tableName: "SettingsViews", bundle: bundle, comment: "")
+      }
+
       /// en translation: Multiply App Badge Reading by 10?
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
@@ -7354,21 +7076,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("settingsviews_multipleAppBadgeValueWith10", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: NSLog
-      ///
-      /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
-      static func nslog(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("nslog", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "nslog"
-        }
-
-        return NSLocalizedString("nslog", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
       /// en translation: NightScout
@@ -7609,21 +7316,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("settingsviews_labelShowReadingInAppBadge", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Show Clock when Locked?
-      ///
-      /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
-      static func settingsviews_showClockWhenScreenIsLocked(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_showClockWhenScreenIsLocked", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_showClockWhenScreenIsLocked"
-        }
-
-        return NSLocalizedString("settingsviews_showClockWhenScreenIsLocked", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
       /// en translation: Show Colored Lines

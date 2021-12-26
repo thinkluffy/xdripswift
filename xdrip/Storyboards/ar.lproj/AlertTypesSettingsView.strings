@@ -13,5 +13,5 @@
 "alerttypesettingsview_picksoundname" = "اسم النغمة";
 "alertTypeNoSound" = "بدون صوت";
 "alerttypenamealreadyexistsmessages" = "يوجد نوع تنبيه بهذا الاسم. استخدم اسمًا مختلفًا";
-"confirmdeletionalerttype" = "حذف نوع التنبيه: ";
+"confirmdeletionalerttype" = "حذف نوع التنبيه: %@?";
 

@@ -13,4 +13,4 @@
 "alerttypesettingsview_picksoundname" = "Valitse ääni";
 "alertTypeNoSound" = "Ei ääntä";
 "alerttypenamealreadyexistsmessages" = "Tämän niminen hälytystyyppi on jo olemassa. Vaihda nimi";
-"confirmdeletionalerttype" = "Haluatko poistaa hälytystyypin nimellä ";
+"confirmdeletionalerttype" = "Haluatko poistaa hälytystyypin nimellä %@?";

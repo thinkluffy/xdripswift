@@ -71,7 +71,7 @@
 "settingsviews_IntervalTitle" = "Interval:";
 "settingsviews_IntervalMessage" = "Minimum interval tussen twee metingen, in minuten";
 "settingsviews_sectiontitleAbout" = "Over %@";
-"settingsviews_Version" = "Versie:";
+"settingsviews_Version" = "Versie";
 "settingsviews_license" = "Licentie";
 "settingsviews_build" = "Build:";
 "m5stack_settingsviews_settingstitle" = "M5 Stack Instellingen";

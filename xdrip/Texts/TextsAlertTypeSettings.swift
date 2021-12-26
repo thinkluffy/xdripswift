@@ -61,11 +61,4 @@ class Texts_AlertTypeSettingsView {
     static let alertTypeNameAlreadyExistsMessage: String = {
         return NSLocalizedString("alerttypenamealreadyexistsmessages", tableName: filename, bundle: Bundle.main, value: "An Alarm Type with this name already exists. Use a different name", comment: "when adding a new alert type, but the name is already used for another alert type, this is the error messages")
     }()
-
-    static let confirmDeletionAlertType: String = {
-        return NSLocalizedString("confirmdeletionalerttype", tableName: filename, bundle: Bundle.main, value: "Delete Alarm Type: ", comment: "when trying to delete an alert type, user needs to confirm first, this is the message")
-    }()
-    
-
-
 }
