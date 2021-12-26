@@ -137,40 +137,28 @@ extension AlertSettingsViewControllerData {
         //let alertKind =
         // default value for accessoryView is nil
         cell.accessoryView = nil
-        
+        cell.accessoryType = .none
+
         // configure the cell depending on setting
         switch setting {
             
         case .start:
             cell.textLabel?.text = Texts_Alerts.alertStart
             cell.detailTextLabel?.text = Int(start).convertMinutesToTimeAsString()
-            if start == 0 {// alertEntry with start time 0, time can't be changed
-                cell.accessoryType = UITableViewCell.AccessoryType.none
-                
-            } else {
-                cell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
-                // set color of disclosureIndicator to ConstantsUI.disclosureIndicatorColor
-                cell.accessoryView = DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor)
-            }
             
         case .value:
             // note that value will not be shown if alerttype not enabled or alertkind doesn't need a value, means if that's the case, setting will never be .value
             cell.textLabel?.text = Texts_Alerts.alertValue + (alertKindAsAlertKind.valueUnitText(transmitterType: UserDefaults.standard.cgmTransmitterType) != "" ? (" (" + alertKindAsAlertKind.valueUnitText(transmitterType: UserDefaults.standard.cgmTransmitterType) + ")"):"")
             if alertKindAsAlertKind.valueNeedsConversionToMmol() {
                 cell.detailTextLabel?.text = Double(value).mgdlToMmolAndToString(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
+                
             } else {
                 cell.detailTextLabel?.text = value.description
             }
-            cell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
-            // set color of disclosureIndicator to ConstantsUI.disclosureIndicatorColor
-            cell.accessoryView = DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor)
             
         case .alertType:
             cell.textLabel?.text = Texts_Alerts.alerttype
             cell.detailTextLabel?.text = AlertSettingsViewControllerData.getAlertType(alertType: alertType).name
-            cell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
-            // set color of disclosureIndicator to ConstantsUI.disclosureIndicatorColor
-            cell.accessoryView = DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor)
         }
         
         return cell
@@ -182,7 +170,6 @@ extension AlertSettingsViewControllerData {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         tableView.deselectRow(at: indexPath, animated: true)
         
         guard let setting = Setting(rawValue: indexPath.row) else { fatalError("AlertSettingsViewControllerData didSelectRowAt, Unexpected setting") }
@@ -297,13 +284,21 @@ extension AlertSettingsViewControllerData {
     
     /// helper function to get AlertKind from int16, if not possible then fatal error is thrown
     class public func getAlertKind(alertKind: Int16) -> AlertKind {
-        if let alertKind = AlertKind(rawValue: Int(alertKind)) {return alertKind}
-        else {fatalError("in AlertSettingsViewControllerData, getAlertKind, could not create AlertKind from Int16 value" )}
+        if let alertKind = AlertKind(rawValue: Int(alertKind)) {
+            return alertKind
+            
+        } else {
+            fatalError("in AlertSettingsViewControllerData, getAlertKind, could not create AlertKind from Int16 value")
+        }
     }
     
     /// helper to check if alertType exists and if yes return it unwrapped, else fatalerror
     class public func getAlertType(alertType: AlertType?) -> AlertType {
-        if let alertType = alertType {return alertType}
-        else {fatalError("in AlertSettingsViewControllerData, getAlertType, alertType is nil" )}
+        if let alertType = alertType {
+            return alertType
+            
+        } else {
+            fatalError("in AlertSettingsViewControllerData, getAlertType, alertType is nil")
+        }
     }
 }

@@ -91,16 +91,25 @@ final class AlertSettingsViewController: SubSettingsViewController {
         self.alertEntryAsNSObject = alertEntry
         
         // initialize alertSettingsViewControllerData
-        alertSettingsViewControllerData = AlertSettingsViewControllerData(start: alertEntry.start, value: alertEntry.value, alertKind: alertEntry.alertkind, alertType: alertEntry.alertType, minimumStart: minimumStart, maximumStart: maximumStart, uIViewController: self, toCallWhenUserResetsProperties: {
-            self.addButtonOutlet.enable()
-            self.doneButtonOutlet.disable()
-            self.trashButtonOutlet.isEnabled = self.alertSettingsViewControllerData.start != 0
-            
-        }, toCallWhenUserChangesProperties: {
-            self.addButtonOutlet.disable()
-            self.doneButtonOutlet.enable()
-            self.trashButtonOutlet.disable()
-        })
+        alertSettingsViewControllerData = AlertSettingsViewControllerData(
+            start: alertEntry.start,
+            value: alertEntry.value,
+            alertKind: alertEntry.alertkind,
+            alertType: alertEntry.alertType,
+            minimumStart: minimumStart,
+            maximumStart: maximumStart,
+            uIViewController: self,
+            toCallWhenUserResetsProperties: {
+                self.addButtonOutlet.enable()
+                self.doneButtonOutlet.disable()
+                self.trashButtonOutlet.isEnabled = self.alertSettingsViewControllerData.start != 0
+            },
+            toCallWhenUserChangesProperties: {
+                self.addButtonOutlet.disable()
+                self.doneButtonOutlet.enable()
+                self.trashButtonOutlet.disable()
+            }
+        )
     }
     
     // MARK: - View Life Cycle
@@ -139,6 +148,7 @@ final class AlertSettingsViewController: SubSettingsViewController {
     // MARK: - other overriden functions
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         guard let segueIdentifier = segue.identifier else {
             fatalError("In AlertSettingsViewController, prepare for segue, Segue had no identifier")
         }

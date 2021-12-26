@@ -158,23 +158,6 @@ final class AlertTypeSettingsViewController: SubSettingsViewController {
         guard let alertTypeAsNSObject = alertTypeAsNSObject, let name = name else {
             return
         }
-
-        // first check if name is a unique name
-        for alertTypeAlreadyStored in alertTypesAccessor.getAllAlertTypes() {
-            // if name == alertTypeAlreadyStored.name and alertTypeAlreadyStored is not the same object as alertTypeAsNSObject then not ok
-            if alertTypeAlreadyStored.name == name && alertTypeAlreadyStored != alertTypeAsNSObject {
-                
-                // define and present alertcontroller, this will show message and an ok button, without action when clicking ok
-                let alert = PopupDialog(title: Texts_Common.warning,
-                                        message: R.string.alertTypesSettingsView.alertTypeNameAlreadyExists(),
-                                        actionTitle: R.string.common.common_Ok(),
-                                        actionHandler: nil)
-                
-                present(alert, animated: true, completion: nil)
-                
-                return
-            }
-        }
         
         alertTypeAsNSObject.name = name
         alertTypeAsNSObject.enabled = enabled
