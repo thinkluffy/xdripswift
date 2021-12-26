@@ -55,7 +55,7 @@ class AlertSettingsViewControllerData: NSObject, UITableViewDataSource, UITableV
     public var maximumStart: Int16 = Int16(24 * 60 - 1) // default one minute before midnight
     
     /// a reference to the UIViewController
-    public var uIViewController: UIViewController
+    public var uiViewController: UIViewController
         
     /// when user changes properties, before pressing save button, this function will be called, can be set by AlertSettingsViewController which can assign to closure that disables "Add" button
     private var toCallWhenUserChangesProperties: (() -> ())?
@@ -66,7 +66,7 @@ class AlertSettingsViewControllerData: NSObject, UITableViewDataSource, UITableV
     // MARK:- initializer
     
     /// initializer
-    init(start:Int16, value:Int16, alertKind:Int16, alertType:AlertType, minimumStart:Int16, maximumStart:Int16, uIViewController:UIViewController, toCallWhenUserResetsProperties:(() -> ())?, toCallWhenUserChangesProperties:(() -> ())?) {
+    init(start: Int16, value: Int16, alertKind: Int16, alertType: AlertType, minimumStart: Int16, maximumStart: Int16, uiViewController: UIViewController, toCallWhenUserResetsProperties: (() -> ())?, toCallWhenUserChangesProperties: (() -> ())?) {
         
         // initialze all parameters, and also temp variables
         self.start = start
@@ -84,7 +84,7 @@ class AlertSettingsViewControllerData: NSObject, UITableViewDataSource, UITableV
         
         self.minimumStart = minimumStart
         self.maximumStart = maximumStart
-        self.uIViewController = uIViewController
+        self.uiViewController = uiViewController
     }
     
     // MARK:- private helper functions
@@ -190,9 +190,10 @@ extension AlertSettingsViewControllerData {
             // the actual date of start is nowAt000 + the number of minutes in the entry
             let startAsDate = Date(timeInterval: TimeInterval(Double(start) * 60.0), since: nowAt000)
             
-            // create date pickerviewdata
-            let datePickerViewData = DatePickerViewData(withMainTitle: alertKindAsAlertKind.alertTitle(), withSubTitle: Texts_Alerts.alertStart, datePickerMode: .time, date: startAsDate, minimumDate: Date(timeInterval: TimeInterval(Double(minimumStart) * 60.0), since: nowAt000), maximumDate: Date(timeInterval: TimeInterval(Double(maximumStart) * 60.0), since: nowAt000), okButtonText: nil, cancelButtonText: nil
-                , onOkClick: {(date) in
+            let datePickerData = DatePickerDataBuilder(
+                datePickerMode: .time,
+                actionHandler: {
+                    date in
                     
                     // set new start value
                     self.start = Int16(date.minutesSinceMidNightLocalTime())
@@ -202,11 +203,16 @@ extension AlertSettingsViewControllerData {
                     
                     // checkIfPropertiesChanged
                     self.checkIfPropertiesChanged()
-                    
-            }, onCancelClick: nil)
+                }
+            )
+                .title(alertKindAsAlertKind.alertTitle())
+                .subTitle(R.string.alerts.alertstart())
+                .date(startAsDate)
+                .minimumDate(Date(timeInterval: TimeInterval(Double(minimumStart) * 60.0), since: nowAt000))
+                .maximumDate(Date(timeInterval: TimeInterval(Double(maximumStart) * 60.0), since: nowAt000))
+                .build()
             
-            // present datepickerview
-            DatePickerViewController.displayDatePickerViewController(datePickerViewData: datePickerViewData, parentController: uIViewController)
+            BottomSheetDatePickerController.show(in: uiViewController, datePickerData: datePickerData)
             
         case .value:
             // for keyboard type : normally keyboard type is numeric only, except if value is bg value, and userdefaults is mmol
@@ -237,7 +243,7 @@ extension AlertSettingsViewControllerData {
                     }
                 }
             }
-            uIViewController.present(dialog, animated: true)
+            uiViewController.present(dialog, animated: true)
             
         case .alertType:
             
@@ -274,7 +280,7 @@ extension AlertSettingsViewControllerData {
                 .selectedRow(selectedRow)
                 .build()
             
-            BottomSheetPickerViewController.show(in: uIViewController, pickerViewData: pickerViewData)
+            BottomSheetPickerViewController.show(in: uiViewController, pickerViewData: pickerViewData)
         }
     }
 }

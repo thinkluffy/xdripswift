@@ -1,110 +1,119 @@
 //
-//  BottomSheetPickerViewController.swift
+//  BottomSheetDatePickerController.swift
 //  xdrip
 //
-//  Created by Yuanbin Cai on 2021/12/10.
+//  Created by Yuanbin Cai on 2021/12/26.
 //  Copyright © 2021 Johan Degraeve. All rights reserved.
 //
 
 import UIKit
 
-/// priority to apply in the pickerview. High can use other colors and or size, Up to the pickerview
-public enum PickerViewPriority {
-    case normal
-    case high
-}
-
 /// defines data typically available in a view that allows user to pick from a list : list of items, selected item, title, cancel lable, ok or add label, function to call when pressing cancel, function to call button when pressing add button
-public class PickerViewData {
+public class DatePickerData {
     private (set) var title: String?
     private (set) var subTitle: String?
-    private (set) var data: [String]
-    private (set) var selectedRow: Int
+    private (set) var datePickerMode: UIDatePicker.Mode
+    private (set) var date: Date?
+    private (set) var minimumDate: Date?
+    private (set) var maximumDate: Date?
     private (set) var actionTitle: String?
-    private (set) var actionHandler: ((_ index: Int, _ rowData: String) -> Void)
+    private (set) var actionHandler: ((_ date: Date) -> Void)
     private (set) var cancelHandler: (() -> Void)?
     private (set) var didSelectRowHandler: ((Int) -> Void)?
-    private (set) var priority: PickerViewPriority?
     
     public init(withTitle title: String?,
                 withSubTitle subTitle: String?,
-                withData data: [String],
-                selectedRow: Int?,
-                withPriority priority: PickerViewPriority?,
+                datePickerMode: UIDatePicker.Mode,
+                date: Date?,
+                minimumDate: Date?,
+                maximumDate: Date?,
                 actionButtonText actionTitle: String?,
-                onActionClick actionHandler: @escaping ((_ index: Int, _ rowData: String) -> Void),
+                onActionClick actionHandler: @escaping ((_ date: Date) -> Void),
                 onCancelClick cancelHandler: (() -> Void)?,
                 didSelectRowHandler: ((Int) -> Void)?) {
         self.title = title
         self.subTitle = subTitle
-        self.data = data
-        self.selectedRow = selectedRow != nil ? selectedRow!: 0
+        self.datePickerMode = datePickerMode
+        self.date = date
+        self.minimumDate = minimumDate
+        self.maximumDate = maximumDate
         self.actionTitle = actionTitle
         self.actionHandler = actionHandler
         self.cancelHandler = cancelHandler
         self.didSelectRowHandler = didSelectRowHandler
-        self.priority = priority
     }
 }
 
-public class PickerViewDataBuilder {
+public class DatePickerDataBuilder {
     
     private var title: String?
     private var subTitle: String?
-    private var data: [String]
-    private var selectedRow: Int?
+    private var datePickerMode: UIDatePicker.Mode
+    private var date: Date?
+    private var minimumDate: Date?
+    private var maximumDate: Date?
     private var actionTitle: String?
-    private var actionHandler: ((_ index: Int, _ rowData: String) -> Void)
+    private var actionHandler: ((_ date: Date) -> Void)
     private var cancelHandler: (() -> Void)?
     private var didSelectRowHandler: ((Int) -> Void)?
-    private var priority: PickerViewPriority?
     
-    public init(data: [String], actionHandler: @escaping ((_ index: Int, _ rowData: String) -> Void)) {
-        self.data = data
+    public init(datePickerMode: UIDatePicker.Mode, actionHandler: @escaping ((_ date: Date) -> Void)) {
+        self.datePickerMode = datePickerMode
         self.actionHandler = actionHandler
     }
     
-    public func title(_ title: String?) -> PickerViewDataBuilder {
+    public func title(_ title: String?) -> DatePickerDataBuilder {
         self.title = title
         return self
     }
     
-    public func subTitle(_ subTitle: String?) -> PickerViewDataBuilder {
+    public func subTitle(_ subTitle: String?) -> DatePickerDataBuilder {
         self.subTitle = subTitle
         return self
     }
     
-    public func selectedRow(_ selectedRow: Int?) -> PickerViewDataBuilder {
-        self.selectedRow = selectedRow
+    public func datePickerMode(_ datePickerMode: UIDatePicker.Mode) -> DatePickerDataBuilder {
+        self.datePickerMode = datePickerMode
         return self
     }
     
-    public func actionTitle(_ actionTitle: String?) -> PickerViewDataBuilder {
+    public func date(_ date: Date?) -> DatePickerDataBuilder {
+        self.date = date
+        return self
+    }
+    
+    public func minimumDate(_ minimumDate: Date?) -> DatePickerDataBuilder {
+        self.minimumDate = minimumDate
+        return self
+    }
+    
+    public func maximumDate(_ maximumDate: Date?) -> DatePickerDataBuilder {
+        self.maximumDate = maximumDate
+        return self
+    }
+    
+    public func actionTitle(_ actionTitle: String?) -> DatePickerDataBuilder {
         self.actionTitle = actionTitle
         return self
     }
     
-    public func cancelHandler(_ cancelHandler: (() -> Void)?) -> PickerViewDataBuilder {
+    public func cancelHandler(_ cancelHandler: (() -> Void)?) -> DatePickerDataBuilder {
         self.cancelHandler = cancelHandler
         return self
     }
     
-    public func didSelectRowHandler(_ didSelectRowHandler: ((Int) -> Void)?) -> PickerViewDataBuilder {
+    public func didSelectRowHandler(_ didSelectRowHandler: ((Int) -> Void)?) -> DatePickerDataBuilder {
         self.didSelectRowHandler = didSelectRowHandler
         return self
     }
     
-    public func priority(_ priority: PickerViewPriority?) -> PickerViewDataBuilder {
-        self.priority = priority
-        return self
-    }
-    
-    public func build() -> PickerViewData {
-        return PickerViewData(withTitle: title,
+    public func build() -> DatePickerData {
+        return DatePickerData(withTitle: title,
                               withSubTitle: subTitle,
-                              withData: data,
-                              selectedRow: selectedRow,
-                              withPriority: priority,
+                              datePickerMode: datePickerMode,
+                              date: date,
+                              minimumDate: minimumDate,
+                              maximumDate: maximumDate,
                               actionButtonText: actionTitle,
                               onActionClick: actionHandler,
                               onCancelClick: cancelHandler,
@@ -112,10 +121,10 @@ public class PickerViewDataBuilder {
     }
 }
 
-public class BottomSheetPickerViewController {
+public class BottomSheetDatePickerController {
     
-    public static func show(in viewController: UIViewController, pickerViewData: PickerViewData) {
-        let content = PickerViewContent(data: pickerViewData)
+    public static func show(in viewController: UIViewController, datePickerData: DatePickerData) {
+        let content = DatePickerContent(data: datePickerData)
         let sheet = SlideInSheet(sheetContent: content)
         
         if let view = viewController.tabBarController?.view {
@@ -127,7 +136,7 @@ public class BottomSheetPickerViewController {
     }
 }
 
-fileprivate class PickerViewContent: SlideInSheetContent {
+fileprivate class DatePickerContent: SlideInSheetContent {
     
     // maintitle on top of the pickerview
     private let titleLabel: UILabel = {
@@ -149,10 +158,16 @@ fileprivate class PickerViewContent: SlideInSheetContent {
         return label
     }()
 
-    private let pickerView: UIPickerView = {
-        let view = UIPickerView()
-        view.setValue(UIColor.white, forKeyPath: "textColor")
-        return view
+    private let datePicker: UIDatePicker = {
+        let picker = UIDatePicker()
+        if #available(iOS 13.4, *) {
+            picker.preferredDatePickerStyle = .wheels
+        }
+        
+        picker.setValue(UIColor.white, forKeyPath: "textColor")
+        picker.setValue(false, forKey: "highlightsToday")
+        
+        return picker
     }()
 
     private let actionButton: BetterButton = {
@@ -168,9 +183,9 @@ fileprivate class PickerViewContent: SlideInSheetContent {
     private var selectedRow = 0
     private var buttonDidClick = false
     
-    private let data: PickerViewData
+    private let data: DatePickerData
     
-    init(data: PickerViewData) {
+    init(data: DatePickerData) {
         self.data = data
         super.init(frame: .zero)
         initialize()
@@ -181,20 +196,17 @@ fileprivate class PickerViewContent: SlideInSheetContent {
     }
     
     private func initialize() {
-        //data source
-        pickerView.dataSource = self
-        
-        //delegate
-        pickerView.delegate = self
-
-        //set actionTitle
+        // set actionTitle
         if let addButtonTitle = data.actionTitle {
             actionButton.titleText = addButtonTitle
         }
         
-        // set selectedRow
-        selectedRow = data.selectedRow
-        pickerView.selectRow(data.selectedRow, inComponent: 0, animated: false)
+        datePicker.datePickerMode = data.datePickerMode
+        if let date = data.date {
+            datePicker.date = date
+        }
+        datePicker.minimumDate = data.minimumDate
+        datePicker.maximumDate = data.maximumDate
         
         // set picker maintitle
         if let mainTitle = data.title {
@@ -209,18 +221,6 @@ fileprivate class PickerViewContent: SlideInSheetContent {
             subTitleLabel.text = subTitle
         }
         
-        /// TODO:- the actual color to be used should be defined somewhere else
-        // if priority defined then if high priority, apply other color
-        if let priority = data.priority {
-            switch priority {
-                
-            case .normal:
-                break
-            case .high:
-                titleLabel.textColor = ConstantsUI.accentRed
-            }
-        }
-        
         actionButton.addTarget(self, action: #selector(actionButtonDidClick(_:)), for: .touchUpInside)
             
         layout()
@@ -228,7 +228,7 @@ fileprivate class PickerViewContent: SlideInSheetContent {
     
     @objc private func actionButtonDidClick(_ button: UIControl) {
         buttonDidClick = true
-        data.actionHandler(selectedRow, data.data[selectedRow])
+        data.actionHandler(datePicker.date)
         sheet?.dismissView()
     }
 
@@ -237,7 +237,7 @@ fileprivate class PickerViewContent: SlideInSheetContent {
         
         addSubview(titleLabel)
         addSubview(subTitleLabel)
-        addSubview(pickerView)
+        addSubview(datePicker)
         addSubview(actionButton)
         
         titleLabel.snp.makeConstraints { make in
@@ -249,7 +249,7 @@ fileprivate class PickerViewContent: SlideInSheetContent {
             make.leading.trailing.equalToSuperview().inset(20)
         }
         
-        pickerView.snp.makeConstraints { make in
+        datePicker.snp.makeConstraints { make in
             make.top.equalTo(subTitleLabel.snp.bottom)
             make.width.centerX.equalToSuperview()
             make.height.equalTo(200)
@@ -274,32 +274,21 @@ fileprivate class PickerViewContent: SlideInSheetContent {
     }
 }
 
-extension PickerViewContent: UIPickerViewDelegate {
-          
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return data.data[row]
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        // set selectedRow to row, value will be used when pickerview is closed
-        selectedRow = row
-        
-        // call also didSelectRowHandler, if not nil, can be useful eg when pickerview contains list of sounds, sound can be played
-        data.didSelectRowHandler?(row)
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return 40
-    }
-}
-
-extension PickerViewContent: UIPickerViewDataSource {
-          
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return data.data.count
-    }
-}
+//extension DatePickerContent: UIDatepikerdele {
+//
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        return data.data[row]
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//        // set selectedRow to row, value will be used when pickerview is closed
+//        selectedRow = row
+//
+//        // call also didSelectRowHandler, if not nil, can be useful eg when pickerview contains list of sounds, sound can be played
+//        data.didSelectRowHandler?(row)
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+//        return 40
+//    }
+//}

@@ -98,7 +98,7 @@ final class AlertSettingsViewController: SubSettingsViewController {
             alertType: alertEntry.alertType,
             minimumStart: minimumStart,
             maximumStart: maximumStart,
-            uIViewController: self,
+            uiViewController: self,
             toCallWhenUserResetsProperties: {
                 self.addButtonOutlet.enable()
                 self.doneButtonOutlet.disable()

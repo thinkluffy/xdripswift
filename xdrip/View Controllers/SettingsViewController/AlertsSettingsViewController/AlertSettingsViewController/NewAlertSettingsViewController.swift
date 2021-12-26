@@ -45,7 +45,7 @@ class NewAlertSettingsViewController: SubSettingsViewController {
             alertType: AlertTypesAccessor().getDefaultAlertType(),
             minimumStart: minimumStart,
             maximumStart: maximumStart,
-            uIViewController: self,
+            uiViewController: self,
             toCallWhenUserResetsProperties: {
                 self.doneButtonOutlet.disable()
             },
