@@ -41,8 +41,7 @@ class SettingsViewNightScoutSettingsViewModel {
     /// path to test API Secret
     private let nightScoutAuthTestPath = "/api/v1/experiments/test"
     
-    /// for trace
-    private let log = OSLog(subsystem: ConstantsLog.subSystem, category: ConstantsLog.categoryCGMG5)
+    private static let log = Log(type: SettingsViewNightScoutSettingsViewModel.self)
     
     // MARK: - private functions
     
@@ -70,22 +69,18 @@ class SettingsViewNightScoutSettingsViewModel {
             
             let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
                 
-                trace("in testNightScoutCredentials, finished task", log: self.log, category: ConstantsLog.categoryNightScoutSettingsViewModel, type: .info)
+                SettingsViewNightScoutSettingsViewModel.log.d("in testNightScoutCredentials, finished task")
                 
                 if let error = error {
-                    
                     if error.localizedDescription.hasPrefix("A server with the specified hostname could not be found") {
-                    
-                        print("in testNightScoutCredentials, error = URL/Hostname not found!")
-                        
-                        trace("in testNightScoutCredentials, error = %{public}@", log: self.log, category: ConstantsLog.categoryNightScoutSettingsViewModel, type: .info, error.localizedDescription)
+                        SettingsViewNightScoutSettingsViewModel.log.w("in testNightScoutCredentials, error: \(error.localizedDescription)")
                         
                         self.callMessageHandlerInMainThread(title: "URL/Hostname not found!", message: error.localizedDescription)
                         
                         return
                         
                     } else {
-                        trace("in testNightScoutCredentials, error = %{public}@", log: self.log, category: ConstantsLog.categoryNightScoutSettingsViewModel, type: .info, error.localizedDescription)
+                        SettingsViewNightScoutSettingsViewModel.log.w("in testNightScoutCredentials, error \(error.localizedDescription)")
                         
                         self.callMessageHandlerInMainThread(title: Texts_NightScoutTestResult.verificationErrorAlertTitle, message: error.localizedDescription)
                         
@@ -94,21 +89,20 @@ class SettingsViewNightScoutSettingsViewModel {
                 }
                 
                 if let httpResponse = response as? HTTPURLResponse, let data = data {
-                    
                     let errorMessage = String(data: data, encoding: String.Encoding.utf8)!
                     
                     switch httpResponse.statusCode {
                         
                     case (200...299):
                         
-                        trace("in testNightScoutCredentials, successful", log: self.log, category: ConstantsLog.categoryNightScoutSettingsViewModel, type: .info)
+                        SettingsViewNightScoutSettingsViewModel.log.d("in testNightScoutCredentials, successful")
                         
                         self.callMessageHandlerInMainThread(title: Texts_NightScoutTestResult.verificationSuccessfulAlertTitle, message: Texts_NightScoutTestResult.verificationSuccessfulAlertBody)
                         
                         
                     case (400):
                         
-                        trace("in testNightScoutCredentials, error = %{public}@", log: self.log, category: ConstantsLog.categoryNightScoutSettingsViewModel, type: .info, errorMessage)
+                        SettingsViewNightScoutSettingsViewModel.log.w("in testNightScoutCredentials, error: \(errorMessage)")
                         
                         self.callMessageHandlerInMainThread(title: "400: Bad Request", message: errorMessage)
                         
@@ -116,19 +110,19 @@ class SettingsViewNightScoutSettingsViewModel {
                         
                         if UserDefaults.standard.nightScoutAPIKey != nil {
                             
-                            trace("in testNightScoutCredentials, API_SECRET is not valid, error = %{public}@", log: self.log, category: ConstantsLog.categoryNightScoutSettingsViewModel, type: .info, errorMessage)
+                            SettingsViewNightScoutSettingsViewModel.log.w("in testNightScoutCredentials, API_SECRET is not valid, error: \(errorMessage)")
                             
-                            self.callMessageHandlerInMainThread(title: "API Secret is invalid", message: errorMessage)
+                            self.callMessageHandlerInMainThread(title: "API Secret is Invalid", message: errorMessage)
                             
                         } else if UserDefaults.standard.nightScoutAPIKey == nil && UserDefaults.standard.nightscoutToken != nil {
                             
-                            trace("in testNightScoutCredentials, Token is not valid, error = %{public}@", log: self.log, category: ConstantsLog.categoryNightScoutSettingsViewModel, type: .info, errorMessage)
+                            SettingsViewNightScoutSettingsViewModel.log.w("in testNightScoutCredentials, Token is not valid, error: \(errorMessage)")
                             
-                            self.callMessageHandlerInMainThread(title: "Token is invalid", message: errorMessage)
+                            self.callMessageHandlerInMainThread(title: "Token is Invalid", message: errorMessage)
                             
                         } else {
                             
-                            trace("in testNightScoutCredentials, URL responds OK but authentication method is missing and cannot be checked", log: self.log, category: ConstantsLog.categoryNightScoutSettingsViewModel, type: .info)
+                            SettingsViewNightScoutSettingsViewModel.log.w("in testNightScoutCredentials, URL responds OK but authentication method is missing and cannot be checked")
                             
                             self.callMessageHandlerInMainThread(title: Texts_NightScoutTestResult.verificationSuccessfulAlertTitle, message: "URL responds OK but authentication method is missing and cannot be checked!")
                             
@@ -136,25 +130,25 @@ class SettingsViewNightScoutSettingsViewModel {
                     
                     case (403):
                         
-                        trace("in testNightScoutCredentials, error = %{public}@", log: self.log, category: ConstantsLog.categoryNightScoutSettingsViewModel, type: .info, errorMessage)
+                        SettingsViewNightScoutSettingsViewModel.log.w("in testNightScoutCredentials, error: \(errorMessage)")
                         
                         self.callMessageHandlerInMainThread(title: "403: Forbidden Request", message: errorMessage)
                         
                     case (404):
                         
-                        trace("in testNightScoutCredentials, error = %{public}@", log: self.log, category: ConstantsLog.categoryNightScoutSettingsViewModel, type: .info, errorMessage)
+                        SettingsViewNightScoutSettingsViewModel.log.w("in testNightScoutCredentials, error: \(errorMessage)")
                         
                         self.callMessageHandlerInMainThread(title: "404: Page Not Found", message: errorMessage)
                         
                     default:
-                        trace("in testNightScoutCredentials, error = %{public}@", log: self.log, category: ConstantsLog.categoryNightScoutSettingsViewModel, type: .info, errorMessage)
+                        SettingsViewNightScoutSettingsViewModel.log.w("in testNightScoutCredentials, error: \(errorMessage)")
                         
                         self.callMessageHandlerInMainThread(title: Texts_NightScoutTestResult.verificationErrorAlertTitle, message: errorMessage)
                     }
                 }
             })
             
-            trace("in testNightScoutCredentials, calling task.resume", log: log, category: ConstantsLog.categoryNightScoutSettingsViewModel, type: .info)
+            SettingsViewNightScoutSettingsViewModel.log.d("in testNightScoutCredentials, calling task.resume")
             task.resume()
         }
     }
@@ -194,73 +188,117 @@ extension SettingsViewNightScoutSettingsViewModel: SettingsViewModelProtocol {
         switch setting {
             
         case .nightScoutEnabled:
-            return SettingsSelectedRowAction.nothing
+            return .nothing
             
         case .nightScoutUrl:
-            return SettingsSelectedRowAction.askText(title: Texts_SettingsView.labelNightScoutUrl, message: Texts_SettingsView.giveNightScoutUrl, keyboardType: .URL, text: UserDefaults.standard.nightScoutUrl != nil ? UserDefaults.standard.nightScoutUrl : ConstantsNightScout.defaultNightScoutUrl, placeHolder: nil, actionTitle: nil, cancelTitle: nil, actionHandler: {(nightscouturl:String) in
+            return .askText(
+                title: Texts_SettingsView.labelNightScoutUrl,
+                message: Texts_SettingsView.giveNightScoutUrl,
+                keyboardType: .URL,
+                text: UserDefaults.standard.nightScoutUrl != nil ? UserDefaults.standard.nightScoutUrl : ConstantsNightScout.defaultNightScoutUrl,
+                placeHolder: nil,
+                actionTitle: nil,
+                cancelTitle: nil,
+                actionHandler: {
+                    (nightscouturl: String) in
                 
-                // if user gave empty string then set to nil
-                // if not nil, and if not starting with http or https, add https, and remove ending /
-                var enteredURL = nightscouturl.toNilIfLength0()
-                
-                // assuming that the enteredURL isn't nil, isn't the default value and hasn't been entered without a valid scheme
-                if enteredURL != nil && enteredURL != ConstantsNightScout.defaultNightScoutUrl  && !enteredURL!.startsWith("https://http") {
+                    // if user gave empty string then set to nil
+                    // if not nil, and if not starting with http or https, add https, and remove ending /
+                    var enteredURL = nightscouturl.toNilIfLength0()
                     
-                    // if self doesn't start with http or https, then add https. This might not make sense, but it will guard against throwing fatal errors when trying to get the scheme of the Endpoint
-                    if !enteredURL!.startsWith("http://") && !enteredURL!.startsWith("https://") {
-                        enteredURL = "https://" + enteredURL!
-                    }
-                    
-                    // if url ends with /, remove it
-                    if enteredURL!.last == "/" {
-                        enteredURL!.removeLast()
-                    }
-                    
-                    // remove the api path if it exists - useful for people pasting in xDrip+ Base URLs
-                    enteredURL = enteredURL!.replacingOccurrences(of: "/api/v1", with: "")
-                    
-                    // if we've got a valid URL, then let's break it down
-                    if let enteredURLComponents = URLComponents(string: enteredURL!) {
+                    // assuming that the enteredURL isn't nil, isn't the default value and hasn't been entered without a valid scheme
+                    if enteredURL != nil && enteredURL != ConstantsNightScout.defaultNightScoutUrl  && !enteredURL!.startsWith("https://http") {
                         
-                        // pull the port info if it exists and set the port
-                        if let port = enteredURLComponents.port {
-                            UserDefaults.standard.nightScoutPort = port
+                        // if self doesn't start with http or https, then add https. This might not make sense, but it will guard against throwing fatal errors when trying to get the scheme of the Endpoint
+                        if !enteredURL!.startsWith("http://") && !enteredURL!.startsWith("https://") {
+                            enteredURL = "https://" + enteredURL!
                         }
                         
-                        // pull the "user" info if it exists and use it to set the API_SECRET
-                        if let user = enteredURLComponents.user {
-                            UserDefaults.standard.nightScoutAPIKey = user.toNilIfLength0()
+                        // if url ends with /, remove it
+                        if enteredURL!.last == "/" {
+                            enteredURL!.removeLast()
                         }
                         
-                        // if the user has pasted in a URL with a token, then let's parse it out and use it
-                        if let token = enteredURLComponents.queryItems?.first(where: { $0.name == "token" })?.value {
-                            UserDefaults.standard.nightscoutToken = token.toNilIfLength0()
+                        // remove the api path if it exists - useful for people pasting in xDrip+ Base URLs
+                        enteredURL = enteredURL!.replacingOccurrences(of: "/api/v1", with: "")
+                        
+                        // if we've got a valid URL, then let's break it down
+                        if let enteredURLComponents = URLComponents(string: enteredURL!) {
+                            
+                            // pull the port info if it exists and set the port
+                            if let port = enteredURLComponents.port {
+                                UserDefaults.standard.nightScoutPort = port
+                            }
+                            
+                            // pull the "user" info if it exists and use it to set the API_SECRET
+                            if let user = enteredURLComponents.user {
+                                UserDefaults.standard.nightScoutAPIKey = user.toNilIfLength0()
+                            }
+                            
+                            // if the user has pasted in a URL with a token, then let's parse it out and use it
+                            if let token = enteredURLComponents.queryItems?.first(where: { $0.name == "token" })?.value {
+                                UserDefaults.standard.nightscoutToken = token.toNilIfLength0()
+                            }
+                            
+                            // finally, let's make a clean URL with just the scheme and host. We don't need to add anything else as this is basically the only thing we were asking for in the first place.
+                            var nighscoutURLComponents = URLComponents()
+                            nighscoutURLComponents.scheme = "https"
+                            nighscoutURLComponents.host = enteredURLComponents.host?.lowercased()
+                            
+                            UserDefaults.standard.nightScoutUrl = nighscoutURLComponents.string!
                         }
                         
-                        // finally, let's make a clean URL with just the scheme and host. We don't need to add anything else as this is basically the only thing we were asking for in the first place.
-                        var nighscoutURLComponents = URLComponents()
-                        nighscoutURLComponents.scheme = "https"
-                        nighscoutURLComponents.host = enteredURLComponents.host?.lowercased()
-                        
-                        UserDefaults.standard.nightScoutUrl = nighscoutURLComponents.string!
+                    } else {
+                        // there must be something wrong with the URL the user is trying to add, so let's just ignore it
+                        UserDefaults.standard.nightScoutUrl = nil
                     }
-                    
-                } else {
-                    // there must be something wrong with the URL the user is trying to add, so let's just ignore it
-                    UserDefaults.standard.nightScoutUrl = nil
-                }
-                
-            }, cancelHandler: nil, inputValidator: nil)
+                },
+                cancelHandler: nil,
+                inputValidator: nil
+            )
 
         case .nightScoutAPIKey:
-            return SettingsSelectedRowAction.askText(title: Texts_SettingsView.labelNightScoutAPIKey, message:  Texts_SettingsView.giveNightScoutAPIKey, keyboardType: .default, text: UserDefaults.standard.nightScoutAPIKey, placeHolder: nil, actionTitle: nil, cancelTitle: nil, actionHandler: {(apiKey:String) in
-                UserDefaults.standard.nightScoutAPIKey = apiKey.toNilIfLength0()}, cancelHandler: nil, inputValidator: nil)
+            return .askText(
+                title: Texts_SettingsView.labelNightScoutAPIKey,
+                message: Texts_SettingsView.giveNightScoutAPIKey,
+                keyboardType: .default,
+                text: UserDefaults.standard.nightScoutAPIKey,
+                placeHolder: nil,
+                actionTitle: nil,
+                cancelTitle: nil,
+                actionHandler: {
+                    (apiKey: String) in
+                    
+                    UserDefaults.standard.nightScoutAPIKey = apiKey.toNilIfLength0()
+                },
+                cancelHandler: nil,
+                inputValidator: nil
+            )
 
         case .port:
-            return SettingsSelectedRowAction.askText(title: Texts_SettingsView.nightScoutPort, message: nil, keyboardType: .numberPad, text: UserDefaults.standard.nightScoutPort != 0 ? UserDefaults.standard.nightScoutPort.description : nil, placeHolder: nil, actionTitle: nil, cancelTitle: nil, actionHandler: {(port:String) in if let port = port.toNilIfLength0() { UserDefaults.standard.nightScoutPort = Int(port) ?? 0 } else {UserDefaults.standard.nightScoutPort = 0}}, cancelHandler: nil, inputValidator: nil)
+            return .askText(
+                title: Texts_SettingsView.nightScoutPort,
+                message: nil,
+                keyboardType: .numberPad,
+                text: UserDefaults.standard.nightScoutPort != 0 ? UserDefaults.standard.nightScoutPort.description : nil,
+                placeHolder: nil,
+                actionTitle: nil,
+                cancelTitle: nil,
+                actionHandler: {
+                    (port: String) in
+                    
+                    if let port = port.toNilIfLength0() {
+                        UserDefaults.standard.nightScoutPort = Int(port) ?? 0
+                        
+                    } else {
+                        UserDefaults.standard.nightScoutPort = 0}
+                },
+                cancelHandler: nil,
+                inputValidator: nil
+            )
         
         case .token:
-            return SettingsSelectedRowAction.askText(
+            return .askText(
                 title: R.string.settingsViews.nightScoutToken(),
                 message: nil,
                 keyboardType: .default,

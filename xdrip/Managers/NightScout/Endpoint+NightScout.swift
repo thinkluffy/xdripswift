@@ -25,7 +25,8 @@ extension Endpoint {
         // create quertyItems
         var queryItems = [
             URLQueryItem(name: "count", value: count.description),
-        URLQueryItem(name: "find[dateString][$gte]", value: timeStamp.ISOStringFromDate())]
+            URLQueryItem(name: "find[dateString][$gte]", value: timeStamp.ISOStringFromDate())
+        ]
         
         // if token not nil, then add also the token
         if let token = token {

@@ -97,12 +97,12 @@ class LegacySubSettingsViewController: SubSettingsViewController {
             viewModel.storeUIViewController(uIViewController: self)
             
             // store reload closure in the viewModel
-            viewModel.storeRowReloadClosure(rowReloadClosure: {row in
+            viewModel.storeRowReloadClosure() { row in
                 self.tableView.reloadRows(at: [IndexPath(row: row, section: i)], with: .none)
-            })
+            }
 
             // store the viewModel
-            self.viewModels.append(viewModel)
+            viewModels.append(viewModel)
         }
     }
     

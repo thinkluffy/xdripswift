@@ -13,7 +13,7 @@
 "settingsviews_row_alerts" = "警报";
 "settingsviews_sectiontitlehealthkit" = "苹果健康";
 "settingsviews_sectiontitledexcomshare" = "德康分享";
-"settingsviews_uploadReadingstoDexcomShare" = "上传到德康服务器";
+"settingsviews_uploadReadingstoDexcomShare" = "上传到德康分享";
 "settingsviews_dexcomShareSerialNumber" = "序列号";
 "settingsviews_giveDexcomShareSerialNumber" = "输入德康分享的序列号";
 "settingsviews_useUSDexcomShareurl" = "使用美国德康服务器";
@@ -38,7 +38,7 @@
 "volumeTestiOSSound" = "测试音量 (Current iPhone Volume)";
 
 /// nightscout settings, port to use
-"nightScoutPort" = "端口 (可选)";
+"nightScoutPort" = "端口";
 "nightScoutToken" = "令牌 (Token)";
 
 /// home screen settings, urgent high value
@@ -62,15 +62,6 @@
 /// Apple Watch Settings - text in row where create event is enabled or disabled 
 "createCalendarEvent" = "创建日历事件";
 
-/// in Settings, section title for Trace
-"sectionTitleTrace" = "Issue Reporting";
-
-/// user tries to send trace file but there's no native email account configured
-"emailNotConfigured" = "You must configure an e-mail account on your iOS device.";
-
-/// in Settings, to enable debug level in trace file
-"debugLevel" = "Include Debug Level";
-
 /// Apple Watch Settings - text in row where user needs to say if delta should be displayed or not
 "displayDeltaInCalendarEvent" = "显示变化";
 
@@ -80,20 +71,11 @@
 /// general settings, should reading be shown in notification yes or no
 "settingsviews_showReadingInNotification" = "通知中显示血糖";
 
-/// 
+/// urgent low
 "settingsviews_urgentLowValue" = "紧急低值";
 
 /// weboop settings, title of the dialogs where site and token are asked - also used when viewing bluetoothperipheral settings, the title of the section
 "settingsviews_labelWebOOP" = "zDrip 或 发射器算法";
-
-/// nightscout or dexcom share settings, where user can select to edit the schedule
-"schedule" = "Schedule";
-
-/// In case user tries to send trace file via email but error occurs.
-"failedToSendEmail" = "Failed to Send Email";
-
-/// M5 stack bluetooth  settings, pop up that asks user to enter the password
-"m5stack_settingsviews_giveBluetoothPassword" = "Enter Bluetooth Password";
 
 /// used in settings, section Info, title of the version setting
 "settingsviews_Version" = "版本号";
@@ -106,26 +88,11 @@
 /// home screen settings, show chart dots in 5 minutes apart
 "settingsviews_chartDots5MinsApart" = "5 分钟一个点";
 
-/// used in settings, section Info, title of the license setting
-"settingsviews_license" = "License";
-
-/// M5 stack setting, brightness
-"m5stack_settingsviews_brightness" = "Screen Brightness";
-
-/// in Settings, row title to send settings
-"sendTraceFile" = "Send Issue Report";
-
 /// nightscout settings, title of row
 "uploadSensorStartTime" = "上传传感器开始时间";
 
-/// name of setting for text color
-"m5stack_settingsviews_textColor" = "Text Color";
-
 /// transmitter settings, to explain that settings is about resetting the transmitter
 "settingsviews_resettransmitter" = "重置发射器";
-
-/// general settings, should reading be multiplied with 10 yes or no
-"settingsviews_multipleAppBadgeValueWith10" = "Multiply App Badge Reading by 10?";
 
 /// non fixed settings, title of the section
 "settingsviews_labelNonFixed" = "多点校准";
@@ -135,9 +102,6 @@
 
 /// If user is not allowed to give any app access to the Calendar, due to restrictions. And then tries to activate creation of events in calendar, this message will be shown
 "infoCalendarAccessRestricted" = "You cannot give authorization to %@ to access your calendar. This is possibly due to active restrictions such as parental controls being in place.";
-
-/// default text in email body, when user wants to send trace file.
-"emailbodyText" = "Problem Description: ";
 
 /// speak settings, where user can select the language
 "settingsviews_speakBgReadingslanguage" = "语言";
@@ -171,9 +135,6 @@
 
 /// Apple Watch Settings - text in row where user needs to select a calendar
 "calenderId" = "日历类型";
-
-/// name of setting for back ground color
-"m5stack_settingsviews_backGroundColor" = "Background Color";
 
 /// If user has earlier denied access to calendar, and then tries to activate creation of events in calendar, this message will be shown
 "infoCalendarAccessDeniedByUser" = "You previously denied access to your Calendar.\n\nTo enable it go to your device settings, privacy, calendars and enable it.";

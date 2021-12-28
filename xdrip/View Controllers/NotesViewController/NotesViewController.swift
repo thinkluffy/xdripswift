@@ -26,6 +26,15 @@ class NotesViewController: UIViewController {
         return tableView
     }()
     
+    private lazy var emptyViewLabel: UILabel = {
+        let label = UILabel()
+        label.text = R.string.notes.emptyview_no_notes()
+        label.textColor = .lightText
+        label.font = .systemFont(ofSize: 25)
+        label.isHidden = true
+        return label
+    }()
+    
     private var presenter: NotesP!
 
     private let cellReuseIdentifier = "NoteTableViewCell"
@@ -72,6 +81,7 @@ class NotesViewController: UIViewController {
         view.addSubview(titleBar)
         titleBar.addSubview(calendarTitle)
         view.addSubview(tableView)
+        view.addSubview(emptyViewLabel)
         
         titleBar.snp.makeConstraints { make in
             make.leading.top.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -85,6 +95,10 @@ class NotesViewController: UIViewController {
         tableView.snp.makeConstraints { make in
             make.leading.bottom.trailing.equalToSuperview()
             make.top.equalTo(titleBar.snp.bottom)
+        }
+        
+        emptyViewLabel.snp.makeConstraints { make in
+            make.center.equalToSuperview()
         }
         
         calendarTitle.delegate = self
@@ -114,6 +128,13 @@ extension NotesViewController: NotesV {
         showingDate = fromDate
         
         tableView.reloadData()
+        
+        if notes == nil || notes!.isEmpty {
+            emptyViewLabel.isHidden = false
+            
+        } else {
+            emptyViewLabel.isHidden = true
+        }
     }
     
     var isShowingNotesOfToday: Bool {

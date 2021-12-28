@@ -3,4 +3,4 @@
 "nightscouttestresult_verificationerroralerttitle" = "Verification Error";
 "warningAPIKeyOrURLIsnil" = "Your Nightscout URL (and optionally API-Secret or Token) must be set before you can run the test";
 "nightScoutAPIKeyAndURLStartedTitle" = "Verifying...";
-"nightScoutAPIKeyAndURLStartedBody" = "Please wait patiently";
+"nightScoutAPIKeyAndURLStartedBody" = "Please wait a moment";

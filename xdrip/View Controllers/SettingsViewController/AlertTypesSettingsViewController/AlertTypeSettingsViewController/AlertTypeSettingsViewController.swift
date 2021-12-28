@@ -123,9 +123,9 @@ final class AlertTypeSettingsViewController: SubSettingsViewController {
             }
             
             if hasDuplicatedName {
+                // duplicated name
                 dialog.shake()
-                
-                self.view.makeToast(R.string.alertTypesSettingsView.alertTypeNameAlreadyExists(), duration: 2, position: .bottom)
+                dialog.view.makeToast(R.string.alertTypesSettingsView.alertTypeNameAlreadyExists(), duration: 2, position: .top)
                 return
             }
             
@@ -352,6 +352,7 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
                     if alertTypeAlreadyStored.name == text && alertTypeAlreadyStored != self.alertTypeAsNSObject {
                         // duplicated name
                         dialog.shake()
+                        dialog.view.makeToast(R.string.alertTypesSettingsView.alertTypeNameAlreadyExists(), duration: 2, position: .top)
                         return
                     }
                 }

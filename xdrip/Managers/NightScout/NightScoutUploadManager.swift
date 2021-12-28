@@ -107,9 +107,7 @@ public class NightScoutUploadManager:NSObject {
         if UserDefaults.standard.transmitterBatteryInfo != latestTransmitterBatteryInfo || latestUploaderBatteryLevel != UIDevice.current.batteryLevel {
             
             if let transmitterBatteryInfo = UserDefaults.standard.transmitterBatteryInfo {
-
                 uploadTransmitterBatteryInfoToNightScout(transmitterBatteryInfo: transmitterBatteryInfo)
-
             }
         }
     }
@@ -135,7 +133,6 @@ public class NightScoutUploadManager:NSObject {
                                 DispatchQueue.main.async {
                                     self.callMessageHandler(withCredentialVerificationResult: success, error: error)
                                     if success {
-                                        
                                         // set lastConnectionStatusChangeTimeStamp to as late as possible, to make sure that the most recent reading is uploaded if user is testing the credentials
                                         self.upload(lastConnectionStatusChangeTimeStamp: Date())
                                         
@@ -158,7 +155,6 @@ public class NightScoutUploadManager:NSObject {
                             testNightScoutCredentials({ (success, error) in
                                 DispatchQueue.main.async {
                                     if success {
-                                        
                                         // set lastConnectionStatusChangeTimeStamp to as late as possible, to make sure that the most recent reading is uploaded if user is testing the credentials
                                         self.upload(lastConnectionStatusChangeTimeStamp: Date())
                                         
