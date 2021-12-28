@@ -5811,7 +5811,7 @@ struct R: Rswift.Validatable {
 
     /// This `R.string.nightScoutTestResult` struct is generated, and contains static references to 6 localization keys.
     struct nightScoutTestResult {
-      /// en translation: Please wait patiently
+      /// en translation: Please wait a moment
       ///
       /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
       static let nightScoutAPIKeyAndURLStartedBody = Rswift.StringResource(key: "nightScoutAPIKeyAndURLStartedBody", tableName: "NightScoutTestResult", bundle: R.hostingBundle, locales: ["en", "zh", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -5836,7 +5836,7 @@ struct R: Rswift.Validatable {
       /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
       static let nightscouttestresult_verificationsuccessfulalertbody = Rswift.StringResource(key: "nightscouttestresult_verificationsuccessfulalertbody", tableName: "NightScoutTestResult", bundle: R.hostingBundle, locales: ["en", "zh", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
 
-      /// en translation: Please wait patiently
+      /// en translation: Please wait a moment
       ///
       /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
       static func nightScoutAPIKeyAndURLStartedBody(preferredLanguages: [String]? = nil) -> String {
