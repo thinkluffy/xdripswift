@@ -1478,10 +1478,10 @@ extension RootViewController: CGMTransmitterDelegate {
             UserDefaults.standard.transmitterBatteryInfo = transmitterBatteryInfo
         }
         
-        // list readings
-        for (index, glucose) in glucoseData.enumerated() {
-            RootViewController.log.i("glucoseData[\(index)], value: \(glucose.glucoseLevelRaw), timestamp: \(glucose.timeStamp.toString(timeStyle: .long, dateStyle: .none))")
-        }
+//        // list readings
+//        for (index, glucose) in glucoseData.enumerated() {
+//            RootViewController.log.i("glucoseData[\(index)], value: \(glucose.glucoseLevelRaw), timestamp: \(glucose.timeStamp.toString(timeStyle: .long, dateStyle: .none))")
+//        }
         
         // process new readings
         processNewGlucoseData(glucoseData: &glucoseData, sensorAge: sensorAge)

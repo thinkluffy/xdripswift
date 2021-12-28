@@ -27,14 +27,15 @@ class LegacySubSettingsViewController: SubSettingsViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.backgroundColor = ConstantsUI.mainBackgroundColor
+        tableView.showsVerticalScrollIndicator = false
         return tableView
     }()
                 
     /// will show pop up with title and message
     private var messageHandler: ((String, String) -> Void)?
     
-    /// UIAlertController used by messageHandler
-    private var messageHandlerUiAlertController: UIViewController?
+    /// UIViewController used by messageHandler
+    private var messageHandlerVC: UIViewController?
     
     /// array of viewmodels, one per section
     private var viewModels = [SettingsViewModelProtocol]()
@@ -56,28 +57,30 @@ class LegacySubSettingsViewController: SubSettingsViewController {
         messageHandler = { (title, message) in
             
             // piece of code that we need two times
-            let createAndPresentMessageHandlerUIAlertController = {
-                self.messageHandlerUiAlertController = PopupDialog(title: title,
-                                                                   message: message,
-                                                                   actionTitle: R.string.common.common_Ok(),
-                                                                   actionHandler: nil)
+            let createAndPresentMessageHandlerVC = {
+                self.messageHandlerVC = PopupDialog(
+                    title: title,
+                    message: message,
+                    actionTitle: R.string.common.common_Ok(),
+                    actionHandler: nil,
+                    dismissHandler: {
+                        self.messageHandlerVC = nil
+                    }
+                )
                 
-                if let messageHandlerUiAlertController = self.messageHandlerUiAlertController {
-                    self.present(messageHandlerUiAlertController, animated: true, completion: nil)
+                if let messageHandlerVC = self.messageHandlerVC {
+                    self.present(messageHandlerVC, animated: true)
                 }
             }
             
-            // first check if messageHandlerUiAlertController is not nil and is presenting. If it is, dismiss it and when completed call createAndPresentMessageHandlerUIAlertController
-            if let messageHandlerUiAlertController = self.messageHandlerUiAlertController {
-                if messageHandlerUiAlertController.isBeingPresented {
-                    messageHandlerUiAlertController.dismiss(animated: true, completion: createAndPresentMessageHandlerUIAlertController)
-                    return
-                    
-                }
+            // first check if messageHandlerVC is not nil and is presenting. If it is, dismiss it and when completed call createAndPresentMessageHandlerVC
+            if let messageHandlerVC = self.messageHandlerVC {
+                messageHandlerVC.dismiss(animated: true, completion: createAndPresentMessageHandlerVC)
+                return
             }
-            
+
             // we're here which means there wasn't a messageHandlerUiAlertController being presented, so present it now
-            createAndPresentMessageHandlerUIAlertController()
+            createAndPresentMessageHandlerVC()
         }
 
         // initialize viewModels

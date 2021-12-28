@@ -5816,7 +5816,7 @@ struct R: Rswift.Validatable {
 
     /// This `R.string.nightScoutTestResult` struct is generated, and contains static references to 6 localization keys.
     struct nightScoutTestResult {
-      /// en translation: Nightscout Verification Test Started  This message should automatically disappear shortly
+      /// en translation: Please wait patiently
       ///
       /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
       static let nightScoutAPIKeyAndURLStartedBody = Rswift.StringResource(key: "nightScoutAPIKeyAndURLStartedBody", tableName: "NightScoutTestResult", bundle: R.hostingBundle, locales: ["en", "zh", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -5841,7 +5841,7 @@ struct R: Rswift.Validatable {
       /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
       static let nightscouttestresult_verificationsuccessfulalertbody = Rswift.StringResource(key: "nightscouttestresult_verificationsuccessfulalertbody", tableName: "NightScoutTestResult", bundle: R.hostingBundle, locales: ["en", "zh", "ar", "fi", "pt", "nl", "de", "es", "fr", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
 
-      /// en translation: Nightscout Verification Test Started  This message should automatically disappear shortly
+      /// en translation: Please wait patiently
       ///
       /// Locales: en, zh, ar, fi, pt, nl, de, es, fr, it, pl-PL, ru, sl, sv
       static func nightScoutAPIKeyAndURLStartedBody(preferredLanguages: [String]? = nil) -> String {
@@ -6354,8 +6354,8 @@ struct R: Rswift.Validatable {
       static let settingsviews_webooptransmitter = Rswift.StringResource(key: "settingsviews_webooptransmitter", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: Use Upload Schedule
       ///
-      /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
-      static let settingsviews_useSchedule = Rswift.StringResource(key: "settingsviews_useSchedule", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// Locales: en, nl, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
+      static let settingsviews_useSchedule = Rswift.StringResource(key: "settingsviews_useSchedule", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: Version
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
@@ -7951,7 +7951,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: Use Upload Schedule
       ///
-      /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
+      /// Locales: en, nl, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static func settingsviews_useSchedule(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("settingsviews_useSchedule", tableName: "SettingsViews", bundle: hostingBundle, comment: "")

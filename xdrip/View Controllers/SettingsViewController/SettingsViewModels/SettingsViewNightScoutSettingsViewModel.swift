@@ -57,8 +57,8 @@ class SettingsViewNightScoutSettingsViewModel {
             let testURL = url.appendingPathComponent(nightScoutAuthTestPath)
             
             var request = URLRequest(url: testURL)
-            request.setValue("application/json", forHTTPHeaderField:"Content-Type")
-            request.setValue("application/json", forHTTPHeaderField:"Accept")
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("application/json", forHTTPHeaderField: "Accept")
             
             // if the API_SECRET is present, then hash it and pass it via http header. If it's missing but there is a token, then send this as plain text to allow the authentication check.
             if let apiKey = UserDefaults.standard.nightScoutAPIKey {
@@ -283,12 +283,12 @@ extension SettingsViewNightScoutSettingsViewModel: SettingsViewModelProtocol {
                 messageHandler(Texts_NightScoutTestResult.nightScoutAPIKeyAndURLStartedTitle, Texts_NightScoutTestResult.nightScoutAPIKeyAndURLStartedBody)
             }
             
-            self.testNightScoutCredentials()
+            testNightScoutCredentials()
             
             return .nothing
             
         case .uploadSensorStartTime:
-            return SettingsSelectedRowAction.nothing
+            return .nothing
         }
     }
     

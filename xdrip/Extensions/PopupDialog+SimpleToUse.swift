@@ -16,13 +16,15 @@ extension PopupDialog {
                      actionTitle: String = R.string.common.common_Ok(),
                      actionHandler: (() -> Void)?,
                      cancelTitle: String? = nil,
-                     cancelHandler: (() -> Void)? = nil) {
+                     cancelHandler: (() -> Void)? = nil,
+                     dismissHandler: (() -> Void)? = nil) {
         self.init(title: title,
                   message: message,
                   buttonAlignment: .horizontal,
                   transitionStyle: .iOS,
                   tapGestureDismissal: false,
-                  panGestureDismissal: false)
+                  panGestureDismissal: false,
+                  completion: dismissHandler)
         
         let actionButton = DefaultButton(title: actionTitle) {
             if let actionHandler = actionHandler {

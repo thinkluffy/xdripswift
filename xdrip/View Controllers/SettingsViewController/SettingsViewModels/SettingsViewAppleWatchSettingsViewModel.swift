@@ -85,10 +85,10 @@ class SettingsViewAppleWatchSettingsViewModel: SettingsViewModelProtocol {
             }
             
         case .calenderId:
-            return UITableViewCell.AccessoryType.disclosureIndicator
+            return .none
             
         case .calendarInterval:
-            return UITableViewCell.AccessoryType.disclosureIndicator
+            return .none
             
         }
     }
@@ -122,7 +122,7 @@ class SettingsViewAppleWatchSettingsViewModel: SettingsViewModelProtocol {
             let authorizationStatus = EKEventStore.authorizationStatus(for: .event)
             if authorizationStatus == .denied || authorizationStatus == .restricted {return nil}
             
-            return UISwitch(isOn: UserDefaults.standard.createCalendarEvent, action: {
+            return UISwitch(isOn: UserDefaults.standard.createCalendarEvent) {
                 (isOn:Bool) in
                 
                 // if setting to false, then no need to check authorization status
@@ -167,8 +167,7 @@ class SettingsViewAppleWatchSettingsViewModel: SettingsViewModelProtocol {
                     trace("in SettingsViewAppleWatchSettingsViewModel, unknown case returned when authorizing EKEventStore ", log: self.log, category: ConstantsLog.categoryRootView, type: .error)
                     
                 }
-                
-            })
+            }
             
         case .calenderId:
             return nil
@@ -222,7 +221,7 @@ class SettingsViewAppleWatchSettingsViewModel: SettingsViewModelProtocol {
                 
             }
 
-            return SettingsSelectedRowAction.nothing
+            return .nothing
         
         case .calenderId:
             
@@ -280,7 +279,6 @@ class SettingsViewAppleWatchSettingsViewModel: SettingsViewModelProtocol {
                 cancelHandler: nil,
                 didSelectRowHandler: nil
             )
-
         }
     }
     
@@ -291,5 +289,4 @@ class SettingsViewAppleWatchSettingsViewModel: SettingsViewModelProtocol {
     func completeSettingsViewRefreshNeeded(index: Int) -> Bool {
         return false
     }
-    
 }
