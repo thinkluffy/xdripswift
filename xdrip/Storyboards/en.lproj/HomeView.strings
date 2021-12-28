@@ -17,6 +17,7 @@
 "startScanningTitle" = "Scanning Started";
 "startScanningInfo" = "Keep %@ open in the foreground until a connection is made. Don't exit the app and don't lock your iPhone.";
 "sensorstart" = "Sensor Started";
+"sensorend" = "Sensor Ends";
 "notstarted" = "Not Started";
 "notknown" = "Not Known";
 "lastconnection" = "Last Connection";
@@ -37,5 +38,6 @@
 "failed" = "Failed";
 "calibrationNotNecessary" = "When using the Libre algoritm, it is not necessary to calibrate the sensor.";
 "dexcomBatteryTooLow" = "The Transmitter battery is too low!";
-
 "toast_new_bg_reading" = "New BG Reading";
+"enterSensorCode" = "if you don't have a sensor code use 0000 but be aware that you will not get readings until you calibrate";
+"stopSensorConfirmation" = "Are you sure you want to stop the sensor?";

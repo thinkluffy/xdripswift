@@ -387,7 +387,7 @@ final class RootViewController: UIViewController {
     /// - parameters:
     ///     - glucoseData : array with new readings
     ///     - sensorTimeInMinutes : should be present only if it's the first reading(s) being processed for a specific sensor and is needed if it's a transmitterType that returns true to the function canDetectNewSensor
-    private func processNewGlucoseData(glucoseData: inout [GlucoseData], sensorTimeInMinutes: Int?) {
+    private func processNewGlucoseData(glucoseData: inout [GlucoseData], sensorAge: TimeInterval?) {
         let performanceTrace = Performance.startTrace(name: PerformanceTraceName.processNewGlucoseData)
 
         defer {
@@ -401,18 +401,12 @@ final class RootViewController: UIViewController {
         }
         
         if activeSensor == nil {
-            if let sensorTimeInMinutes = sensorTimeInMinutes, cgmTransmitter.cgmTransmitterType().canDetectNewSensor() {
-                activeSensor = Sensor(startDate: Date(timeInterval: -Double(sensorTimeInMinutes * 60), since: Date()),
-                                      nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
-                if let activeSensor = activeSensor {
-                    trace("created sensor with id : %{public}@ and startdate  %{public}@", log: log, category: ConstantsLog.categoryRootView, type: .info, activeSensor.id, activeSensor.startDate.description)
-                    
-                } else {
-                    trace("creation active sensor failed", log: log, category: ConstantsLog.categoryRootView, type: .info)
-                }
-                
-                // save the newly created Sensor permenantly in coredata
-                CoreDataManager.shared.saveChanges()
+            if let sensorAge = sensorAge, cgmTransmitter.cgmTransmitterType().canDetectNewSensor() {
+                // no need to send to transmitter, because we received processNewGlucoseData, so transmitter knows the sensor already
+                startSensor(cGMTransmitter: cgmTransmitter,
+                            sensorStarDate: Date(timeIntervalSinceNow: -sensorAge),
+                            sensorCode: nil,
+                            sendToTransmitter: false)
             }
         }
         
@@ -895,7 +889,7 @@ final class RootViewController: UIViewController {
             }
             
             // store the calibration value entered by the user into the log
-            trace("calibration : value %{public}@ entered by user", log: self.log, category: ConstantsLog.categoryRootView, type: .info, text.description)
+            RootViewController.log.d("calibration: value \"\(text.description)\" entered by user")
             
             let valueAsDoubleConvertedToMgDl = valueAsDouble.mmolToMgdl(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
             
@@ -904,24 +898,35 @@ final class RootViewController: UIViewController {
             var latestCalibrations = self.calibrationsAccessor.getLatestCalibrations(howManyDays: 4, forSensor: activeSensor)
             
             if let calibrator = self.calibrator {
-                
                 if latestCalibrations.count == 0 {
-                    
-                    trace("calibration : initial calibration, creating two calibrations", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
+                    RootViewController.log.i("calibration: initial calibration, creating two calibrations")
                     
                     // calling initialCalibration will create two calibrations, they are returned also but we don't need them
-                    _ = calibrator.initialCalibration(firstCalibrationBgValue: valueAsDoubleConvertedToMgDl, firstCalibrationTimeStamp: Date(timeInterval: -(5*60), since: Date()), secondCalibrationBgValue: valueAsDoubleConvertedToMgDl, sensor: activeSensor, lastBgReadingsWithCalculatedValue0AndForSensor: &latestReadings, deviceName: deviceName, nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
+                    let (calibration, _) = calibrator.initialCalibration(firstCalibrationBgValue: valueAsDoubleConvertedToMgDl, firstCalibrationTimeStamp: Date(timeInterval: -(5*60), since: Date()), secondCalibrationBgValue: valueAsDoubleConvertedToMgDl, sensor: activeSensor, lastBgReadingsWithCalculatedValue0AndForSensor: &latestReadings, deviceName: deviceName, nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
+                    
+                    // send calibration to transmitter (only used for Dexcom, if firefly flow is used)
+                    if let calibration = calibration {
+                        cgmTransmitter.calibrate(calibration: calibration)
+                        
+                        // presnooze fastrise and fastdrop alert
+                        AlertManager.shared.snooze(alertKind: .fastdrop, snoozePeriodInMinutes: 9, response: nil)
+                        AlertManager.shared.snooze(alertKind: .fastrise, snoozePeriodInMinutes: 9, response: nil)
+                    }
                     
                 } else {
-                    
                     // it's not the first calibration
                     if let firstCalibrationForActiveSensor = self.calibrationsAccessor.firstCalibrationForActiveSensor(withActivesensor: activeSensor) {
-
-                        trace("calibration : creating calibrations", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
+                        RootViewController.log.i("calibration: creating calibrations")
                         
-                        // calling createNewCalibration will create a new  calibration, it is returned but we don't need it
-                        _ = calibrator.createNewCalibration(bgValue: valueAsDoubleConvertedToMgDl, lastBgReading: latestReadings[0], sensor: activeSensor, lastCalibrationsForActiveSensorInLastXDays: &latestCalibrations, firstCalibration: firstCalibrationForActiveSensor, deviceName: deviceName, nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
+                        // create new calibration
+                        let calibration = calibrator.createNewCalibration(bgValue: valueAsDoubleConvertedToMgDl, lastBgReading: latestReadings[0], sensor: activeSensor, lastCalibrationsForActiveSensorInLastXDays: &latestCalibrations, firstCalibration: firstCalibrationForActiveSensor, deviceName: deviceName, nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
                         
+                        // send calibration to transmitter (only used for Dexcom, if firefly flow is used)
+                        cgmTransmitter.calibrate(calibration: calibration)
+                        
+                        // presnooze fastrise and fastdrop alert
+                        AlertManager.shared.snooze(alertKind: .fastdrop, snoozePeriodInMinutes: 9, response: nil)
+                        AlertManager.shared.snooze(alertKind: .fastrise, snoozePeriodInMinutes: 9, response: nil)
                     }
                 }
                 
@@ -953,51 +958,51 @@ final class RootViewController: UIViewController {
             }
         }
         
-        // present the alert
-        self.present(dialog, animated: true)
+        present(dialog, animated: true)
     }
     
     /// this is just some functionality which is used frequently
     private func getCalibrator(cgmTransmitter: CGMTransmitter) -> Calibrator {
-        
         let cgmTransmitterType = cgmTransmitter.cgmTransmitterType()
         
-        switch cgmTransmitterType {
+        // initialize return value
+        var calibrator: Calibrator = NoCalibrator()
         
-        case .dexcomG5, .dexcomG6:
-            
-            trace("in getCalibrator, calibrator: DexcomCalibrator", log: log, category: ConstantsLog.categoryRootView, type: .info)
-            
-            return DexcomCalibrator()
-            
-        case .miaomiao, .GNSentry, .Blucon, .Bubble, .Droplet1, .blueReader, .watlaa, .Libre2, .Atom:
-            
+        switch cgmTransmitterType {
+        case .dexcom:
             if cgmTransmitter.isWebOOPEnabled() {
-                
                 // received values are already calibrated
-                
-                trace("in getCalibrator, calibrator: NoCalibrator", log: log, category: ConstantsLog.categoryRootView, type: .info)
-                
-                return NoCalibrator()
+                calibrator = NoCalibrator()
                 
             } else if cgmTransmitter.isNonFixedSlopeEnabled() {
+                // no oop web, fixed slope
+                // should not occur, because Dexcom should have nonFixedSlopeEnabled false
+                //  if true for dexcom, then someone has set this to true but didn't create a non-fixed slope calibrator
+                fatalError("cgmTransmitter.isNonFixedSlopeEnabled returns true for dexcom but there's no NonFixedSlopeCalibrator for Dexcom")
                 
+            } else {
+                // no oop web, no fixed slope
+                calibrator = DexcomCalibrator()
+            }
+            
+        case .miaomiao, .GNSentry, .Blucon, .Bubble, .Droplet1, .blueReader, .watlaa, .Libre2, .Atom:
+            if cgmTransmitter.isWebOOPEnabled() {
+                // received values are already calibrated
+                calibrator = NoCalibrator()
+                
+            } else if cgmTransmitter.isNonFixedSlopeEnabled() {
                 // no oop web, non-fixed slope
-                
-                trace("in getCalibrator, calibrator: Libre1NonFixedSlopeCalibrator", log: log, category: ConstantsLog.categoryRootView, type: .info)
-                
                 return Libre1NonFixedSlopeCalibrator()
                 
             } else {
-                
                 // no oop web, fixed slope
-                
-                trace("in getCalibrator, calibrator: Libre1Calibrator", log: log, category: ConstantsLog.categoryRootView, type: .info)
-                
-                return Libre1Calibrator()
-                
+                calibrator = Libre1Calibrator()
             }
         }
+        
+        RootViewController.log.d("calibrator: \(calibrator.description())")
+        
+        return calibrator
     }
     
     /// for debug purposes
@@ -1021,7 +1026,7 @@ final class RootViewController: UIViewController {
         
         // we will not just count on it that the user will click the notification to open the app (assuming the app is in the background, if the app is in the foreground, then we come in another flow)
         // whenever app comes from-back to foreground, requestCalibration needs to be called
-        ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: appManagerKeyInitialCalibration, closure: {
+        ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: appManagerKeyInitialCalibration) {
             
             // first of all reremove from application key manager
             ApplicationManager.shared.removeClosureToRunWhenAppWillEnterForeground(key: self.appManagerKeyInitialCalibration)
@@ -1031,9 +1036,7 @@ final class RootViewController: UIViewController {
             
             // request the calibration
             self.requestCalibration(userRequested: false)
-            
-        })
-        
+        }
     }
     
     /// creates bgreading notification, and set app badge to value of reading
@@ -1045,8 +1048,7 @@ final class RootViewController: UIViewController {
         
         // if there's no reading for active sensor with calculated value , then no reason to continue
         if lastReading.count == 0 {
-            
-            trace("in createBgReadingNotificationAndSetAppBadge, lastReading.count = 0", log: log, category: ConstantsLog.categoryRootView, type: .info)
+            RootViewController.log.i("in createBgReadingNotificationAndSetAppBadge, lastReading.count: 0")
             
             // remove the application badge number. Possibly an old reading is still shown.
             UIApplication.shared.applicationIconBadgeNumber = 0
@@ -1057,7 +1059,7 @@ final class RootViewController: UIViewController {
         // if reading is older than 4.5 minutes, then also no reason to continue - this may happen eg in case of follower mode
         if Date().timeIntervalSince(lastReading[0].timeStamp) > 4.5 * 60 {
             
-            trace("in createBgReadingNotificationAndSetAppBadge, timestamp of last reading > 4.5 * 60", log: log, category: ConstantsLog.categoryRootView, type: .info)
+            RootViewController.log.i("in createBgReadingNotificationAndSetAppBadge, timestamp of last reading > 4.5 * 60")
             
             // remove the application badge number. Possibly the previous value is still shown
             UIApplication.shared.applicationIconBadgeNumber = 0
@@ -1267,6 +1269,55 @@ final class RootViewController: UIViewController {
         updateSensorCountdown()
     }
     
+    /// - creates a new sensor and assigns it to activeSensor
+    /// - if sendToTransmitter is true then sends startSensor command to transmitter (ony useful for Firefly)
+    /// - saves to coredata
+    private func startSensor(cGMTransmitter: CGMTransmitter, sensorStarDate: Date, sensorCode: String?, sendToTransmitter: Bool) {
+        
+        // create active sensor
+        let newSensor = Sensor(startDate: sensorStarDate,
+                               nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
+        
+        // save the newly created Sensor permenantly in coredata
+        CoreDataManager.shared.saveChanges()
+        
+        // send to transmitter
+        if sendToTransmitter {
+            cGMTransmitter.startSensor(sensorCode: sensorCode, startDate: sensorStarDate)
+        }
+
+        // assign activeSensor to newSensor
+        activeSensor = newSensor
+    }
+    
+    private func stopSensor(cGMTransmitter: CGMTransmitter, sendToTransmitter: Bool) {
+        // create stopDate
+        let stopDate = Date()
+        
+        // send stop sensor command to transmitter, don't check if there's an activeSensor in coredata or not, never know that there's a desync between coredata and transmitter
+        if sendToTransmitter {
+            cGMTransmitter.stopSensor(stopDate: stopDate)
+        }
+
+        // no need to further continue if activeSensor = nil, and at the same time, unwrap coredataManager
+        guard let activeSensor = activeSensor else {
+            return
+        }
+
+        // set endDate of activeSensor to stopDate
+        activeSensor.endDate = stopDate
+        
+        // save changes to coreData
+        CoreDataManager.shared.saveChanges()
+        
+        // asign nil to activeSensor
+        self.activeSensor = nil
+        
+        // now that the activeSensor object has been destroyed, update (hide) the sensor countdown graphic
+        updateSensorCountdown()
+    }
+    
+    
     private func getCGMTransmitterDeviceName(for cgmTransmitter: CGMTransmitter) -> String? {
         if let bluetoothTransmitter = cgmTransmitter as? BluetoothTransmitter {
             return bluetoothTransmitter.deviceName
@@ -1379,20 +1430,47 @@ final class RootViewController: UIViewController {
 /// conform to CGMTransmitterDelegate
 extension RootViewController: CGMTransmitterDelegate {
     
-    func newSensorDetected() {
+    func sensorStopDetected() {
+        trace("sensor stop detected", log: log, category: ConstantsLog.categoryRootView, type: .info)
+        // unwrap cgmTransmitter
+        guard let cgmTransmitter = self.bluetoothPeripheralManager?.getCGMTransmitter() else {
+            return
+        }
+        
+        stopSensor(cGMTransmitter: cgmTransmitter, sendToTransmitter: false)
+    }
+    
+    func newSensorDetected(sensorStartDate: Date?) {
         trace("new sensor detected", log: log, category: ConstantsLog.categoryRootView, type: .info)
-        stopSensor()
+        
+        // unwrap cgmTransmitter
+        guard let cgmTransmitter = self.bluetoothPeripheralManager?.getCGMTransmitter() else {return}
+        
+        stopSensor(cGMTransmitter: cgmTransmitter, sendToTransmitter: false)
+
+        // if sensorStartDate is given, then unwrap coreDataManager and startSensor
+        if let sensorStartDate = sensorStartDate {
+            
+            // use sensorCode nil, in the end there will be no start sensor command sent to the transmitter because we just received the sensorStartTime from the transmitter, so it's already started
+            startSensor(cGMTransmitter: cgmTransmitter,
+                        sensorStarDate: sensorStartDate,
+                        sensorCode: nil,
+                        sendToTransmitter: false)
+        }
     }
     
     func sensorNotDetected() {
         trace("sensor not detected", log: log, category: ConstantsLog.categoryRootView, type: .info)
         
-        createNotification(title: Texts_Common.warning, body: Texts_HomeView.sensorNotDetected, identifier: ConstantsNotifications.NotificationIdentifierForSensorNotDetected.sensorNotDetected, sound: nil)
+        createNotification(title: Texts_Common.warning,
+                           body: Texts_HomeView.sensorNotDetected,
+                           identifier: ConstantsNotifications.NotificationIdentifierForSensorNotDetected.sensorNotDetected,
+                           sound: nil)
     }
     
-    func cgmTransmitterInfoReceived(glucoseData: inout [GlucoseData], transmitterBatteryInfo: TransmitterBatteryInfo?, sensorTimeInMinutes: Int?) {
-        RootViewController.log.d("transmitterBatteryInfo \(transmitterBatteryInfo?.description ?? "not received")")
-        RootViewController.log.d("sensor time in minutes \(sensorTimeInMinutes?.description ?? "not received")")
+    func cgmTransmitterInfoReceived(glucoseData: inout [GlucoseData], transmitterBatteryInfo: TransmitterBatteryInfo?, sensorAge: TimeInterval?) {
+        RootViewController.log.d("transmitterBatteryInfo: \(transmitterBatteryInfo?.description ?? "not received")")
+        RootViewController.log.d("sensorAge: \(sensorAge?.description ?? "not received")")
         RootViewController.log.d("glucoseData size: \(glucoseData.count.description)")
         
         // if received transmitterBatteryInfo not nil, then store it
@@ -1400,8 +1478,13 @@ extension RootViewController: CGMTransmitterDelegate {
             UserDefaults.standard.transmitterBatteryInfo = transmitterBatteryInfo
         }
         
+        // list readings
+        for (index, glucose) in glucoseData.enumerated() {
+            RootViewController.log.i("glucoseData[\(index)], value: \(glucose.glucoseLevelRaw), timestamp: \(glucose.timeStamp.toString(timeStyle: .long, dateStyle: .none))")
+        }
+        
         // process new readings
-        processNewGlucoseData(glucoseData: &glucoseData, sensorTimeInMinutes: sensorTimeInMinutes)
+        processNewGlucoseData(glucoseData: &glucoseData, sensorAge: sensorAge)
     }
     
     func cgmTransmitterInfoDidChange() {

@@ -7,7 +7,7 @@ fileprivate enum Setting: Int, CaseIterable {
     
     /// choose between master and follower
     case masterFollower = 1
-         
+
     /// should reading be shown in notification
     case showReadingInNotification = 2
     

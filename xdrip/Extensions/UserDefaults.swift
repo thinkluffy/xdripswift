@@ -34,6 +34,8 @@ extension UserDefaults {
         case bloodGlucoseUnitIsMgDl = "bloodGlucoseUnit"
         /// urgent high value
         case isMaster = "isMaster"
+        /// should the online help by automatically translated?
+        case translateOnlineHelp = "translateOnlineHelp"
         /// should notification be shown with reading yes or no
         case showReadingInNotification = "showReadingInNotification"
         /// should readings be shown in app badge yes or no
@@ -43,6 +45,10 @@ extension UserDefaults {
         
         // Home Screen and main chart settings
         
+        /// should the screen/chart be allowed to rotate?
+        case allowScreenRotation = "allowScreenRotation"
+        /// should the clock view be shown when the screen is locked?
+        case showClockWhenScreenIsLocked = "showClockWhenScreenIsLocked"
         /// show the objectives and make them display on the graph? Or just hide it all because it's too complicated to waste time with?
         case useObjectives = "useObjectives"
         /// show the objective lines in color or grey?
@@ -88,6 +94,9 @@ extension UserDefaults {
         case uploadSensorStartTimeToNS = "uploadSensorStartTimeToNS"
         /// port number to use, 0 means not set
         case nightScoutPort = "nightScoutPort"
+        /// token to use for authentication, 0 means not set
+        case nightscoutToken = "nightscoutToken"
+
         
         // Dexcom Share
         
@@ -332,6 +341,17 @@ extension UserDefaults {
         }
         set {
             set(!newValue, forKey: Key.isMaster.rawValue)
+        }
+    }
+    
+    /// should the app automatically show the translated version of the online help if English (en) is not the selected app locale?
+    @objc dynamic var translateOnlineHelp: Bool {
+        // default value for bool in userdefaults is false, as default we want the app to translate automatically
+        get {
+            return !bool(forKey: Key.translateOnlineHelp.rawValue)
+        }
+        set {
+            set(!newValue, forKey: Key.translateOnlineHelp.rawValue)
         }
     }
     
@@ -596,6 +616,28 @@ extension UserDefaults {
         }
     }
     
+    /// should the home screen be allowed to rotate to show a landscape glucose chart?
+    @objc dynamic var allowScreenRotation: Bool {
+        // default value for bool in userdefaults is false, as default we want the chart to be able to rotate and show the 24hr view
+        get {
+            return !bool(forKey: Key.allowScreenRotation.rawValue)
+        }
+        set {
+            set(!newValue, forKey: Key.allowScreenRotation.rawValue)
+        }
+    }
+    
+    /// should the clock view be shown when the screen is locked?
+    @objc dynamic var showClockWhenScreenIsLocked: Bool {
+        // default value for bool in userdefaults is false, as default we want the clock to show when the screen is locked
+        get {
+            return !bool(forKey: Key.showClockWhenScreenIsLocked.rawValue)
+        }
+        set {
+            set(!newValue, forKey: Key.showClockWhenScreenIsLocked.rawValue)
+        }
+    }
+    
     // MARK: Statistics Settings
 
     /// days to use for the statistics calculations
@@ -687,6 +729,16 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: Key.nightScoutPort.rawValue)
+        }
+    }
+    
+    /// Nightscout token, 0 means not set
+    @objc dynamic var nightscoutToken:String? {
+        get {
+            return string(forKey: Key.nightscoutToken.rawValue)
+        }
+        set {
+            set(newValue, forKey: Key.nightscoutToken.rawValue)
         }
     }
 

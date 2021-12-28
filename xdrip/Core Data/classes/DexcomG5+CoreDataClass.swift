@@ -15,7 +15,7 @@ class DexcomG5: NSManagedObject {
         
         super.init(entity: entity, insertInto: nsManagedObjectContext)
         
-        blePeripheral = BLEPeripheral(address: address, name: name, bluetoothPeripheralType: .DexcomG5Type, nsManagedObjectContext: nsManagedObjectContext)
+        blePeripheral = BLEPeripheral(address: address, name: name, bluetoothPeripheralType: .DexcomType, nsManagedObjectContext: nsManagedObjectContext)
     }
     
     private override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {

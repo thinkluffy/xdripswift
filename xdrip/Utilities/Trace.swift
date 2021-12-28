@@ -310,25 +310,14 @@ class Trace {
                 
                 switch bluetoothPeripheralType {
                     
-                case .DexcomG5Type:
-                    if let dexcomG5 = blePeripheral.dexcomG5, !dexcomG5.isDexcomG6 {
+                case .DexcomType:
+                    if let dexcomG5 = blePeripheral.dexcomG5 {
                         
                         traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
                         
                         // if needed additional specific info can be added
                         traceInfo.appendStringAndNewLine("    voltageA : " + dexcomG5.voltageA.description)
                         traceInfo.appendStringAndNewLine("    voltageB : " + dexcomG5.voltageB.description)
-                        
-                    }
-                    
-                case .DexcomG6Type:
-                    if let dexcomG6 = blePeripheral.dexcomG5, dexcomG6.isDexcomG6 {
-                        
-                        traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
-                        
-                        // if needed additional specific info can be added
-                        traceInfo.appendStringAndNewLine("    voltageA : " + dexcomG6.voltageA.description)
-                        traceInfo.appendStringAndNewLine("    voltageB : " + dexcomG6.voltageB.description)
                         
                     }
                     
@@ -398,18 +387,16 @@ class Trace {
                     }
                     
                 case .Libre2Type:
-                    if blePeripheral.libre2 != nil {
+                    if let libre2 = blePeripheral.libre2 {
                         
                         traceInfo.appendStringAndNewLine("    type = " + bluetoothPeripheralType.rawValue)
                         
                     }
-                    
                 }
-            }
-            
-            traceInfo.appendStringAndNewLine("")
                 
-        
+                traceInfo.appendStringAndNewLine("")
+                
+            }
             
             // all alertentries
             traceInfo.appendStringAndNewLine("List of alerts:\n")

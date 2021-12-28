@@ -114,7 +114,7 @@ class CGMBlueReaderTransmitter:BluetoothTransmitter, CGMTransmitter {
             
             // send to delegate
             var glucoseDataArray = [GlucoseData(timeStamp: Date(), glucoseLevelRaw: rawDataAsDouble)]
-            cgmTransmitterDelegate?.cgmTransmitterInfoReceived(glucoseData: &glucoseDataArray, transmitterBatteryInfo: transMitterBatteryInfo, sensorTimeInMinutes: nil)
+            cgmTransmitterDelegate?.cgmTransmitterInfoReceived(glucoseData: &glucoseDataArray, transmitterBatteryInfo: transMitterBatteryInfo, sensorAge: nil)
             
         } else {
             trace("    value is nil, no further processing", log: log, category: ConstantsLog.categoryCGMBlueReader, type: .error)
@@ -128,28 +128,12 @@ class CGMBlueReaderTransmitter:BluetoothTransmitter, CGMTransmitter {
         nonFixedSlopeEnabled = enabled
     }
 
-    /// this transmitter does not support oopWeb
-    func setWebOOPEnabled(enabled: Bool) {}
-    
     func cgmTransmitterType() -> CGMTransmitterType {
         return .blueReader
     }
 
     func isNonFixedSlopeEnabled() -> Bool {
         return nonFixedSlopeEnabled
-    }
-    
-    func isWebOOPEnabled() -> Bool {
-        return false
-    }
-
-    func requestNewReading() {
-        // not supported for blucon
-    }
-    
-    func maxSensorAgeInSeconds() -> Int? {
-        // not supported for bluereader
-        return nil
     }
     
     var newReadingPeriodInSeconds: Int? {

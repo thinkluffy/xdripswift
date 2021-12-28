@@ -384,6 +384,30 @@ class AlertManager: NSObject {
             .build()
     }
 
+    /// - if it's a missed reading alert, then reschedule with a delay of snoozePeriodInMinutes, also with a repeat every snoozePeriodInMinutes
+    /// - other alerts are snoozed normal
+    /// - parameters:
+    ///     - alertKind
+    ///     - snoozePeriodInMinutes
+    ///     - response  the UNNotificationResponse received from iOS when user clicks the notification
+    public func snooze(alertKind: AlertKind, snoozePeriodInMinutes: Int, response: UNNotificationResponse?) {
+        // if it's a missedreading alert, then reschedule the alert with a delay of snoozePeriodInMinutes, repeating, with same content
+        if alertKind == .missedreading {
+            if let response = response {
+                scheduleMissedReadingAlert(snoozePeriodInMinutes: snoozePeriodInMinutes, content: response.notification.request.content)
+            }
+
+        } else {
+            // any other type of alert, set it to snoozed
+            getSnoozeParameters(alertKind: alertKind).snooze(snoozePeriodInMinutes: snoozePeriodInMinutes)
+            trace("Snoozing alert %{public}@ for %{public}@ minutes (2)", log: log, category: ConstantsLog.categoryAlertManager, type: .info, alertKind.descriptionForLogging(), snoozePeriodInMinutes.description)
+            
+            // save changes in coredata
+            CoreDataManager.shared.saveChanges()
+        }
+    }
+
+
     // MARK: - overriden functions
     
     public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
@@ -696,29 +720,8 @@ class AlertManager: NSObject {
         NoteManager.shared.saveAlertNoteIfNeeded(alertKind: alertKind, bgReading: lastBgReading)
         
         return true
-    }
-    
-    /// - if it's a missed reading alert, then reschedule with a delay of snoozePeriodInMinutes, also with a repeat every snoozePeriodInMinutes
-    /// - other alerts are snoozed normal
-    /// - parameters:
-    ///     - alertKind
-    ///     - snoozePeriodInMinutes
-    ///     - response  the UNNotificationResponse received from iOS when user clicks the notification
-    private func snooze(alertKind: AlertKind, snoozePeriodInMinutes: Int, response: UNNotificationResponse) {
-        // if it's a missedreading alert, then reschedule the alert with a delay of snoozePeriodInMinutes, repeating, with same content
-        if alertKind == .missedreading {
-            scheduleMissedReadingAlert(snoozePeriodInMinutes: snoozePeriodInMinutes, content: response.notification.request.content)
-            
-        } else {
-            // any other type of alert, set it to snoozed
-            getSnoozeParameters(alertKind: alertKind).snooze(snoozePeriodInMinutes: snoozePeriodInMinutes)
-            trace("Snoozing alert %{public}@ for %{public}@ minutes (2)", log: log, category: ConstantsLog.categoryAlertManager, type: .info, alertKind.descriptionForLogging(), snoozePeriodInMinutes.description)
-            
-            // save changes in coredata
-            CoreDataManager.shared.saveChanges()
-        }
-    }
-    
+    }   
+
     // helper method used during intialization of AlertManager
     private func initAlertNotificationIdentiferArray() {
         for alertKind in AlertKind.allCases {

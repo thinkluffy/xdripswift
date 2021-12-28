@@ -28,7 +28,8 @@ extension BLEPeripheral {
     /// should weboop be used or not - defined here to make it easier for coding, although not every type of bluetoothperipheral needs this
     @NSManaged public var webOOPEnabled: Bool
 
-    /// a BLEPeripheral should only have one of dexcomG5, watlaa, m5Stack, ...
+    /// - a BLEPeripheral should only have one of dexcomG5, watlaa, m5Stack, ...
+    /// - dexcomG5 is also used for dexcomG6
     @NSManaged var dexcomG5: DexcomG5?
     
     /// a BLEPeripheral should only have one of dexcomG5, watlaa, m5Stack, ...
@@ -63,4 +64,5 @@ extension BLEPeripheral {
 
     /// timestamp when connection changed to connected or not connected
     @NSManaged public var lastConnectionStatusChangeTimeStamp: Date?
+    
 }

@@ -15,7 +15,7 @@ final class SnoozeViewController: UIViewController {
         titleLabel.text = Texts_HomeView.snoozeButton
         setupView()
     }
-        
+
     private func setupView() {
         if let tableView = tableView {
             tableView.dataSource = self

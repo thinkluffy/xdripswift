@@ -9,7 +9,6 @@ extension WatlaaBluetoothTransmitter: CGMTransmitter {
         // immediately request a new reading
         // there's no check here to see if peripheral, characteristic, connection, etc.. exists, but that's no issue. If anything's missing, write will simply fail,
         _ = sendStartReadingCommand()
-        
     }
 
     func setNonFixedSlopeEnabled(enabled: Bool) {
@@ -36,13 +35,7 @@ extension WatlaaBluetoothTransmitter: CGMTransmitter {
         _ = sendStartReadingCommand()
     }
     
-    func maxSensorAgeInSeconds() -> Int? {
-        // no max sensor age for Watlaa
-        return nil
-    }
-    
     var newReadingPeriodInSeconds: Int? {
         nil
     }
-
 }

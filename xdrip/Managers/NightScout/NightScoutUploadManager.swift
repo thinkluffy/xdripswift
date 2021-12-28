@@ -63,6 +63,7 @@ public class NightScoutUploadManager:NSObject {
         UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.nightScoutUrl.rawValue, options: .new, context: nil)
         UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.nightScoutPort.rawValue, options: .new, context: nil)
         UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.nightScoutEnabled.rawValue, options: .new, context: nil)
+        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.nightscoutToken.rawValue, options: .new, context: nil)
     }
     
     // MARK: - public functions
@@ -75,23 +76,29 @@ public class NightScoutUploadManager:NSObject {
         // check if NightScout is enabled
         guard UserDefaults.standard.nightScoutEnabled else {return}
         
-        // check if master is enabled
+        // check that master is enabled
         guard UserDefaults.standard.isMaster else {return}
         
-        // check if siteUrl and apiKey exist
-        guard let siteURL = UserDefaults.standard.nightScoutUrl, let apiKey = UserDefaults.standard.nightScoutAPIKey else {return}
+        // check that the URL exists
+        guard let _ = UserDefaults.standard.nightScoutUrl else {return}
+        
+        // check that either the API_SECRET or Token exists, if both are nil then return
+        if UserDefaults.standard.nightScoutAPIKey == nil && UserDefaults.standard.nightscoutToken == nil {
+            return
+        }
         
         // upload readings
-        uploadBgReadingsToNightScout(siteURL: siteURL, apiKey: apiKey, lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp)
+        uploadBgReadingsToNightScout(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp)
+        
         // upload calibrations
-        uploadCalibrationsToNightScout(siteURL: siteURL, apiKey: apiKey)
+        uploadCalibrationsToNightScout()
         
         // upload activeSensor if needed
         if UserDefaults.standard.uploadSensorStartTimeToNS, let activeSensor = sensorsAccessor.fetchActiveSensor() {
             if !activeSensor.uploadedToNS  {
                 trace("in upload, activeSensor not yet uploaded to NS", log: self.oslog, category: ConstantsLog.categoryNightScoutUploadManager, type: .info)
 
-                uploadActiveSensorToNightScout(siteURL: siteURL, apiKey: apiKey, sensor: activeSensor)
+                uploadActiveSensorToNightScout(sensor: activeSensor)
             }
         }
         
@@ -100,7 +107,9 @@ public class NightScoutUploadManager:NSObject {
         if UserDefaults.standard.transmitterBatteryInfo != latestTransmitterBatteryInfo || latestUploaderBatteryLevel != UIDevice.current.batteryLevel {
             
             if let transmitterBatteryInfo = UserDefaults.standard.transmitterBatteryInfo {
-                uploadTransmitterBatteryInfoToNightScout(siteURL: siteURL, apiKey: apiKey, transmitterBatteryInfo: transmitterBatteryInfo)
+
+                uploadTransmitterBatteryInfoToNightScout(transmitterBatteryInfo: transmitterBatteryInfo)
+
             }
         }
     }
@@ -114,15 +123,15 @@ public class NightScoutUploadManager:NSObject {
             if let keyPathEnum = UserDefaults.Key(rawValue: keyPath) {
                 
                 switch keyPathEnum {
-                case UserDefaults.Key.nightScoutUrl, UserDefaults.Key.nightScoutAPIKey, UserDefaults.Key.nightScoutPort :
+                case UserDefaults.Key.nightScoutUrl, UserDefaults.Key.nightScoutAPIKey, UserDefaults.Key.nightscoutToken, UserDefaults.Key.nightScoutPort :
                     // apikey or nightscout api key change is triggered by user, should not be done within 200 ms
                     
                     if (keyValueObserverTimeKeeper.verifyKey(forKey: keyPathEnum.rawValue, withMinimumDelayMilliSeconds: 200)) {
                         
-                        // if apiKey and siteURL are set and if master then test credentials
-                        if let apiKey = UserDefaults.standard.nightScoutAPIKey, let siteUrl = UserDefaults.standard.nightScoutUrl, UserDefaults.standard.isMaster {
+                        // if master is set, siteURL exists and either API_SECRET or a token is entered, then test credentials
+                        if UserDefaults.standard.nightScoutUrl != "" && UserDefaults.standard.isMaster && (UserDefaults.standard.nightScoutAPIKey != "" || UserDefaults.standard.nightscoutToken != "") {
                             
-                            testNightScoutCredentials(apiKey: apiKey, siteURL: siteUrl, { (success, error) in
+                            testNightScoutCredentials({ (success, error) in
                                 DispatchQueue.main.async {
                                     self.callMessageHandler(withCredentialVerificationResult: success, error: error)
                                     if success {
@@ -143,27 +152,24 @@ public class NightScoutUploadManager:NSObject {
                     // if changing to enabled, then do a credentials test and if ok start upload, in case of failure don't give warning, that's the only difference with previous cases
                     if (keyValueObserverTimeKeeper.verifyKey(forKey: keyPathEnum.rawValue, withMinimumDelayMilliSeconds: 200)) {
                         
-                        if UserDefaults.standard.nightScoutEnabled {
+                        // if master is set, siteURL exists and either API_SECRET or a token is entered, then test credentials
+                        if UserDefaults.standard.nightScoutUrl != "" && UserDefaults.standard.isMaster && (UserDefaults.standard.nightScoutAPIKey != "" || UserDefaults.standard.nightscoutToken != "") {
                             
-                            // if apiKey and siteURL are set and if master then test credentials
-                            if let apiKey = UserDefaults.standard.nightScoutAPIKey, let siteUrl = UserDefaults.standard.nightScoutUrl, UserDefaults.standard.isMaster {
-                                
-                                testNightScoutCredentials(apiKey: apiKey, siteURL: siteUrl, { (success, error) in
-                                    DispatchQueue.main.async {
-                                        if success {
-                                            
-                                            // set lastConnectionStatusChangeTimeStamp to as late as possible, to make sure that the most recent reading is uploaded if user is testing the credentials
-                                            self.upload(lastConnectionStatusChangeTimeStamp: Date())
-                                            
-                                        } else {
-                                            trace("in observeValue, NightScout credential check failed", log: self.oslog, category: ConstantsLog.categoryNightScoutUploadManager, type: .info)
-                                        }
+                            testNightScoutCredentials({ (success, error) in
+                                DispatchQueue.main.async {
+                                    if success {
+                                        
+                                        // set lastConnectionStatusChangeTimeStamp to as late as possible, to make sure that the most recent reading is uploaded if user is testing the credentials
+                                        self.upload(lastConnectionStatusChangeTimeStamp: Date())
+                                        
+                                    } else {
+                                        trace("in observeValue, NightScout credential check failed", log: self.oslog, category: ConstantsLog.categoryNightScoutUploadManager, type: .info)
                                     }
-                                })
-                            }
+                                }
+                            })
                         }
                     }
-
+                    
                 default:
                     break
                 }
@@ -178,7 +184,7 @@ public class NightScoutUploadManager:NSObject {
     ///     - siteURL : nightscout site url
     ///     - apiKey : nightscout api key
     ///     - transmitterBatteryInfosensor: setransmitterBatteryInfosensornsor to upload
-    private func uploadTransmitterBatteryInfoToNightScout(siteURL:String, apiKey:String, transmitterBatteryInfo: TransmitterBatteryInfo) {
+    private func uploadTransmitterBatteryInfoToNightScout(transmitterBatteryInfo: TransmitterBatteryInfo) {
         
         trace("in uploadTransmitterBatteryInfoToNightScout, transmitterBatteryInfo not yet uploaded to NS", log: self.oslog, category: ConstantsLog.categoryNightScoutUploadManager, type: .info)
         
@@ -209,7 +215,8 @@ public class NightScoutUploadManager:NSObject {
             ]
         }
         
-        uploadData(dataToUpload: dataToUpload, traceString: "uploadTransmitterBatteryInfoToNightScout", siteURL: siteURL, path: nightScoutDeviceStatusPath, apiKey: apiKey, completionHandler: {
+
+        uploadData(dataToUpload: dataToUpload, traceString: "uploadTransmitterBatteryInfoToNightScout", path: nightScoutDeviceStatusPath, completionHandler: {
         
             // sensor successfully uploaded, change value in coredata
             trace("in uploadTransmitterBatteryInfoToNightScout, transmitterBatteryInfo uploaded to NS", log: self.oslog, category: ConstantsLog.categoryNightScoutUploadManager, type: .info)
@@ -227,7 +234,7 @@ public class NightScoutUploadManager:NSObject {
     ///     - siteURL : nightscout site url
     ///     - apiKey : nightscout api key
     ///     - sensor: sensor to upload
-    private func uploadActiveSensorToNightScout(siteURL:String, apiKey:String, sensor: Sensor) {
+    private func uploadActiveSensorToNightScout(sensor: Sensor) {
         
         trace("in uploadActiveSensorToNightScout, activeSensor not yet uploaded to NS", log: self.oslog, category: ConstantsLog.categoryNightScoutUploadManager, type: .info)
         
@@ -235,10 +242,10 @@ public class NightScoutUploadManager:NSObject {
             "_id": sensor.id,
             "eventType": "Sensor Start",
             "created_at": sensor.startDate.ISOStringFromDate(),
-            "enteredBy": "xDrip iOS"
+            "enteredBy": iOS.appDisplayName
         ]
         
-        uploadData(dataToUpload: dataToUpload, traceString: "uploadActiveSensorToNightScout", siteURL: siteURL, path: nightScoutTreatmentPath, apiKey: apiKey, completionHandler: {
+        uploadData(dataToUpload: dataToUpload, traceString: "uploadActiveSensorToNightScout", path: nightScoutTreatmentPath, completionHandler: {
             
             // sensor successfully uploaded, change value in coredata
             trace("in uploadActiveSensorToNightScout, activeSensor uploaded to NS", log: self.oslog, category: ConstantsLog.categoryNightScoutUploadManager, type: .info)
@@ -258,7 +265,7 @@ public class NightScoutUploadManager:NSObject {
     /// - parameters:
     ///     - siteURL : nightscout site url
     ///     - apiKey : nightscout api key
-    private func uploadBgReadingsToNightScout(siteURL:String, apiKey:String, lastConnectionStatusChangeTimeStamp: Date?) {
+    private func uploadBgReadingsToNightScout(lastConnectionStatusChangeTimeStamp: Date?) {
         
         trace("in uploadBgReadingsToNightScout", log: self.oslog, category: ConstantsLog.categoryNightScoutUploadManager, type: .info)
         
@@ -295,7 +302,7 @@ public class NightScoutUploadManager:NSObject {
             // store the timestamp of the last reading to upload, here in the main thread, because we use a bgReading for it, which is retrieved in the main mangedObjectContext
             let timeStampLastReadingToUpload = bgReadingsToUpload.first != nil ? bgReadingsToUpload.first!.timeStamp : nil
             
-            uploadData(dataToUpload: bgReadingsDictionaryRepresentation, traceString: "uploadBgReadingsToNightScout", siteURL: siteURL, path: nightScoutEntriesPath, apiKey: apiKey, completionHandler: {
+            uploadData(dataToUpload: bgReadingsDictionaryRepresentation, traceString: "uploadBgReadingsToNightScout", path: nightScoutEntriesPath, completionHandler: {
                 
                 // change timeStampLatestNightScoutUploadedBgReading
                 if let timeStampLastReadingToUpload = timeStampLastReadingToUpload {
@@ -311,7 +318,7 @@ public class NightScoutUploadManager:NSObject {
                         // do this in the main thread because the readings are fetched with the main mainManagedObjectContext
                         DispatchQueue.main.async {
                         
-                            self.uploadBgReadingsToNightScout(siteURL: siteURL, apiKey: apiKey, lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp)
+                            self.uploadBgReadingsToNightScout(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp)
                             
                         }
                         
@@ -331,7 +338,7 @@ public class NightScoutUploadManager:NSObject {
     /// - parameters:
     ///     - siteURL : nightscout site url
     ///     - apiKey : nightscout api key
-    private func uploadCalibrationsToNightScout(siteURL:String, apiKey:String) {
+    private func uploadCalibrationsToNightScout() {
         
         trace("in uploadCalibrationsToNightScout", log: self.oslog, category: ConstantsLog.categoryNightScoutUploadManager, type: .info)
         
@@ -358,7 +365,7 @@ public class NightScoutUploadManager:NSObject {
             // store the timestamp of the last calibration to upload, here in the main thread, because we use a Calibration for it, which is retrieved in the main mangedObjectContext
             let timeStampLastCalibrationToUpload = calibrationsToUpload.first != nil ? calibrationsToUpload.first!.timeStamp : nil
 
-            uploadData(dataToUpload: calibrationsDictionaryRepresentation, traceString: "uploadCalibrationsToNightScout", siteURL: siteURL, path: nightScoutEntriesPath, apiKey: apiKey, completionHandler: {
+            uploadData(dataToUpload: calibrationsDictionaryRepresentation, traceString: "uploadCalibrationsToNightScout", path: nightScoutEntriesPath, completionHandler: {
                 
                 // change timeStampLatestNightScoutUploadedCalibration
                 if let timeStampLastCalibrationToUpload = timeStampLastCalibrationToUpload {
@@ -384,7 +391,7 @@ public class NightScoutUploadManager:NSObject {
     ///     - completionHandler : will be executed if upload was successful
     ///     - siteURL : nightscout site url
     ///     - apiKey : nightscout api key
-    private func uploadData(dataToUpload: Any, traceString: String, siteURL: String, path:String, apiKey: String, completionHandler: (() -> ())?) {
+    private func uploadData(dataToUpload: Any, traceString: String, path: String, completionHandler: (() -> ())?) {
         
         trace("in uploadData, %{public}@", log: self.oslog, category: ConstantsLog.categoryNightScoutUploadManager, type: .info, traceString)
         
@@ -395,10 +402,16 @@ public class NightScoutUploadManager:NSObject {
 
             trace("    size of data to upload : %{public}@", log: self.oslog, category: ConstantsLog.categoryNightScoutUploadManager, type: .info, dateToUploadAsJSON.count.description)
 
-            if let url = URL(string: siteURL), var uRLComponents = URLComponents(url: url.appendingPathComponent(path), resolvingAgainstBaseURL: false) {
+            if let url = URL(string: UserDefaults.standard.nightScoutUrl!), var uRLComponents = URLComponents(url: url.appendingPathComponent(path), resolvingAgainstBaseURL: false) {
 
                 if UserDefaults.standard.nightScoutPort != 0 {
                     uRLComponents.port = UserDefaults.standard.nightScoutPort
+                }
+                
+                // if token not nil, then add also the token
+                if let token = UserDefaults.standard.nightscoutToken {
+                    let queryItems = [URLQueryItem(name: "token", value: token)]
+                    uRLComponents.queryItems = queryItems
                 }
                 
                 if let url = uRLComponents.url {
@@ -408,7 +421,10 @@ public class NightScoutUploadManager:NSObject {
                     request.httpMethod = "POST"
                     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
                     request.setValue("application/json", forHTTPHeaderField: "Accept")
-                    request.setValue(apiKey.sha1(), forHTTPHeaderField: "api-secret")
+                    
+                    if let apiKey = UserDefaults.standard.nightScoutAPIKey {
+                        request.setValue(apiKey.sha1(), forHTTPHeaderField:"api-secret")
+                    }
                     
                     // Create upload Task
                     let task = URLSession.shared.uploadTask(with: request, from: dateToUploadAsJSON, completionHandler: { (data, response, error) -> Void in
@@ -511,9 +527,9 @@ public class NightScoutUploadManager:NSObject {
 
     }
     
-    private func testNightScoutCredentials(apiKey:String, siteURL:String, _ completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+    private func testNightScoutCredentials(_ completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         
-        if let url = URL(string: siteURL), var uRLComponents = URLComponents(url: url.appendingPathComponent(nightScoutAuthTestPath), resolvingAgainstBaseURL: false) {
+        if let url = URL(string: UserDefaults.standard.nightScoutUrl!), var uRLComponents = URLComponents(url: url.appendingPathComponent(nightScoutAuthTestPath), resolvingAgainstBaseURL: false) {
             
             if UserDefaults.standard.nightScoutPort != 0 {
                 uRLComponents.port = UserDefaults.standard.nightScoutPort
@@ -524,7 +540,17 @@ public class NightScoutUploadManager:NSObject {
                 var request = URLRequest(url: url)
                 request.setValue("application/json", forHTTPHeaderField:"Content-Type")
                 request.setValue("application/json", forHTTPHeaderField:"Accept")
-                request.setValue(apiKey.sha1(), forHTTPHeaderField:"api-secret")
+                
+                // if the API_SECRET is present, then hash it and pass it via http header. If it's missing but there is a token, then send this as plain text to allow the authentication check.
+                if let apiKey = UserDefaults.standard.nightScoutAPIKey {
+                    
+                    request.setValue(apiKey.sha1(), forHTTPHeaderField:"api-secret")
+                    
+                } else if let token = UserDefaults.standard.nightscoutToken {
+                    
+                    request.setValue(token, forHTTPHeaderField:"api-secret")
+                    
+                }
                 
                 let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
                     
@@ -555,13 +581,13 @@ public class NightScoutUploadManager:NSObject {
     private func callMessageHandler(withCredentialVerificationResult success:Bool, error:Error?) {
         
         // define the title text
-        var title = Texts_NightScoutTestResult.verificationSuccessFulAlertTitle
+        var title = Texts_NightScoutTestResult.verificationSuccessfulAlertTitle
         if !success {
             title = Texts_NightScoutTestResult.verificationErrorAlertTitle
         }
         
         // define the message text
-        var message = Texts_NightScoutTestResult.verificationSuccessFulAlertBody
+        var message = Texts_NightScoutTestResult.verificationSuccessfulAlertBody
         if !success {
             if let error = error {
                 message = error.localizedDescription

@@ -22,11 +22,8 @@ class BluetoothPeripheralImageView: UIImageView {
             case .Libre2Type, .MiaoMiaoType, .BubbleType, .BluconType, .BlueReaderType, .DropletType, .GNSentryType, .WatlaaType, .AtomType:
                 image = R.image.libre()
 
-            case .DexcomG6Type:
+            case .DexcomType:
                 image = R.image.dexcomG6()
-                
-            case .DexcomG5Type:
-                image = R.image.dexcomG5()
             }
         }
     }

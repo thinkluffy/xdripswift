@@ -21,11 +21,6 @@
 "startsensorbeforecalibration" = "传感器未启动结束之前，无法输入校准值。";
 "theremustbeareadingbeforecalibration" = "在输入指血之前，必须测两次血糖。当输入一个指血值时，会要求你再次输入另外一个。";
 "sensornotdetected" = "未检测到传感器。请检查发射器是否正确安装在传感器上。";
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-/////   Translation needed - remove this header after translation                       /////
-/////////////////////////////////////////////////////////////////////////////////////////////
-
 "startScanningTitle" = "正在扫描";
 
 /// After clicking scan button, this message will appear
@@ -65,3 +60,20 @@
 "failed" = "Failed";
 
 "toast_new_bg_reading" = "新血糖值";
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////   Translation needed - remove this header after translation                       /////
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+/// When user clicks stop sensor, ask confirmation
+"stopSensorConfirmation" = "Are you sure you want to stop the sensor?";
+
+/// When user needs to enter sensor code, to start firefly sensor
+"enterSensorCode" = "if you don't have a sensor code use 0000 but be aware that you will not get readings until you calibrate";
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////   Translation needed - remove this header after translation                       /////
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+/// status info : literally 'Sensor End'
+"sensorend" = "Sensor Ends";
