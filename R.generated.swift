@@ -5934,7 +5934,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.settingsViews` struct is generated, and contains static references to 111 localization keys.
+    /// This `R.string.settingsViews` struct is generated, and contains static references to 112 localization keys.
     struct settingsViews {
       /// en translation: 5 Mins per Dot
       ///
@@ -6178,8 +6178,8 @@ struct R: Rswift.Validatable {
       static let oslog = Rswift.StringResource(key: "oslog", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: On/Off Time Schedule for 
       ///
-      /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
-      static let timeScheduleViewTitle = Rswift.StringResource(key: "timeScheduleViewTitle", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// Locales: en, nl, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
+      static let timeScheduleViewTitle = Rswift.StringResource(key: "timeScheduleViewTitle", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
       /// en translation: Open Online Help?
       ///
       /// Locales: en, nl, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
@@ -6292,6 +6292,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let m5stack_settingsviews_textColor = Rswift.StringResource(key: "m5stack_settingsviews_textColor", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
+      /// en translation: Token
+      ///
+      /// Locales: en, zh
+      static let nightScoutToken = Rswift.StringResource(key: "nightScoutToken", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Translate Automatically?
       ///
       /// Locales: en, nl, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
@@ -6376,7 +6380,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let infoCalendarAccessDeniedByUser = Rswift.StringResource(key: "infoCalendarAccessDeniedByUser", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
-      /// en translation: xDrip or Transmitter Algorithm
+      /// en translation: zDrip or Transmitter Algorithm
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static let settingsviews_labelWebOOP = Rswift.StringResource(key: "settingsviews_labelWebOOP", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "nl", "zh", "pt", "ar", "fr", "fi", "de", "es", "it", "pl-PL", "ru", "sl", "sv"], comment: nil)
@@ -7287,7 +7291,7 @@ struct R: Rswift.Validatable {
 
       /// en translation: On/Off Time Schedule for 
       ///
-      /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
+      /// Locales: en, nl, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static func timeScheduleViewTitle(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("timeScheduleViewTitle", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
@@ -7720,6 +7724,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("m5stack_settingsviews_textColor", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
+      /// en translation: Token
+      ///
+      /// Locales: en, zh
+      static func nightScoutToken(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("nightScoutToken", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
+          return "nightScoutToken"
+        }
+
+        return NSLocalizedString("nightScoutToken", tableName: "SettingsViews", bundle: bundle, comment: "")
+      }
+
       /// en translation: Translate Automatically?
       ///
       /// Locales: en, nl, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
@@ -8037,7 +8056,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("infoCalendarAccessDeniedByUser", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: xDrip or Transmitter Algorithm
+      /// en translation: zDrip or Transmitter Algorithm
       ///
       /// Locales: en, nl, zh, pt, ar, fr, fi, de, es, it, pl-PL, ru, sl, sv
       static func settingsviews_labelWebOOP(preferredLanguages: [String]? = nil) -> String {

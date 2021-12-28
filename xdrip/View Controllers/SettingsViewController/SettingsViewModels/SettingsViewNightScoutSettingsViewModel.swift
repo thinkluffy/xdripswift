@@ -85,13 +85,11 @@ class SettingsViewNightScoutSettingsViewModel {
                         return
                         
                     } else {
-                        
                         trace("in testNightScoutCredentials, error = %{public}@", log: self.log, category: ConstantsLog.categoryNightScoutSettingsViewModel, type: .info, error.localizedDescription)
                         
                         self.callMessageHandlerInMainThread(title: Texts_NightScoutTestResult.verificationErrorAlertTitle, message: error.localizedDescription)
                         
                         return
-                        
                     }
                 }
                 
@@ -120,13 +118,13 @@ class SettingsViewNightScoutSettingsViewModel {
                             
                             trace("in testNightScoutCredentials, API_SECRET is not valid, error = %{public}@", log: self.log, category: ConstantsLog.categoryNightScoutSettingsViewModel, type: .info, errorMessage)
                             
-                            self.callMessageHandlerInMainThread(title: "API_SECRET is not valid", message: errorMessage)
+                            self.callMessageHandlerInMainThread(title: "API Secret is invalid", message: errorMessage)
                             
                         } else if UserDefaults.standard.nightScoutAPIKey == nil && UserDefaults.standard.nightscoutToken != nil {
                             
                             trace("in testNightScoutCredentials, Token is not valid, error = %{public}@", log: self.log, category: ConstantsLog.categoryNightScoutSettingsViewModel, type: .info, errorMessage)
                             
-                            self.callMessageHandlerInMainThread(title: "Token is not valid", message: errorMessage)
+                            self.callMessageHandlerInMainThread(title: "Token is invalid", message: errorMessage)
                             
                         } else {
                             
@@ -149,18 +147,15 @@ class SettingsViewNightScoutSettingsViewModel {
                         self.callMessageHandlerInMainThread(title: "404: Page Not Found", message: errorMessage)
                         
                     default:
-                        
                         trace("in testNightScoutCredentials, error = %{public}@", log: self.log, category: ConstantsLog.categoryNightScoutSettingsViewModel, type: .info, errorMessage)
                         
                         self.callMessageHandlerInMainThread(title: Texts_NightScoutTestResult.verificationErrorAlertTitle, message: errorMessage)
-                        
                     }
                 }
             })
             
             trace("in testNightScoutCredentials, calling task.resume", log: log, category: ConstantsLog.categoryNightScoutSettingsViewModel, type: .info)
             task.resume()
-            
         }
     }
     
@@ -248,14 +243,11 @@ extension SettingsViewNightScoutSettingsViewModel: SettingsViewModelProtocol {
                         nighscoutURLComponents.host = enteredURLComponents.host?.lowercased()
                         
                         UserDefaults.standard.nightScoutUrl = nighscoutURLComponents.string!
-                        
                     }
                     
                 } else {
-                    
                     // there must be something wrong with the URL the user is trying to add, so let's just ignore it
                     UserDefaults.standard.nightScoutUrl = nil
-                    
                 }
                 
             }, cancelHandler: nil, inputValidator: nil)
@@ -268,8 +260,22 @@ extension SettingsViewNightScoutSettingsViewModel: SettingsViewModelProtocol {
             return SettingsSelectedRowAction.askText(title: Texts_SettingsView.nightScoutPort, message: nil, keyboardType: .numberPad, text: UserDefaults.standard.nightScoutPort != 0 ? UserDefaults.standard.nightScoutPort.description : nil, placeHolder: nil, actionTitle: nil, cancelTitle: nil, actionHandler: {(port:String) in if let port = port.toNilIfLength0() { UserDefaults.standard.nightScoutPort = Int(port) ?? 0 } else {UserDefaults.standard.nightScoutPort = 0}}, cancelHandler: nil, inputValidator: nil)
         
         case .token:
-            return SettingsSelectedRowAction.askText(title: Texts_SettingsView.nightscoutToken, message:  nil, keyboardType: .default, text: UserDefaults.standard.nightscoutToken, placeHolder: nil, actionTitle: nil, cancelTitle: nil, actionHandler: {(token:String) in
-                UserDefaults.standard.nightscoutToken = token.toNilIfLength0()}, cancelHandler: nil, inputValidator: nil)
+            return SettingsSelectedRowAction.askText(
+                title: R.string.settingsViews.nightScoutToken(),
+                message: nil,
+                keyboardType: .default,
+                text: UserDefaults.standard.nightscoutToken,
+                placeHolder: nil,
+                actionTitle: nil,
+                cancelTitle: nil,
+                actionHandler: {
+                    (token: String) in
+                    
+                    UserDefaults.standard.nightscoutToken = token.toNilIfLength0()
+                },
+                cancelHandler: nil,
+                inputValidator: nil
+            )
             
         case .testUrlAndAPIKey:
             // show info that test is started, through the messageHandler
@@ -318,7 +324,7 @@ extension SettingsViewNightScoutSettingsViewModel: SettingsViewModelProtocol {
         case .port:
             return Texts_SettingsView.nightScoutPort
         case .token:
-            return Texts_SettingsView.nightscoutToken
+            return R.string.settingsViews.nightScoutToken()
         case .uploadSensorStartTime:
             return Texts_SettingsView.uploadSensorStartTime
         case .testUrlAndAPIKey:

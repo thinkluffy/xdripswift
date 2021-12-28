@@ -245,20 +245,16 @@ public class NightScoutUploadManager:NSObject {
             "enteredBy": iOS.appDisplayName
         ]
         
-        uploadData(dataToUpload: dataToUpload, traceString: "uploadActiveSensorToNightScout", path: nightScoutTreatmentPath, completionHandler: {
+        uploadData(dataToUpload: dataToUpload, traceString: "uploadActiveSensorToNightScout", path: nightScoutTreatmentPath) {
             
             // sensor successfully uploaded, change value in coredata
             trace("in uploadActiveSensorToNightScout, activeSensor uploaded to NS", log: self.oslog, category: ConstantsLog.categoryNightScoutUploadManager, type: .info)
             
             DispatchQueue.main.async {
-                
                 sensor.uploadedToNS = true
                 CoreDataManager.shared.saveChanges()
-
             }
-            
-        })
-        
+        }
     }
     
     /// upload latest readings to nightscout

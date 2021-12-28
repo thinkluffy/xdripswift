@@ -179,27 +179,18 @@ class SettingsViewAppleWatchSettingsViewModel: SettingsViewModelProtocol {
     }
     
     func numberOfRows() -> Int {
-        
         // if create calendar event not enabled, then all other settings can be hidden
         if UserDefaults.standard.createCalendarEvent {
-            
             // user may have removed the authorization, in that case set setting to false and return 1 row
             if EKEventStore.authorizationStatus(for:.event) != .authorized {
-                
                 UserDefaults.standard.createCalendarEvent = false
-                
                 return 1
-                
             }
-            
             return Setting.allCases.count
             
         } else {
-            
             return 1
-            
         }
-        
     }
     
     func onRowSelect(index: Int) -> SettingsSelectedRowAction {
@@ -243,19 +234,13 @@ class SettingsViewAppleWatchSettingsViewModel: SettingsViewModelProtocol {
             var index = 0
             // get all calendars, add title to data. And search for calendar that matches id currently stored in userdefaults.
             for calendar in eventStore.calendars(for: .event){
-                
                 if calendar.allowsContentModifications {
-                    
                     data.append(calendar.title)
-                    
                     if calendar.title == UserDefaults.standard.calenderId {
                         selectedRow = index
                     }
-                    
                     index += 1
-                    
                 }
-                
             }
             
             return .selectFromList(
@@ -271,7 +256,8 @@ class SettingsViewAppleWatchSettingsViewModel: SettingsViewModelProtocol {
                     }
                 },
                 cancelHandler: nil,
-                didSelectRowHandler: nil)
+                didSelectRowHandler: nil
+            )
 
         case .calendarInterval:
             var data = [String]()

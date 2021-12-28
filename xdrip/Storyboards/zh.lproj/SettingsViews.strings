@@ -34,19 +34,12 @@
 "settingsviews_masterorfollower" = "主控端/关注者";
 "settingsviews_master" = "主控端";
 "settingsviews_follower" = "关注者";
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-/////   Translation needed - remove this header after translation                       /////
-/////////////////////////////////////////////////////////////////////////////////////////////
-
-/// When creating schedule for Nightscout or Dexcom Share upload, this is the top label text
-"timeScheduleViewTitle" = "On/Off Time Schedule for ";
-
 /// In Settings, Alerts section, there's an option to test the volume of ios sound, this is the title of the row
 "volumeTestiOSSound" = "测试音量 (Current iPhone Volume)";
 
 /// nightscout settings, port to use
 "nightScoutPort" = "端口 (可选)";
+"nightScoutToken" = "令牌 (Token)";
 
 /// home screen settings, urgent high value
 "settingsviews_urgentHighValue" = "紧急高值";

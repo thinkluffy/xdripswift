@@ -35,7 +35,7 @@ class SettingsViewUtilities {
             // if uiview is an uiswitch then a reload must be initiated whenever the switch changes, either complete view or just the section
             if let view = cell.accessoryView as? UISwitch {
                 view.addTarget(self, action: {
-                    (theSwitch:UISwitch) in
+                    (theSwitch: UISwitch) in
                     
                     checkIfReloadNeededAndReloadIfNeeded(tableView: tableView, viewModel: viewModel, rowIndex: rowIndex, sectionIndex: sectionIndex)
                     
@@ -43,7 +43,6 @@ class SettingsViewUtilities {
             }
             
         } else {
-            
             // setting not enabled, set color to grey, no accessory type to be added
             cell.textLabel?.textColor = UIColor.gray
             cell.detailTextLabel?.textColor = UIColor.gray
@@ -54,9 +53,7 @@ class SettingsViewUtilities {
             
             // set accessoryView to nil
             cell.accessoryView = nil
-            
         }
-
     }
     
     /// for cell at cellIndex and SectionIndex, runs the selectedRowAction. tableView is needed because a reload must be done in some cases
@@ -194,14 +191,16 @@ class SettingsViewUtilities {
     /// - parameters:
     ///     - tableView : if nil then no reload will be done, eg M5StackViewController uses these utilites but will not have a viewModel
     ///     - viewModel : if nil then no reload will be done, eg M5StackViewController uses these utilites but will not have a viewModel
-    private static func checkIfReloadNeededAndReloadIfNeeded(tableView: UITableView?, viewModel:SettingsViewModelProtocol?, rowIndex:Int, sectionIndex:Int ) {
+    private static func checkIfReloadNeededAndReloadIfNeeded(tableView: UITableView?, viewModel: SettingsViewModelProtocol?, rowIndex: Int, sectionIndex: Int ) {
         
         if let viewModel = viewModel, let tableView = tableView {
             if viewModel.completeSettingsViewRefreshNeeded(index: rowIndex) {
                 tableView.reloadSections(IndexSet(integersIn: 0..<tableView.numberOfSections), with: .none)
+                
             } else {
                 tableView.reloadSections(IndexSet(integer: sectionIndex), with: .none)
             }
+            
         } else {
             if let tableView = tableView {
                 tableView.reloadSections(IndexSet(integer: sectionIndex), with: .none)

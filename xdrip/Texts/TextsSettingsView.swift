@@ -155,12 +155,8 @@ class Texts_SettingsView {
         return NSLocalizedString("settingsviews_resettransmitter", tableName: filename, bundle: Bundle.main, value: "Reset Transmitter", comment: "transmitter settings, to explain that settings is about resetting the transmitter")
     }()
     
-    static let labelWebOOPTransmitter:String = {
-        return NSLocalizedString("settingsviews_webooptransmitter", tableName: filename, bundle: Bundle.main, value: "Use Transmitter Algorithm?", comment: "web oop settings in bluetooth peripheral view : enabled or not")
-    }()
-    
     static let labelWebOOP:String = {
-        return NSLocalizedString("settingsviews_labelWebOOP", tableName: filename, bundle: Bundle.main, value: "xDrip or Transmitter Algorithm", comment: "weboop settings, title of the dialogs where user can select between xdrip or transmitter algorithm")
+        return NSLocalizedString("settingsviews_labelWebOOP", tableName: filename, bundle: Bundle.main, value: "zDrip or Transmitter Algorithm", comment: "weboop settings, title of the dialogs where user can select between zDrip or transmitter algorithm")
     }()
     
     static let labelNonFixedTransmitter:String = {
@@ -273,10 +269,6 @@ class Texts_SettingsView {
 
     static let nightScoutPort: String = {
         return NSLocalizedString("nightScoutPort", tableName: filename, bundle: Bundle.main, value: "Port:", comment: "nightscout settings, port to use")
-    }()
-    
-    static let nightscoutToken: String = {
-        return NSLocalizedString("nightscoutToken", tableName: filename, bundle: Bundle.main, value: "Token:", comment: "nightscout settings, token to use")
     }()
 
     // MARK: - Section Speak
