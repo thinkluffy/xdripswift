@@ -280,7 +280,7 @@ extension AlertSettingsViewControllerData {
                 .selectedRow(selectedRow)
                 .build()
             
-            BottomSheetPickerViewController.show(in: uiViewController, pickerViewData: pickerViewData)
+            _ = BottomSheetPickerViewController.show(in: uiViewController, pickerViewData: pickerViewData)
         }
     }
 }

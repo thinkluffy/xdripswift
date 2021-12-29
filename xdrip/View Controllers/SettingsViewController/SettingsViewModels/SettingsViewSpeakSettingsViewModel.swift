@@ -1,6 +1,6 @@
 import UIKit
 
-fileprivate enum Setting:Int, CaseIterable {
+fileprivate enum Setting: Int, CaseIterable {
     
     ///should readings be spoken or not
     case speakBgReadings = 0
@@ -92,6 +92,7 @@ class SettingsViewSpeakSettingsViewModel:SettingsViewModelProtocol {
                 actionTitle: nil,
                 actionHandler: {
                     (index: Int) in
+                    
                     if index != selectedRow {
                         UserDefaults.standard.speakReadingLanguageCode = ConstantsSpeakReadingLanguages.allLanguageNamesAndCodes.codes[index]
                     }
@@ -109,8 +110,8 @@ class SettingsViewSpeakSettingsViewModel:SettingsViewModelProtocol {
     func numberOfRows() -> Int {
         if !UserDefaults.standard.speakReadings {
             return 1
-        }
-        else {
+            
+        } else {
             return Setting.allCases.count
         }
     }
@@ -133,20 +134,7 @@ class SettingsViewSpeakSettingsViewModel:SettingsViewModelProtocol {
     }
     
     func accessoryType(index: Int) -> UITableViewCell.AccessoryType {
-        guard let setting = Setting(rawValue: index) else { fatalError("Unexpected Section") }
-        
-        switch setting {
-        case .speakBgReadings:
-            return UITableViewCell.AccessoryType.none
-        case .speakTrend:
-            return UITableViewCell.AccessoryType.none
-        case .speakDelta:
-            return UITableViewCell.AccessoryType.none
-        case .speakInterval:
-            return UITableViewCell.AccessoryType.disclosureIndicator
-        case .speakBgReadingLanguage:
-            return UITableViewCell.AccessoryType.disclosureIndicator
-        }
+        return .none
     }
     
     func detailedText(index: Int) -> String? {
@@ -172,14 +160,22 @@ class SettingsViewSpeakSettingsViewModel:SettingsViewModelProtocol {
         switch setting {
             
         case .speakBgReadings:
-            return UISwitch(isOn: UserDefaults.standard.speakReadings, action: {(isOn:Bool) in UserDefaults.standard.speakReadings = isOn
-            })
+            return UISwitch(isOn: UserDefaults.standard.speakReadings) {
+                (isOn: Bool) in
+                UserDefaults.standard.speakReadings = isOn
+            }
 
         case .speakTrend:
-            return UISwitch(isOn: UserDefaults.standard.speakTrend, action: {(isOn:Bool) in UserDefaults.standard.speakTrend = isOn})
+            return UISwitch(isOn: UserDefaults.standard.speakTrend) {
+                (isOn: Bool) in
+                UserDefaults.standard.speakTrend = isOn
+            }
 
         case .speakDelta:
-            return UISwitch(isOn: UserDefaults.standard.speakDelta, action: {(isOn:Bool) in UserDefaults.standard.speakDelta = isOn})
+            return UISwitch(isOn: UserDefaults.standard.speakDelta) {
+                (isOn: Bool) in
+                UserDefaults.standard.speakDelta = isOn
+            }
 
         case .speakInterval:
             return nil

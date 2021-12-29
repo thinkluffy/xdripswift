@@ -168,11 +168,9 @@ class AlertManager: NSObject {
                 // only raise first alert group that's been tripped
                 // check the result to see if it's an alert kind that creates an immediate notification that contains the reading value
                 if let result = alertGroupsByPreference.first(where: { (alertGroup: [AlertKind]) -> Bool in
-                    
                     checkAlertGroupAndFire(alertGroup, checkAlertAndFireHelper)
                     
                 }) {
-                    
                     // in this check were assuming that if there's one alertKind in a group that creates an immediate notification, then also the other(s) do(es)
                     for alertKind in result {
                         if alertKind.createsImmediateNotificationWithBGReading() {
@@ -203,7 +201,7 @@ class AlertManager: NSObject {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) -> PickerViewData? {
         
         // declare returnValue
-        var returnValue:PickerViewData?
+        var returnValue: PickerViewData?
         
         // loop through alertKinds to find matching notificationIdentifier
         loop: for alertKind in AlertKind.allCases {
@@ -282,7 +280,7 @@ class AlertManager: NSObject {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) -> PickerViewData? {
 
         // declare returnValue
-        var returnValue:PickerViewData?
+        var returnValue: PickerViewData?
         
         /// check if it's for one of the alert notification
         loop: for alertKind in AlertKind.allCases {
@@ -460,12 +458,13 @@ class AlertManager: NSObject {
     private func checkAlertGroupAndFire(_ alertGroup: [AlertKind], _ checkAlertAndFireHelper: (_ : AlertKind) -> Bool) -> Bool {
         for alertKind in alertGroup {
             // first check if the alert needs to fire, even if the alert would be snoozed, this will ensure logging.
-            if checkAlertAndFireHelper(alertKind) {return true}
+            if checkAlertAndFireHelper(alertKind) {
+                return true
+            }
             
             if let remainingSeconds = getSnoozeParameters(alertKind: alertKind).getSnoozeValue().remainingSeconds {
 
                 trace("in checkAlertGroupAndFire before calling getSnoozeValue for alert %{public}@, remaining seconds = %{public}@", log: self.log, category: ConstantsLog.categoryAlertManager, type: .info, alertKind.descriptionForLogging(), remainingSeconds.description)
-
             }
             
             // if alertKind is snoozed then we don't want to check the next alert (example if verylow is snoozed then don't check low)
@@ -473,9 +472,7 @@ class AlertManager: NSObject {
                 return false
             }
         }
-        
         return false
-        
     }
     
     /// will

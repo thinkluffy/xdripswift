@@ -8,9 +8,9 @@
 
 import UIKit
 
-class SwallowTouchesView: UIView {
+public class SwallowTouchesView: UIView {
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
     }
 

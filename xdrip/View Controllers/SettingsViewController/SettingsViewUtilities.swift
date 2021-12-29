@@ -140,7 +140,7 @@ class SettingsViewUtilities {
                     }
                     .build()
                 
-                BottomSheetPickerViewController.show(in: uIViewController, pickerViewData: pickerViewData)
+                _ = BottomSheetPickerViewController.show(in: uIViewController, pickerViewData: pickerViewData)
 
                 break
                 

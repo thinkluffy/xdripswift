@@ -91,7 +91,7 @@ class CommonSettingsViewController: SubSettingsViewController {
                     .selectedRow(selectedRow)
                     .build()
                 
-                BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
+                _ = BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
                 
             })
             .toggleCell(title: R.string.settingsViews.settingsviews_labelShowReadingInAppBadge(),
@@ -249,7 +249,7 @@ class CommonSettingsViewController: SubSettingsViewController {
                     .selectedRow(selectedRow)
                     .build()
                 
-                BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
+                _ = BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
              })
             .toggleCell(title: R.string.settingsViews.settingsviews_chartDots5MinsApart(),
                         isOn: UserDefaults.standard.chartDots5MinsApart,

@@ -244,6 +244,7 @@ public class BgReading: NSManagedObject {
             valueAsString = String(format: "%.2f", changePerMinMg.mgdlToMmol())
         }
         
+        // - will be included in the value itself
         var deltaSign: String = ""
         if changePerMinMg > 0 {
             deltaSign = "+"

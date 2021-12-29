@@ -153,6 +153,8 @@ final class RootViewController: UIViewController {
     private static let StatisticsDays30D = 3
     private static let StatisticsDays90D = 4
     
+    private var alertSheet: SlideInSheet?
+    
     private var presenter: RootP!
 
     // MARK: - overriden functions
@@ -677,8 +679,7 @@ final class RootViewController: UIViewController {
                 
             }
             
-        case UserDefaults.Key.showReadingInAppBadge,
-            UserDefaults.Key.bloodGlucoseUnitIsMgDl:
+        case UserDefaults.Key.showReadingInAppBadge, UserDefaults.Key.bloodGlucoseUnitIsMgDl:
             
             // if showReadingInAppBadge = false, means user set it from true to false
             // set applicationIconBadgeNumber to 0. This will cause removal of the badge counter, but als removal of any existing notification on the screen
@@ -1076,11 +1077,17 @@ final class RootViewController: UIViewController {
         // prepare value for badge
         var readingValueForBadge = lastReading[0].calculatedValue
         // values lower dan 12 are special values, don't show anything
-        guard readingValueForBadge > 12 else {return}
+        guard readingValueForBadge > 12 else {
+            return
+        }
+        
         // high limit to 400
-        if readingValueForBadge >= 400.0 {readingValueForBadge = 400.0}
+        readingValueForBadge = min(readingValueForBadge, 400.0)
+
         // low limit ti 40
-        if readingValueForBadge <= 40.0 {readingValueForBadge = 40.0}
+        readingValueForBadge = max(readingValueForBadge, 40.0)
+        
+        let isMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
         
         // check if notification on home screen is enabled in the settings
         // and also if last notification was long enough ago (longer than UserDefaults.standard.notificationInterval), except if there would have been a disconnect since previous notification (simply because I like getting a new reading with a notification by disabling/reenabling bluetooth
@@ -1091,31 +1098,28 @@ final class RootViewController: UIViewController {
             
             // set value in badge if required
             if UserDefaults.standard.showReadingInAppBadge {
+                // rescale of unit is mmol
+                readingValueForBadge = readingValueForBadge.mgdlToMmol(mgdl: isMg)
                 
-                // rescale if unit is mmol
-                if !UserDefaults.standard.bloodGlucoseUnitIsMgDl {
-                    readingValueForBadge = readingValueForBadge.mgdlToMmol().round(toDecimalPlaces: 1)
-                } else {
-                    readingValueForBadge = readingValueForBadge.round(toDecimalPlaces: 0)
+                // if unit is mmol and if value needs to be multiplied by 10, then multiply by 10
+                if !isMg {
+                    readingValueForBadge = readingValueForBadge * 10.0
                 }
                 
-                notificationContent.badge = NSNumber(value: readingValueForBadge.rawValue)
-                
+                notificationContent.badge = NSNumber(value: Int(round(readingValueForBadge)))
             }
             
-            // Configure notificationContent title, which is bg value in correct unit, add also slopeArrow if !hideSlope and finally the difference with previous reading, if there is one
-            var calculatedValueAsString = BgReading.unitizedString(calculatedValue: lastReading[0].calculatedValue,
-                                                                   unitIsMgDl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
+            var notificationTitle = BgReading.unitizedString(calculatedValue: lastReading[0].calculatedValue,
+                                                             unitIsMgDl: isMg)
+            var notificationBody = " "
+            
             if !lastReading[0].hideSlope {
-                calculatedValueAsString = calculatedValueAsString + " " + lastReading[0].slopeArrow()
+                notificationTitle += " " + lastReading[0].slopeArrow()
+                notificationBody += lastReading[0].unitizedDeltaStringPerMin(withSlope: lastReading[0].calculatedValueSlope, showUnit: true, mgdl: isMg)
             }
-            if lastReading.count > 1 {
-                calculatedValueAsString = calculatedValueAsString + "      " + lastReading[0].unitizedDeltaString(previousBgReading: lastReading[1], showUnit: true, mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
-            }
-            notificationContent.title = calculatedValueAsString
             
-            // must set a body otherwise notification doesn't show up on iOS10
-            notificationContent.body = " "
+            notificationContent.title = notificationTitle
+            notificationContent.body = notificationBody
             
             // Create Notification Request
             let notificationRequest = UNNotificationRequest(identifier: ConstantsNotifications.NotificationIdentifierForBgReading.bgReadingNotificationRequest, content: notificationContent, trigger: nil)
@@ -1135,10 +1139,10 @@ final class RootViewController: UIViewController {
             if UserDefaults.standard.showReadingInAppBadge {
                 
                 // rescale of unit is mmol
-                readingValueForBadge = readingValueForBadge.mgdlToMmol(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
+                readingValueForBadge = readingValueForBadge.mgdlToMmol(mgdl: isMg)
                 
                 // if unit is mmol and if value needs to be multiplied by 10, then multiply by 10
-                if !UserDefaults.standard.bloodGlucoseUnitIsMgDl {
+                if !isMg {
                     readingValueForBadge = readingValueForBadge * 10.0
                 }
                 
@@ -1211,7 +1215,6 @@ final class RootViewController: UIViewController {
             return
         }
         
-        
         if let bluetoothPeripheral = bluetoothPeripheralManager.bluetoothPeripheral {
             // show current peripheral
             bluetoothPeripheralViewController.configure(
@@ -1251,7 +1254,7 @@ final class RootViewController: UIViewController {
                 .title(Texts_BluetoothPeripheralsView.selectType)
                 .build()
             
-            BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
+            _ = BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
         }
     }
     
@@ -1602,9 +1605,14 @@ extension RootViewController: UNUserNotificationCenterDelegate {
             // this will verify if it concerns an alert notification, if not pickerviewData will be nil
         } else if let pickerViewData = AlertManager.shared.userNotificationCenter(center, willPresent: notification, withCompletionHandler: completionHandler) {
             
-//            PickerViewController.displayPickerViewController(pickerViewData: pickerViewData, parentController: self)
-            
-            BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
+            if let alertSheet = alertSheet {
+                alertSheet.dismissView() {
+                    self.alertSheet = BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
+                }
+                
+            } else {
+                alertSheet = BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
+            }
             
         }  else if notification.request.identifier == ConstantsNotifications.notificationIdentifierForVolumeTest {
             // user is testing iOS Sound volume in the settings. Only the sound should be played, the alert itself will not be shown
@@ -1649,14 +1657,19 @@ extension RootViewController: UNUserNotificationCenterDelegate {
             // nothing required, the pairing function will be called as it's been added to ApplicationManager in function cgmTransmitterNeedsPairing
             
         } else {
-            
             // it's not an initial calibration request notification that the user clicked, by calling alertManager?.userNotificationCenter, we check if it was an alert notification that was clicked and if yes pickerViewData will have the list of alert snooze values
             if let pickerViewData = AlertManager.shared.userNotificationCenter(center, didReceive: response) {
+                RootViewController.log.i("userNotificationCenter didReceive, user pressed an alert notification to open the app")
                 
-                trace("     userNotificationCenter didReceive, user pressed an alert notification to open the app", log: log, category: ConstantsLog.categoryRootView, type: .info)
+                if let alertSheet = alertSheet {
+                    alertSheet.dismissView() {
+                        self.alertSheet = BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
+                    }
+                    
+                } else {
+                    alertSheet = BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
+                }
                 
-                BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
-
             } else {
                 // it as also not an alert notification that the user clicked, there might come in other types of notifications in the future
             }

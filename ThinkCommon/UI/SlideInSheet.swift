@@ -8,37 +8,37 @@
 
 import UIKit
 
-class SlideInSheetContent: SwallowTouchesView {
+public class SlideInSheetContent: SwallowTouchesView {
     
-    weak var sheet: SlideInSheet?
+    public weak var sheet: SlideInSheet?
     
-    func sheetWillDismiss() {
+    public func sheetWillDismiss() {
         
     }
 }
 
-class SlideInSheet: UIView {
+public class SlideInSheet: UIView {
 
-    enum SlideInFrom {
+    public enum SlideInFrom {
         case leading
         case trailing
         case top
         case bottom
     }
     
-    var tapOutsideToDismiss = true
+    public var tapOutsideToDismiss = true
     
     private weak var parentView: UIView?
     private let dimMask = UIView()
     private var contentView: SlideInSheetContent?
     
     private var slideInFrom: SlideInFrom = .bottom
-    
+        
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(sheetContent: SlideInSheetContent) {
+    public init(sheetContent: SlideInSheetContent) {
         contentView = sheetContent
         super.init(frame: .zero)
         
@@ -50,7 +50,7 @@ class SlideInSheet: UIView {
         alpha = 0
     }
     
-    func dismissView() {
+    public func dismissView(completion: (() -> Void)? = nil) {
         contentView?.sheetWillDismiss()
 
         UIView.animate(withDuration: 0.3, animations: {
@@ -86,6 +86,8 @@ class SlideInSheet: UIView {
             self.isUserInteractionEnabled = false
             self.contentView = nil
             self.parentView = nil
+            
+            completion?()
         }
     }
     
@@ -95,9 +97,9 @@ class SlideInSheet: UIView {
         }
     }
     
-    func show(in view: UIView,
-              dimColor: UIColor = .black.withAlphaComponent(0.3),
-              slideInFrom: SlideInFrom) {
+    public func show(in view: UIView,
+                     dimColor: UIColor = .black.withAlphaComponent(0.3),
+                     slideInFrom: SlideInFrom) {
         guard let contentView = contentView else {
             return
         }
@@ -173,14 +175,14 @@ class SlideInSheet: UIView {
         }
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         if tapOutsideToDismiss {
             dismissView()
         }
     }
     
-    override func layoutSubviews() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
         
         if let parentView = parentView {

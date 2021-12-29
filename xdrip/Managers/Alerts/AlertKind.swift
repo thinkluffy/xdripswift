@@ -19,9 +19,7 @@ public enum AlertKind: Int, CaseIterable {
 
     /// this is used for presentation in UI table view. It allows to order the alert kinds in the view, different than they case ordering, and so allows to add new cases
     init?(forSection section: Int) {
-        
         switch section {
-            
         case 0:
             self = .verylow
         case 1:
@@ -44,7 +42,6 @@ public enum AlertKind: Int, CaseIterable {
         default:
             fatalError("in AlertKind initializer init(forRowAt row: Int), there's no case for the rownumber")
         }
-        
     }
     
     /// gives the raw value of the alertkind for a specific section in a uitableview, is the opposite of the initializer
@@ -76,7 +73,6 @@ public enum AlertKind: Int, CaseIterable {
     
     /// if true, then this type of alert will (if raised) create an immediate notification which will have the current reading as text - simply means there's no need to create an additional notification with the current reading
     func createsImmediateNotificationWithBGReading() -> Bool {
-        
         switch self {
             
         case .low, .high, .verylow, .veryhigh, .fastdrop, .fastrise:
@@ -84,10 +80,7 @@ public enum AlertKind: Int, CaseIterable {
 
         case .missedreading, .batterylow, .calibration:
             return false
-
         }
-        
-        
     }
 
     /// example, low alert needs a value = value below which alert needs to fire - there's actually no alert right now that doesn't need a value, in iosxdrip there was the iphonemuted alert, but I removed this here. Function remains, never now it might come back
@@ -205,7 +198,7 @@ public enum AlertKind: Int, CaseIterable {
                     if lastBgReading.calculatedValue <= Double(currentAlertEntry.value) {
                         return (
                             true,
-                            lastBgReading.unitizedDeltaString(previousBgReading: lastButOneBgReading, showUnit: true,  mgdl: isMg),
+                            lastBgReading.hideSlope ? "" : lastBgReading.unitizedDeltaStringPerMin(withSlope: lastBgReading.calculatedValueSlope, showUnit: true,  mgdl: isMg),
                             createAlertTitleForBgReadingAlerts(bgReading: lastBgReading, alertKind: self),
                             nil
                         )
@@ -229,7 +222,7 @@ public enum AlertKind: Int, CaseIterable {
                     if lastBgReading.calculatedValue >= Double(currentAlertEntry.value) {
                         return (
                             true,
-                            lastBgReading.unitizedDeltaStringPerMin(withSlope: lastBgReading.calculatedValueSlope, showUnit: true,  mgdl: isMg),
+                            lastBgReading.hideSlope ? "" : lastBgReading.unitizedDeltaStringPerMin(withSlope: lastBgReading.calculatedValueSlope, showUnit: true,  mgdl: isMg),
                             createAlertTitleForBgReadingAlerts(bgReading: lastBgReading, alertKind: self),
                             nil
                         )
@@ -259,27 +252,6 @@ public enum AlertKind: Int, CaseIterable {
             }
             return (false, nil, nil, nil)
 
-//            if let lastBgReading = lastBgReading, let lastButOneBgReading = lastButOneBgReading {
-//
-//                // lastbut one reading and last reading shoud be maximum 5 minutes apart
-//                if (lastBgReading.timeStamp.timeIntervalSince(lastButOneBgReading.timeStamp)) < 5 * 60 {
-//
-//                    // first check if calculatedValue > 0.0, never know that it's not been checked by caller
-//                    if lastBgReading.calculatedValue == 0.0 || lastButOneBgReading.calculatedValue == 0.0 {return (false, nil, nil, nil)}
-//                    // now do the actual check if alert is applicable or not
-//                    if lastButOneBgReading.calculatedValue.bgValueRounded(mgdl: isMg) - lastBgReading.calculatedValue.bgValueRounded(mgdl: isMg) > Double(currentAlertEntry.value).bgValueRounded(mgdl: isMg) {
-//                        return (
-//                            true,
-//                            lastBgReading.unitizedDeltaString(previousBgReading: lastButOneBgReading, showUnit: true, mgdl: isMg),
-//                            createAlertTitleForBgReadingAlerts(bgReading: lastBgReading, alertKind: self),
-//                            nil
-//                        )
-//                    } else {return (false, nil, nil, nil)}
-//
-//                } else {return (false, nil, nil, nil)}
-//
-//            } else {return (false, nil, nil, nil)}
-
         case .fastrise:
             // if alertEntry not enabled, return false
             guard currentAlertEntry.alertType.enabled, let lastBgReading = lastBgReading else {
@@ -290,43 +262,19 @@ public enum AlertKind: Int, CaseIterable {
                 (lastBgReading.slopArrow == .doubleUp || lastBgReading.slopArrow == .singleUp) {
                 return (
                     true,
-                    lastBgReading.unitizedDeltaString(previousBgReading: lastButOneBgReading, showUnit: true, mgdl: isMg),
+                    lastBgReading.unitizedDeltaStringPerMin(withSlope: lastBgReading.calculatedValueSlope, showUnit: true, mgdl: isMg),
                     createAlertTitleForBgReadingAlerts(bgReading: lastBgReading, alertKind: self),
                     nil
                 )
             }
             return (false, nil, nil, nil)
-            
-//            if let lastBgReading = lastBgReading, let lastButOneBgReading = lastButOneBgReading {
-//
-//                // lastbut one reading and last reading shoud be maximum 5 minutes apart
-//                if lastBgReading.timeStamp.timeIntervalSince(lastButOneBgReading.timeStamp) < 5 * 60 {
-//
-//                    // first check if calculatedValue > 0.0, never know that it's not been checked by caller
-//                    if lastBgReading.calculatedValue == 0.0 || lastButOneBgReading.calculatedValue == 0.0 {
-//                        return (false, nil, nil, nil)
-//                    }
-//
-//                    // now do the actual check if alert is applicable or not
-//                    if lastBgReading.calculatedValue.bgValueRounded(mgdl: isMg) - lastButOneBgReading.calculatedValue.bgValueRounded(mgdl: isMg) > Double(currentAlertEntry.value).bgValueRounded(mgdl: isMg) {
-//                        return (
-//                            true,
-//                            lastBgReading.unitizedDeltaString(previousBgReading: lastButOneBgReading, showUnit: true, mgdl: isMg),
-//                            createAlertTitleForBgReadingAlerts(bgReading: lastBgReading, alertKind: self),
-//                            nil
-//                        )
-//                    } else {return (false, nil, nil, nil)}
-//
-//                } else {return (false, nil, nil, nil)}
-//
-//            } else {return (false, nil, nil, nil)}
 
         case .missedreading:
             // if no valid lastbgreading then there's definitely no need to plan an alert
             guard let lastBgReading = lastBgReading else {return (false, nil, nil, nil)}
             
             // this will be the delay of the planned notification, in seconds
-            var delayToUseInSeconds:Int?
+            var delayToUseInSeconds: Int?
             
             // calculate time since last reading in minutes
             let timeSinceLastReadingInMinutes:Int = Int((Date().toMillisecondsAsDouble() - lastBgReading.timeStamp.toMillisecondsAsDouble())/1000/60)
@@ -401,41 +349,41 @@ public enum AlertKind: Int, CaseIterable {
             }
 
         case .calibration:
-                // if alertEntry not enabled, return false
-                // if lastCalibration == nil then also no need to create an alert, could be an oop web enabled transmitter
-                if !currentAlertEntry.alertType.enabled || lastCalibration == nil {return (false, nil, nil, nil)}
-                                
-                // if lastCalibration not nil, check the timestamp and check if delay > value (in hours)
-                if abs(lastCalibration!.timeStamp.timeIntervalSinceNow) > TimeInterval(Double(currentAlertEntry.value) * 3600.0) {
-                    return(true, "", Texts_Alerts.calibrationNeededAlertTitle, nil)
-                }
-                return (false, nil, nil, nil)
+            // if alertEntry not enabled, return false
+            // if lastCalibration == nil then also no need to create an alert, could be an oop web enabled transmitter
+            if !currentAlertEntry.alertType.enabled || lastCalibration == nil {return (false, nil, nil, nil)}
+                            
+            // if lastCalibration not nil, check the timestamp and check if delay > value (in hours)
+            if abs(lastCalibration!.timeStamp.timeIntervalSinceNow) > TimeInterval(Double(currentAlertEntry.value) * 3600.0) {
+                return(true, "", Texts_Alerts.calibrationNeededAlertTitle, nil)
+            }
+            return (false, nil, nil, nil)
             
         case .batterylow:
-                // if alertEntry not enabled, return false
-                if !currentAlertEntry.alertType.enabled {return (false, nil, nil, nil)}
-                
-                // if transmitterBatteryInfo is nil, return false
-                guard let transmitterBatteryInfo = transmitterBatteryInfo else {return (false, nil, nil, nil)}
-                
-                // get level
-                var batteryLevelToCheck: Int?
-                
-                switch transmitterBatteryInfo {
-                case .percentage(let percentage):
-                    batteryLevelToCheck = percentage
-                case .DexcomG5(let voltageA, _, _, _, _):
-                    batteryLevelToCheck = voltageA
-                case .DexcomG4(let level):
-                    batteryLevelToCheck = level
-                }
-
-                if let batteryLevelToCheck = batteryLevelToCheck, currentAlertEntry.value > batteryLevelToCheck {
-                    return (true, "", Texts_Alerts.batteryLowAlertTitle, nil)
-                }
-                
-                return (false, nil, nil, nil)
+            // if alertEntry not enabled, return false
+            if !currentAlertEntry.alertType.enabled {return (false, nil, nil, nil)}
+            
+            // if transmitterBatteryInfo is nil, return false
+            guard let transmitterBatteryInfo = transmitterBatteryInfo else {return (false, nil, nil, nil)}
+            
+            // get level
+            var batteryLevelToCheck: Int?
+            
+            switch transmitterBatteryInfo {
+            case .percentage(let percentage):
+                batteryLevelToCheck = percentage
+            case .DexcomG5(let voltageA, _, _, _, _):
+                batteryLevelToCheck = voltageA
+            case .DexcomG4(let level):
+                batteryLevelToCheck = level
             }
+
+            if let batteryLevelToCheck = batteryLevelToCheck, currentAlertEntry.value > batteryLevelToCheck {
+                return (true, "", Texts_Alerts.batteryLowAlertTitle, nil)
+            }
+            
+            return (false, nil, nil, nil)
+        }
     }
     
     /// returns notification identifier for local notifications, for specific alertKind.

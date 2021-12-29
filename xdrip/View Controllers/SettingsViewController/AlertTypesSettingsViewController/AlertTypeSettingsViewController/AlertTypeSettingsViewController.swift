@@ -397,7 +397,7 @@ extension AlertTypeSettingsViewController: UITableViewDataSource, UITableViewDel
                 .selectedRow(selectedRow)
                 .build()
             
-            BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
+            _ = BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
             
         case .soundName:
             // create array of all sounds and sound filenames, inclusive default ios sound and also empty string, which is "no sound"

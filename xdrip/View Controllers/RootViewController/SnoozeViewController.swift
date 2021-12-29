@@ -92,7 +92,7 @@ extension SnoozeViewController: UITableViewDataSource {
                     cancelHandler: { reloadRow() }
                 )
                                                                        
-                BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
+                _ = BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
 
             } else {
                 // changing from on to off. Means user wants to unsnooze

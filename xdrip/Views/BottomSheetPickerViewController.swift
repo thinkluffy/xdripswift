@@ -114,16 +114,17 @@ public class PickerViewDataBuilder {
 
 public class BottomSheetPickerViewController {
     
-    public static func show(in viewController: UIViewController, pickerViewData: PickerViewData) {
+    public static func show(in viewController: UIViewController, pickerViewData: PickerViewData) -> SlideInSheet {
         let content = PickerViewContent(data: pickerViewData)
         let sheet = SlideInSheet(sheetContent: content)
-        
+
         if let view = viewController.tabBarController?.view {
             sheet.show(in: view, dimColor: .black.withAlphaComponent(0.5), slideInFrom: .bottom)
             
         } else {
             sheet.show(in: viewController.view, dimColor: .black.withAlphaComponent(0.5), slideInFrom: .bottom)
         }
+        return sheet
     }
 }
 
