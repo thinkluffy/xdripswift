@@ -402,10 +402,10 @@ extension UserDefaults {
         }
         set {
             // store in mgdl
-            set(bloodGlucoseUnitIsMgDl ? newValue:newValue.mmolToMgdl(), forKey: Key.urgentHighMarkValue.rawValue)
+            set(bloodGlucoseUnitIsMgDl ? newValue : newValue.mmolToMgdl(), forKey: Key.urgentHighMarkValue.rawValue)
             
             // setting to be stored also in shared userdefaults because it's used by the today widget
-            UserDefaults.storeInSharedUserDefaults(value: bloodGlucoseUnitIsMgDl ? newValue:newValue.mmolToMgdl(), forKey: Key.urgentHighMarkValue.rawValue)
+            UserDefaults.storeInSharedUserDefaults(value: bloodGlucoseUnitIsMgDl ? newValue : newValue.mmolToMgdl(), forKey: Key.urgentHighMarkValue.rawValue)
         }
     }
     
@@ -433,7 +433,7 @@ extension UserDefaults {
         }
         set {
             // store in mgdl
-            set(bloodGlucoseUnitIsMgDl ? newValue:newValue.mmolToMgdl(), forKey: Key.highMarkValue.rawValue)
+            set(bloodGlucoseUnitIsMgDl ? newValue : newValue.mmolToMgdl(), forKey: Key.highMarkValue.rawValue)
             
             // setting to be stored also in shared userdefaults because it's used by the today widget
             UserDefaults.storeInSharedUserDefaults(value: bloodGlucoseUnitIsMgDl ? newValue:newValue.mmolToMgdl(), forKey: Key.highMarkValue.rawValue)

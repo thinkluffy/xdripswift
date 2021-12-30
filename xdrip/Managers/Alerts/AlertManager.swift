@@ -398,13 +398,17 @@ class AlertManager: NSObject {
         } else {
             // any other type of alert, set it to snoozed
             getSnoozeParameters(alertKind: alertKind).snooze(snoozePeriodInMinutes: snoozePeriodInMinutes)
-            trace("Snoozing alert %{public}@ for %{public}@ minutes (2)", log: log, category: ConstantsLog.categoryAlertManager, type: .info, alertKind.descriptionForLogging(), snoozePeriodInMinutes.description)
+            AlertManager.log.i("Snoozing alert \(alertKind.descriptionForLogging()) for \(snoozePeriodInMinutes) minutes")
             
             // save changes in coredata
             CoreDataManager.shared.saveChanges()
+            
+            // add 2 seconds to make sure the status is changed
+            Timer.scheduledTimer(withTimeInterval: Double(snoozePeriodInMinutes * 60 + 2), repeats: false) { _ in
+                SwiftEventBus.post(EventBusEvents.snoozeAlertsStatusChanged)
+            }
         }
     }
-
 
     // MARK: - overriden functions
     

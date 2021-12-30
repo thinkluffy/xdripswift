@@ -100,6 +100,27 @@ class CommonSettingsViewController: SubSettingsViewController {
             })
     }
     
+    private func bgPickerData(biggest: Double, smallest: Double, dataBefore: Double) -> ([String], Int) {
+        let isMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
+
+        var data = [String]()
+        let biggestUnit = biggest.mgdlToMmol(mgdl: isMg)
+        let smallestUnit = smallest.mgdlToMmol(mgdl: isMg)
+        let dataBeforeString = dataBefore.mgdlToMmol(mgdl: isMg).bgValuetoString(mgdl: isMg)
+
+        var selectedRow = 0
+        var rowCount = 0
+        
+        stride(from: biggestUnit, to: smallestUnit, by: isMg ? -1 : -0.1).forEach { i in
+            data.append(i.bgValuetoString(mgdl: isMg))
+            if i.bgValuetoString(mgdl: isMg) == dataBeforeString {
+                selectedRow = rowCount
+            }
+            rowCount += 1
+        }
+        return (data, selectedRow)
+    }
+    
     private func buildDataOfHomeScreen(builder: TableDataBuilder) -> TableDataBuilder {
         let isMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
         
@@ -110,112 +131,92 @@ class CommonSettingsViewController: SubSettingsViewController {
                            didClick: {
                 [unowned self] operationCell, tableView, indexPath in
                 
-                let placeHolder = ConstantsBGGraphBuilder.defaultUrgentHighMarkInMgdl
-                    .mgdlToMmolAndToString(mgdl: isMg)
+                let (data, selectedRow) = bgPickerData(
+                    biggest: UserDefaults.standard.chartHeight,
+                    smallest: UserDefaults.standard.highMarkValue,
+                    dataBefore: UserDefaults.standard.urgentHighMarkValue
+                )
                 
-                let alert = PopupDialog(
-                    title: Texts_SettingsView.labelUrgentHighValue,
-                    message: nil,
-                    keyboardType: isMg ? .numberPad : .decimalPad,
-                    text: UserDefaults.standard.urgentHighMarkValueInUserChosenUnitRounded,
-                    placeHolder: placeHolder
-                ) {
-                    _, urgentHighMarkValue in
-                    
-                    var input = urgentHighMarkValue
-                    if urgentHighMarkValue == "" {
-                        input = placeHolder
+                let pickerViewData = PickerViewDataBuilder(
+                    data: data) { index, rowData in
+                        UserDefaults.standard.urgentHighMarkValueInUserChosenUnitRounded = rowData
+                        operationCell.detailedText = UserDefaults.standard.urgentHighMarkValueInUserChosenUnit.bgValuetoString(mgdl: isMg)
+                        tableView.reloadRows(at: [indexPath], with: .none)
                     }
-                    UserDefaults.standard.urgentHighMarkValueInUserChosenUnitRounded = input
-                    operationCell.detailedText = UserDefaults.standard.urgentHighMarkValueInUserChosenUnit.bgValuetoString(mgdl: isMg)
-                    tableView.reloadRows(at: [indexPath], with: .none)
-                }
+                    .title(Texts_SettingsView.labelUrgentHighValue)
+                    .selectedRow(selectedRow)
+                    .build()
                 
-                self.present(alert, animated: true, completion: nil)
+                _ = BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
             })
             .operationCell(title: R.string.settingsViews.settingsviews_highValue(),
                            detailedText: UserDefaults.standard.highMarkValueInUserChosenUnit.bgValuetoString(mgdl: isMg),
                            didClick: {
                 [unowned self] operationCell, tableView, indexPath in
                 
-                let placeHolder = ConstantsBGGraphBuilder.defaultHighMarkInMgdl
-                    .mgdlToMmolAndToString(mgdl: isMg)
+                let (data, selectedRow) = bgPickerData(
+                    biggest: UserDefaults.standard.urgentHighMarkValue,
+                    smallest: UserDefaults.standard.lowMarkValue,
+                    dataBefore: UserDefaults.standard.highMarkValue
+                )
                 
-                let alert = PopupDialog(
-                    title: Texts_SettingsView.labelHighValue,
-                    message: nil,
-                    keyboardType: isMg ? .numberPad : .decimalPad,
-                    text: UserDefaults.standard.highMarkValueInUserChosenUnitRounded,
-                    placeHolder: placeHolder
-                ) {
-                    _, highMarkValue in
-                    
-                    var input = highMarkValue
-                    if highMarkValue == "" {
-                        input = placeHolder
+                let pickerViewData = PickerViewDataBuilder(
+                    data: data) { index, rowData in
+                        UserDefaults.standard.highMarkValueInUserChosenUnitRounded = rowData
+                        operationCell.detailedText = UserDefaults.standard.highMarkValueInUserChosenUnit.bgValuetoString(mgdl: isMg)
+                        tableView.reloadRows(at: [indexPath], with: .none)
                     }
-                    UserDefaults.standard.highMarkValueInUserChosenUnitRounded = input
-                    operationCell.detailedText = UserDefaults.standard.highMarkValueInUserChosenUnit.bgValuetoString(mgdl: isMg)
-                    tableView.reloadRows(at: [indexPath], with: .none)
-                }
+                    .title(Texts_SettingsView.labelHighValue)
+                    .selectedRow(selectedRow)
+                    .build()
                 
-                self.present(alert, animated: true, completion: nil)
+                _ = BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
              })
             .operationCell(title: R.string.settingsViews.settingsviews_lowValue(),
                            detailedText: UserDefaults.standard.lowMarkValueInUserChosenUnit.bgValuetoString(mgdl: isMg),
                            didClick: {
                 [unowned self] operationCell, tableView, indexPath in
                 
-                let placeHolder = ConstantsBGGraphBuilder.defaultLowMarkInMgdl
-                    .mgdlToMmolAndToString(mgdl: isMg)
+                let (data, selectedRow) = bgPickerData(
+                    biggest: UserDefaults.standard.highMarkValue,
+                    smallest: UserDefaults.standard.urgentLowMarkValue,
+                    dataBefore: UserDefaults.standard.lowMarkValue
+                )
                 
-                let alert = PopupDialog(
-                    title: Texts_SettingsView.labelLowValue,
-                    message: nil,
-                    keyboardType: isMg ? .numberPad : .decimalPad,
-                    text: UserDefaults.standard.lowMarkValueInUserChosenUnitRounded,
-                    placeHolder: placeHolder
-                ) {
-                    _, lowMarkValue in
-                    
-                    var input = lowMarkValue
-                    if lowMarkValue == "" {
-                        input = placeHolder
+                let pickerViewData = PickerViewDataBuilder(
+                    data: data) { index, rowData in
+                        UserDefaults.standard.lowMarkValueInUserChosenUnitRounded = rowData
+                        operationCell.detailedText = UserDefaults.standard.lowMarkValueInUserChosenUnit.bgValuetoString(mgdl: isMg)
+                        tableView.reloadRows(at: [indexPath], with: .none)
                     }
-                    UserDefaults.standard.lowMarkValueInUserChosenUnitRounded = input
-                    operationCell.detailedText = UserDefaults.standard.lowMarkValueInUserChosenUnit.bgValuetoString(mgdl: isMg)
-                    tableView.reloadRows(at: [indexPath], with: .none)
-                }
+                    .title(Texts_SettingsView.labelLowValue)
+                    .selectedRow(selectedRow)
+                    .build()
                 
-                self.present(alert, animated: true, completion: nil)
+                _ = BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
              })
             .operationCell(title: R.string.settingsViews.settingsviews_urgentLowValue(),
                            detailedText: UserDefaults.standard.urgentLowMarkValueInUserChosenUnit.bgValuetoString(mgdl: isMg),
                            didClick: {
                 [unowned self] operationCell, tableView, indexPath in
                 
-                let placeHolder = ConstantsBGGraphBuilder.defaultUrgentLowMarkInMgdl
-                    .mgdlToMmolAndToString(mgdl: isMg)
+                let (data, selectedRow) = bgPickerData(
+                    biggest: UserDefaults.standard.lowMarkValue,
+                    smallest: Constants.minBgMgDl,
+                    dataBefore: UserDefaults.standard.urgentLowMarkValue
+                )
                 
-                let alert = PopupDialog(
-                    title: Texts_SettingsView.labelUrgentLowValue,
-                    message: nil,
-                    keyboardType: isMg ? .numberPad : .decimalPad,
-                    text: UserDefaults.standard.urgentLowMarkValueInUserChosenUnitRounded,
-                    placeHolder: placeHolder
-                ) {
-                    _, urgentLowMarkValue in
-                    
-                    var input = urgentLowMarkValue
-                    if urgentLowMarkValue == "" {
-                        input = placeHolder
+                let pickerViewData = PickerViewDataBuilder(
+                    data: data) { index, rowData in
+                        UserDefaults.standard.urgentLowMarkValueInUserChosenUnitRounded = rowData
+                        operationCell.detailedText = UserDefaults.standard.urgentLowMarkValueInUserChosenUnit.bgValuetoString(mgdl: isMg)
+                        tableView.reloadRows(at: [indexPath], with: .none)
                     }
-                    UserDefaults.standard.urgentLowMarkValueInUserChosenUnitRounded = input
-                    operationCell.detailedText = UserDefaults.standard.urgentLowMarkValueInUserChosenUnit.bgValuetoString(mgdl: isMg)
-                    tableView.reloadRows(at: [indexPath], with: .none)
-                }
+                    .title(Texts_SettingsView.labelUrgentLowValue)
+                    .selectedRow(selectedRow)
+                    .build()
                 
-                self.present(alert, animated: true, completion: nil)
+                _ = BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
              })
             .operationCell(title: R.string.settingsViews.settingsviews_chartHeight(),
                            detailedText: UserDefaults.standard.chartHeight.mgdlToMmolAndToString(mgdl: isMg),
@@ -223,12 +224,11 @@ class CommonSettingsViewController: SubSettingsViewController {
                 [unowned self] operationCell, tableView, indexPath in
                 
                 let heights: [Double] = [220, 300, 400]
-                let shoAsMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
                 var data = [String]()
                 var selectedRow: Int?
 
                 for (i, h) in heights.enumerated() {
-                    data.append(h.mgdlToMmolAndToString(mgdl: shoAsMg))
+                    data.append(h.mgdlToMmolAndToString(mgdl: isMg))
                     if UserDefaults.standard.chartHeight == h {
                         selectedRow = i
                     }

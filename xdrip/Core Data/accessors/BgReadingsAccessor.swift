@@ -147,18 +147,20 @@ class BgReadingsAccessor {
         if let from = from, to == nil {
             let predicate = NSPredicate(format: "timeStamp > %@ AND calculatedValue < %d",
                                         NSDate(timeIntervalSince1970: from.timeIntervalSince1970),
-                                        Constants.maxBgMgDl)
+                                        Int(Constants.maxBgMgDl))
             fetchRequest.predicate = predicate
             
         } else if let to = to, from == nil {
-            let predicate = NSPredicate(format: "timeStamp < %@ AND calculatedValue < %d", NSDate(timeIntervalSince1970: to.timeIntervalSince1970), Constants.maxBgMgDl)
+            let predicate = NSPredicate(format: "timeStamp < %@ AND calculatedValue < %d",
+                                        NSDate(timeIntervalSince1970: to.timeIntervalSince1970),
+                                        Int(Constants.maxBgMgDl))
             fetchRequest.predicate = predicate
             
         } else if let to = to, let from = from {
             let predicate = NSPredicate(format: "timeStamp < %@ AND timeStamp > %@ AND calculatedValue < %d",
                                         NSDate(timeIntervalSince1970: to.timeIntervalSince1970),
                                         NSDate(timeIntervalSince1970: from.timeIntervalSince1970),
-                                        Constants.maxBgMgDl)
+                                        Int(Constants.maxBgMgDl))
             fetchRequest.predicate = predicate
         }
         
@@ -191,20 +193,20 @@ class BgReadingsAccessor {
         if let from = from, to == nil {
             let predicate = NSPredicate(format: "timeStamp > %@ AND calculatedValue < %d",
                                         NSDate(timeIntervalSince1970: from.timeIntervalSince1970),
-                                        Constants.maxBgMgDl)
+                                        Int(Constants.maxBgMgDl))
             fetchRequest.predicate = predicate
 
         } else if let to = to, from == nil {
-            let predicate = NSPredicate(format: "timeStamp < %@ AND calculatedValue < %d",
+            let predicate = NSPredicate(format: "timeStamp < %@ AND calculatedValue < %.d",
                                         NSDate(timeIntervalSince1970: to.timeIntervalSince1970),
-                                        Constants.maxBgMgDl)
+                                        Int(Constants.maxBgMgDl))
             fetchRequest.predicate = predicate
 
         } else if let to = to, let from = from {
             let predicate = NSPredicate(format: "timeStamp < %@ AND timeStamp > %@ AND calculatedValue < %d",
                                         NSDate(timeIntervalSince1970: to.timeIntervalSince1970),
                                         NSDate(timeIntervalSince1970: from.timeIntervalSince1970),
-                                        Constants.maxBgMgDl)
+                                        Int(Constants.maxBgMgDl))
             fetchRequest.predicate = predicate
         }
         
@@ -264,7 +266,7 @@ class BgReadingsAccessor {
         if let fromDate = fromDate {
             let predicate = NSPredicate(format: "timeStamp > %@ AND calculatedValue < %d",
                                         NSDate(timeIntervalSince1970: fromDate.timeIntervalSince1970),
-                                        Constants.maxBgMgDl)
+                                        Int(Constants.maxBgMgDl))
             fetchRequest.predicate = predicate
         }
         

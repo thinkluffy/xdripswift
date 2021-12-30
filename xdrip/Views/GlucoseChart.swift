@@ -185,7 +185,7 @@ class GlucoseChart: UIView {
         
         let yAxis = chartView.rightAxis
         yAxis.axisMaximum = showAsMg ? chartHeight : chartHeight.mgdlToMmol()
-        yAxis.axisMinimum = showAsMg ? 40 : 2.2
+        yAxis.axisMinimum = showAsMg ? Constants.minBgMgDl : Constants.minBgMgDl.mgdlToMmol()
         
         let urgentHigh = UserDefaults.standard.urgentHighMarkValue.mgdlToMmol(mgdl: showAsMg)
         let high = UserDefaults.standard.highMarkValue.mgdlToMmol(mgdl: showAsMg)

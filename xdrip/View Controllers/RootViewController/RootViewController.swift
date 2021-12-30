@@ -560,7 +560,7 @@ final class RootViewController: UIViewController {
                         CoreDataManager.shared.saveChanges()
                         
                         // check whether the reading is not bigger than max bg
-                        if newReading.calculatedValue < Double(Constants.maxBgMgDl) {
+                        if newReading.calculatedValue < Constants.maxBgMgDl {
                             // a new reading was created
                             newReadingCreated = true
                             
