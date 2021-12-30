@@ -188,7 +188,5 @@
 "moreSettings" = "更多设置";
 "commonSettings" = "通用设置";
 "serviceIntegration" = "服务集成";
-
-/// Calendar Events Settings - section title
 "calendarEventsSectionTitle" = "日历事件";
-
+"toast_chart_height_smaller_than_urgent_high" = "图标高度不可以小于紧急高值";

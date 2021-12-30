@@ -239,6 +239,15 @@ class GlucoseChart: UIView {
         let lowInMg = UserDefaults.standard.lowMarkValue
         let urgentLowInMg = UserDefaults.standard.urgentLowMarkValue
         
+        // to avoid labels overlapping
+        if abs(urgentHighInMg - UserDefaults.standard.chartHeight) < 30 {
+            rangeTopLine.label = ""
+        }
+        
+        if abs(lowInMg - Constants.minBgMgDl) < 30 {
+            rangeBottomLine.label = ""
+        }
+            
         guard let readings = readings, !readings.isEmpty else {
             GlucoseChart.log.i("readings are nil, nothing to show")
             

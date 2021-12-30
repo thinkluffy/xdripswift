@@ -5954,7 +5954,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.settingsViews` struct is generated, and contains static references to 112 localization keys.
+    /// This `R.string.settingsViews` struct is generated, and contains static references to 113 localization keys.
     struct settingsViews {
       /// en translation: 5 Mins per Dot
       ///
@@ -6032,6 +6032,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let settingsviews_chartHeight = Rswift.StringResource(key: "settingsviews_chartHeight", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Chart height can not be smaller than Urgent High Value
+      ///
+      /// Locales: en, zh
+      static let toast_chart_height_smaller_than_urgent_high = Rswift.StringResource(key: "toast_chart_height_smaller_than_urgent_high", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Common Settings
       ///
       /// Locales: en, zh
@@ -6690,6 +6694,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("settingsviews_chartHeight", tableName: "SettingsViews", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Chart height can not be smaller than Urgent High Value
+      ///
+      /// Locales: en, zh
+      static func toast_chart_height_smaller_than_urgent_high(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("toast_chart_height_smaller_than_urgent_high", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
+          return "toast_chart_height_smaller_than_urgent_high"
+        }
+
+        return NSLocalizedString("toast_chart_height_smaller_than_urgent_high", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
       /// en translation: Common Settings

@@ -104,16 +104,25 @@ class CommonSettingsViewController: SubSettingsViewController {
         let isMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
 
         var data = [String]()
-        let biggestUnit = biggest.mgdlToMmol(mgdl: isMg)
-        let smallestUnit = smallest.mgdlToMmol(mgdl: isMg)
-        let dataBeforeString = dataBefore.mgdlToMmol(mgdl: isMg).bgValuetoString(mgdl: isMg)
+        let biggestInUnit: Double
+        let smallestInUnit: Double
+        let dataStringBefore = dataBefore.mgdlToMmol(mgdl: isMg).bgValuetoString(mgdl: isMg)
 
+        if isMg {
+            biggestInUnit = biggest.rounded() - 1
+            smallestInUnit = smallest.rounded() + 1
+            
+        } else {
+            biggestInUnit = Double(biggest.mgdlToMmolAndToString(mgdl: isMg))! - 0.1
+            smallestInUnit = Double(smallest.mgdlToMmolAndToString(mgdl: isMg))! + 0.1
+        }
+        
         var selectedRow = 0
         var rowCount = 0
         
-        stride(from: biggestUnit, to: smallestUnit, by: isMg ? -1 : -0.1).forEach { i in
+        stride(from: biggestInUnit, through: smallestInUnit, by: isMg ? -1 : -0.1).forEach { i in
             data.append(i.bgValuetoString(mgdl: isMg))
-            if i.bgValuetoString(mgdl: isMg) == dataBeforeString {
+            if i.bgValuetoString(mgdl: isMg) == dataStringBefore {
                 selectedRow = rowCount
             }
             rowCount += 1
@@ -223,7 +232,7 @@ class CommonSettingsViewController: SubSettingsViewController {
                            didClick: {
                 [unowned self] operationCell, tableView, indexPath in
                 
-                let heights: [Double] = [220, 300, 400]
+                let heights: [Double] = [400, 300, 220]
                 var data = [String]()
                 var selectedRow: Int?
 
@@ -235,16 +244,25 @@ class CommonSettingsViewController: SubSettingsViewController {
                 }
                 
                 let pickerViewData = PickerViewDataBuilder(
-                    data: data,
-                    actionHandler: {
+                    data: data) {
                         index, _ in
-                        if index != selectedRow {
-                            UserDefaults.standard.chartHeight = heights[index]
-                            operationCell.detailedText = heights[index].mgdlToMmolAndToString(mgdl: isMg)
-                            tableView.reloadRows(at: [indexPath], with: .none)
+                        
+                        guard index != selectedRow else {
+                            return
                         }
+                        
+                        let height = heights[index]
+                        if height < UserDefaults.standard.urgentHighMarkValue {
+                            self.view.makeToast(R.string.settingsViews.toast_chart_height_smaller_than_urgent_high(),
+                                                duration: 4,
+                                                position: .bottom)
+                            return
+                        }
+                        
+                        UserDefaults.standard.chartHeight = height
+                        operationCell.detailedText = height.mgdlToMmolAndToString(mgdl: isMg)
+                        tableView.reloadRows(at: [indexPath], with: .none)
                     }
-                )
                     .title(R.string.settingsViews.settingsviews_chartHeight())
                     .selectedRow(selectedRow)
                     .build()

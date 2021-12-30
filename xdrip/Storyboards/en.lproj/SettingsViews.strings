@@ -111,3 +111,4 @@
 "moreSettings" = "More Settings";
 "commonSettings" = "Common Settings";
 "serviceIntegration" = "Service Integration";
+"toast_chart_height_smaller_than_urgent_high" = "Chart height can not be smaller than Urgent High Value";

@@ -5,11 +5,12 @@ extension Double {
     /// converts mmol to mgdl if parametermgdl = false and, converts value to string, round. Number of digits after decimal seperator depends on the unit. For mg/dl 0 digits after decimal seperator, for mmol, 1 digit after decimal seperator
     ///
     /// this function is actually a combination of mmolToMgdl if mgdl = true and bgValuetoString
-    func mgdlToMmolAndToString(mgdl:Bool) -> String {
+    func mgdlToMmolAndToString(mgdl: Bool) -> String {
         if mgdl {
-            return String(format:"%.0f", self)
+            return String(format: "%.0f", self)
+            
         } else {
-            return String(format:"%.1f", self.mgdlToMmol())
+            return String(format: "%.1f", self.mgdlToMmol())
         }
     }
     
@@ -22,6 +23,7 @@ extension Double {
     func mmolToMgdl(mgdl:Bool) -> Double {
         if mgdl {
             return self
+            
         } else {
             return self.mmolToMgdl()
         }
