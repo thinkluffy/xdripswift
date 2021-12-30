@@ -76,8 +76,7 @@ class CommonSettingsViewController: SubSettingsViewController {
                 let selectedRow = UserDefaults.standard.notificationInterval - 1
                 
                 let pickerViewData = PickerViewDataBuilder(
-                    data: data,
-                    actionHandler: {
+                    data: data) {
                         index, _ in
                         if index != selectedRow {
                             UserDefaults.standard.notificationInterval = index + 1
@@ -85,7 +84,6 @@ class CommonSettingsViewController: SubSettingsViewController {
                             tableView.reloadRows(at: [indexPath], with: .none)
                         }
                     }
-                )
                     .title(Texts_SettingsView.settingsviews_IntervalTitle)
                     .subTitle(Texts_SettingsView.settingsviews_IntervalMessage)
                     .selectedRow(selectedRow)
