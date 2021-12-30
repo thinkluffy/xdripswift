@@ -26,6 +26,7 @@ extension UserDefaults {
         case isAgreementAgreed = "isAgreementAgreed"
         case isDeveloperConsoleOpened = "isDeveloperConsoleOpened"
         case launchCount = "launchCount"
+        case isRemoteConfigTestMode = "isRemoteConfigTestMode"
 
         // General
         case fullFeatureMode = "fullFeatureMode"
@@ -309,6 +310,15 @@ extension UserDefaults {
         }
     }
     
+    @objc dynamic var isRemoteConfigTestMode: Bool {
+        get {
+            return bool(forKey: Key.isRemoteConfigTestMode.rawValue)
+        }
+        set {
+            set(newValue, forKey: Key.isRemoteConfigTestMode.rawValue)
+        }
+    }
+
     // MARK: General
 
     @objc dynamic var isFullFeatureMode: Bool {

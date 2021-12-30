@@ -190,3 +190,6 @@
 "serviceIntegration" = "服务集成";
 "calendarEventsSectionTitle" = "日历事件";
 "toast_chart_height_smaller_than_urgent_high" = "图标高度不可以小于紧急高值";
+"check_app_version" = "检查 App 版本";
+"toast_newer_app_version" = "新版本 (%@)，请升级";
+"toast_no_newer_app_version" = "已经是最新版本";

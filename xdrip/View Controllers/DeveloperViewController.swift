@@ -71,20 +71,13 @@ class DeveloperViewController: UIViewController {
 //                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
 //                }
 //            })
-//            .operationCell(title: "IDFA", detailedText: iOS.idfa ?? "Unknown", didClick: { [unowned self] operationCell, indexPath in
-//                guard let idfa = iOS.idfa else {
-//                    return
-//                }
-//                UIPasteboard.general.string = idfa
-//                self.navigationController?.view.makeToast("Copied to Clipboard", duration: 2.0, position: .bottom)
-//            })
             
             .section(headerTitle: "Common")
-//            .toggleCell(title: "Remote Test Mode", isOn: RemoteConfigHost.testMode, toggleDidChange: { from, to in
-//                RemoteConfigHost.testMode = !RemoteConfigHost.testMode
-//
-//                self.navigationController?.view.makeToast("Please restart app to apply updates", duration: 4.0, position: .bottom)
-//            })
+            .toggleCell(title: "Remote Test Mode", isOn: RemoteConfigHost.testMode, toggleDidChange: { from, to in
+                RemoteConfigHost.testMode = !RemoteConfigHost.testMode
+
+                self.navigationController?.view.makeToast("Please restart app to apply updates", duration: 4.0, position: .bottom)
+            })
             .operationCell(title: "Force a Crash", didClick: {
                 [unowned self] operationCell, tableView, indexPath in
                 

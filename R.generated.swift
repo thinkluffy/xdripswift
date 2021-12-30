@@ -5954,7 +5954,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.settingsViews` struct is generated, and contains static references to 113 localization keys.
+    /// This `R.string.settingsViews` struct is generated, and contains static references to 116 localization keys.
     struct settingsViews {
       /// en translation: 5 Mins per Dot
       ///
@@ -5984,6 +5984,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let settingsviews_sectiontitlealerting = Rswift.StringResource(key: "settingsviews_sectiontitlealerting", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Already the latest version
+      ///
+      /// Locales: en, zh
+      static let toast_no_newer_app_version = Rswift.StringResource(key: "toast_no_newer_app_version", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: An alarm sound is now being played with the same volume that will be used for an Alarm Type with 'Override Mute' = Off  (Also used always for Missed Reading alarms which use the iOS volume.)  Press one of the volume buttons to stop the sound, then change the volume with the volume buttons to the desired volume and test again.
       ///
       /// Locales: en, zh
@@ -6036,6 +6040,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let toast_chart_height_smaller_than_urgent_high = Rswift.StringResource(key: "toast_chart_height_smaller_than_urgent_high", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Check App Verison
+      ///
+      /// Locales: en, zh
+      static let check_app_version = Rswift.StringResource(key: "check_app_version", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Common Settings
       ///
       /// Locales: en, zh
@@ -6192,6 +6200,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en
       static let settingsviews_multipleAppBadgeValueWith10 = Rswift.StringResource(key: "settingsviews_multipleAppBadgeValueWith10", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: New Version (%@), please update
+      ///
+      /// Locales: en, zh
+      static let toast_newer_app_version = Rswift.StringResource(key: "toast_newer_app_version", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: NightScout
       ///
       /// Locales: en, zh
@@ -6516,6 +6528,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_sectiontitlealerting", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
+      /// en translation: Already the latest version
+      ///
+      /// Locales: en, zh
+      static func toast_no_newer_app_version(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("toast_no_newer_app_version", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
+          return "toast_no_newer_app_version"
+        }
+
+        return NSLocalizedString("toast_no_newer_app_version", tableName: "SettingsViews", bundle: bundle, comment: "")
+      }
+
       /// en translation: An alarm sound is now being played with the same volume that will be used for an Alarm Type with 'Override Mute' = Off  (Also used always for Missed Reading alarms which use the iOS volume.)  Press one of the volume buttons to stop the sound, then change the volume with the volume buttons to the desired volume and test again.
       ///
       /// Locales: en, zh
@@ -6709,6 +6736,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("toast_chart_height_smaller_than_urgent_high", tableName: "SettingsViews", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Check App Verison
+      ///
+      /// Locales: en, zh
+      static func check_app_version(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("check_app_version", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
+          return "check_app_version"
+        }
+
+        return NSLocalizedString("check_app_version", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
       /// en translation: Common Settings
@@ -7296,6 +7338,23 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("settingsviews_multipleAppBadgeValueWith10", tableName: "SettingsViews", bundle: bundle, comment: "")
+      }
+
+      /// en translation: New Version (%@), please update
+      ///
+      /// Locales: en, zh
+      static func toast_newer_app_version(_ value1: String, preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          let format = NSLocalizedString("toast_newer_app_version", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
+          return String(format: format, locale: applicationLocale, value1)
+        }
+
+        guard let (locale, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
+          return "toast_newer_app_version"
+        }
+
+        let format = NSLocalizedString("toast_newer_app_version", tableName: "SettingsViews", bundle: bundle, comment: "")
+        return String(format: format, locale: locale, value1)
       }
 
       /// en translation: NightScout

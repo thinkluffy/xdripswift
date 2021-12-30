@@ -20,6 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
+        RemoteConfigHost.testMode = UserDefaults.standard.isRemoteConfigTestMode
+        RemoteConfigProxy.shared.setup()
+        AppDelegate.log.d("remote config ready to refresh")
+        RemoteConfigProxy.shared.refresh() { refreshed in
+            AppDelegate.log.d("remote config refreshed")
+        }
+        
         WatchCommunicator.register()
         
         setupUIComponents()

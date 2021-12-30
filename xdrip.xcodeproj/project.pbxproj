@@ -89,6 +89,8 @@
 		4E94C33C277B597200382122 /* Notes.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E94C33E277B597200382122 /* Notes.strings */; };
 		4E94C342277DE4FB00382122 /* EasyTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C341277DE4FA00382122 /* EasyTracker.swift */; };
 		4E94C344277DE5D200382122 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C343277DE5D200382122 /* Events.swift */; };
+		4E94C346277DF4C000382122 /* RemoteConfigProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C345277DF4C000382122 /* RemoteConfigProxy.swift */; };
+		4E94C348277DF70200382122 /* RemoteConfigHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C347277DF70200382122 /* RemoteConfigHost.swift */; };
 		4E9D7978273A983600B666C5 /* ChartDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D7977273A983600B666C5 /* ChartDetailsViewController.swift */; };
 		4E9D7986273BEC5500B666C5 /* BaseAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D797B273BEC5500B666C5 /* BaseAppDelegate.swift */; };
 		4E9D7987273BEC5500B666C5 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D797C273BEC5500B666C5 /* Log.swift */; };
@@ -717,6 +719,8 @@
 		4E94C340277DBE7500382122 /* TrySomething.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = TrySomething.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		4E94C341277DE4FA00382122 /* EasyTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyTracker.swift; sourceTree = "<group>"; };
 		4E94C343277DE5D200382122 /* Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
+		4E94C345277DF4C000382122 /* RemoteConfigProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteConfigProxy.swift; sourceTree = "<group>"; };
+		4E94C347277DF70200382122 /* RemoteConfigHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigHost.swift; sourceTree = "<group>"; };
 		4E9D7977273A983600B666C5 /* ChartDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDetailsViewController.swift; sourceTree = "<group>"; };
 		4E9D797B273BEC5500B666C5 /* BaseAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseAppDelegate.swift; sourceTree = "<group>"; };
 		4E9D797C273BEC5500B666C5 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
@@ -1375,6 +1379,7 @@
 				4E9D7984273BEC5500B666C5 /* PThreadReadWriteLock.swift */,
 				4E9D797E273BEC5500B666C5 /* Utils.swift */,
 				4E9D7981273BEC5500B666C5 /* VideoBuilder.swift */,
+				4E94C345277DF4C000382122 /* RemoteConfigProxy.swift */,
 				4EB0DE6E27744EB500DBF7C1 /* Common.xcassets */,
 			);
 			path = ThinkCommon;
@@ -2453,6 +2458,7 @@
 				F8B3A7DD226E48C1004BA588 /* SoundPlayer */,
 				F8C5EBE622F38F0E00563B5F /* Trace.swift */,
 				F8EA6CA821BBE3010082976B /* UniqueId.swift */,
+				4E94C347277DF70200382122 /* RemoteConfigHost.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -3428,6 +3434,7 @@
 				F85DC2F321CFE3D400B9F74A /* Calibration+CoreDataClass.swift in Sources */,
 				4E9D7986273BEC5500B666C5 /* BaseAppDelegate.swift in Sources */,
 				F8AF361B245D93EE00B5977B /* Int16.swift in Sources */,
+				4E94C348277DF70200382122 /* RemoteConfigHost.swift in Sources */,
 				F8E3A2AB23DA520B00E5E98A /* ConstantsWatch.swift in Sources */,
 				F821CF7B22A1D359005C1E43 /* NightScoutFollowerDelegate.swift in Sources */,
 				4E9D79CB273BF04400B666C5 /* RoundedImageView.swift in Sources */,
@@ -3438,6 +3445,7 @@
 				F898EDF2234A8A0500BFB79B /* UInt8.swift in Sources */,
 				4E94C315277AE0C000382122 /* AESCrypt.m in Sources */,
 				F8DF766423E781C100063910 /* BLEPeripheralAccessor.swift in Sources */,
+				4E94C346277DF4C000382122 /* RemoteConfigProxy.swift in Sources */,
 				F8A5EEB8257CF2940085E660 /* TextsLibreNFC.swift in Sources */,
 				F816E1082437E5B9009EE65B /* BlueReader+BluetoothPeripheral.swift in Sources */,
 				F8E51D67244BAE0E001C9E5A /* WatlaaBluetoothTransmitterMaster+CGMTransmitter.swift in Sources */,
@@ -3763,7 +3771,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1005;
+				CURRENT_PROJECT_VERSION = 1006;
 				DEVELOPMENT_ASSET_PATHS = "\"xDripWatch WatchKit Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_PREVIEWS = YES;
@@ -3777,7 +3785,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -3795,7 +3803,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1005;
+				CURRENT_PROJECT_VERSION = 1006;
 				DEVELOPMENT_ASSET_PATHS = "\"xDripWatch WatchKit Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_PREVIEWS = YES;
@@ -3809,7 +3817,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -3824,14 +3832,13 @@
 		E53D047627438C6100CA548E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "$(XDRIP_CODE_SIGN_IDENTITY_DEBUG)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1005;
+				CURRENT_PROJECT_VERSION = 1006;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				GENERATE_INFOPLIST_FILE = YES;
 				IBSC_MODULE = xDripWatch_WatchKit_Extension;
@@ -3842,7 +3849,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip.watchkitapp;
 				PRODUCT_NAME = zDrip;
 				SDKROOT = watchos;
@@ -3859,14 +3866,13 @@
 		E53D047727438C6100CA548E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "$(XDRIP_CODE_SIGN_IDENTITY_RELEASE)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1005;
+				CURRENT_PROJECT_VERSION = 1006;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				GENERATE_INFOPLIST_FILE = YES;
 				IBSC_MODULE = xDripWatch_WatchKit_Extension;
@@ -3877,7 +3883,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip.watchkitapp;
 				PRODUCT_NAME = zDrip;
 				SDKROOT = watchos;
@@ -3897,7 +3903,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(XDRIP_WIDGET_ENTITLEMENTS_DEBUG)";
 				CODE_SIGN_IDENTITY = "$(XDRIP_CODE_SIGN_IDENTITY_DEBUG)";
 				CODE_SIGN_STYLE = "$(XDRIP_CODE_SIGN_STYLE)";
-				CURRENT_PROJECT_VERSION = 1005;
+				CURRENT_PROJECT_VERSION = 1006;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				INFOPLIST_FILE = "xDrip4iOS Widget/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -3906,7 +3912,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip.Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -3922,7 +3928,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(XDRIP_WIDGET_ENTITLEMENTS_RELEASE)";
 				CODE_SIGN_IDENTITY = "$(XDRIP_CODE_SIGN_IDENTITY_RELEASE)";
 				CODE_SIGN_STYLE = "$(XDRIP_CODE_SIGN_STYLE)";
-				CURRENT_PROJECT_VERSION = 1005;
+				CURRENT_PROJECT_VERSION = 1006;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				INFOPLIST_FILE = "xDrip4iOS Widget/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -3931,7 +3937,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip.Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4072,7 +4078,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(XDRIP_ENTITLEMENTS_DEBUG)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1005;
+				CURRENT_PROJECT_VERSION = 1006;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				INFOPLIST_FILE = "$(SRCROOT)/xdrip/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -4080,7 +4086,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4101,7 +4107,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(XDRIP_ENTITLEMENTS_RELEASE)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1005;
+				CURRENT_PROJECT_VERSION = 1006;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				INFOPLIST_FILE = "$(SRCROOT)/xdrip/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -4109,7 +4115,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

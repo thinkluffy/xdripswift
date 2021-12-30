@@ -123,6 +123,18 @@ class AboutViewController: LegacySubSettingsViewController {
                     self.view.makeToast(R.string.common.developerModeEnabled(), duration: 2, position: .bottom)
                 }
             })
+            .operationCell(title: R.string.settingsViews.check_app_version(), detailedText: nil, didClick: { [unowned self] operationCell, tableView, indexPath in
+                
+                let json = RemoteConfigHost.latestVersion
+                if let versionCode = json["version_code"].int,
+                   let versionName = json["version_name"].string,
+                   versionCode > iOS.appVersionCode {
+                    self.view.makeToast(R.string.settingsViews.toast_newer_app_version(versionName), duration: 4, position: .bottom)
+                    
+                } else {
+                    self.view.makeToast(R.string.settingsViews.toast_no_newer_app_version(), duration: 2, position: .bottom)
+                }
+            })
             .operationCell(title: R.string.common.privacyPolicy(),
                            accessoryView: DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor),
                            didClick: {
