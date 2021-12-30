@@ -8,9 +8,11 @@ PODS:
     - CocoaLumberjack/Core
   - CryptoSwift (1.4.0)
   - DynamicBlurView (4.1.0)
-  - Firebase/AnalyticsWithoutAdIdSupport (8.10.0):
+  - Firebase/Analytics (8.10.0):
+    - Firebase/Core
+  - Firebase/Core (8.10.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics/WithoutAdIdSupport (~> 8.10.0)
+    - FirebaseAnalytics (~> 8.10.0)
   - Firebase/CoreOnly (8.10.0):
     - FirebaseCore (= 8.10.0)
   - Firebase/Crashlytics (8.10.0):
@@ -24,10 +26,19 @@ PODS:
     - FirebaseRemoteConfig (~> 8.10.0)
   - FirebaseABTesting (8.10.0):
     - FirebaseCore (~> 8.0)
-  - FirebaseAnalytics/WithoutAdIdSupport (8.10.0):
+  - FirebaseAnalytics (8.10.0):
+    - FirebaseAnalytics/AdIdSupport (= 8.10.0)
     - FirebaseCore (~> 8.0)
     - FirebaseInstallations (~> 8.0)
-    - GoogleAppMeasurement/WithoutAdIdSupport (= 8.10.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.6)
+    - GoogleUtilities/MethodSwizzler (~> 7.6)
+    - GoogleUtilities/Network (~> 7.6)
+    - "GoogleUtilities/NSData+zlib (~> 7.6)"
+    - nanopb (~> 2.30908.0)
+  - FirebaseAnalytics/AdIdSupport (8.10.0):
+    - FirebaseCore (~> 8.0)
+    - FirebaseInstallations (~> 8.0)
+    - GoogleAppMeasurement (= 8.10.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.6)
     - GoogleUtilities/MethodSwizzler (~> 7.6)
     - GoogleUtilities/Network (~> 7.6)
@@ -70,6 +81,20 @@ PODS:
     - GoogleUtilities/Environment (~> 7.6)
     - "GoogleUtilities/NSData+zlib (~> 7.6)"
   - FSCalendar (2.8.2)
+  - GoogleAppMeasurement (8.10.0):
+    - GoogleAppMeasurement/AdIdSupport (= 8.10.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.6)
+    - GoogleUtilities/MethodSwizzler (~> 7.6)
+    - GoogleUtilities/Network (~> 7.6)
+    - "GoogleUtilities/NSData+zlib (~> 7.6)"
+    - nanopb (~> 2.30908.0)
+  - GoogleAppMeasurement/AdIdSupport (8.10.0):
+    - GoogleAppMeasurement/WithoutAdIdSupport (= 8.10.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.6)
+    - GoogleUtilities/MethodSwizzler (~> 7.6)
+    - GoogleUtilities/Network (~> 7.6)
+    - "GoogleUtilities/NSData+zlib (~> 7.6)"
+    - nanopb (~> 2.30908.0)
   - GoogleAppMeasurement/WithoutAdIdSupport (8.10.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 7.6)
     - GoogleUtilities/MethodSwizzler (~> 7.6)
@@ -121,7 +146,7 @@ DEPENDENCIES:
   - Charts (from `https://github.com/thinkluffy/Charts.git`, tag `v3.6.2-th`)
   - CocoaLumberjack/Swift (= 3.7.0)
   - CryptoSwift (= 1.4.0)
-  - Firebase/AnalyticsWithoutAdIdSupport (= 8.10.0)
+  - Firebase/Analytics (= 8.10.0)
   - Firebase/Crashlytics (= 8.10.0)
   - Firebase/Performance (= 8.10.0)
   - Firebase/RemoteConfig (= 8.10.0)
@@ -215,6 +240,6 @@ SPEC CHECKSUMS:
   SwiftEventBus: b30f617a6aca5a9336464b4d3f5931034762f2d5
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 5a0482a27cfcffc3622a98464d4b7ef725e6a1d4
+PODFILE CHECKSUM: ae061143fed584f60d9c6417594b037bb88c7310
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.11.2

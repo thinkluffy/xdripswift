@@ -1,5 +1,4 @@
-# Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '13.0'
 
 target 'xdrip' do
 
@@ -17,6 +16,6 @@ target 'xdrip' do
   pod 'PopupDialog', :tag => '1.1.1-th', :git => 'https://github.com/thinkluffy/PopupDialog.git'
   pod 'SwiftEventBus', :tag => '5.0.1', :git => 'https://github.com/cesarferreira/SwiftEventBus.git'
 
-  pod 'Firebase', '8.10.0', :subspecs => ['AnalyticsWithoutAdIdSupport', 'Crashlytics', 'Performance', 'RemoteConfig']
+  pod 'Firebase', '8.10.0', :subspecs => ['Analytics', 'Crashlytics', 'Performance', 'RemoteConfig']
 
 end

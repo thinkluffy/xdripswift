@@ -40,8 +40,3 @@ enum EventBusEvents {
     static let snoozeAlertsStatusChanged = "snoozeAlertsStatusChanged"
     static let newNote = "newNote"
 }
-
-enum PerformanceTraceName {
-    
-    static let processNewGlucoseData = "ProcessNewGlucoseData"
-}

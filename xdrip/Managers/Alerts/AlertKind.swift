@@ -44,6 +44,10 @@ public enum AlertKind: Int, CaseIterable {
         }
     }
     
+    var isBgRelated: Bool {
+        [AlertKind.verylow, AlertKind.low, AlertKind.high, AlertKind.veryhigh, AlertKind.fastdrop, AlertKind.fastrise].contains(self)
+    }
+    
     /// gives the raw value of the alertkind for a specific section in a uitableview, is the opposite of the initializer
     static func alertKindRawValue(forSection section: Int) -> Int {
         
@@ -146,19 +150,19 @@ public enum AlertKind: Int, CaseIterable {
         case .high:
             return "high"
         case .verylow:
-            return "verylow"
+            return "veryLow"
         case .veryhigh:
-            return "veryhigh"
+            return "veryHigh"
         case .missedreading:
-            return "missedreading"
+            return "missedReading"
         case .calibration:
             return "calibration"
         case .batterylow:
-            return "batterylow"
+            return "batteryLow"
         case .fastdrop:
-            return "fastdrop"
+            return "fastDrop"
         case .fastrise:
-            return "fastrise"
+            return "fastRise"
         }
     }
     
@@ -188,52 +192,52 @@ public enum AlertKind: Int, CaseIterable {
         switch self {
             
         case .low, .verylow:
-                // if alertEntry not enabled, return false
-                if !currentAlertEntry.alertType.enabled {return (false, nil, nil, nil)}
-                
-                if let lastBgReading = lastBgReading {
-                    // first check if lastBgReading not nil and calculatedValue > 0.0, never know that it's not been checked by caller
-                    if lastBgReading.calculatedValue == 0.0 {return (false, nil, nil, nil)}
-                    // now do the actual check if alert is applicable or not
-                    if lastBgReading.calculatedValue <= Double(currentAlertEntry.value) {
-                        return (
-                            true,
-                            lastBgReading.hideSlope ? "" : lastBgReading.unitizedDeltaStringPerMin(withSlope: lastBgReading.calculatedValueSlope, showUnit: true,  mgdl: isMg),
-                            createAlertTitleForBgReadingAlerts(bgReading: lastBgReading, alertKind: self),
-                            nil
-                        )
-                        
-                    } else {
-                        return (false, nil, nil, nil)
-                    }
+            // if alertEntry not enabled, return false
+            if !currentAlertEntry.alertType.enabled {return (false, nil, nil, nil)}
+            
+            if let lastBgReading = lastBgReading {
+                // first check if lastBgReading not nil and calculatedValue > 0.0, never know that it's not been checked by caller
+                if lastBgReading.calculatedValue == 0.0 {return (false, nil, nil, nil)}
+                // now do the actual check if alert is applicable or not
+                if lastBgReading.calculatedValue <= Double(currentAlertEntry.value) {
+                    return (
+                        true,
+                        lastBgReading.hideSlope ? "" : lastBgReading.unitizedDeltaStringPerMin(withSlope: lastBgReading.calculatedValueSlope, showUnit: true,  mgdl: isMg),
+                        createAlertTitleForBgReadingAlerts(bgReading: lastBgReading, alertKind: self),
+                        nil
+                    )
                     
                 } else {
                     return (false, nil, nil, nil)
                 }
+                
+            } else {
+                return (false, nil, nil, nil)
+            }
             
         case .high,.veryhigh:
-                // if alertEntry not enabled, return false
-                if !currentAlertEntry.alertType.enabled {return (false, nil, nil, nil)}
-                
-                if let lastBgReading = lastBgReading {
-                    // first check if calculatedValue > 0.0, never know that it's not been checked by caller
-                    if lastBgReading.calculatedValue == 0.0 {return (false, nil, nil, nil)}
-                    // now do the actual check if alert is applicable or not
-                    if lastBgReading.calculatedValue >= Double(currentAlertEntry.value) {
-                        return (
-                            true,
-                            lastBgReading.hideSlope ? "" : lastBgReading.unitizedDeltaStringPerMin(withSlope: lastBgReading.calculatedValueSlope, showUnit: true,  mgdl: isMg),
-                            createAlertTitleForBgReadingAlerts(bgReading: lastBgReading, alertKind: self),
-                            nil
-                        )
-                        
-                    } else {
-                        return (false, nil, nil, nil)
-                    }
+            // if alertEntry not enabled, return false
+            if !currentAlertEntry.alertType.enabled {return (false, nil, nil, nil)}
+            
+            if let lastBgReading = lastBgReading {
+                // first check if calculatedValue > 0.0, never know that it's not been checked by caller
+                if lastBgReading.calculatedValue == 0.0 {return (false, nil, nil, nil)}
+                // now do the actual check if alert is applicable or not
+                if lastBgReading.calculatedValue >= Double(currentAlertEntry.value) {
+                    return (
+                        true,
+                        lastBgReading.hideSlope ? "" : lastBgReading.unitizedDeltaStringPerMin(withSlope: lastBgReading.calculatedValueSlope, showUnit: true,  mgdl: isMg),
+                        createAlertTitleForBgReadingAlerts(bgReading: lastBgReading, alertKind: self),
+                        nil
+                    )
                     
                 } else {
                     return (false, nil, nil, nil)
                 }
+                
+            } else {
+                return (false, nil, nil, nil)
+            }
             
         case .fastdrop:
             // if alertEntry not enabled, return false

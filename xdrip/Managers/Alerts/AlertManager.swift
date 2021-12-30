@@ -341,7 +341,7 @@ class AlertManager: NSObject {
             let snoozePeriod = self.snoozeValueMinutes[snoozeIndex]
             
             // snooze
-            AlertManager.log.i("snoozing alert \(alertKind.descriptionForLogging()) for \(snoozePeriod.description) minutes (1)")
+            AlertManager.log.i("Snoozing alert \(alertKind.descriptionForLogging()) for \(snoozePeriod.description) minutes")
             self.getSnoozeParameters(alertKind: alertKind).snooze(snoozePeriodInMinutes: snoozePeriod)
 
             // save changes in coredata
@@ -349,6 +349,11 @@ class AlertManager: NSObject {
             
             SwiftEventBus.post(EventBusEvents.snoozeAlertsStatusChanged)
 
+            // add 2 seconds to make sure the status is changed
+            Timer.scheduledTimer(withTimeInterval: Double(snoozePeriod * 60 + 2), repeats: false) { _ in
+                SwiftEventBus.post(EventBusEvents.snoozeAlertsStatusChanged)
+            }
+            
             // if it's a missed reading alert, then cancel any planned missed reading alerts and reschedule
             // if content is not nil, then it means a missed reading alert went off, the user clicked it, app opens, user clicks snooze, snoozing must be set
             // if content is nil, then this is an alert snoozed via presnooze button, missed reading alert needs to recalculated.
@@ -403,6 +408,8 @@ class AlertManager: NSObject {
             // save changes in coredata
             CoreDataManager.shared.saveChanges()
             
+            SwiftEventBus.post(EventBusEvents.snoozeAlertsStatusChanged)
+
             // add 2 seconds to make sure the status is changed
             Timer.scheduledTimer(withTimeInterval: Double(snoozePeriodInMinutes * 60 + 2), repeats: false) { _ in
                 SwiftEventBus.post(EventBusEvents.snoozeAlertsStatusChanged)
@@ -718,7 +725,10 @@ class AlertManager: NSObject {
             }
         }
         
-        NoteManager.shared.saveAlertNoteIfNeeded(alertKind: alertKind, bgReading: lastBgReading)
+        if alertKind.isBgRelated {
+            NoteManager.shared.saveAlertNoteIfNeeded(alertKind: alertKind, bgReading: lastBgReading)
+            EasyTracker.logEvent(Events.prefixBgAlert + alertKind.descriptionForLogging())
+        }
         
         return true
     }   

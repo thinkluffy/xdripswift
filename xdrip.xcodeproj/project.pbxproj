@@ -87,6 +87,8 @@
 		4E94C338277AE0C000382122 /* DexcomBackfillStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C311277AE0C000382122 /* DexcomBackfillStream.swift */; };
 		4E94C339277AE0C000382122 /* AuthRequestTxMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C312277AE0C000382122 /* AuthRequestTxMessage.swift */; };
 		4E94C33C277B597200382122 /* Notes.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E94C33E277B597200382122 /* Notes.strings */; };
+		4E94C342277DE4FB00382122 /* EasyTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C341277DE4FA00382122 /* EasyTracker.swift */; };
+		4E94C344277DE5D200382122 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C343277DE5D200382122 /* Events.swift */; };
 		4E9D7978273A983600B666C5 /* ChartDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D7977273A983600B666C5 /* ChartDetailsViewController.swift */; };
 		4E9D7986273BEC5500B666C5 /* BaseAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D797B273BEC5500B666C5 /* BaseAppDelegate.swift */; };
 		4E9D7987273BEC5500B666C5 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D797C273BEC5500B666C5 /* Log.swift */; };
@@ -713,6 +715,8 @@
 		4E94C33D277B597200382122 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Notes.strings; sourceTree = "<group>"; };
 		4E94C33F277B597800382122 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/Notes.strings; sourceTree = "<group>"; };
 		4E94C340277DBE7500382122 /* TrySomething.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = TrySomething.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		4E94C341277DE4FA00382122 /* EasyTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyTracker.swift; sourceTree = "<group>"; };
+		4E94C343277DE5D200382122 /* Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
 		4E9D7977273A983600B666C5 /* ChartDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDetailsViewController.swift; sourceTree = "<group>"; };
 		4E9D797B273BEC5500B666C5 /* BaseAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseAppDelegate.swift; sourceTree = "<group>"; };
 		4E9D797C273BEC5500B666C5 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
@@ -1365,6 +1369,7 @@
 				4E9D7991273BF04400B666C5 /* UI */,
 				4E9D797B273BEC5500B666C5 /* BaseAppDelegate.swift */,
 				4E9D797D273BEC5500B666C5 /* ConfigProxy.swift */,
+				4E94C341277DE4FA00382122 /* EasyTracker.swift */,
 				4E9D7983273BEC5500B666C5 /* iOS.swift */,
 				4E9D797C273BEC5500B666C5 /* Log.swift */,
 				4E9D7984273BEC5500B666C5 /* PThreadReadWriteLock.swift */,
@@ -2428,6 +2433,7 @@
 				F8E3A2AA23DA520B00E5E98A /* ConstantsWatch.swift */,
 				4752B3FF263570DA0081D551 /* ConstantsStatistics.swift */,
 				4E2C95BE275231F90073D692 /* Constants.swift */,
+				4E94C343277DE5D200382122 /* Events.swift */,
 			);
 			name = Constants;
 			path = xdrip/Constants;
@@ -2778,7 +2784,6 @@
 			buildPhases = (
 				E95BFBBCCD8F2D55529701C3 /* [CP] Check Pods Manifest.lock */,
 				4EE66F062733DF7B00548A46 /* ShellScript */,
-				B1F88C5424E33F3045BAF991 /* [CP] Prepare Artifacts */,
 				F8AC425621ADEBD60078C348 /* Sources */,
 				F8AC425721ADEBD60078C348 /* Frameworks */,
 				F8AC425821ADEBD60078C348 /* Resources */,
@@ -3096,23 +3101,6 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [ $ACTION != \"indexbuild\" ]; then\n  \"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R.generated.swift\"\nfi\n";
 		};
-		B1F88C5424E33F3045BAF991 /* [CP] Prepare Artifacts */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-xdrip/Pods-xdrip-artifacts-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Prepare Artifacts";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-xdrip/Pods-xdrip-artifacts-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-xdrip/Pods-xdrip-artifacts.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		E95BFBBCCD8F2D55529701C3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3345,6 +3333,7 @@
 				4E068520276DD78D0063AF46 /* DatePickerSheetContent.swift in Sources */,
 				F830991C23C2909E005741DF /* Watlaa+CoreDataClass.swift in Sources */,
 				F808D2CC240328FA0084B5DB /* Bubble+CoreDataClass.swift in Sources */,
+				4E94C344277DE5D200382122 /* Events.swift in Sources */,
 				F8A1586122EDB844007F5B5D /* ConstantsNotifications.swift in Sources */,
 				4E94C31A277AE0C000382122 /* KeepAliveTxMessage.swift in Sources */,
 				F8DF765523E34FD500063910 /* DexcomG5+CoreDataProperties.swift in Sources */,
@@ -3546,6 +3535,7 @@
 				F8B3A856227F28DC004BA588 /* AlertTypeSettingsViewController.swift in Sources */,
 				F8B3A845227F090E004BA588 /* SettingsViewDexcomSettingsViewModel.swift in Sources */,
 				F8DF766223E390D100063910 /* BLEPeripheral+CoreDataProperties.swift in Sources */,
+				4E94C342277DE4FB00382122 /* EasyTracker.swift in Sources */,
 				F8A1585F22EDB81E007F5B5D /* ConstantsLog.swift in Sources */,
 				F8A1586522EDB89D007F5B5D /* ConstantsDefaultAlertTypeSettings.swift in Sources */,
 				4EB0DE6B27735AC500DBF7C1 /* AgreementViewController.swift in Sources */,
@@ -3910,7 +3900,7 @@
 				CURRENT_PROJECT_VERSION = 1005;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				INFOPLIST_FILE = "xDrip4iOS Widget/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3935,7 +3925,7 @@
 				CURRENT_PROJECT_VERSION = 1005;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				INFOPLIST_FILE = "xDrip4iOS Widget/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4004,7 +3994,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -4062,7 +4052,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -4076,7 +4066,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FB1D964808BD308C74247D66 /* Pods-xdrip.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APP_GROUP_IDENTIFIER = "group.com.${DEVELOPMENT_TEAM}.loopkit.LoopGroup";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -4106,7 +4095,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 170A1629CB2C62ADD901F4A6 /* Pods-xdrip.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APP_GROUP_IDENTIFIER = "group.com.${DEVELOPMENT_TEAM}.loopkit.LoopGroup";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

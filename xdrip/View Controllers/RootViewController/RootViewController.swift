@@ -390,7 +390,7 @@ final class RootViewController: UIViewController {
     ///     - glucoseData : array with new readings
     ///     - sensorTimeInMinutes : should be present only if it's the first reading(s) being processed for a specific sensor and is needed if it's a transmitterType that returns true to the function canDetectNewSensor
     private func processNewGlucoseData(glucoseData: inout [GlucoseData], sensorAge: TimeInterval?) {
-        let performanceTrace = Performance.startTrace(name: PerformanceTraceName.processNewGlucoseData)
+        let performanceTrace = Performance.startTrace(name: Events.processNewGlucoseData)
 
         defer {
             performanceTrace?.stop()
@@ -1447,11 +1447,13 @@ extension RootViewController: CGMTransmitterDelegate {
         trace("new sensor detected", log: log, category: ConstantsLog.categoryRootView, type: .info)
         
         // unwrap cgmTransmitter
-        guard let cgmTransmitter = self.bluetoothPeripheralManager?.getCGMTransmitter() else {return}
+        guard let cgmTransmitter = self.bluetoothPeripheralManager?.getCGMTransmitter() else {
+            return
+        }
         
         stopSensor(cGMTransmitter: cgmTransmitter, sendToTransmitter: false)
 
-        // if sensorStartDate is given, then unwrap coreDataManager and startSensor
+        // if sensorStartDate is given, then startSensor
         if let sensorStartDate = sensorStartDate {
             
             // use sensorCode nil, in the end there will be no start sensor command sent to the transmitter because we just received the sensorStartTime from the transmitter, so it's already started
@@ -1460,6 +1462,8 @@ extension RootViewController: CGMTransmitterDelegate {
                         sensorCode: nil,
                         sendToTransmitter: false)
         }
+       
+        EasyTracker.logEvent(Events.prefixNewSensor + cgmTransmitter.cgmTransmitterType().rawValue)
     }
     
     func sensorNotDetected() {

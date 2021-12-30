@@ -195,12 +195,9 @@ class BluetoothPeripheralManager: NSObject {
                             }
                             
                         } else {
-                            
                             // bluetoothTransmitters array (which shoul dhave the same number of elements as bluetoothPeripherals) needs to have an empty row for the transmitter
                             bluetoothTransmitters.insert(nil, at: index)
-                            
                         }
-                        
                     }
                  
                 case .AtomType:
@@ -222,12 +219,9 @@ class BluetoothPeripheralManager: NSObject {
                             }
                             
                         } else {
-                            
                             // bluetoothTransmitters array (which shoul dhave the same number of elements as bluetoothPeripherals) needs to have an empty row for the transmitter
                             bluetoothTransmitters.insert(nil, at: index)
-                            
                         }
-                        
                     }
                     
                 case .Libre2Type:
@@ -357,18 +351,6 @@ class BluetoothPeripheralManager: NSObject {
                 }
             }
         }
-        
-        
-//        // CAN BE DELETED ONCE 3.X IS NOT USED ANYMORE
-//        // if cgmTransUserDefaults.standard.cgmTransmitterTypemitterType is nil but UserDefaults.standard.cgmTransmitterDeviceAddress is not nil, then this is the first install of 4.x after 3.x
-//        if UserDefaults.standard.cgmTransmitterType != nil &&  UserDefaults.standard.cgmTransmitterDeviceAddress != nil {
-//
-//            uIViewController.present(UIAlertController(title: Texts_Common.warning, message: "Transmitters are now created in the bluetooth tab. You will need to recreate your transmitter first. Your sensor status will remain", actionHandler: nil), animated: true, completion: nil)
-//
-//            UserDefaults.standard.cgmTransmitterDeviceAddress = nil
-//
-//        }
-//        // DELETE UP TO HERE
         
         // when user changes any of the buetooth peripheral related settings, that need to be sent to the transmitter
         addObservers()
