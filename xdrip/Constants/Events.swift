@@ -17,6 +17,7 @@ enum Events {
     // MARK: - analytics events
 
     static let prefixBgAlert = "bgAlert_"
-    
     static let prefixNewSensor = "newSensor_"
+    
+    static let enableFullFeatureMode = "enableFullFeatureMode"
 }

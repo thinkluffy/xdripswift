@@ -121,6 +121,8 @@ class AboutViewController: LegacySubSettingsViewController {
                     self.buildClickTimestamp = nil
                     self.buildClickCount = 0
                     self.view.makeToast(R.string.common.developerModeEnabled(), duration: 2, position: .bottom)
+                    
+                    EasyTracker.logEvent(Events.enableFullFeatureMode)
                 }
             })
             .operationCell(title: R.string.settingsViews.check_app_version(), detailedText: nil, didClick: { [unowned self] operationCell, tableView, indexPath in
