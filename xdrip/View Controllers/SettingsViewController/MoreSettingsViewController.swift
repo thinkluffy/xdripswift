@@ -55,8 +55,8 @@ class MoreSettingsViewController: SubSettingsViewController {
                     Log.level = Log.Level.warning
                 }
             })
-            .toggleCell(title: R.string.settingsViews.smoothLibreValues(), isOn: UserDefaults.standard.smoothLibreValues, icon: nil, toggleDidChange: { from, to in
-                UserDefaults.standard.smoothLibreValues = to
+            .toggleCell(title: R.string.settingsViews.smoothBgReadings(), isOn: UserDefaults.standard.smoothBgReadings, icon: nil, toggleDidChange: { from, to in
+                UserDefaults.standard.smoothBgReadings = to
             })
 
         tableData = tableDataBuilder.build()

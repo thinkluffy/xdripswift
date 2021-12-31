@@ -118,7 +118,7 @@ class LibreDataParser {
         previousRawValues = Array(trend.map({$0.glucoseLevelRaw})[0..<(min(trend.count, ConstantsLibreSmoothing.amountOfPreviousReadingsToStore))])
         
         // smooth, if required
-        if UserDefaults.standard.smoothLibreValues {
+        if UserDefaults.standard.smoothBgReadings {
             
             // apply Libre smoothing
             LibreSmoothing.smooth(trend: &trend, repeatPerMinuteSmoothingSavitzkyGolay: ConstantsLibreSmoothing.libreSmoothingRepeatPerMinuteSmoothing, filterWidthPerMinuteValuesSavitzkyGolay: ConstantsLibreSmoothing.filterWidthPerMinuteValues, filterWidthPer5MinuteValuesSavitzkyGolay: ConstantsLibreSmoothing.filterWidthPer5MinuteValues, repeatPer5MinuteSmoothingSavitzkyGolay: ConstantsLibreSmoothing.repeatPer5MinuteSmoothing)
@@ -142,7 +142,7 @@ class LibreDataParser {
         }, 124)
         
         // smooth history one time, if required
-        if UserDefaults.standard.smoothLibreValues {
+        if UserDefaults.standard.smoothBgReadings {
             
             // add the oldest trend value to the history, this will make the smoothing of the history values more correct
             // otherwise we apply linear regression to the first element(s) in the history, which will give a less accurate result
@@ -165,14 +165,12 @@ class LibreDataParser {
             if trendAdded {
                 history.remove(at: 0)
             }
-            
         }
         
         // add history to returnvalue
         returnValue = returnValue + history
         
         return (returnValue, sensorState, sensorTimeInMinutes)
-        
     }
     
     /// - Process Libre block for all types of Libre sensors, and for both with and without web oop (without only for Libre 1). It checks if webOOP is enabled, if yes tries to use the webOOP, response is processed and delegate is called. If webOOP not enabled, and if Libre1, then local processing is done, in that case glucose values are not calibrated

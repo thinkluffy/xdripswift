@@ -6,9 +6,7 @@ import AudioToolbox
 /// instance of this class will do the follower functionality. Just make an instance, it will listen to the settings, do the regular download if needed - it could be deallocated when isMaster setting in Userdefaults changes, but that's not necessary to do
 class NightScoutFollowManager: NSObject {
     
-    // MARK: - public properties
-    
-    // MARK: - private properties
+    private static let log = Log(type: NightScoutFollowManager.self)
     
     /// to solve problem that sometemes UserDefaults key value changes is triggered twice for just one change
     private let keyValueObserverTimeKeeper:KeyValueObserverTimeKeeper = KeyValueObserverTimeKeeper()
@@ -60,7 +58,7 @@ class NightScoutFollowManager: NSObject {
             }
             
         } catch let error {
-            trace("in init, exception while trying to create audoplayer, error = %{public}@", log: self.log, category: ConstantsLog.categoryNightScoutFollowManager, type: .error, error.localizedDescription)
+            NightScoutFollowManager.log.e("in init, exception while trying to create audoplayer, error: \(error.localizedDescription)")
         }
 
         // call super.init
@@ -129,7 +127,7 @@ class NightScoutFollowManager: NSObject {
     /// download recent readings from nightScout, send result to delegate, and schedule new download
     @objc private func download() {
         
-        trace("in download", log: self.log, category: ConstantsLog.categoryNightScoutFollowManager, type: .info)
+        NightScoutFollowManager.log.d("in download")
 
         // nightscout URl must be non-nil - could be that url is not valid, this is not checked here, the app will just retry every x minutes
         guard let nightScoutUrl = UserDefaults.standard.nightScoutUrl else {return}
@@ -147,21 +145,29 @@ class NightScoutFollowManager: NSObject {
         let count = Int(-timeStampOfFirstBgReadingToDowload.timeIntervalSinceNow / 60 + 1)
         
         // ceate endpoint to get latest entries
-//        let latestEntriesEndpoint = Endpoint.getEndpointForLatestNSEntries(hostAndScheme: nightScoutUrl, count: count, olderThan: timeStampOfFirstBgReadingToDowload, token: UserDefaults.standard.nightScoutAPIKey)
-        let latestEntriesEndpoint = Endpoint.getEndpointForLatestNSEntries(hostAndScheme: nightScoutUrl, count: count, olderThan: timeStampOfFirstBgReadingToDowload, token: UserDefaults.standard.nightscoutToken)
+        let latestEntriesEndpoint = Endpoint.getEndpointForLatestNSEntries(
+            hostAndScheme: nightScoutUrl,
+            port: UserDefaults.standard.nightScoutPort == 0 ? nil : UserDefaults.standard.nightScoutPort,
+            count: count,
+            olderThan: timeStampOfFirstBgReadingToDowload,
+            token: UserDefaults.standard.nightscoutToken
+        )
         
         // create downloadTask and start download
         if let url = latestEntriesEndpoint.url {
             
-            let task = URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
+            NightScoutFollowManager.log.d("To download, url: \(url.absoluteString)")
+
+            let task = URLSession.shared.dataTask(with: url) {
+                data, response, error in
                 
-                trace("in download, finished task", log: self.log, category: ConstantsLog.categoryNightScoutFollowManager, type: .info)
+                NightScoutFollowManager.log.d("in download, finished task")
                 
                 // get array of FollowGlucoseData from json
                 var followGlucoseDataArray = [NightScoutBgReading]()
                 self.processDownloadResponse(data: data, urlResponse: response, error: error, followGlucoseDataArray: &followGlucoseDataArray)
                 
-                trace("    finished download,  %{public}@ readings", log: self.log, category: ConstantsLog.categoryNightScoutFollowManager, type: .info, followGlucoseDataArray.count.description)
+                NightScoutFollowManager.log.d("finished download, readings count: \(followGlucoseDataArray.count)")
                 
                 // call to delegate and rescheduling the timer must be done in main thread;
                 DispatchQueue.main.sync {
@@ -173,16 +179,12 @@ class NightScoutFollowManager: NSObject {
 
                     // schedule new download
                     self.scheduleNewDownload(followGlucoseDataArray: &followGlucoseDataArray)
-
                 }
-                
-            })
+            }
             
-            trace("in download, calling task.resume", log: log, category: ConstantsLog.categoryNightScoutFollowManager, type: .info)
+            NightScoutFollowManager.log.d("in download, calling task.resume")
             task.resume()
-            
         }
-
     }
     
     /// wel schedule new download with timer, when timer expires download() will be called
@@ -190,7 +192,7 @@ class NightScoutFollowManager: NSObject {
     ///     - followGlucoseDataArray : array of FollowGlucoseData, first element is the youngest, can be empty. This is the data downloaded during previous download. This parameter is just there to get the timestamp of the latest reading, in order to calculate the next download time
     private func scheduleNewDownload(followGlucoseDataArray:inout [NightScoutBgReading]) {
         
-        trace("in scheduleNewDownload", log: self.log, category: ConstantsLog.categoryNightScoutFollowManager, type: .info)
+        NightScoutFollowManager.log.d("==> scheduleNewDownload")
         
         // start with timestamp now + 5 minutes and 10 seconds
         var nextFollowDownloadTimeStamp = Date(timeIntervalSinceNow: 5 * 60 + 10)
@@ -223,12 +225,11 @@ class NightScoutFollowManager: NSObject {
     /// - returns: FollowGlucoseData , possibly empty - first entry is the youngest
     private func processDownloadResponse(data:Data?, urlResponse:URLResponse?, error:Error?, followGlucoseDataArray:inout [NightScoutBgReading] ) {
         
-        // log info
-        trace("in processDownloadResponse", log: self.log, category: ConstantsLog.categoryNightScoutFollowManager, type: .info)
+        NightScoutFollowManager.log.d("==> in processDownloadResponse")
         
         // if error log an error
         if let error = error {
-            trace("    failed to download, error = %{public}@", log: self.log, category: ConstantsLog.categoryNightScoutFollowManager, type: .error, error.localizedDescription)
+            NightScoutFollowManager.log.e("failed to download, error: \(error.localizedDescription)")
             return
         }
         
@@ -275,27 +276,27 @@ class NightScoutFollowManager: NSObject {
                                         }
 
                                     } else {
-                                        trace("     failed to create glucoseData, entry = %{public}@", log: self.log, category: ConstantsLog.categoryNightScoutFollowManager, type: .error, entry.description)
+                                        NightScoutFollowManager.log.e("failed to create glucoseData, entry: \(entry.description)")
                                     }
                                 }
                             }
                             
                         } else {
-                            trace("     json deserialization failed, result is not a json array, data received = %{public}@", log: self.log, category: ConstantsLog.categoryNightScoutFollowManager, type: .error, dataAsString)
+                            NightScoutFollowManager.log.e("json deserialization failed, result is not a json array, data received: \( dataAsString)")
                         }
                         
                     } else {
-                        trace("     json deserialization failed, data received = %{public}@", log: self.log, category: ConstantsLog.categoryNightScoutFollowManager, type: .error, dataAsString)
+                        NightScoutFollowManager.log.e("json deserialization failed, data received: \(dataAsString)")
                     }
                     
                 } else {
-                    trace("     urlResponse.statusCode  is not 200 value = %{public}@", log: self.log, category: ConstantsLog.categoryNightScoutFollowManager, type: .error, urlResponse.statusCode.description)
+                    NightScoutFollowManager.log.e("urlResponse.statusCode is not 200, statusCode: \(urlResponse.statusCode.description)")
                 }
             } else {
-                trace("    data is nil", log: self.log, category: ConstantsLog.categoryNightScoutFollowManager, type: .error)
+                NightScoutFollowManager.log.e("data is nil")
             }
         } else {
-            trace("    urlResponse is not HTTPURLResponse", log: self.log, category: ConstantsLog.categoryNightScoutFollowManager, type: .error)
+            NightScoutFollowManager.log.e("urlResponse is not HTTPURLResponse")
         }
     }
     
@@ -322,10 +323,10 @@ class NightScoutFollowManager: NSObject {
         playSoundTimer = RepeatingTimer(timeInterval: TimeInterval(Double(ConstantsSuspensionPrevention.interval)), eventHandler: {
                 // play the sound
             
-             trace("in eventhandler checking if audioplayer exists", log: self.log, category: ConstantsLog.categoryNightScoutFollowManager, type: .info)
+            NightScoutFollowManager.log.d("in eventhandler checking if audioplayer exists")
             
                 if let audioPlayer = self.audioPlayer, !audioPlayer.isPlaying {
-                    trace("playing audio", log: self.log, category: ConstantsLog.categoryNightScoutFollowManager, type: .info)
+                    NightScoutFollowManager.log.d("playing audio")
                     audioPlayer.play()
                 }
             })
@@ -381,12 +382,9 @@ class NightScoutFollowManager: NSObject {
                 switch keyPathEnum {
                     
                 case UserDefaults.Key.isMaster, UserDefaults.Key.nightScoutUrl, UserDefaults.Key.nightScoutEnabled :
-                    
                     // change by user, should not be done within 200 ms
-                    if (keyValueObserverTimeKeeper.verifyKey(forKey: keyPathEnum.rawValue, withMinimumDelayMilliSeconds: 200)) {
-                        
+                    if keyValueObserverTimeKeeper.verifyKey(forKey: keyPathEnum.rawValue, withMinimumDelayMilliSeconds: 200) {
                         verifyUserDefaultsAndStartOrStopFollowMode()
-                        
                     }
                     
                 default:
@@ -395,6 +393,4 @@ class NightScoutFollowManager: NSObject {
             }
         }
     }
-    
-
 }
