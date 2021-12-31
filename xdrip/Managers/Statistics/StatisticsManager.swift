@@ -154,14 +154,12 @@ public final class StatisticsManager {
                     // calculate average glucose value
                     averageStatisticValue = Double(glucoseValues.reduce(0, +)) / Double(glucoseValues.count)
                 
-                    
                     // calculate an estimated HbA1C value using either IFCC (e.g 49 mmol/mol) or NGSP (e.g 5.8%) methods: http://www.ngsp.org/ifccngsp.asp
                     if UserDefaults.standard.useIFCCA1C {
                         a1CStatisticValue = (((46.7 + Double(isMgDl ? averageStatisticValue! : (averageStatisticValue! / ConstantsBloodGlucose.mgDlToMmoll))) / 28.7) - 2.152) / 0.09148
                     } else {
                         a1CStatisticValue = (46.7 + Double(isMgDl ? averageStatisticValue! : (averageStatisticValue! / ConstantsBloodGlucose.mgDlToMmoll))) / 28.7
                     }
-                    
                     
                     // calculate standard deviation
                     var sum: Double = 0;
@@ -172,39 +170,45 @@ public final class StatisticsManager {
                     
                     stdDeviation = sqrt(sum / Double(glucoseValues.count))
                     
-                    
                     // calculate Coeffecient of Variation
                     cVStatisticValue = ((stdDeviation!) / averageStatisticValue!) * 100
                 
 					// https://web.archive.org/web/20160523152519/http://www.healthline.com/diabetesmine/a-new-view-of-glycemic-variability-how-long-is-your-line#2
 					// x轴单位为分钟，y轴单位为mg/dL
-					func gvi(data: [BgReading]) -> Double {
+					func gvi(data: [BgReading]) -> Double? {
 						guard data.count > 1 else {
-							return Double(data.count)
+							return nil
 						}
                         
 						var L: Double = 0
-						let L0: Double = abs(data.first!.timeStamp.timeIntervalSince(data.last!.timeStamp)/60)
 						
-						var lastItem = data.first!
+						var previousItem = data.first!
 						for i in 1 ..< data.count {
 							let current = data[i]
-							let timeInterval = current.timeStamp.timeIntervalSince(lastItem.timeStamp)
+							let timeInterval = current.timeStamp.timeIntervalSince(previousItem.timeStamp)
                             
                             // filter readings having 5 miniuts interval
                             if abs(timeInterval) >= (4.5 * Date.minuteInSeconds) {
-								let dx = timeInterval / 60 // 单位分钟
-								let dy = current.calculatedValue - lastItem.calculatedValue
-								L +=  sqrt(pow(dx, 2) + pow(dy, 2))
-								lastItem = current
+								let dx = timeInterval / 60 // unit: minute
+								let dy = current.calculatedValue - previousItem.calculatedValue
+								L += sqrt(pow(dx, 2) + pow(dy, 2))
+								previousItem = current
 							}
 						}
-						return L / L0
+						
+						if previousItem != data.first! {
+							let L0: Double = abs(data.first!.timeStamp.timeIntervalSince(previousItem.timeStamp)/60)
+							return L / L0
+							
+						} else {
+							return nil
+						}
 					}
+					
 					gviStatisticValue = gvi(data: readings)
-					if inRangeStatisticValue == 100 {
+					if inRangeStatisticValue == 100 || gviStatisticValue == nil {
 						pgsStatisticValue = 0
-                        
+						
 					} else {
 						pgsStatisticValue = gviStatisticValue! * averageStatisticValue! * (isMgDl ? 1 : ConstantsBloodGlucose.mmollToMgdl ) * (1 - inRangeStatisticValue!/100)
 					}

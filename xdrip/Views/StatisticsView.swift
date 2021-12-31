@@ -8,6 +8,7 @@
 
 import UIKit
 import PieCharts
+import CryptoKit
 
 class StatisticsView: UIView {
     
@@ -125,21 +126,30 @@ class StatisticsView: UIView {
         
         if let readingsCount = statistics.readingsCount {
             bgReadingsCountStatisticLabelOutlet.text = "\(readingsCount)"
-        }
+			
+		} else {
+			bgReadingsCountStatisticLabelOutlet.text = "--"
+		}
         
         if let stdDeviation = statistics.stdDeviation {
             if isMgDl {
-                self.stdDeviationStatisticLabelOutlet.text = Int(stdDeviation.round(toDecimalPlaces: 0)).description + " mg/dL"
+                stdDeviationStatisticLabelOutlet.text = Int(stdDeviation.round(toDecimalPlaces: 0)).description + " mg/dL"
                 
             } else {
-                self.stdDeviationStatisticLabelOutlet.text = stdDeviation.round(toDecimalPlaces: 1).description + " mmol/L"
+                stdDeviationStatisticLabelOutlet.text = stdDeviation.round(toDecimalPlaces: 1).description + " mmol/L"
             }
-        }
+			
+		} else {
+			stdDeviationStatisticLabelOutlet.text = "--"
+		}
         
         // if there are no values returned (new sensor?) then just leave the default "-" showing
         if let averageStatisticValue = statistics.averageStatisticValue {
             averageStatisticLabelOutlet.text = (isMgDl ? Int(averageStatisticValue.round(toDecimalPlaces: 0)).description : averageStatisticValue.round(toDecimalPlaces: 1).description) + (isMgDl ? " mg/dL" : " mmol/L")
-        }
+			
+		} else {
+			averageStatisticLabelOutlet.text = "--"
+		}
         
         // if there are no values returned (new sensor?) then just leave the default "-" showing
         if let a1CStatisticValue = statistics.a1CStatisticValue {
@@ -149,20 +159,32 @@ class StatisticsView: UIView {
             } else {
                 a1CStatisticLabelOutlet.text = a1CStatisticValue.round(toDecimalPlaces: 1).description + "%"
             }
-        }
+			
+		} else {
+			a1CStatisticLabelOutlet.text = "--"
+		}
         
         // if there are no values returned (new sensor?) then just leave the default "-" showing
         if let cVStatisticValue = statistics.cVStatisticValue {
             cVStatisticLabelOutlet.text = Int(cVStatisticValue.round(toDecimalPlaces: 0)).description + "%"
-        }
+			
+		} else {
+			cVStatisticLabelOutlet.text = "--%"
+		}
         
         if let gviStatisticValue = statistics.gviStatisticValue {
-            gviLabel.text = String(format: "%.1f", gviStatisticValue)
-        }
+			gviLabel.text = String(format: "%.1f", gviStatisticValue.round(toDecimalPlaces: 1))
+			
+        } else {
+			gviLabel.text = "--"
+		}
         
         if let pgsStatisticValue = statistics.pgsStatisticValue {
-            pgsLabel.text = String(format: "%.0f", pgsStatisticValue)
-        }
+			pgsLabel.text = Int(pgsStatisticValue.round(toDecimalPlaces: 0)).description
+			
+		} else {
+			pgsLabel.text = "--"
+		}
         
         // disable the chart animation if it's just a normal update, enable it if the call comes from didAppear()
         if animatePieChart {
