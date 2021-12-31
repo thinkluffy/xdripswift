@@ -808,10 +808,12 @@ final class RootViewController: UIViewController {
         updateLabelsAndChartTimer = createAndScheduleUpdateLabelsAndChartTimer()
         
         // updateLabelsAndChartTimer needs to be created when app comes back from background to foreground
-        ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: appManagerKeyCreateupdateLabelsAndChartTimer, closure: {updateLabelsAndChartTimer = createAndScheduleUpdateLabelsAndChartTimer()})
+        ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: appManagerKeyCreateupdateLabelsAndChartTimer) {
+            updateLabelsAndChartTimer = createAndScheduleUpdateLabelsAndChartTimer()
+        }
         
         // when app goes to background
-        ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground(key: appManagerKeyInvalidateupdateLabelsAndChartTimerAndCloseSnoozeViewController, closure: {
+        ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground(key: appManagerKeyInvalidateupdateLabelsAndChartTimerAndCloseSnoozeViewController) {
             
             // this is for the case that the snoozeViewController is shown. If not removed, then if user opens alert notification, the alert snooze wouldn't be shown
             // that's why, close the snoozeViewController
@@ -819,7 +821,7 @@ final class RootViewController: UIViewController {
             
             // updateLabelsAndChartTimer needs to be invalidated when app goes to background
             invalidateUpdateLabelsAndChartTimer()
-        })
+        }
     }
     
     /// opens an alert, that requests user to enter a calibration value, and calibrates
@@ -853,7 +855,6 @@ final class RootViewController: UIViewController {
                          animated: true)
             
             return
-            
         }
         
         // if it's a user requested calibration, but there's no calibration yet, then give info and return - first calibration will be requested by app via notification
@@ -947,7 +948,7 @@ final class RootViewController: UIViewController {
                 // update labels
                 self.updateLabelsAndChart(overrideApplicationState: false)
                 
-                // bluetoothPeripherals (M5Stack, ..) should receive latest reading with calculated value
+                // bluetoothPeripherals should receive latest reading with calculated value
                 self.bluetoothPeripheralManager?.sendLatestReading()
                 
                 // watchManager should process new reading
@@ -955,7 +956,6 @@ final class RootViewController: UIViewController {
                 
                 // send also to loopmanager, not interesting for loop probably, but the data is also used for today widget
                 self.loopManager.share()
-                
             }
         }
         

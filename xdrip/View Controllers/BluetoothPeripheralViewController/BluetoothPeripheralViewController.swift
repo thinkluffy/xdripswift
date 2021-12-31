@@ -274,7 +274,6 @@ class BluetoothPeripheralViewController: UIViewController {
             }
             
             return numberOfGeneralSections
-            
         }
         
         // first check if bluetoothPeripheral already known
@@ -304,11 +303,8 @@ class BluetoothPeripheralViewController: UIViewController {
                             nonFixedSettingsSectionIsShown = false
                             
                             return 1
-                            
                         }
-
                     }
-                    
                 }
                 
                 if expectedBluetoothPeripheralType.canWebOOP(), expectedBluetoothPeripheralType.canUseNonFixedSlope() {
@@ -336,17 +332,12 @@ class BluetoothPeripheralViewController: UIViewController {
                     return 2
                     
                 } else {
-                    
                     return 1
-                    
                 }
             }
-            
         }
-        
         // bluetoothPeripheral not yet known, only show first section with name alias, ...
         return 1
-        
     }
 
     // MARK: - View Life Cycle

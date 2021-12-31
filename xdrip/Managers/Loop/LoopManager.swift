@@ -9,17 +9,12 @@
 import Foundation
 
 public class LoopManager: NSObject {
-    
-    // MARK: - private properties
-        
+            
     /// a BgReadingsAccessor
     private var bgReadingsAccessor = BgReadingsAccessor()
     
     /// shared UserDefaults to publish data
     private let sharedUserDefaults = UserDefaults(suiteName: Bundle.main.appGroupSuiteName)
-    
-    
-    // MARK: - public functions
     
     /// share latest readings with Loop
     public func share() {
@@ -39,7 +34,7 @@ public class LoopManager: NSObject {
         for reading in lastReadings {
             var representation = reading.dictionaryRepresentationForDexcomShareUpload
             // Adding "from" field to be able to use multiple BG sources with the same shared group in FreeAPS X
-            representation["from"] = "xDrip"
+            representation["from"] = "zDrip"
             dictionary.append(representation)
         }
 
@@ -50,17 +45,12 @@ public class LoopManager: NSObject {
             let maxAmountsOfReadingsToAppend = ConstantsShareWithLoop.maxReadingsToShareWithLoop - dictionary.count
             
             if maxAmountsOfReadingsToAppend > 0 {
-                
                 let rangeToAppend = 0..<(min(storedDictionary.count, maxAmountsOfReadingsToAppend))
                 
                 for value in storedDictionary[rangeToAppend] {
-                    
                     dictionary.append(value)
-                    
                 }
-                
             }
-            
         }
         
         guard let data = try? JSONSerialization.data(withJSONObject: dictionary) else {
@@ -72,7 +62,5 @@ public class LoopManager: NSObject {
         UserDefaults.standard.timeStampLatestLoopSharedBgReading = lastReadings.first!.timeStamp
         
         UserDefaults.standard.readingsStoredInSharedUserDefaultsAsDictionary = dictionary
-        
     }
-    
 }
