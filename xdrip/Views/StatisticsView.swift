@@ -157,11 +157,11 @@ class StatisticsView: UIView {
         }
         
         if let gviStatisticValue = statistics.gviStatisticValue {
-            gviLabel.text = String(format: "%.1f", gviStatisticValue)
+			gviLabel.text = String(format: "%.1f", gviStatisticValue.round(toDecimalPlaces: 1))
         }
         
         if let pgsStatisticValue = statistics.pgsStatisticValue {
-            pgsLabel.text = String(format: "%.0f", pgsStatisticValue)
+			pgsLabel.text = Int(pgsStatisticValue.round(toDecimalPlaces: 0)).description
         }
         
         // disable the chart animation if it's just a normal update, enable it if the call comes from didAppear()
