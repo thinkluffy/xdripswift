@@ -113,5 +113,6 @@
 "serviceIntegration" = "Service Integration";
 "toast_chart_height_smaller_than_urgent_high" = "Chart height can not be smaller than Urgent High Value";
 "check_app_version" = "Check App Verison";
-"toast_newer_app_version" = "New Version (%@), please update";
 "toast_no_newer_app_version" = "Already the latest version";
+"dialog_title_update_available" = "Update Available";
+"newer_app_version" = "New Version (%@), please update";

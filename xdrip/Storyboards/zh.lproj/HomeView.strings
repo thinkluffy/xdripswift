@@ -54,7 +54,7 @@
 "dexcomBatteryTooLow" = "发射器电量过低！";
 
 /// if web oop enabled, and also if transmitter supports this, user clicks calibrate button, but calibration is not possible
-"calibrationNotNecessary" = "使用瞬感算法时，不可以校准传感器。";
+"calibrationNotNecessary" = "使用发射器算法时，不可以校准传感器。";
 
 /// To give result about transitter result in notification body, failed
 "failed" = "Failed";

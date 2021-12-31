@@ -64,19 +64,19 @@ class DeveloperViewController: UIViewController {
                 alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 self.present(alert, animated: true)
             })
-//            .operationCell(title: "FRC Version", detailedText: String(RemoteConfigProxy.shared.versionId), didClick: { operationCell, indexPath in
-//                RemoteConfigProxy.shared.refresh() { refreshed in
-//                    self.navigationController?.view.makeToast("Refreshed!", duration: 2.0, position: .bottom)
-//                    operationCell.detailedText = String(RemoteConfigProxy.shared.versionId)
-//                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
-//                }
-//            })
-            
+        
             .section(headerTitle: "Common")
-            .toggleCell(title: "Remote Test Mode", isOn: RemoteConfigHost.testMode, toggleDidChange: { from, to in
+            .operationCell(title: "Remote Config Version", detailedText: String(RemoteConfigProxy.shared.versionId), didClick: { operationCell, tableView, indexPath in
+                RemoteConfigProxy.shared.refresh() { refreshed in
+                    self.view.makeToast("Refreshed!", duration: 2.0, position: .bottom)
+                    operationCell.detailedText = String(RemoteConfigProxy.shared.versionId)
+                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                }
+            })
+            .toggleCell(title: "Remote Config Test Mode", isOn: RemoteConfigHost.testMode, toggleDidChange: { from, to in
                 RemoteConfigHost.testMode = !RemoteConfigHost.testMode
 
-                self.navigationController?.view.makeToast("Please restart app to apply updates", duration: 4.0, position: .bottom)
+                self.navigationController?.view.makeToast("Restart app to apply", duration: 4.0, position: .bottom)
             })
             .operationCell(title: "Force a Crash", didClick: {
                 [unowned self] operationCell, tableView, indexPath in

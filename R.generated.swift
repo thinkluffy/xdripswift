@@ -3111,10 +3111,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let common_dontshowagain = Rswift.StringResource(key: "common_dontshowagain", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Edit
-      ///
-      /// Locales: en, zh
-      static let update = Rswift.StringResource(key: "update", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Firmware
       ///
       /// Locales: en, zh
@@ -3227,6 +3223,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let unknown = Rswift.StringResource(key: "unknown", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Update
+      ///
+      /// Locales: en, zh
+      static let update = Rswift.StringResource(key: "update", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Warning
       ///
       /// Locales: en, zh
@@ -3525,21 +3525,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("common_dontshowagain", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Edit
-      ///
-      /// Locales: en, zh
-      static func update(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("update", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "update"
-        }
-
-        return NSLocalizedString("update", tableName: "Common", bundle: bundle, comment: "")
       }
 
       /// en translation: Firmware
@@ -3960,6 +3945,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("unknown", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Update
+      ///
+      /// Locales: en, zh
+      static func update(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("update", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "update"
+        }
+
+        return NSLocalizedString("update", tableName: "Common", bundle: bundle, comment: "")
       }
 
       /// en translation: Warning
@@ -4629,7 +4629,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en
       static let unlock = Rswift.StringResource(key: "unlock", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: When using the Libre algoritm, it is not necessary to calibrate the sensor.
+      /// en translation: When using the Transmitter algoritm, it is not necessary to calibrate the sensor.
       ///
       /// Locales: en, zh
       static let calibrationNotNecessary = Rswift.StringResource(key: "calibrationNotNecessary", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
@@ -5211,7 +5211,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("unlock", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
-      /// en translation: When using the Libre algoritm, it is not necessary to calibrate the sensor.
+      /// en translation: When using the Transmitter algoritm, it is not necessary to calibrate the sensor.
       ///
       /// Locales: en, zh
       static func calibrationNotNecessary(preferredLanguages: [String]? = nil) -> String {
@@ -5954,7 +5954,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.settingsViews` struct is generated, and contains static references to 116 localization keys.
+    /// This `R.string.settingsViews` struct is generated, and contains static references to 117 localization keys.
     struct settingsViews {
       /// en translation: 5 Mins per Dot
       ///
@@ -6203,7 +6203,7 @@ struct R: Rswift.Validatable {
       /// en translation: New Version (%@), please update
       ///
       /// Locales: en, zh
-      static let toast_newer_app_version = Rswift.StringResource(key: "toast_newer_app_version", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      static let newer_app_version = Rswift.StringResource(key: "newer_app_version", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: NightScout
       ///
       /// Locales: en, zh
@@ -6356,6 +6356,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let settingsviews_nightScoutUrl = Rswift.StringResource(key: "settingsviews_nightScoutUrl", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Update Available
+      ///
+      /// Locales: en, zh
+      static let dialog_title_update_available = Rswift.StringResource(key: "dialog_title_update_available", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Upload Sensor Start Time
       ///
       /// Locales: en, zh
@@ -7343,17 +7347,17 @@ struct R: Rswift.Validatable {
       /// en translation: New Version (%@), please update
       ///
       /// Locales: en, zh
-      static func toast_newer_app_version(_ value1: String, preferredLanguages: [String]? = nil) -> String {
+      static func newer_app_version(_ value1: String, preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
-          let format = NSLocalizedString("toast_newer_app_version", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
+          let format = NSLocalizedString("newer_app_version", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
           return String(format: format, locale: applicationLocale, value1)
         }
 
         guard let (locale, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "toast_newer_app_version"
+          return "newer_app_version"
         }
 
-        let format = NSLocalizedString("toast_newer_app_version", tableName: "SettingsViews", bundle: bundle, comment: "")
+        let format = NSLocalizedString("newer_app_version", tableName: "SettingsViews", bundle: bundle, comment: "")
         return String(format: format, locale: locale, value1)
       }
 
@@ -7925,6 +7929,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("settingsviews_nightScoutUrl", tableName: "SettingsViews", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Update Available
+      ///
+      /// Locales: en, zh
+      static func dialog_title_update_available(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("dialog_title_update_available", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
+          return "dialog_title_update_available"
+        }
+
+        return NSLocalizedString("dialog_title_update_available", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
       /// en translation: Upload Sensor Start Time

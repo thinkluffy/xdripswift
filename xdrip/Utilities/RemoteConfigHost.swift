@@ -19,7 +19,7 @@ class RemoteConfigHost {
     }
     
     // MARK: - common keys
-
+    
     static var testMode: Bool {
         get {
             UserDefaults.standard.isRemoteConfigTestMode
@@ -30,7 +30,7 @@ class RemoteConfigHost {
         }
     }
     
-    static var latestVersion: JSON {
-        RemoteConfigProxy.shared.configValue(forKey: commonKey(key: "LatestVersion"), defaultValue: JSON())
+    static var latestAppVersion: JSON {
+        RemoteConfigProxy.shared.configValue(forKey: commonKey(key: "LatestAppVersion"), defaultValue: JSON())
     }
 }

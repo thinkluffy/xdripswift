@@ -112,7 +112,7 @@ class AboutViewController: LegacySubSettingsViewController {
                     self.buildClickCount = 0
                     return
                 }
-                    
+                
                 if self.buildClickCount > 10 {
                     AboutViewController.log.w("Full feature mode enabled!")
                     
@@ -125,11 +125,29 @@ class AboutViewController: LegacySubSettingsViewController {
             })
             .operationCell(title: R.string.settingsViews.check_app_version(), detailedText: nil, didClick: { [unowned self] operationCell, tableView, indexPath in
                 
-                let json = RemoteConfigHost.latestVersion
+                let json = RemoteConfigHost.latestAppVersion
                 if let versionCode = json["version_code"].int,
                    let versionName = json["version_name"].string,
                    versionCode > iOS.appVersionCode {
-                    self.view.makeToast(R.string.settingsViews.toast_newer_app_version(versionName), duration: 4, position: .bottom)
+                    
+                    if let updateUrlString = json["update_url"].string,
+                       let updateUrl = URL(string: updateUrlString),
+                       UIApplication.shared.canOpenURL(updateUrl) {
+                        
+                        let dialog = PopupDialog(
+                            title: R.string.settingsViews.dialog_title_update_available(),
+                            message: R.string.settingsViews.newer_app_version(versionName),
+                            actionTitle: R.string.common.update(),
+                            actionHandler: {
+                                UIApplication.shared.open(updateUrl, options: [:], completionHandler: nil)
+                            },
+                            cancelTitle: R.string.common.common_cancel()
+                        )
+                        self.present(dialog, animated: true)
+                        
+                    } else {
+                        self.view.makeToast(R.string.settingsViews.newer_app_version(versionName), duration: 4, position: .bottom)
+                    }
                     
                 } else {
                     self.view.makeToast(R.string.settingsViews.toast_no_newer_app_version(), duration: 2, position: .bottom)
