@@ -6,11 +6,13 @@ import Foundation
 struct Endpoint {
     
     /// the host example www.mywebsite.com, exclusive http or https
-    let host:String
+    let host: String
     
     /// scheme to use, like http:// or https://
-    let scheme:EndPointScheme
+    let scheme: EndPointScheme
 
+    let port: Int?
+    
     /// the path yes
     let path: String
     
@@ -24,6 +26,7 @@ struct Endpoint {
         components.host = host
         components.path = path
         components.queryItems = queryItems
+        components.port = port
         
         return components.url
     }

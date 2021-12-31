@@ -206,8 +206,8 @@ extension UserDefaults {
         /// LogEnabled enabled or not
         case LogEnabled = "LogEnabled"
         
-        /// case smooth libre values
-        case smoothLibreValues = "smoothLibreValues"
+        /// case smooth bg readings
+        case smoothBgReadings = "smoothBgReadings"
         
         /// used for Libre data parsing - only for Libre 1 or Libre 2 read via transmitter, ie full NFC block
         case previousRawLibreValues = "previousRawLibreValues"
@@ -743,7 +743,7 @@ extension UserDefaults {
     }
     
     /// Nightscout token, 0 means not set
-    @objc dynamic var nightscoutToken:String? {
+    @objc dynamic var nightscoutToken: String? {
         get {
             return string(forKey: Key.nightscoutToken.rawValue)
         }
@@ -755,7 +755,7 @@ extension UserDefaults {
     /// the nightscout url - starts with http
     ///
     /// when assigning a new value, it will be checked if it starts with http, if not then automatically https:// will be added
-    @objc dynamic var nightScoutUrl:String? {
+    @objc dynamic var nightScoutUrl: String? {
         get {
             return string(forKey: Key.nightScoutUrl.rawValue)
         }
@@ -765,7 +765,7 @@ extension UserDefaults {
     }
 
     /// the nightscout api key
-    @objc dynamic var nightScoutAPIKey:String? {
+    @objc dynamic var nightScoutAPIKey: String? {
         get {
             return string(forKey: Key.nightScoutAPIKey.rawValue)
         }
@@ -777,7 +777,7 @@ extension UserDefaults {
     // MARK: Dexcom Share Settings
     
     /// should readings be uploaded to Dexcom share server, true or false
-    @objc dynamic var uploadReadingstoDexcomShare:Bool {
+    @objc dynamic var uploadReadingstoDexcomShare: Bool {
         get {
             return bool(forKey: Key.uploadReadingstoDexcomShare.rawValue)
         }
@@ -787,7 +787,7 @@ extension UserDefaults {
     }
     
     /// dexcom share account name
-    @objc dynamic var dexcomShareAccountName:String? {
+    @objc dynamic var dexcomShareAccountName: String? {
         get {
             return string(forKey: Key.dexcomShareAccountName.rawValue)
         }
@@ -797,7 +797,7 @@ extension UserDefaults {
     }
     
     /// dexcom share password
-    @objc dynamic var dexcomSharePassword:String? {
+    @objc dynamic var dexcomSharePassword: String? {
         get {
             return string(forKey: Key.dexcomSharePassword.rawValue)
         }
@@ -807,7 +807,7 @@ extension UserDefaults {
     }
     
     /// use US dexcomshare url true or false
-    @objc dynamic var useUSDexcomShareurl:Bool {
+    @objc dynamic var useUSDexcomShareurl: Bool {
         get {
             return bool(forKey: Key.useUSDexcomShareurl.rawValue)
         }
@@ -817,7 +817,7 @@ extension UserDefaults {
     }
 
     /// dexcom share serial number
-    @objc dynamic var dexcomShareSerialNumber:String? {
+    @objc dynamic var dexcomShareSerialNumber: String? {
         get {
             return string(forKey: Key.dexcomShareSerialNumber.rawValue)
         }
@@ -1096,13 +1096,13 @@ extension UserDefaults {
         }
     }
     
-    /// smoothLibreValues - default false
-    var smoothLibreValues: Bool {
+    /// smoothBgReadings - default false
+    var smoothBgReadings: Bool {
         get {
-            return bool(forKey: Key.smoothLibreValues.rawValue)
+            return bool(forKey: Key.smoothBgReadings.rawValue)
         }
         set {
-            set(newValue, forKey: Key.smoothLibreValues.rawValue)
+            set(newValue, forKey: Key.smoothBgReadings.rawValue)
         }
     }
     

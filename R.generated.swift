@@ -5954,7 +5954,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.settingsViews` struct is generated, and contains static references to 117 localization keys.
+    /// This `R.string.settingsViews` struct is generated, and contains static references to 118 localization keys.
     struct settingsViews {
       /// en translation: 5 Mins per Dot
       ///
@@ -6036,7 +6036,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let settingsviews_chartHeight = Rswift.StringResource(key: "settingsviews_chartHeight", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Chart height can not be smaller than Urgent High Value
+      /// en translation: Chart Height can not be smaller than Urgent High Value
       ///
       /// Locales: en, zh
       static let toast_chart_height_smaller_than_urgent_high = Rswift.StringResource(key: "toast_chart_height_smaller_than_urgent_high", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
@@ -6220,6 +6220,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en
       static let settingsviews_showOnlineHelp = Rswift.StringResource(key: "settingsviews_showOnlineHelp", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Please input URL first
+      ///
+      /// Locales: en, zh
+      static let dialog_ns_input_url_before_test = Rswift.StringResource(key: "dialog_ns_input_url_before_test", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Port
       ///
       /// Locales: en, zh
@@ -6288,10 +6292,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let settingsviews_showStatistics = Rswift.StringResource(key: "settingsviews_showStatistics", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Smooth Libre Values
+      /// en translation: Smooth Glucose Values
       ///
-      /// Locales: en, zh
-      static let smoothLibreValues = Rswift.StringResource(key: "smoothLibreValues", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// Locales: en
+      static let smoothBgReadings = Rswift.StringResource(key: "smoothBgReadings", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Speak BG Readings
       ///
       /// Locales: en, zh
@@ -6727,7 +6731,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_chartHeight", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Chart height can not be smaller than Urgent High Value
+      /// en translation: Chart Height can not be smaller than Urgent High Value
       ///
       /// Locales: en, zh
       static func toast_chart_height_smaller_than_urgent_high(preferredLanguages: [String]? = nil) -> String {
@@ -7421,6 +7425,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_showOnlineHelp", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
+      /// en translation: Please input URL first
+      ///
+      /// Locales: en, zh
+      static func dialog_ns_input_url_before_test(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("dialog_ns_input_url_before_test", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
+          return "dialog_ns_input_url_before_test"
+        }
+
+        return NSLocalizedString("dialog_ns_input_url_before_test", tableName: "SettingsViews", bundle: bundle, comment: "")
+      }
+
       /// en translation: Port
       ///
       /// Locales: en, zh
@@ -7676,19 +7695,19 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_showStatistics", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Smooth Libre Values
+      /// en translation: Smooth Glucose Values
       ///
-      /// Locales: en, zh
-      static func smoothLibreValues(preferredLanguages: [String]? = nil) -> String {
+      /// Locales: en
+      static func smoothBgReadings(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("smoothLibreValues", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
+          return NSLocalizedString("smoothBgReadings", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
         }
 
         guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "smoothLibreValues"
+          return "smoothBgReadings"
         }
 
-        return NSLocalizedString("smoothLibreValues", tableName: "SettingsViews", bundle: bundle, comment: "")
+        return NSLocalizedString("smoothBgReadings", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
       /// en translation: Speak BG Readings

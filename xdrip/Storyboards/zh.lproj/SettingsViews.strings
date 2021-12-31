@@ -21,7 +21,7 @@
 "settingsviews_giveDexcomShareAccountName" = "输入德康 APP 用户名";
 "settingsviews_giveDexcomSharePassword" = "输入德康 APP 密码";
 "settingsviews_sectiontitlenightscout" = "NightScout 远程监控";
-"settingsviews_nightScoutEnabled" = "NightScout 已启用";
+"settingsviews_nightScoutEnabled" = "启用 NightScout";
 "settingsviews_nightScoutUrl" = "网址";
 "settingsviews_giveNightScoutUrl" = "输入 NightScout 网址";
 "settingsviews_nightScoutAPIKey" = "API 密钥";
@@ -151,8 +151,7 @@
 /// 
 "settingsviews_showcoloredobjectives" = "Show Colored Lines?";
 
-/// deloper settings, row title for 'Smooth Libre Values?'
-"smoothLibreValues" = "平滑瞬感数值";
+"smoothBgValues" = "平滑血糖数值";
 
 /// deloper settings, row title for OSLog - with OSLog enabled, a developer can view log information as explained here https://developer.apple.com/documentation/os/oslog
 "oslog" = "OSLog";
@@ -194,3 +193,4 @@
 "toast_no_newer_app_version" = "已经是最新版本";
 "dialog_title_update_available" = "新版可用";
 "newer_app_version" = "新版本 (%@)，请升级";
+"dialog_ns_input_url_before_test" = "请先输入网址";

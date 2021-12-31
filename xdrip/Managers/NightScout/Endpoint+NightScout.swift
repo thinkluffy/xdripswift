@@ -10,7 +10,7 @@ extension Endpoint {
     ///     - hostAndScheme : hostname, eg http://www.mysite.com or https://www.mysite.com - must include the scheme - IF HOST DOESN'T START WITH A KNOWN SCHEME, THEN A FATAL ERROR WILL BE THROWN - known scheme's can be found in type EndPointScheme
     ///     - count : maximum number of readings to get
     ///     - olderThan : only readings with timestamp > olderThan
-    static func getEndpointForLatestNSEntries(hostAndScheme:String, count: Int, olderThan timeStamp:Date, token: String?) -> Endpoint {
+    static func getEndpointForLatestNSEntries(hostAndScheme: String, port: Int?, count: Int, olderThan timeStamp: Date, token: String?) -> Endpoint {
         
         // split hostAndScheme in host and scheme
         let (host, scheme) = EndPointScheme.getHostAndScheme(hostAndScheme: hostAndScheme)
@@ -34,8 +34,9 @@ extension Endpoint {
         }
         
         return Endpoint(
-            host:host,
-            scheme:scheme!,
+            host: host,
+            scheme: scheme!,
+            port: port,
             path: "/api/v1/entries/sgv.json",
             queryItems: queryItems
         )

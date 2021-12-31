@@ -205,7 +205,7 @@ class Libre2BLEUtilities {
         
         // sensor gives values only every 1 minute but it gives only 7 readings for the last 16 minutes, with gaps between 1 and 4 minutes Try to fill those gaps using previous sessions, but this may not always be successful, (eg if there's been a disconnection of 2 minutes). So let's fill missing gaps
         // in case smoothing is used, then maximum gap is 4, if no smoothing is used, then maximum gap is 1
-        bleGlucose.fill0Gaps(maxGapWidth: UserDefaults.standard.smoothLibreValues ? 4:1)
+        bleGlucose.fill0Gaps(maxGapWidth: UserDefaults.standard.smoothBgReadings ? 4:1)
         
         if UserDefaults.standard.addDebugLevelLogsInTraceFileAndNSLog {
             trace("=====in parseBLEData; bleGlucose after filling gaps =                      %{public}@", log: log, category: ConstantsLog.categoryLibreDataParser, type: .debug, bleGlucose.reduce("", { $0 + "; " + $1.glucoseLevelRaw.description.replacingOccurrences(of: ".", with: ",") }))
@@ -219,7 +219,7 @@ class Libre2BLEUtilities {
         }
         
         // smooth, if required
-        if UserDefaults.standard.smoothLibreValues {
+        if UserDefaults.standard.smoothBgReadings {
             
             // apply Libre smoothing
             LibreSmoothing.smooth(trend: &bleGlucose, repeatPerMinuteSmoothingSavitzkyGolay: ConstantsLibreSmoothing.libreSmoothingRepeatPerMinuteSmoothing, filterWidthPerMinuteValuesSavitzkyGolay: ConstantsLibreSmoothing.filterWidthPerMinuteValues, filterWidthPer5MinuteValuesSavitzkyGolay: ConstantsLibreSmoothing.filterWidthPer5MinuteValues, repeatPer5MinuteSmoothingSavitzkyGolay: ConstantsLibreSmoothing.repeatPer5MinuteSmoothing)
