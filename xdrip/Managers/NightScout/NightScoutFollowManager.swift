@@ -122,12 +122,11 @@ class NightScoutFollowManager: NSObject {
 
         return (calculatedValueSlope, hideSlope)
     }
-
     
     /// download recent readings from nightScout, send result to delegate, and schedule new download
     @objc private func download() {
         
-        NightScoutFollowManager.log.d("in download")
+        NightScoutFollowManager.log.d("==> download")
 
         // nightscout URl must be non-nil - could be that url is not valid, this is not checked here, the app will just retry every x minutes
         guard let nightScoutUrl = UserDefaults.standard.nightScoutUrl else {return}
