@@ -402,7 +402,7 @@ extension DexcomG5BluetoothPeripheralViewModel: CGMG5TransmitterDelegate {
         // transmitterStartDate should get updated in DexcomG5 object by bluetoothPeripheralManager, here's the trigger to update the table
         
         if let bluetoothPeripheralViewController = bluetoothPeripheralViewController {
-            reloadRow(row: Settings.firmWareVersion.rawValue, section: DexcomSection.commonDexcomSettings.rawValue + bluetoothPeripheralViewController.numberOfGeneralSections())
+            reloadRow(row: Settings.transmitterStartDate.rawValue, section: DexcomSection.commonDexcomSettings.rawValue + bluetoothPeripheralViewController.numberOfGeneralSections())
         }
     }
     
