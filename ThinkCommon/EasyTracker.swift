@@ -8,11 +8,13 @@
 
 import FirebaseAnalytics
 import FirebaseCrashlytics
+import AppCenterAnalytics
 
 public class EasyTracker {
     
-    public static func logEvent(_ eventName: String, parameters: [String: Any]? = nil) {
-        Analytics.logEvent(eventName, parameters: parameters)
+    public static func logEvent(_ eventName: String, parameters: [String: String]? = nil) {
+        FirebaseAnalytics.Analytics.logEvent(eventName, parameters: parameters)
+        AppCenterAnalytics.Analytics.trackEvent(eventName, withProperties: parameters)
     }
     
     public static func value(_ value: Int) -> [String: Int] {
@@ -30,21 +32,4 @@ public class EasyTracker {
 	public static func record(_ error: Error) {
 		Crashlytics.crashlytics().record(error: error)
 	}
-	
-    // MARK: - commen events
-    
-    public static func logAppOpen() {
-        Analytics.logEvent(AnalyticsEventAppOpen, parameters: nil)
-    }
-    
-    public static func logLevelStart(levelName: String) {
-        Analytics.logEvent(AnalyticsEventLevelStart, parameters: [AnalyticsParameterLevelName: levelName])
-    }
-    
-    public static func logLevelEnd(levelName: String, success: Bool) {
-        Analytics.logEvent(AnalyticsEventLevelEnd, parameters: [
-            AnalyticsParameterLevelName: levelName,
-            AnalyticsParameterSuccess: success
-        ])
-    }
 }

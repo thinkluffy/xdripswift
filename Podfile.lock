@@ -1,5 +1,13 @@
 PODS:
   - ActionClosurable (2.0.0)
+  - AppCenter (4.4.1):
+    - AppCenter/Analytics (= 4.4.1)
+    - AppCenter/Crashes (= 4.4.1)
+  - AppCenter/Analytics (4.4.1):
+    - AppCenter/Core
+  - AppCenter/Core (4.4.1)
+  - AppCenter/Crashes (4.4.1):
+    - AppCenter/Core
   - Charts (3.6.0):
     - Charts/Core (= 3.6.0)
   - Charts/Core (3.6.0)
@@ -143,6 +151,7 @@ PODS:
 
 DEPENDENCIES:
   - ActionClosurable (from `https://github.com/takasek/ActionClosurable.git`)
+  - AppCenter
   - Charts (from `https://github.com/thinkluffy/Charts.git`, tag `v3.6.2-th`)
   - CocoaLumberjack/Swift (= 3.7.0)
   - CryptoSwift (= 1.4.0)
@@ -160,6 +169,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AppCenter
     - CocoaLumberjack
     - CryptoSwift
     - DynamicBlurView
@@ -213,6 +223,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   ActionClosurable: 92729a0f0bb4b38d2744319ea8282a3ce8fb1e0a
+  AppCenter: b0b6f1190215b5f983c42934db718f3b46fff3c0
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   CocoaLumberjack: e8955b9d337ac307103b0a34fd141c32f27e53c5
   CryptoSwift: 7cc902df1784de3b389a387756c7d710f197730c
@@ -240,6 +251,6 @@ SPEC CHECKSUMS:
   SwiftEventBus: b30f617a6aca5a9336464b4d3f5931034762f2d5
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: c3872c6362b6e84750e7eb744f15dadfa446b954
+PODFILE CHECKSUM: de983cc7c91f09d606a12ac2372e6242037a74d5
 
 COCOAPODS: 1.11.2

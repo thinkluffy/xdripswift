@@ -18,4 +18,6 @@ target 'xdrip' do
 
   pod 'Firebase', '8.10.0', :subspecs => ['Analytics', 'Crashlytics', 'Performance', 'RemoteConfig']
 
+  pod 'AppCenter'
+
 end
