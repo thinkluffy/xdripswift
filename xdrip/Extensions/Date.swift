@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 extension Date {
     
@@ -67,4 +68,24 @@ extension Date {
             (timeIntervalSinceReferenceDate / 3600.0).rounded(.down) * 3600.0)
     }
     
+    func toHumanFirendlyTime(showSeconds: Bool = false) -> String {
+        let dateFormatter = DateFormatter()
+        if showSeconds {
+            dateFormatter.dateFormat = "HH:mm:ss"
+            
+        } else {
+            dateFormatter.dateFormat = "HH:mm"
+        }
+        
+        if Calendar.current.isDateInToday(self) {
+            return R.string.common.today() + " " + dateFormatter.string(from: self)
+
+        } else if Calendar.current.isDateInYesterday(self) {
+            return R.string.common.yesterday() + " " + dateFormatter.string(from: self)
+
+        } else {
+            dateFormatter.dateFormat = "yyyy-MM-dd " + dateFormatter.dateFormat
+            return dateFormatter.string(from: self)
+        }
+    }
 }

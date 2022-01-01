@@ -97,7 +97,7 @@ class StatisticsView: UIView {
         // show number of days calculated under the pie chart
         switch daysToUseStatistics {
         case 0:
-            timePeriodLabelOutlet.text = Texts_Common.today
+            timePeriodLabelOutlet.text = R.string.common.today()
             
         case 1:
             timePeriodLabelOutlet.text = "24 " + Texts_Common.hours

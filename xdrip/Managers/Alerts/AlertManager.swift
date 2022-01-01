@@ -673,6 +673,7 @@ class AlertManager: NSObject {
                     content.sound = UNNotificationSound.init(named: UNNotificationSoundName.init(soundToSet))
                 }
             }
+            
         } else {
             // default sound to be played
             content.sound = UNNotificationSound.init(named: UNNotificationSoundName.init(""))

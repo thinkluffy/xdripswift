@@ -88,10 +88,6 @@ class Texts_BluetoothPeripheralView {
         return NSLocalizedString("transmittterStartDate", tableName: filename, bundle: Bundle.main, value: "Transmitter Start", comment: "cell text, transmitter start time")
     }()
     
-    static let sensorStartDate: String = {
-        return NSLocalizedString("sensorStartDate", tableName: filename, bundle: Bundle.main, value: "Sensor Start", comment: "cell text, sensor start time")
-    }()
-    
     static let lastResetTimeStampNotKnown: String = {
         return NSLocalizedString("lastResetNotKnown", tableName: filename, bundle: Bundle.main, value: "Last Reset Timestamp is not known", comment: "cell text, shows when last reset was done, if known. Only for Dexcom")
     }()

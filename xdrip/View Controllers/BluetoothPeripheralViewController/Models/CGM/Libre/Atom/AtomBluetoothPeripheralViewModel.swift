@@ -44,9 +44,7 @@ class AtomBluetoothPeripheralViewModel {
     
     /// it's the bluetoothPeripheral as M5Stack
     private var atom: Atom? {
-        get {
-            return bluetoothPeripheral as? Atom
-        }
+        bluetoothPeripheral as? Atom
     }
     
     // MARK: - deinit
@@ -64,9 +62,7 @@ class AtomBluetoothPeripheralViewModel {
         guard let cGMAtomBluetoothTransmitter = blueToothTransmitter as? CGMAtomTransmitter else {return}
         
         cGMAtomBluetoothTransmitter.cGMAtomTransmitterDelegate = bluetoothPeripheralManager as! BluetoothPeripheralManager
-        
     }
-    
 }
 
 // MARK: - conform to BluetoothPeripheralViewModel
@@ -118,10 +114,7 @@ extension AtomBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
         
         // default value for accessoryView is nil
         cell.accessoryView = nil
-        
-        // create disclosureIndicator in color ConstantsUI.disclosureIndicatorColor
-        // will be used whenever accessoryType is to be set to disclosureIndicator
-        let disclosureAaccessoryView = DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor)
+        cell.accessoryType = .none
         
         guard let setting = Settings(rawValue: rawValue) else { fatalError("AtomBluetoothPeripheralViewModel update, unexpected setting") }
         
@@ -129,25 +122,18 @@ extension AtomBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
         
         case .sensorType:
             
-            cell.accessoryType = .none
-            
             cell.textLabel?.text = Texts_BluetoothPeripheralView.sensorType
             
             if let libreSensorType = atom.blePeripheral.libreSensorType {
-                
                 cell.detailTextLabel?.text = libreSensorType.description
                 
             } else {
-                
                 cell.detailTextLabel?.text = nil
             }
             
         case .sensorState:
-            
-            cell.accessoryType = .none
-            
+                        
             cell.textLabel?.text = Texts_Common.sensorStatus
-            
             cell.detailTextLabel?.text = atom.sensorState.translatedDescription
             
         case .batteryLevel:
@@ -155,34 +141,26 @@ extension AtomBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
             cell.textLabel?.text = Texts_BluetoothPeripheralsView.batteryLevel
             if atom.batteryLevel > 0 {
                 cell.detailTextLabel?.text = atom.batteryLevel.description + " %"
+                
             } else {
                 cell.detailTextLabel?.text = ""
             }
-            cell.accessoryType = .none
             
         case .firmWare:
             
             cell.textLabel?.text = Texts_Common.firmware
             cell.detailTextLabel?.text = atom.firmware
-            cell.accessoryType = .disclosureIndicator
-            cell.accessoryView = disclosureAaccessoryView
             
         case .hardWare:
             
             cell.textLabel?.text = Texts_Common.hardware
             cell.detailTextLabel?.text = atom.hardware
-            cell.accessoryType = .disclosureIndicator
-            cell.accessoryView = disclosureAaccessoryView
             
         case .sensorSerialNumber:
             
             cell.textLabel?.text = Texts_BluetoothPeripheralView.sensorSerialNumber
             cell.detailTextLabel?.text = atom.blePeripheral.sensorSerialNumber
-            cell.accessoryType = .disclosureIndicator
-            cell.accessoryView = disclosureAaccessoryView
-            
         }
-        
     }
     
     func userDidSelectRow(withSettingRawValue rawValue: Int, forSection section: Int, for bluetoothPeripheral: BluetoothPeripheral, bluetoothPeripheralManager: BluetoothPeripheralManaging) -> SettingsSelectedRowAction {
@@ -224,7 +202,6 @@ extension AtomBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
         }
         
         return .nothing
-        
     }
     
     func numberOfSettings(inSection section: Int) -> Int {
@@ -269,7 +246,6 @@ extension AtomBluetoothPeripheralViewModel: CGMAtomTransmitterDelegate {
         
         // here's the trigger to update the table
         reloadRow(row: Settings.batteryLevel.rawValue)
-        
     }
     
     func received(sensorStatus: LibreSensorState, from cGMAtomTransmitter: CGMAtomTransmitter) {
@@ -289,7 +265,6 @@ extension AtomBluetoothPeripheralViewModel: CGMAtomTransmitterDelegate {
         
         // here's the trigger to update the table
         reloadRow(row: Settings.firmWare.rawValue)
-        
     }
     
     func received(hardware: String, from cGMAtomTransmitter: CGMAtomTransmitter) {
@@ -299,16 +274,13 @@ extension AtomBluetoothPeripheralViewModel: CGMAtomTransmitterDelegate {
         
         // here's the trigger to update the table
         reloadRow(row: Settings.hardWare.rawValue)
-        
     }
     
     private func reloadRow(row: Int) {
-        
         if let bluetoothPeripheralViewController = bluetoothPeripheralViewController {
             
-            tableView?.reloadRows(at: [IndexPath(row: row, section: bluetoothPeripheralViewController.numberOfGeneralSections() + sectionNumberForAtomSpecificSettings)], with: .none)
-            
+            tableView?.reloadRows(at: [IndexPath(row: row, section: bluetoothPeripheralViewController.numberOfGeneralSections() + sectionNumberForAtomSpecificSettings)],
+                                  with: .none)
         }
     }
-    
 }

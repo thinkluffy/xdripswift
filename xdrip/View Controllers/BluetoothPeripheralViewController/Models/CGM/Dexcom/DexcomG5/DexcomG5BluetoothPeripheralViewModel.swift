@@ -3,11 +3,9 @@ import UIKit
 import CoreBluetooth
 
 class DexcomG5BluetoothPeripheralViewModel {
-    
-    // MARK: - private and public properties
-    
+        
     /// settings specific for Dexcom G5
-    public enum Settings:Int, CaseIterable {
+    enum Settings: Int, CaseIterable {
         
         /// sensor start time
         case sensorStartDate = 0
@@ -27,16 +25,6 @@ class DexcomG5BluetoothPeripheralViewModel {
         case userOtherApp = 4
         
     }
-     
-    private enum ResetSettings:Int, CaseIterable {
-        
-        /// should reset be done yes or no
-        case resetRequired = 0
-        
-        /// last time reset was done
-        case lastResetTimeStamp = 1
-        
-    }
     
     private enum TransmitterBatteryInfoSettings: Int, CaseIterable {
         
@@ -52,9 +40,19 @@ class DexcomG5BluetoothPeripheralViewModel {
 
     }
     
+    private enum ResetSettings: Int, CaseIterable {
+        
+        /// should reset be done yes or no
+        case resetRequired = 0
+        
+        /// last time reset was done
+        case lastResetTimeStamp = 1
+        
+    }
+    
     /// - list of sections available in Dexcom
     /// - counting starts at 0
-    public enum DexcomSection: Int, CaseIterable {
+    enum DexcomSection: Int, CaseIterable {
         
         /// helptest, blepassword, rotation, color, ... settings applicable to both M5Stack and M5StickC
         case commonDexcomSettings = 0
@@ -81,13 +79,9 @@ class DexcomG5BluetoothPeripheralViewModel {
     
     /// it's the bluetoothPeripheral as dexcomG6
     private var dexcomG5: DexcomG5? {
-        get {
-            return bluetoothPeripheral as? DexcomG5
-        }
+        bluetoothPeripheral as? DexcomG5
     }
-    
-// MARK: - deinit
-    
+        
     deinit {
         
         // when closing the viewModel, and if there's still a bluetoothTransmitter existing, then reset the specific delegate to BluetoothPeripheralManager
@@ -99,8 +93,6 @@ class DexcomG5BluetoothPeripheralViewModel {
         cGMG5Transmitter.cGMG5TransmitterDelegate = bluetoothPeripheralManager as! BluetoothPeripheralManager
         
     }
-
-    // MARK: - private functions
     
     private func getDexcomSection(forSectionInTable section: Int) -> DexcomSection {
         
@@ -113,18 +105,16 @@ class DexcomG5BluetoothPeripheralViewModel {
         }
 
         return dexcomSection
-        
     }
     
     private func getTransmitter(for dexcomG5: DexcomG5) ->  CGMG5Transmitter? {
         
         if let bluetoothPeripheralManager = bluetoothPeripheralManager, let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: dexcomG5, createANewOneIfNecesssary: false), let cGMG5Transmitter = blueToothTransmitter as? CGMG5Transmitter {
             
-                return cGMG5Transmitter
+            return cGMG5Transmitter
         }
         
         return nil
-        
     }
     
     /// is the selected dexcom a firefly or not?
@@ -134,7 +124,6 @@ class DexcomG5BluetoothPeripheralViewModel {
             return transmitterId.isFireFly()
         }
         return false
-        
     }
 
     // MARK: - public functions
@@ -174,9 +163,7 @@ extension DexcomG5BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
             } else {
                 fatalError("in DexcomG5BluetoothPeripheralViewModel, configure. bluetoothPeripheral is not DexcomG5")
             }
-            
         }
-        
     }
     
     func screenTitle() -> String {
@@ -195,9 +182,7 @@ extension DexcomG5BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
             
         case .commonDexcomSettings:
             return "Dexcom"
-            
         }
-
     }
     
     func update(cell: UITableViewCell, forRow rawValue: Int, forSection section: Int, for bluetoothPeripheral: BluetoothPeripheral) {
@@ -209,6 +194,7 @@ extension DexcomG5BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
         
         // default value for accessoryView is nil
         cell.accessoryView = nil
+        cell.accessoryType = .none
 
         switch getDexcomSection(forSectionInTable: section) {
             
@@ -221,50 +207,42 @@ extension DexcomG5BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
 
             case .sensorStartDate:
                 
-                cell.textLabel?.text = Texts_BluetoothPeripheralView.sensorStartDate
+                cell.textLabel?.text = R.string.bluetoothPeripheralView.sensorStartDate()
                 cell.detailTextLabel?.text = dexcomG5.sensorStartDate?.toString(timeStyle: .short, dateStyle: .short)
-                cell.accessoryType = .none
                 
             case .transmitterStartDate:
                 
                 cell.textLabel?.text = Texts_BluetoothPeripheralView.transmittterStartDate
                 cell.detailTextLabel?.text = dexcomG5.transmitterStartDate?.toString(timeStyle: .short, dateStyle: .short)
-                cell.accessoryType = .none
                 
             case .firmWareVersion:
                 
                 cell.textLabel?.text = Texts_Common.firmware
                 cell.detailTextLabel?.text = dexcomG5.firmwareVersion
-                cell.accessoryType = .none
                 
             case .sensorStatus:
                 
                 cell.textLabel?.text = Texts_Common.sensorStatus
                 cell.detailTextLabel?.text = dexcomG5.sensorStatus
-                cell.accessoryType = .none
                 
             case .userOtherApp:
 
                 cell.textLabel?.text = Texts_BluetoothPeripheralView.useOtherDexcomApp
                 cell.detailTextLabel?.text = nil // it's a UISwitch,  no detailed text
-                cell.accessoryView = UISwitch(isOn: dexcomG5.useOtherApp, action: { (isOn:Bool) in
+                cell.accessoryView = UISwitch(isOn: dexcomG5.useOtherApp) { (isOn: Bool) in
                     
                     dexcomG5.useOtherApp = isOn
                     
                     if let cGMG5Transmitter = self.getTransmitter(for: dexcomG5) {
-                        
                         // set isOn value to cGMG5Transmitter
                         cGMG5Transmitter.useOtherApp = isOn
-                        
                     }
-                    
-                })
-                
+                }
             }
 
         case .resetSetings:
             
-            // reset  section
+            // reset section
             guard let setting = ResetSettings(rawValue: rawValue) else { fatalError("DexcomG5BluetoothPeripheralViewModel update, unexpected setting") }
             
             switch setting {
@@ -273,19 +251,15 @@ extension DexcomG5BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
                 
                 cell.textLabel?.text = Texts_BluetoothPeripheralView.resetRequired
                 cell.detailTextLabel?.text = nil //it's a UISwitch, no detailed text
-                cell.accessoryType = .none
-                cell.accessoryView = UISwitch(isOn: dexcomG5.resetRequired, action: { (isOn:Bool) in
+                cell.accessoryView = UISwitch(isOn: dexcomG5.resetRequired) { (isOn: Bool) in
                     
                     dexcomG5.resetRequired = isOn
 
                     if let cGMG5Transmitter = self.getTransmitter(for: dexcomG5) {
-                        
                         // set isOn value to cGMG5Transmitter
                         cGMG5Transmitter.reset(requested: isOn)
-                        
                     }
-                    
-                })
+                }
                 
             case .lastResetTimeStamp:
             
@@ -293,25 +267,19 @@ extension DexcomG5BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
 
                     cell.textLabel?.text = Texts_BluetoothPeripheralView.lastResetTimeStamp
                     cell.detailTextLabel?.text = lastResetTimeStamp.toString(timeStyle: .short, dateStyle: .short)
-                    cell.accessoryType = .none
 
                 } else {
                     
                     cell.textLabel?.text = Texts_BluetoothPeripheralView.lastResetTimeStampNotKnown
                     cell.detailTextLabel?.text = nil
-                    cell.accessoryType = .none
-                    
                 }
-
             }
             
         case .batterySettings:
             
             // battery info section
             guard let setting = TransmitterBatteryInfoSettings(rawValue: rawValue) else { fatalError("DexcomG5BluetoothPeripheralViewModel update, unexpected setting") }
-            
-            cell.accessoryType = .none
-            
+                        
             switch setting {
                 
             case .voltageA:
@@ -340,15 +308,12 @@ extension DexcomG5BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
                 cell.detailTextLabel?.text = dexcomG5.batteryTemperature != 0 ? dexcomG5.batteryTemperature.description : ""
                 
             }
-
         }
-        
     }
     
     func userDidSelectRow(withSettingRawValue rawValue: Int, forSection section: Int, for bluetoothPeripheral: BluetoothPeripheral, bluetoothPeripheralManager: BluetoothPeripheralManaging) -> SettingsSelectedRowAction {
         
         return .nothing
-        
     }
     
     func numberOfSettings(inSection section: Int) -> Int {
@@ -356,7 +321,6 @@ extension DexcomG5BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
         switch getDexcomSection(forSectionInTable: section) {
             
         case .commonDexcomSettings:
-            
             return Settings.allCases.count
             
         case .batterySettings:
@@ -364,25 +328,17 @@ extension DexcomG5BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
 
         case .resetSetings:
             return ResetSettings.allCases.count
-            
         }
-
     }
     
     func numberOfSections() -> Int {
-        
         if isFireFly() {
-            
             return DexcomSection.allCases.count - 1
             
         } else {
-            
             return DexcomSection.allCases.count
-            
         }
-        
     }
-    
 }
 
 extension DexcomG5BluetoothPeripheralViewModel: CGMG5TransmitterDelegate {
@@ -414,7 +370,6 @@ extension DexcomG5BluetoothPeripheralViewModel: CGMG5TransmitterDelegate {
         
         // Add Request to User Notification Center
         UNUserNotificationCenter.current().add(notificationRequest)
-        
     }
     
     func received(transmitterBatteryInfo: TransmitterBatteryInfo, cGMG5Transmitter: CGMG5Transmitter) {
@@ -437,7 +392,6 @@ extension DexcomG5BluetoothPeripheralViewModel: CGMG5TransmitterDelegate {
         if let bluetoothPeripheralViewController = bluetoothPeripheralViewController {
             reloadRow(row: Settings.firmWareVersion.rawValue, section: DexcomSection.commonDexcomSettings.rawValue + bluetoothPeripheralViewController.numberOfGeneralSections())
         }
-
     }
     
     /// received transmitterStartDate
@@ -450,7 +404,6 @@ extension DexcomG5BluetoothPeripheralViewModel: CGMG5TransmitterDelegate {
         if let bluetoothPeripheralViewController = bluetoothPeripheralViewController {
             reloadRow(row: Settings.firmWareVersion.rawValue, section: DexcomSection.commonDexcomSettings.rawValue + bluetoothPeripheralViewController.numberOfGeneralSections())
         }
-        
     }
     
     /// received sensorStartDate
@@ -463,7 +416,6 @@ extension DexcomG5BluetoothPeripheralViewModel: CGMG5TransmitterDelegate {
         if let bluetoothPeripheralViewController = bluetoothPeripheralViewController {
             reloadRow(row: Settings.sensorStartDate.rawValue, section: DexcomSection.commonDexcomSettings.rawValue + bluetoothPeripheralViewController.numberOfGeneralSections())
         }
-        
     }
     
     /// received sensorStatus
@@ -476,13 +428,9 @@ extension DexcomG5BluetoothPeripheralViewModel: CGMG5TransmitterDelegate {
         if let bluetoothPeripheralViewController = bluetoothPeripheralViewController {
             reloadRow(row: Settings.sensorStatus.rawValue, section: DexcomSection.commonDexcomSettings.rawValue + bluetoothPeripheralViewController.numberOfGeneralSections())
         }
-        
     }
     
     private func reloadRow(row: Int, section: Int) {
-        
-            tableView?.reloadRows(at: [IndexPath(row: row, section: section)], with: .none)
-
+        tableView?.reloadRows(at: [IndexPath(row: row, section: section)], with: .none)
     }
-
 }

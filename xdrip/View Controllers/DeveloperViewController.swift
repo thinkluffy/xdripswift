@@ -59,7 +59,7 @@ class DeveloperViewController: UIViewController {
                 alert.addAction(UIAlertAction(title: "Reset", style: .default, handler: { action in
                     UserDefaults.standard.launchCount = 0
                     operationCell.detailedText = String(UserDefaults.standard.launchCount)
-                    tableView.reloadRows(at: [indexPath], with: .automatic)
+                    tableView.reloadRows(at: [indexPath], with: .none)
                 }))
                 alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 self.present(alert, animated: true)
@@ -70,7 +70,7 @@ class DeveloperViewController: UIViewController {
                 RemoteConfigProxy.shared.refresh() { refreshed in
                     self.view.makeToast("Refreshed!", duration: 2.0, position: .bottom)
                     operationCell.detailedText = String(RemoteConfigProxy.shared.versionId)
-                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    self.tableView.reloadRows(at: [indexPath], with: .none)
                 }
             })
             .toggleCell(title: "Remote Config Test Mode", isOn: RemoteConfigHost.testMode, toggleDidChange: { from, to in

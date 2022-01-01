@@ -2253,7 +2253,6 @@
 				4E16CB4F2769F67F00A8A79E /* LegacySubSettingsViewController.swift */,
 				4E2C95C82766450E0073D692 /* CommonSettingsViewController.swift */,
 				4E16CB4D2769F35800A8A79E /* ServiceIntegrationSettingsViewController.swift */,
-				4E16CB512769FCFA00A8A79E /* TotalAlertSettingsViewController.swift */,
 				4E16CB53276A1E4E00A8A79E /* SpeakReadingSettingsViewController.swift */,
 				4EE66F0A2733EB0D00548A46 /* MoreSettingsViewController.swift */,
 				4E16CB55276B49EF00A8A79E /* AboutViewController.swift */,
@@ -2295,6 +2294,7 @@
 			children = (
 				F8B3A8592280CCC1004BA588 /* AlertSettingsViewController */,
 				F8B3A852227F2743004BA588 /* AlertsSettingsViewController.swift */,
+				4E16CB512769FCFA00A8A79E /* TotalAlertSettingsViewController.swift */,
 			);
 			path = AlertsSettingsViewController;
 			sourceTree = "<group>";
@@ -2818,7 +2818,7 @@
 				DefaultBuildSystemTypeForWorkspace = Latest;
 				LastSwiftUpdateCheck = 1310;
 				LastUpgradeCheck = 1310;
-				ORGANIZATIONNAME = "Johan Degraeve";
+				ORGANIZATIONNAME = zDrip;
 				TargetAttributes = {
 					E53D044F27438C5D00CA548E = {
 						CreatedOnToolsVersion = 13.1;

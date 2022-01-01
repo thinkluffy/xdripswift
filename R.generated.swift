@@ -2361,7 +2361,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let tryingToConnect = Rswift.StringResource(key: "tryingToConnect", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Sensor Start
+      /// en translation: Sensor Started At
       ///
       /// Locales: en, zh
       static let sensorStartDate = Rswift.StringResource(key: "sensorStartDate", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
@@ -2728,7 +2728,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("tryingToConnect", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
-      /// en translation: Sensor Start
+      /// en translation: Sensor Started At
       ///
       /// Locales: en, zh
       static func sensorStartDate(preferredLanguages: [String]? = nil) -> String {
@@ -3214,11 +3214,7 @@ struct R: Rswift.Validatable {
       /// en translation: Today
       ///
       /// Locales: en, zh
-      static let common_today = Rswift.StringResource(key: "common_today", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Today
-      ///
-      /// Locales: en, zh
-      static let common_todayshort = Rswift.StringResource(key: "common_todayshort", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      static let today = Rswift.StringResource(key: "today", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Unknown
       ///
       /// Locales: en, zh
@@ -3239,6 +3235,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let yes = Rswift.StringResource(key: "yes", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Yesterday
+      ///
+      /// Locales: en, zh
+      static let yesterday = Rswift.StringResource(key: "yesterday", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: d
       ///
       /// Locales: en, zh
@@ -3905,31 +3905,16 @@ struct R: Rswift.Validatable {
       /// en translation: Today
       ///
       /// Locales: en, zh
-      static func common_today(preferredLanguages: [String]? = nil) -> String {
+      static func today(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_today", tableName: "Common", bundle: hostingBundle, comment: "")
+          return NSLocalizedString("today", tableName: "Common", bundle: hostingBundle, comment: "")
         }
 
         guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_today"
+          return "today"
         }
 
-        return NSLocalizedString("common_today", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Today
-      ///
-      /// Locales: en, zh
-      static func common_todayshort(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_todayshort", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_todayshort"
-        }
-
-        return NSLocalizedString("common_todayshort", tableName: "Common", bundle: bundle, comment: "")
+        return NSLocalizedString("today", tableName: "Common", bundle: bundle, comment: "")
       }
 
       /// en translation: Unknown
@@ -4005,6 +3990,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("yes", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Yesterday
+      ///
+      /// Locales: en, zh
+      static func yesterday(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("yesterday", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "yesterday"
+        }
+
+        return NSLocalizedString("yesterday", tableName: "Common", bundle: bundle, comment: "")
       }
 
       /// en translation: d

@@ -32,9 +32,7 @@ class BluconBluetoothPeripheralViewModel {
     
     /// it's the bluetoothPeripheral as M5Stack
     private var blucon: Blucon? {
-        get {
-            return bluetoothPeripheral as? Blucon
-        }
+        bluetoothPeripheral as? Blucon
     }
     
     // MARK: - deinit
@@ -106,10 +104,7 @@ extension BluconBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
         
         // default value for accessoryView is nil
         cell.accessoryView = nil
-        
-        // create disclosureIndicator in color ConstantsUI.disclosureIndicatorColor
-        // will be used whenever accessoryType is to be set to disclosureIndicator
-        let disclosureAaccessoryView = DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor)
+        cell.accessoryType = .none
 
         guard let setting = Settings(rawValue: rawValue) else { fatalError("BluconBluetoothPeripheralViewModel update, unexpected setting") }
         
@@ -120,20 +115,16 @@ extension BluconBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
             cell.textLabel?.text = Texts_BluetoothPeripheralsView.batteryLevel
             if blucon.batteryLevel > 0 {
                 cell.detailTextLabel?.text = blucon.batteryLevel.description + " %"
+                
             } else {
                 cell.detailTextLabel?.text = ""
             }
-            cell.accessoryType = .none
             
         case .sensorSerialNumber:
             
             cell.textLabel?.text = Texts_BluetoothPeripheralView.sensorSerialNumber
             cell.detailTextLabel?.text = blucon.blePeripheral.sensorSerialNumber
-            cell.accessoryType = .disclosureIndicator
-            cell.accessoryView = disclosureAaccessoryView
-            
         }
-
     }
     
     func userDidSelectRow(withSettingRawValue rawValue: Int, forSection section: Int, for bluetoothPeripheral: BluetoothPeripheral, bluetoothPeripheralManager: BluetoothPeripheralManaging) -> SettingsSelectedRowAction {
@@ -151,17 +142,14 @@ extension BluconBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
             return .nothing
             
         case .sensorSerialNumber:
-            
             // serial text could be longer than screen width, clicking the row allows to see it in a pop up with more text place
             if let serialNumber = blucon.blePeripheral.sensorSerialNumber {
                 return .showInfoText(title: Texts_BluetoothPeripheralView.sensorSerialNumber,
                                      message: serialNumber)
             }
-            
         }
         
         return .nothing
-
     }
     
     func numberOfSettings(inSection section: Int) -> Int {
@@ -200,12 +188,8 @@ extension BluconBluetoothPeripheralViewModel: CGMBluconTransmitterDelegate {
     }
     
     private func reloadRow(row: Int) {
-        
         if let bluetoothPeripheralViewController = bluetoothPeripheralViewController {
-            
             tableView?.reloadRows(at: [IndexPath(row: row, section: bluetoothPeripheralViewController.numberOfGeneralSections() + sectionNumberForBluconSpecificSettings)], with: .none)
-        
         }
     }
-    
 }

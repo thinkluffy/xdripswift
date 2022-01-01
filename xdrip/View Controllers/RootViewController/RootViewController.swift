@@ -223,7 +223,7 @@ final class RootViewController: UIViewController {
         // statistics time range
         var daysToUseStatisticsItems = [SingleSelectionItem]()
         daysToUseStatisticsItems.append(SingleSelectionItem(id: RootViewController.StatisticsDaysToday,
-                                                            title: R.string.common.common_todayshort()))
+                                                            title: R.string.common.today()))
         daysToUseStatisticsItems.append(SingleSelectionItem(id: RootViewController.StatisticsDays7D,
                                                             title: "7D"))
         daysToUseStatisticsItems.append(SingleSelectionItem(id: RootViewController.StatisticsDays14D,

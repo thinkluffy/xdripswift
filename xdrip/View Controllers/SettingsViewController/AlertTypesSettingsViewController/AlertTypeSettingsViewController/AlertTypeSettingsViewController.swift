@@ -2,7 +2,7 @@ import UIKit
 import PopupDialog
 
 /// a case per type of attribute that can be set in an AlerTypeSettingsView
-fileprivate enum Setting:Int, CaseIterable {
+fileprivate enum Setting: Int, CaseIterable {
     /// is it enabled or not
     case enabled = 0
     /// vibrate or not

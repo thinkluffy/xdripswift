@@ -33,15 +33,8 @@ class Libre2BluetoothPeripheralViewModel {
 
     /// it's the bluetoothPeripheral as M5Stack
     private var libre2: Libre2? {
-        get {
-            return bluetoothPeripheral as? Libre2
-        }
+        return bluetoothPeripheral as? Libre2
     }
-
-    /// Libre 2 settings will be in section 0 + numberOfGeneralSections
-    private let sectionNumberForMiaoMiaoSpecificSettings = 0
-
-    // MARK: - deinit
     
     deinit {
         
@@ -56,9 +49,7 @@ class Libre2BluetoothPeripheralViewModel {
         guard let cGMLibre2BluetoothTransmitter = blueToothTransmitter as? CGMLibre2Transmitter else {return}
         
         cGMLibre2BluetoothTransmitter.cGMLibre2TransmitterDelegate = bluetoothPeripheralManager as! BluetoothPeripheralManager
-        
     }
-
 }
 
 // MARK: - conform to BluetoothPeripheralViewModel
@@ -123,16 +114,13 @@ extension Libre2BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
 
         case .sensorStartTime:
             
-            cell.textLabel?.text = Texts_HomeView.sensorStart
+            cell.textLabel?.text = R.string.bluetoothPeripheralView.sensorStartDate()
             if let sensorTimeInMinutes = libre2.sensorTimeInMinutes {
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "MM-dd HH:mm"
-                cell.detailTextLabel?.text = dateFormatter.string(from: Date(timeIntervalSinceNow: -Double(sensorTimeInMinutes*60)))
+                let date = Date(timeIntervalSinceNow: -Double(sensorTimeInMinutes * 60))
+                cell.detailTextLabel?.text = date.toHumanFirendlyTime()
             }
             cell.accessoryType = .none
-            
         }
-        
     }
     
     func userDidSelectRow(withSettingRawValue rawValue: Int, forSection section: Int, for bluetoothPeripheral: BluetoothPeripheral, bluetoothPeripheralManager: BluetoothPeripheralManaging) -> SettingsSelectedRowAction {
@@ -197,18 +185,17 @@ extension Libre2BluetoothPeripheralViewModel: CGMLibre2TransmitterDelegate {
         
         // here's the trigger to update the table
         reloadRow(row: Settings.sensorSerialNumber.rawValue)
-
     }
     
     private func reloadRow(row: Int) {
-        
-        if let bluetoothPeripheralViewController = bluetoothPeripheralViewController {
-            
-            tableView?.reloadRows(at: [IndexPath(row: row, section: bluetoothPeripheralViewController.numberOfGeneralSections() + sectionNumberForMiaoMiaoSpecificSettings)], with: .none)
-            
+        guard let bluetoothPeripheralViewController = bluetoothPeripheralViewController else {
+            return
         }
+            
+        tableView?.reloadRows(at: [
+            IndexPath(row: row, section: bluetoothPeripheralViewController.numberOfGeneralSections())
+        ],
+                              with: .none)
     }
-    
-
 }
 

@@ -77,14 +77,6 @@ class Texts_Common {
         return NSLocalizedString("common_days", tableName: filename, bundle: Bundle.main, value: "days", comment: "literal translation needed")
     }()
     
-    static let today = {
-        return NSLocalizedString("common_today", tableName: filename, bundle: Bundle.main, value: "Today", comment: "the word today")
-    }()
-    
-    static let todayshort = {
-        return NSLocalizedString("common_todayshort", tableName: filename, bundle: Bundle.main, value: "Today", comment: "the word today")
-    }()
-    
     static let week = {
         return NSLocalizedString("common_week", tableName: filename, bundle: Bundle.main, value: "week", comment: "literal translation needed")
     }()

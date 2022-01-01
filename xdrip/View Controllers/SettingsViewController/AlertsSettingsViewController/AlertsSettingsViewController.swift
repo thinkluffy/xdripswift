@@ -180,7 +180,6 @@ extension AlertsSettingsViewController:UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         tableView.deselectRow(at: indexPath, animated: true)
         // sender = tuple with section and row index
         performSegue(withIdentifier: AlertSettingsViewController.SegueIdentifiers.alertsToAlertSettings.rawValue,

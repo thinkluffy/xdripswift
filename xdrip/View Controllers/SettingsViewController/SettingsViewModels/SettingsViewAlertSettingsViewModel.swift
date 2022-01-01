@@ -48,11 +48,11 @@ struct SettingsViewAlertSettingsViewModel: SettingsViewModelProtocol {
             
             // here the volume of the soundplayer will be tested.
             // soundplayer is used for alerts with override mute = on, except for missed reading alerts or any other delayed alert
-                        
+            
             // start playing the xdripalert.aif
             SoundPlayer.shared.playSound(soundFileName: "xdripalert.aif")
             
-            return SettingsSelectedRowAction.showInfoText(title: Texts_Common.warning, message: Texts_SettingsView.volumeTestSoundPlayerExplanation) {
+            return .showInfoText(title: Texts_Common.warning, message: Texts_SettingsView.volumeTestSoundPlayerExplanation) {
                 // user clicked ok, which will close the pop up and also player should stop playing
                 SoundPlayer.shared.stopPlaying()
             }
@@ -79,8 +79,8 @@ struct SettingsViewAlertSettingsViewModel: SettingsViewModelProtocol {
             // Add Request to User Notification Center
             UNUserNotificationCenter.current().add(notificationRequest)
             
-            return SettingsSelectedRowAction.showInfoText(title: Texts_Common.warning,
-                                                          message: Texts_SettingsView.volumeTestiOSSoundExplanation)
+            return .showInfoText(title: Texts_Common.warning,
+                                 message: Texts_SettingsView.volumeTestiOSSoundExplanation)
         }
     }
     

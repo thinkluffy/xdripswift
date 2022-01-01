@@ -44,9 +44,7 @@ class MiaoMiaoBluetoothPeripheralViewModel {
     
     /// it's the bluetoothPeripheral as M5Stack
     private var MiaoMiao: MiaoMiao? {
-        get {
-            return bluetoothPeripheral as? MiaoMiao
-        }
+        bluetoothPeripheral as? MiaoMiao
     }
     
     // MARK: - deinit
@@ -98,7 +96,6 @@ extension MiaoMiaoBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
                 fatalError("in MiaoMiaoBluetoothPeripheralViewModel, configure. bluetoothPeripheral is not MiaoMiao")
             }
         }
-
     }
     
     func screenTitle() -> String {
@@ -118,36 +115,27 @@ extension MiaoMiaoBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
         
         // default value for accessoryView is nil
         cell.accessoryView = nil
-        
-        // create disclosureIndicator in color ConstantsUI.disclosureIndicatorColor
-        // will be used whenever accessoryType is to be set to disclosureIndicator
-        let disclosureAaccessoryView = DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor)
 
         guard let setting = Settings(rawValue: rawValue) else { fatalError("MiaoMiaoBluetoothPeripheralViewModel update, unexpected setting") }
         
+        cell.accessoryType = .none
+
         switch setting {
           
         case .sensorType:
             
-            cell.accessoryType = .none
-            
             cell.textLabel?.text = Texts_BluetoothPeripheralView.sensorType
             
             if let libreSensorType = miaoMiao.blePeripheral.libreSensorType {
-                
                 cell.detailTextLabel?.text = libreSensorType.description
                 
             } else {
-                
                 cell.detailTextLabel?.text = nil
             }
 
         case .sensorState:
             
-            cell.accessoryType = .none
-            
             cell.textLabel?.text = Texts_Common.sensorStatus
-            
             cell.detailTextLabel?.text = miaoMiao.sensorState.translatedDescription
             
         case .batteryLevel:
@@ -155,34 +143,26 @@ extension MiaoMiaoBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
             cell.textLabel?.text = Texts_BluetoothPeripheralsView.batteryLevel
             if miaoMiao.batteryLevel > 0 {
                 cell.detailTextLabel?.text = miaoMiao.batteryLevel.description + " %"
+                
             } else {
                 cell.detailTextLabel?.text = ""
             }
-            cell.accessoryType = .none
             
         case .firmWare:
             
             cell.textLabel?.text = Texts_Common.firmware
             cell.detailTextLabel?.text = miaoMiao.firmware
-            cell.accessoryType = .disclosureIndicator
-            cell.accessoryView = disclosureAaccessoryView
             
         case .hardWare:
             
             cell.textLabel?.text = Texts_Common.hardware
             cell.detailTextLabel?.text = miaoMiao.hardware
-            cell.accessoryType = .disclosureIndicator
-            cell.accessoryView = disclosureAaccessoryView
             
         case .sensorSerialNumber:
             
             cell.textLabel?.text = Texts_BluetoothPeripheralView.sensorSerialNumber
             cell.detailTextLabel?.text = miaoMiao.blePeripheral.sensorSerialNumber
-            cell.accessoryType = .disclosureIndicator
-            cell.accessoryView = disclosureAaccessoryView
-            
         }
-
     }
     
     func userDidSelectRow(withSettingRawValue rawValue: Int, forSection section: Int, for bluetoothPeripheral: BluetoothPeripheral, bluetoothPeripheralManager: BluetoothPeripheralManaging) -> SettingsSelectedRowAction {
@@ -214,17 +194,14 @@ extension MiaoMiaoBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
             }
             
         case .sensorSerialNumber:
-            
             // serial text could be longer than screen width, clicking the row allows to see it in a pop up with more text place
             if let serialNumber = miaoMiao.blePeripheral.sensorSerialNumber {
                 return .showInfoText(title: Texts_BluetoothPeripheralView.sensorSerialNumber,
                                      message: serialNumber)
             }
-            
         }
         
         return .nothing
-
     }
     
     func numberOfSettings(inSection section: Int) -> Int {
@@ -259,7 +236,6 @@ extension MiaoMiaoBluetoothPeripheralViewModel: CGMMiaoMiaoTransmitterDelegate {
         
         // here's the trigger to update the table
         reloadRow(row: Settings.sensorSerialNumber.rawValue)
-        
     }
     
     func received(batteryLevel: Int, from cGMMiaoMiaoTransmitter: CGMMiaoMiaoTransmitter) {
@@ -310,5 +286,4 @@ extension MiaoMiaoBluetoothPeripheralViewModel: CGMMiaoMiaoTransmitterDelegate {
         
         }
     }
-    
 }

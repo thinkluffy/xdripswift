@@ -44,9 +44,7 @@ class BubbleBluetoothPeripheralViewModel {
     
     /// it's the bluetoothPeripheral as Bubble
     private var bubble: Bubble? {
-        get {
-            return bluetoothPeripheral as? Bubble
-        }
+        bluetoothPeripheral as? Bubble
     }
     
     // MARK: - deinit
@@ -118,10 +116,7 @@ extension BubbleBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
         
         // default value for accessoryView is nil
         cell.accessoryView = nil
-
-        // create disclosureIndicator in color ConstantsUI.disclosureIndicatorColor
-        // will be used whenever accessoryType is to be set to disclosureIndicator
-        let disclosureAaccessoryView = DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor)
+        cell.accessoryType = .none
 
         guard let setting = Settings(rawValue: rawValue) else { fatalError("BubbleBluetoothPeripheralViewModel update, unexpected setting") }
         
@@ -132,24 +127,20 @@ extension BubbleBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
             cell.textLabel?.text = Texts_BluetoothPeripheralsView.batteryLevel
             if bubble.batteryLevel > 0 {
                 cell.detailTextLabel?.text = bubble.batteryLevel.description + " %"
+                
             } else {
                 cell.detailTextLabel?.text = ""
             }
-            cell.accessoryType = .none
             
         case .firmWare:
             
             cell.textLabel?.text = Texts_Common.firmware
             cell.detailTextLabel?.text = bubble.firmware
-            cell.accessoryType = .disclosureIndicator
-            cell.accessoryView = disclosureAaccessoryView
             
         case .hardWare:
             
             cell.textLabel?.text = Texts_Common.hardware
             cell.detailTextLabel?.text = bubble.hardware
-            cell.accessoryType = .disclosureIndicator
-            cell.accessoryView = disclosureAaccessoryView
             
         case .sensorSerialNumber:
             
@@ -157,21 +148,14 @@ extension BubbleBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
             if let sensorSerialNumber = bubble.blePeripheral.sensorSerialNumber {
 
                 cell.detailTextLabel?.text = sensorSerialNumber
-                cell.accessoryType = .disclosureIndicator
-                cell.accessoryView = disclosureAaccessoryView
                 
             } else {
-                
                 cell.detailTextLabel?.text = Texts_Common.unknown
-                cell.accessoryType = .none
-                
             }
             
             
         case .sensorType:
-            
-            cell.accessoryType = .none
-            
+                        
             cell.textLabel?.text = Texts_BluetoothPeripheralView.sensorType
             
             if let libreSensorType = bubble.blePeripheral.libreSensorType {
@@ -185,14 +169,11 @@ extension BubbleBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
             
         case .sensorState:
             
-            cell.accessoryType = .none
-            
             cell.textLabel?.text = Texts_Common.sensorStatus
             
             cell.detailTextLabel?.text = bubble.sensorState.translatedDescription
             
         }
-
     }
     
     func userDidSelectRow(withSettingRawValue rawValue: Int, forSection section: Int, for bluetoothPeripheral: BluetoothPeripheral, bluetoothPeripheralManager: BluetoothPeripheralManaging) -> SettingsSelectedRowAction {

@@ -38,33 +38,17 @@
 
 /// to show the sensor status
 "sensorStatus" = "Sensor status:";
-
-/// yellow
 "yellow" = "黄色";
-
-/// 
 "delete" = "删除";
-
-/// literally no, without capital
 "no" = "否";
-
-/// green
 "green" = "green";
-
-/// name
 "name" = "名称";
-
-/// literally yes, without capital
 "yes" = "是";
 
 /// literally 'Cancel'
 "common_cancel" = "取消";
 "save" = "保存";
-
-/// white
 "white" = "白色";
-
-/// WiFi
 "WiFi" = "Wi-Fi";
 
 /// whenever invalid value is given by user somewhere in a field
@@ -82,13 +66,6 @@
 
 /// Where credentials need to be given, if either account or password is invalid (for the moment only applicable to Dexcom Share
 "invalidAccountOrPassword" = "Invalid account or password";
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-/////   Translation needed - remove this header after translation                       /////
-/////////////////////////////////////////////////////////////////////////////////////////////
-
-/// the word today
-"common_todayshort" = "今天";
 
 /// the word high
 "common_statistics_high" = "高";
@@ -114,9 +91,6 @@
 /// literal translation needed
 "common_dayshort" = "天";
 
-/// the word today
-"common_today" = "今天";
-
 /// the words in range
 "common_statistics_inRange" = "达标";
 
@@ -134,3 +108,5 @@
 "start_to_use" = "开始使用";
 "btn_understand_and_agree" = "我完全理解并同意";
 "common_dontshowagain" = "不再提示";
+"today" = "今天";
+"yesterday" = "昨天";

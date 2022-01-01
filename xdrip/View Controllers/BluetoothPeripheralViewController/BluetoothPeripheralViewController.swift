@@ -258,6 +258,7 @@ class BluetoothPeripheralViewController: UIViewController {
     
     /// the BluetoothPeripheralViewController has already a few sections defined (eg bluetooth, weboop). This is the amount of sections defined in BluetoothPeripheralViewController.
     func numberOfGeneralSections() -> Int {
+        
         if webOOpSettingsAndNonFixedSlopeSectionIsShownIsKnown {
             
             // means we already calculated numberOfGeneralSections while bluetoothTransmitter was not nil
@@ -919,7 +920,7 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
                         cell.textLabel?.text = Texts_BluetoothPeripheralView.disConnectedAt
                     }
                     
-                    cell.detailTextLabel?.text = lastConnectionStatusChangeTimeStamp.toString(timeStyle: .short, dateStyle: .short)
+                    cell.detailTextLabel?.text = lastConnectionStatusChangeTimeStamp.toHumanFirendlyTime()
                     
                 } else {
                     cell.textLabel?.text = Texts_BluetoothPeripheralView.connectedAt
