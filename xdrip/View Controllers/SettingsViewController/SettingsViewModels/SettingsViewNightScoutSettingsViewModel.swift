@@ -134,7 +134,8 @@ class SettingsViewNightScoutSettingsViewModel {
                             
                             SettingsViewNightScoutSettingsViewModel.log.w("in testNightScoutCredentials, URL responds OK but authentication method is missing and cannot be checked")
                             
-                            self.callMessageHandlerInMainThread(title: Texts_NightScoutTestResult.verificationSuccessfulAlertTitle, message: "URL responds OK but authentication method is missing and cannot be checked!")
+                            self.callMessageHandlerInMainThread(title: Texts_NightScoutTestResult.verificationSuccessfulAlertTitle,
+                                                                message: R.string.nightScoutTestResult.nightScoutResult_no_auth_method())
                             
                         }
                     

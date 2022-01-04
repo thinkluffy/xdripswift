@@ -222,9 +222,9 @@ class NightScoutFollowManager: NSObject {
     ///     - error : error as result from dataTask
     ///     - followGlucoseData : array input by caller, result will be in that array. Can be empty array. Array must be initialized to empty array by caller
     /// - returns: FollowGlucoseData , possibly empty - first entry is the youngest
-    private func processDownloadResponse(data:Data?, urlResponse:URLResponse?, error:Error?, followGlucoseDataArray:inout [NightScoutBgReading] ) {
+    private func processDownloadResponse(data: Data?, urlResponse: URLResponse?, error: Error?, followGlucoseDataArray: inout [NightScoutBgReading] ) {
         
-        NightScoutFollowManager.log.d("==> in processDownloadResponse")
+        NightScoutFollowManager.log.d("==> processDownloadResponse")
         
         // if error log an error
         if let error = error {
@@ -319,33 +319,34 @@ class NightScoutFollowManager: NSObject {
     private func enableSuspensionPrevention() {
         
         // create playSoundTimer
-        playSoundTimer = RepeatingTimer(timeInterval: TimeInterval(Double(ConstantsSuspensionPrevention.interval)), eventHandler: {
-                // play the sound
-            
+        playSoundTimer = RepeatingTimer(timeInterval: TimeInterval(Double(ConstantsSuspensionPrevention.interval))) {
+            // play the sound
+
             NightScoutFollowManager.log.d("in eventhandler checking if audioplayer exists")
-            
-                if let audioPlayer = self.audioPlayer, !audioPlayer.isPlaying {
-                    NightScoutFollowManager.log.d("playing audio")
-                    audioPlayer.play()
-                }
-            })
+        
+            if let audioPlayer = self.audioPlayer, !audioPlayer.isPlaying {
+                NightScoutFollowManager.log.d("playing audio")
+                audioPlayer.play()
+            }
+        }
         
         // schedulePlaySoundTimer needs to be created when app goes to background
-        ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground(key: applicationManagerKeyResumePlaySoundTimer, closure: {
+        ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground(key: applicationManagerKeyResumePlaySoundTimer) {
             if let playSoundTimer = self.playSoundTimer {
                 playSoundTimer.resume()
             }
+            
             if let audioPlayer = self.audioPlayer, !audioPlayer.isPlaying {
                 audioPlayer.play()
             }
-        })
+        }
 
         // schedulePlaySoundTimer needs to be invalidated when app goes to foreground
-        ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: applicationManagerKeySuspendPlaySoundTimer, closure: {
+        ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: applicationManagerKeySuspendPlaySoundTimer) {
             if let playSoundTimer = self.playSoundTimer {
                 playSoundTimer.suspend()
             }
-        })
+        }
     }
     
     /// verifies values of applicable UserDefaults and either starts or stops follower mode, inclusive call to enableSuspensionPrevention or disableSuspensionPrevention - also first download is started if applicable

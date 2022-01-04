@@ -5809,12 +5809,16 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.nightScoutTestResult` struct is generated, and contains static references to 6 localization keys.
+    /// This `R.string.nightScoutTestResult` struct is generated, and contains static references to 7 localization keys.
     struct nightScoutTestResult {
       /// en translation: Please wait a moment
       ///
       /// Locales: en, zh
       static let nightScoutAPIKeyAndURLStartedBody = Rswift.StringResource(key: "nightScoutAPIKeyAndURLStartedBody", tableName: "NightScoutTestResult", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: URL responds OK but authentication method is missing and cannot be checked
+      ///
+      /// Locales: en, zh
+      static let nightScoutResult_no_auth_method = Rswift.StringResource(key: "nightScoutResult_no_auth_method", tableName: "NightScoutTestResult", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Verification Error
       ///
       /// Locales: en, zh
@@ -5849,6 +5853,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("nightScoutAPIKeyAndURLStartedBody", tableName: "NightScoutTestResult", bundle: bundle, comment: "")
+      }
+
+      /// en translation: URL responds OK but authentication method is missing and cannot be checked
+      ///
+      /// Locales: en, zh
+      static func nightScoutResult_no_auth_method(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("nightScoutResult_no_auth_method", tableName: "NightScoutTestResult", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "NightScoutTestResult", preferredLanguages: preferredLanguages) else {
+          return "nightScoutResult_no_auth_method"
+        }
+
+        return NSLocalizedString("nightScoutResult_no_auth_method", tableName: "NightScoutTestResult", bundle: bundle, comment: "")
       }
 
       /// en translation: Verification Error

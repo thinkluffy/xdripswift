@@ -4,3 +4,4 @@
 "warningAPIKeyOrURLIsnil" = "Your Nightscout URL (and optionally API-Secret or Token) must be set before you can run the test";
 "nightScoutAPIKeyAndURLStartedTitle" = "Verifying...";
 "nightScoutAPIKeyAndURLStartedBody" = "Please wait a moment";
+"nightScoutResult_no_auth_method" = "URL responds OK but authentication method is missing and cannot be checked";

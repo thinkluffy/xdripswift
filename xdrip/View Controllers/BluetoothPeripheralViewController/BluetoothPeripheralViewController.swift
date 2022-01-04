@@ -110,8 +110,7 @@ class BluetoothPeripheralViewController: UIViewController {
     /// when user starts scanning, info will be shown in UIAlertController. This will be
     private var infoAlertWhenScanningStarts: UIViewController?
     
-    /// for trace
-    private let log = OSLog(subsystem: ConstantsLog.subSystem, category: ConstantsLog.categoryBluetoothPeripheralViewController)
+    private static let log = Log(type: BluetoothPeripheralViewController.self)
 
     /// to keep track of scanning result
     private var previousScanningResult: BluetoothTransmitter.startScanningResult?
@@ -462,7 +461,7 @@ class BluetoothPeripheralViewController: UIViewController {
         
         bluetoothPeripheralManager.startScanningForNewDevice(type: type, transmitterId: transmitterIdTempValue, bluetoothTransmitterDelegate: self, callBackForScanningResult: handleScanningResult(startScanningResult:), callback: { (bluetoothPeripheral) in
 
-            trace("in BluetoothPeripheralViewController, callback. bluetoothPeripheral address = %{public}@, name = %{public}@", log: self.log, category: ConstantsLog.categoryBluetoothPeripheralViewController, type: .info, bluetoothPeripheral.blePeripheral.address, bluetoothPeripheral.blePeripheral.name)
+            BluetoothPeripheralViewController.log.d("BluetoothPeripheral address: \(bluetoothPeripheral.blePeripheral.address), name: \(bluetoothPeripheral.blePeripheral.name)")
 
             // remove info alert screen which may still be there
             self.dismissInfoAlertWhenScanningStarts()
@@ -545,7 +544,7 @@ class BluetoothPeripheralViewController: UIViewController {
             
         case .alreadyScanning, .alreadyConnected, .connecting :
             
-            trace("in handleScanningResult, scanning not started. Scanning result = %{public}@", log: log, category: ConstantsLog.categoryBluetoothPeripheralViewController, type: .error, startScanningResult.description())
+            BluetoothPeripheralViewController.log.e("in handleScanningResult, scanning not started. Scanning result:  \(startScanningResult.description())")
             // no further processing, should normally not happen,
             
             // set isScanning false, although it should already be false
@@ -553,7 +552,7 @@ class BluetoothPeripheralViewController: UIViewController {
             
         case .poweredOff:
             
-            trace("in handleScanningResult, scanning not started. Bluetooth is not on", log: log, category: ConstantsLog.categoryBluetoothPeripheralViewController, type: .error)
+            BluetoothPeripheralViewController.log.e("in handleScanningResult, scanning not started. Bluetooth is not on")
             
             // show info that user should switch on bluetooth
             self.infoAlertWhenScanningStarts = PopupDialog(title: Texts_Common.warning,
@@ -564,12 +563,12 @@ class BluetoothPeripheralViewController: UIViewController {
             
         case .other(let reason):
             
-            trace("in handleScanningResult, scanning not started. Scanning result = %{public}@", log: log, category: ConstantsLog.categoryBluetoothPeripheralViewController, type: .error, reason)
+            BluetoothPeripheralViewController.log.e("in handleScanningResult, scanning not started. Scanning result: \(reason)")
             // no further processing, should normally not happen,
             
         case .unauthorized:
             
-            trace("in handleScanningResult, scanning not started. Scanning result = unauthorized", log: log, category: ConstantsLog.categoryBluetoothPeripheralViewController, type: .error)
+            BluetoothPeripheralViewController.log.e("in handleScanningResult, scanning not started. Scanning result = unauthorized")
             
             // show info that user should switch on bluetooth
             self.infoAlertWhenScanningStarts = PopupDialog(title: Texts_Common.warning,
@@ -580,7 +579,7 @@ class BluetoothPeripheralViewController: UIViewController {
             
         case .unknown:
             
-            trace("in handleScanningResult, scanning not started. Scanning result = unknown - this is always occuring when a BluetoothTransmitter starts scanning the first time. You should see now a new call to handleScanningResult", log: log, category: ConstantsLog.categoryBluetoothPeripheralViewController, type: .info)
+            BluetoothPeripheralViewController.log.e("in handleScanningResult, scanning not started. Scanning result = unknown - this is always occuring when a BluetoothTransmitter starts scanning the first time. You should see now a new call to handleScanningResult")
             
         }
 
@@ -848,6 +847,10 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
             return cell
         }
         
+        let numberOfGneralSections = numberOfGeneralSections()
+        
+        BluetoothPeripheralViewController.log.d("numberOfGneralSections: \(numberOfGneralSections), nonFixedSettingsSectionIsShown: \(nonFixedSettingsSectionIsShown), webOOPSettingsSectionIsShown: \(webOOPSettingsSectionIsShown)")
+        
         // default value for accessoryView is nil
         cell.accessoryView = nil
         cell.accessoryType = .none
@@ -855,7 +858,7 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
         cell.detailTextLabel?.textColor = ConstantsUI.tableDetailTextColor
         
         // check if it's a Setting defined here in BluetoothPeripheralViewController, or a setting specific to the type of BluetoothPeripheral
-        if indexPath.section >= numberOfGeneralSections() {
+        if indexPath.section >=  numberOfGneralSections {
             // it's a setting not defined here but in a BluetoothPeripheralViewModel
             if let bluetoothPeripheral = bluetoothPeripheral, let bluetoothPeripheralViewModel = bluetoothPeripheralViewModel {
                 bluetoothPeripheralViewModel.update(cell: cell,

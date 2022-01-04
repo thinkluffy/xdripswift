@@ -4,4 +4,5 @@
 "warningAPIKeyOrURLIsnil" = "开始测试前，请先输入 Nightscout 网址和 (API 秘钥 或 令牌)";
 "nightScoutAPIKeyAndURLStartedTitle" = "检测中...";
 "nightScoutAPIKeyAndURLStartedBody" = "请耐心等待";
+"nightScoutResult_no_auth_method" = "网址正常响应，但是缺失验证信息";
 
