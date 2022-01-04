@@ -96,7 +96,7 @@ extension UserDefaults {
         /// port number to use, 0 means not set
         case nightScoutPort = "nightScoutPort"
         /// token to use for authentication, 0 means not set
-        case nightscoutToken = "nightscoutToken"
+        case nightScoutToken = "nightScoutToken"
 
         
         // Dexcom Share
@@ -742,13 +742,13 @@ extension UserDefaults {
         }
     }
     
-    /// Nightscout token, 0 means not set
-    @objc dynamic var nightscoutToken: String? {
+    /// Nightscout token
+    @objc dynamic var nightScoutToken: String? {
         get {
-            return string(forKey: Key.nightscoutToken.rawValue)
+            return string(forKey: Key.nightScoutToken.rawValue)
         }
         set {
-            set(newValue, forKey: Key.nightscoutToken.rawValue)
+            set(newValue, forKey: Key.nightScoutToken.rawValue)
         }
     }
 

@@ -70,6 +70,10 @@ class NightScoutFollowManager: NSObject {
         UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.nightScoutUrl.rawValue, options: .new, context: nil)
         // change value of nightscout enabled
         UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.nightScoutEnabled.rawValue, options: .new, context: nil)
+        
+        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.nightScoutAPIKey.rawValue, options: .new, context: nil)
+        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.nightScoutToken.rawValue, options: .new, context: nil)
+        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.nightScoutPort.rawValue, options: .new, context: nil)
 
         verifyUserDefaultsAndStartOrStopFollowMode()
     }
@@ -149,7 +153,7 @@ class NightScoutFollowManager: NSObject {
             port: UserDefaults.standard.nightScoutPort == 0 ? nil : UserDefaults.standard.nightScoutPort,
             count: count,
             olderThan: timeStampOfFirstBgReadingToDowload,
-            token: UserDefaults.standard.nightscoutToken
+            token: UserDefaults.standard.nightScoutToken
         )
         
         // create downloadTask and start download
@@ -157,7 +161,13 @@ class NightScoutFollowManager: NSObject {
             
             NightScoutFollowManager.log.d("To download, url: \(url.absoluteString)")
 
-            let task = URLSession.shared.dataTask(with: url) {
+            var request = URLRequest(url: url)
+
+            if let apiKey = UserDefaults.standard.nightScoutAPIKey {
+                request.setValue(apiKey.sha1(), forHTTPHeaderField: "api-secret")
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) {
                 data, response, error in
                 
                 NightScoutFollowManager.log.d("in download, finished task")
@@ -351,7 +361,10 @@ class NightScoutFollowManager: NSObject {
     
     /// verifies values of applicable UserDefaults and either starts or stops follower mode, inclusive call to enableSuspensionPrevention or disableSuspensionPrevention - also first download is started if applicable
     private func verifyUserDefaultsAndStartOrStopFollowMode() {
-        if !UserDefaults.standard.isMaster && UserDefaults.standard.nightScoutUrl != nil && UserDefaults.standard.nightScoutEnabled {
+        if !UserDefaults.standard.isMaster &&
+            UserDefaults.standard.nightScoutUrl != nil &&
+            UserDefaults.standard.nightScoutEnabled &&
+            (UserDefaults.standard.nightScoutAPIKey != nil || UserDefaults.standard.nightScoutToken != nil) {
             
             // this will enable the suspension prevention sound playing
             enableSuspensionPrevention()
@@ -381,7 +394,13 @@ class NightScoutFollowManager: NSObject {
                 
                 switch keyPathEnum {
                     
-                case UserDefaults.Key.isMaster, UserDefaults.Key.nightScoutUrl, UserDefaults.Key.nightScoutEnabled :
+                case UserDefaults.Key.isMaster,
+                    UserDefaults.Key.nightScoutUrl,
+                    UserDefaults.Key.nightScoutEnabled,
+                    UserDefaults.Key.nightScoutAPIKey,
+                    UserDefaults.Key.nightScoutToken,
+                    UserDefaults.Key.nightScoutPort:
+                    
                     // change by user, should not be done within 200 ms
                     if keyValueObserverTimeKeeper.verifyKey(forKey: keyPathEnum.rawValue, withMinimumDelayMilliSeconds: 200) {
                         verifyUserDefaultsAndStartOrStopFollowMode()

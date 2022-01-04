@@ -72,7 +72,7 @@ class SettingsViewNightScoutSettingsViewModel {
                 request.setValue(apiSecret, forHTTPHeaderField: "api-secret")
                 SettingsViewNightScoutSettingsViewModel.log.d("test with apiKey, api-secret: \(apiSecret)")
 
-            } else if let token = UserDefaults.standard.nightscoutToken {
+            } else if let token = UserDefaults.standard.nightScoutToken {
                 request.setValue(token, forHTTPHeaderField: "api-secret")
                 SettingsViewNightScoutSettingsViewModel.log.d("test with token, token: \(token)")
             }
@@ -124,7 +124,7 @@ class SettingsViewNightScoutSettingsViewModel {
                             
                             self.callMessageHandlerInMainThread(title: "API Secret is Invalid", message: errorMessage)
                             
-                        } else if UserDefaults.standard.nightScoutAPIKey == nil && UserDefaults.standard.nightscoutToken != nil {
+                        } else if UserDefaults.standard.nightScoutAPIKey == nil && UserDefaults.standard.nightScoutToken != nil {
                             
                             SettingsViewNightScoutSettingsViewModel.log.w("in testNightScoutCredentials, Token is not valid, error: \(errorMessage)")
                             
@@ -247,7 +247,7 @@ extension SettingsViewNightScoutSettingsViewModel: SettingsViewModelProtocol {
                             
                             // if the user has pasted in a URL with a token, then let's parse it out and use it
                             if let token = enteredURLComponents.queryItems?.first(where: { $0.name == "token" })?.value {
-                                UserDefaults.standard.nightscoutToken = token.toNilIfLength0()
+                                UserDefaults.standard.nightScoutToken = token.toNilIfLength0()
                             }
                             
                             // finally, let's make a clean URL with just the scheme and host. We don't need to add anything else as this is basically the only thing we were asking for in the first place.
@@ -312,14 +312,14 @@ extension SettingsViewNightScoutSettingsViewModel: SettingsViewModelProtocol {
                 title: R.string.settingsViews.nightScoutToken(),
                 message: nil,
                 keyboardType: .default,
-                text: UserDefaults.standard.nightscoutToken,
+                text: UserDefaults.standard.nightScoutToken,
                 placeHolder: nil,
                 actionTitle: nil,
                 cancelTitle: nil,
                 actionHandler: {
                     (token: String) in
                     
-                    UserDefaults.standard.nightscoutToken = token.toNilIfLength0()
+                    UserDefaults.standard.nightScoutToken = token.toNilIfLength0()
                 },
                 cancelHandler: nil,
                 inputValidator: nil
@@ -404,7 +404,7 @@ extension SettingsViewNightScoutSettingsViewModel: SettingsViewModelProtocol {
         case .port:
             return UserDefaults.standard.nightScoutPort != 0 ? UserDefaults.standard.nightScoutPort.description : nil
         case .token:
-            return UserDefaults.standard.nightscoutToken != nil ? obscureString(stringToObscure: UserDefaults.standard.nightscoutToken) : nil
+            return UserDefaults.standard.nightScoutToken != nil ? obscureString(stringToObscure: UserDefaults.standard.nightScoutToken) : nil
         case .uploadSensorStartTime:
             return nil
         case .testUrlAndAPIKey:

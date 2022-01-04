@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 onNormalStart()
             }
         }
-        
+                
         return true
     }
     

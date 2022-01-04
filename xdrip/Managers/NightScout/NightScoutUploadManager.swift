@@ -64,7 +64,7 @@ public class NightScoutUploadManager: NSObject {
         UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.nightScoutUrl.rawValue, options: .new, context: nil)
         UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.nightScoutPort.rawValue, options: .new, context: nil)
         UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.nightScoutEnabled.rawValue, options: .new, context: nil)
-        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.nightscoutToken.rawValue, options: .new, context: nil)
+        UserDefaults.standard.addObserver(self, forKeyPath: UserDefaults.Key.nightScoutToken.rawValue, options: .new, context: nil)
     }
     
     // MARK: - public functions
@@ -84,7 +84,7 @@ public class NightScoutUploadManager: NSObject {
         guard let _ = UserDefaults.standard.nightScoutUrl else {return}
         
         // check that either the API_SECRET or Token exists, if both are nil then return
-        if UserDefaults.standard.nightScoutAPIKey == nil && UserDefaults.standard.nightscoutToken == nil {
+        if UserDefaults.standard.nightScoutAPIKey == nil && UserDefaults.standard.nightScoutToken == nil {
             return
         }
         
@@ -124,7 +124,7 @@ public class NightScoutUploadManager: NSObject {
                 switch keyPathEnum {
                 case UserDefaults.Key.nightScoutUrl,
                     UserDefaults.Key.nightScoutAPIKey,
-                    UserDefaults.Key.nightscoutToken,
+                    UserDefaults.Key.nightScoutToken,
                     UserDefaults.Key.nightScoutPort:
                     
                     // apikey or nightscout api key change is triggered by user, should not be done within 200 ms
@@ -132,7 +132,8 @@ public class NightScoutUploadManager: NSObject {
                     if keyValueObserverTimeKeeper.verifyKey(forKey: keyPathEnum.rawValue, withMinimumDelayMilliSeconds: 200) {
                         
                         // if master is set, siteURL exists and either API_SECRET or a token is entered, then test credentials
-                        if UserDefaults.standard.nightScoutUrl != "" && UserDefaults.standard.isMaster && (UserDefaults.standard.nightScoutAPIKey != "" || UserDefaults.standard.nightscoutToken != "") {
+                        if UserDefaults.standard.nightScoutUrl != nil && UserDefaults.standard.isMaster &&
+                            (UserDefaults.standard.nightScoutAPIKey != nil || UserDefaults.standard.nightScoutToken != nil) {
                             
                             testNightScoutCredentials({ (success, error) in
                                 DispatchQueue.main.async {
@@ -154,7 +155,7 @@ public class NightScoutUploadManager: NSObject {
                     if keyValueObserverTimeKeeper.verifyKey(forKey: keyPathEnum.rawValue, withMinimumDelayMilliSeconds: 200) {
                         
                         // if master is set, siteURL exists and either API_SECRET or a token is entered, then test credentials
-                        if UserDefaults.standard.nightScoutUrl != nil && UserDefaults.standard.isMaster && (UserDefaults.standard.nightScoutAPIKey != nil || UserDefaults.standard.nightscoutToken != nil) {
+                        if UserDefaults.standard.nightScoutUrl != nil && UserDefaults.standard.isMaster && (UserDefaults.standard.nightScoutAPIKey != nil || UserDefaults.standard.nightScoutToken != nil) {
                             
                             testNightScoutCredentials({ (success, error) in
                                 DispatchQueue.main.async {
@@ -402,7 +403,7 @@ public class NightScoutUploadManager: NSObject {
                 }
                 
                 // if token not nil, then add also the token
-                if let token = UserDefaults.standard.nightscoutToken {
+                if let token = UserDefaults.standard.nightScoutToken {
                     let queryItems = [
                         URLQueryItem(name: "token", value: token)
                     ]
@@ -532,7 +533,7 @@ public class NightScoutUploadManager: NSObject {
             if let apiKey = UserDefaults.standard.nightScoutAPIKey {
                 request.setValue(apiKey.sha1(), forHTTPHeaderField: "api-secret")
                 
-            } else if let token = UserDefaults.standard.nightscoutToken {
+            } else if let token = UserDefaults.standard.nightScoutToken {
                 request.setValue(token, forHTTPHeaderField: "api-secret")
             }
             
