@@ -142,7 +142,7 @@
                                                                     <constraint firstAttribute="height" constant="40" id="bZW-ee-7fA"/>
                                                                 </constraints>
                                                             </view>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V90-WH-dIE" customClass="CountDownView" customModule="xdrip" customModuleProvider="target">
+                                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V90-WH-dIE" customClass="CountDownView" customModule="xdrip" customModuleProvider="target">
                                                                 <rect key="frame" x="388" y="25" width="0.0" height="0.0"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
@@ -1178,9 +1178,6 @@
             <point key="canvasLocation" x="4773" y="581"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="V90-WH-dIE"/>
-    </designables>
     <color key="tintColor" red="0.077760688960000005" green="0.092910580340000007" blue="0.192109853" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>
         <image name="ic_alarm" width="24" height="24"/>

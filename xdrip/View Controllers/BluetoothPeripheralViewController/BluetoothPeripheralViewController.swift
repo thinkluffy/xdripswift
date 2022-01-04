@@ -215,45 +215,33 @@ class BluetoothPeripheralViewController: UIViewController {
         
         guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {return}
         
-        // create uialertcontroller to ask the user if they really want to disconnect
-        let confirmDisconnectAlertController = UIAlertController(title: Texts_BluetoothPeripheralView.confirmDisconnectTitle , message: Texts_BluetoothPeripheralView.confirmDisconnectMessage, preferredStyle: .alert)
-
-        // create buttons for uialertcontroller
-        let OKAction = UIAlertAction(title: Texts_BluetoothPeripheralView.disconnect, style: .default) {
-            (action:UIAlertAction!) in
-            
-            // device should not automaticaly connect in future, which means, each time the app restarts, it will not try to connect to this bluetoothPeripheral
-            bluetoothPeripheral.blePeripheral.shouldconnect = false
-            
-            // save in coredata
-            CoreDataManager.shared.saveChanges()
-            
-            // connect button label text needs to change because shouldconnect value has changed
-            _ = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: bluetoothPeripheral, isScanning: self.isScanning, connectButtonOutlet: self.connectButtonOutlet, expectedBluetoothPeripheralType: self.expectedBluetoothPeripheralType, transmitterId: self.transmitterIdTempValue, bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
-            
-            // this will set bluetoothTransmitter to nil which will result in disconnecting also
-            bluetoothPeripheralManager.setBluetoothTransmitterToNil(forBluetoothPeripheral: bluetoothPeripheral)
-            
-            // as transmitter is now set to nil, call again configure. Maybe not necessary, but it can't hurt
-            self.bluetoothPeripheralViewModel?.configure(bluetoothPeripheral: bluetoothPeripheral, bluetoothPeripheralManager: bluetoothPeripheralManager, tableView: self.tableView, bluetoothPeripheralViewController: self)
-            
-            // delegate doesn't work here anymore, because the delegate is set to zero, so reset the row with the connection status by calling reloadRows
-            self.tableView.reloadRows(at: [IndexPath(row: Setting.connectionStatus.rawValue, section: 0)], with: .none)
-            
-        }
+        let dialog = PopupDialog(
+            title: R.string.common.pleaseConfirm(),
+            message: R.string.bluetoothPeripheralView.confirmDisconnectMessage(),
+            actionTitle: R.string.bluetoothPeripheralView.disconnect(),
+            actionHandler: {
+                // device should not automaticaly connect in future, which means, each time the app restarts, it will not try to connect to this bluetoothPeripheral
+                bluetoothPeripheral.blePeripheral.shouldconnect = false
+                
+                // save in coredata
+                CoreDataManager.shared.saveChanges()
+                
+                // connect button label text needs to change because shouldconnect value has changed
+                _ = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: bluetoothPeripheral, isScanning: self.isScanning, connectButtonOutlet: self.connectButtonOutlet, expectedBluetoothPeripheralType: self.expectedBluetoothPeripheralType, transmitterId: self.transmitterIdTempValue, bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
+                
+                // this will set bluetoothTransmitter to nil which will result in disconnecting also
+                bluetoothPeripheralManager.setBluetoothTransmitterToNil(forBluetoothPeripheral: bluetoothPeripheral)
+                
+                // as transmitter is now set to nil, call again configure. Maybe not necessary, but it can't hurt
+                self.bluetoothPeripheralViewModel?.configure(bluetoothPeripheral: bluetoothPeripheral, bluetoothPeripheralManager: bluetoothPeripheralManager, tableView: self.tableView, bluetoothPeripheralViewController: self)
+                
+                // delegate doesn't work here anymore, because the delegate is set to zero, so reset the row with the connection status by calling reloadRows
+                self.tableView.reloadRows(at: [IndexPath(row: Setting.connectionStatus.rawValue, section: 0)], with: .none)
+            },
+            cancelTitle: R.string.common.common_cancel()
+        )
         
-        // create a cancel button. If the user clicks it then we will just return directly
-        let cancelAction = UIAlertAction(title: Texts_Common.Cancel, style: .cancel) {
-            (action:UIAlertAction!) in
-        }
-
-        // add buttons to the alert
-        confirmDisconnectAlertController.addAction(OKAction)
-        confirmDisconnectAlertController.addAction(cancelAction)
-
-        // show alert
-        present(confirmDisconnectAlertController, animated: true, completion:nil)
-        
+        present(dialog, animated: true)
     }
     
     /// the BluetoothPeripheralViewController has already a few sections defined (eg bluetooth, weboop). This is the amount of sections defined in BluetoothPeripheralViewController.
@@ -605,13 +593,11 @@ class BluetoothPeripheralViewController: UIViewController {
 
         // unwrap bluetoothPeripheralManager
         guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {return}
-        
-        let textToAdd = Texts_BluetoothPeripheralView.address + ": " + bluetoothPeripheral.blePeripheral.address
-        
+                
         // first ask user if ok to delete and if yes delete
         let alert = PopupDialog(
-            title: R.string.common.pleaseConfirm(),
-            message: R.string.bluetoothPeripheralView.confirmDeletionPeripheral() + "\n" + textToAdd,
+            title: R.string.bluetoothPeripheralView.confirmDeletionPeripheral() ,
+            message: Texts_BluetoothPeripheralView.address + ": " + bluetoothPeripheral.blePeripheral.address,
             actionTitle: R.string.common.delete(),
             actionHandler: {
                 // delete
@@ -626,7 +612,7 @@ class BluetoothPeripheralViewController: UIViewController {
             cancelTitle: R.string.common.common_cancel()
         )
         
-        self.present(alert, animated:true)
+        present(alert, animated:true)
     }
     
     /// user clicked connect button

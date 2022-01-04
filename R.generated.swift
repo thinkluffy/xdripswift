@@ -2285,14 +2285,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let bootLoader = Rswift.StringResource(key: "bootLoader", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Click 'Disconnect' to confirm that you really want to disconnect from the transmitter.
-      ///
-      /// Locales: en, zh
-      static let confirmDisconnectMessage = Rswift.StringResource(key: "confirmDisconnectMessage", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Confirm Disconnect
-      ///
-      /// Locales: en, zh
-      static let confirmDisconnectTitle = Rswift.StringResource(key: "confirmDisconnectTitle", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Connect
       ///
       /// Locales: en, zh
@@ -2313,6 +2305,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let disConnectedAt = Rswift.StringResource(key: "disConnectedAt", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Do you really want to disconnect from the transmitter?
+      ///
+      /// Locales: en, zh
+      static let confirmDisconnectMessage = Rswift.StringResource(key: "confirmDisconnectMessage", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Do you want to delete bluetooth device?
       ///
       /// Locales: en, zh
@@ -2325,10 +2321,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let lastReset = Rswift.StringResource(key: "lastReset", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Last Reset Timestamp is not known
-      ///
-      /// Locales: en, zh
-      static let lastResetNotKnown = Rswift.StringResource(key: "lastResetNotKnown", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Missing Transmitter ID
       ///
       /// Locales: en, zh
@@ -2345,10 +2337,14 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let readyToScan = Rswift.StringResource(key: "readyToScan", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Reset Transmitter?
+      /// en translation: Reset Transmitter
       ///
       /// Locales: en, zh
       static let resetRequired = Rswift.StringResource(key: "resetRequired", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Resistance
+      ///
+      /// Locales: en, zh
+      static let resistance = Rswift.StringResource(key: "resistance", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Scan
       ///
       /// Locales: en, zh
@@ -2385,6 +2381,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let donotconnect = Rswift.StringResource(key: "donotconnect", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Temperature
+      ///
+      /// Locales: en, zh
+      static let temperature = Rswift.StringResource(key: "temperature", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Transmitter Reset Result
       ///
       /// Locales: en, zh
@@ -2441,36 +2441,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("bootLoader", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Click 'Disconnect' to confirm that you really want to disconnect from the transmitter.
-      ///
-      /// Locales: en, zh
-      static func confirmDisconnectMessage(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("confirmDisconnectMessage", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "confirmDisconnectMessage"
-        }
-
-        return NSLocalizedString("confirmDisconnectMessage", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Confirm Disconnect
-      ///
-      /// Locales: en, zh
-      static func confirmDisconnectTitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("confirmDisconnectTitle", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "confirmDisconnectTitle"
-        }
-
-        return NSLocalizedString("confirmDisconnectTitle", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
       /// en translation: Connect
@@ -2548,6 +2518,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("disConnectedAt", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
+      /// en translation: Do you really want to disconnect from the transmitter?
+      ///
+      /// Locales: en, zh
+      static func confirmDisconnectMessage(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("confirmDisconnectMessage", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
+          return "confirmDisconnectMessage"
+        }
+
+        return NSLocalizedString("confirmDisconnectMessage", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
+      }
+
       /// en translation: Do you want to delete bluetooth device?
       ///
       /// Locales: en, zh
@@ -2591,21 +2576,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("lastReset", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Last Reset Timestamp is not known
-      ///
-      /// Locales: en, zh
-      static func lastResetNotKnown(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("lastResetNotKnown", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "lastResetNotKnown"
-        }
-
-        return NSLocalizedString("lastResetNotKnown", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
       /// en translation: Missing Transmitter ID
@@ -2668,7 +2638,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("readyToScan", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
-      /// en translation: Reset Transmitter?
+      /// en translation: Reset Transmitter
       ///
       /// Locales: en, zh
       static func resetRequired(preferredLanguages: [String]? = nil) -> String {
@@ -2681,6 +2651,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("resetRequired", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Resistance
+      ///
+      /// Locales: en, zh
+      static func resistance(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("resistance", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
+          return "resistance"
+        }
+
+        return NSLocalizedString("resistance", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
       /// en translation: Scan
@@ -2816,6 +2801,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("donotconnect", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Temperature
+      ///
+      /// Locales: en, zh
+      static func temperature(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("temperature", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
+          return "temperature"
+        }
+
+        return NSLocalizedString("temperature", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
       /// en translation: Transmitter Reset Result
@@ -3203,7 +3203,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let save = Rswift.StringResource(key: "save", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Sensor status
+      /// en translation: Sensor Status
       ///
       /// Locales: en, zh
       static let sensorStatus = Rswift.StringResource(key: "sensorStatus", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
@@ -3872,7 +3872,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("save", tableName: "Common", bundle: bundle, comment: "")
       }
 
-      /// en translation: Sensor status
+      /// en translation: Sensor Status
       ///
       /// Locales: en, zh
       static func sensorStatus(preferredLanguages: [String]? = nil) -> String {
@@ -5929,26 +5929,45 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.notes` struct is generated, and contains static references to 1 localization keys.
+    /// This `R.string.notes` struct is generated, and contains static references to 2 localization keys.
     struct notes {
-      /// en translation: No Notes
+      /// en translation: Alarms and Notes will show here
       ///
       /// Locales: en, zh
-      static let emptyview_no_notes = Rswift.StringResource(key: "emptyview_no_notes", tableName: "Notes", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      static let emptyview_msg_no_notes = Rswift.StringResource(key: "emptyview_msg_no_notes", tableName: "Notes", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: No Alarms or Notes
+      ///
+      /// Locales: en, zh
+      static let emptyview_title_no_notes = Rswift.StringResource(key: "emptyview_title_no_notes", tableName: "Notes", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
 
-      /// en translation: No Notes
+      /// en translation: Alarms and Notes will show here
       ///
       /// Locales: en, zh
-      static func emptyview_no_notes(preferredLanguages: [String]? = nil) -> String {
+      static func emptyview_msg_no_notes(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("emptyview_no_notes", tableName: "Notes", bundle: hostingBundle, comment: "")
+          return NSLocalizedString("emptyview_msg_no_notes", tableName: "Notes", bundle: hostingBundle, comment: "")
         }
 
         guard let (_, bundle) = localeBundle(tableName: "Notes", preferredLanguages: preferredLanguages) else {
-          return "emptyview_no_notes"
+          return "emptyview_msg_no_notes"
         }
 
-        return NSLocalizedString("emptyview_no_notes", tableName: "Notes", bundle: bundle, comment: "")
+        return NSLocalizedString("emptyview_msg_no_notes", tableName: "Notes", bundle: bundle, comment: "")
+      }
+
+      /// en translation: No Alarms or Notes
+      ///
+      /// Locales: en, zh
+      static func emptyview_title_no_notes(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("emptyview_title_no_notes", tableName: "Notes", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Notes", preferredLanguages: preferredLanguages) else {
+          return "emptyview_title_no_notes"
+        }
+
+        return NSLocalizedString("emptyview_title_no_notes", tableName: "Notes", bundle: bundle, comment: "")
       }
 
       fileprivate init() {}

@@ -178,7 +178,7 @@ extension DexcomG5BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
             return Texts_SettingsView.labelResetTransmitter
 
         case .batterySettings:
-            return Texts_BluetoothPeripheralView.battery
+            return R.string.bluetoothPeripheralView.battery()
             
         case .commonDexcomSettings:
             return "Dexcom"
@@ -208,12 +208,12 @@ extension DexcomG5BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
             case .sensorStartDate:
                 
                 cell.textLabel?.text = R.string.bluetoothPeripheralView.sensorStartDate()
-                cell.detailTextLabel?.text = dexcomG5.sensorStartDate?.toString(timeStyle: .short, dateStyle: .short)
+                cell.detailTextLabel?.text = dexcomG5.sensorStartDate?.toHumanFirendlyTime()
                 
             case .transmitterStartDate:
                 
                 cell.textLabel?.text = Texts_BluetoothPeripheralView.transmittterStartDate
-                cell.detailTextLabel?.text = dexcomG5.transmitterStartDate?.toString(timeStyle: .short, dateStyle: .short)
+                cell.detailTextLabel?.text = dexcomG5.transmitterStartDate?.toHumanFirendlyTime()
                 
             case .firmWareVersion:
                 
@@ -262,16 +262,13 @@ extension DexcomG5BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
                 }
                 
             case .lastResetTimeStamp:
-            
-                if let lastResetTimeStamp = dexcomG5.lastResetTimeStamp {
+                cell.textLabel?.text = Texts_BluetoothPeripheralView.lastResetTimeStamp
 
-                    cell.textLabel?.text = Texts_BluetoothPeripheralView.lastResetTimeStamp
-                    cell.detailTextLabel?.text = lastResetTimeStamp.toString(timeStyle: .short, dateStyle: .short)
+                if let lastResetTimeStamp = dexcomG5.lastResetTimeStamp {
+                    cell.detailTextLabel?.text = lastResetTimeStamp.toHumanFirendlyTime()
 
                 } else {
-                    
-                    cell.textLabel?.text = Texts_BluetoothPeripheralView.lastResetTimeStampNotKnown
-                    cell.detailTextLabel?.text = nil
+                    cell.detailTextLabel?.text = R.string.common.unknown()
                 }
             }
             
@@ -294,7 +291,7 @@ extension DexcomG5BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
                 
             case .batteryResist:
                 
-                cell.textLabel?.text = "Resistance"
+                cell.textLabel?.text = R.string.bluetoothPeripheralView.resistance()
                 cell.detailTextLabel?.text = dexcomG5.batteryResist != 0 ? dexcomG5.batteryResist.description : ""
                 
             case .batteryRuntime:
@@ -304,7 +301,7 @@ extension DexcomG5BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
                 
             case .batteryTemperature:
                 
-                cell.textLabel?.text = "Temperature"
+                cell.textLabel?.text = R.string.bluetoothPeripheralView.temperature()
                 cell.detailTextLabel?.text = dexcomG5.batteryTemperature != 0 ? dexcomG5.batteryTemperature.description : ""
                 
             }

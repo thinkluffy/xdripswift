@@ -36,7 +36,7 @@
 "hardware" = "Hardware";
 "unknown" = "Unknown";
 "save" = "Save";
-"sensorStatus" = "Sensor status";
+"sensorStatus" = "Sensor Status";
 "invalidAccountOrPassword" = "Invalid account or password";
 "common_statistics_low" = "Low";
 "common_statistics_inRange" = "In Range";

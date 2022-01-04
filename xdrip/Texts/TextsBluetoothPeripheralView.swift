@@ -32,10 +32,6 @@ class Texts_BluetoothPeripheralView {
         return NSLocalizedString("serialNumber", tableName: filename, bundle: Bundle.main, value: "Serial Number:", comment: "BluetoothPeripheral view, text of the cell with the serial number (this is not the sensor serial number")
     }()
     
-    static let battery: String = {
-        return NSLocalizedString("Battery", tableName: filename, bundle: Bundle.main, value: "Battery:", comment: "BluetoothPeripheral view, section title with battery info")
-    }()
-    
     static let needsTransmitterId: String = {
         return NSLocalizedString("needsTransmitterId", tableName: filename, bundle: Bundle.main, value: "Missing Transmitter ID", comment: "cell text, if user needs to set the transmitter id")
     }()
@@ -87,10 +83,6 @@ class Texts_BluetoothPeripheralView {
     static let transmittterStartDate: String = {
         return NSLocalizedString("transmittterStartDate", tableName: filename, bundle: Bundle.main, value: "Transmitter Start", comment: "cell text, transmitter start time")
     }()
-    
-    static let lastResetTimeStampNotKnown: String = {
-        return NSLocalizedString("lastResetNotKnown", tableName: filename, bundle: Bundle.main, value: "Last Reset Timestamp is not known", comment: "cell text, shows when last reset was done, if known. Only for Dexcom")
-    }()
    
     static let transmitterResetResult: String = {
         return NSLocalizedString("transmitterResultResult", tableName: filename, bundle: Bundle.main, value: "Transmitter Reset Result", comment: "To give result about transitter result in notification body")
@@ -102,14 +94,6 @@ class Texts_BluetoothPeripheralView {
 
     static let cannotActiveCGMInFollowerMode: String = {
         return NSLocalizedString("cannotActiveCGMInFollowerMode", tableName: filename, bundle: Bundle.main, value: "You can not activate a CGM in follower mode", comment: "User tries to add a CGM or connect an already existing CGM, while in follower mode.")
-    }()
-    
-    static let confirmDisconnectTitle: String = {
-        return NSLocalizedString("confirmDisconnectTitle", tableName: filename, bundle: Bundle.main, value: "Confirm Disconnect", comment: "Disconnect transmitter, title")
-    }()
-    
-    static let confirmDisconnectMessage: String = {
-        return NSLocalizedString("confirmDisconnectMessage", tableName: filename, bundle: Bundle.main, value: "Click 'Disconnect' to confirm that you really want to disconnect from the transmitter.", comment: "Confirm that the user wants to really disconnect the transmitter, title")
     }()
     
     static let useOtherDexcomApp: String = {

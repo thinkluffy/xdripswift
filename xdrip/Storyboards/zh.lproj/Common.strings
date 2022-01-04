@@ -17,15 +17,10 @@
 "warning" ="请注意";
 "update" = "更新";
 "add" = "添加";
-/////////////////////////////////////////////////////////////////////////////////////////////
-/////   Translation needed - remove this header after translation                       /////
-/////////////////////////////////////////////////////////////////////////////////////////////
-
-/// for settings row, literally firmware
-"firmware" = "Firmware";
+"firmware" = "固件";
 
 /// for settings row, literally hardware
-"hardware" = "Hardware";
+"hardware" = "硬件";
 
 /// on
 "on" = "On";
@@ -37,7 +32,7 @@
 "off" = "Off";
 
 /// to show the sensor status
-"sensorStatus" = "Sensor status:";
+"sensorStatus" = "发射器状态";
 "yellow" = "黄色";
 "delete" = "删除";
 "no" = "否";
@@ -55,7 +50,7 @@
 "invalidValue" = "Invalid Value";
 
 /// general usage
-"unknown" = "Unknown";
+"unknown" = "未知";
 
 /// literally 'OK'
 "common_Ok" = "好的";

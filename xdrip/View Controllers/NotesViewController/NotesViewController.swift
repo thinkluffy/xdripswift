@@ -26,13 +26,35 @@ class NotesViewController: UIViewController {
         return tableView
     }()
     
-    private lazy var emptyViewLabel: UILabel = {
-        let label = UILabel()
-        label.text = R.string.notes.emptyview_no_notes()
-        label.textColor = .lightText
-        label.font = .systemFont(ofSize: 25)
-        label.isHidden = true
-        return label
+    private lazy var emptyView: UIView = {
+        let titleLabel = UILabel()
+        titleLabel.text = R.string.notes.emptyview_title_no_notes()
+        titleLabel.textColor = .lightText
+        titleLabel.font = .systemFont(ofSize: 25)
+        
+        let msgLabel = UILabel()
+        msgLabel.text = R.string.notes.emptyview_msg_no_notes()
+        msgLabel.textColor = .lightText
+        msgLabel.font = .systemFont(ofSize: 16)
+        
+        let view = UIView()
+        view.addSubview(titleLabel)
+        view.addSubview(msgLabel)
+        
+        titleLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+        }
+        
+        msgLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(titleLabel.snp.bottom).offset(10)
+        }
+        
+        view.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel)
+            make.bottom.equalTo(msgLabel)
+        }
+        return view
     }()
     
     private var presenter: NotesP!
@@ -81,7 +103,7 @@ class NotesViewController: UIViewController {
         view.addSubview(titleBar)
         titleBar.addSubview(calendarTitle)
         view.addSubview(tableView)
-        view.addSubview(emptyViewLabel)
+        view.addSubview(emptyView)
         
         titleBar.snp.makeConstraints { make in
             make.leading.top.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -97,8 +119,9 @@ class NotesViewController: UIViewController {
             make.top.equalTo(titleBar.snp.bottom)
         }
         
-        emptyViewLabel.snp.makeConstraints { make in
+        emptyView.snp.makeConstraints { make in
             make.center.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
         }
         
         calendarTitle.delegate = self
@@ -130,10 +153,14 @@ extension NotesViewController: NotesV {
         tableView.reloadData()
         
         if notes == nil || notes!.isEmpty {
-            emptyViewLabel.isHidden = false
-            
+            emptyView.isHidden = false
+            // in iOS 14, the separator will show when tableview has no data
+            tableView.separatorColor = .clear
+
         } else {
-            emptyViewLabel.isHidden = true
+            emptyView.isHidden = true
+            // in iOS 14, the separator will show when tableview has no data
+            tableView.separatorColor = .white.withAlphaComponent(0.1)
         }
     }
     

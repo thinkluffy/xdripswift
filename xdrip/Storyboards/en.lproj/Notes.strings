@@ -6,4 +6,5 @@
   Copyright © 2021 Johan Degraeve. All rights reserved.
 */
 
-"emptyview_no_notes" = "No Notes";
+"emptyview_title_no_notes" = "No Alarms or Notes";
+"emptyview_msg_no_notes" = "Alarms and Notes will show here";
