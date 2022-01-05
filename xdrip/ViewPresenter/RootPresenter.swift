@@ -111,7 +111,6 @@ extension RootPresenter: NightScoutFollowerDelegate {
             
             healthKitManager.storeBgReadings()
             bgReadingSpeaker.speakNewReading(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp())
-            bluetoothPeripheralManager?.sendLatestReading()
             
             // ask watchManager to process new reading, ignore last connection change timestamp because this is follower mode, there is no connection to a transmitter
             WatchManager.shared.processNewReading(lastConnectionStatusChangeTimeStamp: nil)

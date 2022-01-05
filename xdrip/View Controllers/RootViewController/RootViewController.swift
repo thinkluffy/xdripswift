@@ -619,9 +619,7 @@ final class RootViewController: UIViewController {
             bgReadingSpeaker.speakNewReading(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp())
             
             dexcomShareUploadManager?.upload(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp())
-            
-            bluetoothPeripheralManager?.sendLatestReading()
-            
+                        
             WatchManager.shared.processNewReading(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp())
             
             loopManager.share()
@@ -955,10 +953,7 @@ final class RootViewController: UIViewController {
                 
                 // update labels
                 self.updateLabelsAndChart(overrideApplicationState: false)
-                
-                // bluetoothPeripherals should receive latest reading with calculated value
-                self.bluetoothPeripheralManager?.sendLatestReading()
-                
+                                
                 // watchManager should process new reading
                 WatchManager.shared.processNewReading(lastConnectionStatusChangeTimeStamp: self.lastConnectionStatusChangeTimeStamp())
                 

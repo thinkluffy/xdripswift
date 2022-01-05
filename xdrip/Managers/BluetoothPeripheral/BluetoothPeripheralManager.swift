@@ -357,51 +357,6 @@ class BluetoothPeripheralManager: NSObject {
     }
     
     // MARK: - public functions
-    
-    /// will send latest reading to all BluetoothTransmitters that need this info and only if it's less than 5 minutes old
-    /// - parameters:
-    ///     - to :if nil then latest reading will be sent to all connected BluetoothTransmitters that need this info, otherwise only to the specified BluetoothTransmitter
-    ///
-    /// this function has knowledge about different types of BluetoothTransmitter and knows to which it should send to reading, to which not
-    public func sendLatestReading(to toBluetoothPeripheral: BluetoothPeripheral? = nil) {
-        
-        // get reading of latest 5 minutes
-        let bgReadingToSend = bgReadingsAccessor.getLatestBgReadings(limit: 1, fromDate: Date(timeIntervalSinceNow: -5 * 60), forSensor: nil, ignoreRawData: true, ignoreCalculatedValue: false)
-        
-        // check that there's at least 1 reading available
-        guard bgReadingToSend.count >= 1 else {
-            trace("in sendLatestReading, there's no recent reading to send", log: log, category: ConstantsLog.categoryBluetoothPeripheralManager, type: .info)
-            return
-        }
-
-        // loop through all bluetoothPeripherals
-        for bluetoothPeripheral in bluetoothPeripherals {
-            
-            // if parameter toBluetoothPeripheral is not nil, then it means we need to send the reading only to this bluetoothPeripheral, so we skip all peripherals except that one
-            if let toBluetoothPeripheral = toBluetoothPeripheral, toBluetoothPeripheral.blePeripheral.address != bluetoothPeripheral.blePeripheral.address {
-                continue
-            }
-            
-            // find the index of the bluetoothPeripheral in bluetoothPeripherals array
-            if let index = firstIndexInBluetoothPeripherals(bluetoothPeripheral: bluetoothPeripheral), let bluetoothTransmitter = bluetoothTransmitters[index]  {
-
-                // get type of bluetoothPeripheral
-                let bluetoothPeripheralType = bluetoothPeripheral.bluetoothPeripheralType()
-                
-                // using bluetoothPeripheralType here so that whenever bluetoothPeripheralType is extended with new cases, we don't forget to handle them
-                switch bluetoothPeripheralType {
-                
-                case .WatlaaType:
-                    // no need to send reading to watlaa in master mode
-                    break
-                    
-                case .DexcomType, .BubbleType, .MiaoMiaoType, .BluconType, .GNSentryType, .BlueReaderType, .DropletType, .Libre2Type, .AtomType:
-                    // cgm's don't receive reading, they send it
-                    break
-                }
-            }
-        }
-    }
 
     /// disconnect from bluetoothPeripheral - and don't reconnect - set shouldconnect to false
     public func disconnect(fromBluetoothPeripheral bluetoothPeripheral: BluetoothPeripheral) {
