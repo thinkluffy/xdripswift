@@ -127,6 +127,59 @@ class NightScoutFollowManager: NSObject {
         return (calculatedValueSlope, hideSlope)
     }
     
+    static func testNightScoutCredentials(_ completion: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+        NightScoutFollowManager.log.d("==> testNightScoutCredentials")
+
+        guard let nightScoutUrl = UserDefaults.standard.nightScoutUrl else {
+            completion(false, NSError(domain: "", code: 400))
+            return
+        }
+        
+        // ceate endpoint to get latest entries
+        let latestEntriesEndpoint = Endpoint.getEndpointForLatestNSEntries(
+            hostAndScheme: nightScoutUrl,
+            port: UserDefaults.standard.nightScoutPort == 0 ? nil : UserDefaults.standard.nightScoutPort,
+            count: nil,
+            olderThan: nil,
+            token: UserDefaults.standard.nightScoutToken
+        )
+        
+        // create downloadTask and start download
+        guard let url = latestEntriesEndpoint.url else {
+            completion(false, NSError(domain: "", code: 401))
+            return
+        }
+            
+        NightScoutFollowManager.log.d("test url: \(url.absoluteString)")
+
+        var request = URLRequest(url: url)
+
+        if let apiKey = UserDefaults.standard.nightScoutAPIKey {
+            request.setValue(apiKey.sha1(), forHTTPHeaderField: "api-secret")
+        }
+        
+        let task = URLSession.shared.dataTask(with: request) {
+            data, response, error in
+            
+            if let error = error {
+                completion(false, error)
+                return
+            }
+            
+            if let httpResponse = response as? HTTPURLResponse ,
+               httpResponse.statusCode != 200, let data = data {
+                completion(false, NSError(domain: "",
+                                          code: httpResponse.statusCode,
+                                          userInfo: [NSLocalizedDescriptionKey: String(data: data, encoding: String.Encoding.utf8)!]))
+                
+            } else {
+                completion(true, nil)
+            }
+        }
+        
+        task.resume()
+    }
+    
     /// download recent readings from nightScout, send result to delegate, and schedule new download
     @objc private func download() {
         

@@ -46,6 +46,7 @@ extension PopupDialog {
     convenience init(title: String?,
                      message: String?,
                      keyboardType: UIKeyboardType?,
+                     autocapitalizationType: UITextAutocapitalizationType? = nil,
                      text: String?,
                      placeHolder: String?,
                      actionTitle: String = R.string.common.common_Ok(),
@@ -58,6 +59,7 @@ extension PopupDialog {
             title: title,
             message: message,
             keyboardType: keyboardType ?? .default,
+            autocapitalizationType: autocapitalizationType,
             text: text,
             placeHolder: placeHolder
         )
@@ -119,6 +121,7 @@ fileprivate class PopupDialogInputView: UIView {
     init(title: String?,
          message: String?,
          keyboardType: UIKeyboardType,
+         autocapitalizationType: UITextAutocapitalizationType?,
          text: String?,
          placeHolder: String?) {
         
@@ -129,6 +132,11 @@ fileprivate class PopupDialogInputView: UIView {
         messageLabel.text = message
         textField.keyboardType = keyboardType
         textField.text = text
+        
+        if let autocapitalizationType = autocapitalizationType {
+            textField.autocapitalizationType = autocapitalizationType
+        }
+        
         if let placeHolder = placeHolder {
             textField.attributedPlaceholder = NSAttributedString(
                 string: placeHolder,
@@ -188,6 +196,7 @@ fileprivate class PopupDialogInputViewController: UIViewController {
     init(title: String?,
          message: String?,
          keyboardType: UIKeyboardType,
+         autocapitalizationType: UITextAutocapitalizationType?,
          text: String?,
          placeHolder: String?) {
         
@@ -195,6 +204,7 @@ fileprivate class PopupDialogInputViewController: UIViewController {
             title: title,
             message: message,
             keyboardType: keyboardType,
+            autocapitalizationType: autocapitalizationType,
             text: text,
             placeHolder: placeHolder
         )

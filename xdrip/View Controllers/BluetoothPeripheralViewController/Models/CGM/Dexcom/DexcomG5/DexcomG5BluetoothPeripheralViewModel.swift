@@ -65,6 +65,8 @@ class DexcomG5BluetoothPeripheralViewModel {
         
     }
     
+    private static let log = Log(type: DexcomG5BluetoothPeripheralViewModel.self)
+    
     /// reference to bluetoothPeripheralManager
     private weak var bluetoothPeripheralManager: BluetoothPeripheralManaging?
     
@@ -83,6 +85,7 @@ class DexcomG5BluetoothPeripheralViewModel {
     }
         
     deinit {
+        DexcomG5BluetoothPeripheralViewModel.log.d("==> deinit")
         
         // when closing the viewModel, and if there's still a bluetoothTransmitter existing, then reset the specific delegate to BluetoothPeripheralManager
         
@@ -150,14 +153,10 @@ extension DexcomG5BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
         self.bluetoothPeripheral = bluetoothPeripheral
         
         if let bluetoothPeripheral = bluetoothPeripheral {
-            
             if let dexcomG5 = bluetoothPeripheral as? DexcomG5 {
-                
                 if let cGMG5Transmitter = getTransmitter(for: dexcomG5) {
-                    
                     // set cGMG5Transmitter delegate to self.
                     cGMG5Transmitter.cGMG5TransmitterDelegate = self
-                    
                 }
                 
             } else {
@@ -341,7 +340,8 @@ extension DexcomG5BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
 extension DexcomG5BluetoothPeripheralViewModel: CGMG5TransmitterDelegate {
     
     func reset(for cGMG5Transmitter: CGMG5Transmitter, successful: Bool) {
-        
+        DexcomG5BluetoothPeripheralViewModel.log.d("==> reset")
+
         // storage in dexcomG5 object is handled in bluetoothPeripheralManager
         (bluetoothPeripheralManager as? CGMG5TransmitterDelegate)?.reset(for: cGMG5Transmitter, successful: successful)
         
@@ -370,7 +370,8 @@ extension DexcomG5BluetoothPeripheralViewModel: CGMG5TransmitterDelegate {
     }
     
     func received(transmitterBatteryInfo: TransmitterBatteryInfo, cGMG5Transmitter: CGMG5Transmitter) {
-        
+        DexcomG5BluetoothPeripheralViewModel.log.d("==> transmitterBatteryInfo")
+
         // storage in dexcomG5 object is handled in bluetoothPeripheralManager
         (bluetoothPeripheralManager as? CGMG5TransmitterDelegate)?.received(transmitterBatteryInfo: transmitterBatteryInfo, cGMG5Transmitter: cGMG5Transmitter)
         
@@ -382,6 +383,7 @@ extension DexcomG5BluetoothPeripheralViewModel: CGMG5TransmitterDelegate {
     }
     
     func received(firmware: String, cGMG5Transmitter: CGMG5Transmitter) {
+        DexcomG5BluetoothPeripheralViewModel.log.d("==> receivedFirmware, firmware: \(firmware)")
         
         (bluetoothPeripheralManager as? CGMG5TransmitterDelegate)?.received(firmware: firmware, cGMG5Transmitter: cGMG5Transmitter)
         
@@ -393,7 +395,8 @@ extension DexcomG5BluetoothPeripheralViewModel: CGMG5TransmitterDelegate {
     
     /// received transmitterStartDate
     func received(transmitterStartDate: Date, cGMG5Transmitter: CGMG5Transmitter) {
-        
+        DexcomG5BluetoothPeripheralViewModel.log.d("==> receivedTransmitterStartDate, date: \(transmitterStartDate)")
+
         (bluetoothPeripheralManager as? CGMG5TransmitterDelegate)?.received(transmitterStartDate: transmitterStartDate, cGMG5Transmitter: cGMG5Transmitter)
         
         // transmitterStartDate should get updated in DexcomG5 object by bluetoothPeripheralManager, here's the trigger to update the table
@@ -405,7 +408,8 @@ extension DexcomG5BluetoothPeripheralViewModel: CGMG5TransmitterDelegate {
     
     /// received sensorStartDate
     func received(sensorStartDate: Date?, cGMG5Transmitter: CGMG5Transmitter) {
-        
+        DexcomG5BluetoothPeripheralViewModel.log.d("==> receivedSensorStartDate")
+
         (bluetoothPeripheralManager as? CGMG5TransmitterDelegate)?.received(sensorStartDate: sensorStartDate, cGMG5Transmitter: cGMG5Transmitter)
         
         // sensorStartDate should get updated in DexcomG5 object by bluetoothPeripheralManager, here's the trigger to update the table
@@ -417,7 +421,8 @@ extension DexcomG5BluetoothPeripheralViewModel: CGMG5TransmitterDelegate {
     
     /// received sensorStatus
     func received(sensorStatus: String?, cGMG5Transmitter: CGMG5Transmitter) {
-        
+        DexcomG5BluetoothPeripheralViewModel.log.d("==> receivedSensorStatus")
+
         (bluetoothPeripheralManager as? CGMG5TransmitterDelegate)?.received(sensorStatus: sensorStatus, cGMG5Transmitter: cGMG5Transmitter)
         
         // sensorStatus should get updated in DexcomG5 object by bluetoothPeripheralManager, here's the trigger to update the table

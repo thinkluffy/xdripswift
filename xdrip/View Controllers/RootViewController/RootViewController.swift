@@ -349,11 +349,15 @@ final class RootViewController: UIViewController {
         }
     }
     
-    // creates activeSensor, bgreadingsAccessor, calibrationsAccessor, NightScoutUploadManager, soundPlayer, dexcomShareUploadManager, nightScoutFollowManager, alertManager, healthKitManager, bgReadingSpeaker, bluetoothPeripheralManager, watchManager, housekeeper
     private func setupApplicationData() {
         
         // get currently active sensor
         activeSensor = SensorsAccessor().fetchActiveSensor()
+        if let activeSensor = activeSensor {
+            RootViewController.log.d("Got activeSensor: \(activeSensor.log(indentation: "ActiveSensor"))")
+        }
+
+//        SensorsAccessor().listSensors(on: CoreDataManager.shared.mainManagedObjectContext)
         
         // setup nightscout synchronizer
         nightScoutUploadManager = NightScoutUploadManager() { (title: String, message: String) in
@@ -405,8 +409,8 @@ final class RootViewController: UIViewController {
         if activeSensor == nil {
             if let sensorAge = sensorAge, cgmTransmitter.cgmTransmitterType().canDetectNewSensor() {
                 // no need to send to transmitter, because we received processNewGlucoseData, so transmitter knows the sensor already
-                startSensor(cGMTransmitter: cgmTransmitter,
-                            sensorStarDate: Date(timeIntervalSinceNow: -sensorAge),
+                startSensor(cgmTransmitter: cgmTransmitter,
+                            sensorStartDate: Date(timeIntervalSinceNow: -sensorAge),
                             sensorCode: nil,
                             sendToTransmitter: false)
             }
@@ -528,7 +532,7 @@ final class RootViewController: UIViewController {
                 let checktimestamp = Date(timeInterval: 5.0 * 60.0 - 10.0, since: timeStampLastBgReading)
                 
                 // timestamp of glucose being processed must be higher (ie more recent) than checktimestamp except if it's the last one (ie the first in the array), because there we don't care if it's less than 5 minutes different with the last but one
-                if (glucose.timeStamp > checktimestamp || ((index == 0) && (glucose.timeStamp > timeStampLastBgReading))) {
+                if glucose.timeStamp > checktimestamp || ((index == 0) && (glucose.timeStamp > timeStampLastBgReading)) {
                     
                     // check on glucoseLevelRaw > 0 because I've had a case where a faulty sensor was giving negative values
                     if glucose.glucoseLevelRaw > 0 {
@@ -554,7 +558,7 @@ final class RootViewController: UIViewController {
                             nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext
                         )
                         
-                        RootViewController.log.i("new reading created, timestamp: \(newReading.timeStamp.description(with: .current)), calculatedValue: \(newReading.calculatedValue.description.replacingOccurrences(of: ".", with: ","))")
+                        RootViewController.log.i("new reading created, timestamp: \(newReading.timeStamp), calculatedValue: \(newReading.calculatedValue)")
                         
                         // save the newly created bgreading permenantly in coredata
                         CoreDataManager.shared.saveChanges()
@@ -668,10 +672,14 @@ final class RootViewController: UIViewController {
         
         case UserDefaults.Key.isMaster :
             changeButtonsStatusTo(enabled: UserDefaults.standard.isMaster)
-            
+           
+            guard let cgmTransmitter = self.bluetoothPeripheralManager?.getCGMTransmitter() else {
+                break
+            }
+
             // no sensor needed in follower mode, stop it
-            stopSensor()
-            
+            stopSensor(cgmTransmitter: cgmTransmitter, sendToTransmitter: false)
+
         case UserDefaults.Key.showReadingInNotification:
             if !UserDefaults.standard.showReadingInNotification {
                 // remove existing notification if any
@@ -1258,27 +1266,16 @@ final class RootViewController: UIViewController {
         }
     }
     
-    /// stops the active sensor and sets sensorSerialNumber in UserDefaults to nil
-    private func stopSensor() {
-        if let activeSensor = activeSensor {
-            activeSensor.endDate = Date()
-        }
-        // save the changes
-        CoreDataManager.shared.saveChanges()
-        
-        activeSensor = nil
-        
-        // now that the activeSensor object has been destroyed, update (hide) the sensor countdown graphic
-        updateSensorCountdown()
-    }
-    
     /// - creates a new sensor and assigns it to activeSensor
     /// - if sendToTransmitter is true then sends startSensor command to transmitter (ony useful for Firefly)
     /// - saves to coredata
-    private func startSensor(cGMTransmitter: CGMTransmitter, sensorStarDate: Date, sensorCode: String?, sendToTransmitter: Bool) {
+    private func startSensor(cgmTransmitter: CGMTransmitter, sensorStartDate: Date, sensorCode: String?, sendToTransmitter: Bool) {
+        RootViewController.log.d("==> startSensor")
         
+        EasyTracker.logEvent(Events.prefixStartSensor + cgmTransmitter.cgmTransmitterType().rawValue)
+
         // create active sensor
-        let newSensor = Sensor(startDate: sensorStarDate,
+        let newSensor = Sensor(startDate: sensorStartDate,
                                nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
         
         // save the newly created Sensor permenantly in coredata
@@ -1286,20 +1283,24 @@ final class RootViewController: UIViewController {
         
         // send to transmitter
         if sendToTransmitter {
-            cGMTransmitter.startSensor(sensorCode: sensorCode, startDate: sensorStarDate)
+            cgmTransmitter.startSensor(sensorCode: sensorCode, startDate: sensorStartDate)
         }
 
         // assign activeSensor to newSensor
         activeSensor = newSensor
     }
     
-    private func stopSensor(cGMTransmitter: CGMTransmitter, sendToTransmitter: Bool) {
+    private func stopSensor(cgmTransmitter: CGMTransmitter, sendToTransmitter: Bool) {
+        RootViewController.log.d("==> stopSensor")
+
+        EasyTracker.logEvent(Events.prefixStopSensor + cgmTransmitter.cgmTransmitterType().rawValue)
+
         // create stopDate
         let stopDate = Date()
         
         // send stop sensor command to transmitter, don't check if there's an activeSensor in coredata or not, never know that there's a desync between coredata and transmitter
         if sendToTransmitter {
-            cGMTransmitter.stopSensor(stopDate: stopDate)
+            cgmTransmitter.stopSensor(stopDate: stopDate)
         }
 
         // no need to further continue if activeSensor = nil, and at the same time, unwrap coredataManager
@@ -1320,12 +1321,10 @@ final class RootViewController: UIViewController {
         updateSensorCountdown()
     }
     
-    
     private func getCGMTransmitterDeviceName(for cgmTransmitter: CGMTransmitter) -> String? {
         if let bluetoothTransmitter = cgmTransmitter as? BluetoothTransmitter {
             return bluetoothTransmitter.deviceName
         }
-        
         return nil
     }
     
@@ -1369,9 +1368,7 @@ final class RootViewController: UIViewController {
         guard let cgmTransmitter = self.bluetoothPeripheralManager?.getCGMTransmitter(), let bluetoothTransmitter = cgmTransmitter as? BluetoothTransmitter, let bluetoothPeripheral = self.bluetoothPeripheralManager?.getBluetoothPeripheral(for: bluetoothTransmitter), let lastConnectionStatusChangeTimeStamp = bluetoothPeripheral.blePeripheral.lastConnectionStatusChangeTimeStamp else {return Date(timeIntervalSince1970: 0)}
         
         return lastConnectionStatusChangeTimeStamp
-        
     }
-    
     
     // helper function to calculate the statistics and update the pie chart and label outlets
     private func updateStatistics(animatePieChart: Bool = false, doEvenAppNotActive: Bool = false) {
@@ -1440,25 +1437,25 @@ extension RootViewController: CGMTransmitterDelegate {
             return
         }
         
-        stopSensor(cGMTransmitter: cgmTransmitter, sendToTransmitter: false)
+        stopSensor(cgmTransmitter: cgmTransmitter, sendToTransmitter: false)
     }
     
     func newSensorDetected(sensorStartDate: Date?) {
-        trace("new sensor detected", log: log, category: ConstantsLog.categoryRootView, type: .info)
+        RootViewController.log.d("==> newSensorDetected")
         
         // unwrap cgmTransmitter
         guard let cgmTransmitter = self.bluetoothPeripheralManager?.getCGMTransmitter() else {
             return
         }
         
-        stopSensor(cGMTransmitter: cgmTransmitter, sendToTransmitter: false)
+        stopSensor(cgmTransmitter: cgmTransmitter, sendToTransmitter: false)
 
         // if sensorStartDate is given, then startSensor
         if let sensorStartDate = sensorStartDate {
             
             // use sensorCode nil, in the end there will be no start sensor command sent to the transmitter because we just received the sensorStartTime from the transmitter, so it's already started
-            startSensor(cGMTransmitter: cgmTransmitter,
-                        sensorStarDate: sensorStartDate,
+            startSensor(cgmTransmitter: cgmTransmitter,
+                        sensorStartDate: sensorStartDate,
                         sensorCode: nil,
                         sendToTransmitter: false)
         }
@@ -1508,7 +1505,7 @@ extension RootViewController: CGMTransmitterDelegate {
                 
                 trace("in cgmTransmitterInfoChanged, webOOPEnabled value changed to %{public}@, will stop the sensor", log: self.log, category: ConstantsLog.categoryRootView, type: .info, cgmTransmitter.isWebOOPEnabled().description)
                 
-                stopSensor()
+                stopSensor(cgmTransmitter: cgmTransmitter, sendToTransmitter: false)
             }
             
             // check if nonFixedSlopeEnabled changed and if yes stop the sensor
@@ -1516,7 +1513,7 @@ extension RootViewController: CGMTransmitterDelegate {
                 
                 trace("in cgmTransmitterInfoChanged, nonFixedSlopeEnabled value changed to %{public}@, will stop the sensor", log: self.log, category: ConstantsLog.categoryRootView, type: .info, cgmTransmitter.isNonFixedSlopeEnabled().description)
                 
-                stopSensor()
+                stopSensor(cgmTransmitter: cgmTransmitter, sendToTransmitter: false)
             }
             
             // check if the type of sensor supported by the cgmTransmitterType  has changed, if yes stop the sensor
@@ -1524,7 +1521,7 @@ extension RootViewController: CGMTransmitterDelegate {
                 
                 trace("in cgmTransmitterInfoChanged, sensorType value changed to %{public}@, will stop the sensor", log: self.log, category: ConstantsLog.categoryRootView, type: .info, cgmTransmitter.cgmTransmitterType().sensorType().rawValue)
                 
-                stopSensor()
+                stopSensor(cgmTransmitter: cgmTransmitter, sendToTransmitter: false)
             }
             
             // assign the new value of webOOPEnabled

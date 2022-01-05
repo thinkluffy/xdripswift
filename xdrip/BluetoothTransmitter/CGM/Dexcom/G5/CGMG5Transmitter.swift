@@ -9,7 +9,7 @@ class CGMG5Transmitter: BluetoothTransmitter, CGMTransmitter {
     /// G5 or G6 transmitter firmware version - only used internally, if nil then it was  never received
     ///
     /// created public because inheriting classes need it
-    var firmware:String?
+    var firmware: String?
     
     /// G5 or G6 age - only used internally, if nil then it was  never received
     ///
@@ -28,7 +28,7 @@ class CGMG5Transmitter: BluetoothTransmitter, CGMTransmitter {
     let CBUUID_Service_G5 = "F8083532-849E-531C-C594-30F1F86A4EA5"
     
     /// characteristic uuids (created them in an enum as there's a lot of them, it's easy to switch through the list)
-    private enum CBUUID_Characteristic_UUID:String, CustomStringConvertible  {
+    private enum CBUUID_Characteristic_UUID: String, CustomStringConvertible  {
         
         /// Read/Notify characteristic
         case CBUUID_Communication = "F8083533-849E-531C-C594-30F1F86A4EA5"
@@ -131,13 +131,10 @@ class CGMG5Transmitter: BluetoothTransmitter, CGMTransmitter {
     /// if the user starts the sensor via xDrip4iOS, then only after having receivec a confirmation from the transmitter, then sensorStartDate will be assigned to the actual sensor start date
     /// - if set then call cGMG5TransmitterDelegate.received(sensorStartDate
     private var sensorStartDate: Date? {
-        
         didSet {
-            
             cGMG5TransmitterDelegate?.received(sensorStartDate: sensorStartDate, cGMG5Transmitter: self)
             
             timeStampLastSensorStartTimeRead = Date(timeIntervalSince1970: 0)
-            
         }
     }
     
@@ -241,9 +238,7 @@ class CGMG5Transmitter: BluetoothTransmitter, CGMTransmitter {
         // for G5, the scaling is independent of the firmwareVersion
         // and there's no scaling to do
         if transmitterId.startsWith("4") {
-
             return rawValue
-
         }
         
         // so it's G6 (non firefly)
@@ -260,7 +255,6 @@ class CGMG5Transmitter: BluetoothTransmitter, CGMTransmitter {
         }
         
         return rawValue
-        
     }
     
     /// to ask transmitter reset
@@ -369,7 +363,6 @@ class CGMG5Transmitter: BluetoothTransmitter, CGMTransmitter {
             case .CBUUID_Communication:
                 
                 break
-                
             }
             
         } else {
@@ -1108,7 +1101,7 @@ class CGMG5Transmitter: BluetoothTransmitter, CGMTransmitter {
     
 
     /// process batteryStatusRxMessage
-    private func processBatteryStatusRxMessage(value:Data) {
+    private func processBatteryStatusRxMessage(value: Data) {
         
         if let batteryStatusRxMessage = BatteryStatusRxMessage(data: value) {
 

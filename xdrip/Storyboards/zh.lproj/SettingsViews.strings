@@ -98,7 +98,8 @@
 "settingsviews_labelNonFixed" = "多点校准";
 
 /// nightscout settings, when clicking the cell, test the url and api key
-"testUrlAndAPIKey" = "测试连接";
+"testUrlAndAPIKeyInMasterMode" = "测试连接 (主控端)";
+"testUrlAndAPIKeyInFollowerMode" = "测试连接 (关注着)";
 
 /// If user is not allowed to give any app access to the Calendar, due to restrictions. And then tries to activate creation of events in calendar, this message will be shown
 "infoCalendarAccessRestricted" = "You cannot give authorization to %@ to access your calendar. This is possibly due to active restrictions such as parental controls being in place.";
@@ -117,9 +118,6 @@
 
 /// healthkit settings, literally 'healthkit'
 "settingsviews_healthkit" = "数据写入苹果健康";
-
-/// bluetooth settings, section title - also used in bluetooth peripheral view, eg when viewing M5Stack details. This is the title of the first section
-"m5stack_settingsviews_sectiontitlebluetooth" = "蓝牙";
 
 /// Apple Watch Settings - section title
 "appleWatchSectionTitle" = "苹果手表";

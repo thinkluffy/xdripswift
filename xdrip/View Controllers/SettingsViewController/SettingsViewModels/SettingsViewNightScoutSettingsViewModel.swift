@@ -37,130 +37,29 @@ class SettingsViewNightScoutSettingsViewModel {
     ///
     /// the viewcontroller sets it by calling storeMessageHandler
     private var messageHandler: ((String, String) -> Void)?
-    
-    /// path to test API Secret
-    private let nightScoutAuthTestPath = "/api/v1/experiments/test"
-    
+        
     private static let log = Log(type: SettingsViewNightScoutSettingsViewModel.self)
     
-    // MARK: - private functions
-    
-    /// test the nightscout url and api key and send result to messageHandler
     private func testNightScoutCredentials() {
-                        
-        guard let urlString = UserDefaults.standard.nightScoutUrl,
-           let url = URL(string: urlString),
-           var urlComponents = URLComponents(url: url.appendingPathComponent(nightScoutAuthTestPath), resolvingAgainstBaseURL: false)
-        else {
-            return
-        }
-        
-        if UserDefaults.standard.nightScoutPort != 0 {
-            urlComponents.port = UserDefaults.standard.nightScoutPort
-        }
-        
-        if let url = urlComponents.url {
-            SettingsViewNightScoutSettingsViewModel.log.d("url: \(url.absoluteString)")
-            
-            var request = URLRequest(url: url)
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue("application/json", forHTTPHeaderField: "Accept")
-            
-            // if the API_SECRET is present, then hash it and pass it via http header. If it's missing but there is a token, then send this as plain text to allow the authentication check.
-            if let apiKey = UserDefaults.standard.nightScoutAPIKey {
-                let apiSecret = apiKey.sha1()
-                request.setValue(apiSecret, forHTTPHeaderField: "api-secret")
-                SettingsViewNightScoutSettingsViewModel.log.d("test with apiKey, api-secret: \(apiSecret)")
-
-            } else if let token = UserDefaults.standard.nightScoutToken {
-                request.setValue(token, forHTTPHeaderField: "api-secret")
-                SettingsViewNightScoutSettingsViewModel.log.d("test with token, token: \(token)")
+        let resultCallback = { (success: Bool, error: Error?) in
+            if success {
+                self.callMessageHandlerInMainThread(title: Texts_NightScoutTestResult.verificationSuccessfulAlertTitle,
+                                                    message: Texts_NightScoutTestResult.verificationSuccessfulAlertBody)
+                
+            } else {
+                let errorCode = (error as NSError?)?.code ?? 0
+                self.callMessageHandlerInMainThread(
+                    title: R.string.nightScoutTestResult.dialog_title_nightScoutResult_verification_failed(),
+                    message: R.string.nightScoutTestResult.dialog_msg_nightScoutResult_verification_failed(errorCode)
+                )
             }
+        }
+        
+        if UserDefaults.standard.isMaster {
+            NightScoutUploadManager.testNightScoutCredentials(resultCallback)
             
-            let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
-                
-                SettingsViewNightScoutSettingsViewModel.log.d("in testNightScoutCredentials, finished task")
-                
-                if let error = error {
-                    if error.localizedDescription.hasPrefix("A server with the specified hostname could not be found") {
-                        SettingsViewNightScoutSettingsViewModel.log.w("in testNightScoutCredentials, error: \(error.localizedDescription)")
-                        
-                        self.callMessageHandlerInMainThread(title: "URL/Hostname not found!", message: error.localizedDescription)
-                        
-                        return
-                        
-                    } else {
-                        SettingsViewNightScoutSettingsViewModel.log.w("in testNightScoutCredentials, error \(error.localizedDescription)")
-                        
-                        self.callMessageHandlerInMainThread(title: Texts_NightScoutTestResult.verificationErrorAlertTitle, message: error.localizedDescription)
-                        
-                        return
-                    }
-                }
-                
-                if let httpResponse = response as? HTTPURLResponse, let data = data {
-                    let errorMessage = String(data: data, encoding: String.Encoding.utf8)!
-                    
-                    switch httpResponse.statusCode {
-                        
-                    case (200...299):
-                        
-                        SettingsViewNightScoutSettingsViewModel.log.d("in testNightScoutCredentials, successful")
-                        
-                        self.callMessageHandlerInMainThread(title: Texts_NightScoutTestResult.verificationSuccessfulAlertTitle, message: Texts_NightScoutTestResult.verificationSuccessfulAlertBody)
-                        
-                        
-                    case (400):
-                        
-                        SettingsViewNightScoutSettingsViewModel.log.w("in testNightScoutCredentials, error: \(errorMessage)")
-                        
-                        self.callMessageHandlerInMainThread(title: "400: Bad Request", message: errorMessage)
-                        
-                    case (401):
-                        
-                        if UserDefaults.standard.nightScoutAPIKey != nil {
-                            
-                            SettingsViewNightScoutSettingsViewModel.log.w("in testNightScoutCredentials, API_SECRET is not valid, error: \(errorMessage)")
-                            
-                            self.callMessageHandlerInMainThread(title: "API Secret is Invalid", message: errorMessage)
-                            
-                        } else if UserDefaults.standard.nightScoutAPIKey == nil && UserDefaults.standard.nightScoutToken != nil {
-                            
-                            SettingsViewNightScoutSettingsViewModel.log.w("in testNightScoutCredentials, Token is not valid, error: \(errorMessage)")
-                            
-                            self.callMessageHandlerInMainThread(title: "Token is Invalid", message: errorMessage)
-                            
-                        } else {
-                            
-                            SettingsViewNightScoutSettingsViewModel.log.w("in testNightScoutCredentials, URL responds OK but authentication method is missing and cannot be checked")
-                            
-                            self.callMessageHandlerInMainThread(title: Texts_NightScoutTestResult.verificationSuccessfulAlertTitle,
-                                                                message: R.string.nightScoutTestResult.nightScoutResult_no_auth_method())
-                            
-                        }
-                    
-                    case (403):
-                        
-                        SettingsViewNightScoutSettingsViewModel.log.w("in testNightScoutCredentials, error: \(errorMessage)")
-                        
-                        self.callMessageHandlerInMainThread(title: "403: Forbidden Request", message: errorMessage)
-                        
-                    case (404):
-                        
-                        SettingsViewNightScoutSettingsViewModel.log.w("in testNightScoutCredentials, error: \(errorMessage)")
-                        
-                        self.callMessageHandlerInMainThread(title: "404: Page Not Found", message: errorMessage)
-                        
-                    default:
-                        SettingsViewNightScoutSettingsViewModel.log.w("in testNightScoutCredentials, error: \(errorMessage)")
-                        
-                        self.callMessageHandlerInMainThread(title: Texts_NightScoutTestResult.verificationErrorAlertTitle, message: errorMessage)
-                    }
-                }
-            })
-            
-            SettingsViewNightScoutSettingsViewModel.log.d("in testNightScoutCredentials, calling task.resume")
-            task.resume()
+        } else {
+            NightScoutFollowManager.testNightScoutCredentials(resultCallback)
         }
     }
     
@@ -383,7 +282,7 @@ extension SettingsViewNightScoutSettingsViewModel: SettingsViewModelProtocol {
         case .uploadSensorStartTime:
             return Texts_SettingsView.uploadSensorStartTime
         case .testUrlAndAPIKey:
-            return Texts_SettingsView.testUrlAndAPIKey
+            return UserDefaults.standard.isMaster ? R.string.settingsViews.testUrlAndAPIKeyInMasterMode() : R.string.settingsViews.testUrlAndAPIKeyInFollowerMode()
         }
     }
     

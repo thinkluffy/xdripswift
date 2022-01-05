@@ -3,14 +3,10 @@ import os
 import CoreData
 
 class SensorsAccessor {
-    
-    // MARK: - Properties
-    
-    /// for logging
-    private var log = OSLog(subsystem: ConstantsLog.subSystem, category: ConstantsLog.categoryApplicationDataSensors)
         
-    // MARK: - functions
-    
+    /// for logging
+    private static let log = Log(type: SensorsAccessor.self)
+            
     /// will get sensor with enddate nil (ie not stopped) and highest startDate,
     /// otherwise returns nil
     ///
@@ -40,11 +36,35 @@ class SensorsAccessor {
                 }
             } catch {
                 let fetchError = error as NSError
-                trace("Unable to Execute Sensor Fetch Request : %{public}@", log: self.log, category: ConstantsLog.categoryCoreDataManager, type: .error, fetchError.localizedDescription)
+                SensorsAccessor.log.e("Unable to Execute Sensor Fetch Request: \(fetchError.localizedDescription)")
             }
         }
         
         return returnValue
     }
+    
+    func listSensors(on context: NSManagedObjectContext) {
+        // create fetchRequest
+        let fetchRequest: NSFetchRequest<Sensor> = Sensor.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Sensor.startDate), ascending: false)]
+//        fetchRequest.predicate = predicate
+        
+        context.performAndWait {
+            do {
+                // Execute Fetch Request
+                let sensors = try fetchRequest.execute()
+                SensorsAccessor.log.d("TotalSensors: \(sensors.count)")
+                
+                if sensors.count > 0 {
+                    for (i, sensor) in sensors.enumerated() {
+                        SensorsAccessor.log.d(sensor.log(indentation: "[\(i)]"))
+                    }
+                }
+                
+            } catch {
+                let fetchError = error as NSError
+                SensorsAccessor.log.e("Unable to Execute Sensor Fetch Request: \(fetchError.localizedDescription)")
+            }
+        }
+    }
 }
-

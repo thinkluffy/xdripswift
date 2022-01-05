@@ -1,8 +1,9 @@
 "nightscouttestresult_verificationsuccessfulalerttitle" = "验证成功";
 "nightscouttestresult_verificationsuccessfulalertbody" = "您的 Nightscout 账号已经验证成功";
-"nightscouttestresult_verificationerroralerttitle" = "验证错误";
 "warningAPIKeyOrURLIsnil" = "开始测试前，请先输入 Nightscout 网址和 (API 秘钥 或 令牌)";
 "nightScoutAPIKeyAndURLStartedTitle" = "检测中...";
 "nightScoutAPIKeyAndURLStartedBody" = "请耐心等待";
 "nightScoutResult_no_auth_method" = "网址正常响应，但是缺失验证信息";
+"dialog_title_nightScoutResult_verification_failed" = "验证错误";
+"dialog_msg_nightScoutResult_verification_failed" = "请检查网址和其他信息。\n\n错误码: %d";
 

@@ -61,7 +61,8 @@
 "editScheduleTimePickerSubtitle" = "Change ";
 "timeScheduleViewTitle" = "On/Off Time Schedule for ";
 "uploadSensorStartTime" = "Upload Sensor Start Time";
-"testUrlAndAPIKey" = "Test Connection";
+"testUrlAndAPIKeyInMasterMode" = "Test Connection (Master Mode)";
+"testUrlAndAPIKeyInFollowerMode" = "Test Connection (Follower Mode)";
 "settingsviews_sectiontitlespeak" = "Voice";
 "settingsviews_speakBgReadings" = "Speak BG Readings";
 "settingsviews_speakBgReadingslanguage" = "Language";
@@ -76,7 +77,6 @@
 "settingsviews_build" = "Build";
 "m5stack_settingsviews_textColor" = "Text Color";
 "m5stack_settingsviews_backGroundColor" = "Background Color";
-"m5stack_settingsviews_sectiontitlebluetooth" = "Bluetooth";
 "m5stack_settingsviews_giveBluetoothPassword" = "Enter Bluetooth Password";
 "m5stack_settingsviews_brightness" = "Screen Brightness";
 "appleWatchSectionTitle" = "Apple Watch";
@@ -103,7 +103,7 @@
 "nightScoutPort" = "Port";
 "nightScoutToken" = "Token";
 "developerSettings" = "Developer Settings";
-"smoothBgReadings" = "Smooth Glucose Values";
+"smoothBgValues" = "Smooth Glucose Values";
 "oslog" = "OSLog";
 "settingsviews_sectiontitlehomescreen" = "Home Screen";
  

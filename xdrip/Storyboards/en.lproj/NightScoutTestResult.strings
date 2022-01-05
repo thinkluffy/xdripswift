@@ -1,7 +1,8 @@
 "nightscouttestresult_verificationsuccessfulalerttitle" = "Verification Successful";
 "nightscouttestresult_verificationsuccessfulalertbody" = "Your Nightscout site was verified successfully";
-"nightscouttestresult_verificationerroralerttitle" = "Verification Error";
 "warningAPIKeyOrURLIsnil" = "Your Nightscout URL (and optionally API-Secret or Token) must be set before you can run the test";
 "nightScoutAPIKeyAndURLStartedTitle" = "Verifying...";
 "nightScoutAPIKeyAndURLStartedBody" = "Please wait a moment";
 "nightScoutResult_no_auth_method" = "URL responds OK but authentication method is missing and cannot be checked";
+"dialog_title_nightScoutResult_verification_failed" = "Verification Error";
+"dialog_msg_nightScoutResult_verification_failed" = "Please check the URL and other inputs.\n\nError code: %d";

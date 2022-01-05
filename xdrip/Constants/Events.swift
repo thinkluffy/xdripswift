@@ -18,6 +18,10 @@ enum Events {
 
     static let prefixBgAlert = "bgAlert_"
     static let prefixNewSensor = "newSensor_"
-    
+    static let prefixStartSensor = "startSensor_"
+    static let prefixStopSensor = "stopSensor_"
+
     static let enableFullFeatureMode = "enableFullFeatureMode"
+    static let enableMasterMode = "enableMasterMode"
+    static let enableFollowerMode = "enableFollowerMode"
 }

@@ -87,6 +87,8 @@ class SettingsViewController: UIViewController {
                                 UserDefaults.standard.isMaster = false
                                 operationCell.detailedText = R.string.settingsViews.settingsviews_follower()
                                 tableView.reloadRows(at: [indexPath], with: .none)
+                                
+                                EasyTracker.logEvent(Events.enableFollowerMode)
                             },
                             cancelTitle: R.string.common.common_cancel(),
                             cancelHandler: nil
@@ -100,12 +102,16 @@ class SettingsViewController: UIViewController {
                         UserDefaults.standard.isMaster = false
                         operationCell.detailedText = R.string.settingsViews.settingsviews_follower()
                         tableView.reloadRows(at: [indexPath], with: .none)
+                        
+                        EasyTracker.logEvent(Events.enableFollowerMode)
                     }
                     
                 } else {
                     UserDefaults.standard.isMaster = true
                     operationCell.detailedText = R.string.settingsViews.settingsviews_master()
                     tableView.reloadRows(at: [indexPath], with: .none)
+                    
+                    EasyTracker.logEvent(Events.enableMasterMode)
                 }
             })
             .operationCell(title: R.string.settingsViews.settingsviews_selectbgunit(),

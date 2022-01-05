@@ -160,7 +160,7 @@ class CGMLibre2Transmitter: BluetoothTransmitter, CGMTransmitter {
                 
             } else {
                 // user should be informed not to scan with the Libre app
-                bluetoothTransmitterDelegate?.error(message: TextsLibreNFC.donotusethelibrelinkapp)
+                bluetoothTransmitterDelegate?.error(message: R.string.libreNFC.donotusethelibrelinkapp(iOS.appDisplayName))
             }
         }
     }

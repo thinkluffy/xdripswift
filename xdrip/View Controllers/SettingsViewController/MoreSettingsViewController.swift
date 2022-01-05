@@ -55,7 +55,7 @@ class MoreSettingsViewController: SubSettingsViewController {
                     Log.level = Log.Level.warning
                 }
             })
-            .toggleCell(title: R.string.settingsViews.smoothBgReadings(), isOn: UserDefaults.standard.smoothBgReadings, icon: nil, toggleDidChange: { from, to in
+            .toggleCell(title: R.string.settingsViews.smoothBgValues(), isOn: UserDefaults.standard.smoothBgReadings, icon: nil, toggleDidChange: { from, to in
                 UserDefaults.standard.smoothBgReadings = to
             })
 

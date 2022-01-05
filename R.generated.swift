@@ -2297,6 +2297,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let connectedAt = Rswift.StringResource(key: "connectedAt", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Delete bluetooth device?
+      ///
+      /// Locales: en, zh
+      static let confirmDeletionPeripheral = Rswift.StringResource(key: "confirmDeletionPeripheral", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Disconnect
       ///
       /// Locales: en, zh
@@ -2309,10 +2313,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let confirmDisconnectMessage = Rswift.StringResource(key: "confirmDisconnectMessage", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Do you want to delete bluetooth device?
-      ///
-      /// Locales: en, zh
-      static let confirmDeletionPeripheral = Rswift.StringResource(key: "confirmDeletionPeripheral", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Follow Dexcom-app
       ///
       /// Locales: en, zh
@@ -2488,6 +2488,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("connectedAt", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
+      /// en translation: Delete bluetooth device?
+      ///
+      /// Locales: en, zh
+      static func confirmDeletionPeripheral(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("confirmDeletionPeripheral", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
+          return "confirmDeletionPeripheral"
+        }
+
+        return NSLocalizedString("confirmDeletionPeripheral", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
+      }
+
       /// en translation: Disconnect
       ///
       /// Locales: en, zh
@@ -2531,21 +2546,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("confirmDisconnectMessage", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Do you want to delete bluetooth device?
-      ///
-      /// Locales: en, zh
-      static func confirmDeletionPeripheral(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("confirmDeletionPeripheral", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "confirmDeletionPeripheral"
-        }
-
-        return NSLocalizedString("confirmDeletionPeripheral", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
       /// en translation: Follow Dexcom-app
@@ -2868,7 +2868,7 @@ struct R: Rswift.Validatable {
 
     /// This `R.string.bluetoothPeripheralsView` struct is generated, and contains static references to 5 localization keys.
     struct bluetoothPeripheralsView {
-      /// en translation: Battery Level:
+      /// en translation: Battery Level
       ///
       /// Locales: en, zh
       static let batteryLevel = Rswift.StringResource(key: "batteryLevel", tableName: "BluetoothPeripheralsView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
@@ -2889,7 +2889,7 @@ struct R: Rswift.Validatable {
       /// Locales: en, zh
       static let noMultipleActiveCGMsAllowed = Rswift.StringResource(key: "noMultipleActiveCGMsAllowed", tableName: "BluetoothPeripheralsView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
 
-      /// en translation: Battery Level:
+      /// en translation: Battery Level
       ///
       /// Locales: en, zh
       static func batteryLevel(preferredLanguages: [String]? = nil) -> String {
@@ -5809,8 +5809,12 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.nightScoutTestResult` struct is generated, and contains static references to 7 localization keys.
+    /// This `R.string.nightScoutTestResult` struct is generated, and contains static references to 8 localization keys.
     struct nightScoutTestResult {
+      /// en translation: Please check the URL and other inputs.  Error code: %d
+      ///
+      /// Locales: en, zh
+      static let dialog_msg_nightScoutResult_verification_failed = Rswift.StringResource(key: "dialog_msg_nightScoutResult_verification_failed", tableName: "NightScoutTestResult", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Please wait a moment
       ///
       /// Locales: en, zh
@@ -5822,7 +5826,7 @@ struct R: Rswift.Validatable {
       /// en translation: Verification Error
       ///
       /// Locales: en, zh
-      static let nightscouttestresult_verificationerroralerttitle = Rswift.StringResource(key: "nightscouttestresult_verificationerroralerttitle", tableName: "NightScoutTestResult", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      static let dialog_title_nightScoutResult_verification_failed = Rswift.StringResource(key: "dialog_title_nightScoutResult_verification_failed", tableName: "NightScoutTestResult", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Verification Successful
       ///
       /// Locales: en, zh
@@ -5839,6 +5843,23 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let nightscouttestresult_verificationsuccessfulalertbody = Rswift.StringResource(key: "nightscouttestresult_verificationsuccessfulalertbody", tableName: "NightScoutTestResult", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+
+      /// en translation: Please check the URL and other inputs.  Error code: %d
+      ///
+      /// Locales: en, zh
+      static func dialog_msg_nightScoutResult_verification_failed(_ value1: Int, preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          let format = NSLocalizedString("dialog_msg_nightScoutResult_verification_failed", tableName: "NightScoutTestResult", bundle: hostingBundle, comment: "")
+          return String(format: format, locale: applicationLocale, value1)
+        }
+
+        guard let (locale, bundle) = localeBundle(tableName: "NightScoutTestResult", preferredLanguages: preferredLanguages) else {
+          return "dialog_msg_nightScoutResult_verification_failed"
+        }
+
+        let format = NSLocalizedString("dialog_msg_nightScoutResult_verification_failed", tableName: "NightScoutTestResult", bundle: bundle, comment: "")
+        return String(format: format, locale: locale, value1)
+      }
 
       /// en translation: Please wait a moment
       ///
@@ -5873,16 +5894,16 @@ struct R: Rswift.Validatable {
       /// en translation: Verification Error
       ///
       /// Locales: en, zh
-      static func nightscouttestresult_verificationerroralerttitle(preferredLanguages: [String]? = nil) -> String {
+      static func dialog_title_nightScoutResult_verification_failed(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("nightscouttestresult_verificationerroralerttitle", tableName: "NightScoutTestResult", bundle: hostingBundle, comment: "")
+          return NSLocalizedString("dialog_title_nightScoutResult_verification_failed", tableName: "NightScoutTestResult", bundle: hostingBundle, comment: "")
         }
 
         guard let (_, bundle) = localeBundle(tableName: "NightScoutTestResult", preferredLanguages: preferredLanguages) else {
-          return "nightscouttestresult_verificationerroralerttitle"
+          return "dialog_title_nightScoutResult_verification_failed"
         }
 
-        return NSLocalizedString("nightscouttestresult_verificationerroralerttitle", tableName: "NightScoutTestResult", bundle: bundle, comment: "")
+        return NSLocalizedString("dialog_title_nightScoutResult_verification_failed", tableName: "NightScoutTestResult", bundle: bundle, comment: "")
       }
 
       /// en translation: Verification Successful
@@ -6050,10 +6071,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let settingsviews_selectbgunit = Rswift.StringResource(key: "settingsviews_selectbgunit", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Bluetooth
-      ///
-      /// Locales: en, zh
-      static let m5stack_settingsviews_sectiontitlebluetooth = Rswift.StringResource(key: "m5stack_settingsviews_sectiontitlebluetooth", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Build
       ///
       /// Locales: en, zh
@@ -6332,8 +6349,8 @@ struct R: Rswift.Validatable {
       static let settingsviews_showStatistics = Rswift.StringResource(key: "settingsviews_showStatistics", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Smooth Glucose Values
       ///
-      /// Locales: en
-      static let smoothBgReadings = Rswift.StringResource(key: "smoothBgReadings", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, zh
+      static let smoothBgValues = Rswift.StringResource(key: "smoothBgValues", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Speak BG Readings
       ///
       /// Locales: en, zh
@@ -6354,10 +6371,14 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let warningChangeFromMasterToFollower = Rswift.StringResource(key: "warningChangeFromMasterToFollower", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Test Connection
+      /// en translation: Test Connection (Follower Mode)
       ///
       /// Locales: en, zh
-      static let testUrlAndAPIKey = Rswift.StringResource(key: "testUrlAndAPIKey", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      static let testUrlAndAPIKeyInFollowerMode = Rswift.StringResource(key: "testUrlAndAPIKeyInFollowerMode", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Test Connection (Master Mode)
+      ///
+      /// Locales: en, zh
+      static let testUrlAndAPIKeyInMasterMode = Rswift.StringResource(key: "testUrlAndAPIKeyInMasterMode", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Test Volume (Current iPhone Volume)
       ///
       /// Locales: en, zh
@@ -6677,21 +6698,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("settingsviews_selectbgunit", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Bluetooth
-      ///
-      /// Locales: en, zh
-      static func m5stack_settingsviews_sectiontitlebluetooth(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("m5stack_settingsviews_sectiontitlebluetooth", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "m5stack_settingsviews_sectiontitlebluetooth"
-        }
-
-        return NSLocalizedString("m5stack_settingsviews_sectiontitlebluetooth", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
       /// en translation: Build
@@ -7735,17 +7741,17 @@ struct R: Rswift.Validatable {
 
       /// en translation: Smooth Glucose Values
       ///
-      /// Locales: en
-      static func smoothBgReadings(preferredLanguages: [String]? = nil) -> String {
+      /// Locales: en, zh
+      static func smoothBgValues(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("smoothBgReadings", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
+          return NSLocalizedString("smoothBgValues", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
         }
 
         guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "smoothBgReadings"
+          return "smoothBgValues"
         }
 
-        return NSLocalizedString("smoothBgReadings", tableName: "SettingsViews", bundle: bundle, comment: "")
+        return NSLocalizedString("smoothBgValues", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
       /// en translation: Speak BG Readings
@@ -7823,19 +7829,34 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("warningChangeFromMasterToFollower", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Test Connection
+      /// en translation: Test Connection (Follower Mode)
       ///
       /// Locales: en, zh
-      static func testUrlAndAPIKey(preferredLanguages: [String]? = nil) -> String {
+      static func testUrlAndAPIKeyInFollowerMode(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("testUrlAndAPIKey", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
+          return NSLocalizedString("testUrlAndAPIKeyInFollowerMode", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
         }
 
         guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "testUrlAndAPIKey"
+          return "testUrlAndAPIKeyInFollowerMode"
         }
 
-        return NSLocalizedString("testUrlAndAPIKey", tableName: "SettingsViews", bundle: bundle, comment: "")
+        return NSLocalizedString("testUrlAndAPIKeyInFollowerMode", tableName: "SettingsViews", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Test Connection (Master Mode)
+      ///
+      /// Locales: en, zh
+      static func testUrlAndAPIKeyInMasterMode(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("testUrlAndAPIKeyInMasterMode", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
+          return "testUrlAndAPIKeyInMasterMode"
+        }
+
+        return NSLocalizedString("testUrlAndAPIKeyInMasterMode", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
       /// en translation: Test Volume (Current iPhone Volume)

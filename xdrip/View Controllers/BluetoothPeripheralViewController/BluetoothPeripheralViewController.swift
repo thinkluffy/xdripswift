@@ -12,17 +12,14 @@ fileprivate enum Setting: Int, CaseIterable {
     /// the name received from bluetoothTransmitter, ie the name hardcoded in the BluetoothPeripheral
     case name = 0
     
-    /// the address
-    case address = 1
-    
     /// the current connection status
-    case connectionStatus = 2
+    case connectionStatus = 1
     
     /// timestamp when connection changed to connected or not connected
-    case connectOrDisconnectTimeStamp = 3
+    case connectOrDisconnectTimeStamp = 2
     
     /// transmitterID, only for devices that need it
-    case transmitterId = 4
+    case transmitterId = 3
 
 }
 
@@ -582,7 +579,6 @@ class BluetoothPeripheralViewController: UIViewController {
             BluetoothPeripheralViewController.log.e("in handleScanningResult, scanning not started. Scanning result = unknown - this is always occuring when a BluetoothTransmitter starts scanning the first time. You should see now a new call to handleScanningResult")
             
         }
-
     }
     
     /// use clicked trash button, need to delete the bluetoothperipheral
@@ -596,7 +592,7 @@ class BluetoothPeripheralViewController: UIViewController {
         // first ask user if ok to delete and if yes delete
         let alert = PopupDialog(
             title: R.string.bluetoothPeripheralView.confirmDeletionPeripheral() ,
-            message: Texts_BluetoothPeripheralView.address + ": " + bluetoothPeripheral.blePeripheral.address,
+            message: bluetoothPeripheral.blePeripheral.name,
             actionTitle: R.string.common.delete(),
             actionHandler: {
                 // delete
@@ -705,7 +701,7 @@ class BluetoothPeripheralViewController: UIViewController {
         guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {return}
         
         SettingsViewUtilities.runSelectedRowAction(
-            selectedRowAction: SettingsSelectedRowAction.askText(
+            selectedRowAction: .askText(
                 title: Texts_SettingsView.labelTransmitterId,
                 message: Texts_SettingsView.labelGiveTransmitterId,
                 keyboardType: .alphabet,
@@ -733,7 +729,6 @@ class BluetoothPeripheralViewController: UIViewController {
                     transmitterId in
             
                     return self.expectedBluetoothPeripheralType?.validateTransmitterId(transmitterId: transmitterId)
-            
                 }
             ),
             forRowWithIndex: Setting.transmitterId.rawValue,
@@ -886,10 +881,6 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
                 cell.textLabel?.text = Texts_Common.name
                 cell.detailTextLabel?.text = bluetoothPeripheral?.blePeripheral.name
                 
-            case .address:
-                cell.textLabel?.text = Texts_BluetoothPeripheralView.address
-                cell.detailTextLabel?.text = bluetoothPeripheral?.blePeripheral.address
-             
             case .connectionStatus:
                 cell.textLabel?.text = Texts_BluetoothPeripheralView.status
                 cell.detailTextLabel?.text = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: bluetoothPeripheral, isScanning: isScanning, connectButtonOutlet: connectButtonOutlet, expectedBluetoothPeripheralType: expectedBluetoothPeripheralType, transmitterId: transmitterIdTempValue, bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
@@ -1038,18 +1029,6 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
             
             switch setting {
                 
-            case .address:
-                guard let bluetoothPeripheral = bluetoothPeripheral else {
-                    return
-                }
-                
-                let dialog = PopupDialog(title: Texts_BluetoothPeripheralView.address,
-                                        message: bluetoothPeripheral.blePeripheral.address,
-                                        actionTitle: R.string.common.common_Ok(),
-                                        actionHandler: nil)
-                
-                self.present(dialog, animated: true)
-                
             case .name:
                 guard let bluetoothPeripheral = bluetoothPeripheral else {
                     return
@@ -1092,14 +1071,13 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
         // unwrap expectedBluetoothPeripheralType
         guard let expectedBluetoothPeripheralType = expectedBluetoothPeripheralType else {return ""}
 
-        if section == 0 {
-            // title for first section
-            return Texts_SettingsView.m5StackSectionTitleBluetooth
-            
-        } else if section >= numberOfGeneralSections() {
+        if section >= numberOfGeneralSections() {
             // title defined in viewmodel
             return bluetoothPeripheralViewModel.sectionTitle(forSection: section)
-
+            
+        } else if section == 0 {
+            return nil
+            
         } else if section == 1 {
             
             // if the bluetoothperipheral type supports non fixed slope then this is section 1
