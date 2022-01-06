@@ -3,7 +3,7 @@
 //  xdrip
 //
 //  Created by Yuanbin Cai on 2021/12/12.
-//  Copyright © 2021 Johan Degraeve. All rights reserved.
+//  Copyright © 2021 zDrip. All rights reserved.
 //
 
 import UIKit
@@ -94,7 +94,7 @@ class SettingsViewController: UIViewController {
                             cancelHandler: nil
                         )
 
-                        self.present(alert, animated: true)
+                        present(alert, animated: true)
                         
                     } else {
                         // no sensor active
@@ -131,7 +131,7 @@ class SettingsViewController: UIViewController {
                 [unowned self] operationCell, tableView, indexPath in
                 
                 let viewController = CommonSettingsViewController()
-                self.navigationController?.pushViewController(viewController, animated: true)
+                navigationController?.pushViewController(viewController, animated: true)
             })
             .operationCell(title: R.string.settingsViews.settingsviews_row_alerts(),
                            accessoryView: DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor),
@@ -139,7 +139,7 @@ class SettingsViewController: UIViewController {
                 [unowned self] operationCell, tableView, indexPath in
                 
                 let viewController = R.storyboard.main.totalAlertSettingsViewController()!
-                self.navigationController?.pushViewController(viewController, animated: true)
+                navigationController?.pushViewController(viewController, animated: true)
             })
             .operationCell(title: R.string.settingsViews.serviceIntegration(),
                            accessoryView: DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor),
@@ -147,7 +147,7 @@ class SettingsViewController: UIViewController {
                 [unowned self] operationCell, tableView, indexPath in
                 
                 let viewController = ServiceIntegrationSettingsViewController()
-                self.navigationController?.pushViewController(viewController, animated: true)
+                navigationController?.pushViewController(viewController, animated: true)
             })
             .operationCell(title: R.string.settingsViews.settingsviews_speakBgReadings(),
                            accessoryView: DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor),
@@ -155,7 +155,7 @@ class SettingsViewController: UIViewController {
                 [unowned self] operationCell, tableView, indexPath in
                 
                 let viewController = SpeakReadingSettingsViewController()
-                self.navigationController?.pushViewController(viewController, animated: true)
+                navigationController?.pushViewController(viewController, animated: true)
             })
             .operationCell(title: R.string.common.about(),
                            accessoryView: DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor),
@@ -163,7 +163,7 @@ class SettingsViewController: UIViewController {
                 [unowned self] operationCell, tableView, indexPath in
                 
                 let viewController = AboutViewController()
-                self.navigationController?.pushViewController(viewController, animated: true)
+                navigationController?.pushViewController(viewController, animated: true)
             })
             .build()
            

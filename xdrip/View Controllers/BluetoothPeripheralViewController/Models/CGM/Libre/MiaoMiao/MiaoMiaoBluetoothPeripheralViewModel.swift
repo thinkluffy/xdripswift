@@ -57,7 +57,7 @@ class MiaoMiaoBluetoothPeripheralViewModel {
         
         guard let MiaoMiao = MiaoMiao else {return}
         
-        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: MiaoMiao, createANewOneIfNecesssary: false) else {return}
+        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: MiaoMiao, createANewOneIfNecessary: false) else {return}
         
         guard let cGMMiaoMiaoBluetoothTransmitter = blueToothTransmitter as? CGMMiaoMiaoTransmitter else {return}
         
@@ -85,7 +85,7 @@ extension MiaoMiaoBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
             
             if let miaoMiao = bluetoothPeripheral as? MiaoMiao {
                 
-                if let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: miaoMiao, createANewOneIfNecesssary: false), let cGMMiaoMiaoTransmitter = blueToothTransmitter as? CGMMiaoMiaoTransmitter {
+                if let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: miaoMiao, createANewOneIfNecessary: false), let cGMMiaoMiaoTransmitter = blueToothTransmitter as? CGMMiaoMiaoTransmitter {
                     
                     // set CGMMiaoMiaoTransmitter delegate to self.
                     cGMMiaoMiaoTransmitter.cGMMiaoMiaoTransmitterDelegate = self

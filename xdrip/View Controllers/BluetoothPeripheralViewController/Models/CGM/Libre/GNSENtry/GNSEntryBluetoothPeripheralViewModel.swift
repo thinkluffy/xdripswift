@@ -50,7 +50,7 @@ class GNSEntryBluetoothPeripheralViewModel {
         
         guard let GNSEntry = GNSEntry else {return}
         
-        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: GNSEntry, createANewOneIfNecesssary: false) else {return}
+        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: GNSEntry, createANewOneIfNecessary: false) else {return}
         
         guard let cGMGNSEntryBluetoothTransmitter = blueToothTransmitter as? CGMGNSEntryTransmitter else {return}
         
@@ -78,7 +78,7 @@ extension GNSEntryBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
             
             if let gNSEntry = bluetoothPeripheral as? GNSEntry {
                 
-                if let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: gNSEntry, createANewOneIfNecesssary: false), let cGMGNSEntryTransmitter = blueToothTransmitter as? CGMGNSEntryTransmitter {
+                if let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: gNSEntry, createANewOneIfNecessary: false), let cGMGNSEntryTransmitter = blueToothTransmitter as? CGMGNSEntryTransmitter {
                     
                     // set CGMGNSEntryTransmitter delegate to self.
                     cGMGNSEntryTransmitter.cGMGNSEntryTransmitterDelegate = self

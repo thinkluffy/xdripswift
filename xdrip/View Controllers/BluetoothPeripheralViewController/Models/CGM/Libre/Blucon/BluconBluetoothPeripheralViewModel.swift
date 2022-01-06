@@ -45,7 +45,7 @@ class BluconBluetoothPeripheralViewModel {
         
         guard let blucon = blucon else {return}
         
-        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: blucon, createANewOneIfNecesssary: false) else {return}
+        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: blucon, createANewOneIfNecessary: false) else {return}
         
         guard let cGMBluconBluetoothTransmitter = blueToothTransmitter as? CGMBluconTransmitter else {return}
         
@@ -73,7 +73,7 @@ extension BluconBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
             
             if let blucon = bluetoothPeripheral as? Blucon {
                 
-                if let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: blucon, createANewOneIfNecesssary: false), let cGMBluconTransmitter = blueToothTransmitter as? CGMBluconTransmitter {
+                if let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: blucon, createANewOneIfNecessary: false), let cGMBluconTransmitter = blueToothTransmitter as? CGMBluconTransmitter {
                     
                     // set CGMBluconTransmitter delegate to self.
                     cGMBluconTransmitter.cGMBluconTransmitterDelegate = self

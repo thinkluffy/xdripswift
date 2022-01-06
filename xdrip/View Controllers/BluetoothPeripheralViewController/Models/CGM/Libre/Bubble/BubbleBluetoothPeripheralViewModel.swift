@@ -57,7 +57,7 @@ class BubbleBluetoothPeripheralViewModel {
         
         guard let bubble = bubble else {return}
         
-        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: bubble, createANewOneIfNecesssary: false) else {return}
+        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: bubble, createANewOneIfNecessary: false) else {return}
         
         guard let cGMBubbleBluetoothTransmitter = blueToothTransmitter as? CGMBubbleTransmitter else {return}
         
@@ -85,7 +85,7 @@ extension BubbleBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
             
             if let bubble = bluetoothPeripheral as? Bubble {
                 
-                if let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: bubble, createANewOneIfNecesssary: false), let cGMBubbleTransmitter = blueToothTransmitter as? CGMBubbleTransmitter {
+                if let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: bubble, createANewOneIfNecessary: false), let cGMBubbleTransmitter = blueToothTransmitter as? CGMBubbleTransmitter {
                     
                     // set CGMBubbleTransmitter delegate to self.
                     cGMBubbleTransmitter.cGMBubbleTransmitterDelegate = self

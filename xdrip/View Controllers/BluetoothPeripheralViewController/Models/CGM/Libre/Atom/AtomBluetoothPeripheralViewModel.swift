@@ -57,7 +57,7 @@ class AtomBluetoothPeripheralViewModel {
         
         guard let Atom = atom else {return}
         
-        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: Atom, createANewOneIfNecesssary: false) else {return}
+        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: Atom, createANewOneIfNecessary: false) else {return}
         
         guard let cGMAtomBluetoothTransmitter = blueToothTransmitter as? CGMAtomTransmitter else {return}
         
@@ -83,7 +83,7 @@ extension AtomBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
             
             if let atom = bluetoothPeripheral as? Atom {
                 
-                if let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: atom, createANewOneIfNecesssary: false), let cGMAtomTransmitter = blueToothTransmitter as? CGMAtomTransmitter {
+                if let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: atom, createANewOneIfNecessary: false), let cGMAtomTransmitter = blueToothTransmitter as? CGMAtomTransmitter {
                     
                     // set CGMAtomTransmitter delegate to self.
                     cGMAtomTransmitter.cGMAtomTransmitterDelegate = self

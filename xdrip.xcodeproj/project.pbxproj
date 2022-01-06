@@ -48,6 +48,7 @@
 		4E46D933275663AF00C79F86 /* CountDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46D932275663AF00C79F86 /* CountDownView.swift */; };
 		4E46D9372759086C00C79F86 /* SlideInSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46D9362759086C00C79F86 /* SlideInSheet.swift */; };
 		4E46D940275A565100C79F86 /* SensorIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46D93F275A565100C79F86 /* SensorIndicator.swift */; };
+		4E67D2EE2786D62D00586BF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E67D2ED2786D62C00586BF8 /* GoogleService-Info.plist */; };
 		4E94C313277AE0C000382122 /* DexcomCalibrationRxMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C2EB277AE0BC00382122 /* DexcomCalibrationRxMessage.swift */; };
 		4E94C314277AE0C000382122 /* DexcomSessionStopTxMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C2EC277AE0BC00382122 /* DexcomSessionStopTxMessage.swift */; };
 		4E94C315277AE0C000382122 /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C2ED277AE0BC00382122 /* AESCrypt.m */; };
@@ -170,7 +171,6 @@
 		E53D049C274391F000CA548E /* PhoneCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D0498274391EF00CA548E /* PhoneCommunicator.swift */; };
 		E53D049D274391F000CA548E /* WatchChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D0499274391F000CA548E /* WatchChartView.swift */; };
 		E53D049E274391F000CA548E /* UsefulData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D049A274391F000CA548E /* UsefulData.swift */; };
-		E584FBF62786964C00BEA224 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E584FBF52786964C00BEA224 /* GoogleService-Info.plist */; };
 		E584FBF7278698E100BEA224 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D0490274390E000CA548E /* Common.swift */; };
 		F51B9F7D24B216CD00FC0643 /* Libre1NonFixedSlopeCalibrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51B9F7C24B216CD00FC0643 /* Libre1NonFixedSlopeCalibrator.swift */; };
 		F8025C0A21D94FD700ECF0C0 /* CBManagerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8025C0921D94FD700ECF0C0 /* CBManagerState.swift */; };
@@ -676,6 +676,7 @@
 		4E46D932275663AF00C79F86 /* CountDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownView.swift; sourceTree = "<group>"; };
 		4E46D9362759086C00C79F86 /* SlideInSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInSheet.swift; sourceTree = "<group>"; };
 		4E46D93F275A565100C79F86 /* SensorIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorIndicator.swift; sourceTree = "<group>"; };
+		4E67D2ED2786D62C00586BF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4E94C2EB277AE0BC00382122 /* DexcomCalibrationRxMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexcomCalibrationRxMessage.swift; sourceTree = "<group>"; };
 		4E94C2EC277AE0BC00382122 /* DexcomSessionStopTxMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexcomSessionStopTxMessage.swift; sourceTree = "<group>"; };
 		4E94C2ED277AE0BC00382122 /* AESCrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESCrypt.m; sourceTree = "<group>"; };
@@ -803,7 +804,6 @@
 		E53D0498274391EF00CA548E /* PhoneCommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneCommunicator.swift; sourceTree = "<group>"; };
 		E53D0499274391F000CA548E /* WatchChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchChartView.swift; sourceTree = "<group>"; };
 		E53D049A274391F000CA548E /* UsefulData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsefulData.swift; sourceTree = "<group>"; };
-		E584FBF52786964C00BEA224 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E5D5EB7D2745F00E003D0DD9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E5D5EB7F2745F02A003D0DD9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS8.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		F51B9F7C24B216CD00FC0643 /* Libre1NonFixedSlopeCalibrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Libre1NonFixedSlopeCalibrator.swift; sourceTree = "<group>"; };
@@ -2058,7 +2058,7 @@
 				F821CF9822AE589E005C1E43 /* xdrip.entitlements */,
 				4E9D79D6273E683100B666C5 /* logo-launchScreen@3x.png */,
 				4EE66F072733E01500548A46 /* R.generated.swift */,
-				E584FBF52786964C00BEA224 /* GoogleService-Info.plist */,
+				4E67D2ED2786D62C00586BF8 /* GoogleService-Info.plist */,
 				4E94C340277DBE7500382122 /* TrySomething.playground */,
 			);
 			path = xdrip;
@@ -2971,7 +2971,7 @@
 				F824379624CB7A9900BED341 /* Oringz.caf in Resources */,
 				F824377D24CB7A9800BED341 /* Open_Your_Eyes_And_See.caf in Resources */,
 				F82437A624CB7A9900BED341 /* Siri_Glucose_Rising_Fast.caf in Resources */,
-				E584FBF62786964C00BEA224 /* GoogleService-Info.plist in Resources */,
+				4E67D2EE2786D62D00586BF8 /* GoogleService-Info.plist in Resources */,
 				F81F370825C1584A00520946 /* LibreStates.strings in Resources */,
 				F82437B724CB7A9900BED341 /* Cartoon_Tip_Toe_Sneaky_Walk.caf in Resources */,
 				F824379A24CB7A9900BED341 /* Siri_Alert_Device_Muted.caf in Resources */,
