@@ -172,6 +172,7 @@
 		E53D049E274391F000CA548E /* UsefulData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D049A274391F000CA548E /* UsefulData.swift */; };
 		E584FBF62786964C00BEA224 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E584FBF52786964C00BEA224 /* GoogleService-Info.plist */; };
 		E584FBF7278698E100BEA224 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D0490274390E000CA548E /* Common.swift */; };
+		E584FBF92786CE1C00BEA224 /* DailyPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = E584FBF82786CE1C00BEA224 /* DailyPattern.swift */; };
 		F51B9F7D24B216CD00FC0643 /* Libre1NonFixedSlopeCalibrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51B9F7C24B216CD00FC0643 /* Libre1NonFixedSlopeCalibrator.swift */; };
 		F8025C0A21D94FD700ECF0C0 /* CBManagerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8025C0921D94FD700ECF0C0 /* CBManagerState.swift */; };
 		F8025C1321DA683400ECF0C0 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8025C1221DA683400ECF0C0 /* Data.swift */; };
@@ -804,6 +805,7 @@
 		E53D0499274391F000CA548E /* WatchChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchChartView.swift; sourceTree = "<group>"; };
 		E53D049A274391F000CA548E /* UsefulData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsefulData.swift; sourceTree = "<group>"; };
 		E584FBF52786964C00BEA224 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E584FBF82786CE1C00BEA224 /* DailyPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPattern.swift; sourceTree = "<group>"; };
 		E5D5EB7D2745F00E003D0DD9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E5D5EB7F2745F02A003D0DD9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS8.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		F51B9F7C24B216CD00FC0643 /* Libre1NonFixedSlopeCalibrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Libre1NonFixedSlopeCalibrator.swift; sourceTree = "<group>"; };
@@ -1612,6 +1614,14 @@
 			path = Base.lproj;
 			sourceTree = "<group>";
 		};
+		E584FBFA2786CE2300BEA224 /* DailyPattern */ = {
+			isa = PBXGroup;
+			children = (
+				E584FBF82786CE1C00BEA224 /* DailyPattern.swift */,
+			);
+			path = DailyPattern;
+			sourceTree = "<group>";
+		};
 		F8025C0B21D9513400ECF0C0 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -1886,6 +1896,7 @@
 				F821CF9922AEF2DF005C1E43 /* Speak */,
 				4EC48D162770881100EEB0BA /* Note */,
 				F8E3A2A723D906B600E5E98A /* Watch */,
+				E584FBFA2786CE2300BEA224 /* DailyPattern */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -3365,6 +3376,7 @@
 				F8177023248CF78300AA3600 /* LibreSensorType.swift in Sources */,
 				F8C97859242AAE7B00A09483 /* MiaoMiao+BluetoothPeripheral.swift in Sources */,
 				F8EEDD5422FF685400D2D610 /* NSMutableURLRequest.swift in Sources */,
+				E584FBF92786CE1C00BEA224 /* DailyPattern.swift in Sources */,
 				F897AAFB2201018800CDDD10 /* String.swift in Sources */,
 				F8B3A847227F090E004BA588 /* SettingsViewNightScoutSettingsViewModel.swift in Sources */,
 				F8B3A79622635A25004BA588 /* AlertEntry+CoreDataClass.swift in Sources */,
