@@ -23,7 +23,7 @@ protocol BluetoothPeripheralManaging: BluetoothTransmitterDelegate {
     /// - parameters:
     ///     - for : the bluetoothPeripheral, for which bluetoothTransmitter should be returned
     ///     - createANewOneIfNecesssary : if there's no instance yet,  then should one be created ?
-    func getBluetoothTransmitter(for bluetoothPeripheral: BluetoothPeripheral, createANewOneIfNecesssary: Bool) -> BluetoothTransmitter?
+    func getBluetoothTransmitter(for bluetoothPeripheral: BluetoothPeripheral, createANewOneIfNecessary: Bool) -> BluetoothTransmitter?
 
     /// returns the BluetoothPeripheral for the specified BluetoothTransmitter
     /// - parameters:

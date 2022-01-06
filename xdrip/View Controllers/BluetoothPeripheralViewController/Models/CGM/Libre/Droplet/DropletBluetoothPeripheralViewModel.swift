@@ -44,7 +44,7 @@ class DropletBluetoothPeripheralViewModel {
         
         guard let Droplet = Droplet else {return}
         
-        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: Droplet, createANewOneIfNecesssary: false) else {return}
+        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: Droplet, createANewOneIfNecessary: false) else {return}
         
         guard let cGMDropletBluetoothTransmitter = blueToothTransmitter as? CGMDroplet1Transmitter else {return}
         
@@ -72,7 +72,7 @@ extension DropletBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
             
             if let droplet = bluetoothPeripheral as? Droplet {
                 
-                if let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: droplet, createANewOneIfNecesssary: false), let cGMDropletTransmitter = blueToothTransmitter as? CGMDroplet1Transmitter {
+                if let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: droplet, createANewOneIfNecessary: false), let cGMDropletTransmitter = blueToothTransmitter as? CGMDroplet1Transmitter {
                     
                     // set CGMDropletTransmitter delegate to self.
                     cGMDropletTransmitter.cGMDropletTransmitterDelegate = self

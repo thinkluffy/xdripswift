@@ -367,7 +367,7 @@ class BluetoothPeripheralManager: NSObject {
         // save in coredata
         CoreDataManager.shared.saveChanges()
         
-        if let bluetoothTransmitter = getBluetoothTransmitter(for: bluetoothPeripheral, createANewOneIfNecesssary: false) {
+        if let bluetoothTransmitter = getBluetoothTransmitter(for: bluetoothPeripheral, createANewOneIfNecessary: false) {
             bluetoothTransmitter.disconnect()
         }
     }
@@ -376,7 +376,7 @@ class BluetoothPeripheralManager: NSObject {
     /// - parameters:
     ///     - forBluetoothPeripheral : the bluetoothPeripheral for which bluetoothTransmitter should be returned
     ///     - createANewOneIfNecesssary : if bluetoothTransmitter is nil, then should one be created ?
-    func getBluetoothTransmitter(for bluetoothPeripheral: BluetoothPeripheral, createANewOneIfNecesssary: Bool) -> BluetoothTransmitter? {
+    func getBluetoothTransmitter(for bluetoothPeripheral: BluetoothPeripheral, createANewOneIfNecessary: Bool) -> BluetoothTransmitter? {
         
         if let index = firstIndexInBluetoothPeripherals(bluetoothPeripheral: bluetoothPeripheral) {
             
@@ -384,7 +384,7 @@ class BluetoothPeripheralManager: NSObject {
                 return bluetoothTransmitter
             }
             
-            if createANewOneIfNecesssary {
+            if createANewOneIfNecessary {
                 
                 var newTransmitter: BluetoothTransmitter? = nil
                 
@@ -782,7 +782,7 @@ class BluetoothPeripheralManager: NSObject {
         
         if bluetoothPeripheral.bluetoothPeripheralType().category() == .CGM {
             
-            if let cgmTransmitter = getBluetoothTransmitter(for: bluetoothPeripheral, createANewOneIfNecesssary: false) as? CGMTransmitter {
+            if let cgmTransmitter = getBluetoothTransmitter(for: bluetoothPeripheral, createANewOneIfNecessary: false) as? CGMTransmitter {
                 
                 return cgmTransmitter
                 
@@ -838,7 +838,7 @@ class BluetoothPeripheralManager: NSObject {
         // see for every bluetoothPeripheral, if the changed  UserDefaults value has impact on that bluetoothPeripheral
         for bluetoothPeripheral in bluetoothPeripherals {
             // if there's no bluetoothTransmitter for this bluetoothPeripheral, then call parameterUpdateNeededAtNextConnect
-            if getBluetoothTransmitter(for: bluetoothPeripheral, createANewOneIfNecesssary: false) == nil {
+            if getBluetoothTransmitter(for: bluetoothPeripheral, createANewOneIfNecessary: false) == nil {
                 // seems to be bluetoothPeripheral which is currently disconnected - need to set parameterUpdateNeeded = true, so that all parameters will be sent as soon as reconnect occurs
                 bluetoothPeripheral.blePeripheral.parameterUpdateNeededAtNextConnect = true
             }
@@ -950,7 +950,7 @@ extension BluetoothPeripheralManager: BluetoothPeripheralManaging {
         // - either the bluetoothTransmitter already exists but not connected, it will be found in the call to bluetoothTransmitter and returned, then we connect to it
         // - either the bluetoothTransmitter doesn't exist yet. It will be created. We assum here that bluetoothPeripheral has a mac address, as a consequence the BluetoothTransmitter will automatically try to connect. Here we try to connect again, but that's ok that as well tue BluetoothTransmitter will try to connect and we do it again here
         
-        let transmitter = getBluetoothTransmitter(for: bluetoothPeripheral, createANewOneIfNecesssary: true)
+        let transmitter = getBluetoothTransmitter(for: bluetoothPeripheral, createANewOneIfNecessary: true)
         
         transmitter?.connect()
         

@@ -13,6 +13,6 @@
 "alertvalue" = "值";
 "alerttype" = "警报类型";
 "changealertvalue" = "改变警报阈值";
-"confirmdeletionalert" = "你想要删除这个警报吗 ?";
+"confirmdeletionalert" = "删除这个警报吗?";
 "alerts_fastrise" = "速升警告";
 "alerts_fastdrop" = "速降警告";

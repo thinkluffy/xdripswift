@@ -112,7 +112,7 @@ class DexcomG5BluetoothPeripheralViewModel {
     
     private func getTransmitter(for dexcomG5: DexcomG5) ->  CGMG5Transmitter? {
         
-        if let bluetoothPeripheralManager = bluetoothPeripheralManager, let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: dexcomG5, createANewOneIfNecesssary: false), let cGMG5Transmitter = blueToothTransmitter as? CGMG5Transmitter {
+        if let bluetoothPeripheralManager = bluetoothPeripheralManager, let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: dexcomG5, createANewOneIfNecessary: false), let cGMG5Transmitter = blueToothTransmitter as? CGMG5Transmitter {
             
             return cGMG5Transmitter
         }

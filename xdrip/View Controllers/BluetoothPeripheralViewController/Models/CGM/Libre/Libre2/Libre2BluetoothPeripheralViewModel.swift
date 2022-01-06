@@ -44,7 +44,7 @@ class Libre2BluetoothPeripheralViewModel {
         
         guard let libre2 = libre2 else {return}
         
-        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: libre2, createANewOneIfNecesssary: false) else {return}
+        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: libre2, createANewOneIfNecessary: false) else {return}
         
         guard let cGMLibre2BluetoothTransmitter = blueToothTransmitter as? CGMLibre2Transmitter else {return}
         
@@ -70,7 +70,7 @@ extension Libre2BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
             
             if let libre2 = bluetoothPeripheral as? Libre2 {
                 
-                if let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: libre2, createANewOneIfNecesssary: false), let cGMLibre2Transmitter = blueToothTransmitter as? CGMLibre2Transmitter {
+                if let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: libre2, createANewOneIfNecessary: false), let cGMLibre2Transmitter = blueToothTransmitter as? CGMLibre2Transmitter {
                     
                     // set CGMLibre2Transmitter delegate to self.
                     cGMLibre2Transmitter.cGMLibre2TransmitterDelegate = self

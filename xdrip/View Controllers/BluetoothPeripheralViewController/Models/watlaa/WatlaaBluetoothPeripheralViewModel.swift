@@ -47,7 +47,7 @@ class WatlaaBluetoothPeripheralViewModel {
         
         guard let Watlaa = Watlaa else {return}
         
-        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: Watlaa, createANewOneIfNecesssary: false) else {return}
+        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: Watlaa, createANewOneIfNecessary: false) else {return}
         
         guard let cGMWatlaaBluetoothTransmitter = blueToothTransmitter as? WatlaaBluetoothTransmitter else {return}
         
@@ -75,7 +75,7 @@ extension WatlaaBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
             
             if let watlaa = bluetoothPeripheral as? Watlaa {
                 
-                if let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: watlaa, createANewOneIfNecesssary: false), let cGMWatlaaTransmitter = blueToothTransmitter as? WatlaaBluetoothTransmitter {
+                if let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: watlaa, createANewOneIfNecessary: false), let cGMWatlaaTransmitter = blueToothTransmitter as? WatlaaBluetoothTransmitter {
                     
                     // set WatlaaBluetoothTransmitterMaster delegate to self.
                     cGMWatlaaTransmitter.watlaaBluetoothTransmitterDelegate = self
