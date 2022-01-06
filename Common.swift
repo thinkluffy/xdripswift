@@ -6,11 +6,18 @@
 //
 
 import Foundation
+import CoreGraphics
 
 class Common {
 	
 	static let debugVersion: String = "9"
 	
+	class Constants {
+		static let glucoseRed: CGColor = CGColor.init(_colorLiteralRed: 234/255, green: 45/255, blue: 100/255, alpha: 1)
+		static let glucoseYellow: CGColor = CGColor.init(_colorLiteralRed: 233/255, green: 127/255, blue: 57/255, alpha: 1)
+		static let glucoseGreen: CGColor = CGColor.init(_colorLiteralRed: 72/255, green: 235/255, blue: 56/255, alpha: 1)
+	}
+
 	enum MessageValues: String {
 		case recently = "recently"
 		case latest = "latest"

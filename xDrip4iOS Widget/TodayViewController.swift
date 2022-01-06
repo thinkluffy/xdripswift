@@ -38,19 +38,19 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         xDripClient.fetchLast(2, callback:  { (error, glucoseArray) in
             
             if error != nil {
+				completionHandler(NCUpdateResult.failed)
                 return
             }
             
             guard let glucoseArray = glucoseArray, glucoseArray.count > 0 else {
+				completionHandler(NCUpdateResult.noData)
                 return
             }
-            
+			
+			completionHandler(NCUpdateResult.newData)
             self.updateLabels(latestReadings: glucoseArray)
             
         })
-        
-        completionHandler(NCUpdateResult.newData)
-        
     }
     
     // MARK: - private functions
@@ -59,13 +59,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     private func setupView() {
         
         // set background color to black
-        self.view.backgroundColor = UIColor.black
+//        self.view.backgroundColor = UIColor.black
         
         // set minutesLabelOutlet.textColor to white
-        self.minutesLabelOutlet.textColor = UIColor.white
+//        self.minutesLabelOutlet.textColor = UIColor.white
         
         // set diffLabelOutlet.textColor to white
-        self.diffLabelOutlet.textColor = UIColor.white
+//        self.diffLabelOutlet.textColor = UIColor.white
         
     }
     
@@ -76,8 +76,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         guard let sharedUserDefaults = xDripClient.shared else {return}
         
         // unwrap bloodGlucoseUnitIsMgDl in userdefaults
-        //default value for bool in userdefaults is false, false is for mgdl, true is for mmol
-        let bloodGlucoseUnitIsMgDl = !sharedUserDefaults.bool(forKey: "bloodGlucoseUnit")
+		// true if unit is mgdl, false if mmol is used
+        let bloodGlucoseUnitIsMgDl = sharedUserDefaults.bool(forKey: "bloodGlucoseUnit")
         
         // get urgentLowMarkValueInUserChosenUnit
         let urgentLowMarkValueInUserChosenUnit = getMarkValueInUserChosenUnit(forKey: "urgentLowMarkValue", bloodGlucoseUnitIsMgDl: bloodGlucoseUnitIsMgDl, withDefaultValue: ConstantsBGGraphBuilder.defaultUrgentLowMarkInMgdl)
@@ -146,13 +146,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             valueLabelOutlet.textColor = UIColor.lightGray
         } else if lastReading.glucose >= UInt16(urgentHighMarkValueInUserChosenUnit.mmolToMgdl(mgdl: bloodGlucoseUnitIsMgDl)) || lastReading.glucose <= UInt16(urgentLowMarkValueInUserChosenUnit.mmolToMgdl(mgdl: bloodGlucoseUnitIsMgDl)) {
             // BG is higher than urgentHigh or lower than urgentLow objectives
-            valueLabelOutlet.textColor = UIColor.red
+            valueLabelOutlet.textColor = UIColor.init(cgColor: Common.Constants.glucoseRed)
         } else if lastReading.glucose >= UInt16(highMarkValueInUserChosenUnit.mmolToMgdl(mgdl: bloodGlucoseUnitIsMgDl)) || lastReading.glucose <= UInt16(lowMarkValueInUserChosenUnit.mmolToMgdl(mgdl: bloodGlucoseUnitIsMgDl)) {
             // BG is between urgentHigh/high and low/urgentLow objectives
-            valueLabelOutlet.textColor = UIColor.yellow
+            valueLabelOutlet.textColor = UIColor.init(cgColor: Common.Constants.glucoseYellow)
         } else {
             // BG is between high and low objectives so considered "in range"
-            valueLabelOutlet.textColor = UIColor.green
+			valueLabelOutlet.textColor = UIColor.init(cgColor: Common.Constants.glucoseGreen)
         }
         
         // get minutes ago and create text for minutes ago label

@@ -51,7 +51,9 @@ public class XDripClient {
                     collector = _col
                 }
                 
-                if let glucose = sgv["Value"] as? Int, let trend = sgv["Trend"] as? Int, let dt = sgv["DT"] as? String {
+                if let glucose = sgv["Value"] as? Int,
+				   let trend = sgv["Trend"] as? Int,
+				   let dt = sgv["DT"] as? String {
                     transformed.append(Glucose(
                         glucose: UInt16(glucose),
                         trend: UInt8(trend),

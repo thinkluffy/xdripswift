@@ -14,11 +14,10 @@ class WatchExtensionDelegate: NSObject, ObservableObject, WKExtensionDelegate {
 
 	var runtimeSession: WKExtendedRuntimeSession?
 	
-	func applicationWillEnterForeground() {
-	}
+	func applicationWillEnterForeground() { }
 	
-	func applicationWillResignActive() {
-	}
+	func applicationWillResignActive() { }
+	
 	func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>) {
 		print(Date(), #function, backgroundTasks.count)
 		for task in backgroundTasks {
