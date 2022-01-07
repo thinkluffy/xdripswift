@@ -7,13 +7,12 @@
 //
 
 import Foundation
-// TODO: RENAME
+
 class DailyPattern {
 	
 	struct DailyPatternItem {
-		var index: Int
-		// TODO:
-//		var timestamp: TimeInterval
+		// unit: Minutes, TimeInterval from 00:00
+		var timeInterval: TimeInterval
 		
 		// default unit of coredata, mg/dl
 		var values: [Double] = []
@@ -54,47 +53,55 @@ class DailyPattern {
 			}
 		}
 	}
-	/* Example:
+	// Example:
 	// last 90 days
-	BgReadingsAccessor().getBgReadingsAsync(
-		   from: Date().addingTimeInterval(-Double(90 * 24 * 60 * 60)),
-		   to: Date())
-	   { list in
-		   if let list = list {
-			// Interval is 5 minutes
-			   _ = DailyPattern.dailyPatterns(list, 5)
-		   }
-	   }
-	 */
-	/// history: history data, normally recently 90 days
-	/// minutesInterval: separate history data with  min Interval in minutes
-	/// reture value: (startDate, endDate, list)
-	static func dailyPatterns(_ history: [BgReading], _ minutesInterval: Int) -> (Date, Date, [DailyPatternItem])? {
+//	BgReadingsAccessor().getBgReadingsAsync(
+//		   from: Date().addingTimeInterval(-Double(90 * 24 * 60 * 60)),
+//		   to: Date())
+//	   { list in
+//		   if let list = list {
+//			// Interval is 5 minutes
+//			   _ = DailyPattern.calculate(list, 5)
+//		   }
+//	   }
+	 
+	/// history: data list, normally recently 90 days
+	/// minutesInterval: separate one day to groups with min Interval in minutes
+	/// retured value: (startDate, endDate, list)?
+	static func calculate(_ history: [BgReading],
+						  _ minutesInterval: Int) -> (Date, Date, [DailyPatternItem])? {
 		guard history.count > 0 else {
 			return nil
 		}
 		var startDate: Date?
 		var endDate: Date?
 		var result: [DailyPatternItem] = []
-		// separate one day to group with minutesInterval
-		for minutesIndex in stride(from: 0, to: 24*60/minutesInterval, by: 1) {
-			result.append(DailyPatternItem(index: minutesIndex))
+		// separate one day to groups with minutesInterval
+		for minutesIndex in stride(from: 0, to: 24*60, by: minutesInterval) {
+			result.append(DailyPatternItem(timeInterval: TimeInterval(minutesIndex)))
 		}
-		// 将数据 map 到24小时的25个点中
-		// TODO: 按照时间间隔筛选
-		// TODO: Gesture 长按手势
+		var lastIndex: Int?
+		var lastDay: Int?
 		for bg in history {
 			let date = bg.timeStamp
 			let value = bg.calculatedValue
+			let day = Calendar.current.component(Calendar.Component.day, from: date)
 			let hour = Calendar.current.component(Calendar.Component.hour, from: date)
 			let minute = Calendar.current.component(Calendar.Component.minute, from: date)
 			let minuteIndex = hour * 60 / minutesInterval + minute / minutesInterval
-			result[minuteIndex].appendValue(value)
-			if startDate == nil || startDate! > date {
-				startDate = date
-			}
-			if endDate == nil || endDate! < date {
-				endDate = date
+			// only pick up one data in one timeRange each day
+			if minuteIndex == lastIndex && day == lastDay {
+				continue
+			} else {
+				lastIndex = minuteIndex
+				lastDay = day
+				result[minuteIndex].appendValue(value)
+				if startDate == nil || startDate! > date {
+					startDate = date
+				}
+				if endDate == nil || endDate! < date {
+					endDate = date
+				}
 			}
 		}
 		if let startDate = startDate,

@@ -805,7 +805,6 @@
 		E53D0498274391EF00CA548E /* PhoneCommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneCommunicator.swift; sourceTree = "<group>"; };
 		E53D0499274391F000CA548E /* WatchChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchChartView.swift; sourceTree = "<group>"; };
 		E53D049A274391F000CA548E /* UsefulData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsefulData.swift; sourceTree = "<group>"; };
-		E584FBF52786964C00BEA224 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Documents/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E584FBF82786CE1C00BEA224 /* DailyPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPattern.swift; sourceTree = "<group>"; };
 		E5D5EB7D2745F00E003D0DD9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E5D5EB7F2745F02A003D0DD9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS8.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -1615,12 +1614,12 @@
 			path = Base.lproj;
 			sourceTree = "<group>";
 		};
-		E584FBFA2786CE2300BEA224 /* DailyPattern */ = {
+		E584FBFA2786CE2300BEA224 /* Algorithm */ = {
 			isa = PBXGroup;
 			children = (
 				E584FBF82786CE1C00BEA224 /* DailyPattern.swift */,
 			);
-			path = DailyPattern;
+			path = Algorithm;
 			sourceTree = "<group>";
 		};
 		F8025C0B21D9513400ECF0C0 /* Extensions */ = {
@@ -1897,7 +1896,7 @@
 				F821CF9922AEF2DF005C1E43 /* Speak */,
 				4EC48D162770881100EEB0BA /* Note */,
 				F8E3A2A723D906B600E5E98A /* Watch */,
-				E584FBFA2786CE2300BEA224 /* DailyPattern */,
+				E584FBFA2786CE2300BEA224 /* Algorithm */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
