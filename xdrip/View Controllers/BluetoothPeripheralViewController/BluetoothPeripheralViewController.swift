@@ -254,28 +254,6 @@ class BluetoothPeripheralViewController: UIViewController {
         setupView()
     }
 
-    private var isNavigationBarHiddenBefore = false
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        guard let navigationController = navigationController else {
-            return
-        }
-
-        isNavigationBarHiddenBefore = navigationController.navigationBar.isHidden
-        if isNavigationBarHiddenBefore {
-            navigationController.setNavigationBarHidden(false, animated: true)
-        }
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        if isNavigationBarHiddenBefore {
-            navigationController?.setNavigationBarHidden(true, animated: true)
-        }
-    }
-
     override func willMove(toParent parent: UIViewController?) {
         super.willMove(toParent: parent)
 

@@ -167,6 +167,11 @@ final class RootViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
                 
+		navigationController?.setNavigationBarHidden(true, animated: false)
+		navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+		navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .compact)
+		navigationController?.navigationBar.shadowImage = UIImage()
+		
         // viewWillAppear when user switches eg from Settings Tab to Home Tab - latest reading value needs to be shown on the view, and also update minutes ago etc.
         updateLabelsAndChart(overrideApplicationState: true)
         
@@ -185,6 +190,7 @@ final class RootViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         presenter.onViewWillDisappear()
         super.viewWillDisappear(animated)
+		navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     override func viewDidLoad() {
