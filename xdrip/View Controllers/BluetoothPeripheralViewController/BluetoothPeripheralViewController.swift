@@ -817,7 +817,7 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
 
         case .webOOPEnabled:
             // set row text and set default row label to nil
-            cell.textLabel?.text = R.string.settingsViews.settingsviews_webooptransmitter()
+            cell.textLabel?.text = R.string.settingsViews.settingsviews_manualcalibration()
             cell.detailTextLabel?.text = nil
 
             // get current value of webOOPEnabled, default false
@@ -826,17 +826,17 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
                 currentWebOOPEnabledValue = bluetoothPeripheral.blePeripheral.webOOPEnabled
             }
 
-            cell.accessoryView = UISwitch(isOn: currentWebOOPEnabledValue) {
-                (isOn: Bool) in
+            cell.accessoryView = UISwitch(isOn: !currentWebOOPEnabledValue) {
+                (isManualCalibrationOn: Bool) in
 
-                self.bluetoothPeripheral?.blePeripheral.webOOPEnabled = isOn
+                self.bluetoothPeripheral?.blePeripheral.webOOPEnabled = !isManualCalibrationOn
 
                 // send info to bluetoothPeripheralManager
                 if let bluetoothPeripheral = self.bluetoothPeripheral {
-                    bluetoothPeripheralManager.receivedNewValue(webOOPEnabled: isOn, for: bluetoothPeripheral)
+                    bluetoothPeripheralManager.receivedNewValue(webOOPEnabled: !isManualCalibrationOn, for: bluetoothPeripheral)
 
                     // if user switches on web oop, then we need to force also use of non-fixed slopes to off
-                    if isOn {
+                    if !isManualCalibrationOn {
                         bluetoothPeripheral.blePeripheral.nonFixedSlopeEnabled = false
                         bluetoothPeripheralManager.receivedNewValue(nonFixedSlopeEnabled: false, for: bluetoothPeripheral)
                     }
@@ -846,6 +846,14 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
 
                     // reload the section for nonFixedSettingsSectionNumber, even though the value may not have changed, because possibly isUserInteractionEnabled needs to be set to false for the nonFixedSettingsSectionNumber UISwitch
                     tableView.reloadSections(IndexSet(integer: 0), with: .none)
+
+                    if isManualCalibrationOn {
+                        let dialog = PopupDialog(title: R.string.bluetoothPeripheralView.dialog_title_manual_calibration_enabled(),
+                                message: R.string.bluetoothPeripheralView.dialog_msg_manual_calibration_enabled(),
+                                actionTitle: R.string.common.common_Ok(),
+                                actionHandler: nil)
+                        self.present(dialog, animated: true)
+                    }
                 }
             }
 

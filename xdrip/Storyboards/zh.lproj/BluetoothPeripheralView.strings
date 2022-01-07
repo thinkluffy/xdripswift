@@ -1,7 +1,7 @@
 
 /// text in button top right, this button will disable automatic connect
 "donotconnect" = "停止扫描";
-"battery" = "电池";
+"battery" = "电量";
 
 /// cell text, shows when last reset was done, if known. Only for Dexcom
 "lastReset" = "上次重置";
@@ -83,7 +83,9 @@
 
 /// cell text, transmitter start time
 "transmittterStartDate" = "发射器启动时间";
-"battery" = "电量";
 "temperature" = "温度";
 "resistance" = "电阻";
+"dialog_title_manual_calibration_enabled" = "手动校准已开启";
+"dialog_msg_manual_calibration_enabled" = "稍后请按照提示输入校准血糖值。";
+
 

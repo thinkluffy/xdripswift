@@ -55,10 +55,6 @@
 /// literally 'OK'
 "common_Ok" = "好的";
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-/////   Translation needed - remove this header after translation                       /////
-/////////////////////////////////////////////////////////////////////////////////////////////
-
 /// Where credentials need to be given, if either account or password is invalid (for the moment only applicable to Dexcom Share
 "invalidAccountOrPassword" = "Invalid account or password";
 
@@ -105,3 +101,4 @@
 "common_dontshowagain" = "不再提示";
 "today" = "今天";
 "yesterday" = "昨天";
+"wait_a_moment" = "请稍候";

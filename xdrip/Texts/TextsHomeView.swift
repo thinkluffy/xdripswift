@@ -92,10 +92,6 @@ enum Texts_HomeView {
         return NSLocalizedString("transmitterinfo", tableName: filename, bundle: Bundle.main, value: "First go to the Bluetooth screen where you can add and scan for your transmitter.\r\n\nThen come back to the Home screen and start your sensor.", comment: "for home view, Info how to start : set transmitter and id, then go back to home screen, start scanning")
     }()
     
-    static let startSensorBeforeCalibration: String = {
-        return NSLocalizedString("startsensorbeforecalibration", tableName: filename, bundle: Bundle.main, value: "You cannot calibrate unless you have started a sensor.", comment: "for home view, user clicks calibrate but there's no sensor started yet")
-    }()
-    
     static let theresNoCGMTransmitterActive: String = {
         return NSLocalizedString("theresNoCGMTransmitterActive", tableName: filename, bundle: Bundle.main, value: "You cannot calibrate unless you have a transmitter connected.", comment: "When user has no CGM transmitter created with 'Always connect', and tries to calibrate, then this message is shown")
     }()

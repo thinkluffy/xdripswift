@@ -33,7 +33,7 @@
 "settingsviews_transmitterid_text_for_button"  = "Transmitter ID";
 "settingsviews_givetransmitterid" = "Enter Transmitter ID";
 "settingsviews_resettransmitter" = "Reset Transmitter";
-"settingsviews_webooptransmitter" = "Use Transmitter Algorithm";
+"settingsviews_manualcalibration" = "Manual Calibration";
 "settingsviews_nonfixedtransmitter" = "Multi-point Calibration";
 "settingsviews_labelNonFixed" = "Multi-point Calibration";
 "settingsviews_labelWebOOP" = "zDrip or Transmitter Algorithm";

@@ -25,9 +25,9 @@ class SingleSelectionItem: Equatable {
 
 protocol SingleSelectionDelegate: AnyObject {
     
-    func singleSelectionItemWillSelect(_ singleSelecton: SingleSelection, item: SingleSelectionItem) -> Bool
+    func singleSelectionItemWillSelect(_ singleSelection: SingleSelection, item: SingleSelectionItem) -> Bool
     
-    func singleSelectionItemDidSelect(_ singleSelecton: SingleSelection, item: SingleSelectionItem)
+    func singleSelectionItemDidSelect(_ singleSelection: SingleSelection, item: SingleSelectionItem)
 }
 
 class SingleSelection: UIStackView {

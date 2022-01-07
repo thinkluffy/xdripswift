@@ -2271,7 +2271,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.bluetoothPeripheralView` struct is generated, and contains static references to 31 localization keys.
+    /// This `R.string.bluetoothPeripheralView` struct is generated, and contains static references to 33 localization keys.
     struct bluetoothPeripheralView {
       /// en translation: Address
       ///
@@ -2321,6 +2321,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let lastReset = Rswift.StringResource(key: "lastReset", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Manual Calibration Enabled
+      ///
+      /// Locales: en, zh
+      static let dialog_title_manual_calibration_enabled = Rswift.StringResource(key: "dialog_title_manual_calibration_enabled", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Missing Transmitter ID
       ///
       /// Locales: en, zh
@@ -2333,6 +2337,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let notTryingToConnect = Rswift.StringResource(key: "notTryingToConnect", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Please follow the prompts to enter the calibration blood glucose value later.
+      ///
+      /// Locales: en, zh
+      static let dialog_msg_manual_calibration_enabled = Rswift.StringResource(key: "dialog_msg_manual_calibration_enabled", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Ready to Scan
       ///
       /// Locales: en, zh
@@ -2578,6 +2586,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("lastReset", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
+      /// en translation: Manual Calibration Enabled
+      ///
+      /// Locales: en, zh
+      static func dialog_title_manual_calibration_enabled(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("dialog_title_manual_calibration_enabled", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
+          return "dialog_title_manual_calibration_enabled"
+        }
+
+        return NSLocalizedString("dialog_title_manual_calibration_enabled", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
+      }
+
       /// en translation: Missing Transmitter ID
       ///
       /// Locales: en, zh
@@ -2621,6 +2644,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("notTryingToConnect", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Please follow the prompts to enter the calibration blood glucose value later.
+      ///
+      /// Locales: en, zh
+      static func dialog_msg_manual_calibration_enabled(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("dialog_msg_manual_calibration_enabled", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
+          return "dialog_msg_manual_calibration_enabled"
+        }
+
+        return NSLocalizedString("dialog_msg_manual_calibration_enabled", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
       /// en translation: Ready to Scan
@@ -3049,7 +3087,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.common` struct is generated, and contains static references to 61 localization keys.
+    /// This `R.string.common` struct is generated, and contains static references to 62 localization keys.
     struct common {
       /// en translation: %@ must not be used to make medical decisions. It is a research and education tool only and is provided as-is without warranty of any kind, either expressed or implied, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose. The entire risk as to the quality and performance of the program is with you. Should the program prove defective, you assume the cost of all necessary servicing, repair, or correction.
       ///
@@ -3223,6 +3261,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let update = Rswift.StringResource(key: "update", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Wait a Moment
+      ///
+      /// Locales: en, zh
+      static let wait_a_moment = Rswift.StringResource(key: "wait_a_moment", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Warning
       ///
       /// Locales: en, zh
@@ -3947,6 +3989,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("update", tableName: "Common", bundle: bundle, comment: "")
       }
 
+      /// en translation: Wait a Moment
+      ///
+      /// Locales: en, zh
+      static func wait_a_moment(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("wait_a_moment", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "wait_a_moment"
+        }
+
+        return NSLocalizedString("wait_a_moment", tableName: "Common", bundle: bundle, comment: "")
+      }
+
       /// en translation: Warning
       ///
       /// Locales: en, zh
@@ -4633,14 +4690,14 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let calibrationNotNecessary = Rswift.StringResource(key: "calibrationNotNecessary", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: You cannot calibrate currently, please wait a moment.
+      ///
+      /// Locales: en, zh
+      static let startSensorBeforeCalibration = Rswift.StringResource(key: "startSensorBeforeCalibration", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: You cannot calibrate unless you have a transmitter connected.
       ///
       /// Locales: en, zh
       static let theresNoCGMTransmitterActive = Rswift.StringResource(key: "theresNoCGMTransmitterActive", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: You cannot calibrate unless you have started a sensor.
-      ///
-      /// Locales: en, zh
-      static let startsensorbeforecalibration = Rswift.StringResource(key: "startsensorbeforecalibration", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: You did not give bluetooth permission for %@. Go to the settings, find the %@ app, and enable Bluetooth.
       ///
       /// Locales: en, zh
@@ -5226,6 +5283,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("calibrationNotNecessary", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
+      /// en translation: You cannot calibrate currently, please wait a moment.
+      ///
+      /// Locales: en, zh
+      static func startSensorBeforeCalibration(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("startSensorBeforeCalibration", tableName: "HomeView", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
+          return "startSensorBeforeCalibration"
+        }
+
+        return NSLocalizedString("startSensorBeforeCalibration", tableName: "HomeView", bundle: bundle, comment: "")
+      }
+
       /// en translation: You cannot calibrate unless you have a transmitter connected.
       ///
       /// Locales: en, zh
@@ -5239,21 +5311,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("theresNoCGMTransmitterActive", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: You cannot calibrate unless you have started a sensor.
-      ///
-      /// Locales: en, zh
-      static func startsensorbeforecalibration(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("startsensorbeforecalibration", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "startsensorbeforecalibration"
-        }
-
-        return NSLocalizedString("startsensorbeforecalibration", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
       /// en translation: You did not give bluetooth permission for %@. Go to the settings, find the %@ app, and enable Bluetooth.
@@ -6219,6 +6276,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let settingsviews_lowValue = Rswift.StringResource(key: "settingsviews_lowValue", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Manual Calibration
+      ///
+      /// Locales: en, zh
+      static let settingsviews_manualcalibration = Rswift.StringResource(key: "settingsviews_manualcalibration", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Master
       ///
       /// Locales: en, zh
@@ -6451,10 +6512,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let settingsviews_useStandardStatisticsRange = Rswift.StringResource(key: "settingsviews_useStandardStatisticsRange", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Use Transmitter Algorithm
-      ///
-      /// Locales: en, zh
-      static let settingsviews_webooptransmitter = Rswift.StringResource(key: "settingsviews_webooptransmitter", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Use Upload Schedule
       ///
       /// Locales: en
@@ -7255,6 +7312,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("settingsviews_lowValue", tableName: "SettingsViews", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Manual Calibration
+      ///
+      /// Locales: en, zh
+      static func settingsviews_manualcalibration(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("settingsviews_manualcalibration", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
+          return "settingsviews_manualcalibration"
+        }
+
+        return NSLocalizedString("settingsviews_manualcalibration", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
       /// en translation: Master
@@ -8127,21 +8199,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("settingsviews_useStandardStatisticsRange", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Use Transmitter Algorithm
-      ///
-      /// Locales: en, zh
-      static func settingsviews_webooptransmitter(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_webooptransmitter", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_webooptransmitter"
-        }
-
-        return NSLocalizedString("settingsviews_webooptransmitter", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
       /// en translation: Use Upload Schedule

@@ -27,6 +27,7 @@
 "transmittterStartDate" = "Transmitter Start";
 "sensorStartDate" = "Sensor Started At";
 "useOtherDexcomApp" = "Follow Dexcom-app";
-"battery" = "Battery";
 "temperature" = "Temperature";
 "resistance" = "Resistance";
+"dialog_title_manual_calibration_enabled" = "Manual Calibration Enabled";
+"dialog_msg_manual_calibration_enabled" = "Please follow the prompts to enter the calibration blood glucose value later.";

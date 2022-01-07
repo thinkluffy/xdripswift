@@ -1,8 +1,3 @@
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-/////   Translation needed - remove this header after translation                       /////
-/////////////////////////////////////////////////////////////////////////////////////////////
-
 /// after scanning NFC, scan complete message
 "scanComplete" = "扫描完成";
 
@@ -18,16 +13,8 @@
 /// After Libre NFC scanning, and after successful bluetooth connection, this message will be shown to explain that he or she should not allow bluetooth permission on the Libre app
 "donotusethelibrelinkapp" = "已连接到瞬感 2 代。\r\n\r\n您仍然可以使用瞬感官方软件扫描传感器。但是在扫描前，请务必「关闭」瞬感官方软件的蓝牙权限。否则将导致 %@ 与瞬感 2 代无法连接！";
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-/////   Translation needed - remove this header after translation                       /////
-/////////////////////////////////////////////////////////////////////////////////////////////
-
 /// The user has connected to another (older?) Libre 2 with bluetooth than the one for which NFC scan was done, in that case, inform user that he/she should click 'disconnect', add a new CGM sensor and scan again.
 "connectedLibre2DoesNotMatchScannedLibre2" = "You seem to have scanned a new sensor, but %@ is having the Bluetooth connection to the old sensor.\r\n\r\nTo solve this :\r\n- Click 'disconnect' or 'stop scanning'\r\n- Go back to previous screen and add a new CGM of type Libre 2 and scan again.\r\n\r\n%@ should now connect to the new sensor.";
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-/////   Translation needed - remove this header after translation                       /////
-/////////////////////////////////////////////////////////////////////////////////////////////
-
 /// Sometimes NFC scanning creates errors, retrying solves the problem. This is to explain this to the user
-"nfcErrorRetryScan" = "Error occured while scanning the sensor. Click 'Scan' top left and scan the sensor again";
+"nfcErrorRetryScan" = "Error occurred while scanning the sensor. Click 'Scan' top left and scan the sensor again";

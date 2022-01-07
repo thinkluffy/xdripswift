@@ -243,7 +243,7 @@ extension ChartDetailsViewController: ChartDetailsV {
 }
 
 extension ChartDetailsViewController: GlucoseChartDelegate {
-    
+
     func chartReadingSelected(_ glucoseChart: GlucoseChart, reading: BgReading) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
@@ -306,11 +306,11 @@ extension ChartDetailsViewController: CalendarTitleDelegate {
 
 extension ChartDetailsViewController: SingleSelectionDelegate {
     
-    func singleSelectionItemWillSelect(_ singleSelecton: SingleSelection, item: SingleSelectionItem) -> Bool {
-        return true
+    func singleSelectionItemWillSelect(_ singleSelection: SingleSelection, item: SingleSelectionItem) -> Bool {
+        true
     }
     
-    func singleSelectionItemDidSelect(_ singleSelecton: SingleSelection, item: SingleSelectionItem) {
+    func singleSelectionItemDidSelect(_ singleSelection: SingleSelection, item: SingleSelectionItem) {
         selectedChartHoursId = item.id
         glucoseChart.chartHours = selectedChartHoursId
     }

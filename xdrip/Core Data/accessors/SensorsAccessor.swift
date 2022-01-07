@@ -47,7 +47,6 @@ class SensorsAccessor {
         // create fetchRequest
         let fetchRequest: NSFetchRequest<Sensor> = Sensor.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Sensor.startDate), ascending: false)]
-//        fetchRequest.predicate = predicate
         
         context.performAndWait {
             do {
