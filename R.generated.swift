@@ -4686,11 +4686,11 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en
       static let unlock = Rswift.StringResource(key: "unlock", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: When using the Transmitter algoritm, it is not necessary to calibrate the sensor.
+      /// en translation: When using the Transmitter algorithm, it is not necessary to calibrate the sensor.
       ///
       /// Locales: en, zh
       static let calibrationNotNecessary = Rswift.StringResource(key: "calibrationNotNecessary", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: You cannot calibrate currently, please wait a moment.
+      /// en translation: You cannot calibrate now, please follow the prompts to enter the calibration blood glucose value later.
       ///
       /// Locales: en, zh
       static let startSensorBeforeCalibration = Rswift.StringResource(key: "startSensorBeforeCalibration", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
@@ -5268,7 +5268,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("unlock", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
-      /// en translation: When using the Transmitter algoritm, it is not necessary to calibrate the sensor.
+      /// en translation: When using the Transmitter algorithm, it is not necessary to calibrate the sensor.
       ///
       /// Locales: en, zh
       static func calibrationNotNecessary(preferredLanguages: [String]? = nil) -> String {
@@ -5283,7 +5283,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("calibrationNotNecessary", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
-      /// en translation: You cannot calibrate currently, please wait a moment.
+      /// en translation: You cannot calibrate now, please follow the prompts to enter the calibration blood glucose value later.
       ///
       /// Locales: en, zh
       static func startSensorBeforeCalibration(preferredLanguages: [String]? = nil) -> String {
