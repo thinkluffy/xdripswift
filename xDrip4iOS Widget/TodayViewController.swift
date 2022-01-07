@@ -59,14 +59,18 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     private func setupView() {
         
         // set background color to black
-//        self.view.backgroundColor = UIColor.black
+//		self.view.backgroundColor = UIColor.init(cgColor: Common.Constants.themeBg)
         
         // set minutesLabelOutlet.textColor to white
 //        self.minutesLabelOutlet.textColor = UIColor.white
         
         // set diffLabelOutlet.textColor to white
 //        self.diffLabelOutlet.textColor = UIColor.white
-        
+		valueLabelOutlet.layer.shadowColor = UIColor.black.cgColor
+		valueLabelOutlet.layer.shadowOpacity = 0.5
+		valueLabelOutlet.layer.shadowRadius = 5.0
+		valueLabelOutlet.layer.shadowOffset = CGSize(width: 0, height: 0)
+		valueLabelOutlet.layer.masksToBounds = false
     }
     
     /// - updates the labels
