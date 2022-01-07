@@ -168,9 +168,7 @@ final class RootViewController: UIViewController {
         super.viewWillAppear(animated)
                 
 		navigationController?.setNavigationBarHidden(true, animated: false)
-		navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-		navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .compact)
-		navigationController?.navigationBar.shadowImage = UIImage()
+		navigationController?.setNoBackground()
 		
         // viewWillAppear when user switches eg from Settings Tab to Home Tab - latest reading value needs to be shown on the view, and also update minutes ago etc.
         updateLabelsAndChart(overrideApplicationState: true)

@@ -30,9 +30,7 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         
         title = iOS.appDisplayName
-		navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-		navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .compact)
-		navigationController?.navigationBar.shadowImage = UIImage()
+		navigationController?.setNoBackground()
         
         setupView()
         
