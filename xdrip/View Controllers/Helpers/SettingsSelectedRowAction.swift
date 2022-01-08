@@ -33,7 +33,7 @@ enum SettingsSelectedRowAction {
     /// when clicked, the function parameter needs to be called
     ///
     /// example, the chosen unit, is either mgdl or mmol. When user clicks, there's no need to show pop up with the two options. Just switch immediately. The function would do that in this case (ie change the setting)
-    case callFunction(function :(() -> Void))
+    case callFunction(function : () -> Void)
     
     /// when clicked a list of items must be presented form which the user needs to pick one, for example transmitter type
     /// - title: title that can be shown when asking for input
@@ -44,7 +44,7 @@ enum SettingsSelectedRowAction {
     /// - actionHandler: code to execute when user confirms input, with index of item that was selected by user, 0 = first element
     /// - cancelHandler: code to execute when user cancels input
     /// - didSelectRowHandler: code to execute when user selects an item before clicking ok or cancel, can be useful eg to play a selected sound so that user hears how it sounds
-    case selectFromList(title: String?, message: String?, data: [String], selectedRow: Int?, actionTitle: String?, actionHandler: ((_ index: Int) -> Void), cancelHandler: (() -> Void)?, didSelectRowHandler: ((_ index: Int) -> Void)?)
+    case selectFromList(title: String?, message: String?, data: [String], selectedRow: Int?, actionTitle: String?, actionHandler: (_ index: Int) -> Void, cancelHandler: (() -> Void)?, didSelectRowHandler: ((_ index: Int) -> Void)?)
     
     /// performSegue to be done with specified identifier
     ///
