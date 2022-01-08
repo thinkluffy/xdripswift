@@ -3,7 +3,7 @@
 //  xdrip
 //
 //  Created by Yuanbin Cai on 2021/12/16.
-//  Copyright © 2021 Johan Degraeve. All rights reserved.
+//  Copyright © 2021 zDrip. All rights reserved.
 //
 
 import UIKit
@@ -54,6 +54,8 @@ class NotesViewController: UIViewController {
             make.top.equalTo(titleLabel)
             make.bottom.equalTo(msgLabel)
         }
+        view.isHidden = true
+
         return view
     }()
     
@@ -66,7 +68,7 @@ class NotesViewController: UIViewController {
     
     // set the status bar content colour to light to match new darker theme
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        .lightContent
     }
     
     override func viewDidLoad() {
