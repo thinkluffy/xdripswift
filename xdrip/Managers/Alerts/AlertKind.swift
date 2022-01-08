@@ -94,7 +94,7 @@ public enum AlertKind: Int, CaseIterable {
         switch self {
         case .low, .high, .verylow, .veryhigh, .missedreading, .calibration, .batterylow:
             return true
-        case  .fastdrop, .fastrise:
+        case .fastdrop, .fastrise:
             return false
         }
     }
@@ -215,7 +215,7 @@ public enum AlertKind: Int, CaseIterable {
                 return (false, nil, nil, nil)
             }
             
-        case .high,.veryhigh:
+        case .high, .veryhigh:
             // if alertEntry not enabled, return false
             if !currentAlertEntry.alertType.enabled {return (false, nil, nil, nil)}
             

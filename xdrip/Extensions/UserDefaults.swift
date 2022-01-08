@@ -129,7 +129,9 @@ extension UserDefaults {
         case speakTrend = "speakTrend"
         /// speak interval
         case speakInterval = "speakInterval"
-        
+        /// speak only when bg is high or low
+        case speakOnlyWhenOutOfRange = "speakOnlyWhenOutOfRange"
+
         // Settings that Keep track of alert and info messages shown to the user ======
         
         /// message shown when user starts a sensor, which tells that timing should be exact, was it already shown or not
@@ -890,6 +892,15 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: Key.speakInterval.rawValue)
+        }
+    }
+    
+    var speakOnlyWhenOutOfRange: Bool {
+        get {
+            return bool(forKey: Key.speakOnlyWhenOutOfRange.rawValue)
+        }
+        set {
+            set(newValue, forKey: Key.speakOnlyWhenOutOfRange.rawValue)
         }
     }
     

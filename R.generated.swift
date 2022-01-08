@@ -6070,7 +6070,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.settingsViews` struct is generated, and contains static references to 118 localization keys.
+    /// This `R.string.settingsViews` struct is generated, and contains static references to 115 localization keys.
     struct settingsViews {
       /// en translation: 5 Mins per Dot
       ///
@@ -6120,10 +6120,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let appleWatchSectionTitle = Rswift.StringResource(key: "appleWatchSectionTitle", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Background Color
-      ///
-      /// Locales: en
-      static let m5stack_settingsviews_backGroundColor = Rswift.StringResource(key: "m5stack_settingsviews_backGroundColor", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Blood Glucose Units
       ///
       /// Locales: en, zh
@@ -6192,10 +6188,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let settingsviews_nightScoutEnabled = Rswift.StringResource(key: "settingsviews_nightScoutEnabled", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Enter Bluetooth Password
-      ///
-      /// Locales: en
-      static let m5stack_settingsviews_giveBluetoothPassword = Rswift.StringResource(key: "m5stack_settingsviews_giveBluetoothPassword", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Enter Dexcom Share Account Name
       ///
       /// Locales: en, zh
@@ -6360,10 +6352,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en
       static let schedule = Rswift.StringResource(key: "schedule", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Screen Brightness
-      ///
-      /// Locales: en
-      static let m5stack_settingsviews_brightness = Rswift.StringResource(key: "m5stack_settingsviews_brightness", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Select Language
       ///
       /// Locales: en, zh
@@ -6420,6 +6408,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let settingsviews_speakDelta = Rswift.StringResource(key: "settingsviews_speakDelta", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Speak Only When High or Low
+      ///
+      /// Locales: en, zh
+      static let settingsviews_speakWhenOutOfRange = Rswift.StringResource(key: "settingsviews_speakWhenOutOfRange", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Speak Trend
       ///
       /// Locales: en, zh
@@ -6448,10 +6440,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let volumeTestSoundPlayer = Rswift.StringResource(key: "volumeTestSoundPlayer", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Text Color
-      ///
-      /// Locales: en
-      static let m5stack_settingsviews_textColor = Rswift.StringResource(key: "m5stack_settingsviews_textColor", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Token
       ///
       /// Locales: en, zh
@@ -6727,21 +6715,6 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("appleWatchSectionTitle", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Background Color
-      ///
-      /// Locales: en
-      static func m5stack_settingsviews_backGroundColor(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("m5stack_settingsviews_backGroundColor", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "m5stack_settingsviews_backGroundColor"
-        }
-
-        return NSLocalizedString("m5stack_settingsviews_backGroundColor", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
       /// en translation: Blood Glucose Units
       ///
       /// Locales: en, zh
@@ -6995,21 +6968,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("settingsviews_nightScoutEnabled", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Enter Bluetooth Password
-      ///
-      /// Locales: en
-      static func m5stack_settingsviews_giveBluetoothPassword(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("m5stack_settingsviews_giveBluetoothPassword", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "m5stack_settingsviews_giveBluetoothPassword"
-        }
-
-        return NSLocalizedString("m5stack_settingsviews_giveBluetoothPassword", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
       /// en translation: Enter Dexcom Share Account Name
@@ -7631,21 +7589,6 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("schedule", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
-      /// en translation: Screen Brightness
-      ///
-      /// Locales: en
-      static func m5stack_settingsviews_brightness(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("m5stack_settingsviews_brightness", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "m5stack_settingsviews_brightness"
-        }
-
-        return NSLocalizedString("m5stack_settingsviews_brightness", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
       /// en translation: Select Language
       ///
       /// Locales: en, zh
@@ -7856,6 +7799,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settingsviews_speakDelta", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
+      /// en translation: Speak Only When High or Low
+      ///
+      /// Locales: en, zh
+      static func settingsviews_speakWhenOutOfRange(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("settingsviews_speakWhenOutOfRange", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
+          return "settingsviews_speakWhenOutOfRange"
+        }
+
+        return NSLocalizedString("settingsviews_speakWhenOutOfRange", tableName: "SettingsViews", bundle: bundle, comment: "")
+      }
+
       /// en translation: Speak Trend
       ///
       /// Locales: en, zh
@@ -7959,21 +7917,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("volumeTestSoundPlayer", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Text Color
-      ///
-      /// Locales: en
-      static func m5stack_settingsviews_textColor(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("m5stack_settingsviews_textColor", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "m5stack_settingsviews_textColor"
-        }
-
-        return NSLocalizedString("m5stack_settingsviews_textColor", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
       /// en translation: Token

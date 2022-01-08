@@ -17,6 +17,9 @@ fileprivate enum Setting: Int, CaseIterable {
     /// speak each reading, each 2 readings ...  integer value
     case speakInterval = 4
     
+    /// speak reading only when not in range
+    case speakOnlyWhenOutOfRange = 5
+
 }
 
 /// conforms to SettingsViewModelProtocol for all speak settings in the first sections screen
@@ -100,6 +103,8 @@ class SettingsViewSpeakSettingsViewModel:SettingsViewModelProtocol {
                 cancelHandler: nil,
                 didSelectRowHandler: nil)
 
+        case .speakOnlyWhenOutOfRange:
+            return .nothing
         }
     }
     
@@ -130,6 +135,8 @@ class SettingsViewSpeakSettingsViewModel:SettingsViewModelProtocol {
             return Texts_SettingsView.labelSpeakDelta
         case .speakInterval:
             return Texts_SettingsView.settingsviews_IntervalTitle
+        case .speakOnlyWhenOutOfRange:
+            return R.string.settingsViews.settingsviews_speakWhenOutOfRange()
         }
     }
     
@@ -151,6 +158,8 @@ class SettingsViewSpeakSettingsViewModel:SettingsViewModelProtocol {
             return R.string.common.howManyMinutes(UserDefaults.standard.speakInterval)
         case .speakBgReadingLanguage:
             return Texts_SpeakReading.languageName
+        case .speakOnlyWhenOutOfRange:
+            return nil
         }
     }
     
@@ -182,6 +191,12 @@ class SettingsViewSpeakSettingsViewModel:SettingsViewModelProtocol {
             
         case .speakBgReadingLanguage:
             return nil
+            
+        case .speakOnlyWhenOutOfRange:
+            return UISwitch(isOn: UserDefaults.standard.speakOnlyWhenOutOfRange) {
+                (isOn: Bool) in
+                UserDefaults.standard.speakOnlyWhenOutOfRange = isOn
+            }
         }
     }
 }

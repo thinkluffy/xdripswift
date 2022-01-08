@@ -30,6 +30,7 @@
 "settingsviews_speakBgReadings" = "语音播报血糖值";
 "settingsviews_speakTrend" = "语音播报趋势";
 "settingsviews_speakDelta" = "语音播报偏移量";
+"settingsviews_speakWhenOutOfRange" = "仅在高或低的时候播报";
 "settingsviews_IntervalTitle" = "间隔时间";
 "settingsviews_masterorfollower" = "主控端/关注者";
 "settingsviews_master" = "主控端";

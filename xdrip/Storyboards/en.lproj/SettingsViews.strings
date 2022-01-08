@@ -69,16 +69,13 @@
 "settingsviews_speakreadingslanguageselection" = "Select Language";
 "settingsviews_speakTrend" = "Speak Trend";
 "settingsviews_speakDelta" = "Speak Delta";
+"settingsviews_speakWhenOutOfRange" = "Speak Only When High or Low";
 "settingsviews_IntervalTitle" = "Interval";
 "settingsviews_IntervalMessage" = "Minimum interval between two readings";
 "settingsviews_sectiontitleAbout" = "About %@";
 "settingsviews_Version" = "Version";
 "settingsviews_license" = "License";
 "settingsviews_build" = "Build";
-"m5stack_settingsviews_textColor" = "Text Color";
-"m5stack_settingsviews_backGroundColor" = "Background Color";
-"m5stack_settingsviews_giveBluetoothPassword" = "Enter Bluetooth Password";
-"m5stack_settingsviews_brightness" = "Screen Brightness";
 "appleWatchSectionTitle" = "Apple Watch";
 "calendarEventsSectionTitle" = "Calendar Events";
 "createCalendarEvent" = "Create Calendar Events";
