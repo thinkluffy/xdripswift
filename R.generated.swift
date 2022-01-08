@@ -3087,12 +3087,16 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.common` struct is generated, and contains static references to 62 localization keys.
+    /// This `R.string.common` struct is generated, and contains static references to 63 localization keys.
     struct common {
       /// en translation: %@ must not be used to make medical decisions. It is a research and education tool only and is provided as-is without warranty of any kind, either expressed or implied, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose. The entire risk as to the quality and performance of the program is with you. Should the program prove defective, you assume the cost of all necessary servicing, repair, or correction.
       ///
       /// Locales: en, zh
       static let agreement = Rswift.StringResource(key: "agreement", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: %@/min
+      ///
+      /// Locales: en, zh
+      static let change_per_min = Rswift.StringResource(key: "change_per_min", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: %d Mins
       ///
       /// Locales: en, zh
@@ -3352,6 +3356,23 @@ struct R: Rswift.Validatable {
         }
 
         let format = NSLocalizedString("agreement", tableName: "Common", bundle: bundle, comment: "")
+        return String(format: format, locale: locale, value1)
+      }
+
+      /// en translation: %@/min
+      ///
+      /// Locales: en, zh
+      static func change_per_min(_ value1: String, preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          let format = NSLocalizedString("change_per_min", tableName: "Common", bundle: hostingBundle, comment: "")
+          return String(format: format, locale: applicationLocale, value1)
+        }
+
+        guard let (locale, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "change_per_min"
+        }
+
+        let format = NSLocalizedString("change_per_min", tableName: "Common", bundle: bundle, comment: "")
         return String(format: format, locale: locale, value1)
       }
 

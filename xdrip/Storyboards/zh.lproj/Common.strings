@@ -102,3 +102,4 @@
 "today" = "今天";
 "yesterday" = "昨天";
 "wait_a_moment" = "请稍候";
+"change_per_min" = "%@/分钟";

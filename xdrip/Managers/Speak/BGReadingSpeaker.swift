@@ -112,10 +112,10 @@ class BGReadingSpeaker: NSObject {
             currentBgReadingFormatted = assertFractionalDigits(number: currentBgReadingFormatted)
         }
         currentBgReadingFormatted = formatLocaleSpecific(number: currentBgReadingFormatted, languageCode: Texts_SpeakReading.languageCode)
-        if (currentBgReadingFormatted == "HIGH") {
+        if currentBgReadingFormatted == "HIGH" {
             currentBgReadingFormatted = ". " + Texts_SpeakReading.high
 
-        } else if (currentBgReadingFormatted == "LOW") {
+        } else if currentBgReadingFormatted == "LOW" {
             currentBgReadingFormatted = ". " + Texts_SpeakReading.low
         }
         currentBgReadingOutput = currentBgReadingOutput + " ,, " + currentBgReadingFormatted + ". "
@@ -124,7 +124,7 @@ class BGReadingSpeaker: NSObject {
         // if trend needs to be spoken, then compose trend text
         if UserDefaults.standard.speakTrend {
             //add trend to text (slope)
-            currentBgReadingOutput += Texts_SpeakReading.currentTrend + " " + searchTranslationForCurrentTrend(currentTrend: bgReadingToSpeak.slopeName) + ". ";
+            currentBgReadingOutput += Texts_SpeakReading.currentTrend + " " + searchTranslationForCurrentTrend(bgReading: bgReadingToSpeak) + ". ";
         }
 
         // Delta
@@ -208,33 +208,36 @@ class BGReadingSpeaker: NSObject {
     /// translates currentTrend string to local string
     ///
     /// example if currentTrend = trenddoubledown, then for en-EN, return dramatically downward
-    private func searchTranslationForCurrentTrend(currentTrend: String) -> String {
-
-        if (currentTrend == "NONE" || currentTrend == "NON COMPUTABLE") {
+    private func searchTranslationForCurrentTrend(bgReading: BgReading) -> String {
+        if bgReading.hideSlope {
             return Texts_SpeakReading.trendnoncomputable
+        }
 
-        } else if (currentTrend == "DoubleDown") {
+        let slopeArrow = bgReading.slopArrow
+        if slopeArrow == .doubleDown {
             return Texts_SpeakReading.trenddoubledown
 
-        } else if (currentTrend == "SingleDown") {
+        } else if slopeArrow == .singleDown {
             return Texts_SpeakReading.trendsingledown
 
-        } else if (currentTrend == "FortyFiveDown") {
+        } else if slopeArrow == .fortyFiveDown {
             return Texts_SpeakReading.trendfortyfivedown
 
-        } else if (currentTrend == "Flat") {
+        } else if slopeArrow == .flat {
             return Texts_SpeakReading.trendflat
 
-        } else if (currentTrend == "FortyFiveUp") {
+        } else if slopeArrow == .fortyFiveUp {
             return Texts_SpeakReading.trendfortyfiveup
 
-        } else if (currentTrend == "SingleUp") {
+        } else if slopeArrow == .singleUp {
             return Texts_SpeakReading.trendsingleup
 
-        } else if (currentTrend == "DoubleUp") {
+        } else if slopeArrow == .doubleUp {
             return Texts_SpeakReading.trenddoubleup
+
+        } else {
+            return Texts_SpeakReading.trendnoncomputable
         }
-        return currentTrend
     }
 
     // MARK:- observe function

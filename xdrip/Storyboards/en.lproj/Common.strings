@@ -60,3 +60,4 @@
 "today" = "Today";
 "yesterday" = "Yesterday";
 "wait_a_moment" = "Wait a Moment";
+"change_per_min" = "%@/min";
