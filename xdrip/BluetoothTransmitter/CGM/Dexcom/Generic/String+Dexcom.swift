@@ -3,7 +3,7 @@ import Foundation
 extension String {
     
     func isFireFly() -> Bool {
-        if self.startsWith("4") {
+        if startsWith("4") {
             return false
         }
         

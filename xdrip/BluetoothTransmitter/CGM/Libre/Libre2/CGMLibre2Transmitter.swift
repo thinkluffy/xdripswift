@@ -297,15 +297,15 @@ class CGMLibre2Transmitter: BluetoothTransmitter, CGMTransmitter {
     }
     
     func cgmTransmitterType() -> CGMTransmitterType {
-        return .Libre2
+        .Libre2
     }
     
     func isWebOOPEnabled() -> Bool {
-        return webOOPEnabled
+        webOOPEnabled
     }
     
     func isNonFixedSlopeEnabled() -> Bool {
-        return nonFixedSlopeEnabled
+        nonFixedSlopeEnabled
     }
     
     func requestNewReading() {
@@ -313,7 +313,7 @@ class CGMLibre2Transmitter: BluetoothTransmitter, CGMTransmitter {
     }
     
     func maxSensorAgeInSeconds() -> Int? {
-        return libreSensorType?.maxSensorAgeInSeconds()
+        libreSensorType?.maxSensorAgeInSeconds()
     }
     
     var newReadingPeriodInSeconds: Int? {
@@ -363,7 +363,7 @@ extension CGMLibre2Transmitter: LibreNFCDelegate {
         // store the sensorUID as tempSensorSerialNumber (as LibreSensorSerialNumber)
         let receivedSensorSerialNumber = LibreSensorSerialNumber(withUID: sensorUID, with: LibreSensorType.type(patchInfo: patchInfo.toHexString()))
         if let receivedSensorSerialNumber = receivedSensorSerialNumber {
-            self.tempSensorSerialNumber = receivedSensorSerialNumber
+            tempSensorSerialNumber = receivedSensorSerialNumber
         }
         
         // sensor serial number as String
@@ -376,7 +376,7 @@ extension CGMLibre2Transmitter: LibreNFCDelegate {
                 
                 trace("new sensor detected :  %{public}@", log: log, category: ConstantsLog.categoryCGMLibre2, type: .info, receivedSensorSerialNumberAsString)
                 
-                self.sensorSerialNumber = receivedSensorSerialNumberAsString
+                sensorSerialNumber = receivedSensorSerialNumberAsString
                 
                 // assign sensorStartDate, for this type of transmitter the sensorAge is passed in another call to cgmTransmitterDelegate
                 cgmTransmitterDelegate?.newSensorDetected(sensorStartDate: nil)
