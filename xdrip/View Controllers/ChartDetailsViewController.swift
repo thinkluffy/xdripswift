@@ -3,7 +3,7 @@
 //  xdrip
 //
 //  Created by Yuanbin Cai on 2021/11/9.
-//  Copyright © 2021 Johan Degraeve. All rights reserved.
+//  Copyright © 2021 zDrip. All rights reserved.
 //
 
 import UIKit
@@ -52,8 +52,7 @@ class ChartDetailsViewController: UIViewController {
         
         setupView()
         
-        let current = Date()
-        presenter.loadData(date: current)
+        presenter.loadData(date: Date())
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -68,15 +67,15 @@ class ChartDetailsViewController: UIViewController {
     
     // make the ViewController landscape mode
     override public var shouldAutorotate: Bool {
-        return false
+        false
     }
     
     override public var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .landscapeLeft
+        .landscapeLeft
     }
     
     override public var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
-        return .landscapeLeft
+        .landscapeLeft
     }
     
     private func instancePresenter() {
@@ -119,21 +118,21 @@ class ChartDetailsViewController: UIViewController {
         chartHoursSelection.select(id: selectedChartHoursId, triggerCallback: false)
 
         showStatisticsButton.onTap { [unowned self] btn in
-            if let date = self.calendarTitle.dateTime {
-                self.presenter.loadStatistics(date: date)
+            if let date = calendarTitle.dateTime {
+                presenter.loadStatistics(date: date)
             }
         }
         
         lockMoveButton.onTap { [unowned self] btn in
-            if self.glucoseChart.dragMoveHighlightFirst {
+            if glucoseChart.dragMoveHighlightFirst {
                 btn.setImage(R.image.ic_pushpin_unlock(), for: .normal)
                 btn.tintColor = .white
-                self.glucoseChart.dragMoveHighlightFirst = false
+                glucoseChart.dragMoveHighlightFirst = false
 
             } else {
                 btn.setImage(R.image.ic_pushpin_lock()?.withRenderingMode(.alwaysTemplate), for: .normal)
                 btn.tintColor = ConstantsUI.accentRed
-                self.glucoseChart.dragMoveHighlightFirst = true
+                glucoseChart.dragMoveHighlightFirst = true
             }
         }
         
@@ -150,25 +149,6 @@ class ChartDetailsViewController: UIViewController {
     
     @objc private func exitButtonDidClick(_ button: UIButton) {
         dismiss(animated: false)
-    }
-    
-    private func filterReadingsIfNeeded(_ readings: [BgReading]) -> [BgReading] {
-        guard UserDefaults.standard.chartDots5MinsApart else {
-            return readings
-        }
-        
-        var filteredBgReadings = [BgReading]()
-        var lastShownReading: BgReading?
-        
-        for r in readings {
-            if lastShownReading == nil ||
-                r.timeStamp.timeIntervalSince(lastShownReading!.timeStamp) > 4.5 * Date.minuteInSeconds {
-                filteredBgReadings.append(r)
-                lastShownReading = r
-            }
-        }
-        
-        return filteredBgReadings
     }
 }
 

@@ -17,6 +17,13 @@ enum ChartHours {
     static let H24 = 4
 }
 
+enum ChartDays {
+    
+    static let Day7 = 7
+    static let Day14 = 14
+    static let Day30 = 30
+    static let Day90 = 90
+}
 
 enum Constants {
     

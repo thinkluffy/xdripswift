@@ -27,7 +27,7 @@ class InitViewController: UIViewController {
     
     private func showAgreementViewController() {
         let viewController = AgreementViewController()
-        viewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        viewController.modalPresentationStyle = .overCurrentContext
         present(viewController, animated: false)
     }
     

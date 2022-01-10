@@ -49,6 +49,9 @@
 		4E46D9372759086C00C79F86 /* SlideInSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46D9362759086C00C79F86 /* SlideInSheet.swift */; };
 		4E46D940275A565100C79F86 /* SensorIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46D93F275A565100C79F86 /* SensorIndicator.swift */; };
 		4E67D2F027886BD800586BF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E67D2EF27886BD800586BF8 /* GoogleService-Info.plist */; };
+		4E88B464278C7160003B5C48 /* DailyTrendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E88B463278C7160003B5C48 /* DailyTrendViewController.swift */; };
+		4E88B466278C7293003B5C48 /* DailyTrendPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E88B465278C7293003B5C48 /* DailyTrendPresenter.swift */; };
+		4E88B468278C72C3003B5C48 /* DailyTrendContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E88B467278C72C3003B5C48 /* DailyTrendContract.swift */; };
 		4E94C313277AE0C000382122 /* DexcomCalibrationRxMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C2EB277AE0BC00382122 /* DexcomCalibrationRxMessage.swift */; };
 		4E94C314277AE0C000382122 /* DexcomSessionStopTxMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C2EC277AE0BC00382122 /* DexcomSessionStopTxMessage.swift */; };
 		4E94C315277AE0C000382122 /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94C2ED277AE0BC00382122 /* AESCrypt.m */; };
@@ -172,7 +175,7 @@
 		E53D049D274391F000CA548E /* WatchChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D0499274391F000CA548E /* WatchChartView.swift */; };
 		E53D049E274391F000CA548E /* UsefulData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D049A274391F000CA548E /* UsefulData.swift */; };
 		E584FBF7278698E100BEA224 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D0490274390E000CA548E /* Common.swift */; };
-		E584FBF92786CE1C00BEA224 /* DailyPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = E584FBF82786CE1C00BEA224 /* DailyPattern.swift */; };
+		E584FBF92786CE1C00BEA224 /* DailyTrend.swift in Sources */ = {isa = PBXBuildFile; fileRef = E584FBF82786CE1C00BEA224 /* DailyTrend.swift */; };
 		E584FC04278828D700BEA224 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E584FC03278828D700BEA224 /* UINavigationController.swift */; };
 		F51B9F7D24B216CD00FC0643 /* Libre1NonFixedSlopeCalibrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51B9F7C24B216CD00FC0643 /* Libre1NonFixedSlopeCalibrator.swift */; };
 		F8025C0A21D94FD700ECF0C0 /* CBManagerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8025C0921D94FD700ECF0C0 /* CBManagerState.swift */; };
@@ -679,6 +682,9 @@
 		4E46D9362759086C00C79F86 /* SlideInSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInSheet.swift; sourceTree = "<group>"; };
 		4E46D93F275A565100C79F86 /* SensorIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorIndicator.swift; sourceTree = "<group>"; };
 		4E67D2EF27886BD800586BF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4E88B463278C7160003B5C48 /* DailyTrendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTrendViewController.swift; sourceTree = "<group>"; };
+		4E88B465278C7293003B5C48 /* DailyTrendPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTrendPresenter.swift; sourceTree = "<group>"; };
+		4E88B467278C72C3003B5C48 /* DailyTrendContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTrendContract.swift; sourceTree = "<group>"; };
 		4E94C2EB277AE0BC00382122 /* DexcomCalibrationRxMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexcomCalibrationRxMessage.swift; sourceTree = "<group>"; };
 		4E94C2EC277AE0BC00382122 /* DexcomSessionStopTxMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DexcomSessionStopTxMessage.swift; sourceTree = "<group>"; };
 		4E94C2ED277AE0BC00382122 /* AESCrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESCrypt.m; sourceTree = "<group>"; };
@@ -806,7 +812,7 @@
 		E53D0498274391EF00CA548E /* PhoneCommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneCommunicator.swift; sourceTree = "<group>"; };
 		E53D0499274391F000CA548E /* WatchChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchChartView.swift; sourceTree = "<group>"; };
 		E53D049A274391F000CA548E /* UsefulData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsefulData.swift; sourceTree = "<group>"; };
-		E584FBF82786CE1C00BEA224 /* DailyPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPattern.swift; sourceTree = "<group>"; };
+		E584FBF82786CE1C00BEA224 /* DailyTrend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTrend.swift; sourceTree = "<group>"; };
 		E584FC03278828D700BEA224 /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		E5D5EB7D2745F00E003D0DD9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E5D5EB7F2745F02A003D0DD9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS8.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -1301,9 +1307,10 @@
 		4E01B142274256D800D00935 /* UIContract */ = {
 			isa = PBXGroup;
 			children = (
-				4E01B1442742572300D00935 /* ChartDetailsContract.swift */,
 				4E2C95B5274BEC120073D692 /* RootContract.swift */,
 				4E06851B276DD4150063AF46 /* NotesContract.swift */,
+				4E01B1442742572300D00935 /* ChartDetailsContract.swift */,
+				4E88B467278C72C3003B5C48 /* DailyTrendContract.swift */,
 			);
 			path = UIContract;
 			sourceTree = "<group>";
@@ -1311,9 +1318,10 @@
 		4E01B143274256F900D00935 /* ViewPresenter */ = {
 			isa = PBXGroup;
 			children = (
-				4E01B1462742575400D00935 /* ChartDetailsPresenter.swift */,
 				4E2C95B7274BEC3F0073D692 /* RootPresenter.swift */,
 				4E06851D276DD45A0063AF46 /* NotesPresenter.swift */,
+				4E01B1462742575400D00935 /* ChartDetailsPresenter.swift */,
+				4E88B465278C7293003B5C48 /* DailyTrendPresenter.swift */,
 			);
 			path = ViewPresenter;
 			sourceTree = "<group>";
@@ -1616,12 +1624,12 @@
 			path = Base.lproj;
 			sourceTree = "<group>";
 		};
-		E584FBFA2786CE2300BEA224 /* Algorithm */ = {
+		E584FBFA2786CE2300BEA224 /* DailyTrend */ = {
 			isa = PBXGroup;
 			children = (
-				E584FBF82786CE1C00BEA224 /* DailyPattern.swift */,
+				E584FBF82786CE1C00BEA224 /* DailyTrend.swift */,
 			);
-			path = Algorithm;
+			path = DailyTrend;
 			sourceTree = "<group>";
 		};
 		F8025C0B21D9513400ECF0C0 /* Extensions */ = {
@@ -1899,7 +1907,7 @@
 				F821CF9922AEF2DF005C1E43 /* Speak */,
 				4EC48D162770881100EEB0BA /* Note */,
 				F8E3A2A723D906B600E5E98A /* Watch */,
-				E584FBFA2786CE2300BEA224 /* Algorithm */,
+				E584FBFA2786CE2300BEA224 /* DailyTrend */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -1942,6 +1950,7 @@
 				4E16CB57276B85D800A8A79E /* NotesViewController */,
 				F8B3A836227F090D004BA588 /* SettingsViewController */,
 				4E9D7977273A983600B666C5 /* ChartDetailsViewController.swift */,
+				4E88B463278C7160003B5C48 /* DailyTrendViewController.swift */,
 				4EB0DE682772F35C00DBF7C1 /* WebViewViewController.swift */,
 				4EB0DE732775C1DE00DBF7C1 /* DeveloperViewController.swift */,
 			);
@@ -3189,6 +3198,7 @@
 				4E9D7978273A983600B666C5 /* ChartDetailsViewController.swift in Sources */,
 				F8BDD450221CAA64006EAB84 /* TextsCommon.swift in Sources */,
 				4E94C336277AE0C000382122 /* AuthChallengeTxMessage.swift in Sources */,
+				4E88B466278C7293003B5C48 /* DailyTrendPresenter.swift in Sources */,
 				F81D6D4E22BFC762005EFAE2 /* TextsDexcomShareTestResult.swift in Sources */,
 				F8A5EEC2257D18DC0085E660 /* LibreNFCDelegate.swift in Sources */,
 				4E9D79CF273BF04400B666C5 /* VerticalButton.swift in Sources */,
@@ -3298,6 +3308,7 @@
 				4E16CB502769F67F00A8A79E /* LegacySubSettingsViewController.swift in Sources */,
 				F8C9784D2428052E00A09483 /* CGMSensorType.swift in Sources */,
 				F8A1586B22EDB967007F5B5D /* ConstantsMaster.swift in Sources */,
+				4E88B464278C7160003B5C48 /* DailyTrendViewController.swift in Sources */,
 				F8F9722B23A5915900C3F17D /* CGMTransmitterDelegate.swift in Sources */,
 				4EC48D0F277059E600EEB0BA /* BgReading+CoreDataProperties.swift in Sources */,
 				F80859292364D61B00F3829D /* UserDefaults+charts.swift in Sources */,
@@ -3380,7 +3391,7 @@
 				F8177023248CF78300AA3600 /* LibreSensorType.swift in Sources */,
 				F8C97859242AAE7B00A09483 /* MiaoMiao+BluetoothPeripheral.swift in Sources */,
 				F8EEDD5422FF685400D2D610 /* NSMutableURLRequest.swift in Sources */,
-				E584FBF92786CE1C00BEA224 /* DailyPattern.swift in Sources */,
+				E584FBF92786CE1C00BEA224 /* DailyTrend.swift in Sources */,
 				F897AAFB2201018800CDDD10 /* String.swift in Sources */,
 				F8B3A847227F090E004BA588 /* SettingsViewNightScoutSettingsViewModel.swift in Sources */,
 				F8B3A79622635A25004BA588 /* AlertEntry+CoreDataClass.swift in Sources */,
@@ -3473,6 +3484,7 @@
 				F8F971B823A5914D00C3F17D /* BluetoothPeripheral.swift in Sources */,
 				F8F9721723A5915900C3F17D /* CGMDroplet1Transmitter.swift in Sources */,
 				F8A2BC2E25DB0D6D001D1E78 /* BluetoothPeripheralManager+CGMDropletTransmitterDelegate.swift in Sources */,
+				4E88B468278C72C3003B5C48 /* DailyTrendContract.swift in Sources */,
 				F8C5EBE722F38F0E00563B5F /* Trace.swift in Sources */,
 				4E9D79CA273BF04400B666C5 /* Ring.swift in Sources */,
 				F8B48A9422B2A705009BCC01 /* TextsSpeakReading.swift in Sources */,
