@@ -14,19 +14,19 @@ import CoreData
 /// - alertEntries : the alertEntries in which this AlertType is used, optional
 public class AlertType: NSManagedObject {
     init(
-        enabled:Bool,
-        name:String,
-        overrideMute:Bool,
-        snooze:Bool,
-        snoozePeriod:Int,
-        vibrate:Bool,
-        soundName:String?,
-        alertEntries:[AlertEntry]?,
-        nsManagedObjectContext:NSManagedObjectContext
-        ) {
+            enabled: Bool,
+            name: String,
+            overrideMute: Bool,
+            snooze: Bool,
+            snoozePeriod: Int,
+            vibrate: Bool,
+            soundName: String?,
+            alertEntries: [AlertEntry]?,
+            nsManagedObjectContext: NSManagedObjectContext
+    ) {
         let entity = NSEntityDescription.entity(forEntityName: "AlertType", in: nsManagedObjectContext)!
         super.init(entity: entity, insertInto: nsManagedObjectContext)
-        
+
         self.enabled = enabled
         self.name = name
         self.overridemute = overrideMute
@@ -40,13 +40,12 @@ public class AlertType: NSManagedObject {
             }
         }
     }
-    
+
     private override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
         super.init(entity: entity, insertInto: context)
     }
-    
+
     public override var description: String {
-        return name
+        name
     }
-    
 }

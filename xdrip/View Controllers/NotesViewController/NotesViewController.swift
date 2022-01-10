@@ -13,6 +13,9 @@ class NotesViewController: UIViewController {
 
     private static let log = Log(type: NotesViewController.self)
 
+    private let appManagerKeyReleaseMemoryWhenAppGoesToBackground = "nvc://releaseMemoryAppGoToBackground"
+    private let appManagerKeyLoadDataWhenAppGoesToForeground = "nvc://loadDataAppGoToForeground"
+
     private lazy var calendarTitle: CalendarTitle = {
         let calendarTitle = CalendarTitle()
         return calendarTitle
@@ -79,6 +82,19 @@ class NotesViewController: UIViewController {
         title = "Notes"
         
         setupView()
+        
+        ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground(key: appManagerKeyReleaseMemoryWhenAppGoesToBackground) {
+            [weak self] in
+
+            self?.notes = nil
+            self?.tableView.reloadData()
+        }
+
+        ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: appManagerKeyLoadDataWhenAppGoesToForeground) {
+            [weak self] in
+
+            self?.presenter.loadData(date: self?.showingDate ?? Date())
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

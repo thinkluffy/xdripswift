@@ -55,7 +55,7 @@
 /// if web oop enabled, and also if transmitter supports this, user clicks calibrate button, but calibration is not possible
 "calibrationNotNecessary" = "使用发射器算法时，不可以校准传感器。";
 
-/// To give result about transitter result in notification body, failed
+/// To give result about transmitter result in notification body, failed
 "failed" = "Failed";
 
 "toast_new_bg_reading" = "新血糖值";
@@ -68,7 +68,7 @@
 "stopSensorConfirmation" = "Are you sure you want to stop the sensor?";
 
 /// When user needs to enter sensor code, to start firefly sensor
-"enterSensorCode" = "if you don't have a sensor code use 0000 but be aware that you will not get readings until you calibrate";
+"enterSensorCode" = "If you don't have a sensor code use 0000 but be aware that you will not get readings until you calibrate";
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////   Translation needed - remove this header after translation                       /////

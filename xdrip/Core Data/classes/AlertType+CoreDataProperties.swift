@@ -13,8 +13,8 @@ import CoreData
 
 extension AlertType {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<AlertType> {
-        return NSFetchRequest<AlertType>(entityName: "AlertType")
+    public class func fetchRequest() -> NSFetchRequest<AlertType> {
+        NSFetchRequest<AlertType>(entityName: "AlertType")
     }
 
     @NSManaged public var name: String

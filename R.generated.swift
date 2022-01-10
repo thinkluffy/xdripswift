@@ -4557,7 +4557,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.homeView` struct is generated, and contains static references to 43 localization keys.
+    /// This `R.string.homeView` struct is generated, and contains static references to 39 localization keys.
     struct homeView {
       /// en translation: Are you sure you want to stop the sensor?
       ///
@@ -4583,6 +4583,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let forgetbluetoothdeviceactiontitle = Rswift.StringResource(key: "forgetbluetoothdeviceactiontitle", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: If you don't have a sensor code use 0000 but be aware that you will not get readings until you calibrate
+      ///
+      /// Locales: en, zh
+      static let enterSensorCode = Rswift.StringResource(key: "enterSensorCode", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: In the next dialogs, you will need to set the date and time the sensor was inserted. It is important that you set the date and time as correct as possible.
       ///
       /// Locales: en, zh
@@ -4595,10 +4599,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let lastconnection = Rswift.StringResource(key: "lastconnection", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Lock
-      ///
-      /// Locales: en
-      static let lock = Rswift.StringResource(key: "lock", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: New BG Reading
       ///
       /// Locales: en, zh
@@ -4627,10 +4627,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let scanbluetoothdeviceongoing = Rswift.StringResource(key: "scanbluetoothdeviceongoing", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Screen Lock Enabled
-      ///
-      /// Locales: en
-      static let screenlocktitle = Rswift.StringResource(key: "screenlocktitle", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Sensor
       ///
       /// Locales: en, zh
@@ -4687,10 +4683,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let licenseinfo = Rswift.StringResource(key: "licenseinfo", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: This will keep the screen awake until you move to another app or click Unlock.  It is recommended that you keep the phone plugged into a charger to prevent battery drain.
-      ///
-      /// Locales: en
-      static let screenlockinfo = Rswift.StringResource(key: "screenlockinfo", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Too late! The Transmitter has already been disconnected. You should get a new pairing request in a few minutes.
       ///
       /// Locales: en, zh
@@ -4703,10 +4695,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let transmitterpairingattempttimeout = Rswift.StringResource(key: "transmitterpairingattempttimeout", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Unlock
-      ///
-      /// Locales: en
-      static let unlock = Rswift.StringResource(key: "unlock", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: When using the Transmitter algorithm, it is not necessary to calibrate the sensor.
       ///
       /// Locales: en, zh
@@ -4727,10 +4715,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let ago = Rswift.StringResource(key: "ago", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: if you don't have a sensor code use 0000 but be aware that you will not get readings until you calibrate
-      ///
-      /// Locales: en, zh
-      static let enterSensorCode = Rswift.StringResource(key: "enterSensorCode", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
 
       /// en translation: Are you sure you want to stop the sensor?
       ///
@@ -4822,6 +4806,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("forgetbluetoothdeviceactiontitle", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
+      /// en translation: If you don't have a sensor code use 0000 but be aware that you will not get readings until you calibrate
+      ///
+      /// Locales: en, zh
+      static func enterSensorCode(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("enterSensorCode", tableName: "HomeView", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
+          return "enterSensorCode"
+        }
+
+        return NSLocalizedString("enterSensorCode", tableName: "HomeView", bundle: bundle, comment: "")
+      }
+
       /// en translation: In the next dialogs, you will need to set the date and time the sensor was inserted. It is important that you set the date and time as correct as possible.
       ///
       /// Locales: en, zh
@@ -4867,21 +4866,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("lastconnection", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Lock
-      ///
-      /// Locales: en
-      static func lock(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("lock", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "lock"
-        }
-
-        return NSLocalizedString("lock", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
       /// en translation: New BG Reading
@@ -4987,21 +4971,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("scanbluetoothdeviceongoing", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Screen Lock Enabled
-      ///
-      /// Locales: en
-      static func screenlocktitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("screenlocktitle", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "screenlocktitle"
-        }
-
-        return NSLocalizedString("screenlocktitle", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
       /// en translation: Sensor
@@ -5214,21 +5183,6 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("licenseinfo", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
-      /// en translation: This will keep the screen awake until you move to another app or click Unlock.  It is recommended that you keep the phone plugged into a charger to prevent battery drain.
-      ///
-      /// Locales: en
-      static func screenlockinfo(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("screenlockinfo", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "screenlockinfo"
-        }
-
-        return NSLocalizedString("screenlockinfo", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
       /// en translation: Too late! The Transmitter has already been disconnected. You should get a new pairing request in a few minutes.
       ///
       /// Locales: en, zh
@@ -5272,21 +5226,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("transmitterpairingattempttimeout", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Unlock
-      ///
-      /// Locales: en
-      static func unlock(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("unlock", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "unlock"
-        }
-
-        return NSLocalizedString("unlock", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
       /// en translation: When using the Transmitter algorithm, it is not necessary to calibrate the sensor.
@@ -5364,21 +5303,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("ago", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: if you don't have a sensor code use 0000 but be aware that you will not get readings until you calibrate
-      ///
-      /// Locales: en, zh
-      static func enterSensorCode(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("enterSensorCode", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "enterSensorCode"
-        }
-
-        return NSLocalizedString("enterSensorCode", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
       fileprivate init() {}

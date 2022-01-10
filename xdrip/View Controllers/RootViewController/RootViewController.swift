@@ -61,7 +61,10 @@ final class RootViewController: UIViewController {
     private let appManagerKeyIsIdleTimerDisabled = "rvc://isIdleTimerDisabled"
 
     /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground - trace that app goes to background
-    private let appManagerKeyTraceAppGoesToBackGround = "rvc://traceAppGoesToBackGround"
+    private let appManagerKeyTraceAppGoesToBackground = "rvc://traceAppGoesToBackground"
+
+    /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground - trace that app goes to background
+    private let appManagerKeyReleaseMemoryAppGoesToBackground = "rvc://releaseMemoryAppGoesToBackground"
 
     /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground - trace that app goes to background
     private let appManagerKeyTraceAppGoesToForeground = "rvc://traceAppGoesToForeground"
@@ -70,7 +73,7 @@ final class RootViewController: UIViewController {
     private let appManagerKeyTraceAppWillTerminate = "rvc://traceAppWillTerminate"
 
     /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground - to initialize the glucoseChartManager and update labels and chart
-    private let appManagerKeyUpdateLabelsAndChart = "rvc://updateLabelsAndChart"
+    private let appManagerKeyUpdateLabelsAndChartAppGoesToForeground = "rvc://updateLabelsAndChart"
 
     /// constant for key in ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground - to dismiss screenLockAlertController
     private let appManagerKeyDismissScreenLockAlertController = "rvc://dismissScreenLockAlertController"
@@ -310,8 +313,14 @@ final class RootViewController: UIViewController {
         }
 
         // add tracing when app goes from foreground to background
-        ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground(key: appManagerKeyTraceAppGoesToBackGround) {
+        ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground(key: appManagerKeyTraceAppGoesToBackground) {
             trace("Application did enter background", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
+        }
+
+        ApplicationManager.shared.addClosureToRunWhenAppDidEnterBackground(key: appManagerKeyReleaseMemoryAppGoesToBackground) {
+            [weak self] in
+
+            self?.glucoseChart.cleanUpMemory()
         }
 
         // add tracing when app comes to foreground
@@ -319,19 +328,21 @@ final class RootViewController: UIViewController {
             trace("Application will enter foreground", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
         }
 
-        // add tracing when app will terminaten - this only works for non-suspended apps, probably (not tested) also works for apps that crash in the background
+        // add tracing when app will termination - this only works for non-suspended apps, probably (not tested) also works for apps that crash in the background
         ApplicationManager.shared.addClosureToRunWhenAppWillTerminate(key: appManagerKeyTraceAppWillTerminate) {
             trace("Application will terminate", log: self.log, category: ConstantsLog.categoryRootView, type: .info)
         }
 
         // reinitialise glucose chart and also to update labels and chart
-        ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: appManagerKeyUpdateLabelsAndChart) {
+        ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: appManagerKeyUpdateLabelsAndChartAppGoesToForeground) {
             [weak self] in
 
             self?.updateLabelsAndChart(overrideApplicationState: true)
             self?.updateSensorCountdown()
             // update statistics related outlets
             self?.updateStatistics(animatePieChart: false, doEvenAppNotActive: true)
+
+            self?.presenter.loadChartReadings()
         }
     }
 

@@ -248,6 +248,11 @@ class GlucoseChart: UIView {
         return filteredBgReadings
     }
 
+    func cleanUpMemory() {
+        GlucoseChart.log.d("==> cleanUpMemory")
+        chartView.data = nil
+    }
+
     func show(readings: [BgReading]?, from fromDate: Date, to toDate: Date, aheadSeconds: Double = 0) {
         GlucoseChart.log.d("==> showReadings")
 
@@ -276,7 +281,7 @@ class GlucoseChart: UIView {
             // put a placeholder to avoid showing default No Data view
 
             chartView.xAxis.axisMinimum = fromDate.timeIntervalSince1970
-            // append 10 miniuts to make the current dot more visible
+            // append 10 minutes to make the current dot more visible
             chartView.xAxis.axisMaximum = toDate.timeIntervalSince1970 + aheadSeconds
 
             var placeholderEntries = [ChartDataEntry]()
