@@ -8,3 +8,4 @@
 
 "emptyview_title_no_notes" = "No Alarms or Notes";
 "emptyview_msg_no_notes" = "Alarms and Notes will show here";
+"dialog_title_add_note" = "Add a Note";

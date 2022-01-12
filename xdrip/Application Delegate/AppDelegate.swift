@@ -36,7 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         WatchCommunicator.register()
-        
+        AlertManager.shared.initialize()
+
         setupUIComponents()
 
         if UserDefaults.standard.firstOpenTime == nil {

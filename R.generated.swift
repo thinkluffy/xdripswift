@@ -3087,7 +3087,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.common` struct is generated, and contains static references to 63 localization keys.
+    /// This `R.string.common` struct is generated, and contains static references to 64 localization keys.
     struct common {
       /// en translation: %@ must not be used to make medical decisions. It is a research and education tool only and is provided as-is without warranty of any kind, either expressed or implied, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose. The entire risk as to the quality and performance of the program is with you. Should the program prove defective, you assume the cost of all necessary servicing, repair, or correction.
       ///
@@ -3253,6 +3253,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let start_to_use = Rswift.StringResource(key: "start_to_use", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: The feature is under development.
+      ///
+      /// Locales: en, zh
+      static let feature_is_under_development = Rswift.StringResource(key: "feature_is_under_development", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Today
       ///
       /// Locales: en, zh
@@ -3963,6 +3967,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("start_to_use", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: The feature is under development.
+      ///
+      /// Locales: en, zh
+      static func feature_is_under_development(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("feature_is_under_development", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "feature_is_under_development"
+        }
+
+        return NSLocalizedString("feature_is_under_development", tableName: "Common", bundle: bundle, comment: "")
       }
 
       /// en translation: Today
@@ -5971,8 +5990,12 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.notes` struct is generated, and contains static references to 2 localization keys.
+    /// This `R.string.notes` struct is generated, and contains static references to 3 localization keys.
     struct notes {
+      /// en translation: Add a Note
+      ///
+      /// Locales: en, zh
+      static let dialog_title_add_note = Rswift.StringResource(key: "dialog_title_add_note", tableName: "Notes", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Alarms and Notes will show here
       ///
       /// Locales: en, zh
@@ -5981,6 +6004,21 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let emptyview_title_no_notes = Rswift.StringResource(key: "emptyview_title_no_notes", tableName: "Notes", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+
+      /// en translation: Add a Note
+      ///
+      /// Locales: en, zh
+      static func dialog_title_add_note(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("dialog_title_add_note", tableName: "Notes", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Notes", preferredLanguages: preferredLanguages) else {
+          return "dialog_title_add_note"
+        }
+
+        return NSLocalizedString("dialog_title_add_note", tableName: "Notes", bundle: bundle, comment: "")
+      }
 
       /// en translation: Alarms and Notes will show here
       ///

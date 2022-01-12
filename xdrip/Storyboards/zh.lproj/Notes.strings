@@ -8,3 +8,4 @@
 
 "emptyview_title_no_notes" = "无警报或记录";
 "emptyview_msg_no_notes" = "警报和记录将会出现在这里";
+"dialog_title_add_note" = "添加记录";
