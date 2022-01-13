@@ -10,54 +10,81 @@ import Foundation
 
 class DailyTrend {
 
-    struct DailyTrendItem {
-        // unit: Minutes, TimeInterval from 00:00
-        var timeInterval: TimeInterval
+	struct DailyTrendItem {
+		
+		init(timeInterval: TimeInterval) {
+			self.timeInterval = timeInterval
+		}
+		
+		// unit: Minutes, TimeInterval from 00:00
+		var timeInterval: TimeInterval
+		
+		var isValid: Bool {
+			get {
+				values.count >= 5
+			}
+		}
+		
+		// default unit of coredata, mg/dl
+		private var values: [Double] = []
 
-        // default unit of coredata, mg/dl
-        var values: [Double] = []
-        var high: Double?
-        var medianHigh: Double?
-        var median: Double?
-        var medianLow: Double?
-        var low: Double?
+		private(set) var high: Double? = nil
+		private(set) var medianHigh: Double? = nil
+		private(set) var median: Double? = nil
+		private(set) var medianLow: Double? = nil
+		private(set) var low: Double? = nil
 
-        mutating func appendValue(_ value: Double) {
-            values.append(value)
-        }
+		mutating func appendValue(_ value: Double) {
+			values.append(value)
+		}
 
-        mutating func calculateValues() {
-            guard values.count > 0 else {
-                return
-            }
+		mutating func calculateValues() {
+			guard self.isValid else {
+				return
+			}
 
-            /// return: (result value, from index, end index)
-            func median(of array: [Double]) -> (Double, Int, Int)? {
-                guard array.count > 0 else {
-                    return nil
-                }
+			/// return: (result value, from index, end index)
+			func median(of array: [Double], at percent: Double) -> Double? {
+				guard array.count > 1 else {
+					return nil
+				}
+				
+				guard percent >= 0 && percent <= 1 else {
+					return nil
+				}
+				let percentIndex = Double(array.count + 1) * percent - 1
+				// 方法2，个人觉得更稳妥
+			//	let percentIndex = Double(array.count - 1) * percent
+				let startIndex = floor(percentIndex)
+				let endIndex = ceil(percentIndex)
+				let offset: Double = Double((Int(percentIndex * 10) % 10)) / 10
+			//	var offset: Double = 0
+			//	if Int(startIndex) != Int(endIndex) {
+			//		offset = (percentIndex - startIndex) / (endIndex - startIndex)
+			//	}
+				
+				let start = array[Int(startIndex)]
+				let end = array[Int(endIndex)]
+				let result: Double = start + (end - start) * offset
+				print(array, percent)
+				print(start, end, offset, result)
+				return result
+			}
 
-                if array.count % 2 == 0 {
-                    let end = array.count / 2
-                    let start = end - 1
-                    return ((array[start] + array[end]) / 2, start, end)
-
-                } else {
-                    let index = (array.count - 1) / 2
-                    return (array[index], index, index)
-                }
-            }
-
-            values.sort(by: >)
-            high = values.first!
-            low = values.last!
-            if let (value, start, end) = median(of: values) {
-                self.median = value
-                medianHigh = median(of: Array(values[0...end]))?.0
-                medianLow = median(of: Array(values[start..<values.count]))?.0
-            }
-        }
-    }
+			values.sort(by: >)
+			if let h = median(of: values, at: 0.1),
+			   let mh = median(of: values, at: 0.25),
+			   let m = median(of: values, at: 0.5),
+			   let ml = median(of: values, at: 0.75),
+			   let l = median(of: values, at: 0.9) {
+				self.high = h
+				self.medianHigh = mh
+				self.median = m
+				self.medianLow = ml
+				self.low = l
+			}
+		}
+	}
 
     // Example:
     // last 90 days
