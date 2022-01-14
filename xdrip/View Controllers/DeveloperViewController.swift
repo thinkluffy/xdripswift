@@ -75,7 +75,7 @@ class DeveloperViewController: UIViewController {
                         self.tableView.reloadRows(at: [indexPath], with: .none)
                     }
                 })
-                .toggleCell(title: "Remote Config Test Mode", isOn: RemoteConfigHost.testMode, toggleDidChange: { from, to in
+                .toggleCell(title: "Remote Config Test Mode", isOn: RemoteConfigHost.testMode, toggleDidChange: { toggleCell, from, to in
                     RemoteConfigHost.testMode = !RemoteConfigHost.testMode
 
                     self.navigationController?.view.makeToast("Restart app to apply", duration: 4.0, position: .bottom)

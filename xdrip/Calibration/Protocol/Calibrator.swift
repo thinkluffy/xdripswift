@@ -607,7 +607,19 @@ extension Calibrator {
                 break
             }
         }
-                
+
+        // if fail to find within 30 seconds, then try 90 seconds for chance
+        if readingMinsAgo == nil {
+            for i in (0 ..< lastReadings.count).reversed()  {
+                let timeInterval = bgReading.timeStamp.timeIntervalSince(lastReadings[i].timeStamp)
+                log.d("lastReadings[\(i)].timeStamp: \(lastReadings[i].timeStamp), timeInterval: \(timeInterval)")
+                if abs(timeInterval - Date.minuteInSeconds * Double(Constants.minsToCalculateSlope)) < 90 {
+                    readingMinsAgo = lastReadings[i]
+                    break
+                }
+            }
+        }
+
         guard let readingMinsAgo = readingMinsAgo else {
             log.w("Fail to find a reading with \(Constants.minsToCalculateSlope) mins ago")
             bgReading.hideSlope = true
@@ -615,7 +627,7 @@ extension Calibrator {
             return
         }
         
-        log.d("Found slope with bgReadings, timeInterval: \(String.init(format: "%.1f", bgReading.timeStamp.timeIntervalSince(readingMinsAgo.timeStamp)/60)) mins")
+        log.d("Found slope with bgReadings, timeInterval: \(String(format: "%.1f", bgReading.timeStamp.timeIntervalSince(readingMinsAgo.timeStamp)/60)) mins")
 
         let (slope, hide) = bgReading.calculateSlope(with: readingMinsAgo)
         bgReading.calculatedValueSlope = slope
