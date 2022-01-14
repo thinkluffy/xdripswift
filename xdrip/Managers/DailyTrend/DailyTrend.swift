@@ -52,22 +52,13 @@ class DailyTrend {
 				guard percent >= 0 && percent <= 1 else {
 					return nil
 				}
-				let percentIndex = Double(array.count + 1) * percent - 1
-				// 方法2，个人觉得更稳妥
-			//	let percentIndex = Double(array.count - 1) * percent
+				let percentIndex = Double(array.count - 1) * percent
 				let startIndex = floor(percentIndex)
 				let endIndex = ceil(percentIndex)
-				let offset: Double = Double((Int(percentIndex * 10) % 10)) / 10
-			//	var offset: Double = 0
-			//	if Int(startIndex) != Int(endIndex) {
-			//		offset = (percentIndex - startIndex) / (endIndex - startIndex)
-			//	}
-				
+				let offset: Double = Double((Int(round(Double(array.count + 1) * percent * 10)) % 10)) / 10
 				let start = array[Int(startIndex)]
 				let end = array[Int(endIndex)]
 				let result: Double = start + (end - start) * offset
-				print(array, percent)
-				print(start, end, offset, result)
 				return result
 			}
 
