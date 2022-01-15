@@ -166,6 +166,19 @@ class SettingsViewController: UIViewController {
                 let viewController = AboutViewController()
                 navigationController?.pushViewController(viewController, animated: true)
             })
+        
+            .section()
+            .operationCell(title: R.string.common.daily_trend(),
+                           accessoryView: DTCustomColoredAccessory(color: ConstantsUI.disclosureIndicatorColor),
+                           didClick: {
+                [unowned self] operationCell, tableView, indexPath in
+
+                if let dailyTrendViewController = R.storyboard.main.dailyTrend() {
+                    dailyTrendViewController.modalPresentationStyle = .fullScreen
+                    dailyTrendViewController.modalTransitionStyle = .crossDissolve
+                    present(dailyTrendViewController, animated: true)
+                }
+            })
             .build()
            
         tableView.delegate = tableData

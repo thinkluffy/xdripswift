@@ -322,7 +322,7 @@ class GlucoseChart: UIView {
         var circleColors = [NSUIColor]()
         for (i, r) in filteredBgReadings.enumerated() {
             let bgValue = showAsMg ? r.calculatedValue : r.calculatedValue.mgdlToMmol()
-            let chartDataEntry = ChartDataEntry(x: r.timeStamp.timeIntervalSince1970, y: bgValue)
+            let chartDataEntry = ChartDataEntry(x: r.timeStamp.timeIntervalSince1970, y: bgValue, data: r)
 
             if i >= filteredBgReadings.count - 1 && isLastReadingCurrent {
                 currentValues.append(chartDataEntry)

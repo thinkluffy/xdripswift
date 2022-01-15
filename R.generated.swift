@@ -3087,7 +3087,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.common` struct is generated, and contains static references to 64 localization keys.
+    /// This `R.string.common` struct is generated, and contains static references to 65 localization keys.
     struct common {
       /// en translation: %@ must not be used to make medical decisions. It is a research and education tool only and is provided as-is without warranty of any kind, either expressed or implied, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose. The entire risk as to the quality and performance of the program is with you. Should the program prove defective, you assume the cost of all necessary servicing, repair, or correction.
       ///
@@ -3133,6 +3133,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let common_cancel = Rswift.StringResource(key: "common_cancel", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Daily Trend
+      ///
+      /// Locales: en, zh
+      static let daily_trend = Rswift.StringResource(key: "daily_trend", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Default
       ///
       /// Locales: en, zh
@@ -3517,6 +3521,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("common_cancel", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Daily Trend
+      ///
+      /// Locales: en, zh
+      static func daily_trend(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("daily_trend", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "daily_trend"
+        }
+
+        return NSLocalizedString("daily_trend", tableName: "Common", bundle: bundle, comment: "")
       }
 
       /// en translation: Default

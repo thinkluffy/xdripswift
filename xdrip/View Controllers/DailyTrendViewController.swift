@@ -143,10 +143,10 @@ extension DailyTrendViewController: DailyTrendV {
         bgTimeLabel.text = "--:--"
         bgValueLabel.text = "---"
         bgValueLabel.textColor = .white
-        
-//        glucoseChart.show(readings: readings, from: fromDate, to: toDate)
-        
+                
         showingDate = date
+        
+        dailyTrendChart.showNoData()
     }
 
     func showDailyTrend(ofDate date: Date, startDateOfData: Date, endDateOfData: Date, dailyTrendItems: [DailyTrend.DailyTrendItem]) {
@@ -171,34 +171,41 @@ extension DailyTrendViewController: DailyTrendV {
 
 extension DailyTrendViewController: DailyTrendChartDelegate {
     
-    func dailyTrendChartReadingSelected(_ chart: DailyTrendChart, reading: BgReading) {
-        //        let dateFormatter = DateFormatter()
-        //        dateFormatter.dateFormat = "HH:mm"
-        //        let timestamp = dateFormatter.string(from: reading.timeStamp)
-        //
-        //        let showMgDl = UserDefaults.standard.bloodGlucoseUnitIsMgDl
-        //        DailyTrendViewController.log.d("==> chartValueSelected, (\(timestamp), \(reading.calculatedValue.mgdlToMmol(mgdl: showMgDl)))")
-        //
-        //        bgTimeLabel.text = timestamp
-        //        bgValueLabel.text = reading.calculatedValue.mgdlToMmolAndToString(mgdl: showMgDl)
-        //
-        //        let urgentHighInMg = UserDefaults.standard.urgentHighMarkValue
-        //        let highInMg = UserDefaults.standard.highMarkValue
-        //        let lowInMg = UserDefaults.standard.lowMarkValue
-        //        let urgentLowInMg = UserDefaults.standard.urgentLowMarkValue
-        //
-        //        if reading.calculatedValue >= urgentHighInMg || reading.calculatedValue <= urgentLowInMg {
-        //            bgValueLabel.textColor = ConstantsGlucoseChart.glucoseUrgentRangeColor
-        //
-        //        } else if reading.calculatedValue >= highInMg || reading.calculatedValue <= lowInMg {
-        //            bgValueLabel.textColor = ConstantsGlucoseChart.glucoseNotUrgentRangeColor
-        //
-        //        } else {
-        //            bgValueLabel.textColor = ConstantsGlucoseChart.glucoseInRangeColor
-        //        }
+    func dailyTrendChartItemSelected(_ chart: DailyTrendChart, item: DailyTrend.DailyTrendItem) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        let timestamp = dateFormatter.string(from: Date(timeIntervalSince1970: item.timeInterval))
+
+        if item.isValid {
+            let showMgDl = UserDefaults.standard.bloodGlucoseUnitIsMgDl
+
+            bgTimeLabel.text = timestamp
+            bgValueLabel.text = item.median!.mgdlToMmolAndToString(mgdl: showMgDl)
+
+            let urgentHighInMg = UserDefaults.standard.urgentHighMarkValue
+            let highInMg = UserDefaults.standard.highMarkValue
+            let lowInMg = UserDefaults.standard.lowMarkValue
+            let urgentLowInMg = UserDefaults.standard.urgentLowMarkValue
+
+            if item.median! >= urgentHighInMg || item.median! <= urgentLowInMg {
+                bgValueLabel.textColor = ConstantsGlucoseChart.glucoseUrgentRangeColor
+
+            } else if item.median! >= highInMg || item.median! <= lowInMg {
+                bgValueLabel.textColor = ConstantsGlucoseChart.glucoseNotUrgentRangeColor
+
+            } else {
+                bgValueLabel.textColor = ConstantsGlucoseChart.glucoseInRangeColor
+            }
+            
+        } else {
+            bgTimeLabel.text = "--:--"
+            bgValueLabel.text = "---"
+            bgValueLabel.textColor = .white
+        }
     }
 
-    func dailyTrendChartReadingNothingSelected(_ chart: DailyTrendChart) {
+    func dailyTrendChartItemNothingSelected(_ chart: DailyTrendChart) {
         bgTimeLabel.text = "--:--"
         bgValueLabel.text = "---"
         bgValueLabel.textColor = .white

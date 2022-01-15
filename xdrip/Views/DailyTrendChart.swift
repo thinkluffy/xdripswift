@@ -13,19 +13,10 @@ import Charts
 
 protocol DailyTrendChartDelegate: AnyObject {
 
-    func dailyTrendChartReadingSelected(_ chart: DailyTrendChart, reading: BgReading)
+    func dailyTrendChartItemSelected(_ chart: DailyTrendChart, item: DailyTrend.DailyTrendItem)
 
-    func dailyTrendChartReadingNothingSelected(_ chart: DailyTrendChart)
+    func dailyTrendChartItemNothingSelected(_ chart: DailyTrendChart)
 
-}
-
-extension DailyTrendChartDelegate {
-
-    func dailyTrendChartReadingSelected(_ chart: DailyTrendChart, reading: BgReading) {
-    }
-
-    func dailyTrendChartReadingNothingSelected(_ chart: DailyTrendChart) {
-    }
 }
 
 class DailyTrendChart: UIView {
@@ -234,7 +225,7 @@ class DailyTrendChart: UIView {
         showNoData()
     }
 
-    private func showNoData() {
+    func showNoData() {
         // put a placeholder to avoid showing default No Data view
         var placeholderEntries = [ChartDataEntry]()
         let placeholderEntry = ChartDataEntry(x: chartView.xAxis.axisMinimum,
@@ -262,9 +253,7 @@ class DailyTrendChart: UIView {
         let showAsMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
 
         let urgentHighInMg = UserDefaults.standard.urgentHighMarkValue
-        let highInMg = UserDefaults.standard.highMarkValue
         let lowInMg = UserDefaults.standard.lowMarkValue
-        let urgentLowInMg = UserDefaults.standard.urgentLowMarkValue
 
         // to avoid labels overlapping
         if abs(urgentHighInMg - UserDefaults.standard.chartHeight) < 30 {
@@ -309,7 +298,9 @@ class DailyTrendChart: UIView {
                 let medianLowEntry = ChartDataEntry(x: item.timeInterval, y: showAsMg ? medianLow : medianLow.mgdlToMmol())
                 medianLowValues.append(medianLowEntry)
 
-                let medianEntry = ChartDataEntry(x: item.timeInterval, y: showAsMg ? median : median.mgdlToMmol())
+                let medianEntry = ChartDataEntry(x: item.timeInterval,
+                                                 y: showAsMg ? median : median.mgdlToMmol(),
+                                                 data: item)
                 medianValues.append(medianEntry)
             }
         }
@@ -322,37 +313,45 @@ class DailyTrendChart: UIView {
 
         let medianDataSet = LineChartDataSet(entries: medianValues)
 
-        applyDataSetStyle2(dataSet: highDataSet)
-        applyDataSetStyle2(dataSet: lowDataSet)
+        applyDataSetStyle(dataSet: highDataSet)
+        applyDataSetStyle(dataSet: lowDataSet)
 
-        applyDataSetStyle2(dataSet: medianHighDataSet)
-        applyDataSetStyle2(dataSet: medianLowDataSet)
+        applyDataSetStyle(dataSet: medianHighDataSet)
+        applyDataSetStyle(dataSet: medianLowDataSet)
 
-        applyDataSetStyle2(dataSet: medianDataSet)
+        applyDataSetStyle(dataSet: medianDataSet)
 
-        highDataSet.lineWidth = 1
-        lowDataSet.lineWidth = 1
+        highDataSet.lineWidth = 0
+        lowDataSet.lineWidth = 0
 
-        medianHighDataSet.lineWidth = 2
-        medianLowDataSet.lineWidth = 2
+        medianHighDataSet.lineWidth = 0
+        medianLowDataSet.lineWidth = 0
 
         medianDataSet.lineWidth = 3
-
-//        highDataSet.fillColor = .white
-//        highDataSet.fillAlpha = 1
-//        highDataSet.drawFilledEnabled = true
-//        highDataSet.fillFormatter = DefaultFillFormatter {
-//            (dataSet: ILineChartDataSet, dataProvider: LineChartDataProvider) -> CGFloat in
-//
-//            return CGFloat(self.chartView.rightAxis.axisMaximum)
-//        }
+        medianDataSet.drawCirclesEnabled = true
+        medianDataSet.circleRadius = 1.5
+        medianDataSet.setCircleColor(.white)
+        medianDataSet.highlightEnabled = true
         
-//        lowDataSet.fillColor = .white
-//        lowDataSet.fillAlpha = 1
-//        lowDataSet.drawFilledEnabled = true
-//        lowDataSet.fillFormatter = DefaultFillFormatter { _,_  -> CGFloat in
-//            return CGFloat(self.chartView.rightAxis.axisMinimum)
-//        }
+        highDataSet.fillColor = .white
+        highDataSet.fillAlpha = 0.2
+        highDataSet.drawFilledEnabled = true
+        highDataSet.fillFormatterForEachEntry = FillFormatterForEachEntry {
+            (entry: ChartDataEntry, dataSet: ILineChartDataSet, _) -> CGFloat in
+            
+            let index = dataSet.entryIndex(entry: entry)
+            return lowDataSet[index].y
+        }
+        
+        medianHighDataSet.fillColor = .white
+        medianHighDataSet.fillAlpha = 0.4
+        medianHighDataSet.drawFilledEnabled = true
+        medianHighDataSet.fillFormatterForEachEntry = FillFormatterForEachEntry {
+            (entry: ChartDataEntry, dataSet: ILineChartDataSet, _) -> CGFloat in
+            
+            let index = dataSet.entryIndex(entry: entry)
+            return medianLowDataSet[index].y
+        }
         
         let data = LineChartData(dataSets: [
             highDataSet,
@@ -364,7 +363,7 @@ class DailyTrendChart: UIView {
         chartView.data = data
     }
     
-    private func applyDataSetStyle2(dataSet: LineChartDataSet) {
+    private func applyDataSetStyle(dataSet: LineChartDataSet) {
         dataSet.drawValuesEnabled = false
         dataSet.drawHorizontalHighlightIndicatorEnabled = false
         dataSet.axisDependency = .right
@@ -373,7 +372,9 @@ class DailyTrendChart: UIView {
         dataSet.drawCirclesEnabled = false
         dataSet.drawCircleHoleEnabled = false
         
-//        dataSet.highlightEnabled = highlightEnabled
+//        dataSet.mode = .cubicBezier
+
+        dataSet.highlightEnabled = false
     }
     
     func unHighlightAll() {
@@ -392,14 +393,14 @@ class DailyTrendChart: UIView {
 extension DailyTrendChart: ChartViewDelegate {
 
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        guard let reading = entry.data as? BgReading else {
+        guard let item = entry.data as? DailyTrend.DailyTrendItem else {
             return
         }
-        delegate?.dailyTrendChartReadingSelected(self, reading: reading)
+        delegate?.dailyTrendChartItemSelected(self, item: item)
     }
 
     func chartValueNothingSelected(_ chartView: ChartViewBase) {
-        delegate?.dailyTrendChartReadingNothingSelected(self)
+        delegate?.dailyTrendChartItemNothingSelected(self)
     }
 }
 

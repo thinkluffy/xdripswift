@@ -101,17 +101,6 @@ class DeveloperViewController: UIViewController {
                     alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                     present(alert, animated: true)
                 })
-
-                .section()
-                .operationCell(title: "Daily Trend", didClick: {
-                    [unowned self] operationCell, tableView, indexPath in
-
-                    if let dailyTrendViewController = R.storyboard.main.dailyTrend() {
-                        dailyTrendViewController.modalPresentationStyle = .fullScreen
-                        dailyTrendViewController.modalTransitionStyle = .crossDissolve
-                        present(dailyTrendViewController, animated: true)
-                    }
-                })
                 .build()
 
         tableView.delegate = tableData
