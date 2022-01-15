@@ -344,7 +344,7 @@ class DailyTrendChart: UIView {
         }
         
         medianHighDataSet.fillColor = .white
-        medianHighDataSet.fillAlpha = 0.4
+        medianHighDataSet.fillAlpha = 0.2
         medianHighDataSet.drawFilledEnabled = true
         medianHighDataSet.fillFormatterForEachEntry = FillFormatterForEachEntry {
             (entry: ChartDataEntry, dataSet: ILineChartDataSet, _) -> CGFloat in
@@ -361,6 +361,8 @@ class DailyTrendChart: UIView {
             medianDataSet
         ])
         chartView.data = data
+        
+        chartView.animate(xAxisDuration: 2.5)
     }
     
     private func applyDataSetStyle(dataSet: LineChartDataSet) {
