@@ -143,7 +143,7 @@
                                                                     <constraint firstAttribute="height" constant="40" id="bZW-ee-7fA"/>
                                                                 </constraints>
                                                             </view>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V90-WH-dIE" customClass="CountDownView" customModule="xdrip" customModuleProvider="target">
+                                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V90-WH-dIE" customClass="CountDownView" customModule="xdrip" customModuleProvider="target">
                                                                 <rect key="frame" x="388" y="25" width="0.0" height="0.0"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>
@@ -1210,7 +1210,7 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Evm-P3-0He" customClass="GlucoseChart" customModule="xdrip" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Evm-P3-0He" customClass="DailyTrendChart" customModule="xdrip" customModuleProvider="target">
                                         <rect key="frame" x="10" y="50" width="886" height="220"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
@@ -1248,7 +1248,7 @@
                         <outlet property="bgTimeLabel" destination="FGr-Lg-Vlu" id="uzX-eA-eRQ"/>
                         <outlet property="bgValueLabel" destination="xy2-yk-tiA" id="PUw-57-nOx"/>
                         <outlet property="chartCard" destination="fTv-T0-fOC" id="rlw-L2-Wsh"/>
-                        <outlet property="glucoseChart" destination="Evm-P3-0He" id="LjX-I2-pcA"/>
+                        <outlet property="dailyTrendChart" destination="Evm-P3-0He" id="DcE-6k-yHC"/>
                         <outlet property="titleBar" destination="TMh-py-ufP" id="Ffa-aV-xMM"/>
                     </connections>
                 </viewController>
@@ -1257,9 +1257,6 @@
             <point key="canvasLocation" x="3073" y="-652"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="V90-WH-dIE"/>
-    </designables>
     <color key="tintColor" red="0.077760688960000005" green="0.092910580340000007" blue="0.192109853" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>
         <image name="ic_alarm" width="24" height="24"/>

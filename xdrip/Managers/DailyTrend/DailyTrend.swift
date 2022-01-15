@@ -10,38 +10,38 @@ import Foundation
 
 class DailyTrend {
 
-	struct DailyTrendItem {
-		
-		init(timeInterval: TimeInterval) {
-			self.timeInterval = timeInterval
-		}
-		
-		// unit: Minutes, TimeInterval from 00:00
-		var timeInterval: TimeInterval
-		
-		var isValid: Bool {
-			get {
-				values.count >= 5
-			}
-		}
-		
-		// default unit of coredata, mg/dl
-		private var values: [Double] = []
+    struct DailyTrendItem {
 
-		private(set) var high: Double? = nil
-		private(set) var medianHigh: Double? = nil
-		private(set) var median: Double? = nil
-		private(set) var medianLow: Double? = nil
-		private(set) var low: Double? = nil
+        init(timeInterval: TimeInterval) {
+            self.timeInterval = timeInterval
+        }
 
-		mutating func appendValue(_ value: Double) {
-			values.append(value)
-		}
+        // unit: Minutes, TimeInterval from 00:00
+        var timeInterval: TimeInterval
 
-		mutating func calculateValues() {
-			guard self.isValid else {
-				return
-			}
+        var isValid: Bool {
+            get {
+                values.count >= 5
+            }
+        }
+
+        // default unit of coredata, mg/dl
+        private var values: [Double] = []
+
+        private(set) var high: Double? = nil
+        private(set) var medianHigh: Double? = nil
+        private(set) var median: Double? = nil
+        private(set) var medianLow: Double? = nil
+        private(set) var low: Double? = nil
+
+        mutating func appendValue(_ value: Double) {
+            values.append(value)
+        }
+
+        mutating func calculateValues() {
+            guard isValid else {
+                return
+            }
 
 			/// return: (result value, from index, end index)
 			func median(of array: [Double], at percent: Double) -> Double? {
@@ -62,20 +62,20 @@ class DailyTrend {
 				return result
 			}
 
-			values.sort(by: >)
-			if let h = median(of: values, at: 0.1),
-			   let mh = median(of: values, at: 0.25),
-			   let m = median(of: values, at: 0.5),
-			   let ml = median(of: values, at: 0.75),
-			   let l = median(of: values, at: 0.9) {
-				self.high = h
-				self.medianHigh = mh
-				self.median = m
-				self.medianLow = ml
-				self.low = l
-			}
-		}
-	}
+            values.sort(by: >)
+            if let h = median(of: values, at: 0.1),
+               let mh = median(of: values, at: 0.25),
+               let m = median(of: values, at: 0.5),
+               let ml = median(of: values, at: 0.75),
+               let l = median(of: values, at: 0.9) {
+                high = h
+                medianHigh = mh
+                self.median = m
+                medianLow = ml
+                low = l
+            }
+        }
+    }
 
     // Example:
     // last 90 days
@@ -93,7 +93,7 @@ class DailyTrend {
     /// minutesInterval: separate one day to groups with min Interval in minutes
     /// returned value: (startDate, endDate, list)?
     static func calculate(_ history: [BgReading],
-                          minutesInterval: Int) -> (Date, Date, [DailyTrendItem])? {
+                          minutesInterval: Int = 5) -> (Date, Date, [DailyTrendItem])? {
         guard history.count > 0 else {
             return nil
         }
@@ -104,7 +104,7 @@ class DailyTrend {
 
         // separate one day to groups with minutesInterval
         for minutesIndex in stride(from: 0, to: 24 * 60, by: minutesInterval) {
-            result.append(DailyTrendItem(timeInterval: TimeInterval(minutesIndex)))
+            result.append(DailyTrendItem(timeInterval: TimeInterval(minutesIndex * 60)))
         }
 
         var lastIndex: Int?

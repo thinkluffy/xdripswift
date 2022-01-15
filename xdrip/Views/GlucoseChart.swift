@@ -104,7 +104,9 @@ class GlucoseChart: UIView {
         }
 
         setupChart()
-
+        applySettings()
+        showNoData()
+        
         let longPressRecognizer = UILongPressGestureRecognizer(closure: { recognizer in
             if self.isLongPressSupported {
                 self.delegate?.chartDidLongPressed(self)
@@ -250,9 +252,28 @@ class GlucoseChart: UIView {
 
     func cleanUpMemory() {
         GlucoseChart.log.d("==> cleanUpMemory")
-        chartView.data = nil
+        showNoData()
     }
 
+    private func showNoData() {
+        // put a placeholder to avoid showing default No Data view
+        var placeholderEntries = [ChartDataEntry]()
+        let placeholderEntry = ChartDataEntry(x: chartView.xAxis.axisMinimum,
+                                              y: UserDefaults.standard.highMarkValue.mgdlToMmol(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl))
+        placeholderEntries.append(placeholderEntry)
+        let placeholderDataSet = LineChartDataSet(entries: placeholderEntries)
+        placeholderDataSet.setColor(.clear)
+        placeholderDataSet.highlightEnabled = false
+        placeholderDataSet.drawCirclesEnabled = false
+        placeholderDataSet.drawCircleHoleEnabled = false
+        placeholderDataSet.axisDependency = .right
+
+        let data = LineChartData(dataSets: [
+            placeholderDataSet
+        ])
+        chartView.data = data
+    }
+    
     func show(readings: [BgReading]?, from fromDate: Date, to toDate: Date, aheadSeconds: Double = 0) {
         GlucoseChart.log.d("==> showReadings")
 
@@ -275,29 +296,13 @@ class GlucoseChart: UIView {
             rangeBottomLine.label = ""
         }
 
+        chartView.xAxis.axisMinimum = fromDate.timeIntervalSince1970
+        // append 10 minutes to make the current dot more visible
+        chartView.xAxis.axisMaximum = toDate.timeIntervalSince1970 + aheadSeconds
+        
         guard let readings = readings, !readings.isEmpty else {
             GlucoseChart.log.i("readings are nil, nothing to show")
-
-            // put a placeholder to avoid showing default No Data view
-
-            chartView.xAxis.axisMinimum = fromDate.timeIntervalSince1970
-            // append 10 minutes to make the current dot more visible
-            chartView.xAxis.axisMaximum = toDate.timeIntervalSince1970 + aheadSeconds
-
-            var placeholderEntries = [ChartDataEntry]()
-            let placeholderEntry = ChartDataEntry(x: toDate.timeIntervalSince1970, y: highInMg.mgdlToMmol(mgdl: showAsMg))
-            placeholderEntries.append(placeholderEntry)
-            let placeholderDataSet = LineChartDataSet(entries: placeholderEntries)
-            placeholderDataSet.setColor(.clear)
-            placeholderDataSet.highlightEnabled = false
-            placeholderDataSet.drawCirclesEnabled = false
-            placeholderDataSet.drawCircleHoleEnabled = false
-            placeholderDataSet.axisDependency = .right
-
-            let data = LineChartData(dataSets: [
-                placeholderDataSet
-            ])
-            chartView.data = data
+            showNoData()
             return
         }
 
@@ -317,7 +322,7 @@ class GlucoseChart: UIView {
         var circleColors = [NSUIColor]()
         for (i, r) in filteredBgReadings.enumerated() {
             let bgValue = showAsMg ? r.calculatedValue : r.calculatedValue.mgdlToMmol()
-            let chartDataEntry = ChartDataEntry(x: r.timeStamp.timeIntervalSince1970, y: bgValue, data: r)
+            let chartDataEntry = ChartDataEntry(x: r.timeStamp.timeIntervalSince1970, y: bgValue)
 
             if i >= filteredBgReadings.count - 1 && isLastReadingCurrent {
                 currentValues.append(chartDataEntry)
@@ -360,10 +365,6 @@ class GlucoseChart: UIView {
             }
         }
         currentOneDataSet.circleHoleColor = ConstantsUI.contentBackgroundColor
-
-        chartView.xAxis.axisMinimum = fromDate.timeIntervalSince1970
-        // append 10 miniuts to make the current dot more visible
-        chartView.xAxis.axisMaximum = toDate.timeIntervalSince1970 + aheadSeconds
 
         let data = LineChartData(dataSets: [
             dataSet,

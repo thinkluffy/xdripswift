@@ -9,13 +9,17 @@
 import UIKit
 
 protocol DailyTrendV: MVPV {
-    
-//    func show(readings: [BgReading]?, from fromDate: Date, to toDate: Date)
-    
+
+    func showNoEnoughData(ofDate: Date)
+
+    func showDailyTrend(ofDate date: Date,
+                        startDateOfData: Date,
+                        endDateOfData: Date,
+                        dailyTrendItems: [DailyTrend.DailyTrendItem])
 }
 
 protocol DailyTrendP: MVPP {
-    
+
     func loadData(of date: Date, withDays daysRange: Int)
-    
+
 }
