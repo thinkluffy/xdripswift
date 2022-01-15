@@ -111,7 +111,9 @@ class DailyTrendChart: UIView {
         xAxis.axisLineWidth = 2
         xAxis.granularity = Date.hourInSeconds * 3 // 2 hours do not work, why?
         xAxis.labelCount = 13 // make the x labels step by 1 hour, do not know why
-
+        xAxis.axisMinimum = 0
+        xAxis.axisMaximum = Date.dayInSeconds
+        
         chartView.leftAxis.enabled = false
 
         // leave space for limit labels outside viewport
@@ -122,7 +124,7 @@ class DailyTrendChart: UIView {
         yAxis.drawLabelsEnabled = false
         yAxis.axisLineColor = ConstantsUI.mainBackgroundColor
         yAxis.axisLineWidth = 2
-
+        
         setupLimitLines()
     }
 
@@ -263,9 +265,6 @@ class DailyTrendChart: UIView {
         if abs(lowInMg - Constants.minBgMgDl) < 30 {
             rangeBottomLine.label = ""
         }
-
-        chartView.xAxis.axisMinimum = 0
-        chartView.xAxis.axisMaximum = Date.dayInSeconds
         
         guard !dailyTrendItems.isEmpty else {
             DailyTrendChart.log.i("dailyTrendItems are nil, nothing to show")
