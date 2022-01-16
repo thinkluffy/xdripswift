@@ -51,7 +51,7 @@ class CalendarTitle: UIView {
 
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 20)
+        label.font = .monospacedDigitSystemFont(ofSize: 20, weight: .regular)
         label.textColor = .white
         label.text = "----------"
         return label

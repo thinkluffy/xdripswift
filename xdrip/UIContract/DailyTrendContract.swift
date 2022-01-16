@@ -10,6 +10,8 @@ import UIKit
 
 protocol DailyTrendV: MVPV {
 
+    func showLoadingData()
+
     func showNoEnoughData(ofDate: Date)
 
     func showDailyTrend(ofDate date: Date,

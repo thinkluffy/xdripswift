@@ -22,7 +22,7 @@ class DailyTrendViewController: UIViewController {
     @IBOutlet weak var dailyTrendChart: DailyTrendChart!
 
     private var presenter: DailyTrendP!
-    
+
     private var selectedChartDays = ChartDays.day7
     private var showingDate: Date?
 
@@ -33,65 +33,75 @@ class DailyTrendViewController: UIViewController {
     }()
 
     private lazy var calendarTitle: CalendarTitle = {
-        let calendarTitle = CalendarTitle()
-        return calendarTitle
+        CalendarTitle()
+    }()
+
+    private lazy var loadingIndicatorView: UIActivityIndicatorView = {
+        let indicatorView = UIActivityIndicatorView()
+        indicatorView.color = .white
+        return indicatorView
     }()
 
     private lazy var daysSelection: SingleSelection = {
-        let singleSelection = SingleSelection()
-        return singleSelection
+        SingleSelection()
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         instancePresenter()
-        
+
         setupView()
-        
+
         presenter.loadData(of: Date(), withDays: selectedChartDays.rawValue)
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         presenter.onViewDidAppear()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         presenter.onViewWillDisappear()
         super.viewWillDisappear(animated)
     }
-    
+
     // make the ViewController landscape mode
     override public var shouldAutorotate: Bool {
         false
     }
-    
+
     override public var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         .landscapeLeft
     }
-    
+
     override public var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
         .landscapeLeft
     }
-    
+
     private func instancePresenter() {
         presenter = DailyTrendPresenter(view: self)
     }
-    
+
     private func setupView() {
         titleBar.addSubview(exitButton)
         titleBar.addSubview(calendarTitle)
+        titleBar.addSubview(loadingIndicatorView)
         titleBar.addSubview(daysSelection)
-        
+
         exitButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview().offset(20)
         }
-        
+
         calendarTitle.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalTo(exitButton.snp.trailing).offset(20)
+        }
+        
+        loadingIndicatorView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalTo(calendarTitle.snp.trailing).offset(10)
         }
         
         daysSelection.snp.makeConstraints { make in
@@ -99,7 +109,7 @@ class DailyTrendViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-10)
             make.height.equalToSuperview()
         }
-        
+
         exitButton.addTarget(self, action: #selector(exitButtonDidClick(_:)), for: .touchUpInside)
         calendarTitle.delegate = self
 
@@ -112,7 +122,7 @@ class DailyTrendViewController: UIViewController {
         daysSelection.show(items: selectionItems)
         daysSelection.delegate = self
         daysSelection.select(id: selectedChartDays.rawValue, triggerCallback: false)
-        
+
         setupChart()
     }
 
@@ -130,39 +140,50 @@ class DailyTrendViewController: UIViewController {
 
 extension DailyTrendViewController: DailyTrendV {
 
+    func showLoadingData() {
+        loadingIndicatorView.isHidden = false
+        loadingIndicatorView.startAnimating()
+    }
+
     func showNoEnoughData(ofDate date: Date) {
         DailyTrendViewController.log.d("==> showNoEnoughData")
+
+        loadingIndicatorView.stopAnimating()
+        loadingIndicatorView.isHidden = true
         
         // setup calendar title
         calendarTitle.dateTime = date
         let isToday = Calendar.current.isDateInToday(date)
         calendarTitle.showRightArrow = !isToday
-        
+
         // reset selected bg time and value
         dailyTrendChart.unHighlightAll()
         bgTimeLabel.text = "--:--"
         bgValueLabel.text = "---"
         bgValueLabel.textColor = .white
-                
+
         showingDate = date
-        
+
         dailyTrendChart.showNoData()
     }
 
     func showDailyTrend(ofDate date: Date, startDateOfData: Date, endDateOfData: Date, dailyTrendItems: [DailyTrend.DailyTrendItem]) {
         DailyTrendViewController.log.d("==> showDailyTrend, \(startDateOfData) -> \(endDateOfData), items: \(dailyTrendItems.count)")
+
+        loadingIndicatorView.stopAnimating()
+        loadingIndicatorView.isHidden = true
         
         // setup calendar title
         calendarTitle.dateTime = date
         let isToday = Calendar.current.isDateInToday(date)
         calendarTitle.showRightArrow = !isToday
-        
+
         // reset selected bg time and value
         dailyTrendChart.unHighlightAll()
         bgTimeLabel.text = "--:--"
         bgValueLabel.text = "---"
         bgValueLabel.textColor = .white
-        
+
         showingDate = date
 
         dailyTrendChart.show(dailyTrendItems: dailyTrendItems)
@@ -170,7 +191,7 @@ extension DailyTrendViewController: DailyTrendV {
 }
 
 extension DailyTrendViewController: DailyTrendChartDelegate {
-    
+
     func dailyTrendChartItemSelected(_ chart: DailyTrendChart, item: DailyTrend.DailyTrendItem) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
@@ -197,7 +218,7 @@ extension DailyTrendViewController: DailyTrendChartDelegate {
             } else {
                 bgValueLabel.textColor = ConstantsGlucoseChart.glucoseInRangeColor
             }
-            
+
         } else {
             bgTimeLabel.text = "--:--"
             bgValueLabel.text = "---"
@@ -248,7 +269,7 @@ extension DailyTrendViewController: SingleSelectionDelegate {
         guard let chartDays = ChartDays(rawValue: item.id) else {
             return
         }
-        
+
         selectedChartDays = chartDays
         if let showingDate = showingDate {
             presenter.loadData(of: showingDate, withDays: selectedChartDays.rawValue)

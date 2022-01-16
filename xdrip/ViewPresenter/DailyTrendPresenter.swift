@@ -24,6 +24,8 @@ class DailyTrendPresenter: DailyTrendP {
         let toDate = Calendar.current.startOfDay(for: date) // 00:00 of the day
         let fromDate = Date(timeInterval: -Date.dayInSeconds * Double(daysRange), since: toDate)
 
+        view?.showLoadingData()
+
         DispatchQueue.global(qos: .userInteractive).async {
             let moc = CoreDataManager.shared.privateChildManagedObjectContext()
             
