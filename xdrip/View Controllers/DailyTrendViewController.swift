@@ -23,7 +23,7 @@ class DailyTrendViewController: UIViewController {
 
     private var presenter: DailyTrendP!
     
-    private var selectedChartDays = ChartDays.Day7
+    private var selectedChartDays = ChartDays.day7
     private var showingDate: Date?
 
     private lazy var exitButton: UIButton = {
@@ -104,10 +104,10 @@ class DailyTrendViewController: UIViewController {
         calendarTitle.delegate = self
 
         var selectionItems = [SingleSelectionItem]()
-        selectionItems.append(SingleSelectionItem(id: ChartDays.Day7.rawValue, title: "7D"))
-        selectionItems.append(SingleSelectionItem(id: ChartDays.Day14.rawValue, title: "14D"))
-        selectionItems.append(SingleSelectionItem(id: ChartDays.Day30.rawValue, title: "30D"))
-        selectionItems.append(SingleSelectionItem(id: ChartDays.Day90.rawValue, title: "90D"))
+        selectionItems.append(SingleSelectionItem(id: ChartDays.day7.rawValue, title: "7D"))
+        selectionItems.append(SingleSelectionItem(id: ChartDays.day14.rawValue, title: "14D"))
+        selectionItems.append(SingleSelectionItem(id: ChartDays.day30.rawValue, title: "30D"))
+        selectionItems.append(SingleSelectionItem(id: ChartDays.day90.rawValue, title: "90D"))
 
         daysSelection.show(items: selectionItems)
         daysSelection.delegate = self

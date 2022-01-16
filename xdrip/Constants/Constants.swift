@@ -8,21 +8,22 @@
 
 import Foundation
 
-enum ChartHours {
+enum ChartHours: Int {
     
-    static let H1 = 0
-    static let H3 = 1
-    static let H6 = 2
-    static let H12 = 3
-    static let H24 = 4
+    case h1 = 1
+    case h3 = 3
+    case h6 = 6
+    case h12 = 12
+    case h24 = 24
 }
 
 enum ChartDays: Int {
-    
-    case Day7 = 7
-    case Day14 = 14
-    case Day30 = 30
-    case Day90 = 90
+
+    case today = 0
+    case day7 = 7
+    case day14 = 14
+    case day30 = 30
+    case day90 = 90
 }
 
 enum Constants {

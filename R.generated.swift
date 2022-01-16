@@ -3133,7 +3133,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let common_cancel = Rswift.StringResource(key: "common_cancel", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Daily Trend
+      /// en translation: Daily Patterns
       ///
       /// Locales: en, zh
       static let daily_trend = Rswift.StringResource(key: "daily_trend", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
@@ -3523,7 +3523,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("common_cancel", tableName: "Common", bundle: bundle, comment: "")
       }
 
-      /// en translation: Daily Trend
+      /// en translation: Daily Patterns
       ///
       /// Locales: en, zh
       static func daily_trend(preferredLanguages: [String]? = nil) -> String {

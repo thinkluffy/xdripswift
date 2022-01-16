@@ -45,7 +45,7 @@ class GlucoseChart: UIView {
     private var chartHistoryDataSet: LineChartDataSet?
     private var chartCurrentOneDataSet: LineChartDataSet?
 
-    var chartHours = ChartHours.H3 {
+    var chartHours = ChartHours.h3 {
         didSet {
             applyChartHours()
         }
@@ -133,8 +133,7 @@ class GlucoseChart: UIView {
         xAxis.gridLineWidth = 2
         xAxis.axisLineColor = ConstantsUI.mainBackgroundColor
         xAxis.axisLineWidth = 2
-        if chartHours == ChartHours.H24 ||
-                   chartHours == ChartHours.H12 {
+        if chartHours == .h24 || chartHours == .h12 {
             xAxis.granularity = Date.hourInSeconds * 3 // 2 hours do not work, why?
 
         } else {
@@ -386,14 +385,14 @@ class GlucoseChart: UIView {
     }
 
     func moveXAxisToTrailing() {
-        let xRange = calChartHoursSeconds(chartHoursId: chartHours)
+        let xRange = calChartHoursSeconds(chartHours: chartHours)
         chartView.setVisibleXRange(minXRange: xRange, maxXRange: xRange)
 
         chartView.moveViewToX(chartView.xAxis.axisMaximum - xRange)
     }
 
     func moveCurrentToCenter() {
-        let xRange = calChartHoursSeconds(chartHoursId: chartHours)
+        let xRange = calChartHoursSeconds(chartHours: chartHours)
         chartView.setVisibleXRange(minXRange: xRange, maxXRange: xRange)
 
         chartView.moveViewToX(Date().timeIntervalSince1970 - xRange / 2)
@@ -403,23 +402,8 @@ class GlucoseChart: UIView {
         chartView.highlightValues(nil)
     }
 
-    private func calChartHoursSeconds(chartHoursId: Int) -> Double {
-        let xRange: Double
-        switch chartHoursId {
-        case ChartHours.H1:
-            xRange = Date.hourInSeconds
-        case ChartHours.H3:
-            xRange = Date.hourInSeconds * 3
-        case ChartHours.H6:
-            xRange = Date.hourInSeconds * 6
-        case ChartHours.H12:
-            xRange = Date.hourInSeconds * 12
-        case ChartHours.H24:
-            xRange = Date.hourInSeconds * 24
-        default:
-            xRange = Date.hourInSeconds * 3
-        }
-        return xRange
+    private func calChartHoursSeconds(chartHours: ChartHours) -> Double {
+        Date.hourInSeconds * Double(chartHours.rawValue)
     }
 
     private func applyDataSetStyle(dataSet: LineChartDataSet) {
@@ -436,19 +420,16 @@ class GlucoseChart: UIView {
     private func applyDataShapeSize(dataSet: LineChartDataSet) {
         let shapeSize: CGFloat
         switch chartHours {
-        case ChartHours.H1:
+        case .h1:
             shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter1h
-        case ChartHours.H3:
+        case .h3:
             shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter3h
-        case ChartHours.H6:
+        case .h6:
             shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter6h
-        case ChartHours.H12:
+        case .h12:
             shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter12h
-        case ChartHours.H24:
+        case .h24:
             shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter24h
-        default:
-            shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter3h
-            break
         }
         dataSet.circleRadius = shapeSize / 2
     }
@@ -460,11 +441,10 @@ class GlucoseChart: UIView {
 
     private func applyChartHours() {
         let highestVisibleX = chartView.highestVisibleX
-        let xRange = calChartHoursSeconds(chartHoursId: chartHours)
+        let xRange = calChartHoursSeconds(chartHours: chartHours)
         chartView.setVisibleXRange(minXRange: xRange, maxXRange: xRange)
 
-        if chartHours == ChartHours.H24 ||
-                   chartHours == ChartHours.H12 {
+        if chartHours == .h24 || chartHours == .h12 {
             chartView.xAxis.granularity = Date.hourInSeconds * 3 // 2 hours do not work, why?
 
         } else {

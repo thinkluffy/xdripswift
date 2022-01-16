@@ -14,19 +14,16 @@ extension UserDefaults {
     }
     
     /// chart width in hours
-    @objc dynamic var chartWidthInHours: Double {
+    @objc dynamic var chartWidthInHours: Int {
         get {
-
-            var returnValue = double(forKey: KeysCharts.chartWidthInHours.rawValue)
+            var ret = integer(forKey: KeysCharts.chartWidthInHours.rawValue)
             // if 0 set to defaultvalue
-            if returnValue == 0.0 {
-                returnValue = ConstantsGlucoseChart.defaultChartWidthInHours
+            if ret == 0 {
+                ret = ConstantsGlucoseChart.defaultChartWidthInHours
             }
-
-            return returnValue
+            return ret
         }
         set {
-
             set(newValue, forKey: KeysCharts.chartWidthInHours.rawValue)
         }
     }
