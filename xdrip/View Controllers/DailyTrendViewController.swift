@@ -134,9 +134,10 @@ class DailyTrendViewController: UIViewController {
         let valueLabelFont = UIFont.monospacedDigitSystemFont(ofSize: 14, weight: .light)
         decileLabel.font = valueLabelFont
         quartileLabel.font = valueLabelFont
-        medianLabel.font = valueLabelFont
         seventyFifthPercentileLabel.font = valueLabelFont
         ninetyPercentileLabel.font = valueLabelFont
+
+        medianLabel.font = .monospacedDigitSystemFont(ofSize: 14, weight: .heavy)
 
         let chartCardTapGesture = UITapGestureRecognizer { [unowned self] _ in
             dailyTrendChart.unHighlightAll()
