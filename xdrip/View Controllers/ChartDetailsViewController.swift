@@ -162,9 +162,6 @@ extension ChartDetailsViewController: ChartDetailsV {
         
         // reset selected bg time and value
         glucoseChart.unHighlightAll()
-        bgTimeLabel.text = "--:--"
-        bgValueLabel.text = "---"
-        bgValueLabel.textColor = .white
         
         glucoseChart.show(readings: readings, from: fromDate, to: toDate)
 

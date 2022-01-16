@@ -105,3 +105,10 @@
 "change_per_min" = "%@/分钟";
 "feature_is_under_development" = "该功能正在开发中，敬请期待。";
 "daily_trend" = "日趋势图";
+"decile" = "十分位";
+"quartile" = "四分位";
+"median" = "中位";
+"seventyFifthPercentile" = "四分之三分位";
+"ninetyPercentile" = "十分之九分位";
+"loading" = "正在加载";
+"not_enough_data" = "数据不足";

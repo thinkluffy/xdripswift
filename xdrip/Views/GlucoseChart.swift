@@ -400,6 +400,8 @@ class GlucoseChart: UIView {
 
     func unHighlightAll() {
         chartView.highlightValues(nil)
+        // chartView did not call chartValueNothingSelected, seems a bug
+        delegate?.chartReadingNothingSelected(self)
     }
 
     private func calChartHoursSeconds(chartHours: ChartHours) -> Double {

@@ -41,6 +41,7 @@ class DailyTrendPresenter: DailyTrendP {
 
                 DispatchQueue.main.async {
                     self.view?.showDailyTrend(ofDate: date,
+                                              withDays: daysRange,
                                               startDateOfData: startDate,
                                               endDateOfData: endDate,
                                               dailyTrendItems: dailyTrendItems)

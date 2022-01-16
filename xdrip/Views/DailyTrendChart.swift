@@ -380,6 +380,8 @@ class DailyTrendChart: UIView {
     
     func unHighlightAll() {
         chartView.highlightValues(nil)
+        // chartView did not call chartValueNothingSelected, seems a bug
+        delegate?.dailyTrendChartItemNothingSelected(self)
     }
 
     private var chartHoursSeconds: Double {

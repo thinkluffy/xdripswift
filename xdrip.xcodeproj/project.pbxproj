@@ -145,6 +145,7 @@
 		4EB0DE9F2775CF6000DBF7C1 /* BluetoothPeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB0DE912775CF6000DBF7C1 /* BluetoothPeripheralViewController.swift */; };
 		4EB0DEA02775CF6000DBF7C1 /* BluetoothPeripheralViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB0DE922775CF6000DBF7C1 /* BluetoothPeripheralViewModel.swift */; };
 		4EC4295E2792A0E4009B8437 /* DailyTrendChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4295D2792A0E4009B8437 /* DailyTrendChart.swift */; };
+		4EC42970279470AE009B8437 /* DailyTrend.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EC42972279470AE009B8437 /* DailyTrend.strings */; };
 		4EC48D0C2770599B00EEB0BA /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC48D0A2770599B00EEB0BA /* Note+CoreDataClass.swift */; };
 		4EC48D0D2770599B00EEB0BA /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC48D0B2770599B00EEB0BA /* Note+CoreDataProperties.swift */; };
 		4EC48D0F277059E600EEB0BA /* BgReading+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC48D0E277059E600EEB0BA /* BgReading+CoreDataProperties.swift */; };
@@ -782,6 +783,8 @@
 		4EB0DE912775CF6000DBF7C1 /* BluetoothPeripheralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheralViewController.swift; sourceTree = "<group>"; };
 		4EB0DE922775CF6000DBF7C1 /* BluetoothPeripheralViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheralViewModel.swift; sourceTree = "<group>"; };
 		4EC4295D2792A0E4009B8437 /* DailyTrendChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTrendChart.swift; sourceTree = "<group>"; };
+		4EC42971279470AE009B8437 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DailyTrend.strings; sourceTree = "<group>"; };
+		4EC42973279470B1009B8437 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/DailyTrend.strings; sourceTree = "<group>"; };
 		4EC48D0A2770599B00EEB0BA /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4EC48D0B2770599B00EEB0BA /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4EC48D0E277059E600EEB0BA /* BgReading+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BgReading+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -1936,6 +1939,7 @@
 				F8E6C79324CEC2E3007C1199 /* Snooze.strings */,
 				4749EB9D25B36E010072DF8B /* LibreNFC.strings */,
 				4E94C33E277B597200382122 /* Notes.strings */,
+				4EC42972279470AE009B8437 /* DailyTrend.strings */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -3006,6 +3010,7 @@
 				F8B48A9C22B2FA66009BCC01 /* SpeakReading.strings in Resources */,
 				F82437C124CB7A9900BED341 /* Emergency_Alarm_Carbon_Monoxide.caf in Resources */,
 				F824377B24CB7A9800BED341 /* Emergency_Alarm.caf in Resources */,
+				4EC42970279470AE009B8437 /* DailyTrend.strings in Resources */,
 				F82437A724CB7A9900BED341 /* Alarm_Clock.caf in Resources */,
 				F8B3A7C7226CC0B7004BA588 /* shortlow3.mp3 in Resources */,
 				F82437B324CB7A9900BED341 /* Rush.caf in Resources */,
@@ -3641,6 +3646,15 @@
 				4E94C33F277B597800382122 /* zh */,
 			);
 			name = Notes.strings;
+			sourceTree = "<group>";
+		};
+		4EC42972279470AE009B8437 /* DailyTrend.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4EC42971279470AE009B8437 /* en */,
+				4EC42973279470B1009B8437 /* zh */,
+			);
+			name = DailyTrend.strings;
 			sourceTree = "<group>";
 		};
 		F81F370525C1583400520946 /* WatlaaView.strings */ = {

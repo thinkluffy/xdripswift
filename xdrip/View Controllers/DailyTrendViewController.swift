@@ -16,9 +16,23 @@ class DailyTrendViewController: UIViewController {
 
     @IBOutlet weak var titleBar: UIView!
     @IBOutlet weak var chartCard: UIView!
-    @IBOutlet weak var bgTimeLabel: UILabel!
-    @IBOutlet weak var bgValueLabel: UILabel!
+    
+    @IBOutlet weak var timeLabel: UILabel!
 
+    @IBOutlet weak var decileTitleLabel: UILabel!
+    @IBOutlet weak var quartileTitleLabel: UILabel!
+    @IBOutlet weak var medianTitleLabel: UILabel!
+    @IBOutlet weak var seventyFifthPercentileTitleLabel: UILabel!
+    @IBOutlet weak var ninetyPercentileTitleLabel: UILabel!
+
+    @IBOutlet weak var decileLabel: UILabel!
+    @IBOutlet weak var quartileLabel: UILabel!
+    @IBOutlet weak var medianLabel: UILabel!
+    @IBOutlet weak var seventyFifthPercentileLabel: UILabel!
+    @IBOutlet weak var ninetyPercentileLabel: UILabel!
+
+    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var loadingIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var dailyTrendChart: DailyTrendChart!
 
     private var presenter: DailyTrendP!
@@ -34,12 +48,6 @@ class DailyTrendViewController: UIViewController {
 
     private lazy var calendarTitle: CalendarTitle = {
         CalendarTitle()
-    }()
-
-    private lazy var loadingIndicatorView: UIActivityIndicatorView = {
-        let indicatorView = UIActivityIndicatorView()
-        indicatorView.color = .white
-        return indicatorView
     }()
 
     private lazy var daysSelection: SingleSelection = {
@@ -86,7 +94,6 @@ class DailyTrendViewController: UIViewController {
     private func setupView() {
         titleBar.addSubview(exitButton)
         titleBar.addSubview(calendarTitle)
-        titleBar.addSubview(loadingIndicatorView)
         titleBar.addSubview(daysSelection)
 
         exitButton.snp.makeConstraints { make in
@@ -97,11 +104,6 @@ class DailyTrendViewController: UIViewController {
         calendarTitle.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalTo(exitButton.snp.trailing).offset(20)
-        }
-        
-        loadingIndicatorView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalTo(calendarTitle.snp.trailing).offset(10)
         }
         
         daysSelection.snp.makeConstraints { make in
@@ -123,6 +125,24 @@ class DailyTrendViewController: UIViewController {
         daysSelection.delegate = self
         daysSelection.select(id: selectedChartDays.rawValue, triggerCallback: false)
 
+        decileTitleLabel.text = R.string.common.decile()
+        quartileTitleLabel.text = R.string.common.quartile()
+        medianTitleLabel.text = R.string.common.median()
+        seventyFifthPercentileTitleLabel.text = R.string.common.seventyFifthPercentile()
+        ninetyPercentileTitleLabel.text = R.string.common.ninetyPercentile()
+
+        let valueLabelFont = UIFont.monospacedDigitSystemFont(ofSize: 14, weight: .light)
+        decileLabel.font = valueLabelFont
+        quartileLabel.font = valueLabelFont
+        medianLabel.font = valueLabelFont
+        seventyFifthPercentileLabel.font = valueLabelFont
+        ninetyPercentileLabel.font = valueLabelFont
+
+        let chartCardTapGesture = UITapGestureRecognizer { [unowned self] _ in
+            dailyTrendChart.unHighlightAll()
+        }
+        chartCard.addGestureRecognizer(chartCardTapGesture)
+
         setupChart()
     }
 
@@ -136,20 +156,49 @@ class DailyTrendViewController: UIViewController {
     @objc private func exitButtonDidClick(_ button: UIButton) {
         dismiss(animated: false)
     }
+
+    private func resetValueLabels() {
+        decileLabel.text = "---"
+        decileLabel.textColor = .systemGray
+
+        quartileLabel.text = "---"
+        quartileLabel.textColor = .systemGray
+
+        medianLabel.text = "---"
+        medianLabel.textColor = .systemGray
+
+        seventyFifthPercentileLabel.text = "---"
+        seventyFifthPercentileLabel.textColor = .systemGray
+
+        ninetyPercentileLabel.text = "---"
+        ninetyPercentileLabel.textColor = .systemGray
+    }
 }
 
 extension DailyTrendViewController: DailyTrendV {
 
     func showLoadingData() {
+        statusLabel.text = R.string.common.loading()
+        statusLabel.textColor = .white
+
         loadingIndicatorView.isHidden = false
         loadingIndicatorView.startAnimating()
+        
+        calendarTitle.isUserInteractionEnabled = false
+        daysSelection.isUserInteractionEnabled = false
     }
 
     func showNoEnoughData(ofDate date: Date) {
         DailyTrendViewController.log.d("==> showNoEnoughData")
 
+        statusLabel.text = R.string.common.not_enough_data()
+        statusLabel.textColor = .white
+
         loadingIndicatorView.stopAnimating()
         loadingIndicatorView.isHidden = true
+        
+        calendarTitle.isUserInteractionEnabled = true
+        daysSelection.isUserInteractionEnabled = true
         
         // setup calendar title
         calendarTitle.dateTime = date
@@ -158,20 +207,27 @@ extension DailyTrendViewController: DailyTrendV {
 
         // reset selected bg time and value
         dailyTrendChart.unHighlightAll()
-        bgTimeLabel.text = "--:--"
-        bgValueLabel.text = "---"
-        bgValueLabel.textColor = .white
+        timeLabel.text = "--:--"
+
+        resetValueLabels()
 
         showingDate = date
 
         dailyTrendChart.showNoData()
     }
 
-    func showDailyTrend(ofDate date: Date, startDateOfData: Date, endDateOfData: Date, dailyTrendItems: [DailyTrend.DailyTrendItem]) {
-        DailyTrendViewController.log.d("==> showDailyTrend, \(startDateOfData) -> \(endDateOfData), items: \(dailyTrendItems.count)")
+    func showDailyTrend(ofDate date: Date, withDays daysRange: Int, startDateOfData: Date, endDateOfData: Date, dailyTrendItems: [DailyTrend.DailyTrendItem]) {
+        DailyTrendViewController.log.d("==> showDailyTrend, daysRange: \(daysRange), \(startDateOfData) -> \(endDateOfData), items: \(dailyTrendItems.count)")
+
+        let availableDays = Int((endDateOfData.timeIntervalSince(startDateOfData) / Date.dayInSeconds).rounded())
+        statusLabel.text = R.string.dailyTrend.daily_trend_available_days(availableDays, daysRange)
+        statusLabel.textColor = availableDays < daysRange ?  ConstantsUI.warningColor : .white
 
         loadingIndicatorView.stopAnimating()
         loadingIndicatorView.isHidden = true
+        
+        calendarTitle.isUserInteractionEnabled = true
+        daysSelection.isUserInteractionEnabled = true
         
         // setup calendar title
         calendarTitle.dateTime = date
@@ -180,9 +236,9 @@ extension DailyTrendViewController: DailyTrendV {
 
         // reset selected bg time and value
         dailyTrendChart.unHighlightAll()
-        bgTimeLabel.text = "--:--"
-        bgValueLabel.text = "---"
-        bgValueLabel.textColor = .white
+        timeLabel.text = "--:--"
+
+        resetValueLabels()
 
         showingDate = date
 
@@ -201,35 +257,47 @@ extension DailyTrendViewController: DailyTrendChartDelegate {
         if item.isValid {
             let showMgDl = UserDefaults.standard.bloodGlucoseUnitIsMgDl
 
-            bgTimeLabel.text = timestamp
-            bgValueLabel.text = item.median!.mgdlToMmolAndToString(mgdl: showMgDl)
+            timeLabel.text = timestamp
 
             let urgentHighInMg = UserDefaults.standard.urgentHighMarkValue
             let highInMg = UserDefaults.standard.highMarkValue
             let lowInMg = UserDefaults.standard.lowMarkValue
             let urgentLowInMg = UserDefaults.standard.urgentLowMarkValue
 
-            if item.median! >= urgentHighInMg || item.median! <= urgentLowInMg {
-                bgValueLabel.textColor = ConstantsGlucoseChart.glucoseUrgentRangeColor
+            decileLabel.text = item.high!.mgdlToMmolAndToString(mgdl: showMgDl, withUnit: true)
+            quartileLabel.text = item.medianHigh!.mgdlToMmolAndToString(mgdl: showMgDl, withUnit: true)
+            medianLabel.text = item.median!.mgdlToMmolAndToString(mgdl: showMgDl, withUnit: true)
+            seventyFifthPercentileLabel.text = item.medianLow!.mgdlToMmolAndToString(mgdl: showMgDl, withUnit: true)
+            ninetyPercentileLabel.text = item.low!.mgdlToMmolAndToString(mgdl: showMgDl, withUnit: true)
 
-            } else if item.median! >= highInMg || item.median! <= lowInMg {
-                bgValueLabel.textColor = ConstantsGlucoseChart.glucoseNotUrgentRangeColor
+            func colorOfBg(_ bgInMg: Double) -> UIColor {
+                if bgInMg >= urgentHighInMg || bgInMg <= urgentLowInMg {
+                    return ConstantsGlucoseChart.glucoseUrgentRangeColor
 
-            } else {
-                bgValueLabel.textColor = ConstantsGlucoseChart.glucoseInRangeColor
+                } else if bgInMg >= highInMg || bgInMg <= lowInMg {
+                    return ConstantsGlucoseChart.glucoseNotUrgentRangeColor
+
+                } else {
+                    return ConstantsGlucoseChart.glucoseInRangeColor
+                }
             }
 
+            decileLabel.textColor = colorOfBg(item.high!)
+            quartileLabel.textColor = colorOfBg(item.medianHigh!)
+            medianLabel.textColor = colorOfBg(item.median!)
+            seventyFifthPercentileLabel.textColor = colorOfBg(item.medianLow!)
+            ninetyPercentileLabel.textColor = colorOfBg(item.low!)
+
         } else {
-            bgTimeLabel.text = "--:--"
-            bgValueLabel.text = "---"
-            bgValueLabel.textColor = .white
+            timeLabel.text = "--:--"
+            resetValueLabels()
         }
     }
 
     func dailyTrendChartItemNothingSelected(_ chart: DailyTrendChart) {
-        bgTimeLabel.text = "--:--"
-        bgValueLabel.text = "---"
-        bgValueLabel.textColor = .white
+        timeLabel.text = "--:--"
+
+        resetValueLabels()
     }
 }
 

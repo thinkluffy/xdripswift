@@ -1,0 +1,9 @@
+/* 
+  DailyTrend.strings
+  xdrip
+
+  Created by Yuanbin Cai on 2022/1/16.
+  Copyright © 2022 zDrip. All rights reserved.
+*/
+
+"daily_trend_available_days" = "%2$d 天中有 %1$d 天数据可用";
