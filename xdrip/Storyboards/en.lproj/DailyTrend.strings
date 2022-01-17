@@ -6,4 +6,4 @@
   Copyright © 2022 zDrip. All rights reserved.
 */
 
-"daily_trend_available_days" = "Data available for %1$d of %2$d days";
+"daily_trend_available_days" = "Data available for %1$.1f of %2$d days";

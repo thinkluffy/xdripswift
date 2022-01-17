@@ -16,8 +16,7 @@ protocol DailyTrendV: MVPV {
 
     func showDailyTrend(ofDate date: Date,
                         withDays daysRange: Int,
-                        startDateOfData: Date,
-                        endDateOfData: Date,
+						validDays: Double,
                         dailyTrendItems: [DailyTrend.DailyTrendItem])
 }
 

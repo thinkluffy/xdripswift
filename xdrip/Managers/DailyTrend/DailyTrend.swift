@@ -10,6 +10,8 @@ import Foundation
 
 class DailyTrend {
 
+	private static let MinValidDataCount: Int = 5
+	
     struct DailyTrendItem {
 
         init(timeInterval: TimeInterval) {
@@ -21,12 +23,13 @@ class DailyTrend {
 
         var isValid: Bool {
             get {
-                values.count >= 5
+                values.count >= MinValidDataCount
             }
         }
+		
 
         // default unit of coredata, mg/dl
-        private var values: [Double] = []
+        private(set) var values: [Double] = []
 
         private(set) var high: Double? = nil
         private(set) var medianHigh: Double? = nil
@@ -91,15 +94,13 @@ class DailyTrend {
 
     /// history: data list, normally recently 90 days
     /// minutesInterval: separate one day to groups with min Interval in minutes
-    /// returned value: (startDate, endDate, list)?
+    /// returned value: (list, averageDaysInEachRange)?
     static func calculate(_ history: [BgReading],
-                          minutesInterval: Int = 5) -> (Date, Date, [DailyTrendItem])? {
+                          minutesInterval: Int = 5) -> ([DailyTrendItem], Double)? {
         guard history.count > 0 else {
             return nil
         }
 
-        var startDate: Date?
-        var endDate: Date?
         var result: [DailyTrendItem] = []
 
         // separate one day to groups with minutesInterval
@@ -122,20 +123,12 @@ class DailyTrend {
 			} else {
 				dayRangeIndexMapValues[key] = [value]
 			}
-
-			if startDate == nil || startDate! > date {
-				startDate = date
-			}
-
-			if endDate == nil || endDate! < date {
-				endDate = date
-			}
 		}
-		// only pick up one data in one timeRange for each day
+		// only pick add one data in one timeRange for each day
 		for (key, values) in dayRangeIndexMapValues {
 			let comps = key.components(separatedBy: "_")
 			let index = Int(comps.last!)!
-			let value = values.reduce(0, {$0 + $1}) / Double(values.count)
+			let value = values.reduce(0, {$0 + $1}) / Double(values.count) // average
 			if index == 0 || index == (result.count - 1) {
 				result[0].appendValue(value)
 				result[result.count - 1].appendValue(value)
@@ -145,12 +138,13 @@ class DailyTrend {
             }
         }
 
-        if let startDate = startDate,
-           let endDate = endDate {
+		let daysDataCount = result.reduce(0, { $0 + $1.values.count })
+		let averageDaysInEachRange = Double(daysDataCount) / Double(result.count)
+		if averageDaysInEachRange > Double(MinValidDataCount) {
             for i in result.indices {
                 result[i].calculateValues()
             }
-            return (startDate, endDate, result)
+            return (result, averageDaysInEachRange)
 
         } else {
             return nil

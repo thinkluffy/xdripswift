@@ -6,4 +6,4 @@
   Copyright © 2022 zDrip. All rights reserved.
 */
 
-"daily_trend_available_days" = "%2$d 天中有 %1$d 天数据可用";
+"daily_trend_available_days" = "%2$d 天中有 %1$.1f 天数据可用";

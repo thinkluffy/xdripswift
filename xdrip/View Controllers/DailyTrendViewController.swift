@@ -217,12 +217,14 @@ extension DailyTrendViewController: DailyTrendV {
         dailyTrendChart.showNoData()
     }
 
-    func showDailyTrend(ofDate date: Date, withDays daysRange: Int, startDateOfData: Date, endDateOfData: Date, dailyTrendItems: [DailyTrend.DailyTrendItem]) {
-        DailyTrendViewController.log.d("==> showDailyTrend, daysRange: \(daysRange), \(startDateOfData) -> \(endDateOfData), items: \(dailyTrendItems.count)")
+    func showDailyTrend(ofDate date: Date,
+						withDays daysRange: Int,
+						validDays validDays: Double,
+						dailyTrendItems: [DailyTrend.DailyTrendItem]) {
+        DailyTrendViewController.log.d("==> showDailyTrend, daysRange: \(daysRange), validDays: \(validDays), items: \(dailyTrendItems.count)")
 
-        let availableDays = Int((endDateOfData.timeIntervalSince(startDateOfData) / Date.dayInSeconds).rounded())
-        statusLabel.text = R.string.dailyTrend.daily_trend_available_days(availableDays, daysRange)
-        statusLabel.textColor = availableDays < daysRange ?  ConstantsUI.warningColor : .white
+        statusLabel.text = R.string.dailyTrend.daily_trend_available_days(validDays, daysRange)
+		statusLabel.textColor = Int(validDays.rounded()) < daysRange ?  ConstantsUI.warningColor : .white
 
         loadingIndicatorView.stopAnimating()
         loadingIndicatorView.isHidden = true
