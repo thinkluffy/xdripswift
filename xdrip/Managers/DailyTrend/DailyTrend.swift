@@ -94,7 +94,9 @@ class DailyTrend {
 
     /// history: data list, normally recently 90 days
     /// minutesInterval: separate one day to groups with min Interval in minutes
-    /// returned value: (list, averageDaysInEachRange)?
+    ///
+    /// - Returns nil if not enough data
+    ///     value: (list, availableDays)?
     static func calculate(_ history: [BgReading],
                           minutesInterval: Int = 5) -> ([DailyTrendItem], Double)? {
         guard history.count > 0 else {
@@ -120,10 +122,12 @@ class DailyTrend {
 			let key = "\(month)_\(day)_\(minuteIndex)"
 			if let values = dayRangeIndexMapValues[key] {
 				dayRangeIndexMapValues[key] = values + [value]
+                
 			} else {
 				dayRangeIndexMapValues[key] = [value]
 			}
 		}
+        
 		// only pick add one data in one timeRange for each day
 		for (key, values) in dayRangeIndexMapValues {
 			let comps = key.components(separatedBy: "_")
@@ -139,12 +143,12 @@ class DailyTrend {
         }
 
 		let daysDataCount = result.reduce(0, { $0 + $1.values.count })
-		let averageDaysInEachRange = Double(daysDataCount) / Double(result.count)
-		if averageDaysInEachRange > Double(MinValidDataCount) {
+		let availableDay = Double(daysDataCount) / Double(result.count)
+		if availableDay > Double(MinValidDataCount) {
             for i in result.indices {
                 result[i].calculateValues()
             }
-            return (result, averageDaysInEachRange)
+            return (result, availableDay)
 
         } else {
             return nil

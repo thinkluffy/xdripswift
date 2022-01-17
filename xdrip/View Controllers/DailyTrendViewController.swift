@@ -218,13 +218,13 @@ extension DailyTrendViewController: DailyTrendV {
     }
 
     func showDailyTrend(ofDate date: Date,
-						withDays daysRange: Int,
-						validDays validDays: Double,
+                        withDaysRange daysRange: Int,
+						validDays: Double,
 						dailyTrendItems: [DailyTrend.DailyTrendItem]) {
         DailyTrendViewController.log.d("==> showDailyTrend, daysRange: \(daysRange), validDays: \(validDays), items: \(dailyTrendItems.count)")
 
         statusLabel.text = R.string.dailyTrend.daily_trend_available_days(validDays, daysRange)
-		statusLabel.textColor = Int(validDays.rounded()) < daysRange ?  ConstantsUI.warningColor : .white
+		statusLabel.textColor = validDays < Double(daysRange - 1) ?  ConstantsUI.warningColor : .white
 
         loadingIndicatorView.stopAnimating()
         loadingIndicatorView.isHidden = true

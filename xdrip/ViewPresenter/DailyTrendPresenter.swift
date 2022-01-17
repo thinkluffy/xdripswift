@@ -37,7 +37,7 @@ class DailyTrendPresenter: DailyTrendP {
 					to: toDate.addingTimeInterval(Double(minInterval) * Date.minuteInSeconds),
 					on: moc)
 
-                guard let (dailyTrendItems, averageDaysInEachRange) = DailyTrend.calculate(readings, minutesInterval: minInterval) else {
+                guard let (dailyTrendItems, validDays) = DailyTrend.calculate(readings, minutesInterval: minInterval) else {
                     DispatchQueue.main.async {
                         self.view?.showNoEnoughData(ofDate: date)
                     }
@@ -46,8 +46,8 @@ class DailyTrendPresenter: DailyTrendP {
 
                 DispatchQueue.main.async {
                     self.view?.showDailyTrend(ofDate: date,
-                                              withDays: daysRange,
-                                              validDays: averageDaysInEachRange,
+                                              withDaysRange: daysRange,
+                                              validDays: validDays,
                                               dailyTrendItems: dailyTrendItems)
                 }
             }
