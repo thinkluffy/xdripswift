@@ -13,7 +13,7 @@ class DailyTrendPresenter: DailyTrendP {
     private static let log = Log(type: DailyTrendPresenter.self)
 
     private weak var view: DailyTrendV?
-    
+
     private let bgReadingsAccessor = BgReadingsAccessor()
 
     init(view: DailyTrendV) {
@@ -21,12 +21,32 @@ class DailyTrendPresenter: DailyTrendP {
     }
 
     func loadData(of date: Date, withDays daysRange: Int) {
-//        let fromDate = Calendar.current.startOfDay(for: date)
-//        let toDate = Date(timeInterval: Date.dayInSeconds, since: fromDate)
-//
-//        bgReadingsAccessor.getBgReadingsAsync(from: fromDate, to: toDate) {
-//            [weak self] bgReadings in
-//            self?.view?.show(readings: bgReadings, from: fromDate, to: toDate)
-//        }
+        let toDate = Calendar.current.startOfDay(for: date) // 00:00 of the day
+        let fromDate = Date(timeInterval: -Date.dayInSeconds * Double(daysRange), since: toDate)
+
+        view?.showLoadingData()
+
+        DispatchQueue.global(qos: .userInteractive).async {
+            let moc = CoreDataManager.shared.privateChildManagedObjectContext()
+            
+            moc.performAndWait {
+                let readings = self.bgReadingsAccessor.getBgReadings(from: fromDate, to: toDate, on: moc)
+
+                guard let (startDate, endDate, dailyTrendItems) = DailyTrend.calculate(readings, minutesInterval: 10) else {
+                    DispatchQueue.main.async {
+                        self.view?.showNoEnoughData(ofDate: date)
+                    }
+                    return
+                }
+
+                DispatchQueue.main.async {
+                    self.view?.showDailyTrend(ofDate: date,
+                                              withDays: daysRange,
+                                              startDateOfData: startDate,
+                                              endDateOfData: endDate,
+                                              dailyTrendItems: dailyTrendItems)
+                }
+            }
+        }
     }
 }

@@ -62,3 +62,11 @@
 "wait_a_moment" = "Wait a Moment";
 "change_per_min" = "%@/min";
 "feature_is_under_development" = "The feature is under development.";
+"daily_trend" = "Daily Patterns";
+"decile" = "Decile";
+"quartile" = "Quartile";
+"median" = "Median";
+"seventyFifthPercentile" = "75 Percentile";
+"ninetyPercentile" = "90 Percentile";
+"loading" = "Loading";
+"not_enough_data" = "Not enough data";

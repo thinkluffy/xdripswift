@@ -148,23 +148,15 @@ final class RootViewController: UIViewController {
     /// when was the last notification created with bgreading, setting to 1 1 1970 initially to avoid having to unwrap it
     private var timeStampLastBGNotification = Date(timeIntervalSince1970: 0)
 
-    private var selectedChartHoursId = ChartHours.H3
-
-    private static let StatisticsDaysToday = 0
-    private static let StatisticsDays7D = 1
-    private static let StatisticsDays14D = 2
-    private static let StatisticsDays30D = 3
-    private static let StatisticsDays90D = 4
+    private var selectedChartHours = ChartHours(rawValue: UserDefaults.standard.chartWidthInHours) ?? ChartHours.h3
 
     private var alertSheet: SlideInSheet?
 
     private var presenter: RootP!
 
-    // MARK: - overriden functions
-
     // set the status bar content colour to light to match new darker theme
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        .lightContent
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -201,62 +193,33 @@ final class RootViewController: UIViewController {
 
         // chart hours
         var chartHoursItems = [SingleSelectionItem]()
-        chartHoursItems.append(SingleSelectionItem(id: ChartHours.H1, title: "1H"))
-        chartHoursItems.append(SingleSelectionItem(id: ChartHours.H3, title: "3H"))
-        chartHoursItems.append(SingleSelectionItem(id: ChartHours.H6, title: "6H"))
-        chartHoursItems.append(SingleSelectionItem(id: ChartHours.H12, title: "12H"))
-        chartHoursItems.append(SingleSelectionItem(id: ChartHours.H24, title: "24H"))
+        chartHoursItems.append(SingleSelectionItem(id: ChartHours.h1.rawValue, title: "1H"))
+        chartHoursItems.append(SingleSelectionItem(id: ChartHours.h3.rawValue, title: "3H"))
+        chartHoursItems.append(SingleSelectionItem(id: ChartHours.h6.rawValue, title: "6H"))
+        chartHoursItems.append(SingleSelectionItem(id: ChartHours.h12.rawValue, title: "12H"))
+        chartHoursItems.append(SingleSelectionItem(id: ChartHours.h24.rawValue, title: "24H"))
         chartHoursSelection.show(items: chartHoursItems)
         chartHoursSelection.delegate = self
-
-        switch UserDefaults.standard.chartWidthInHours {
-        case 1:
-            selectedChartHoursId = ChartHours.H1
-        case 3:
-            selectedChartHoursId = ChartHours.H3
-        case 6:
-            selectedChartHoursId = ChartHours.H6
-        case 12:
-            selectedChartHoursId = ChartHours.H12
-        case 24:
-            selectedChartHoursId = ChartHours.H24
-        default:
-            selectedChartHoursId = ChartHours.H6
-        }
-        chartHoursSelection.select(id: selectedChartHoursId, triggerCallback: false)
-
+        
+        chartHoursSelection.select(id: selectedChartHours.rawValue, triggerCallback: false)
 
         // statistics time range
         var daysToUseStatisticsItems = [SingleSelectionItem]()
-        daysToUseStatisticsItems.append(SingleSelectionItem(id: RootViewController.StatisticsDaysToday,
+        daysToUseStatisticsItems.append(SingleSelectionItem(id: ChartDays.today.rawValue,
                 title: R.string.common.today()))
-        daysToUseStatisticsItems.append(SingleSelectionItem(id: RootViewController.StatisticsDays7D,
+        daysToUseStatisticsItems.append(SingleSelectionItem(id: ChartDays.day7.rawValue,
                 title: "7D"))
-        daysToUseStatisticsItems.append(SingleSelectionItem(id: RootViewController.StatisticsDays14D,
+        daysToUseStatisticsItems.append(SingleSelectionItem(id: ChartDays.day14.rawValue,
                 title: "14D"))
-        daysToUseStatisticsItems.append(SingleSelectionItem(id: RootViewController.StatisticsDays30D,
+        daysToUseStatisticsItems.append(SingleSelectionItem(id: ChartDays.day30.rawValue,
                 title: "30D"))
-        daysToUseStatisticsItems.append(SingleSelectionItem(id: RootViewController.StatisticsDays90D,
+        daysToUseStatisticsItems.append(SingleSelectionItem(id: ChartDays.day90.rawValue,
                 title: "90D"))
         statisticsDaysSelection.show(items: daysToUseStatisticsItems)
         statisticsDaysSelection.delegate = self
 
-        let statisticsDays: Int
-        switch UserDefaults.standard.daysToUseStatistics {
-        case 0:
-            statisticsDays = RootViewController.StatisticsDaysToday
-        case 7:
-            statisticsDays = RootViewController.StatisticsDays7D
-        case 14:
-            statisticsDays = RootViewController.StatisticsDays14D
-        case 30:
-            statisticsDays = RootViewController.StatisticsDays30D
-        case 90:
-            statisticsDays = RootViewController.StatisticsDays90D
-        default:
-            statisticsDays = RootViewController.StatisticsDaysToday
-        }
-        statisticsDaysSelection.select(id: statisticsDays, triggerCallback: false)
+        let statisticsDays = ChartDays(rawValue: UserDefaults.standard.daysToUseStatistics) ?? ChartDays.today
+        statisticsDaysSelection.select(id: statisticsDays.rawValue, triggerCallback: false)
 
         // enable or disable the buttons 'sensor' and 'calibrate' on top, depending on master or follower
         changeButtonsStatusTo(enabled: UserDefaults.standard.isMaster)
@@ -265,7 +228,7 @@ final class RootViewController: UIViewController {
         // completion handler is called when finished. This gives the app time to already continue setup which is independent of coredata, like initializing the views
         setupApplicationData()
 
-        // housekeeper should be non nil here, kall housekeeper
+        // housekeeper should be non nil here, call housekeeper
         houseKeeper.doAppStartUpHouseKeeping()
 
         // create badge counter
@@ -759,7 +722,7 @@ final class RootViewController: UIViewController {
 
         sensorIndicator.addTarget(self, action: #selector(sensorIndicatorDidClick(_:)), for: .touchUpInside)
 
-        glucoseChart.chartHours = selectedChartHoursId
+        glucoseChart.chartHours = selectedChartHours
         glucoseChart.isLongPressSupported = true
         glucoseChart.delegate = self
     }
@@ -1737,39 +1700,12 @@ extension RootViewController: SingleSelectionDelegate {
 
     func singleSelectionItemDidSelect(_ singleSelection: SingleSelection, item: SingleSelectionItem) {
         if singleSelection == chartHoursSelection {
-            selectedChartHoursId = item.id
-            switch item.id {
-            case ChartHours.H1:
-                UserDefaults.standard.chartWidthInHours = 1
-            case ChartHours.H3:
-                UserDefaults.standard.chartWidthInHours = 3
-            case ChartHours.H6:
-                UserDefaults.standard.chartWidthInHours = 6
-            case ChartHours.H12:
-                UserDefaults.standard.chartWidthInHours = 12
-            case ChartHours.H24:
-                UserDefaults.standard.chartWidthInHours = 24
-            default:
-                break
-            }
-            glucoseChart.chartHours = item.id
+            selectedChartHours = ChartHours(rawValue: item.id) ?? ChartHours.h3
+            UserDefaults.standard.chartWidthInHours = selectedChartHours.rawValue
+            glucoseChart.chartHours = selectedChartHours
 
         } else if singleSelection == statisticsDaysSelection {
-            switch item.id {
-            case RootViewController.StatisticsDaysToday:
-                UserDefaults.standard.daysToUseStatistics = 0
-            case RootViewController.StatisticsDays7D:
-                UserDefaults.standard.daysToUseStatistics = 7
-            case RootViewController.StatisticsDays14D:
-                UserDefaults.standard.daysToUseStatistics = 14
-            case RootViewController.StatisticsDays30D:
-                UserDefaults.standard.daysToUseStatistics = 30
-            case RootViewController.StatisticsDays90D:
-                UserDefaults.standard.daysToUseStatistics = 90
-            default:
-                break
-            }
-
+            UserDefaults.standard.daysToUseStatistics = item.id
             updateStatistics(animatePieChart: false)
         }
     }

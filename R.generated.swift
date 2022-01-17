@@ -1609,7 +1609,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.string` struct is generated, and contains static references to 19 localization tables.
+  /// This `R.string` struct is generated, and contains static references to 20 localization tables.
   struct string {
     /// This `R.string.alertTypesSettingsView` struct is generated, and contains static references to 16 localization keys.
     struct alertTypesSettingsView {
@@ -3087,7 +3087,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.common` struct is generated, and contains static references to 64 localization keys.
+    /// This `R.string.common` struct is generated, and contains static references to 72 localization keys.
     struct common {
       /// en translation: %@ must not be used to make medical decisions. It is a research and education tool only and is provided as-is without warranty of any kind, either expressed or implied, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose. The entire risk as to the quality and performance of the program is with you. Should the program prove defective, you assume the cost of all necessary servicing, repair, or correction.
       ///
@@ -3101,6 +3101,14 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let howManyMinutes = Rswift.StringResource(key: "howManyMinutes", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: 75 Percentile
+      ///
+      /// Locales: en, zh
+      static let seventyFifthPercentile = Rswift.StringResource(key: "seventyFifthPercentile", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: 90 Percentile
+      ///
+      /// Locales: en, zh
+      static let ninetyPercentile = Rswift.StringResource(key: "ninetyPercentile", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: About
       ///
       /// Locales: en, zh
@@ -3133,6 +3141,14 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let common_cancel = Rswift.StringResource(key: "common_cancel", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Daily Patterns
+      ///
+      /// Locales: en, zh
+      static let daily_trend = Rswift.StringResource(key: "daily_trend", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Decile
+      ///
+      /// Locales: en, zh
+      static let decile = Rswift.StringResource(key: "decile", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Default
       ///
       /// Locales: en, zh
@@ -3197,10 +3213,18 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let common_low = Rswift.StringResource(key: "common_low", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Loading
+      ///
+      /// Locales: en, zh
+      static let loading = Rswift.StringResource(key: "loading", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Low
       ///
       /// Locales: en, zh
       static let common_statistics_low = Rswift.StringResource(key: "common_statistics_low", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Median
+      ///
+      /// Locales: en, zh
+      static let median = Rswift.StringResource(key: "median", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Name
       ///
       /// Locales: en, zh
@@ -3209,6 +3233,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let no = Rswift.StringResource(key: "no", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Not enough data
+      ///
+      /// Locales: en, zh
+      static let not_enough_data = Rswift.StringResource(key: "not_enough_data", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: OK
       ///
       /// Locales: en, zh
@@ -3233,6 +3261,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let privacyPolicy = Rswift.StringResource(key: "privacyPolicy", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Quartile
+      ///
+      /// Locales: en, zh
+      static let quartile = Rswift.StringResource(key: "quartile", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Readings
       ///
       /// Locales: en, zh
@@ -3397,6 +3429,36 @@ struct R: Rswift.Validatable {
         return String(format: format, locale: locale, value1)
       }
 
+      /// en translation: 75 Percentile
+      ///
+      /// Locales: en, zh
+      static func seventyFifthPercentile(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("seventyFifthPercentile", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "seventyFifthPercentile"
+        }
+
+        return NSLocalizedString("seventyFifthPercentile", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: 90 Percentile
+      ///
+      /// Locales: en, zh
+      static func ninetyPercentile(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("ninetyPercentile", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "ninetyPercentile"
+        }
+
+        return NSLocalizedString("ninetyPercentile", tableName: "Common", bundle: bundle, comment: "")
+      }
+
       /// en translation: About
       ///
       /// Locales: en, zh
@@ -3517,6 +3579,36 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("common_cancel", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Daily Patterns
+      ///
+      /// Locales: en, zh
+      static func daily_trend(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("daily_trend", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "daily_trend"
+        }
+
+        return NSLocalizedString("daily_trend", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Decile
+      ///
+      /// Locales: en, zh
+      static func decile(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("decile", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "decile"
+        }
+
+        return NSLocalizedString("decile", tableName: "Common", bundle: bundle, comment: "")
       }
 
       /// en translation: Default
@@ -3759,6 +3851,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("common_low", tableName: "Common", bundle: bundle, comment: "")
       }
 
+      /// en translation: Loading
+      ///
+      /// Locales: en, zh
+      static func loading(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("loading", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "loading"
+        }
+
+        return NSLocalizedString("loading", tableName: "Common", bundle: bundle, comment: "")
+      }
+
       /// en translation: Low
       ///
       /// Locales: en, zh
@@ -3772,6 +3879,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("common_statistics_low", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Median
+      ///
+      /// Locales: en, zh
+      static func median(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("median", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "median"
+        }
+
+        return NSLocalizedString("median", tableName: "Common", bundle: bundle, comment: "")
       }
 
       /// en translation: Name
@@ -3802,6 +3924,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("no", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Not enough data
+      ///
+      /// Locales: en, zh
+      static func not_enough_data(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("not_enough_data", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "not_enough_data"
+        }
+
+        return NSLocalizedString("not_enough_data", tableName: "Common", bundle: bundle, comment: "")
       }
 
       /// en translation: OK
@@ -3892,6 +4029,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("privacyPolicy", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Quartile
+      ///
+      /// Locales: en, zh
+      static func quartile(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("quartile", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "quartile"
+        }
+
+        return NSLocalizedString("quartile", tableName: "Common", bundle: bundle, comment: "")
       }
 
       /// en translation: Readings
@@ -4312,6 +4464,33 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("yellow", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      fileprivate init() {}
+    }
+
+    /// This `R.string.dailyTrend` struct is generated, and contains static references to 1 localization keys.
+    struct dailyTrend {
+      /// en translation: Data available for %1$d of %2$d days
+      ///
+      /// Locales: en, zh
+      static let daily_trend_available_days = Rswift.StringResource(key: "daily_trend_available_days", tableName: "DailyTrend", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+
+      /// en translation: Data available for %1$d of %2$d days
+      ///
+      /// Locales: en, zh
+      static func daily_trend_available_days(_ value1: Int, _ value2: Int, preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          let format = NSLocalizedString("daily_trend_available_days", tableName: "DailyTrend", bundle: hostingBundle, comment: "")
+          return String(format: format, locale: applicationLocale, value1, value2)
+        }
+
+        guard let (locale, bundle) = localeBundle(tableName: "DailyTrend", preferredLanguages: preferredLanguages) else {
+          return "daily_trend_available_days"
+        }
+
+        let format = NSLocalizedString("daily_trend_available_days", tableName: "DailyTrend", bundle: bundle, comment: "")
+        return String(format: format, locale: locale, value1, value2)
       }
 
       fileprivate init() {}

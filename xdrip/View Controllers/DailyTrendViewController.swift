@@ -16,14 +16,28 @@ class DailyTrendViewController: UIViewController {
 
     @IBOutlet weak var titleBar: UIView!
     @IBOutlet weak var chartCard: UIView!
-    @IBOutlet weak var bgTimeLabel: UILabel!
-    @IBOutlet weak var bgValueLabel: UILabel!
+    
+    @IBOutlet weak var timeLabel: UILabel!
 
-    @IBOutlet weak var glucoseChart: GlucoseChart!
-    
+    @IBOutlet weak var decileTitleLabel: UILabel!
+    @IBOutlet weak var quartileTitleLabel: UILabel!
+    @IBOutlet weak var medianTitleLabel: UILabel!
+    @IBOutlet weak var seventyFifthPercentileTitleLabel: UILabel!
+    @IBOutlet weak var ninetyPercentileTitleLabel: UILabel!
+
+    @IBOutlet weak var decileLabel: UILabel!
+    @IBOutlet weak var quartileLabel: UILabel!
+    @IBOutlet weak var medianLabel: UILabel!
+    @IBOutlet weak var seventyFifthPercentileLabel: UILabel!
+    @IBOutlet weak var ninetyPercentileLabel: UILabel!
+
+    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var loadingIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var dailyTrendChart: DailyTrendChart!
+
     private var presenter: DailyTrendP!
-    
-    private var selectedChartDaysId = ChartDays.Day7
+
+    private var selectedChartDays = ChartDays.day7
     private var showingDate: Date?
 
     private lazy var exitButton: UIButton = {
@@ -33,62 +47,60 @@ class DailyTrendViewController: UIViewController {
     }()
 
     private lazy var calendarTitle: CalendarTitle = {
-        let calendarTitle = CalendarTitle()
-        return calendarTitle
+        CalendarTitle()
     }()
 
     private lazy var daysSelection: SingleSelection = {
-        let singleSelection = SingleSelection()
-        return singleSelection
+        SingleSelection()
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         instancePresenter()
-        
+
         setupView()
-        
-        presenter.loadData(of: Date(), withDays: selectedChartDaysId)
+
+        presenter.loadData(of: Date(), withDays: selectedChartDays.rawValue)
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         presenter.onViewDidAppear()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         presenter.onViewWillDisappear()
         super.viewWillDisappear(animated)
     }
-    
+
     // make the ViewController landscape mode
     override public var shouldAutorotate: Bool {
         false
     }
-    
+
     override public var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         .landscapeLeft
     }
-    
+
     override public var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
         .landscapeLeft
     }
-    
+
     private func instancePresenter() {
         presenter = DailyTrendPresenter(view: self)
     }
-    
+
     private func setupView() {
         titleBar.addSubview(exitButton)
         titleBar.addSubview(calendarTitle)
         titleBar.addSubview(daysSelection)
-        
+
         exitButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview().offset(20)
         }
-        
+
         calendarTitle.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalTo(exitButton.snp.trailing).offset(20)
@@ -99,73 +111,194 @@ class DailyTrendViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-10)
             make.height.equalToSuperview()
         }
-        
+
         exitButton.addTarget(self, action: #selector(exitButtonDidClick(_:)), for: .touchUpInside)
         calendarTitle.delegate = self
 
         var selectionItems = [SingleSelectionItem]()
-        selectionItems.append(SingleSelectionItem(id: ChartDays.Day7, title: "7D"))
-        selectionItems.append(SingleSelectionItem(id: ChartDays.Day14, title: "14D"))
-        selectionItems.append(SingleSelectionItem(id: ChartDays.Day30, title: "30D"))
-        selectionItems.append(SingleSelectionItem(id: ChartDays.Day90, title: "90D"))
+        selectionItems.append(SingleSelectionItem(id: ChartDays.day7.rawValue, title: "7D"))
+        selectionItems.append(SingleSelectionItem(id: ChartDays.day14.rawValue, title: "14D"))
+        selectionItems.append(SingleSelectionItem(id: ChartDays.day30.rawValue, title: "30D"))
+        selectionItems.append(SingleSelectionItem(id: ChartDays.day90.rawValue, title: "90D"))
 
         daysSelection.show(items: selectionItems)
         daysSelection.delegate = self
-        daysSelection.select(id: selectedChartDaysId, triggerCallback: false)
-        
+        daysSelection.select(id: selectedChartDays.rawValue, triggerCallback: false)
+
+        decileTitleLabel.text = R.string.common.decile()
+        quartileTitleLabel.text = R.string.common.quartile()
+        medianTitleLabel.text = R.string.common.median()
+        seventyFifthPercentileTitleLabel.text = R.string.common.seventyFifthPercentile()
+        ninetyPercentileTitleLabel.text = R.string.common.ninetyPercentile()
+
+        let valueLabelFont = UIFont.monospacedDigitSystemFont(ofSize: 14, weight: .light)
+        decileLabel.font = valueLabelFont
+        quartileLabel.font = valueLabelFont
+        seventyFifthPercentileLabel.font = valueLabelFont
+        ninetyPercentileLabel.font = valueLabelFont
+
+        medianLabel.font = .monospacedDigitSystemFont(ofSize: 14, weight: .heavy)
+
+        let chartCardTapGesture = UITapGestureRecognizer { [unowned self] _ in
+            dailyTrendChart.unHighlightAll()
+        }
+        chartCard.addGestureRecognizer(chartCardTapGesture)
+
         setupChart()
     }
 
     private func setupChart() {
-        glucoseChart.delegate = self
-        glucoseChart.dragEnabled = true
-        glucoseChart.highlightEnabled = true
-        glucoseChart.dateFormat = "HH:mm"
-        glucoseChart.chartHours = ChartHours.H24
+        dailyTrendChart.delegate = self
+        dailyTrendChart.dragEnabled = true
+        dailyTrendChart.highlightEnabled = true
+        dailyTrendChart.dateFormat = "HH:mm"
     }
 
     @objc private func exitButtonDidClick(_ button: UIButton) {
         dismiss(animated: false)
     }
+
+    private func resetValueLabels() {
+        decileLabel.text = "---"
+        decileLabel.textColor = .systemGray
+
+        quartileLabel.text = "---"
+        quartileLabel.textColor = .systemGray
+
+        medianLabel.text = "---"
+        medianLabel.textColor = .systemGray
+
+        seventyFifthPercentileLabel.text = "---"
+        seventyFifthPercentileLabel.textColor = .systemGray
+
+        ninetyPercentileLabel.text = "---"
+        ninetyPercentileLabel.textColor = .systemGray
+    }
 }
 
 extension DailyTrendViewController: DailyTrendV {
 
-}
+    func showLoadingData() {
+        statusLabel.text = R.string.common.loading()
+        statusLabel.textColor = .white
 
-extension DailyTrendViewController: GlucoseChartDelegate {
-
-    func chartReadingSelected(_ glucoseChart: GlucoseChart, reading: BgReading) {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "HH:mm"
-//        let timestamp = dateFormatter.string(from: reading.timeStamp)
-//
-//        let showMgDl = UserDefaults.standard.bloodGlucoseUnitIsMgDl
-//        DailyTrendViewController.log.d("==> chartValueSelected, (\(timestamp), \(reading.calculatedValue.mgdlToMmol(mgdl: showMgDl)))")
-//
-//        bgTimeLabel.text = timestamp
-//        bgValueLabel.text = reading.calculatedValue.mgdlToMmolAndToString(mgdl: showMgDl)
-//
-//        let urgentHighInMg = UserDefaults.standard.urgentHighMarkValue
-//        let highInMg = UserDefaults.standard.highMarkValue
-//        let lowInMg = UserDefaults.standard.lowMarkValue
-//        let urgentLowInMg = UserDefaults.standard.urgentLowMarkValue
-//
-//        if reading.calculatedValue >= urgentHighInMg || reading.calculatedValue <= urgentLowInMg {
-//            bgValueLabel.textColor = ConstantsGlucoseChart.glucoseUrgentRangeColor
-//
-//        } else if reading.calculatedValue >= highInMg || reading.calculatedValue <= lowInMg {
-//            bgValueLabel.textColor = ConstantsGlucoseChart.glucoseNotUrgentRangeColor
-//
-//        } else {
-//            bgValueLabel.textColor = ConstantsGlucoseChart.glucoseInRangeColor
-//        }
+        loadingIndicatorView.isHidden = false
+        loadingIndicatorView.startAnimating()
+        
+        calendarTitle.isUserInteractionEnabled = false
+        daysSelection.isUserInteractionEnabled = false
     }
 
-    func chartReadingNothingSelected(_ glucoseChart: GlucoseChart) {
-        bgTimeLabel.text = "--:--"
-        bgValueLabel.text = "---"
-        bgValueLabel.textColor = .white
+    func showNoEnoughData(ofDate date: Date) {
+        DailyTrendViewController.log.d("==> showNoEnoughData")
+
+        statusLabel.text = R.string.common.not_enough_data()
+        statusLabel.textColor = .white
+
+        loadingIndicatorView.stopAnimating()
+        loadingIndicatorView.isHidden = true
+        
+        calendarTitle.isUserInteractionEnabled = true
+        daysSelection.isUserInteractionEnabled = true
+        
+        // setup calendar title
+        calendarTitle.dateTime = date
+        let isToday = Calendar.current.isDateInToday(date)
+        calendarTitle.showRightArrow = !isToday
+
+        // reset selected bg time and value
+        dailyTrendChart.unHighlightAll()
+        timeLabel.text = "--:--"
+
+        resetValueLabels()
+
+        showingDate = date
+
+        dailyTrendChart.showNoData()
+    }
+
+    func showDailyTrend(ofDate date: Date, withDays daysRange: Int, startDateOfData: Date, endDateOfData: Date, dailyTrendItems: [DailyTrend.DailyTrendItem]) {
+        DailyTrendViewController.log.d("==> showDailyTrend, daysRange: \(daysRange), \(startDateOfData) -> \(endDateOfData), items: \(dailyTrendItems.count)")
+
+        let availableDays = Int((endDateOfData.timeIntervalSince(startDateOfData) / Date.dayInSeconds).rounded())
+        statusLabel.text = R.string.dailyTrend.daily_trend_available_days(availableDays, daysRange)
+        statusLabel.textColor = availableDays < daysRange ?  ConstantsUI.warningColor : .white
+
+        loadingIndicatorView.stopAnimating()
+        loadingIndicatorView.isHidden = true
+        
+        calendarTitle.isUserInteractionEnabled = true
+        daysSelection.isUserInteractionEnabled = true
+        
+        // setup calendar title
+        calendarTitle.dateTime = date
+        let isToday = Calendar.current.isDateInToday(date)
+        calendarTitle.showRightArrow = !isToday
+
+        // reset selected bg time and value
+        dailyTrendChart.unHighlightAll()
+        timeLabel.text = "--:--"
+
+        resetValueLabels()
+
+        showingDate = date
+
+        dailyTrendChart.show(dailyTrendItems: dailyTrendItems)
+    }
+}
+
+extension DailyTrendViewController: DailyTrendChartDelegate {
+
+    func dailyTrendChartItemSelected(_ chart: DailyTrendChart, item: DailyTrend.DailyTrendItem) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        let timestamp = dateFormatter.string(from: Date(timeIntervalSince1970: item.timeInterval))
+
+        if item.isValid {
+            let showMgDl = UserDefaults.standard.bloodGlucoseUnitIsMgDl
+
+            timeLabel.text = timestamp
+
+            let urgentHighInMg = UserDefaults.standard.urgentHighMarkValue
+            let highInMg = UserDefaults.standard.highMarkValue
+            let lowInMg = UserDefaults.standard.lowMarkValue
+            let urgentLowInMg = UserDefaults.standard.urgentLowMarkValue
+
+            decileLabel.text = item.high!.mgdlToMmolAndToString(mgdl: showMgDl, withUnit: true)
+            quartileLabel.text = item.medianHigh!.mgdlToMmolAndToString(mgdl: showMgDl, withUnit: true)
+            medianLabel.text = item.median!.mgdlToMmolAndToString(mgdl: showMgDl, withUnit: true)
+            seventyFifthPercentileLabel.text = item.medianLow!.mgdlToMmolAndToString(mgdl: showMgDl, withUnit: true)
+            ninetyPercentileLabel.text = item.low!.mgdlToMmolAndToString(mgdl: showMgDl, withUnit: true)
+
+            func colorOfBg(_ bgInMg: Double) -> UIColor {
+                if bgInMg >= urgentHighInMg || bgInMg <= urgentLowInMg {
+                    return ConstantsGlucoseChart.glucoseUrgentRangeColor
+
+                } else if bgInMg >= highInMg || bgInMg <= lowInMg {
+                    return ConstantsGlucoseChart.glucoseNotUrgentRangeColor
+
+                } else {
+                    return ConstantsGlucoseChart.glucoseInRangeColor
+                }
+            }
+
+            decileLabel.textColor = colorOfBg(item.high!)
+            quartileLabel.textColor = colorOfBg(item.medianHigh!)
+            medianLabel.textColor = colorOfBg(item.median!)
+            seventyFifthPercentileLabel.textColor = colorOfBg(item.medianLow!)
+            ninetyPercentileLabel.textColor = colorOfBg(item.low!)
+
+        } else {
+            timeLabel.text = "--:--"
+            resetValueLabels()
+        }
+    }
+
+    func dailyTrendChartItemNothingSelected(_ chart: DailyTrendChart) {
+        timeLabel.text = "--:--"
+
+        resetValueLabels()
     }
 }
 
@@ -173,13 +306,13 @@ extension DailyTrendViewController: CalendarTitleDelegate {
 
     func calendarLeftButtonDidClick(_ calendarTitle: CalendarTitle, currentTime: Date) {
         if let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: currentTime) {
-            presenter.loadData(of: yesterday, withDays: selectedChartDaysId)
+            presenter.loadData(of: yesterday, withDays: selectedChartDays.rawValue)
         }
     }
 
     func calendarRightButtonDidClick(_ calendarTitle: CalendarTitle, currentTime: Date) {
         if let nextDay = Calendar.current.date(byAdding: .day, value: 1, to: currentTime) {
-            presenter.loadData(of: nextDay, withDays: selectedChartDaysId)
+            presenter.loadData(of: nextDay, withDays: selectedChartDays.rawValue)
         }
     }
 
@@ -202,9 +335,13 @@ extension DailyTrendViewController: SingleSelectionDelegate {
     }
 
     func singleSelectionItemDidSelect(_ singleSelection: SingleSelection, item: SingleSelectionItem) {
-        selectedChartDaysId = item.id
+        guard let chartDays = ChartDays(rawValue: item.id) else {
+            return
+        }
+
+        selectedChartDays = chartDays
         if let showingDate = showingDate {
-            presenter.loadData(of: showingDate, withDays: selectedChartDaysId)
+            presenter.loadData(of: showingDate, withDays: selectedChartDays.rawValue)
         }
     }
 }
@@ -218,7 +355,7 @@ extension DailyTrendViewController: DatePickerSheetContentDelegate {
         }
 
         sheetContent.sheet?.dismissView()
-        presenter.loadData(of: date, withDays: selectedChartDaysId)
+        presenter.loadData(of: date, withDays: selectedChartDays.rawValue)
     }
 }
 

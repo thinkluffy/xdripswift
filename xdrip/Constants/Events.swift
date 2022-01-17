@@ -16,6 +16,8 @@ enum Events {
 
     // MARK: - analytics events
 
+    static let appUpdate = "appUpdate"
+
     static let prefixBgAlert = "bgAlert_"
     static let prefixNewSensor = "newSensor_"
     static let prefixStartSensor = "startSensor_"

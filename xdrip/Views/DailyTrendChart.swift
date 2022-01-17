@@ -1,38 +1,27 @@
 //
-//  GlucoseChart.swift
+//  DailyTrendChart.swift
 //  xdrip
 //
-//  Created by Yuanbin Cai on 2021/11/27.
-//  Copyright © 2021 Johan Degraeve. All rights reserved.
+//  Created by Yuanbin Cai on 2022/1/15.
+//  Copyright © 2022 zDrip. All rights reserved.
 //
+
+import UIKit
 
 import UIKit
 import Charts
 
-protocol GlucoseChartDelegate: AnyObject {
+protocol DailyTrendChartDelegate: AnyObject {
 
-    func chartReadingSelected(_ glucoseChart: GlucoseChart, reading: BgReading)
+    func dailyTrendChartItemSelected(_ chart: DailyTrendChart, item: DailyTrend.DailyTrendItem)
 
-    func chartReadingNothingSelected(_ glucoseChart: GlucoseChart)
+    func dailyTrendChartItemNothingSelected(_ chart: DailyTrendChart)
 
-    func chartDidLongPressed(_ glucoseChart: GlucoseChart)
 }
 
-extension GlucoseChartDelegate {
+class DailyTrendChart: UIView {
 
-    func chartReadingSelected(_ glucoseChart: GlucoseChart, reading: BgReading) {
-    }
-
-    func chartReadingNothingSelected(_ glucoseChart: GlucoseChart) {
-    }
-
-    func chartDidLongPressed(_ glucoseChart: GlucoseChart) {
-    }
-}
-
-class GlucoseChart: UIView {
-
-    private static let log = Log(type: GlucoseChart.self)
+    private static let log = Log(type: DailyTrendChart.self)
 
     private lazy var chartView = LineChartView()
 
@@ -44,12 +33,6 @@ class GlucoseChart: UIView {
 
     private var chartHistoryDataSet: LineChartDataSet?
     private var chartCurrentOneDataSet: LineChartDataSet?
-
-    var chartHours = ChartHours.h3 {
-        didSet {
-            applyChartHours()
-        }
-    }
 
     var dragMoveHighlightFirst: Bool {
         get {
@@ -84,7 +67,7 @@ class GlucoseChart: UIView {
 
     var isLongPressSupported = false
 
-    weak var delegate: GlucoseChartDelegate?
+    weak var delegate: DailyTrendChartDelegate?
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -106,13 +89,6 @@ class GlucoseChart: UIView {
         setupChart()
         applySettings()
         showNoData()
-        
-        let longPressRecognizer = UILongPressGestureRecognizer(closure: { recognizer in
-            if self.isLongPressSupported {
-                self.delegate?.chartDidLongPressed(self)
-            }
-        })
-        chartView.addGestureRecognizer(longPressRecognizer)
     }
 
     private func setupChart() {
@@ -133,14 +109,11 @@ class GlucoseChart: UIView {
         xAxis.gridLineWidth = 2
         xAxis.axisLineColor = ConstantsUI.mainBackgroundColor
         xAxis.axisLineWidth = 2
-        if chartHours == .h24 || chartHours == .h12 {
-            xAxis.granularity = Date.hourInSeconds * 3 // 2 hours do not work, why?
-
-        } else {
-            xAxis.granularity = Date.hourInSeconds
-        }
+        xAxis.granularity = Date.hourInSeconds * 3 // 2 hours do not work, why?
         xAxis.labelCount = 13 // make the x labels step by 1 hour, do not know why
-
+        xAxis.axisMinimum = 0
+        xAxis.axisMaximum = Date.dayInSeconds
+        
         chartView.leftAxis.enabled = false
 
         // leave space for limit labels outside viewport
@@ -151,7 +124,7 @@ class GlucoseChart: UIView {
         yAxis.drawLabelsEnabled = false
         yAxis.axisLineColor = ConstantsUI.mainBackgroundColor
         yAxis.axisLineWidth = 2
-
+        
         setupLimitLines()
     }
 
@@ -250,11 +223,11 @@ class GlucoseChart: UIView {
     }
 
     func cleanUpMemory() {
-        GlucoseChart.log.d("==> cleanUpMemory")
+        DailyTrendChart.log.d("==> cleanUpMemory")
         showNoData()
     }
 
-    private func showNoData() {
+    func showNoData() {
         // put a placeholder to avoid showing default No Data view
         var placeholderEntries = [ChartDataEntry]()
         let placeholderEntry = ChartDataEntry(x: chartView.xAxis.axisMinimum,
@@ -273,18 +246,16 @@ class GlucoseChart: UIView {
         chartView.data = data
     }
     
-    func show(readings: [BgReading]?, from fromDate: Date, to toDate: Date, aheadSeconds: Double = 0) {
-        GlucoseChart.log.d("==> showReadings")
-
+    func show(dailyTrendItems: [DailyTrend.DailyTrendItem]) {
+        DailyTrendChart.log.d("==> showDailyTrendItems")
+        
         applySettings()
-
+        
         // setup chart
         let showAsMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
 
         let urgentHighInMg = UserDefaults.standard.urgentHighMarkValue
-        let highInMg = UserDefaults.standard.highMarkValue
         let lowInMg = UserDefaults.standard.lowMarkValue
-        let urgentLowInMg = UserDefaults.standard.urgentLowMarkValue
 
         // to avoid labels overlapping
         if abs(urgentHighInMg - UserDefaults.standard.chartHeight) < 30 {
@@ -294,182 +265,127 @@ class GlucoseChart: UIView {
         if abs(lowInMg - Constants.minBgMgDl) < 30 {
             rangeBottomLine.label = ""
         }
-
-        chartView.xAxis.axisMinimum = fromDate.timeIntervalSince1970
-        // append 10 minutes to make the current dot more visible
-        chartView.xAxis.axisMaximum = toDate.timeIntervalSince1970 + aheadSeconds
         
-        guard let readings = readings, !readings.isEmpty else {
-            GlucoseChart.log.i("readings are nil, nothing to show")
+        guard !dailyTrendItems.isEmpty else {
+            DailyTrendChart.log.i("dailyTrendItems are nil, nothing to show")
             showNoData()
             return
         }
 
-        var values = [ChartDataEntry]()
-        var currentValues = [ChartDataEntry]()
+        var highValues = [ChartDataEntry]()
+        var lowValues = [ChartDataEntry]()
 
-        let filteredBgReadings = filterReadingsIfNeeded(readings)
+        var medianHighValues = [ChartDataEntry]()
+        var medianLowValues = [ChartDataEntry]()
 
-        let isLastReadingCurrent: Bool
-        if let lr = filteredBgReadings.last, Date().timeIntervalSince(lr.timeStamp) < Date.minuteInSeconds * 11 {
-            isLastReadingCurrent = true
+        var medianValues = [ChartDataEntry]()
 
-        } else {
-            isLastReadingCurrent = false
-        }
+        for item in dailyTrendItems {
+            if item.isValid, let median = item.median,
+               let high = item.high, let low = item.low,
+               let medianHigh = item.medianHigh, let medianLow = item.medianLow {
 
-        var circleColors = [NSUIColor]()
-        for (i, r) in filteredBgReadings.enumerated() {
-            let bgValue = showAsMg ? r.calculatedValue : r.calculatedValue.mgdlToMmol()
-            let chartDataEntry = ChartDataEntry(x: r.timeStamp.timeIntervalSince1970, y: bgValue, data: r)
+                let highEntry = ChartDataEntry(x: item.timeInterval, y: showAsMg ? high : high.mgdlToMmol())
+                highValues.append(highEntry)
+               
+                let lowEntry = ChartDataEntry(x: item.timeInterval, y: showAsMg ? low : low.mgdlToMmol())
+                lowValues.append(lowEntry)
 
-            if i >= filteredBgReadings.count - 1 && isLastReadingCurrent {
-                currentValues.append(chartDataEntry)
-                break
-            }
+                let medianHighEntry = ChartDataEntry(x: item.timeInterval, y: showAsMg ? medianHigh : medianHigh.mgdlToMmol())
+                medianHighValues.append(medianHighEntry)
 
-            if r.calculatedValue >= urgentHighInMg {
-                circleColors.append(ConstantsGlucoseChart.glucoseUrgentRangeColor)
+                let medianLowEntry = ChartDataEntry(x: item.timeInterval, y: showAsMg ? medianLow : medianLow.mgdlToMmol())
+                medianLowValues.append(medianLowEntry)
 
-            } else if r.calculatedValue >= highInMg {
-                circleColors.append(ConstantsGlucoseChart.glucoseNotUrgentRangeColor)
-
-            } else if r.calculatedValue > lowInMg {
-                circleColors.append(ConstantsGlucoseChart.glucoseInRangeColor)
-
-            } else if r.calculatedValue >= urgentLowInMg {
-                circleColors.append(ConstantsGlucoseChart.glucoseNotUrgentRangeColor)
-
-            } else {
-                circleColors.append(ConstantsGlucoseChart.glucoseUrgentRangeColor)
-            }
-            values.append(chartDataEntry)
-        }
-
-        let dataSet = LineChartDataSet(entries: values)
-        let currentOneDataSet = LineChartDataSet(entries: currentValues)
-
-        chartHistoryDataSet = dataSet
-        chartCurrentOneDataSet = currentOneDataSet
-
-        if isLastReadingCurrent, let lr = filteredBgReadings.last {
-            if lr.calculatedValue >= urgentHighInMg || lr.calculatedValue <= urgentLowInMg {
-                currentOneDataSet.setCircleColor(ConstantsGlucoseChart.glucoseUrgentRangeColor)
-
-            } else if lr.calculatedValue >= highInMg || lr.calculatedValue <= lowInMg {
-                currentOneDataSet.setCircleColor(ConstantsGlucoseChart.glucoseNotUrgentRangeColor)
-
-            } else {
-                currentOneDataSet.setCircleColor(ConstantsGlucoseChart.glucoseInRangeColor)
+                let medianEntry = ChartDataEntry(x: item.timeInterval,
+                                                 y: showAsMg ? median : median.mgdlToMmol(),
+                                                 data: item)
+                medianValues.append(medianEntry)
             }
         }
-        currentOneDataSet.circleHoleColor = ConstantsUI.contentBackgroundColor
 
+        let highDataSet = LineChartDataSet(entries: highValues)
+        let lowDataSet = LineChartDataSet(entries: lowValues)
+
+        let medianHighDataSet = LineChartDataSet(entries: medianHighValues)
+        let medianLowDataSet = LineChartDataSet(entries: medianLowValues)
+
+        let medianDataSet = LineChartDataSet(entries: medianValues)
+
+        applyDataSetStyle(dataSet: highDataSet)
+        applyDataSetStyle(dataSet: lowDataSet)
+
+        applyDataSetStyle(dataSet: medianHighDataSet)
+        applyDataSetStyle(dataSet: medianLowDataSet)
+
+        applyDataSetStyle(dataSet: medianDataSet)
+
+        highDataSet.lineWidth = 0
+        lowDataSet.lineWidth = 0
+
+        medianHighDataSet.lineWidth = 0
+        medianLowDataSet.lineWidth = 0
+
+        medianDataSet.lineWidth = 3
+        medianDataSet.drawCirclesEnabled = true
+        medianDataSet.circleRadius = 1.5
+        medianDataSet.setCircleColor(.white)
+        medianDataSet.highlightEnabled = true
+        
+        highDataSet.fillColor = .white
+        highDataSet.fillAlpha = 0.2
+        highDataSet.drawFilledEnabled = true
+        highDataSet.fillFormatterForEachEntry = FillFormatterForEachEntry {
+            (entry: ChartDataEntry, dataSet: ILineChartDataSet, _) -> CGFloat in
+            
+            let index = dataSet.entryIndex(entry: entry)
+            return lowDataSet[index].y
+        }
+        
+        medianHighDataSet.fillColor = .white
+        medianHighDataSet.fillAlpha = 0.2
+        medianHighDataSet.drawFilledEnabled = true
+        medianHighDataSet.fillFormatterForEachEntry = FillFormatterForEachEntry {
+            (entry: ChartDataEntry, dataSet: ILineChartDataSet, _) -> CGFloat in
+            
+            let index = dataSet.entryIndex(entry: entry)
+            return medianLowDataSet[index].y
+        }
+        
         let data = LineChartData(dataSets: [
-            dataSet,
-            currentOneDataSet
+            highDataSet,
+            lowDataSet,
+            medianHighDataSet,
+            medianLowDataSet,
+            medianDataSet
         ])
-
-        for s in data.dataSets {
-            guard let dataSet = s as? LineChartDataSet else {
-                continue
-            }
-            applyDataSetStyle(dataSet: dataSet)
-            applyDataShapeSize(dataSet: dataSet)
-        }
-
-        dataSet.circleColors = circleColors
-        applyCurrentDataShapeSize(dataSet: currentOneDataSet)
-
         chartView.data = data
+        
+        chartView.animate(xAxisDuration: 2.5)
     }
-
-    func moveXAxisToTrailing() {
-        let xRange = calChartHoursSeconds(chartHours: chartHours)
-        chartView.setVisibleXRange(minXRange: xRange, maxXRange: xRange)
-
-        chartView.moveViewToX(chartView.xAxis.axisMaximum - xRange)
-    }
-
-    func moveCurrentToCenter() {
-        let xRange = calChartHoursSeconds(chartHours: chartHours)
-        chartView.setVisibleXRange(minXRange: xRange, maxXRange: xRange)
-
-        chartView.moveViewToX(Date().timeIntervalSince1970 - xRange / 2)
-    }
-
-    func unHighlightAll() {
-        chartView.highlightValues(nil)
-        // chartView did not call chartValueNothingSelected, seems a bug
-        delegate?.chartReadingNothingSelected(self)
-    }
-
-    private func calChartHoursSeconds(chartHours: ChartHours) -> Double {
-        Date.hourInSeconds * Double(chartHours.rawValue)
-    }
-
+    
     private func applyDataSetStyle(dataSet: LineChartDataSet) {
         dataSet.drawValuesEnabled = false
         dataSet.drawHorizontalHighlightIndicatorEnabled = false
         dataSet.axisDependency = .right
-        dataSet.lineWidth = 0
-        dataSet.setColor(.clear)
+        dataSet.setColor(.white)
         dataSet.highlightColor = .white
+        dataSet.drawCirclesEnabled = false
+        dataSet.drawCircleHoleEnabled = false
+        
+//        dataSet.mode = .cubicBezier
 
-        dataSet.highlightEnabled = highlightEnabled
+        dataSet.highlightEnabled = false
+    }
+    
+    func unHighlightAll() {
+        chartView.highlightValues(nil)
+        // chartView did not call chartValueNothingSelected, seems a bug
+        delegate?.dailyTrendChartItemNothingSelected(self)
     }
 
-    private func applyDataShapeSize(dataSet: LineChartDataSet) {
-        let shapeSize: CGFloat
-        switch chartHours {
-        case .h1:
-            shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter1h
-        case .h3:
-            shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter3h
-        case .h6:
-            shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter6h
-        case .h12:
-            shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter12h
-        case .h24:
-            shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter24h
-        }
-        dataSet.circleRadius = shapeSize / 2
-    }
-
-    private func applyCurrentDataShapeSize(dataSet: LineChartDataSet) {
-        dataSet.circleRadius = dataSet.circleRadius * 1.5
-        dataSet.circleHoleRadius = dataSet.circleRadius * 0.5
-    }
-
-    private func applyChartHours() {
-        let highestVisibleX = chartView.highestVisibleX
-        let xRange = calChartHoursSeconds(chartHours: chartHours)
-        chartView.setVisibleXRange(minXRange: xRange, maxXRange: xRange)
-
-        if chartHours == .h24 || chartHours == .h12 {
-            chartView.xAxis.granularity = Date.hourInSeconds * 3 // 2 hours do not work, why?
-
-        } else {
-            chartView.xAxis.granularity = Date.hourInSeconds
-        }
-
-        if let data = chartView.data {
-            for s in data.dataSets {
-                guard let dataSet = s as? LineChartDataSet else {
-                    continue
-                }
-                applyDataShapeSize(dataSet: dataSet)
-            }
-        }
-
-        if let currentOneDataSet = chartCurrentOneDataSet {
-            applyCurrentDataShapeSize(dataSet: currentOneDataSet)
-        }
-
-        chartView.notifyDataSetChanged()
-
-        // keep the latest time not changed
-        chartView.moveViewToX(highestVisibleX - xRange)
+    private var chartHoursSeconds: Double {
+        Date.hourInSeconds * 24
     }
 
     override func prepareForInterfaceBuilder() {
@@ -477,17 +393,17 @@ class GlucoseChart: UIView {
     }
 }
 
-extension GlucoseChart: ChartViewDelegate {
+extension DailyTrendChart: ChartViewDelegate {
 
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        guard let reading = entry.data as? BgReading else {
+        guard let item = entry.data as? DailyTrend.DailyTrendItem else {
             return
         }
-        delegate?.chartReadingSelected(self, reading: reading)
+        delegate?.dailyTrendChartItemSelected(self, item: item)
     }
 
     func chartValueNothingSelected(_ chartView: ChartViewBase) {
-        delegate?.chartReadingNothingSelected(self)
+        delegate?.dailyTrendChartItemNothingSelected(self)
     }
 }
 
@@ -502,7 +418,10 @@ fileprivate class HourAxisValueFormatter: IAxisValueFormatter {
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
         let date = Date(timeIntervalSince1970: value)
         let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
         dateFormatter.dateFormat = dateFormat
+        
         return dateFormatter.string(from: date)
     }
 }
+
