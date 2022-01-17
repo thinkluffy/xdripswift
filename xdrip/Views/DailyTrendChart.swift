@@ -281,7 +281,12 @@ class DailyTrendChart: UIView {
         var medianValues = [ChartDataEntry]()
 
         for item in dailyTrendItems {
-            if item.isValid, let median = item.median,
+            guard item.isValid else {
+                DailyTrendChart.log.d("item is NOT valid, \(item.timeInterval)")
+                continue
+            }
+            
+            if let median = item.median,
                let high = item.high, let low = item.low,
                let medianHigh = item.medianHigh, let medianLow = item.medianLow {
 
