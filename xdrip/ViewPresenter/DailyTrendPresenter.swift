@@ -21,7 +21,9 @@ class DailyTrendPresenter: DailyTrendP {
     }
 
     func loadData(of date: Date, withDays daysRange: Int) {
-        let toDate = Calendar.current.startOfDay(for: date) // 00:00 of the day
+		let minInterval = 10
+		
+		let toDate = Calendar.current.startOfDay(for: date)// 00:00 of the day
         let fromDate = Date(timeInterval: -Date.dayInSeconds * Double(daysRange), since: toDate)
 
         view?.showLoadingData()
@@ -30,7 +32,10 @@ class DailyTrendPresenter: DailyTrendP {
             let moc = CoreDataManager.shared.privateChildManagedObjectContext()
             
             moc.performAndWait {
-                let readings = self.bgReadingsAccessor.getBgReadings(from: fromDate, to: toDate, on: moc)
+                let readings = self.bgReadingsAccessor.getBgReadings(
+					from: fromDate.addingTimeInterval(-Double(minInterval) * Date.minuteInSeconds),
+					to: toDate.addingTimeInterval(Double(minInterval) * Date.minuteInSeconds),
+					on: moc)
 
                 guard let (startDate, endDate, dailyTrendItems) = DailyTrend.calculate(readings, minutesInterval: 10) else {
                     DispatchQueue.main.async {

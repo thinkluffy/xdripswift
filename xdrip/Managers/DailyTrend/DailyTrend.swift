@@ -103,35 +103,45 @@ class DailyTrend {
         var result: [DailyTrendItem] = []
 
         // separate one day to groups with minutesInterval
-        for minutesIndex in stride(from: 0, to: 24 * 60, by: minutesInterval) {
+        for minutesIndex in stride(from: 0, to: 24 * 60 + 1, by: minutesInterval) {
             result.append(DailyTrendItem(timeInterval: TimeInterval(minutesIndex * 60)))
         }
 
-        var lastIndex: Int?
-        var lastDay: Int?
+		var dayRangeIndexMapValues: [String: [Double]] = [:]
         for bg in history {
             let date = bg.timeStamp
             let value = bg.calculatedValue
+			let month = Calendar.current.component(Calendar.Component.month, from: date)
             let day = Calendar.current.component(Calendar.Component.day, from: date)
             let hour = Calendar.current.component(Calendar.Component.hour, from: date)
             let minute = Calendar.current.component(Calendar.Component.minute, from: date)
-            let minuteIndex = hour * 60 / minutesInterval + minute / minutesInterval
-            // only pick up one data in one timeRange each day
-            if minuteIndex == lastIndex && day == lastDay {
-                continue
+            let minuteIndex = (hour * 60 + minute + minutesInterval / 2) / minutesInterval
+			let key = "\(month)_\(day)_\(minuteIndex)"
+			if let values = dayRangeIndexMapValues[key] {
+				dayRangeIndexMapValues[key] = values + [value]
+			} else {
+				dayRangeIndexMapValues[key] = [value]
+			}
+
+			if startDate == nil || startDate! > date {
+				startDate = date
+			}
+
+			if endDate == nil || endDate! < date {
+				endDate = date
+			}
+		}
+		// only pick up one data in one timeRange for each day
+		for (key, values) in dayRangeIndexMapValues {
+			let comps = key.components(separatedBy: "_")
+			let index = Int(comps.last!)!
+			let value = values.reduce(0, {$0 + $1}) / Double(values.count)
+			if index == 0 || index == (result.count - 1) {
+				result[0].appendValue(value)
+				result[result.count - 1].appendValue(value)
 
             } else {
-                lastIndex = minuteIndex
-                lastDay = day
-                result[minuteIndex].appendValue(value)
-
-                if startDate == nil || startDate! > date {
-                    startDate = date
-                }
-
-                if endDate == nil || endDate! < date {
-                    endDate = date
-                }
+                result[index].appendValue(value)
             }
         }
 
