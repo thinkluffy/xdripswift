@@ -310,7 +310,7 @@ class CommonSettingsViewController: SubSettingsViewController {
                         didClick: {
                             [unowned self] operationCell, tableView, indexPath in
                             let viewController = MoreSettingsViewController()
-                            self.navigationController?.pushViewController(viewController, animated: true)
+                            navigationController?.pushViewController(viewController, animated: true)
                         })
     }
 }
