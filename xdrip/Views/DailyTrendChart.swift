@@ -113,7 +113,7 @@ class DailyTrendChart: UIView {
         xAxis.labelCount = 13 // make the x labels step by 1 hour, do not know why
         xAxis.axisMinimum = 0
         xAxis.axisMaximum = Date.dayInSeconds
-        
+
         chartView.leftAxis.enabled = false
 
         // leave space for limit labels outside viewport
@@ -124,7 +124,7 @@ class DailyTrendChart: UIView {
         yAxis.drawLabelsEnabled = false
         yAxis.axisLineColor = ConstantsUI.mainBackgroundColor
         yAxis.axisLineWidth = 2
-        
+
         setupLimitLines()
     }
 
@@ -231,7 +231,7 @@ class DailyTrendChart: UIView {
         // put a placeholder to avoid showing default No Data view
         var placeholderEntries = [ChartDataEntry]()
         let placeholderEntry = ChartDataEntry(x: chartView.xAxis.axisMinimum,
-                                              y: UserDefaults.standard.highMarkValue.mgdlToMmol(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl))
+                y: UserDefaults.standard.highMarkValue.mgdlToMmol(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl))
         placeholderEntries.append(placeholderEntry)
         let placeholderDataSet = LineChartDataSet(entries: placeholderEntries)
         placeholderDataSet.setColor(.clear)
@@ -245,15 +245,13 @@ class DailyTrendChart: UIView {
         ])
         chartView.data = data
     }
-    
+
     func show(dailyTrendItems: [DailyTrend.DailyTrendItem]) {
         DailyTrendChart.log.d("==> showDailyTrendItems")
-        
+
         applySettings()
         
         // setup chart
-        let showAsMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
-
         let urgentHighInMg = UserDefaults.standard.urgentHighMarkValue
         let lowInMg = UserDefaults.standard.lowMarkValue
 
@@ -265,12 +263,39 @@ class DailyTrendChart: UIView {
         if abs(lowInMg - Constants.minBgMgDl) < 30 {
             rangeBottomLine.label = ""
         }
-        
-        guard !dailyTrendItems.isEmpty else {
-            DailyTrendChart.log.i("dailyTrendItems are nil, nothing to show")
+
+        let groups = groupDailyTrendItems(dailyTrendItems)
+        guard !groups.isEmpty else {
+            DailyTrendChart.log.i("nothing to show")
             showNoData()
             return
         }
+
+        DailyTrendChart.log.d("DailyTrendItems groups, count: \(groups.count)")
+        
+        var dataSets = [LineChartDataSet]()
+        for (i, g) in groups.enumerated() {
+            DailyTrendChart.log.d("group[\(i)], count: \(g.count)")
+            let (highDataSet, medianHighDataSet, medianDataSet, medianLowDataSet, lowDataSet) = parse(itemGroup: g)
+            dataSets.append(highDataSet)
+            dataSets.append(medianHighDataSet)
+            dataSets.append(medianDataSet)
+            dataSets.append(medianLowDataSet)
+            dataSets.append(lowDataSet)
+        }
+
+        let data = LineChartData(dataSets: dataSets)
+        chartView.data = data
+
+        chartView.animate(xAxisDuration: 2.5)
+    }
+
+    private func parse(itemGroup: [DailyTrend.DailyTrendItem]) -> (highDataSet: LineChartDataSet,
+                                                                   medianHighDataSet: LineChartDataSet,
+                                                                   medianDataSet: LineChartDataSet,
+                                                                   medianLowDataSet: LineChartDataSet,
+                                                                   lowDataSet: LineChartDataSet) {
+        let showAsMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
 
         var highValues = [ChartDataEntry]()
         var lowValues = [ChartDataEntry]()
@@ -280,19 +305,19 @@ class DailyTrendChart: UIView {
 
         var medianValues = [ChartDataEntry]()
 
-        for item in dailyTrendItems {
+        for item in itemGroup {
             guard item.isValid else {
                 DailyTrendChart.log.d("item is NOT valid, \(item.timeInterval)")
                 continue
             }
-            
+
             if let median = item.median,
                let high = item.high, let low = item.low,
                let medianHigh = item.medianHigh, let medianLow = item.medianLow {
 
                 let highEntry = ChartDataEntry(x: item.timeInterval, y: showAsMg ? high : high.mgdlToMmol())
                 highValues.append(highEntry)
-               
+
                 let lowEntry = ChartDataEntry(x: item.timeInterval, y: showAsMg ? low : low.mgdlToMmol())
                 lowValues.append(lowEntry)
 
@@ -303,12 +328,12 @@ class DailyTrendChart: UIView {
                 medianLowValues.append(medianLowEntry)
 
                 let medianEntry = ChartDataEntry(x: item.timeInterval,
-                                                 y: showAsMg ? median : median.mgdlToMmol(),
-                                                 data: item)
+                        y: showAsMg ? median : median.mgdlToMmol(),
+                        data: item)
                 medianValues.append(medianEntry)
             }
         }
-
+        
         let highDataSet = LineChartDataSet(entries: highValues)
         let lowDataSet = LineChartDataSet(entries: lowValues)
 
@@ -336,39 +361,59 @@ class DailyTrendChart: UIView {
         medianDataSet.circleRadius = 1.5
         medianDataSet.setCircleColor(.white)
         medianDataSet.highlightEnabled = true
-        
+
         highDataSet.fillColor = .white
         highDataSet.fillAlpha = 0.2
         highDataSet.drawFilledEnabled = true
         highDataSet.fillFormatterForEachEntry = FillFormatterForEachEntry {
             (entry: ChartDataEntry, dataSet: ILineChartDataSet, _) -> CGFloat in
-            
+
             let index = dataSet.entryIndex(entry: entry)
             return lowDataSet[index].y
         }
-        
+
         medianHighDataSet.fillColor = .white
         medianHighDataSet.fillAlpha = 0.2
         medianHighDataSet.drawFilledEnabled = true
         medianHighDataSet.fillFormatterForEachEntry = FillFormatterForEachEntry {
             (entry: ChartDataEntry, dataSet: ILineChartDataSet, _) -> CGFloat in
-            
+
             let index = dataSet.entryIndex(entry: entry)
             return medianLowDataSet[index].y
         }
-        
-        let data = LineChartData(dataSets: [
-            highDataSet,
-            lowDataSet,
-            medianHighDataSet,
-            medianLowDataSet,
-            medianDataSet
-        ])
-        chartView.data = data
-        
-        chartView.animate(xAxisDuration: 2.5)
+
+        return (
+                highDataSet: highDataSet,
+                medianHighDataSet: medianHighDataSet,
+                medianDataSet: medianDataSet,
+                medianLowDataSet: medianLowDataSet,
+                lowDataSet: lowDataSet
+        )
     }
-    
+
+    private func groupDailyTrendItems(_ items: [DailyTrend.DailyTrendItem]) -> [[DailyTrend.DailyTrendItem]] {
+        var groups = [[DailyTrend.DailyTrendItem]]()
+
+        var hasValid = false
+        var count = -1
+        
+        for item in items {
+            if item.isValid {
+                if !hasValid {
+                    count += 1
+                    groups.append([DailyTrend.DailyTrendItem]())
+                    hasValid = true
+                }
+                groups[count].append(item)
+
+            } else {
+                hasValid = false
+                continue
+            }
+        }
+        return groups
+    }
+
     private func applyDataSetStyle(dataSet: LineChartDataSet) {
         dataSet.drawValuesEnabled = false
         dataSet.drawHorizontalHighlightIndicatorEnabled = false
@@ -377,12 +422,12 @@ class DailyTrendChart: UIView {
         dataSet.highlightColor = .white
         dataSet.drawCirclesEnabled = false
         dataSet.drawCircleHoleEnabled = false
-        
+
 //        dataSet.mode = .cubicBezier
 
         dataSet.highlightEnabled = false
     }
-    
+
     func unHighlightAll() {
         chartView.highlightValues(nil)
         // chartView did not call chartValueNothingSelected, seems a bug
@@ -425,7 +470,7 @@ fileprivate class HourAxisValueFormatter: IAxisValueFormatter {
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
         dateFormatter.dateFormat = dateFormat
-        
+
         return dateFormatter.string(from: date)
     }
 }
