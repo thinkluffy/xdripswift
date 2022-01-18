@@ -153,6 +153,7 @@
 		4EC48D1327705A1A00EEB0BA /* Sensor+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC48D1227705A1A00EEB0BA /* Sensor+CoreDataProperties.swift */; };
 		4EC48D152770827200EEB0BA /* NotesAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC48D142770827200EEB0BA /* NotesAccessor.swift */; };
 		4EC48D182770882A00EEB0BA /* NoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC48D172770882A00EEB0BA /* NoteManager.swift */; };
+		4ECA4D182796C72C008AB111 /* Trc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECA4D172796C72C008AB111 /* Trc.swift */; };
 		4EE66F082733E01500548A46 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F072733E01500548A46 /* R.generated.swift */; };
 		4EE66F0B2733EB0D00548A46 /* MoreSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F0A2733EB0D00548A46 /* MoreSettingsViewController.swift */; };
 		4EE66F132735064E00548A46 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F122735064E00548A46 /* MainTabBarController.swift */; };
@@ -792,6 +793,7 @@
 		4EC48D1227705A1A00EEB0BA /* Sensor+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Sensor+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4EC48D142770827200EEB0BA /* NotesAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesAccessor.swift; sourceTree = "<group>"; };
 		4EC48D172770882A00EEB0BA /* NoteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteManager.swift; sourceTree = "<group>"; };
+		4ECA4D172796C72C008AB111 /* Trc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trc.swift; sourceTree = "<group>"; };
 		4EE66F072733E01500548A46 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		4EE66F0A2733EB0D00548A46 /* MoreSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreSettingsViewController.swift; sourceTree = "<group>"; };
 		4EE66F122735064E00548A46 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
@@ -1388,6 +1390,7 @@
 		4E9D7979273BEC1F00B666C5 /* ThinkCommon */ = {
 			isa = PBXGroup;
 			children = (
+				4ECA4D192796C94C008AB111 /* RemoteConfig */,
 				4E9D7991273BF04400B666C5 /* UI */,
 				4E9D797B273BEC5500B666C5 /* BaseAppDelegate.swift */,
 				4E9D797D273BEC5500B666C5 /* ConfigProxy.swift */,
@@ -1397,7 +1400,6 @@
 				4E9D7984273BEC5500B666C5 /* PThreadReadWriteLock.swift */,
 				4E9D797E273BEC5500B666C5 /* Utils.swift */,
 				4E9D7981273BEC5500B666C5 /* VideoBuilder.swift */,
-				4E94C345277DF4C000382122 /* RemoteConfigProxy.swift */,
 				4EB0DE6E27744EB500DBF7C1 /* Common.xcassets */,
 			);
 			path = ThinkCommon;
@@ -1572,6 +1574,15 @@
 				4EC48D172770882A00EEB0BA /* NoteManager.swift */,
 			);
 			path = Note;
+			sourceTree = "<group>";
+		};
+		4ECA4D192796C94C008AB111 /* RemoteConfig */ = {
+			isa = PBXGroup;
+			children = (
+				4ECA4D172796C72C008AB111 /* Trc.swift */,
+				4E94C345277DF4C000382122 /* RemoteConfigProxy.swift */,
+			);
+			path = RemoteConfig;
 			sourceTree = "<group>";
 		};
 		6933F5E98A8280DB39890854 /* Pods */ = {
@@ -3583,6 +3594,7 @@
 				F8B3A845227F090E004BA588 /* SettingsViewDexcomSettingsViewModel.swift in Sources */,
 				F8DF766223E390D100063910 /* BLEPeripheral+CoreDataProperties.swift in Sources */,
 				4E94C342277DE4FB00382122 /* EasyTracker.swift in Sources */,
+				4ECA4D182796C72C008AB111 /* Trc.swift in Sources */,
 				F8A1585F22EDB81E007F5B5D /* ConstantsLog.swift in Sources */,
 				F8A1586522EDB89D007F5B5D /* ConstantsDefaultAlertTypeSettings.swift in Sources */,
 				4EB0DE6B27735AC500DBF7C1 /* AgreementViewController.swift in Sources */,

@@ -23,6 +23,7 @@ extension UserDefaults {
         case firstOpenTimestamp = "firstOpenTimestamp"
         case firstOpenVersionCode = "firstOpenVersionCode"
         case currentVersionCode = "currentVersionCode"
+        case userRandomNumber = "userRandomNumber"
         case isAgreementAgreed = "isAgreementAgreed"
         case isDeveloperConsoleOpened = "isDeveloperConsoleOpened"
         case launchCount = "launchCount"
@@ -279,6 +280,20 @@ extension UserDefaults {
     @objc dynamic var currentVersionCode: Int {
         get {
             return integer(forKey: Key.currentVersionCode.rawValue)
+        }
+        set {
+            set(newValue, forKey: Key.currentVersionCode.rawValue)
+        }
+    }
+    
+    @objc dynamic var userRandomNumber: Int {
+        get {
+            var ret = integer(forKey: Key.userRandomNumber.rawValue)
+            if ret == 0 {
+                ret = Int.random(in: 0..<100)
+                set(ret, forKey: Key.currentVersionCode.rawValue)
+            }
+            return ret
         }
         set {
             set(newValue, forKey: Key.currentVersionCode.rawValue)
