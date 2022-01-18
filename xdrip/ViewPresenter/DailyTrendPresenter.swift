@@ -33,8 +33,8 @@ class DailyTrendPresenter: DailyTrendP {
             
             moc.performAndWait {
                 let readings = self.bgReadingsAccessor.getBgReadings(
-					from: fromDate.addingTimeInterval(-Double(minInterval) * Date.minuteInSeconds),
-					to: toDate.addingTimeInterval(Double(minInterval) * Date.minuteInSeconds),
+					from: fromDate,//.addingTimeInterval(-Double(minInterval)/2 * Date.minuteInSeconds),
+					to: toDate,//.addingTimeInterval(Double(minInterval)/2 * Date.minuteInSeconds),
 					on: moc)
 
                 guard let (dailyTrendItems, validDays) = DailyTrend.calculate(readings, minutesInterval: minInterval) else {

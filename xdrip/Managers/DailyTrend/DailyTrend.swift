@@ -130,14 +130,20 @@ class DailyTrend {
 		for (key, values) in dayRangeIndexMapValues {
 			let comps = key.components(separatedBy: "_")
 			let index = Int(comps.last!)!
-			let value = values.reduce(0, {$0 + $1}) / Double(values.count) // average
-			if index == 0 || index == (result.count - 1) {
-				result[0].appendValue(value)
-				result[result.count - 1].appendValue(value)
-
-            } else {
-                result[index].appendValue(value)
-            }
+			let value = values.reduce(0, {$0 + $1}) / Double(values.count) // choose average data
+			
+			// method #1 the first point and the last point will lost half of base data to choose,
+			// but if the peripheral can gave stable data, the result will be be affected
+			result[index].appendValue(value)
+			
+			// method #2 the data of first point will be equal to the last point
+//			if index == 0 || index == (result.count - 1) {
+//				result[0].appendValue(value)
+//				result[result.count - 1].appendValue(value)
+//
+//            } else {
+//                result[index].appendValue(value)
+//            }
         }
 
 		let daysDataCount = result.reduce(0, { $0 + $1.values.count })
