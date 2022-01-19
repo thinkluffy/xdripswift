@@ -97,24 +97,30 @@ public class Trc: RemoteConfigProvider {
         return nil
     }
 
-    private func loadTrcResultFromFile() {
+    private var trcFileURL: URL? {
         guard let documentDirectory = FileManager.default.urls(for: .documentDirectory,
                 in: .userDomainMask).first else {
             Trc.log.e("Fail to get documentDirectory")
+            return nil
+        }
+
+        return documentDirectory.appendingPathComponent("trc.json")
+    }
+    
+    private func loadTrcResultFromFile() {
+        guard let trcJsonFile = trcFileURL else {
+            Trc.log.e("Fail to get trcJsonFile")
             return
         }
 
-        let trcJsonFile = documentDirectory.appendingPathComponent("trc.json")
-
         do {
             let rawString = try String(contentsOf: trcJsonFile, encoding: .utf8)
-            let json = JSON(rawString)
-            print("----> rawString: \(rawString)")
-            print("----> versionTag: \(json["version_tag"].string)")
+            let json = JSON(parseJSON: rawString)
 
             if let versionTag = json["version_tag"].string, json["content"].exists() {
                 self.versionTag = versionTag
                 self.content = json["content"]
+                Trc.log.d("Load trc result from file")
 
             } else {
                 Trc.log.e("Fail to load trc result from file, unexpected file content, rawString: \(rawString)")
@@ -131,18 +137,16 @@ public class Trc: RemoteConfigProvider {
             "content": trcResult.content
         ]
 
-        guard let documentDirectory = FileManager.default.urls(for: .documentDirectory,
-                in: .userDomainMask).first else {
-            Trc.log.e("Fail to get documentDirectory")
-            return
-        }
-
         guard let rawString = json.rawString() else {
             Trc.log.e("Fail to get rawString of json")
             return
         }
+        
+        guard let trcJsonFile = trcFileURL else {
+            Trc.log.e("Fail to get trcJsonFile")
+            return
+        }
 
-        let trcJsonFile = documentDirectory.appendingPathComponent("trc.json")
         do {
             try rawString.write(to: trcJsonFile,
                     atomically: true,
