@@ -8,6 +8,7 @@
 
 import UIKit
 import PopupDialog
+import SwiftyJSON
 
 class AboutViewController: LegacySubSettingsViewController {
 
@@ -200,30 +201,15 @@ class AboutViewController: LegacySubSettingsViewController {
         present(dialog, animated: true)
     }
 
-
-
     private func testTrc() {
         let trc = Trc(trcId: "zDrip")
         trc.useChinaUrl = true
-        
-        let params = Trc.RequestParams(
-                lastConfigId: nil,
-                productCode: "zDrip",
-                appVersionCode: iOS.appVersionCode,
-                userRandomNumber: UserDefaults.standard.userRandomNumber,
-                region: iOS.region ?? "cn",
-                language: iOS.language(),
-                osVersion: iOS.systemVersion
-        )
 
-        trc.request(withParams: params) { result in
-            print("====> tag: \(result.versionTag), content: \(result.content)")
+        trc.refresh {
+            refreshed in
 
-        } onFailure: {
-            print("====> onFailure")
-
-        } onNoChange: {
-            print("====> onNoChange")
+            let ret = trc.json(forKey: "com_LatestAppVersion") ?? JSON()
+            print("----> ret: \(ret)")
         }
     }
 }

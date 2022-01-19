@@ -29,9 +29,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ])
         
         RemoteConfigHost.testMode = UserDefaults.standard.isRemoteConfigTestMode
-        RemoteConfigProxy.shared.setup()
+        RemoteConfig.shared.initialize(remoteConfigProvider: Frc())
+        
         AppDelegate.log.d("remote config ready to refresh")
-        RemoteConfigProxy.shared.refresh() { refreshed in
+        RemoteConfig.shared.refresh { refreshed in
             AppDelegate.log.d("remote config refreshed")
         }
         

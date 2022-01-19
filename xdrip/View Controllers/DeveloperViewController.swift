@@ -66,12 +66,12 @@ class DeveloperViewController: UIViewController {
                 })
 
                 .section(headerTitle: "Common")
-                .operationCell(title: "Remote Config Version", detailedText: String(RemoteConfigProxy.shared.versionId), didClick: {
+                .operationCell(title: "Remote Config Version", detailedText: String(RemoteConfig.shared.versionId), didClick: {
                     operationCell, tableView, indexPath in
 
-                    RemoteConfigProxy.shared.refresh { refreshed in
+                    RemoteConfig.shared.refresh { refreshed in
                         self.view.makeToast("Refreshed!", duration: 2.0, position: .bottom)
-                        operationCell.detailedText = String(RemoteConfigProxy.shared.versionId)
+                        operationCell.detailedText = String(RemoteConfig.shared.versionId)
                         self.tableView.reloadRows(at: [indexPath], with: .none)
                     }
                 })
