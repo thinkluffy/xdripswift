@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  xdrip
+
+  Created by Liu Xudong on 2022/1/20.
+  Copyright © 2022 zDrip. All rights reserved.
+*/
+
+"loading" = "Loading...";
+"invalid_data" = "Invalid Data";

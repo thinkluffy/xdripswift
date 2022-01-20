@@ -245,11 +245,11 @@ struct ChartView_Previews: PreviewProvider {
 		WatchChartView(pointDigit: 0,
                        chartLow: 2.2 * mmolToMg,
                        chartHigh: 16.6 * mmolToMg,
-                       urgentLow: 0,//3.9 * mmolToMg,
-                       urgentHigh: 0,//10 * mmolToMg,
-                       suggestLow: 0,//4.5 * mmolToMg,
-                       suggestHigh: 0,//7.8 * mmolToMg,
-                       values: WatchChartView.fakeValues().map{ ChartPoint(x: $0.x, y: $0.y * 18)}
+                       urgentLow: 3.9 * mmolToMg,
+                       urgentHigh: 10 * mmolToMg,
+                       suggestLow: 4.5 * mmolToMg,
+                       suggestHigh: 7.8 * mmolToMg,
+                       values: []//WatchChartView.fakeValues().map{ ChartPoint(x: $0.x, y: $0.y * 18)}
         )
     }
 }
