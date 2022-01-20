@@ -2271,7 +2271,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.bluetoothPeripheralView` struct is generated, and contains static references to 33 localization keys.
+    /// This `R.string.bluetoothPeripheralView` struct is generated, and contains static references to 36 localization keys.
     struct bluetoothPeripheralView {
       /// en translation: Address
       ///
@@ -2353,6 +2353,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let resistance = Rswift.StringResource(key: "resistance", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Runtime
+      ///
+      /// Locales: en, zh
+      static let runtime = Rswift.StringResource(key: "runtime", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Scan
       ///
       /// Locales: en, zh
@@ -2401,6 +2405,14 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let transmittterStartDate = Rswift.StringResource(key: "transmittterStartDate", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Voltage A
+      ///
+      /// Locales: en, zh
+      static let dexcom_voltage_A = Rswift.StringResource(key: "dexcom_voltage_A", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Voltage B
+      ///
+      /// Locales: en, zh
+      static let dexcom_voltage_B = Rswift.StringResource(key: "dexcom_voltage_B", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: You can not activate a CGM in Follower Mode
       ///
       /// Locales: en, zh
@@ -2706,6 +2718,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("resistance", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
+      /// en translation: Runtime
+      ///
+      /// Locales: en, zh
+      static func runtime(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("runtime", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
+          return "runtime"
+        }
+
+        return NSLocalizedString("runtime", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
+      }
+
       /// en translation: Scan
       ///
       /// Locales: en, zh
@@ -2884,6 +2911,36 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("transmittterStartDate", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Voltage A
+      ///
+      /// Locales: en, zh
+      static func dexcom_voltage_A(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("dexcom_voltage_A", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
+          return "dexcom_voltage_A"
+        }
+
+        return NSLocalizedString("dexcom_voltage_A", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Voltage B
+      ///
+      /// Locales: en, zh
+      static func dexcom_voltage_B(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("dexcom_voltage_B", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
+          return "dexcom_voltage_B"
+        }
+
+        return NSLocalizedString("dexcom_voltage_B", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
       /// en translation: You can not activate a CGM in Follower Mode

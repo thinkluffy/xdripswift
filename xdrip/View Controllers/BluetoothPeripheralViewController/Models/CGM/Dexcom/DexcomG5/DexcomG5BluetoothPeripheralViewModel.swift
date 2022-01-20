@@ -284,12 +284,12 @@ extension DexcomG5BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
 
             case .voltageA:
 
-                cell.textLabel?.text = "Voltage A"
+                cell.textLabel?.text = R.string.bluetoothPeripheralView.dexcom_voltage_A()
                 cell.detailTextLabel?.text = dexcomG5.voltageA != 0 ? dexcomG5.voltageA.description : ""
 
             case .voltageB:
 
-                cell.textLabel?.text = "Voltage B"
+                cell.textLabel?.text = R.string.bluetoothPeripheralView.dexcom_voltage_B()
                 cell.detailTextLabel?.text = dexcomG5.voltageB != 0 ? dexcomG5.voltageB.description : ""
 
             case .batteryResist:
@@ -299,7 +299,7 @@ extension DexcomG5BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
 
             case .batteryRuntime:
 
-                cell.textLabel?.text = "Runtime"
+                cell.textLabel?.text = R.string.bluetoothPeripheralView.runtime()
                 cell.detailTextLabel?.text = dexcomG5.batteryRuntime != 0 ? dexcomG5.batteryRuntime.description : ""
 
             case .batteryTemperature:

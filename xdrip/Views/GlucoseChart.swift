@@ -82,6 +82,8 @@ class GlucoseChart: UIView {
         }
     }
 
+    var useBiggerCircleSize = false
+
     var isLongPressSupported = false
 
     weak var delegate: GlucoseChartDelegate?
@@ -421,17 +423,33 @@ class GlucoseChart: UIView {
 
     private func applyDataShapeSize(dataSet: LineChartDataSet) {
         let shapeSize: CGFloat
-        switch chartHours {
-        case .h1:
-            shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter1h
-        case .h3:
-            shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter3h
-        case .h6:
-            shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter6h
-        case .h12:
-            shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter12h
-        case .h24:
-            shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter24h
+        if useBiggerCircleSize {
+            switch chartHours {
+            case .h1:
+                shapeSize = ConstantsGlucoseChart.glucoseCircleDiameterBiggerSize1h
+            case .h3:
+                shapeSize = ConstantsGlucoseChart.glucoseCircleDiameterBiggerSize3h
+            case .h6:
+                shapeSize = ConstantsGlucoseChart.glucoseCircleDiameterBiggerSize6h
+            case .h12:
+                shapeSize = ConstantsGlucoseChart.glucoseCircleDiameterBiggerSize12h
+            case .h24:
+                shapeSize = ConstantsGlucoseChart.glucoseCircleDiameterBiggerSize24h
+            }
+
+        } else {
+            switch chartHours {
+            case .h1:
+                shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter1h
+            case .h3:
+                shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter3h
+            case .h6:
+                shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter6h
+            case .h12:
+                shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter12h
+            case .h24:
+                shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter24h
+            }
         }
         dataSet.circleRadius = shapeSize / 2
     }

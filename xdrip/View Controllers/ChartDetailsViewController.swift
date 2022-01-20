@@ -145,6 +145,7 @@ class ChartDetailsViewController: UIViewController {
         glucoseChart.highlightEnabled = true
         glucoseChart.dateFormat = "HH:mm"
         glucoseChart.chartHours = selectedChartHours
+        glucoseChart.useBiggerCircleSize = true
     }
     
     @objc private func exitButtonDidClick(_ button: UIButton) {
