@@ -131,14 +131,21 @@ class PhoneCommunicator: NSObject {
 		}
 		let message = Common.DataTransformToPhone.init(type: .recently).toDic()
 		print(message)
+		DispatchQueue.main.async {
+			self.usefulData.isLoadingLatest = true
+		}
 		session.sendMessage(message) { [unowned self] reply in
-			print("requestLatest reply: \(reply)")
+			print("requestRecentlyChart reply: \(reply)")
 			if reply.keys.count == 0 {
 				self.requestTimer?.fire()
+				DispatchQueue.main.async {
+					self.usefulData.isLoadingLatest = false
+				}
 				return
 			}
 			let data = Common.DataTransformToWatch.init(dic: reply)
 			DispatchQueue.main.async {
+				self.usefulData.isLoadingLatest = false
 				self.usefulData.bgLatest = data.latest
 				self.usefulData.bgInfoList = data.recently ?? []
 				self.usefulData.bgConfig = data.config
@@ -175,6 +182,7 @@ extension PhoneCommunicator: WCSessionDelegate {
 		print("session didReceiveMessage: \(message)")
 	}
 }
+
 extension PhoneCommunicator {
 	static func fakeConfig() -> Common.BgConfig {
 		Common.BgConfig(interval5Mins: true,

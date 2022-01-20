@@ -30,4 +30,5 @@ class UsefulData: ObservableObject {
 	@Published var bgInfoList: [Common.BgInfo] = []
 	@Published var bgConfig: Common.BgConfig?
 	@Published var slope: Common.BgSlope?
+	@Published var isLoadingLatest: Bool = false
 }

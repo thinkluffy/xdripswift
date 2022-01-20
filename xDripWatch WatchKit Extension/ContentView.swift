@@ -31,8 +31,8 @@ struct ContentView: View {
 	var body: some View {
 		VStack(alignment: .leading) {
 			if let config = usefulData.bgConfig {
-				if let bgLatest = usefulData.bgLatest {
-					HStack {
+				HStack {
+					if let bgLatest = usefulData.bgLatest {
 						let isDataValid = Date().timeIntervalSince(bgLatest.date) <= Constants.DataValidTimeInterval
 						let color = self.getColor(of: bgLatest.value, config: config)
 						if config.showAsMgDl {
@@ -68,12 +68,13 @@ struct ContentView: View {
 								.font(.title)
 								.foregroundColor(color)
 						}
+					} else {
+						Text("---")
 					}
 					Text(config.showAsMgDl ? "mg/dL" : "mmol/L")
 						   .font(.footnote)
 						   .foregroundColor(Color.secondary)
 				}
-                
                 
 				if usefulData.bgInfoList.count > 0 {
 					WatchChartView(pointDigit: config.showAsMgDl ? 0 : 1,
@@ -84,6 +85,14 @@ struct ContentView: View {
                                    suggestLow: config.suggestLow,
                                    suggestHigh: config.suggestHigh,
 								   values: getChartPointList(config.interval5Mins, from: usefulData.bgInfoList))
+				} else {
+					Text("No Data")
+				}
+			} else {
+				if usefulData.isLoadingLatest {
+					Text("Loading ...")
+				} else {
+					Text("Invalid Data")
 				}
 			}
 			Spacer(minLength: 10).frame(maxHeight: 10)
