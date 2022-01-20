@@ -31,50 +31,51 @@ struct ContentView: View {
 	var body: some View {
 		VStack(alignment: .leading) {
 			if let config = usefulData.bgConfig {
-				HStack {
-					if let bgLatest = usefulData.bgLatest {
+				if let bgLatest = usefulData.bgLatest {
+					HStack {
 						let isDataValid = Date().timeIntervalSince(bgLatest.date) <= Constants.DataValidTimeInterval
 						let color = self.getColor(of: bgLatest.value, config: config)
 						if config.showAsMgDl {
 							Text(String(format: "%.0f", bgLatest.value))
 								.font(.title)
 								.foregroundColor(color)
-                            
+							
 						} else {
 							let number = Int(round(bgLatest.value * 10))
 							let int = floor(Double(number / 10))
 							let point = number - Int(int * 10)
-                            
+							
 							HStack(alignment: .lastTextBaseline, spacing: 0) {
 								Text(String(format: "%.0f.", int))
-                                    .font(.title.bold())
+									.font(.title.bold())
 									.foregroundColor(color)
-                                
+								
 								Text(String(point))
 									.font(.title2)
 									.foregroundColor(color)
 							}
 							.overlay(
 								Rectangle()
-                                    .frame(maxWidth: isDataValid ? 0: 60,
-                                           maxHeight: isDataValid ? 0: 1),
+									.frame(maxWidth: isDataValid ? 0: 60,
+										   maxHeight: isDataValid ? 0: 1),
 								alignment: .center
 							)
 						}
-                        
+						
 						if isDataValid, let slope = usefulData.slope {
 							// 有效期内
 							Text(slope.description)
 								.font(.title)
 								.foregroundColor(color)
 						}
-					} else {
-						Text("---")
 					}
-					Text(config.showAsMgDl ? "mg/dL" : "mmol/L")
-						   .font(.footnote)
-						   .foregroundColor(Color.secondary)
+				} else {
+					Text("---")
+						.font(.title)
 				}
+				Text(config.showAsMgDl ? "mg/dL" : "mmol/L")
+					.font(.footnote)
+					.foregroundColor(Color.secondary)
                 
 				WatchChartView(pointDigit: config.showAsMgDl ? 0 : 1,
 							   chartLow: config.chartLow,
