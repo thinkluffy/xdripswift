@@ -22,9 +22,7 @@ class DailyTrend {
         var timeInterval: TimeInterval
 
         var isValid: Bool {
-            get {
-                values.count >= MinValidDataCount
-            }
+            values.count >= MinValidDataCount
         }
 		
 

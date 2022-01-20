@@ -252,49 +252,53 @@ extension DailyTrendViewController: DailyTrendV {
 extension DailyTrendViewController: DailyTrendChartDelegate {
 
     func dailyTrendChartItemSelected(_ chart: DailyTrendChart, item: DailyTrend.DailyTrendItem) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-        let timestamp = dateFormatter.string(from: Date(timeIntervalSince1970: item.timeInterval))
-
-        if item.isValid {
-            let showMgDl = UserDefaults.standard.bloodGlucoseUnitIsMgDl
-
-            timeLabel.text = timestamp
-
-            let urgentHighInMg = UserDefaults.standard.urgentHighMarkValue
-            let highInMg = UserDefaults.standard.highMarkValue
-            let lowInMg = UserDefaults.standard.lowMarkValue
-            let urgentLowInMg = UserDefaults.standard.urgentLowMarkValue
-
-            decileLabel.text = item.high!.mgdlToMmolAndToString(mgdl: showMgDl, withUnit: true)
-            quartileLabel.text = item.medianHigh!.mgdlToMmolAndToString(mgdl: showMgDl, withUnit: true)
-            medianLabel.text = item.median!.mgdlToMmolAndToString(mgdl: showMgDl, withUnit: true)
-            seventyFifthPercentileLabel.text = item.medianLow!.mgdlToMmolAndToString(mgdl: showMgDl, withUnit: true)
-            ninetyPercentileLabel.text = item.low!.mgdlToMmolAndToString(mgdl: showMgDl, withUnit: true)
-
-            func colorOfBg(_ bgInMg: Double) -> UIColor {
-                if bgInMg >= urgentHighInMg || bgInMg <= urgentLowInMg {
-                    return ConstantsGlucoseChart.glucoseUrgentRangeColor
-
-                } else if bgInMg >= highInMg || bgInMg <= lowInMg {
-                    return ConstantsGlucoseChart.glucoseNotUrgentRangeColor
-
-                } else {
-                    return ConstantsGlucoseChart.glucoseInRangeColor
-                }
-            }
-
-            decileLabel.textColor = colorOfBg(item.high!)
-            quartileLabel.textColor = colorOfBg(item.medianHigh!)
-            medianLabel.textColor = colorOfBg(item.median!)
-            seventyFifthPercentileLabel.textColor = colorOfBg(item.medianLow!)
-            ninetyPercentileLabel.textColor = colorOfBg(item.low!)
-
-        } else {
+        guard item.isValid else {
             timeLabel.text = "--:--"
             resetValueLabels()
+            return
         }
+        let showMgDl = UserDefaults.standard.bloodGlucoseUnitIsMgDl
+
+        let timestamp: String
+        if item.timeInterval == Date.dayInSeconds {
+            timestamp = "24:00"
+
+        } else {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH:mm"
+            dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+            timestamp = dateFormatter.string(from: Date(timeIntervalSince1970: item.timeInterval))
+        }
+        timeLabel.text = timestamp
+
+        let urgentHighInMg = UserDefaults.standard.urgentHighMarkValue
+        let highInMg = UserDefaults.standard.highMarkValue
+        let lowInMg = UserDefaults.standard.lowMarkValue
+        let urgentLowInMg = UserDefaults.standard.urgentLowMarkValue
+
+        decileLabel.text = item.high!.mgdlToMmolAndToString(mgdl: showMgDl, withUnit: true)
+        quartileLabel.text = item.medianHigh!.mgdlToMmolAndToString(mgdl: showMgDl, withUnit: true)
+        medianLabel.text = item.median!.mgdlToMmolAndToString(mgdl: showMgDl, withUnit: true)
+        seventyFifthPercentileLabel.text = item.medianLow!.mgdlToMmolAndToString(mgdl: showMgDl, withUnit: true)
+        ninetyPercentileLabel.text = item.low!.mgdlToMmolAndToString(mgdl: showMgDl, withUnit: true)
+
+        func colorOfBg(_ bgInMg: Double) -> UIColor {
+            if bgInMg >= urgentHighInMg || bgInMg <= urgentLowInMg {
+                return ConstantsGlucoseChart.glucoseUrgentRangeColor
+
+            } else if bgInMg >= highInMg || bgInMg <= lowInMg {
+                return ConstantsGlucoseChart.glucoseNotUrgentRangeColor
+
+            } else {
+                return ConstantsGlucoseChart.glucoseInRangeColor
+            }
+        }
+
+        decileLabel.textColor = colorOfBg(item.high!)
+        quartileLabel.textColor = colorOfBg(item.medianHigh!)
+        medianLabel.textColor = colorOfBg(item.median!)
+        seventyFifthPercentileLabel.textColor = colorOfBg(item.medianLow!)
+        ninetyPercentileLabel.textColor = colorOfBg(item.low!)
     }
 
     func dailyTrendChartItemNothingSelected(_ chart: DailyTrendChart) {
