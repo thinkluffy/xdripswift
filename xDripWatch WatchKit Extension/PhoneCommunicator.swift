@@ -190,10 +190,10 @@ extension PhoneCommunicator {
                         showAsMgDl: false,
                         chartLow: 2.2,
 						chartHigh: 16.6,
-                        urgentLow: 0,//3.9,
-                        urgentHigh: 0,//10,
-                        suggestLow: 0,//4.5,
-						suggestHigh: 0)//7.8)
+                        urgentLow: 3.9,
+                        urgentHigh: 10,
+                        suggestLow: 4.5,
+						suggestHigh: 7.8)
 	}
 	
 	static func fakeRecently() -> [Common.BgInfo] {
