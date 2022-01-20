@@ -63,8 +63,8 @@ extension UserDefaults {
         case urgentLowMarkValue = "urgentLowMarkValue"
         /// chart height, 220(12.2), 300(16.6) or 400(22.2)
         case chartHeight = "chartHeight"
-        /// bg dots in 5 minutes
-        case chartDots5MinsApart = "chartDots5MinsApart"
+        /// bg points in 5 minutes
+        case chartPoints5MinsApart = "chartPoints5MinsApart"
 
         // Statistics settings
         /// show the objective lines in color or grey?
@@ -633,13 +633,13 @@ extension UserDefaults {
         }
     }
     
-    /// show chart dots 5 minutes apart
-    @objc dynamic var chartDots5MinsApart: Bool {
+    /// show chart points 5 minutes apart
+    @objc dynamic var chartPoints5MinsApart: Bool {
         get {
-            return !bool(forKey: Key.chartDots5MinsApart.rawValue)
+            return !bool(forKey: Key.chartPoints5MinsApart.rawValue)
         }
         set {
-            set(!newValue, forKey: Key.chartDots5MinsApart.rawValue)
+            set(!newValue, forKey: Key.chartPoints5MinsApart.rawValue)
         }
     }
     

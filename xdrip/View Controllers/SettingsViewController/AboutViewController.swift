@@ -128,6 +128,8 @@ class AboutViewController: LegacySubSettingsViewController {
                 })
                 .operationCell(title: R.string.settingsViews.check_app_version(), detailedText: nil, didClick: { [unowned self] operationCell, tableView, indexPath in
 
+                    EasyTracker.logEvent(Events.checkAppVersion)
+
                     let json = RemoteConfigHost.latestAppVersion
                     if let versionCode = json["version_code"].int,
                        let versionName = json["version_name"].string,
