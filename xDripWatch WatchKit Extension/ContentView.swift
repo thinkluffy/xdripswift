@@ -76,23 +76,22 @@ struct ContentView: View {
 						   .foregroundColor(Color.secondary)
 				}
                 
-				if usefulData.bgInfoList.count > 0 {
-					WatchChartView(pointDigit: config.showAsMgDl ? 0 : 1,
-                                   chartLow: config.chartLow,
-                                   chartHigh: config.chartHigh,
-                                   urgentLow: config.urgentLow,
-                                   urgentHigh: config.urgentHigh,
-                                   suggestLow: config.suggestLow,
-                                   suggestHigh: config.suggestHigh,
-								   values: getChartPointList(config.interval5Mins, from: usefulData.bgInfoList))
-				} else {
-					Text("No Data")
-				}
+				WatchChartView(pointDigit: config.showAsMgDl ? 0 : 1,
+							   chartLow: config.chartLow,
+							   chartHigh: config.chartHigh,
+							   urgentLow: config.urgentLow,
+							   urgentHigh: config.urgentHigh,
+							   suggestLow: config.suggestLow,
+							   suggestHigh: config.suggestHigh,
+							   values: getChartPointList(config.interval5Mins, from: usefulData.bgInfoList))
+				
 			} else {
-				if usefulData.isLoadingLatest {
-					Text("Loading ...")
-				} else {
-					Text("Invalid Data")
+				if let isLoading = usefulData.isLoadingLatest {
+					if isLoading {
+						Text("loading")
+					} else {
+						Text("invalid_data")
+					}
 				}
 			}
 			Spacer(minLength: 10).frame(maxHeight: 10)

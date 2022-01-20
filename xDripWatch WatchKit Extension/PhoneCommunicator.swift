@@ -118,14 +118,6 @@ class PhoneCommunicator: NSObject {
 	}
 	
 	func requestRecentlyChart() {
-//		DispatchQueue.main.async {
-//			let fake = PhoneCommunicator.fakeRecently()
-//			self.usefulData.bgLatest = fake.last
-//			self.usefulData.bgInfoList = fake
-//			self.usefulData.bgConfig = PhoneCommunicator.fakeConfig()
-//			self.usefulData.slope = nil
-//		}
-//		return
 		guard session.isReady else {
 			return
 		}
@@ -134,6 +126,15 @@ class PhoneCommunicator: NSObject {
 		DispatchQueue.main.async {
 			self.usefulData.isLoadingLatest = true
 		}
+		// Test Data
+//		DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//			let fake = PhoneCommunicator.fakeRecently()
+//			self.usefulData.bgLatest = nil//fake.last
+//			self.usefulData.bgInfoList = []//fake
+//			self.usefulData.bgConfig = PhoneCommunicator.fakeConfig()
+//			self.usefulData.slope = nil
+//		}
+//		return
 		session.sendMessage(message) { [unowned self] reply in
 			print("requestRecentlyChart reply: \(reply)")
 			if reply.keys.count == 0 {

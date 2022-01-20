@@ -176,6 +176,7 @@
 		E53D049C274391F000CA548E /* PhoneCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D0498274391EF00CA548E /* PhoneCommunicator.swift */; };
 		E53D049D274391F000CA548E /* WatchChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D0499274391F000CA548E /* WatchChartView.swift */; };
 		E53D049E274391F000CA548E /* UsefulData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D049A274391F000CA548E /* UsefulData.swift */; };
+		E57304DE27990F21009B7305 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E57304E027990F21009B7305 /* Localizable.strings */; };
 		E584FBF7278698E100BEA224 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D0490274390E000CA548E /* Common.swift */; };
 		E584FBF92786CE1C00BEA224 /* DailyTrend.swift in Sources */ = {isa = PBXBuildFile; fileRef = E584FBF82786CE1C00BEA224 /* DailyTrend.swift */; };
 		E584FC04278828D700BEA224 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E584FC03278828D700BEA224 /* UINavigationController.swift */; };
@@ -817,6 +818,8 @@
 		E53D0498274391EF00CA548E /* PhoneCommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneCommunicator.swift; sourceTree = "<group>"; };
 		E53D0499274391F000CA548E /* WatchChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchChartView.swift; sourceTree = "<group>"; };
 		E53D049A274391F000CA548E /* UsefulData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsefulData.swift; sourceTree = "<group>"; };
+		E57304DF27990F21009B7305 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E57304E127990F25009B7305 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E584FBF82786CE1C00BEA224 /* DailyTrend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTrend.swift; sourceTree = "<group>"; };
 		E584FC03278828D700BEA224 /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		E5D5EB7D2745F00E003D0DD9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -1610,6 +1613,7 @@
 				E53D048A27438D3B00CA548E /* Assets.xcassets */,
 				E53D047A27438D0000CA548E /* PushNotificationPayload.apns */,
 				E53D046927438C6100CA548E /* Preview Content */,
+				E57304E027990F21009B7305 /* Localizable.strings */,
 			);
 			path = "xDripWatch WatchKit Extension";
 			sourceTree = "<group>";
@@ -2911,6 +2915,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E53D048E27438EE100CA548E /* Preview Assets.xcassets in Resources */,
+				E57304DE27990F21009B7305 /* Localizable.strings in Resources */,
 				E53D048027438D0100CA548E /* PushNotificationPayload.apns in Resources */,
 				E53D048B27438D3B00CA548E /* Assets.xcassets in Resources */,
 			);
@@ -3655,6 +3660,15 @@
 				4EC42973279470B1009B8437 /* zh */,
 			);
 			name = DailyTrend.strings;
+			sourceTree = "<group>";
+		};
+		E57304E027990F21009B7305 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E57304DF27990F21009B7305 /* en */,
+				E57304E127990F25009B7305 /* zh */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		F81F370525C1583400520946 /* WatlaaView.strings */ = {
