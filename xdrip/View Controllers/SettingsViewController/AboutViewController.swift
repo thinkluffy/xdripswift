@@ -50,8 +50,6 @@ class AboutViewController: LegacySubSettingsViewController {
         setupView()
 
         buildData()
-
-        testTrc()
     }
 
     private func setupView() {
@@ -199,17 +197,5 @@ class AboutViewController: LegacySubSettingsViewController {
         }
 
         present(dialog, animated: true)
-    }
-
-    private func testTrc() {
-        let trc = Trc(trcId: "zDrip")
-        trc.useChinaUrl = true
-
-        trc.refresh {
-            refreshed in
-
-            let ret = trc.json(forKey: "com_LatestAppVersion") ?? JSON()
-            print("----> ret: \(ret)")
-        }
     }
 }

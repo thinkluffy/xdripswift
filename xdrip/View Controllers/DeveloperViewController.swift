@@ -70,9 +70,14 @@ class DeveloperViewController: UIViewController {
                     operationCell, tableView, indexPath in
 
                     RemoteConfig.shared.refresh { refreshed in
-                        self.view.makeToast("Refreshed!", duration: 2.0, position: .bottom)
-                        operationCell.detailedText = String(RemoteConfig.shared.versionId)
-                        self.tableView.reloadRows(at: [indexPath], with: .none)
+                        if refreshed {
+                            self.view.makeToast("Refreshed", duration: 2.0, position: .bottom)
+                            operationCell.detailedText = String(RemoteConfig.shared.versionId)
+                            self.tableView.reloadRows(at: [indexPath], with: .none)
+
+                        } else {
+                            self.view.makeToast("No newer config", duration: 2.0, position: .bottom)
+                        }
                     }
                 })
                 .toggleCell(title: "Remote Config Test Mode", isOn: RemoteConfigHost.testMode, toggleDidChange: { toggleCell, from, to in
@@ -121,7 +126,7 @@ class DeveloperViewController: UIViewController {
 
         } else {
             // should not be here
-            return "Unkown"
+            return "Unknown"
         }
     }
 }

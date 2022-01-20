@@ -28,8 +28,9 @@ public class Trc: RemoteConfigProvider {
         }
     }
 
-    public init(trcId: String) {
+    public init(trcId: String, useChinaUrl: Bool = false) {
         trcApi = TrcApi(trcId: trcId)
+        self.useChinaUrl = useChinaUrl
     }
 
     public var versionId: Int {
@@ -51,6 +52,9 @@ public class Trc: RemoteConfigProvider {
             )
 
             self.trcApi.request(withParams: params) { result in
+                Trc.log.i("TrcApi refreshed, versionTag: \(result.versionTag)")
+
+                self.versionTag = result.versionTag
                 self.content = result.content
                 completion?(true)
 
@@ -119,7 +123,7 @@ public class Trc: RemoteConfigProvider {
 
             if let versionTag = json["version_tag"].string, json["content"].exists() {
                 self.versionTag = versionTag
-                self.content = json["content"]
+                content = json["content"]
                 Trc.log.d("Load trc result from file")
 
             } else {

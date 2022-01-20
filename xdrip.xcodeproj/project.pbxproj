@@ -147,7 +147,6 @@
 		4EC4295E2792A0E4009B8437 /* DailyTrendChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4295D2792A0E4009B8437 /* DailyTrendChart.swift */; };
 		4EC42970279470AE009B8437 /* DailyTrend.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EC42972279470AE009B8437 /* DailyTrend.strings */; };
 		4EC4297527985040009B8437 /* RemoteConfigProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4297427985040009B8437 /* RemoteConfigProvider.swift */; };
-		4EC4297727985169009B8437 /* Frc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4297627985169009B8437 /* Frc.swift */; };
 		4EC48D0C2770599B00EEB0BA /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC48D0A2770599B00EEB0BA /* Note+CoreDataClass.swift */; };
 		4EC48D0D2770599B00EEB0BA /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC48D0B2770599B00EEB0BA /* Note+CoreDataProperties.swift */; };
 		4EC48D0F277059E600EEB0BA /* BgReading+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC48D0E277059E600EEB0BA /* BgReading+CoreDataProperties.swift */; };
@@ -790,7 +789,6 @@
 		4EC42971279470AE009B8437 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DailyTrend.strings; sourceTree = "<group>"; };
 		4EC42973279470B1009B8437 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/DailyTrend.strings; sourceTree = "<group>"; };
 		4EC4297427985040009B8437 /* RemoteConfigProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigProvider.swift; sourceTree = "<group>"; };
-		4EC4297627985169009B8437 /* Frc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frc.swift; sourceTree = "<group>"; };
 		4EC48D0A2770599B00EEB0BA /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4EC48D0B2770599B00EEB0BA /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4EC48D0E277059E600EEB0BA /* BgReading+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BgReading+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -1587,7 +1585,6 @@
 			isa = PBXGroup;
 			children = (
 				4ECA4D172796C72C008AB111 /* Trc.swift */,
-				4EC4297627985169009B8437 /* Frc.swift */,
 				4E94C345277DF4C000382122 /* RemoteConfig.swift */,
 				4EC4297427985040009B8437 /* RemoteConfigProvider.swift */,
 			);
@@ -3337,7 +3334,6 @@
 				4E9D7987273BEC5500B666C5 /* Log.swift in Sources */,
 				F8A1585122EDB597007F5B5D /* ConstantsBGGraphBuilder.swift in Sources */,
 				F81D6D4822BD5F62005EFAE2 /* DexcomShareUploadManager.swift in Sources */,
-				4EC4297727985169009B8437 /* Frc.swift in Sources */,
 				4E16CB502769F67F00A8A79E /* LegacySubSettingsViewController.swift in Sources */,
 				F8C9784D2428052E00A09483 /* CGMSensorType.swift in Sources */,
 				F8A1586B22EDB967007F5B5D /* ConstantsMaster.swift in Sources */,

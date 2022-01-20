@@ -223,7 +223,7 @@ extension DailyTrendViewController: DailyTrendV {
 						dailyTrendItems: [DailyTrend.DailyTrendItem]) {
         DailyTrendViewController.log.d("==> showDailyTrend, daysRange: \(daysRange), validDays: \(validDays), items: \(dailyTrendItems.count)")
 
-        statusLabel.text = R.string.dailyTrend.daily_trend_available_days(validDays.round(toDecimalPlaces: 1), daysRange)
+        statusLabel.text = R.string.dailyTrend.daily_trend_available_days(Int(validDays.rounded()), daysRange)
 		statusLabel.textColor = validDays < Double(daysRange - 1) ?  ConstantsUI.warningColor : .white
 
         loadingIndicatorView.stopAnimating()

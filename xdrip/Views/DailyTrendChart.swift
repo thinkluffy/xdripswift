@@ -361,7 +361,8 @@ class DailyTrendChart: UIView {
         medianDataSet.circleRadius = 1.5
         medianDataSet.setCircleColor(.white)
         medianDataSet.highlightEnabled = true
-
+        medianDataSet.mode = .cubicBezier
+        
         highDataSet.fillColor = .white
         highDataSet.fillAlpha = 0.2
         highDataSet.drawFilledEnabled = true
@@ -422,8 +423,6 @@ class DailyTrendChart: UIView {
         dataSet.highlightColor = .white
         dataSet.drawCirclesEnabled = false
         dataSet.drawCircleHoleEnabled = false
-
-//        dataSet.mode = .cubicBezier
 
         dataSet.highlightEnabled = false
     }

@@ -4471,15 +4471,15 @@ struct R: Rswift.Validatable {
 
     /// This `R.string.dailyTrend` struct is generated, and contains static references to 1 localization keys.
     struct dailyTrend {
-      /// en translation: Data available for %1$.1f of %2$d days
+      /// en translation: Data available for %1$d of %2$d days
       ///
       /// Locales: en, zh
       static let daily_trend_available_days = Rswift.StringResource(key: "daily_trend_available_days", tableName: "DailyTrend", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
 
-      /// en translation: Data available for %1$.1f of %2$d days
+      /// en translation: Data available for %1$d of %2$d days
       ///
       /// Locales: en, zh
-      static func daily_trend_available_days(_ value1: Double, _ value2: Int, preferredLanguages: [String]? = nil) -> String {
+      static func daily_trend_available_days(_ value1: Int, _ value2: Int, preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           let format = NSLocalizedString("daily_trend_available_days", tableName: "DailyTrend", bundle: hostingBundle, comment: "")
           return String(format: format, locale: applicationLocale, value1, value2)

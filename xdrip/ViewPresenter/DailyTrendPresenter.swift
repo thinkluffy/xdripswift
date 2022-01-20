@@ -21,7 +21,7 @@ class DailyTrendPresenter: DailyTrendP {
     }
 
     func loadData(of date: Date, withDays daysRange: Int) {
-		let minInterval = 10
+		let minInterval = 20
 		
 		let toDate = Calendar.current.startOfDay(for: date)// 00:00 of the day
         let fromDate = Date(timeInterval: -Date.dayInSeconds * Double(daysRange), since: toDate)
@@ -33,8 +33,8 @@ class DailyTrendPresenter: DailyTrendP {
             
             moc.performAndWait {
                 let readings = self.bgReadingsAccessor.getBgReadings(
-					from: fromDate,//.addingTimeInterval(-Double(minInterval)/2 * Date.minuteInSeconds),
-					to: toDate,//.addingTimeInterval(Double(minInterval)/2 * Date.minuteInSeconds),
+					from: fromDate,
+					to: toDate,
 					on: moc)
 
                 guard let (dailyTrendItems, validDays) = DailyTrend.calculate(readings, minutesInterval: minInterval) else {
