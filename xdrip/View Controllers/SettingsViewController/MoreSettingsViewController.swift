@@ -46,17 +46,6 @@ class MoreSettingsViewController: SubSettingsViewController {
                         sectionHeaderColor: ConstantsUI.tableViewHeaderTextColor)
 
                 // developer
-                .toggleCell(title: "Log",
-                        isOn: UserDefaults.standard.LogEnabled,
-                        toggleDidChange: { toggleCell, from, to in
-                            UserDefaults.standard.LogEnabled = to
-                            if to {
-                                Log.level = Log.Level.verbose
-
-                            } else {
-                                Log.level = Log.Level.warning
-                            }
-                        })
                 .toggleCell(title: R.string.settingsViews.smoothBgValues(),
                         isOn: UserDefaults.standard.smoothBgReadings,
                         icon: nil,

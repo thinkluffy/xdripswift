@@ -66,6 +66,15 @@ class DeveloperViewController: UIViewController {
                 })
 
                 .section(headerTitle: "Common")
+                .toggleCell(title: "Log", isOn: UserDefaults.standard.LogEnabled, toggleDidChange: { toggleCell, from, to in
+                    UserDefaults.standard.LogEnabled = to
+                    if to {
+                        Log.level = Log.Level.verbose
+
+                    } else {
+                        Log.level = Log.Level.warning
+                    }
+                })
                 .operationCell(title: "Remote Config Version", detailedText: String(RemoteConfig.shared.versionId), didClick: {
                     operationCell, tableView, indexPath in
 
