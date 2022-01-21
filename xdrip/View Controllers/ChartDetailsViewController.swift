@@ -34,13 +34,11 @@ class ChartDetailsViewController: UIViewController {
     }()
     
     private lazy var calendarTitle: CalendarTitle = {
-        let calendarTitle = CalendarTitle()
-        return calendarTitle
+        CalendarTitle()
     }()
     
     private lazy var chartHoursSelection: SingleSelection = {
-        let singleSelection = SingleSelection()
-        return singleSelection
+        SingleSelection()
     }()
     
     private var showingDate: Date?
@@ -145,7 +143,7 @@ class ChartDetailsViewController: UIViewController {
         glucoseChart.highlightEnabled = true
         glucoseChart.dateFormat = "HH:mm"
         glucoseChart.chartHours = selectedChartHours
-        glucoseChart.useBiggerCircleSize = true
+        glucoseChart.useBiggerCircleSize = UserDefaults.standard.chartPoints5MinsApart
     }
     
     @objc private func exitButtonDidClick(_ button: UIButton) {

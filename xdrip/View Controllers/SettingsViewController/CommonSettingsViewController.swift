@@ -278,10 +278,10 @@ class CommonSettingsViewController: SubSettingsViewController {
                             _ = BottomSheetPickerViewController.show(in: self, pickerViewData: pickerViewData)
                         })
                 .toggleCell(title: R.string.settingsViews.settingsviews_chartDots5MinsApart(),
-                        isOn: UserDefaults.standard.chartDots5MinsApart,
+                        isOn: UserDefaults.standard.chartPoints5MinsApart,
                         toggleDidChange: {
                             toggleCell, from, to in
-                            UserDefaults.standard.chartDots5MinsApart = to
+                            UserDefaults.standard.chartPoints5MinsApart = to
                         })
     }
 

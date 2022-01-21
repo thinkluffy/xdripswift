@@ -204,7 +204,7 @@ class DailyTrendChart: UIView {
     }
 
     private func filterReadingsIfNeeded(_ readings: [BgReading]) -> [BgReading] {
-        guard UserDefaults.standard.chartDots5MinsApart else {
+        guard UserDefaults.standard.chartPoints5MinsApart else {
             return readings
         }
 

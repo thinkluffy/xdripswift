@@ -26,4 +26,7 @@ enum Events {
     static let enableFullFeatureMode = "enableFullFeatureMode"
     static let enableMasterMode = "enableMasterMode"
     static let enableFollowerMode = "enableFollowerMode"
+    
+    static let checkAppVersion = "checkAppVersion"
+
 }

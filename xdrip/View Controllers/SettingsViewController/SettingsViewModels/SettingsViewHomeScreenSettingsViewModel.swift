@@ -40,9 +40,9 @@ struct SettingsViewHomeScreenSettingsViewModel: SettingsViewModelProtocol {
         switch setting {
 
         case .chartDots5MinsApart :
-            return UISwitch(isOn: UserDefaults.standard.chartDots5MinsApart) {
+            return UISwitch(isOn: UserDefaults.standard.chartPoints5MinsApart) {
                 isOn in
-                UserDefaults.standard.chartDots5MinsApart = isOn
+                UserDefaults.standard.chartPoints5MinsApart = isOn
             }
         
         case .urgentHighMarkValue, .highMarkValue, .lowMarkValue, .urgentLowMarkValue, .chartHeight:
@@ -125,11 +125,11 @@ struct SettingsViewHomeScreenSettingsViewModel: SettingsViewModelProtocol {
             
         case .chartDots5MinsApart:
             return SettingsSelectedRowAction.callFunction(function: {
-                if UserDefaults.standard.chartDots5MinsApart {
-                    UserDefaults.standard.chartDots5MinsApart = false
+                if UserDefaults.standard.chartPoints5MinsApart {
+                    UserDefaults.standard.chartPoints5MinsApart = false
                     
                 } else {
-                    UserDefaults.standard.chartDots5MinsApart = true
+                    UserDefaults.standard.chartPoints5MinsApart = true
                 }
             })
         }
