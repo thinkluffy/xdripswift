@@ -722,8 +722,6 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
 
         let numberOfGeneralSections = numberOfGeneralSections()
 
-        BluetoothPeripheralViewController.log.d("nonFixedSettingIsShown: \(nonFixedSettingIsShown), webOOPSettingIsShown: \(webOOPSettingIsShown)")
-
         // default value for accessoryView is nil
         cell.accessoryView = nil
         cell.accessoryType = .none
