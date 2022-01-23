@@ -1386,6 +1386,7 @@ final class RootViewController: UIViewController {
     private func updateSensorCountdown() {
         // if there's no active sensor, there's nothing to do or show
         guard let activeSensor = activeSensor else {
+            RootViewController.log.i("ActiveSensor is nil, do not show SensorCountdown")
             sensorCountdown.isHidden = true
             return
         }
@@ -1393,6 +1394,7 @@ final class RootViewController: UIViewController {
         // check if there is a transmitter connected (needed as Dexcom will only connect briefly every 5 minutes)
         // if there is a transmitter connected, pull the current maxSensorAgeInSeconds and store in in UserDefaults
         if let cgmTransmitter = bluetoothPeripheralManager?.getCGMTransmitter(), let maxSeconds = cgmTransmitter.maxSensorAgeInSeconds() {
+            RootViewController.log.i("Get maxSensorAge, \(Double(maxSeconds)/Date.dayInSeconds) days")
             UserDefaults.standard.maxSensorAgeInSeconds = maxSeconds
         }
 
@@ -1402,6 +1404,7 @@ final class RootViewController: UIViewController {
             sensorCountdown.isHidden = false
 
         } else {
+            RootViewController.log.d("No maxSensorAge, do not show SensorCountdown")
             // this must be a sensor without a maxSensorAge , so just make sure to hide the sensor countdown image and do nothing
             sensorCountdown.isHidden = true
         }
