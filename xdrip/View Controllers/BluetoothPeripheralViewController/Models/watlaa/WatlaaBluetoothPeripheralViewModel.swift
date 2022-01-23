@@ -32,29 +32,8 @@ class WatlaaBluetoothPeripheralViewModel {
     
     /// it's the bluetoothPeripheral as M5Stack
     private var Watlaa: Watlaa? {
-        get {
-            return bluetoothPeripheral as? Watlaa
-        }
+        bluetoothPeripheral as? Watlaa
     }
-    
-    // MARK: - deinit
-    
-    deinit {
-        
-        // when closing the viewModel, and if there's still a bluetoothTransmitter existing, then reset the specific delegate to BluetoothPeripheralManager
-        
-        guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {return}
-        
-        guard let Watlaa = Watlaa else {return}
-        
-        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: Watlaa, createANewOneIfNecessary: false) else {return}
-        
-        guard let cGMWatlaaBluetoothTransmitter = blueToothTransmitter as? WatlaaBluetoothTransmitter else {return}
-        
-        cGMWatlaaBluetoothTransmitter.watlaaBluetoothTransmitterDelegate = bluetoothPeripheralManager as! BluetoothPeripheralManager
-        
-    }
-    
 }
 
 // MARK: - conform to BluetoothPeripheralViewModel
@@ -86,6 +65,22 @@ extension WatlaaBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
                 fatalError("in WatlaaBluetoothPeripheralViewModel, configure. bluetoothPeripheral is not Watlaa")
             }
         }
+        
+    }
+    
+    func resignConfigure() {
+        
+        // when closing the viewModel, and if there's still a bluetoothTransmitter existing, then reset the specific delegate to BluetoothPeripheralManager
+        
+        guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {return}
+        
+        guard let Watlaa = Watlaa else {return}
+        
+        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: Watlaa, createANewOneIfNecessary: false) else {return}
+        
+        guard let cGMWatlaaBluetoothTransmitter = blueToothTransmitter as? WatlaaBluetoothTransmitter else {return}
+        
+        cGMWatlaaBluetoothTransmitter.watlaaBluetoothTransmitterDelegate = bluetoothPeripheralManager as! BluetoothPeripheralManager
         
     }
     

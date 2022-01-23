@@ -257,6 +257,8 @@ class BluetoothPeripheralViewController: UIViewController {
     override func willMove(toParent parent: UIViewController?) {
         super.willMove(toParent: parent)
 
+        BluetoothPeripheralViewController.log.d("==> willMoveToParent")
+        
         // willMove is called when BluetoothPeripheralViewController is added and when BluetoothPeripheralViewController is removed.
         // It has no added value in the adding phase
         // It doe shave an added value when being removed. bluetoothPeripheralViewModel must be assigned to nil. bluetoothPeripheralViewModel deinit will be called which should reassign the delegate to BluetoothPeripheralManager. Also here the bluetoothtransmitter delegate will be reassigned to BluetoothPeripheralManager
@@ -267,8 +269,9 @@ class BluetoothPeripheralViewController: UIViewController {
 
         // set bluetoothPeripheralViewModel to nil. The bluetoothPeripheralViewModel's deinit will be called, which will set the delegate in the model to BluetoothPeripheralManager
 
+        bluetoothPeripheralViewModel?.resignConfigure()
         bluetoothPeripheralViewModel = nil
-
+        
         // reassign delegate in BluetoothTransmitter to bluetoothPeripheralManager
         reassignBluetoothTransmitterDelegateToBluetoothPeripheralManager()
 

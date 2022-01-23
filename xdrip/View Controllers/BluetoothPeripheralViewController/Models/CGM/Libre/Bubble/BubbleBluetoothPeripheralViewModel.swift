@@ -46,25 +46,6 @@ class BubbleBluetoothPeripheralViewModel {
     private var bubble: Bubble? {
         bluetoothPeripheral as? Bubble
     }
-    
-    // MARK: - deinit
-    
-    deinit {
-
-        // when closing the viewModel, and if there's still a bluetoothTransmitter existing, then reset the specific delegate to BluetoothPeripheralManager
-        
-        guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {return}
-        
-        guard let bubble = bubble else {return}
-        
-        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: bubble, createANewOneIfNecessary: false) else {return}
-        
-        guard let cGMBubbleBluetoothTransmitter = blueToothTransmitter as? CGMBubbleTransmitter else {return}
-        
-        cGMBubbleBluetoothTransmitter.cGMBubbleTransmitterDelegate = bluetoothPeripheralManager as! BluetoothPeripheralManager
-
-    }
-    
 }
 
 // MARK: - conform to BluetoothPeripheralViewModel
@@ -96,6 +77,21 @@ extension BubbleBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
                 fatalError("in BubbleBluetoothPeripheralViewModel, configure. bluetoothPeripheral is not Bubble")
             }
         }
+
+    }
+    
+    func resignConfigure() {
+        // when closing the viewModel, and if there's still a bluetoothTransmitter existing, then reset the specific delegate to BluetoothPeripheralManager
+        
+        guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {return}
+        
+        guard let bubble = bubble else {return}
+        
+        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: bubble, createANewOneIfNecessary: false) else {return}
+        
+        guard let cGMBubbleBluetoothTransmitter = blueToothTransmitter as? CGMBubbleTransmitter else {return}
+        
+        cGMBubbleBluetoothTransmitter.cGMBubbleTransmitterDelegate = bluetoothPeripheralManager as! BluetoothPeripheralManager
 
     }
     
