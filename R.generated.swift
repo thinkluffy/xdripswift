@@ -3144,7 +3144,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.common` struct is generated, and contains static references to 72 localization keys.
+    /// This `R.string.common` struct is generated, and contains static references to 73 localization keys.
     struct common {
       /// en translation: %@ must not be used to make medical decisions. It is a research and education tool only and is provided as-is without warranty of any kind, either expressed or implied, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose. The entire risk as to the quality and performance of the program is with you. Should the program prove defective, you assume the cost of all necessary servicing, repair, or correction.
       ///
@@ -3226,6 +3226,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let common_dontshowagain = Rswift.StringResource(key: "common_dontshowagain", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Error
+      ///
+      /// Locales: en, zh
+      static let error = Rswift.StringResource(key: "error", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Firmware
       ///
       /// Locales: en, zh
@@ -3741,6 +3745,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("common_dontshowagain", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Error
+      ///
+      /// Locales: en, zh
+      static func error(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("error", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "error"
+        }
+
+        return NSLocalizedString("error", tableName: "Common", bundle: bundle, comment: "")
       }
 
       /// en translation: Firmware
@@ -4950,7 +4969,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let transmitterpairingattempttimeout = Rswift.StringResource(key: "transmitterpairingattempttimeout", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: When using the Transmitter algorithm, it is not necessary to calibrate the sensor.
+      /// en translation: When Manual Calibration is disabled, it is not necessary to calibrate the sensor.
       ///
       /// Locales: en, zh
       static let calibrationNotNecessary = Rswift.StringResource(key: "calibrationNotNecessary", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
@@ -5483,7 +5502,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("transmitterpairingattempttimeout", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
-      /// en translation: When using the Transmitter algorithm, it is not necessary to calibrate the sensor.
+      /// en translation: When Manual Calibration is disabled, it is not necessary to calibrate the sensor.
       ///
       /// Locales: en, zh
       static func calibrationNotNecessary(preferredLanguages: [String]? = nil) -> String {

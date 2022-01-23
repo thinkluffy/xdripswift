@@ -134,7 +134,7 @@ class BluetoothPeripheralViewController: UIViewController {
             // by clicking the button, app will stop trying to connect
             if bluetoothPeripheral.blePeripheral.shouldconnect {
                 connectButtonOutlet?.setTitle(Texts_BluetoothPeripheralView.donotconnect, for: .normal)
-                connectButtonOutlet?.isHidden = false
+                connectButtonOutlet?.isHidden = true
 
                 return Texts_BluetoothPeripheralView.tryingToConnect
             }
@@ -151,7 +151,8 @@ class BluetoothPeripheralViewController: UIViewController {
             // if needs transmitterId, but no transmitterId is given by user, then button allows to set transmitter id, row text = "needs transmitter id"
             if let expectedBluetoothPeripheralType = expectedBluetoothPeripheralType, expectedBluetoothPeripheralType.needsTransmitterId(), transmitterId == nil {
 
-                connectButtonOutlet?.setTitle(Texts_SettingsView.labelTransmitterIdTextForButton, for: .normal)
+                connectButtonOutlet?.setTitle(R.string.settingsViews.settingsviews_transmitterid_text_for_button(),
+                                              for: .normal)
                 connectButtonOutlet?.isHidden = false
 
                 return Texts_BluetoothPeripheralView.needsTransmitterId
@@ -180,7 +181,7 @@ class BluetoothPeripheralViewController: UIViewController {
             }
 
             // we're here, looks like an error, let's write that in the status field
-            connectButtonOutlet?.setTitle("error", for: .normal)
+            connectButtonOutlet?.setTitle(R.string.common.error(), for: .normal)
             connectButtonOutlet?.isHidden = false
 
             return "error"

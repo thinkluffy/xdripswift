@@ -1418,7 +1418,8 @@ final class RootViewController: UIViewController {
 extension RootViewController: CGMTransmitterDelegate {
 
     func sensorStopDetected() {
-        trace("sensor stop detected", log: log, category: ConstantsLog.categoryRootView, type: .info)
+        RootViewController.log.d("==> sensorStopDetected")
+
         // unwrap cgmTransmitter
         guard let cgmTransmitter = bluetoothPeripheralManager?.getCGMTransmitter() else {
             return
@@ -1451,7 +1452,7 @@ extension RootViewController: CGMTransmitterDelegate {
     }
 
     func sensorNotDetected() {
-        trace("sensor not detected", log: log, category: ConstantsLog.categoryRootView, type: .info)
+        RootViewController.log.d("==> sensorNotDetected")
 
         createNotification(title: Texts_Common.warning,
                 body: Texts_HomeView.sensorNotDetected,

@@ -32,7 +32,7 @@
 "transmitterpairingattempttimeout" = "Transmitter did not reply to pairing request.";
 "success" = "Success";
 "failed" = "Failed";
-"calibrationNotNecessary" = "When using the Transmitter algorithm, it is not necessary to calibrate the sensor.";
+"calibrationNotNecessary" = "When Manual Calibration is disabled, it is not necessary to calibrate the sensor.";
 "dexcomBatteryTooLow" = "The Transmitter battery is too low!";
 "toast_new_bg_reading" = "New BG Reading";
 "enterSensorCode" = "If you don't have a sensor code use 0000 but be aware that you will not get readings until you calibrate";
