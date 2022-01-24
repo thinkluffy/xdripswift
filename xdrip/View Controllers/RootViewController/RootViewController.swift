@@ -200,7 +200,7 @@ final class RootViewController: UIViewController {
         chartHoursItems.append(SingleSelectionItem(id: ChartHours.h24.rawValue, title: "24H"))
         chartHoursSelection.show(items: chartHoursItems)
         chartHoursSelection.delegate = self
-        
+
         chartHoursSelection.select(id: selectedChartHours.rawValue, triggerCallback: false)
 
         // statistics time range
@@ -909,14 +909,21 @@ final class RootViewController: UIViewController {
                         RootViewController.log.i("calibration: creating calibrations")
 
                         // create new calibration
-                        let calibration = calibrator.createNewCalibration(bgValue: valueAsDoubleConvertedToMgDl, lastBgReading: latestReadings[0], sensor: activeSensor, lastCalibrationsForActiveSensorInLastXDays: &latestCalibrations, firstCalibration: firstCalibrationForActiveSensor, deviceName: deviceName, nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
+                        if let calibration = calibrator.createNewCalibration(bgValue: valueAsDoubleConvertedToMgDl,
+                                lastBgReading: latestReadings.count > 0 ? latestReadings[0] : nil,
+                                sensor: activeSensor,
+                                lastCalibrationsForActiveSensorInLastXDays: &latestCalibrations,
+                                firstCalibration: firstCalibrationForActiveSensor,
+                                deviceName: deviceName,
+                                nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext) {
 
-                        // send calibration to transmitter (only used for Dexcom, if firefly flow is used)
-                        cgmTransmitter.calibrate(calibration: calibration)
+                            // send calibration to transmitter (only used for Dexcom, if firefly flow is used)
+                            cgmTransmitter.calibrate(calibration: calibration)
 
-                        // presnooze fastrise and fastdrop alert
-                        AlertManager.shared.snooze(alertKind: .fastdrop, snoozePeriodInMinutes: 9, response: nil)
-                        AlertManager.shared.snooze(alertKind: .fastrise, snoozePeriodInMinutes: 9, response: nil)
+                            // presnooze fastrise and fastdrop alert
+                            AlertManager.shared.snooze(alertKind: .fastdrop, snoozePeriodInMinutes: 9, response: nil)
+                            AlertManager.shared.snooze(alertKind: .fastrise, snoozePeriodInMinutes: 9, response: nil)
+                        }
                     }
                 }
 
@@ -1248,10 +1255,12 @@ final class RootViewController: UIViewController {
     /// - creates a new sensor and assigns it to activeSensor
     /// - if sendToTransmitter is true then sends startSensor command to transmitter (ony useful for Firefly)
     /// - saves to coredata
-    private func startSensor(cgmTransmitter: CGMTransmitter, sensorStartDate: Date, sensorCode: String?, sendToTransmitter: Bool) {
+    private func startSensor(cgmTransmitter: CGMTransmitter?, sensorStartDate: Date, sensorCode: String?, sendToTransmitter: Bool) {
         RootViewController.log.d("==> startSensor")
 
-        EasyTracker.logEvent(Events.prefixStartSensor + cgmTransmitter.cgmTransmitterType().rawValue)
+        if let cgmTransmitter = cgmTransmitter {
+            EasyTracker.logEvent(Events.prefixStartSensor + cgmTransmitter.cgmTransmitterType().rawValue)
+        }
 
         // create active sensor
         let newSensor = Sensor(startDate: sensorStartDate,
@@ -1261,7 +1270,7 @@ final class RootViewController: UIViewController {
         CoreDataManager.shared.saveChanges()
 
         // send to transmitter
-        if sendToTransmitter {
+        if let cgmTransmitter = cgmTransmitter, sendToTransmitter {
             cgmTransmitter.startSensor(sensorCode: sensorCode, startDate: sensorStartDate)
         }
 
@@ -1269,16 +1278,18 @@ final class RootViewController: UIViewController {
         activeSensor = newSensor
     }
 
-    private func stopSensor(cgmTransmitter: CGMTransmitter, sendToTransmitter: Bool) {
+    private func stopSensor(cgmTransmitter: CGMTransmitter?, sendToTransmitter: Bool) {
         RootViewController.log.d("==> stopSensor")
 
-        EasyTracker.logEvent(Events.prefixStopSensor + cgmTransmitter.cgmTransmitterType().rawValue)
+        if let cgmTransmitter = cgmTransmitter {
+            EasyTracker.logEvent(Events.prefixStopSensor + cgmTransmitter.cgmTransmitterType().rawValue)
+        }
 
         // create stopDate
         let stopDate = Date()
 
         // send stop sensor command to transmitter, don't check if there's an activeSensor in coredata or not, never know that there's a desync between coredata and transmitter
-        if sendToTransmitter {
+        if let cgmTransmitter = cgmTransmitter, sendToTransmitter {
             cgmTransmitter.stopSensor(stopDate: stopDate)
         }
 
@@ -1415,36 +1426,29 @@ final class RootViewController: UIViewController {
 extension RootViewController: CGMTransmitterDelegate {
 
     func sensorStopDetected() {
-        trace("sensor stop detected", log: log, category: ConstantsLog.categoryRootView, type: .info)
-        // unwrap cgmTransmitter
-        guard let cgmTransmitter = bluetoothPeripheralManager?.getCGMTransmitter() else {
-            return
-        }
-
-        stopSensor(cgmTransmitter: cgmTransmitter, sendToTransmitter: false)
+        RootViewController.log.d("==> sensorStopDetected")
+        stopSensor(cgmTransmitter: bluetoothPeripheralManager?.getCGMTransmitter(), sendToTransmitter: false)
     }
 
     func newSensorDetected(sensorStartDate: Date?) {
         RootViewController.log.d("==> newSensorDetected")
 
-        // unwrap cgmTransmitter
-        guard let cgmTransmitter = bluetoothPeripheralManager?.getCGMTransmitter() else {
-            return
-        }
-
-        stopSensor(cgmTransmitter: cgmTransmitter, sendToTransmitter: false)
+        // stop sensor, self.bluetoothPeripheralManager?.getCGMTransmitter() can be nil in case of Libre2, because new sensor is detected via NFC call which usually happens before the transmitter connection is made (and so before cGMTransmitter is assigned a new value)
+        stopSensor(cgmTransmitter: bluetoothPeripheralManager?.getCGMTransmitter(), sendToTransmitter: false)
 
         // if sensorStartDate is given, then startSensor
         if let sensorStartDate = sensorStartDate {
 
             // use sensorCode nil, in the end there will be no start sensor command sent to the transmitter because we just received the sensorStartTime from the transmitter, so it's already started
-            startSensor(cgmTransmitter: cgmTransmitter,
+            startSensor(cgmTransmitter: bluetoothPeripheralManager?.getCGMTransmitter(),
                     sensorStartDate: sensorStartDate,
                     sensorCode: nil,
                     sendToTransmitter: false)
         }
 
-        EasyTracker.logEvent(Events.prefixNewSensor + cgmTransmitter.cgmTransmitterType().rawValue)
+        if let cgmTransmitter = bluetoothPeripheralManager?.getCGMTransmitter() {
+            EasyTracker.logEvent(Events.prefixNewSensor + cgmTransmitter.cgmTransmitterType().rawValue)
+        }
     }
 
     func sensorNotDetected() {
