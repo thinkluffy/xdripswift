@@ -638,37 +638,37 @@ class BluetoothPeripheralViewController: UIViewController {
     private func startSensor(cgmTransmitter: CGMTransmitter, sensorStarDate: Date, sensorCode: String?, sendToTransmitter: Bool) {
         BluetoothPeripheralViewController.log.d("==> startSensor")
 
-//        EasyTracker.logEvent(Events.prefixStartSensor + cgmTransmitter.cgmTransmitterType().rawValue)
-//
-//        // create active sensor
-//        let _ = Sensor(startDate: sensorStarDate, nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
-//
-//        // save the newly created Sensor permenantly in coredata
-//        CoreDataManager.shared.saveChanges()
-//
-//        // send to transmitter
-//        if sendToTransmitter {
-//            cgmTransmitter.startSensor(sensorCode: sensorCode, startDate: sensorStarDate)
-//        }
+        EasyTracker.logEvent(Events.prefixStartSensor + cgmTransmitter.cgmTransmitterType().rawValue)
+
+        // create active sensor
+        let _ = Sensor(startDate: sensorStarDate, nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
+
+        // save the newly created Sensor permenantly in coredata
+        CoreDataManager.shared.saveChanges()
+
+        // send to transmitter
+        if sendToTransmitter {
+            cgmTransmitter.startSensor(sensorCode: sensorCode, startDate: sensorStarDate)
+        }
     }
     
     private func stopSensor(_ sensor: Sensor, cgmTransmitter: CGMTransmitter, sendToTransmitter: Bool) {
         BluetoothPeripheralViewController.log.d("==> stopSensor")
 
-//        EasyTracker.logEvent(Events.prefixStopSensor + cgmTransmitter.cgmTransmitterType().rawValue)
-//
-//        let stopDate = Date()
-//
-//        // send stop sensor command to transmitter, don't check if there's an activeSensor in coredata or not, never know that there's a desync between coredata and transmitter
-//        if sendToTransmitter {
-//            cgmTransmitter.stopSensor(stopDate: stopDate)
-//        }
-//
-//        // set endDate of activeSensor to stopDate
-//        sensor.endDate = stopDate
-//
-//        // save changes to coreData
-//        CoreDataManager.shared.saveChanges()
+        EasyTracker.logEvent(Events.prefixStopSensor + cgmTransmitter.cgmTransmitterType().rawValue)
+
+        let stopDate = Date()
+
+        // send stop sensor command to transmitter, don't check if there's an activeSensor in coredata or not, never know that there's a desync between coredata and transmitter
+        if sendToTransmitter {
+            cgmTransmitter.stopSensor(stopDate: stopDate)
+        }
+
+        // set endDate of activeSensor to stopDate
+        sensor.endDate = stopDate
+
+        // save changes to coreData
+        CoreDataManager.shared.saveChanges()
     }
     
     /// start a new sensor, ask user for starttime
