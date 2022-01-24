@@ -134,7 +134,7 @@ class BluetoothPeripheralViewController: UIViewController {
             // by clicking the button, app will stop trying to connect
             if bluetoothPeripheral.blePeripheral.shouldconnect {
                 connectButtonOutlet?.setTitle(Texts_BluetoothPeripheralView.donotconnect, for: .normal)
-                connectButtonOutlet?.isHidden = false
+                connectButtonOutlet?.isHidden = true
 
                 return Texts_BluetoothPeripheralView.tryingToConnect
             }
@@ -151,7 +151,8 @@ class BluetoothPeripheralViewController: UIViewController {
             // if needs transmitterId, but no transmitterId is given by user, then button allows to set transmitter id, row text = "needs transmitter id"
             if let expectedBluetoothPeripheralType = expectedBluetoothPeripheralType, expectedBluetoothPeripheralType.needsTransmitterId(), transmitterId == nil {
 
-                connectButtonOutlet?.setTitle(Texts_SettingsView.labelTransmitterIdTextForButton, for: .normal)
+                connectButtonOutlet?.setTitle(R.string.settingsViews.settingsviews_transmitterid_text_for_button(),
+                                              for: .normal)
                 connectButtonOutlet?.isHidden = false
 
                 return Texts_BluetoothPeripheralView.needsTransmitterId
@@ -180,7 +181,7 @@ class BluetoothPeripheralViewController: UIViewController {
             }
 
             // we're here, looks like an error, let's write that in the status field
-            connectButtonOutlet?.setTitle("error", for: .normal)
+            connectButtonOutlet?.setTitle(R.string.common.error(), for: .normal)
             connectButtonOutlet?.isHidden = false
 
             return "error"
@@ -257,6 +258,8 @@ class BluetoothPeripheralViewController: UIViewController {
     override func willMove(toParent parent: UIViewController?) {
         super.willMove(toParent: parent)
 
+        BluetoothPeripheralViewController.log.d("==> willMoveToParent")
+        
         // willMove is called when BluetoothPeripheralViewController is added and when BluetoothPeripheralViewController is removed.
         // It has no added value in the adding phase
         // It doe shave an added value when being removed. bluetoothPeripheralViewModel must be assigned to nil. bluetoothPeripheralViewModel deinit will be called which should reassign the delegate to BluetoothPeripheralManager. Also here the bluetoothtransmitter delegate will be reassigned to BluetoothPeripheralManager
@@ -267,8 +270,9 @@ class BluetoothPeripheralViewController: UIViewController {
 
         // set bluetoothPeripheralViewModel to nil. The bluetoothPeripheralViewModel's deinit will be called, which will set the delegate in the model to BluetoothPeripheralManager
 
+        bluetoothPeripheralViewModel?.resignConfigure()
         bluetoothPeripheralViewModel = nil
-
+        
         // reassign delegate in BluetoothTransmitter to bluetoothPeripheralManager
         reassignBluetoothTransmitterDelegateToBluetoothPeripheralManager()
 
@@ -718,8 +722,6 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
         }
 
         let numberOfGeneralSections = numberOfGeneralSections()
-
-        BluetoothPeripheralViewController.log.d("nonFixedSettingIsShown: \(nonFixedSettingIsShown), webOOPSettingIsShown: \(webOOPSettingIsShown)")
 
         // default value for accessoryView is nil
         cell.accessoryView = nil

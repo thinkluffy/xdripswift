@@ -29,29 +29,8 @@ class DropletBluetoothPeripheralViewModel {
     
     /// it's the bluetoothPeripheral as M5Stack
     private var Droplet: Droplet? {
-        get {
-            return bluetoothPeripheral as? Droplet
-        }
+        bluetoothPeripheral as? Droplet
     }
-    
-    // MARK: - deinit
-    
-    deinit {
-        
-        // when closing the viewModel, and if there's still a bluetoothTransmitter existing, then reset the specific delegate to BluetoothPeripheralManager
-        
-        guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {return}
-        
-        guard let Droplet = Droplet else {return}
-        
-        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: Droplet, createANewOneIfNecessary: false) else {return}
-        
-        guard let cGMDropletBluetoothTransmitter = blueToothTransmitter as? CGMDroplet1Transmitter else {return}
-        
-        cGMDropletBluetoothTransmitter.cGMDropletTransmitterDelegate = bluetoothPeripheralManager as! BluetoothPeripheralManager
-        
-    }
-    
 }
 
 // MARK: - conform to BluetoothPeripheralViewModel
@@ -83,6 +62,21 @@ extension DropletBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
                 fatalError("in DropletBluetoothPeripheralViewModel, configure. bluetoothPeripheral is not Droplet")
             }
         }
+        
+    }
+    
+    func resignConfigure() {
+        // when closing the viewModel, and if there's still a bluetoothTransmitter existing, then reset the specific delegate to BluetoothPeripheralManager
+        
+        guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {return}
+        
+        guard let Droplet = Droplet else {return}
+        
+        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: Droplet, createANewOneIfNecessary: false) else {return}
+        
+        guard let cGMDropletBluetoothTransmitter = blueToothTransmitter as? CGMDroplet1Transmitter else {return}
+        
+        cGMDropletBluetoothTransmitter.cGMDropletTransmitterDelegate = bluetoothPeripheralManager as! BluetoothPeripheralManager
         
     }
     

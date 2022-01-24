@@ -35,29 +35,6 @@ class Libre2BluetoothPeripheralViewModel {
     private var libre2: Libre2? {
         bluetoothPeripheral as? Libre2
     }
-
-    deinit {
-
-        // when closing the viewModel, and if there's still a bluetoothTransmitter existing, then reset the specific delegate to BluetoothPeripheralManager
-
-        guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {
-            return
-        }
-
-        guard let libre2 = libre2 else {
-            return
-        }
-
-        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: libre2, createANewOneIfNecessary: false) else {
-            return
-        }
-
-        guard let cGMLibre2BluetoothTransmitter = blueToothTransmitter as? CGMLibre2Transmitter else {
-            return
-        }
-
-        cGMLibre2BluetoothTransmitter.cGMLibre2TransmitterDelegate = bluetoothPeripheralManager as! BluetoothPeripheralManager
-    }
 }
 
 // MARK: - conform to BluetoothPeripheralViewModel
@@ -92,6 +69,20 @@ extension Libre2BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
 
     }
 
+    func resignConfigure() {
+        
+        // when closing the viewModel, and if there's still a bluetoothTransmitter existing, then reset the specific delegate to BluetoothPeripheralManager
+
+        guard let bluetoothPeripheralManager = bluetoothPeripheralManager,
+                let libre2 = libre2,
+                let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: libre2, createANewOneIfNecessary: false),
+              let cGMLibre2BluetoothTransmitter = blueToothTransmitter as? CGMLibre2Transmitter else {
+            return
+        }
+
+        cGMLibre2BluetoothTransmitter.cGMLibre2TransmitterDelegate = bluetoothPeripheralManager as! BluetoothPeripheralManager
+    }
+    
     func screenTitle() -> String {
         return BluetoothPeripheralType.Libre2Type.rawValue
     }

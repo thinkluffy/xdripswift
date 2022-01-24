@@ -46,23 +46,6 @@ class AtomBluetoothPeripheralViewModel {
     private var atom: Atom? {
         bluetoothPeripheral as? Atom
     }
-    
-    // MARK: - deinit
-    
-    deinit {
-        
-        // when closing the viewModel, and if there's still a bluetoothTransmitter existing, then reset the specific delegate to BluetoothPeripheralManager
-        
-        guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {return}
-        
-        guard let Atom = atom else {return}
-        
-        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: Atom, createANewOneIfNecessary: false) else {return}
-        
-        guard let cGMAtomBluetoothTransmitter = blueToothTransmitter as? CGMAtomTransmitter else {return}
-        
-        cGMAtomBluetoothTransmitter.cGMAtomTransmitterDelegate = bluetoothPeripheralManager as! BluetoothPeripheralManager
-    }
 }
 
 // MARK: - conform to BluetoothPeripheralViewModel
@@ -95,6 +78,20 @@ extension AtomBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
             }
         }
         
+    }
+    
+    func resignConfigure() {
+        // when closing the viewModel, and if there's still a bluetoothTransmitter existing, then reset the specific delegate to BluetoothPeripheralManager
+        
+        guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {return}
+        
+        guard let Atom = atom else {return}
+        
+        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: Atom, createANewOneIfNecessary: false) else {return}
+        
+        guard let cGMAtomBluetoothTransmitter = blueToothTransmitter as? CGMAtomTransmitter else {return}
+        
+        cGMAtomBluetoothTransmitter.cGMAtomTransmitterDelegate = bluetoothPeripheralManager as! BluetoothPeripheralManager
     }
     
     func screenTitle() -> String {

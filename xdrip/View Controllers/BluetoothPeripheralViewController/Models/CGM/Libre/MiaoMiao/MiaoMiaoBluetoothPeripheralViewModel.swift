@@ -47,24 +47,6 @@ class MiaoMiaoBluetoothPeripheralViewModel {
         bluetoothPeripheral as? MiaoMiao
     }
     
-    // MARK: - deinit
-    
-    deinit {
-
-        // when closing the viewModel, and if there's still a bluetoothTransmitter existing, then reset the specific delegate to BluetoothPeripheralManager
-        
-        guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {return}
-        
-        guard let MiaoMiao = MiaoMiao else {return}
-        
-        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: MiaoMiao, createANewOneIfNecessary: false) else {return}
-        
-        guard let cGMMiaoMiaoBluetoothTransmitter = blueToothTransmitter as? CGMMiaoMiaoTransmitter else {return}
-        
-        cGMMiaoMiaoBluetoothTransmitter.cGMMiaoMiaoTransmitterDelegate = bluetoothPeripheralManager as! BluetoothPeripheralManager
-
-    }
-    
 }
 
 // MARK: - conform to BluetoothPeripheralViewModel
@@ -96,6 +78,21 @@ extension MiaoMiaoBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
                 fatalError("in MiaoMiaoBluetoothPeripheralViewModel, configure. bluetoothPeripheral is not MiaoMiao")
             }
         }
+    }
+    
+    func resignConfigure() {
+        // when closing the viewModel, and if there's still a bluetoothTransmitter existing, then reset the specific delegate to BluetoothPeripheralManager
+        
+        guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {return}
+        
+        guard let MiaoMiao = MiaoMiao else {return}
+        
+        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: MiaoMiao, createANewOneIfNecessary: false) else {return}
+        
+        guard let cGMMiaoMiaoBluetoothTransmitter = blueToothTransmitter as? CGMMiaoMiaoTransmitter else {return}
+        
+        cGMMiaoMiaoBluetoothTransmitter.cGMMiaoMiaoTransmitterDelegate = bluetoothPeripheralManager as! BluetoothPeripheralManager
+
     }
     
     func screenTitle() -> String {
