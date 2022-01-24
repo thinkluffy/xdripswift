@@ -4831,7 +4831,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.homeView` struct is generated, and contains static references to 39 localization keys.
+    /// This `R.string.homeView` struct is generated, and contains static references to 40 localization keys.
     struct homeView {
       /// en translation: Are you sure you want to stop the sensor?
       ///
@@ -4845,6 +4845,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let calibrate = Rswift.StringResource(key: "calibrate", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Choose the time the sensor is started
+      ///
+      /// Locales: en, zh
+      static let dialog_subtitle_startSensorTime = Rswift.StringResource(key: "dialog_subtitle_startSensorTime", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Failed
       ///
       /// Locales: en, zh
@@ -4857,14 +4861,14 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let forgetbluetoothdeviceactiontitle = Rswift.StringResource(key: "forgetbluetoothdeviceactiontitle", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: If you don't have a sensor code use 0000 but be aware that you will not get readings until you calibrate
+      /// en translation: If you don't have a sensor code, please use 0000. But be aware that you will not get readings until you calibrate.
       ///
       /// Locales: en, zh
       static let enterSensorCode = Rswift.StringResource(key: "enterSensorCode", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: In the next dialogs, you will need to set the date and time the sensor was inserted. It is important that you set the date and time as correct as possible.
       ///
       /// Locales: en, zh
-      static let startsensortimeinfo = Rswift.StringResource(key: "startsensortimeinfo", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      static let startSensorTimeInfo = Rswift.StringResource(key: "startSensorTimeInfo", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Keep %@ open in the foreground until a connection is made. Don't exit the app and don't lock your iPhone.
       ///
       /// Locales: en, zh
@@ -4920,7 +4924,7 @@ struct R: Rswift.Validatable {
       /// en translation: Start Sensor
       ///
       /// Locales: en, zh
-      static let startsensor = Rswift.StringResource(key: "startsensor", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      static let startSensor = Rswift.StringResource(key: "startSensor", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Status
       ///
       /// Locales: en, zh
@@ -4928,7 +4932,7 @@ struct R: Rswift.Validatable {
       /// en translation: Stop Sensor
       ///
       /// Locales: en, zh
-      static let stopsensor = Rswift.StringResource(key: "stopsensor", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      static let stopSensor = Rswift.StringResource(key: "stopSensor", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Success
       ///
       /// Locales: en, zh
@@ -5035,6 +5039,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("calibrate", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
+      /// en translation: Choose the time the sensor is started
+      ///
+      /// Locales: en, zh
+      static func dialog_subtitle_startSensorTime(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("dialog_subtitle_startSensorTime", tableName: "HomeView", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
+          return "dialog_subtitle_startSensorTime"
+        }
+
+        return NSLocalizedString("dialog_subtitle_startSensorTime", tableName: "HomeView", bundle: bundle, comment: "")
+      }
+
       /// en translation: Failed
       ///
       /// Locales: en, zh
@@ -5080,7 +5099,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("forgetbluetoothdeviceactiontitle", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
-      /// en translation: If you don't have a sensor code use 0000 but be aware that you will not get readings until you calibrate
+      /// en translation: If you don't have a sensor code, please use 0000. But be aware that you will not get readings until you calibrate.
       ///
       /// Locales: en, zh
       static func enterSensorCode(preferredLanguages: [String]? = nil) -> String {
@@ -5098,16 +5117,16 @@ struct R: Rswift.Validatable {
       /// en translation: In the next dialogs, you will need to set the date and time the sensor was inserted. It is important that you set the date and time as correct as possible.
       ///
       /// Locales: en, zh
-      static func startsensortimeinfo(preferredLanguages: [String]? = nil) -> String {
+      static func startSensorTimeInfo(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("startsensortimeinfo", tableName: "HomeView", bundle: hostingBundle, comment: "")
+          return NSLocalizedString("startSensorTimeInfo", tableName: "HomeView", bundle: hostingBundle, comment: "")
         }
 
         guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "startsensortimeinfo"
+          return "startSensorTimeInfo"
         }
 
-        return NSLocalizedString("startsensortimeinfo", tableName: "HomeView", bundle: bundle, comment: "")
+        return NSLocalizedString("startSensorTimeInfo", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
       /// en translation: Keep %@ open in the foreground until a connection is made. Don't exit the app and don't lock your iPhone.
@@ -5310,16 +5329,16 @@ struct R: Rswift.Validatable {
       /// en translation: Start Sensor
       ///
       /// Locales: en, zh
-      static func startsensor(preferredLanguages: [String]? = nil) -> String {
+      static func startSensor(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("startsensor", tableName: "HomeView", bundle: hostingBundle, comment: "")
+          return NSLocalizedString("startSensor", tableName: "HomeView", bundle: hostingBundle, comment: "")
         }
 
         guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "startsensor"
+          return "startSensor"
         }
 
-        return NSLocalizedString("startsensor", tableName: "HomeView", bundle: bundle, comment: "")
+        return NSLocalizedString("startSensor", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
       /// en translation: Status
@@ -5340,16 +5359,16 @@ struct R: Rswift.Validatable {
       /// en translation: Stop Sensor
       ///
       /// Locales: en, zh
-      static func stopsensor(preferredLanguages: [String]? = nil) -> String {
+      static func stopSensor(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("stopsensor", tableName: "HomeView", bundle: hostingBundle, comment: "")
+          return NSLocalizedString("stopSensor", tableName: "HomeView", bundle: hostingBundle, comment: "")
         }
 
         guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "stopsensor"
+          return "stopSensor"
         }
 
-        return NSLocalizedString("stopsensor", tableName: "HomeView", bundle: bundle, comment: "")
+        return NSLocalizedString("stopSensor", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
       /// en translation: Success

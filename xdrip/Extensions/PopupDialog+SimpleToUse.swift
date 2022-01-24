@@ -105,6 +105,7 @@ fileprivate class PopupDialogInputView: UIView {
         label.font  = .systemFont(ofSize: 14)
         label.textColor = .white.withAlphaComponent(0.8)
         label.textAlignment = .center
+        label.numberOfLines = 0
         return label
     }()
     
@@ -160,8 +161,8 @@ fileprivate class PopupDialogInputView: UIView {
         }
         
         messageLabel.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(10)
-            make.top.equalTo(titleLabel.snp.bottom).offset(5)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.top.equalTo(titleLabel.snp.bottom).offset(10)
         }
         
         textFieldWrap.snp.makeConstraints { make in

@@ -136,12 +136,4 @@ enum Texts_HomeView {
         return NSLocalizedString("dexcomBatteryTooLow", tableName: filename, bundle: Bundle.main, value: "The Transmitter battery is too low!", comment: "Error message in case Dexcom G5 (and G6?) battery is too low. This is detected by wrong G5 values 2096896")
     }()
     
-    static let enterSensorCode: String = {
-        return NSLocalizedString("enterSensorCode", tableName: filename, bundle: Bundle.main, value: "if you don't have a sensor code use 0000 but be aware that you will not get readings until you calibrate", comment: "When user needs to enter sensor code, to start firefly sensor")
-    }()
-    
-    static let stopSensorConfirmation: String = {
-        return NSLocalizedString("stopSensorConfirmation", tableName: filename, bundle: Bundle.main, value: "Are you sure you want to stop the sensor?", comment: "When user clicks stop sensor, ask confirmation")
-    }()
-    
 }

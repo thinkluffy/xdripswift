@@ -165,6 +165,8 @@ final class RootViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: false)
         navigationController?.setNoBackground()
 
+        activeSensor = SensorsAccessor().fetchActiveSensor()
+
         // viewWillAppear when user switches eg from Settings Tab to Home Tab - latest reading value needs to be shown on the view, and also update minutes ago etc.
         updateLabelsAndChart(overrideApplicationState: true)
 
@@ -1263,8 +1265,7 @@ final class RootViewController: UIViewController {
         }
 
         // create active sensor
-        let newSensor = Sensor(startDate: sensorStartDate,
-                nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
+        let newSensor = Sensor(startDate: sensorStartDate, nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
 
         // save the newly created Sensor permanently in coredata
         CoreDataManager.shared.saveChanges()
