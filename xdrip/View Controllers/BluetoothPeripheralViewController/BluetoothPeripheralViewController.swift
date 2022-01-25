@@ -31,18 +31,13 @@ class BluetoothPeripheralViewController: UIViewController {
 
     // MARK: - IBOutlet's and IBAction's
 
-    /// action for connectButton, will also be used to disconnect, depending on the connection status
-    @IBAction func connectButtonAction(_ sender: UIButton) {
-        connectButtonHandler()
-    }
-
     /// action for trashButton, to delete the BluetoothPeripheral
     @IBAction func trashButtonAction(_ sender: UIBarButtonItem) {
         trashButtonClicked()
     }
 
     /// outlet for connectButton, to set the text in the connectButton
-    @IBOutlet weak var connectButtonOutlet: UIButton!
+    @IBOutlet weak var connectButton: BetterButton!
 
     /// outlet for trashButton, to enable or disable
     @IBOutlet weak var trashButtonOutlet: UIBarButtonItem!
@@ -109,13 +104,13 @@ class BluetoothPeripheralViewController: UIViewController {
     /// - used in BluetoothPeripheralsViewController and BluetoothPeripheralViewController. BluetoothPeripheralsViewController doen't have a connect button, so that outlet is optional
     static func setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: BluetoothPeripheral?,
                                                                   isScanning: Bool,
-                                                                  connectButtonOutlet: UIButton?,
+                                                                  connectButtonOutlet: BetterButton?,
                                                                   expectedBluetoothPeripheralType: BluetoothPeripheralType?,
                                                                   transmitterId: String?,
                                                                   bluetoothPeripheralManager: BluetoothPeripheralManager) -> String {
 
         // by default connectbutton is enabled
-        connectButtonOutlet?.enable()
+        connectButtonOutlet?.isDisabled = false
 
         // explanation see below in this file
 
@@ -125,11 +120,11 @@ class BluetoothPeripheralViewController: UIViewController {
             if let transmitterType = bluetoothPeripheralManager.getCGMTransmitter()?.cgmTransmitterType(),
                transmitterType.allowManualSensorStart() {
                 if let _ = SensorsAccessor().fetchActiveSensor() {
-                    connectButtonOutlet?.setTitle(R.string.homeView.stopSensor(), for: .normal)
+                    connectButtonOutlet?.titleText = R.string.homeView.stopSensor()
                     connectButtonOutlet?.isHidden = false
                     
                 } else {
-                    connectButtonOutlet?.setTitle(R.string.homeView.startSensor(), for: .normal)
+                    connectButtonOutlet?.titleText = R.string.homeView.startSensor()
                     connectButtonOutlet?.isHidden = false
                 }
                 
@@ -168,8 +163,7 @@ class BluetoothPeripheralViewController: UIViewController {
             // if needs transmitterId, but no transmitterId is given by user, then button allows to set transmitter id, row text = "needs transmitter id"
             if let expectedBluetoothPeripheralType = expectedBluetoothPeripheralType, expectedBluetoothPeripheralType.needsTransmitterId(), transmitterId == nil {
 
-                connectButtonOutlet?.setTitle(R.string.settingsViews.settingsviews_transmitterid_text_for_button(),
-                                              for: .normal)
+                connectButtonOutlet?.titleText = R.string.settingsViews.settingsviews_transmitterid_text_for_button()
                 connectButtonOutlet?.isHidden = false
 
                 return Texts_BluetoothPeripheralView.needsTransmitterId
@@ -180,7 +174,7 @@ class BluetoothPeripheralViewController: UIViewController {
 
                 if (!expectedBluetoothPeripheralType.needsTransmitterId() || (expectedBluetoothPeripheralType.needsTransmitterId() && transmitterId != nil)) && !isScanning {
 
-                    connectButtonOutlet?.setTitle(Texts_BluetoothPeripheralView.scan, for: .normal)
+                    connectButtonOutlet?.titleText = Texts_BluetoothPeripheralView.scan
                     connectButtonOutlet?.isHidden = false
 
                     return Texts_BluetoothPeripheralView.readyToScan
@@ -190,15 +184,15 @@ class BluetoothPeripheralViewController: UIViewController {
             // getting here, means it should be scanning
             if isScanning {
                 // disable, while scanning there's no need to click that button
-                connectButtonOutlet?.disable()
-                connectButtonOutlet?.setTitle(Texts_BluetoothPeripheralView.scanning, for: .normal)
+                connectButtonOutlet?.isDisabled = true
+                connectButtonOutlet?.titleText = Texts_BluetoothPeripheralView.scanning
                 connectButtonOutlet?.isHidden = true
 
                 return Texts_BluetoothPeripheralView.scanning
             }
 
             // we're here, looks like an error, let's write that in the status field
-            connectButtonOutlet?.setTitle(R.string.common.error(), for: .normal)
+            connectButtonOutlet?.titleText = R.string.common.error()
             connectButtonOutlet?.isHidden = false
 
             return "error"
@@ -224,7 +218,7 @@ class BluetoothPeripheralViewController: UIViewController {
                     CoreDataManager.shared.saveChanges()
 
                     // connect button label text needs to change because shouldconnect value has changed
-                    _ = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: bluetoothPeripheral, isScanning: self.isScanning, connectButtonOutlet: self.connectButtonOutlet, expectedBluetoothPeripheralType: self.expectedBluetoothPeripheralType, transmitterId: self.transmitterIdTempValue, bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
+                    _ = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: bluetoothPeripheral, isScanning: self.isScanning, connectButtonOutlet: self.connectButton, expectedBluetoothPeripheralType: self.expectedBluetoothPeripheralType, transmitterId: self.transmitterIdTempValue, bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
 
                     // this will set bluetoothTransmitter to nil which will result in disconnecting also
                     bluetoothPeripheralManager.setBluetoothTransmitterToNil(forBluetoothPeripheral: bluetoothPeripheral)
@@ -300,10 +294,17 @@ class BluetoothPeripheralViewController: UIViewController {
     // MARK: - View Methods
 
     private func setupView() {
+        connectButton.titleText = "Connect"
+        connectButton.borderColor = .white
+        connectButton.borderWidth = 1
+        connectButton.cornerRadius = 5
+        connectButton.titleColor = .white
+        connectButton.addTarget(self, action: #selector(connectButtonHandler), for: .touchUpInside)
+        
         // set label of connect button, according to current status
         _ = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: bluetoothPeripheral,
                 isScanning: isScanning,
-                connectButtonOutlet: connectButtonOutlet,
+                connectButtonOutlet: connectButton,
                 expectedBluetoothPeripheralType: expectedBluetoothPeripheralType,
                 transmitterId: transmitterIdTempValue,
                 bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
@@ -314,7 +315,7 @@ class BluetoothPeripheralViewController: UIViewController {
 
             // if transmitterId is needed then connect button should be disabled, until transmitter id is set
             if let expectedBluetoothPeripheralType = expectedBluetoothPeripheralType, expectedBluetoothPeripheralType.needsTransmitterId() {
-                connectButtonOutlet.disable()
+                connectButton.isDisabled = true
             }
 
             // unwrap expectedBluetoothPeripheralType
@@ -388,12 +389,12 @@ class BluetoothPeripheralViewController: UIViewController {
             self.bluetoothPeripheralViewModel?.configure(bluetoothPeripheral: self.bluetoothPeripheral, bluetoothPeripheralManager: bluetoothPeripheralManager, tableView: self.tableView, bluetoothPeripheralViewController: self)
 
             // enable the connect button
-            self.connectButtonOutlet.enable()
-
+            self.connectButton.isDisabled = false
+            
             // set right text for connect button
             _ = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: bluetoothPeripheral,
                     isScanning: self.isScanning,
-                    connectButtonOutlet: self.connectButtonOutlet,
+                    connectButtonOutlet: self.connectButton,
                     expectedBluetoothPeripheralType: self.expectedBluetoothPeripheralType,
                     transmitterId: self.transmitterIdTempValue,
                     bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
@@ -440,7 +441,7 @@ class BluetoothPeripheralViewController: UIViewController {
             isScanning = true
 
             // disable the connect button
-            connectButtonOutlet.disable()
+            connectButton.isDisabled = true
 
             // app should be scanning now, update of cell is needed
             tableView.reloadRows(at: [IndexPath(row: Setting.connectionStatus.rawValue, section: 0)], with: .none)
@@ -531,7 +532,7 @@ class BluetoothPeripheralViewController: UIViewController {
     }
 
     /// user clicked connect button
-    private func connectButtonHandler() {
+    @objc private func connectButtonHandler() {
         // unwrap bluetoothPeripheralManager
         guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {
             return
@@ -629,7 +630,7 @@ class BluetoothPeripheralViewController: UIViewController {
         // will change text of the button
         _ = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: bluetoothPeripheral,
                 isScanning: isScanning,
-                connectButtonOutlet: connectButtonOutlet,
+                connectButtonOutlet: connectButton,
                 expectedBluetoothPeripheralType: expectedBluetoothPeripheralType,
                 transmitterId: transmitterIdTempValue,
                 bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
@@ -798,7 +799,7 @@ class BluetoothPeripheralViewController: UIViewController {
                             self.tableView.reloadRows(at: [IndexPath(row: Setting.transmitterId.rawValue, section: 0)], with: .none)
 
                             // as transmitter id has been set (or set to nil), connect button label text must change
-                            _ = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: self.bluetoothPeripheral, isScanning: self.isScanning, connectButtonOutlet: self.connectButtonOutlet, expectedBluetoothPeripheralType: self.expectedBluetoothPeripheralType, transmitterId: transmitterIdUpper, bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
+                            _ = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: self.bluetoothPeripheral, isScanning: self.isScanning, connectButtonOutlet: self.connectButton, expectedBluetoothPeripheralType: self.expectedBluetoothPeripheralType, transmitterId: transmitterIdUpper, bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
 
                         },
                         cancelHandler: nil,
@@ -917,7 +918,7 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
 
         case .connectionStatus:
             cell.textLabel?.text = Texts_BluetoothPeripheralView.status
-            cell.detailTextLabel?.text = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: bluetoothPeripheral, isScanning: isScanning, connectButtonOutlet: connectButtonOutlet, expectedBluetoothPeripheralType: expectedBluetoothPeripheralType, transmitterId: transmitterIdTempValue, bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
+            cell.detailTextLabel?.text = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: bluetoothPeripheral, isScanning: isScanning, connectButtonOutlet: connectButton, expectedBluetoothPeripheralType: expectedBluetoothPeripheralType, transmitterId: transmitterIdTempValue, bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
 
         case .transmitterId:
             cell.textLabel?.text = Texts_SettingsView.labelTransmitterId

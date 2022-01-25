@@ -46,7 +46,7 @@ extension PopupDialog {
     convenience init(title: String?,
                      message: String?,
                      keyboardType: UIKeyboardType?,
-                     autocapitalizationType: UITextAutocapitalizationType? = nil,
+                     autocapitalizationType: UITextAutocapitalizationType? = UITextAutocapitalizationType.none,
                      text: String?,
                      placeHolder: String?,
                      actionTitle: String = R.string.common.common_Ok(),

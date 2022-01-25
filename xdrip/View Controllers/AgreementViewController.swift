@@ -102,7 +102,7 @@ class AgreementViewController: UIViewController {
         }
         
         startToUseButton.snp.makeConstraints { make in
-            make.height.equalTo(50)
+            make.height.equalTo(45)
             make.leading.bottom.trailing.equalTo(view.layoutMarginsGuide).inset(10)
         }
 

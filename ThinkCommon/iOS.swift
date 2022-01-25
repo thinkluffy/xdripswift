@@ -113,6 +113,14 @@ public class iOS {
         UIDevice.current.userInterfaceIdiom == .pad
     }
     
+    public static var isDebugBuild: Bool {
+#if DEBUG
+        true
+#else
+        false
+#endif
+    }
+    
     public static var safeAreaTop: CGFloat = {
         return UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 0
     }()

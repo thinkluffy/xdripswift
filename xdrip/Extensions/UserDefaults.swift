@@ -1195,6 +1195,9 @@ extension UserDefaults {
     /// LogEnabled - default false
     var LogEnabled: Bool {
         get {
+            if object(forKey: Key.LogEnabled.rawValue) == nil {
+                return iOS.isDebugBuild
+            }
             return bool(forKey: Key.LogEnabled.rawValue)
         }
         set {

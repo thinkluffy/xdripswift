@@ -8,14 +8,17 @@
 
 import UIKit
 
+@IBDesignable
 public class BetterButton: UIControl {
 
+    @IBInspectable
     public var cornerRadius: CGFloat = 0.0 {
         didSet {
             setupCornors()
         }
     }
     
+    @IBInspectable
     public var fullyRoundedCorners: Bool = false {
         didSet {
             setupCornors()
@@ -23,6 +26,7 @@ public class BetterButton: UIControl {
     }
     
     private var _bgColor: UIColor = .clear
+    @IBInspectable
     public var bgColor: UIColor {
         get {
             return _bgColor
@@ -35,18 +39,21 @@ public class BetterButton: UIControl {
         }
     }
     
+    @IBInspectable
     public var borderColor: UIColor = .clear {
         didSet {
             contentView.layer.borderColor = borderColor.cgColor
         }
     }
     
+    @IBInspectable
     public var borderWidth: CGFloat = 0.0 {
         didSet {
             contentView.layer.borderWidth = borderWidth
         }
     }
     
+    @IBInspectable
     public var titleText: String = "" {
         didSet {
             titleLabel.text = titleText
@@ -54,6 +61,7 @@ public class BetterButton: UIControl {
         }
     }
     
+    @IBInspectable
     public var titleColor: UIColor = .white {
         didSet {
             if !isDisabled {
@@ -62,6 +70,7 @@ public class BetterButton: UIControl {
         }
     }
     
+    @IBInspectable
     public var titleColorWhenDisabled: UIColor = .darkText {
         didSet {
             if isDisabled {
@@ -70,6 +79,7 @@ public class BetterButton: UIControl {
         }
     }
     
+    @IBInspectable
     public var titleFont: UIFont = .systemFont(ofSize: 14) {
         didSet {
             titleLabel.font = titleFont
@@ -77,6 +87,7 @@ public class BetterButton: UIControl {
         }
     }
     
+    @IBInspectable
     public var iconImage: UIImage? {
         didSet {
             iconImageView.image = iconImage
@@ -96,6 +107,7 @@ public class BetterButton: UIControl {
         }
     }
     
+    @IBInspectable
     public var iconSize: CGFloat = 20 {
         didSet {
             if iconImage != nil {
@@ -107,6 +119,7 @@ public class BetterButton: UIControl {
         }
     }
 
+    @IBInspectable
     public var iconTitleGap: CGFloat = 5 {
         didSet {
             guard iconImage != nil else {
@@ -120,6 +133,7 @@ public class BetterButton: UIControl {
         }
     }
     
+    @IBInspectable
     public var isDisabled: Bool = false {
         didSet {
             if isDisabled {
@@ -183,7 +197,8 @@ public class BetterButton: UIControl {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        setup()
     }
     
     private func setup() {
@@ -292,5 +307,10 @@ public class BetterButton: UIControl {
         playingShimmerTimer?.invalidate()
         playingShimmerTimer = nil
         shimmer.removeFromSuperview()
+    }
+    
+    public override func prepareForInterfaceBuilder() {
+        setup()
+        titleText = "Better Button"
     }
 }

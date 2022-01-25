@@ -41,13 +41,15 @@ class NotesViewController: UIViewController {
         let titleLabel = UILabel()
         titleLabel.text = R.string.notes.emptyview_title_no_notes()
         titleLabel.textColor = .lightText
-        titleLabel.font = .systemFont(ofSize: 25)
-
+        titleLabel.font = .preferredFont(forTextStyle: .title1)
+        titleLabel.adjustsFontForContentSizeCategory = true
+        
         let msgLabel = UILabel()
         msgLabel.text = R.string.notes.emptyview_msg_no_notes()
         msgLabel.textColor = .lightText
-        msgLabel.font = .systemFont(ofSize: 16)
-
+        msgLabel.font = .preferredFont(forTextStyle: .body)
+        msgLabel.adjustsFontForContentSizeCategory = true
+        
         let view = UIView()
         view.addSubview(titleLabel)
         view.addSubview(msgLabel)
