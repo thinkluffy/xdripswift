@@ -337,7 +337,7 @@ class CGMG5Transmitter: BluetoothTransmitter, CGMTransmitter {
 
             case .CBUUID_Write_Control:
 
-                if (G5ResetRequested) {
+                if G5ResetRequested {
                     // send ResetTxMessage
                     sendG5Reset()
 

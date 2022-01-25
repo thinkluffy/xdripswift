@@ -132,6 +132,9 @@ class BluetoothPeripheralViewController: UIViewController {
                     connectButtonOutlet?.setTitle(R.string.homeView.startSensor(), for: .normal)
                     connectButtonOutlet?.isHidden = false
                 }
+                
+            } else {
+                connectButtonOutlet?.isHidden = true
             }
             
             // if connected then status = connected, button text = disconnect
@@ -150,14 +153,15 @@ class BluetoothPeripheralViewController: UIViewController {
 //                connectButtonOutlet?.isHidden = true
 
                 return Texts_BluetoothPeripheralView.tryingToConnect
-            }
-
+                
+            } else {
             // not connected, shouldconnect = false
-//            connectButtonOutlet?.setTitle(Texts_BluetoothPeripheralView.connect, for: .normal)
-//            connectButtonOutlet?.isHidden = false
+//                connectButtonOutlet?.setTitle(Texts_BluetoothPeripheralView.connect, for: .normal)
+//                connectButtonOutlet?.isHidden = false
 
-            return Texts_BluetoothPeripheralView.notTryingToConnect
-
+                return Texts_BluetoothPeripheralView.notTryingToConnect
+            }
+            
         } else {
             // BluetoothPeripheral is nil
 
