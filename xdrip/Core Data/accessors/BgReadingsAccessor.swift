@@ -275,7 +275,13 @@ class BgReadingsAccessor {
                                         Int(Constants.maxBgMgDl),
                                         Int(Constants.minBgMgDl))
             fetchRequest.predicate = predicate
-        }
+			
+		} else {
+			let predicate = NSPredicate(format: "calculatedValue < %d AND calculatedValue > %d",
+										Int(Constants.maxBgMgDl),
+										Int(Constants.minBgMgDl))
+			fetchRequest.predicate = predicate
+		}
         
         // set fetchLimit
         if let limit = limit, limit >= 0 {

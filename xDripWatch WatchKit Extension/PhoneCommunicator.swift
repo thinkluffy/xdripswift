@@ -144,7 +144,12 @@ class PhoneCommunicator: NSObject {
 				self.usefulData.bgConfig = data.config
 				self.usefulData.slope = data.slope
 				if let latest = data.latest {
-					self.previousOne = ObjectWithDate(date: latest.date, value: latest.value)
+					let showAsMgDl = data.config?.showAsMgDl ?? true
+					let slope = data.slope?.description ?? ""
+					let trendStr = String(format: "%.\(showAsMgDl ? 0 : 1)f %@",
+										  latest.value,
+										  slope)
+					self.previousOne = ObjectWithDate(date: latest.date, value: trendStr)
 				}
 			}
 		} errorHandler: { error in

@@ -71,7 +71,7 @@ extension ComplicationController {
 				let text = Date().timeIntervalSince(result.0) > Constants.DataValidTimeInterval ? "---" : result.1
 				let textProvider = CLKSimpleTextProvider(text: text, shortText: text)
 				
-				let imageProvider = CLKFullColorImageProvider(fullColorImage: self.getImage(from: text) ?? UIImage(named: "128")!)
+				let imageProvider = CLKFullColorImageProvider(fullColorImage: self.getImage(from: text) ?? UIImage())
 
 				let template: CLKComplicationTemplate? = self.getTemplate(for: complication, dateProvider: dateProvider, textProvider: textProvider, imageProvider: imageProvider)
                 
