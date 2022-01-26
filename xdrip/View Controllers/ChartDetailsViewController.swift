@@ -3,7 +3,7 @@
 //  xdrip
 //
 //  Created by Yuanbin Cai on 2021/11/9.
-//  Copyright © 2021 Johan Degraeve. All rights reserved.
+//  Copyright © 2021 zDrip. All rights reserved.
 //
 
 import UIKit
@@ -25,7 +25,7 @@ class ChartDetailsViewController: UIViewController {
 
     private var presenter: ChartDetailsP!
     
-    private var selectedChartHoursId = ChartHours.H6
+    private var selectedChartHours = ChartHours.h6
     
     private lazy var exitButton: UIButton = {
         let view = UIButton()
@@ -34,13 +34,11 @@ class ChartDetailsViewController: UIViewController {
     }()
     
     private lazy var calendarTitle: CalendarTitle = {
-        let calendarTitle = CalendarTitle()
-        return calendarTitle
+        CalendarTitle()
     }()
     
     private lazy var chartHoursSelection: SingleSelection = {
-        let singleSelection = SingleSelection()
-        return singleSelection
+        SingleSelection()
     }()
     
     private var showingDate: Date?
@@ -52,8 +50,7 @@ class ChartDetailsViewController: UIViewController {
         
         setupView()
         
-        let current = Date()
-        presenter.loadData(date: current)
+        presenter.loadData(date: Date())
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -68,15 +65,15 @@ class ChartDetailsViewController: UIViewController {
     
     // make the ViewController landscape mode
     override public var shouldAutorotate: Bool {
-        return false
+        false
     }
     
     override public var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .landscapeLeft
+        .landscapeLeft
     }
     
     override public var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
-        return .landscapeLeft
+        .landscapeLeft
     }
     
     private func instancePresenter() {
@@ -108,32 +105,32 @@ class ChartDetailsViewController: UIViewController {
         calendarTitle.delegate = self
 
         var selectionItems = [SingleSelectionItem]()
-        selectionItems.append(SingleSelectionItem(id: ChartHours.H1, title: "1H"))
-        selectionItems.append(SingleSelectionItem(id: ChartHours.H3, title: "3H"))
-        selectionItems.append(SingleSelectionItem(id: ChartHours.H6, title: "6H"))
-        selectionItems.append(SingleSelectionItem(id: ChartHours.H12, title: "12H"))
-        selectionItems.append(SingleSelectionItem(id: ChartHours.H24, title: "24H"))
+        selectionItems.append(SingleSelectionItem(id: ChartHours.h1.rawValue, title: "1H"))
+        selectionItems.append(SingleSelectionItem(id: ChartHours.h3.rawValue, title: "3H"))
+        selectionItems.append(SingleSelectionItem(id: ChartHours.h6.rawValue, title: "6H"))
+        selectionItems.append(SingleSelectionItem(id: ChartHours.h12.rawValue, title: "12H"))
+        selectionItems.append(SingleSelectionItem(id: ChartHours.h24.rawValue, title: "24H"))
 
         chartHoursSelection.show(items: selectionItems)
         chartHoursSelection.delegate = self
-        chartHoursSelection.select(id: selectedChartHoursId, triggerCallback: false)
+        chartHoursSelection.select(id: selectedChartHours.rawValue, triggerCallback: false)
 
         showStatisticsButton.onTap { [unowned self] btn in
-            if let date = self.calendarTitle.dateTime {
-                self.presenter.loadStatistics(date: date)
+            if let date = calendarTitle.dateTime {
+                presenter.loadStatistics(date: date)
             }
         }
         
         lockMoveButton.onTap { [unowned self] btn in
-            if self.glucoseChart.dragMoveHighlightFirst {
+            if glucoseChart.dragMoveHighlightFirst {
                 btn.setImage(R.image.ic_pushpin_unlock(), for: .normal)
                 btn.tintColor = .white
-                self.glucoseChart.dragMoveHighlightFirst = false
+                glucoseChart.dragMoveHighlightFirst = false
 
             } else {
                 btn.setImage(R.image.ic_pushpin_lock()?.withRenderingMode(.alwaysTemplate), for: .normal)
                 btn.tintColor = ConstantsUI.accentRed
-                self.glucoseChart.dragMoveHighlightFirst = true
+                glucoseChart.dragMoveHighlightFirst = true
             }
         }
         
@@ -145,30 +142,12 @@ class ChartDetailsViewController: UIViewController {
         glucoseChart.dragEnabled = true
         glucoseChart.highlightEnabled = true
         glucoseChart.dateFormat = "HH:mm"
-        glucoseChart.chartHours = selectedChartHoursId
+        glucoseChart.chartHours = selectedChartHours
+        glucoseChart.useBiggerCircleSize = UserDefaults.standard.chartPoints5MinsApart
     }
     
     @objc private func exitButtonDidClick(_ button: UIButton) {
         dismiss(animated: false)
-    }
-    
-    private func filterReadingsIfNeeded(_ readings: [BgReading]) -> [BgReading] {
-        guard UserDefaults.standard.chartDots5MinsApart else {
-            return readings
-        }
-        
-        var filteredBgReadings = [BgReading]()
-        var lastShownReading: BgReading?
-        
-        for r in readings {
-            if lastShownReading == nil ||
-                r.timeStamp.timeIntervalSince(lastShownReading!.timeStamp) > 4.5 * Date.minuteInSeconds {
-                filteredBgReadings.append(r)
-                lastShownReading = r
-            }
-        }
-        
-        return filteredBgReadings
     }
 }
 
@@ -182,9 +161,6 @@ extension ChartDetailsViewController: ChartDetailsV {
         
         // reset selected bg time and value
         glucoseChart.unHighlightAll()
-        bgTimeLabel.text = "--:--"
-        bgValueLabel.text = "---"
-        bgValueLabel.textColor = .white
         
         glucoseChart.show(readings: readings, from: fromDate, to: toDate)
 
@@ -208,25 +184,6 @@ extension ChartDetailsViewController: ChartDetailsV {
         let content = StatisticsSheetContent(statistics: statistics, date: date)
         let sheet = SlideInSheet(sheetContent: content)
         sheet.show(in: view, dimColor: .black.withAlphaComponent(0.5), slideInFrom: .trailing)
-    }
-
-    private func calChartHoursSeconds(chartHoursId: Int) -> Double {
-        let xRange: Double
-        switch chartHoursId {
-        case ChartHours.H1:
-            xRange = Date.hourInSeconds
-        case ChartHours.H3:
-            xRange = Date.hourInSeconds * 3
-        case ChartHours.H6:
-            xRange = Date.hourInSeconds * 6
-        case ChartHours.H12:
-            xRange = Date.hourInSeconds * 12
-        case ChartHours.H24:
-            xRange = Date.hourInSeconds * 24
-        default:
-            xRange = Date.hourInSeconds * 6
-        }
-        return xRange
     }
     
     private func applyDataSetStyle(dataSet: ScatterChartDataSet) {
@@ -311,8 +268,8 @@ extension ChartDetailsViewController: SingleSelectionDelegate {
     }
     
     func singleSelectionItemDidSelect(_ singleSelection: SingleSelection, item: SingleSelectionItem) {
-        selectedChartHoursId = item.id
-        glucoseChart.chartHours = selectedChartHoursId
+        selectedChartHours = ChartHours(rawValue: item.id) ?? ChartHours.h6
+        glucoseChart.chartHours = selectedChartHours
     }
 }
 

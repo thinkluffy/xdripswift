@@ -3,7 +3,7 @@
 //  xdrip
 //
 //  Created by Yuanbin Cai on 2021/11/5.
-//  Copyright © 2021 Johan Degraeve. All rights reserved.
+//  Copyright © 2021 zDrip. All rights reserved.
 //
 
 import UIKit
@@ -17,10 +17,10 @@ class MainTabBarController: UITabBarController {
         // workaround to avoid color change when scroll vertically
         tabBar.barTintColor = ConstantsUI.tabBarBackgroundColor
         
-        setupAppearence()
+        setupAppearance()
     }
     
-    private func setupAppearence() {
+    private func setupAppearance() {
         let backgroundColorView = UIView()
         backgroundColorView.backgroundColor = ConstantsUI.tableRowSelectedBackgroundColor
         UITableViewCell.appearance().selectedBackgroundView = backgroundColorView

@@ -84,22 +84,6 @@ class DexcomG5BluetoothPeripheralViewModel {
         bluetoothPeripheral as? DexcomG5
     }
 
-    deinit {
-        DexcomG5BluetoothPeripheralViewModel.log.d("==> deinit")
-
-        // when closing the viewModel, and if there's still a bluetoothTransmitter existing, then reset the specific delegate to BluetoothPeripheralManager
-
-        guard let dexcomG5 = dexcomG5 else {
-            return
-        }
-
-        guard let cGMG5Transmitter = getTransmitter(for: dexcomG5) else {
-            return
-        }
-
-        cGMG5Transmitter.cGMG5TransmitterDelegate = bluetoothPeripheralManager as! BluetoothPeripheralManager
-    }
-
     private func getDexcomSection(forSectionInTable section: Int) -> DexcomSection {
 
         guard let bluetoothPeripheralViewController = bluetoothPeripheralViewController else {
@@ -142,6 +126,8 @@ extension DexcomG5BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
 
     func configure(bluetoothPeripheral: BluetoothPeripheral?, bluetoothPeripheralManager: BluetoothPeripheralManaging, tableView: UITableView, bluetoothPeripheralViewController: BluetoothPeripheralViewController) {
 
+        DexcomG5BluetoothPeripheralViewModel.log.d("==> configure")
+        
         self.bluetoothPeripheralManager = bluetoothPeripheralManager
 
         self.tableView = tableView
@@ -163,6 +149,19 @@ extension DexcomG5BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
         }
     }
 
+    func resignConfigure() {
+        DexcomG5BluetoothPeripheralViewModel.log.d("==> resignConfigure")
+
+        // when closing the viewModel, and if there's still a bluetoothTransmitter existing, then reset the specific delegate to BluetoothPeripheralManager
+
+        guard let dexcomG5 = dexcomG5, let cGMG5Transmitter = getTransmitter(for: dexcomG5) else {
+            DexcomG5BluetoothPeripheralViewModel.log.e("Fail to get dexcomG5 or cGMG5Transmitter")
+            return
+        }
+
+        cGMG5Transmitter.cGMG5TransmitterDelegate = bluetoothPeripheralManager as! BluetoothPeripheralManager
+    }
+    
     func screenTitle() -> String {
         dexcomScreenTitle()
     }
@@ -284,12 +283,12 @@ extension DexcomG5BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
 
             case .voltageA:
 
-                cell.textLabel?.text = "Voltage A"
+                cell.textLabel?.text = R.string.bluetoothPeripheralView.dexcom_voltage_A()
                 cell.detailTextLabel?.text = dexcomG5.voltageA != 0 ? dexcomG5.voltageA.description : ""
 
             case .voltageB:
 
-                cell.textLabel?.text = "Voltage B"
+                cell.textLabel?.text = R.string.bluetoothPeripheralView.dexcom_voltage_B()
                 cell.detailTextLabel?.text = dexcomG5.voltageB != 0 ? dexcomG5.voltageB.description : ""
 
             case .batteryResist:
@@ -299,7 +298,7 @@ extension DexcomG5BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
 
             case .batteryRuntime:
 
-                cell.textLabel?.text = "Runtime"
+                cell.textLabel?.text = R.string.bluetoothPeripheralView.runtime()
                 cell.detailTextLabel?.text = dexcomG5.batteryRuntime != 0 ? dexcomG5.batteryRuntime.description : ""
 
             case .batteryTemperature:
@@ -315,7 +314,18 @@ extension DexcomG5BluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
                           forSection section: Int,
                           for bluetoothPeripheral: BluetoothPeripheral,
                           bluetoothPeripheralManager: BluetoothPeripheralManaging) -> SettingsSelectedRowAction {
-        .nothing
+        
+        if rawValue == Settings.sensorStatus.rawValue {
+            // verify that bluetoothPeripheral is a DexcomG5
+            guard let dexcomG5 = bluetoothPeripheral as? DexcomG5 else {
+                fatalError("DexcomG5BluetoothPeripheralViewModel update, bluetoothPeripheral is not DexcomG5")
+            }
+            
+            return .showInfoText(title: Texts_Common.sensorStatus,
+                                 message: dexcomG5.sensorStatus ?? R.string.common.unknown())
+        }
+        
+        return .nothing
     }
 
     func numberOfSettings(inSection section: Int) -> Int {

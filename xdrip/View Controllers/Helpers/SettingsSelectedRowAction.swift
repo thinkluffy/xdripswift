@@ -60,7 +60,7 @@ enum SettingsSelectedRowAction {
     case showInfoText(title: String, message: String, actionHandler: (() -> Void)? = nil)
     
     /// user confirmation is required to perform the actionHandler
-    case askConfirmation(title: String?, message: String?, actionHandler: (() -> Void), cancelHandler: (() -> Void)?)
+    case askConfirmation(title: String?, message: String?, actionHandler: () -> Void, cancelHandler: (() -> Void)?)
     
 }
 

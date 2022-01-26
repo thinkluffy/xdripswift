@@ -4,9 +4,9 @@
 "statusactiontitle" = "Status";
 "scanbluetoothdeviceactiontitle" = "Scan for Transmitter";
 "forgetbluetoothdeviceactiontitle" = "Forget Transmitter";
-"startsensor" = "Start Sensor";
-"stopsensor" = "Stop Sensor";
-"startsensortimeinfo" = "In the next dialogs, you will need to set the date and time the sensor was inserted. It is important that you set the date and time as correct as possible.";
+"startSensor" = "Start Sensor";
+"stopSensor" = "Stop Sensor";
+"startSensorTimeInfo" = "In the next dialogs, you will need to set the date and time the sensor was inserted. It is important that you set the date and time as correct as possible.";
 "scanbluetoothdeviceongoing" = "Scanning for Transmitter...";
 "bluetoothisnoton" = "Bluetooth is not on. Switch on bluetooth first and then try again.";
 "bluetoothIsNotAuthorized" = "You did not give bluetooth permission for %@. Go to the settings, find the %@ app, and enable Bluetooth.";
@@ -32,8 +32,9 @@
 "transmitterpairingattempttimeout" = "Transmitter did not reply to pairing request.";
 "success" = "Success";
 "failed" = "Failed";
-"calibrationNotNecessary" = "When using the Transmitter algorithm, it is not necessary to calibrate the sensor.";
+"calibrationNotNecessary" = "When Manual Calibration is disabled, it is not necessary to calibrate the sensor.";
 "dexcomBatteryTooLow" = "The Transmitter battery is too low!";
 "toast_new_bg_reading" = "New BG Reading";
-"enterSensorCode" = "If you don't have a sensor code use 0000 but be aware that you will not get readings until you calibrate";
+"enterSensorCode" = "If you don't have a sensor code, please use 0000. But be aware that you will not get readings until you calibrate.";
 "stopSensorConfirmation" = "Are you sure you want to stop the sensor?";
+"dialog_subtitle_startSensorTime" = "Choose the time the sensor is started";

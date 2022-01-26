@@ -30,7 +30,8 @@ extension Endpoint {
         }
         
         if let timeStamp = timeStamp {
-            queryItems.append(URLQueryItem(name: "find[dateString][$gte]", value: timeStamp.ISOStringFromDate()))
+            // for some servers, [dateString] will get wrong response
+            queryItems.append(URLQueryItem(name: "find[date][$gte]", value: String(timeStamp.toMillisecondsAsInt64())))
         }
         
         // if token not nil, then add also the token
@@ -42,7 +43,7 @@ extension Endpoint {
             host: host,
             scheme: scheme!,
             port: port,
-            path: "/api/v1/entries/sgv.json",
+            path: "/api/v1/entries.json", // for some servers, entries/sgv.json will get wrong response
             queryItems: queryItems
         )
     }

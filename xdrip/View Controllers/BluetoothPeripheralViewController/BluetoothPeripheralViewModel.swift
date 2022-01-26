@@ -11,6 +11,8 @@ protocol BluetoothPeripheralViewModel {
     ///    - bluetoothPeripheralViewController : BluetoothPeripheralViewController
     func configure(bluetoothPeripheral: BluetoothPeripheral?, bluetoothPeripheralManager: BluetoothPeripheralManaging, tableView: UITableView,  bluetoothPeripheralViewController: BluetoothPeripheralViewController)
     
+    func resignConfigure()
+    
     /// - for example  M5StackBluetoothTransmitter has a delegate of type M5StackBluetoothTransmitterDelegate.
     /// - in the configure function, this varaible will be assigned to the viewmodel itself (if there is a M5StackBluetoothTransmitter)
     /// - before the viewModel is deleted (this happens when user goes back from BluetoothPeripheralViewController to BluetoothPeripheralsViewController, we need to reassign

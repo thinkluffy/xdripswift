@@ -31,18 +31,13 @@ class BluetoothPeripheralViewController: UIViewController {
 
     // MARK: - IBOutlet's and IBAction's
 
-    /// action for connectButton, will also be used to disconnect, depending on the connection status
-    @IBAction func connectButtonAction(_ sender: UIButton) {
-        connectButtonHandler()
-    }
-
     /// action for trashButton, to delete the BluetoothPeripheral
     @IBAction func trashButtonAction(_ sender: UIBarButtonItem) {
         trashButtonClicked()
     }
 
     /// outlet for connectButton, to set the text in the connectButton
-    @IBOutlet weak var connectButtonOutlet: UIButton!
+    @IBOutlet weak var connectButton: BetterButton!
 
     /// outlet for trashButton, to enable or disable
     @IBOutlet weak var trashButtonOutlet: UIBarButtonItem!
@@ -109,23 +104,39 @@ class BluetoothPeripheralViewController: UIViewController {
     /// - used in BluetoothPeripheralsViewController and BluetoothPeripheralViewController. BluetoothPeripheralsViewController doen't have a connect button, so that outlet is optional
     static func setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: BluetoothPeripheral?,
                                                                   isScanning: Bool,
-                                                                  connectButtonOutlet: UIButton?,
+                                                                  connectButtonOutlet: BetterButton?,
                                                                   expectedBluetoothPeripheralType: BluetoothPeripheralType?,
                                                                   transmitterId: String?,
                                                                   bluetoothPeripheralManager: BluetoothPeripheralManager) -> String {
 
         // by default connectbutton is enabled
-        connectButtonOutlet?.enable()
+        connectButtonOutlet?.isDisabled = false
 
         // explanation see below in this file
 
         // if BluetoothPeripheral not nil
         if let bluetoothPeripheral = bluetoothPeripheral {
+            
+            if let transmitterType = bluetoothPeripheralManager.getCGMTransmitter()?.cgmTransmitterType(),
+               transmitterType.allowManualSensorStart() {
+                if let _ = SensorsAccessor().fetchActiveSensor() {
+                    connectButtonOutlet?.titleText = R.string.homeView.stopSensor()
+                    connectButtonOutlet?.isHidden = false
+                    
+                } else {
+                    connectButtonOutlet?.titleText = R.string.homeView.startSensor()
+                    connectButtonOutlet?.isHidden = false
+                }
+                
+            } else {
+                connectButtonOutlet?.isHidden = true
+            }
+            
             // if connected then status = connected, button text = disconnect
             if bluetoothPeripheralIsConnected(bluetoothPeripheral: bluetoothPeripheral, bluetoothPeripheralManager: bluetoothPeripheralManager) {
 
-                connectButtonOutlet?.setTitle(Texts_BluetoothPeripheralView.disconnect, for: .normal)
-                connectButtonOutlet?.isHidden = true
+//                connectButtonOutlet?.setTitle(Texts_BluetoothPeripheralView.disconnect, for: .normal)
+//                connectButtonOutlet?.isHidden = true
 
                 return Texts_BluetoothPeripheralView.connected
             }
@@ -133,25 +144,26 @@ class BluetoothPeripheralViewController: UIViewController {
             // if not connected, but shouldconnect = true, means the app is trying to connect
             // by clicking the button, app will stop trying to connect
             if bluetoothPeripheral.blePeripheral.shouldconnect {
-                connectButtonOutlet?.setTitle(Texts_BluetoothPeripheralView.donotconnect, for: .normal)
-                connectButtonOutlet?.isHidden = false
+//                connectButtonOutlet?.setTitle(Texts_BluetoothPeripheralView.donotconnect, for: .normal)
+//                connectButtonOutlet?.isHidden = true
 
                 return Texts_BluetoothPeripheralView.tryingToConnect
-            }
-
+                
+            } else {
             // not connected, shouldconnect = false
-            connectButtonOutlet?.setTitle(Texts_BluetoothPeripheralView.connect, for: .normal)
-            connectButtonOutlet?.isHidden = false
+//                connectButtonOutlet?.setTitle(Texts_BluetoothPeripheralView.connect, for: .normal)
+//                connectButtonOutlet?.isHidden = false
 
-            return Texts_BluetoothPeripheralView.notTryingToConnect
-
+                return Texts_BluetoothPeripheralView.notTryingToConnect
+            }
+            
         } else {
             // BluetoothPeripheral is nil
 
             // if needs transmitterId, but no transmitterId is given by user, then button allows to set transmitter id, row text = "needs transmitter id"
             if let expectedBluetoothPeripheralType = expectedBluetoothPeripheralType, expectedBluetoothPeripheralType.needsTransmitterId(), transmitterId == nil {
 
-                connectButtonOutlet?.setTitle(Texts_SettingsView.labelTransmitterIdTextForButton, for: .normal)
+                connectButtonOutlet?.titleText = R.string.settingsViews.settingsviews_transmitterid_text_for_button()
                 connectButtonOutlet?.isHidden = false
 
                 return Texts_BluetoothPeripheralView.needsTransmitterId
@@ -162,7 +174,7 @@ class BluetoothPeripheralViewController: UIViewController {
 
                 if (!expectedBluetoothPeripheralType.needsTransmitterId() || (expectedBluetoothPeripheralType.needsTransmitterId() && transmitterId != nil)) && !isScanning {
 
-                    connectButtonOutlet?.setTitle(Texts_BluetoothPeripheralView.scan, for: .normal)
+                    connectButtonOutlet?.titleText = Texts_BluetoothPeripheralView.scan
                     connectButtonOutlet?.isHidden = false
 
                     return Texts_BluetoothPeripheralView.readyToScan
@@ -172,15 +184,15 @@ class BluetoothPeripheralViewController: UIViewController {
             // getting here, means it should be scanning
             if isScanning {
                 // disable, while scanning there's no need to click that button
-                connectButtonOutlet?.disable()
-                connectButtonOutlet?.setTitle(Texts_BluetoothPeripheralView.scanning, for: .normal)
+                connectButtonOutlet?.isDisabled = true
+                connectButtonOutlet?.titleText = Texts_BluetoothPeripheralView.scanning
                 connectButtonOutlet?.isHidden = true
 
                 return Texts_BluetoothPeripheralView.scanning
             }
 
             // we're here, looks like an error, let's write that in the status field
-            connectButtonOutlet?.setTitle("error", for: .normal)
+            connectButtonOutlet?.titleText = R.string.common.error()
             connectButtonOutlet?.isHidden = false
 
             return "error"
@@ -206,7 +218,7 @@ class BluetoothPeripheralViewController: UIViewController {
                     CoreDataManager.shared.saveChanges()
 
                     // connect button label text needs to change because shouldconnect value has changed
-                    _ = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: bluetoothPeripheral, isScanning: self.isScanning, connectButtonOutlet: self.connectButtonOutlet, expectedBluetoothPeripheralType: self.expectedBluetoothPeripheralType, transmitterId: self.transmitterIdTempValue, bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
+                    _ = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: bluetoothPeripheral, isScanning: self.isScanning, connectButtonOutlet: self.connectButton, expectedBluetoothPeripheralType: self.expectedBluetoothPeripheralType, transmitterId: self.transmitterIdTempValue, bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
 
                     // this will set bluetoothTransmitter to nil which will result in disconnecting also
                     bluetoothPeripheralManager.setBluetoothTransmitterToNil(forBluetoothPeripheral: bluetoothPeripheral)
@@ -257,6 +269,8 @@ class BluetoothPeripheralViewController: UIViewController {
     override func willMove(toParent parent: UIViewController?) {
         super.willMove(toParent: parent)
 
+        BluetoothPeripheralViewController.log.d("==> willMoveToParent")
+        
         // willMove is called when BluetoothPeripheralViewController is added and when BluetoothPeripheralViewController is removed.
         // It has no added value in the adding phase
         // It doe shave an added value when being removed. bluetoothPeripheralViewModel must be assigned to nil. bluetoothPeripheralViewModel deinit will be called which should reassign the delegate to BluetoothPeripheralManager. Also here the bluetoothtransmitter delegate will be reassigned to BluetoothPeripheralManager
@@ -267,8 +281,9 @@ class BluetoothPeripheralViewController: UIViewController {
 
         // set bluetoothPeripheralViewModel to nil. The bluetoothPeripheralViewModel's deinit will be called, which will set the delegate in the model to BluetoothPeripheralManager
 
+        bluetoothPeripheralViewModel?.resignConfigure()
         bluetoothPeripheralViewModel = nil
-
+        
         // reassign delegate in BluetoothTransmitter to bluetoothPeripheralManager
         reassignBluetoothTransmitterDelegateToBluetoothPeripheralManager()
 
@@ -279,10 +294,17 @@ class BluetoothPeripheralViewController: UIViewController {
     // MARK: - View Methods
 
     private func setupView() {
+        connectButton.titleText = "Connect"
+        connectButton.borderColor = .white
+        connectButton.borderWidth = 1
+        connectButton.cornerRadius = 5
+        connectButton.titleColor = .white
+        connectButton.addTarget(self, action: #selector(connectButtonHandler), for: .touchUpInside)
+        
         // set label of connect button, according to current status
         _ = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: bluetoothPeripheral,
                 isScanning: isScanning,
-                connectButtonOutlet: connectButtonOutlet,
+                connectButtonOutlet: connectButton,
                 expectedBluetoothPeripheralType: expectedBluetoothPeripheralType,
                 transmitterId: transmitterIdTempValue,
                 bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
@@ -293,7 +315,7 @@ class BluetoothPeripheralViewController: UIViewController {
 
             // if transmitterId is needed then connect button should be disabled, until transmitter id is set
             if let expectedBluetoothPeripheralType = expectedBluetoothPeripheralType, expectedBluetoothPeripheralType.needsTransmitterId() {
-                connectButtonOutlet.disable()
+                connectButton.isDisabled = true
             }
 
             // unwrap expectedBluetoothPeripheralType
@@ -367,12 +389,12 @@ class BluetoothPeripheralViewController: UIViewController {
             self.bluetoothPeripheralViewModel?.configure(bluetoothPeripheral: self.bluetoothPeripheral, bluetoothPeripheralManager: bluetoothPeripheralManager, tableView: self.tableView, bluetoothPeripheralViewController: self)
 
             // enable the connect button
-            self.connectButtonOutlet.enable()
-
+            self.connectButton.isDisabled = false
+            
             // set right text for connect button
             _ = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: bluetoothPeripheral,
                     isScanning: self.isScanning,
-                    connectButtonOutlet: self.connectButtonOutlet,
+                    connectButtonOutlet: self.connectButton,
                     expectedBluetoothPeripheralType: self.expectedBluetoothPeripheralType,
                     transmitterId: self.transmitterIdTempValue,
                     bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
@@ -419,7 +441,7 @@ class BluetoothPeripheralViewController: UIViewController {
             isScanning = true
 
             // disable the connect button
-            connectButtonOutlet.disable()
+            connectButton.isDisabled = true
 
             // app should be scanning now, update of cell is needed
             tableView.reloadRows(at: [IndexPath(row: Setting.connectionStatus.rawValue, section: 0)], with: .none)
@@ -510,7 +532,7 @@ class BluetoothPeripheralViewController: UIViewController {
     }
 
     /// user clicked connect button
-    private func connectButtonHandler() {
+    @objc private func connectButtonHandler() {
         // unwrap bluetoothPeripheralManager
         guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {
             return
@@ -522,45 +544,77 @@ class BluetoothPeripheralViewController: UIViewController {
         }
 
         // let's first check if bluetoothPeripheral exists
-        if let bluetoothPeripheral = bluetoothPeripheral {
-            // if shouldconnect = true then set setshouldconnect to false, this will also result in disconnecting
-            if bluetoothPeripheral.blePeripheral.shouldconnect {
-                // disconnect
-                setShouldConnectToFalse(for: bluetoothPeripheral)
+        if let _ = bluetoothPeripheral {
+//            // if shouldconnect = true then set setshouldconnect to false, this will also result in disconnecting
+//            if bluetoothPeripheral.blePeripheral.shouldconnect {
+//                // disconnect
+//                setShouldConnectToFalse(for: bluetoothPeripheral)
+//
+//            } else {
+//                // check if it's a CGM being activated and if so that app is in master mode
+//                if expectedBluetoothPeripheralType.category() == .CGM, !UserDefaults.standard.isMaster {
+//                    present(PopupDialog(title: Texts_Common.warning,
+//                            message: Texts_BluetoothPeripheralView.cannotActiveCGMInFollowerMode,
+//                            actionTitle: R.string.common.common_Ok(),
+//                            actionHandler: nil),
+//                            animated: true,
+//                            completion: nil)
+//
+//                    return
+//                }
+//
+//                // device should automatically connect, this will be stored in coredata
+//                bluetoothPeripheral.blePeripheral.shouldconnect = true
+//
+//                // save the update in coredata
+//                CoreDataManager.shared.saveChanges()
+//
+//                // get bluetoothTransmitter
+//                if let bluetoothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: bluetoothPeripheral, createANewOneIfNecessary: true) {
+//
+//                    // set delegate of the new transmitter to self
+//                    bluetoothTransmitter.bluetoothTransmitterDelegate = self
+//
+//                    // call configure in the model, as we have a new transmitter here
+//                    bluetoothPeripheralViewModel?.configure(bluetoothPeripheral: bluetoothPeripheral, bluetoothPeripheralManager: bluetoothPeripheralManager, tableView: tableView, bluetoothPeripheralViewController: self)
+//
+//                    // connect (probably connection is already done because transmitter has just been created by bluetoothPeripheralManager, this is a transmitter for which mac address is known, so it will by default try to connect
+//                    bluetoothTransmitter.connect()
+//                }
+//            }
+            
+            if let cgmTransmitter = bluetoothPeripheralManager.getCGMTransmitter(),
+               cgmTransmitter.cgmTransmitterType().allowManualSensorStart() {
+                if let activeSensor = SensorsAccessor().fetchActiveSensor() {
+                    // to stop sensor
+                    // first ask user confirmation
+                    let dialog = PopupDialog(
+                        title: R.string.common.pleaseConfirm(),
+                        message: R.string.homeView.stopSensorConfirmation(),
+                        actionTitle: R.string.homeView.stopSensor(),
+                        actionHandler: {
+                            self.stopSensor(activeSensor, cgmTransmitter: cgmTransmitter, sendToTransmitter: true)
+                        },
+                        cancelTitle: R.string.common.common_cancel()
+                    )
 
-            } else {
-                // check if it's a CGM being activated and if so that app is in master mode
-                if expectedBluetoothPeripheralType.category() == .CGM, !UserDefaults.standard.isMaster {
-                    present(PopupDialog(title: Texts_Common.warning,
-                            message: Texts_BluetoothPeripheralView.cannotActiveCGMInFollowerMode,
-                            actionTitle: R.string.common.common_Ok(),
-                            actionHandler: nil),
-                            animated: true,
-                            completion: nil)
+                    present(dialog, animated: true)
 
-                    return
-                }
+                } else {
+                    // to start sensor
+                    // either sensor needs a sensor start time, or a sensor code .. or none
+                    if cgmTransmitter.needsSensorStartTime() {
+                        startSensorAskUserForStartTime(cgmTransmitter: cgmTransmitter)
 
-                // device should automatically connect, this will be stored in coredata
-                bluetoothPeripheral.blePeripheral.shouldconnect = true
+                    } else if cgmTransmitter.needsSensorStartCode() {
+                        startSensorAskUserForSensorCode(cgmTransmitter: cgmTransmitter)
 
-                // save the update in coredata
-                CoreDataManager.shared.saveChanges()
-
-                // get bluetoothTransmitter
-                if let bluetoothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: bluetoothPeripheral, createANewOneIfNecessary: true) {
-
-                    // set delegate of the new transmitter to self
-                    bluetoothTransmitter.bluetoothTransmitterDelegate = self
-
-                    // call configure in the model, as we have a new transmitter here
-                    bluetoothPeripheralViewModel?.configure(bluetoothPeripheral: bluetoothPeripheral, bluetoothPeripheralManager: bluetoothPeripheralManager, tableView: tableView, bluetoothPeripheralViewController: self)
-
-                    // connect (probably connection is already done because transmitter has just been created by bluetoothPeripheralManager, this is a transmitter for which mac address is known, so it will by default try to connect
-                    bluetoothTransmitter.connect()
+                    } else {
+                        startSensor(cgmTransmitter: cgmTransmitter, sensorStarDate: Date(), sensorCode: nil, sendToTransmitter: true)
+                    }
                 }
             }
-
+            
         } else {
             // there's no bluetoothPeripheral yet, so this is the case where viewController is opened to scan for a new peripheral
             // if it's a transmitter type that needs a transmitter id, and if there's no transmitterId yet, then ask transmitter id
@@ -576,12 +630,121 @@ class BluetoothPeripheralViewController: UIViewController {
         // will change text of the button
         _ = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: bluetoothPeripheral,
                 isScanning: isScanning,
-                connectButtonOutlet: connectButtonOutlet,
+                connectButtonOutlet: connectButton,
                 expectedBluetoothPeripheralType: expectedBluetoothPeripheralType,
                 transmitterId: transmitterIdTempValue,
                 bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
     }
 
+    
+    /// - creates a new sensor and assigns it to activeSensor
+    /// - if sendToTransmitter is true then sends startSensor command to transmitter (ony useful for Firefly)
+    /// - saves to coredata
+    private func startSensor(cgmTransmitter: CGMTransmitter, sensorStarDate: Date, sensorCode: String?, sendToTransmitter: Bool) {
+        BluetoothPeripheralViewController.log.d("==> startSensor")
+
+        EasyTracker.logEvent(Events.prefixStartSensor + cgmTransmitter.cgmTransmitterType().rawValue)
+
+        // create active sensor
+        let _ = Sensor(startDate: sensorStarDate, nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
+
+        // save the newly created Sensor permenantly in coredata
+        CoreDataManager.shared.saveChanges()
+
+        // send to transmitter
+        if sendToTransmitter {
+            cgmTransmitter.startSensor(sensorCode: sensorCode, startDate: sensorStarDate)
+        }
+    }
+    
+    private func stopSensor(_ sensor: Sensor, cgmTransmitter: CGMTransmitter, sendToTransmitter: Bool) {
+        BluetoothPeripheralViewController.log.d("==> stopSensor")
+
+        EasyTracker.logEvent(Events.prefixStopSensor + cgmTransmitter.cgmTransmitterType().rawValue)
+
+        let stopDate = Date()
+
+        // send stop sensor command to transmitter, don't check if there's an activeSensor in coredata or not, never know that there's a desync between coredata and transmitter
+        if sendToTransmitter {
+            cgmTransmitter.stopSensor(stopDate: stopDate)
+        }
+
+        // set endDate of activeSensor to stopDate
+        sensor.endDate = stopDate
+
+        // save changes to coreData
+        CoreDataManager.shared.saveChanges()
+    }
+    
+    /// start a new sensor, ask user for starttime
+    /// - parameters:
+    ///     - cGMTransmitter is required because startSensor command will be sent also to the transmitter
+    private func startSensorAskUserForStartTime(cgmTransmitter: CGMTransmitter) {
+        
+        let datePickerData = DatePickerDataBuilder(
+            datePickerMode: .dateAndTime,
+            actionHandler: { date in
+                self.startSensor(cgmTransmitter: cgmTransmitter, sensorStarDate: date, sensorCode: nil, sendToTransmitter: true)
+            }
+        )
+            .title(R.string.homeView.startSensor())
+            .subTitle(R.string.homeView.dialog_subtitle_startSensorTime())
+            .date(Date())
+            .maximumDate(Date())
+            .build()
+        
+        // if this is the first time user starts a sensor, give warning that time should be correct
+        // if not the first them, then immediately open the timePickAlertController
+        if !UserDefaults.standard.startSensorTimeInfoGiven {
+            let dialog = PopupDialog(
+                title: R.string.homeView.startSensor(),
+                message: R.string.homeView.startSensorTimeInfo(),
+                actionTitle: R.string.common.common_Ok(),
+                actionHandler: {
+                    
+                    BottomSheetDatePickerController.show(in: self, datePickerData: datePickerData)
+
+                    UserDefaults.standard.startSensorTimeInfoGiven = true
+                }
+            )
+            
+            present(dialog, animated: true)
+            
+        } else {
+            BottomSheetDatePickerController.show(in: self, datePickerData: datePickerData)
+        }
+    }
+
+    /// start a new sensor, ask user for sensor code
+    /// - parameters:
+    ///     - cGMTransmitter is required because startSensor command will be sent also to the transmitter
+    private func startSensorAskUserForSensorCode(cgmTransmitter: CGMTransmitter) {
+        let dialog = PopupDialog(
+            title: R.string.homeView.startSensor(),
+            message: R.string.homeView.enterSensorCode(),
+            keyboardType: .numberPad,
+            text: nil,
+            placeHolder: "0000",
+            actionTitle: R.string.common.common_Ok(),
+            dismissOnActionButtonTap: false,
+            actionHandler: {
+                dialog, text in
+                
+                if text.isEmpty || text.count != 4 {
+                    dialog.shake()
+                    return
+                }
+                
+                dialog.dismiss()
+                // start sensor with date chosen by user, sensorCode nil
+                self.startSensor(cgmTransmitter: cgmTransmitter, sensorStarDate: Date(), sensorCode: text, sendToTransmitter: true)
+            },
+            cancelTitle: R.string.common.common_cancel()
+        )
+
+        present(dialog, animated: true)
+    }
+    
     /// checks if bluetoothPeripheral is not nil, etc.
     /// - returns: true if bluetoothperipheral exists and is connected, false in all other cases
     private static func bluetoothPeripheralIsConnected(bluetoothPeripheral: BluetoothPeripheral, bluetoothPeripheralManager: BluetoothPeripheralManager) -> Bool {
@@ -636,7 +799,7 @@ class BluetoothPeripheralViewController: UIViewController {
                             self.tableView.reloadRows(at: [IndexPath(row: Setting.transmitterId.rawValue, section: 0)], with: .none)
 
                             // as transmitter id has been set (or set to nil), connect button label text must change
-                            _ = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: self.bluetoothPeripheral, isScanning: self.isScanning, connectButtonOutlet: self.connectButtonOutlet, expectedBluetoothPeripheralType: self.expectedBluetoothPeripheralType, transmitterId: transmitterIdUpper, bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
+                            _ = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: self.bluetoothPeripheral, isScanning: self.isScanning, connectButtonOutlet: self.connectButton, expectedBluetoothPeripheralType: self.expectedBluetoothPeripheralType, transmitterId: transmitterIdUpper, bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
 
                         },
                         cancelHandler: nil,
@@ -719,8 +882,6 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
 
         let numberOfGeneralSections = numberOfGeneralSections()
 
-        BluetoothPeripheralViewController.log.d("nonFixedSettingIsShown: \(nonFixedSettingIsShown), webOOPSettingIsShown: \(webOOPSettingIsShown)")
-
         // default value for accessoryView is nil
         cell.accessoryView = nil
         cell.accessoryType = .none
@@ -757,7 +918,7 @@ extension BluetoothPeripheralViewController: UITableViewDataSource, UITableViewD
 
         case .connectionStatus:
             cell.textLabel?.text = Texts_BluetoothPeripheralView.status
-            cell.detailTextLabel?.text = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: bluetoothPeripheral, isScanning: isScanning, connectButtonOutlet: connectButtonOutlet, expectedBluetoothPeripheralType: expectedBluetoothPeripheralType, transmitterId: transmitterIdTempValue, bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
+            cell.detailTextLabel?.text = BluetoothPeripheralViewController.setConnectButtonLabelTextAndGetStatusDetailedText(bluetoothPeripheral: bluetoothPeripheral, isScanning: isScanning, connectButtonOutlet: connectButton, expectedBluetoothPeripheralType: expectedBluetoothPeripheralType, transmitterId: transmitterIdTempValue, bluetoothPeripheralManager: bluetoothPeripheralManager as! BluetoothPeripheralManager)
 
         case .transmitterId:
             cell.textLabel?.text = Texts_SettingsView.labelTransmitterId
@@ -1108,18 +1269,21 @@ extension BluetoothPeripheralViewController: BluetoothTransmitterDelegate {
  - if transmitter id not needed or transmitter id needed and already given, but not yet scanning :
     - status = "ready to scan"
     - button = "start scanning"
- - if  scanning :
+ - if scanning:
     - status = "scanning"
     - button = "scanning" but button disabled
  
  Once BLE is known (mac address known)
+ for button:
+ - if allowManualSensorStart
+    - if there is activeSensor
+        - button = "Stop Sensor"
+    - if there is no activeSensor
+        - button = "Start Sensor"
+ 
+ for status:
  - if connected
     - status = connected
-    - button = "disconnect"
- - if not connected, but shouldConnect = true
+ - if not connected
     - status = "trying to connect" (renamed to scanning)
-    - button = "do no try to connect"
- - if not connected, but shouldConnect = false
-    - status = "not trying to connect" (not scanning)
-    - button = "try to connect"
  */

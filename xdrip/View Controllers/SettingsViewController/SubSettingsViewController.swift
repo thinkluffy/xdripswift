@@ -18,7 +18,7 @@ class SubSettingsViewController: UIViewController {
     
     override var hidesBottomBarWhenPushed: Bool {
         get {
-            return true
+            true
         }
         set {
             super.hidesBottomBarWhenPushed = newValue

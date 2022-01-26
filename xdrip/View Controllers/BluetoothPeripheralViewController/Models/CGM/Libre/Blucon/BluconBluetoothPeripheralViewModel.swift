@@ -34,25 +34,6 @@ class BluconBluetoothPeripheralViewModel {
     private var blucon: Blucon? {
         bluetoothPeripheral as? Blucon
     }
-    
-    // MARK: - deinit
-    
-    deinit {
-
-        // when closing the viewModel, and if there's still a bluetoothTransmitter existing, then reset the specific delegate to BluetoothPeripheralManager
-        
-        guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {return}
-        
-        guard let blucon = blucon else {return}
-        
-        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: blucon, createANewOneIfNecessary: false) else {return}
-        
-        guard let cGMBluconBluetoothTransmitter = blueToothTransmitter as? CGMBluconTransmitter else {return}
-        
-        cGMBluconBluetoothTransmitter.cGMBluconTransmitterDelegate = bluetoothPeripheralManager as! BluetoothPeripheralManager
-
-    }
-    
 }
 
 // MARK: - conform to BluetoothPeripheralViewModel
@@ -85,6 +66,20 @@ extension BluconBluetoothPeripheralViewModel: BluetoothPeripheralViewModel {
             }
         }
 
+    }
+    
+    func resignConfigure() {
+        // when closing the viewModel, and if there's still a bluetoothTransmitter existing, then reset the specific delegate to BluetoothPeripheralManager
+        
+        guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {return}
+        
+        guard let blucon = blucon else {return}
+        
+        guard let blueToothTransmitter = bluetoothPeripheralManager.getBluetoothTransmitter(for: blucon, createANewOneIfNecessary: false) else {return}
+        
+        guard let cGMBluconBluetoothTransmitter = blueToothTransmitter as? CGMBluconTransmitter else {return}
+        
+        cGMBluconBluetoothTransmitter.cGMBluconTransmitterDelegate = bluetoothPeripheralManager as! BluetoothPeripheralManager
     }
     
     func screenTitle() -> String {

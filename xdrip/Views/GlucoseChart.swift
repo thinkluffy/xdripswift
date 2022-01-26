@@ -45,7 +45,7 @@ class GlucoseChart: UIView {
     private var chartHistoryDataSet: LineChartDataSet?
     private var chartCurrentOneDataSet: LineChartDataSet?
 
-    var chartHours = ChartHours.H3 {
+    var chartHours = ChartHours.h3 {
         didSet {
             applyChartHours()
         }
@@ -82,6 +82,8 @@ class GlucoseChart: UIView {
         }
     }
 
+    var useBiggerCircleSize = false
+
     var isLongPressSupported = false
 
     weak var delegate: GlucoseChartDelegate?
@@ -104,7 +106,9 @@ class GlucoseChart: UIView {
         }
 
         setupChart()
-
+        applySettings()
+        showNoData()
+        
         let longPressRecognizer = UILongPressGestureRecognizer(closure: { recognizer in
             if self.isLongPressSupported {
                 self.delegate?.chartDidLongPressed(self)
@@ -131,8 +135,7 @@ class GlucoseChart: UIView {
         xAxis.gridLineWidth = 2
         xAxis.axisLineColor = ConstantsUI.mainBackgroundColor
         xAxis.axisLineWidth = 2
-        if chartHours == ChartHours.H24 ||
-                   chartHours == ChartHours.H12 {
+        if chartHours == .h24 || chartHours == .h12 {
             xAxis.granularity = Date.hourInSeconds * 3 // 2 hours do not work, why?
 
         } else {
@@ -230,7 +233,7 @@ class GlucoseChart: UIView {
     }
 
     private func filterReadingsIfNeeded(_ readings: [BgReading]) -> [BgReading] {
-        guard UserDefaults.standard.chartDots5MinsApart else {
+        guard UserDefaults.standard.chartPoints5MinsApart else {
             return readings
         }
 
@@ -250,9 +253,28 @@ class GlucoseChart: UIView {
 
     func cleanUpMemory() {
         GlucoseChart.log.d("==> cleanUpMemory")
-        chartView.data = nil
+        showNoData()
     }
 
+    private func showNoData() {
+        // put a placeholder to avoid showing default No Data view
+        var placeholderEntries = [ChartDataEntry]()
+        let placeholderEntry = ChartDataEntry(x: chartView.xAxis.axisMinimum,
+                                              y: UserDefaults.standard.highMarkValue.mgdlToMmol(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl))
+        placeholderEntries.append(placeholderEntry)
+        let placeholderDataSet = LineChartDataSet(entries: placeholderEntries)
+        placeholderDataSet.setColor(.clear)
+        placeholderDataSet.highlightEnabled = false
+        placeholderDataSet.drawCirclesEnabled = false
+        placeholderDataSet.drawCircleHoleEnabled = false
+        placeholderDataSet.axisDependency = .right
+
+        let data = LineChartData(dataSets: [
+            placeholderDataSet
+        ])
+        chartView.data = data
+    }
+    
     func show(readings: [BgReading]?, from fromDate: Date, to toDate: Date, aheadSeconds: Double = 0) {
         GlucoseChart.log.d("==> showReadings")
 
@@ -275,29 +297,13 @@ class GlucoseChart: UIView {
             rangeBottomLine.label = ""
         }
 
+        chartView.xAxis.axisMinimum = fromDate.timeIntervalSince1970
+        // append 10 minutes to make the current dot more visible
+        chartView.xAxis.axisMaximum = toDate.timeIntervalSince1970 + aheadSeconds
+        
         guard let readings = readings, !readings.isEmpty else {
             GlucoseChart.log.i("readings are nil, nothing to show")
-
-            // put a placeholder to avoid showing default No Data view
-
-            chartView.xAxis.axisMinimum = fromDate.timeIntervalSince1970
-            // append 10 minutes to make the current dot more visible
-            chartView.xAxis.axisMaximum = toDate.timeIntervalSince1970 + aheadSeconds
-
-            var placeholderEntries = [ChartDataEntry]()
-            let placeholderEntry = ChartDataEntry(x: toDate.timeIntervalSince1970, y: highInMg.mgdlToMmol(mgdl: showAsMg))
-            placeholderEntries.append(placeholderEntry)
-            let placeholderDataSet = LineChartDataSet(entries: placeholderEntries)
-            placeholderDataSet.setColor(.clear)
-            placeholderDataSet.highlightEnabled = false
-            placeholderDataSet.drawCirclesEnabled = false
-            placeholderDataSet.drawCircleHoleEnabled = false
-            placeholderDataSet.axisDependency = .right
-
-            let data = LineChartData(dataSets: [
-                placeholderDataSet
-            ])
-            chartView.data = data
+            showNoData()
             return
         }
 
@@ -361,10 +367,6 @@ class GlucoseChart: UIView {
         }
         currentOneDataSet.circleHoleColor = ConstantsUI.contentBackgroundColor
 
-        chartView.xAxis.axisMinimum = fromDate.timeIntervalSince1970
-        // append 10 miniuts to make the current dot more visible
-        chartView.xAxis.axisMaximum = toDate.timeIntervalSince1970 + aheadSeconds
-
         let data = LineChartData(dataSets: [
             dataSet,
             currentOneDataSet
@@ -385,14 +387,14 @@ class GlucoseChart: UIView {
     }
 
     func moveXAxisToTrailing() {
-        let xRange = calChartHoursSeconds(chartHoursId: chartHours)
+        let xRange = calChartHoursSeconds(chartHours: chartHours)
         chartView.setVisibleXRange(minXRange: xRange, maxXRange: xRange)
 
         chartView.moveViewToX(chartView.xAxis.axisMaximum - xRange)
     }
 
     func moveCurrentToCenter() {
-        let xRange = calChartHoursSeconds(chartHoursId: chartHours)
+        let xRange = calChartHoursSeconds(chartHours: chartHours)
         chartView.setVisibleXRange(minXRange: xRange, maxXRange: xRange)
 
         chartView.moveViewToX(Date().timeIntervalSince1970 - xRange / 2)
@@ -400,25 +402,12 @@ class GlucoseChart: UIView {
 
     func unHighlightAll() {
         chartView.highlightValues(nil)
+        // chartView did not call chartValueNothingSelected, seems a bug
+        delegate?.chartReadingNothingSelected(self)
     }
 
-    private func calChartHoursSeconds(chartHoursId: Int) -> Double {
-        let xRange: Double
-        switch chartHoursId {
-        case ChartHours.H1:
-            xRange = Date.hourInSeconds
-        case ChartHours.H3:
-            xRange = Date.hourInSeconds * 3
-        case ChartHours.H6:
-            xRange = Date.hourInSeconds * 6
-        case ChartHours.H12:
-            xRange = Date.hourInSeconds * 12
-        case ChartHours.H24:
-            xRange = Date.hourInSeconds * 24
-        default:
-            xRange = Date.hourInSeconds * 3
-        }
-        return xRange
+    private func calChartHoursSeconds(chartHours: ChartHours) -> Double {
+        Date.hourInSeconds * Double(chartHours.rawValue)
     }
 
     private func applyDataSetStyle(dataSet: LineChartDataSet) {
@@ -434,20 +423,33 @@ class GlucoseChart: UIView {
 
     private func applyDataShapeSize(dataSet: LineChartDataSet) {
         let shapeSize: CGFloat
-        switch chartHours {
-        case ChartHours.H1:
-            shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter1h
-        case ChartHours.H3:
-            shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter3h
-        case ChartHours.H6:
-            shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter6h
-        case ChartHours.H12:
-            shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter12h
-        case ChartHours.H24:
-            shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter24h
-        default:
-            shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter3h
-            break
+        if useBiggerCircleSize {
+            switch chartHours {
+            case .h1:
+                shapeSize = ConstantsGlucoseChart.glucoseCircleDiameterBiggerSize1h
+            case .h3:
+                shapeSize = ConstantsGlucoseChart.glucoseCircleDiameterBiggerSize3h
+            case .h6:
+                shapeSize = ConstantsGlucoseChart.glucoseCircleDiameterBiggerSize6h
+            case .h12:
+                shapeSize = ConstantsGlucoseChart.glucoseCircleDiameterBiggerSize12h
+            case .h24:
+                shapeSize = ConstantsGlucoseChart.glucoseCircleDiameterBiggerSize24h
+            }
+
+        } else {
+            switch chartHours {
+            case .h1:
+                shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter1h
+            case .h3:
+                shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter3h
+            case .h6:
+                shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter6h
+            case .h12:
+                shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter12h
+            case .h24:
+                shapeSize = ConstantsGlucoseChart.glucoseCircleDiameter24h
+            }
         }
         dataSet.circleRadius = shapeSize / 2
     }
@@ -459,11 +461,10 @@ class GlucoseChart: UIView {
 
     private func applyChartHours() {
         let highestVisibleX = chartView.highestVisibleX
-        let xRange = calChartHoursSeconds(chartHoursId: chartHours)
+        let xRange = calChartHoursSeconds(chartHours: chartHours)
         chartView.setVisibleXRange(minXRange: xRange, maxXRange: xRange)
 
-        if chartHours == ChartHours.H24 ||
-                   chartHours == ChartHours.H12 {
+        if chartHours == .h24 || chartHours == .h12 {
             chartView.xAxis.granularity = Date.hourInSeconds * 3 // 2 hours do not work, why?
 
         } else {

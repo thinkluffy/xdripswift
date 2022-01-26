@@ -29,14 +29,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ])
         
         RemoteConfigHost.testMode = UserDefaults.standard.isRemoteConfigTestMode
-        RemoteConfigProxy.shared.setup()
+        RemoteConfig.shared.initialize(remoteConfigProvider: Trc(trcId: "zDrip", useChinaUrl: false))
+        
         AppDelegate.log.d("remote config ready to refresh")
-        RemoteConfigProxy.shared.refresh() { refreshed in
+        RemoteConfig.shared.refresh { refreshed in
             AppDelegate.log.d("remote config refreshed")
         }
         
         WatchCommunicator.register()
-        
+        AlertManager.shared.initialize()
+
         setupUIComponents()
 
         if UserDefaults.standard.firstOpenTime == nil {
@@ -48,8 +50,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             let versionCode = iOS.appVersionCode
             if versionCode > UserDefaults.standard.currentVersionCode {
-                onUpgrade(from: UserDefaults.standard.currentVersionCode, to: versionCode)
+                onUpdate(from: UserDefaults.standard.currentVersionCode, to: versionCode)
                 UserDefaults.standard.currentVersionCode = versionCode
+                EasyTracker.logEvent(Events.appUpdate)
                 
             } else {
                 onNormalStart()
@@ -87,8 +90,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppDelegate.log.i("==> onFreshInstall")
     }
     
-    private func onUpgrade(from fromVersion: Int, to toVersion: Int) {
-        AppDelegate.log.i("==> onUpgrade, \(fromVersion) -> \(toVersion)")
+    private func onUpdate(from fromVersion: Int, to toVersion: Int) {
+        AppDelegate.log.i("==> onUpdate, \(fromVersion) -> \(toVersion)")
     }
 
     private func onNormalStart() {

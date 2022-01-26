@@ -16,6 +16,8 @@ enum Events {
 
     // MARK: - analytics events
 
+    static let appUpdate = "appUpdate"
+
     static let prefixBgAlert = "bgAlert_"
     static let prefixNewSensor = "newSensor_"
     static let prefixStartSensor = "startSensor_"
@@ -24,4 +26,7 @@ enum Events {
     static let enableFullFeatureMode = "enableFullFeatureMode"
     static let enableMasterMode = "enableMasterMode"
     static let enableFollowerMode = "enableFollowerMode"
+    
+    static let checkAppVersion = "checkAppVersion"
+
 }

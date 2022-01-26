@@ -90,17 +90,26 @@ class AlertManager: NSObject {
         // need to set the alert notification categories, get the existing categories first, call setAlertNotificationCategories in competionhandler
         UNUserNotificationCenter.current().getNotificationCategories(completionHandler: setAlertNotificationCategories(_:))
 
-        // alertManager may have raised an alert with a sound played by soundplayer. If user brings the app to the foreground, the soundPlayer needs to stop playing
+        // alertManager may have raised an alert with a sound played by soundPlayer. If user brings the app to the foreground, the soundPlayer needs to stop playing
         ApplicationManager.shared.addClosureToRunWhenAppWillEnterForeground(key: applicationManagerKeyStopPlayingSound) {
             SoundPlayer.shared.stopPlaying()
         }
 
         // add observer for changes in UserDefaults
         addObservers()
-
     }
 
-    // MARK: - public functions
+    func initialize() {
+        // add Timer to post the event of status change, if there are snoozed alerts
+        for s in snoozeParameters {
+            let (isSnoozed, remainingSeconds) = s.getSnoozeValue()
+            if isSnoozed, let remainingSeconds = remainingSeconds {
+                Timer.scheduledTimer(withTimeInterval: Double(remainingSeconds) + 2.0, repeats: false) { _ in
+                    SwiftEventBus.post(EventBusEvents.snoozeAlertsStatusChanged)
+                }
+            }
+        }
+    }
 
     /// check all alerts and fire if needed
     /// - parameters:
@@ -116,7 +125,7 @@ class AlertManager: NSObject {
         /// this is the return value
         var immediateNotificationCreated = false
 
-        // get last bgreading, ignore sensor, because it must also work for follower mode
+        // get last bgReading, ignore sensor, because it must also work for follower mode
         let latestBgReadings = bgReadingsAccessor.get2LatestBgReadings(minimumTimeIntervalInMinutes: 4.0)
 
         // get latest calibration
@@ -138,9 +147,9 @@ class AlertManager: NSObject {
                 // need to call checkAlert
 
                 // if latestBgReadings[1] exists then assign it to lastButOneBgREading
-                var lastButOneBgREading: BgReading?
+                var lastButOneBgReading: BgReading?
                 if latestBgReadings.count > 1 {
-                    lastButOneBgREading = latestBgReadings[1]
+                    lastButOneBgReading = latestBgReadings[1]
                 }
 
                 // alerts are checked in order of importance - there should be only one alert raised, except missed reading alert which will always be checked.
@@ -150,7 +159,7 @@ class AlertManager: NSObject {
                     (_ alertKind: AlertKind) -> Bool in
                     self.checkAlertAndFire(alertKind: alertKind,
                             lastBgReading: lastBgReading,
-                            lastButOneBgReading: lastButOneBgREading,
+                            lastButOneBgReading: lastButOneBgReading,
                             lastCalibration: lastCalibration,
                             transmitterBatteryInfo: transmitterBatteryInfo)
                 }
@@ -183,11 +192,11 @@ class AlertManager: NSObject {
                 _ = checkAlertAndFireHelper(.missedreading)
 
             } else {
-                trace("in checkAlerts, latestBgReadings is older than %{public}@ minutes", log: self.log, category: ConstantsLog.categoryAlertManager, type: .info, maxAgeOfLastBgReadingInSeconds.description)
+                trace("in checkAlerts, latestBgReadings is older than %{public}@ minutes", log: log, category: ConstantsLog.categoryAlertManager, type: .info, maxAgeOfLastBgReadingInSeconds.description)
             }
 
         } else {
-            trace("in checkAlerts, latestBgReadings.count == 0", log: self.log, category: ConstantsLog.categoryAlertManager, type: .info)
+            trace("in checkAlerts, latestBgReadings.count == 0", log: log, category: ConstantsLog.categoryAlertManager, type: .info)
         }
 
         return immediateNotificationCreated
@@ -233,7 +242,7 @@ class AlertManager: NSObject {
                     returnValue = createPickerViewData(forAlertKind: alertKind, content: response.notification.request.content, actionHandler: nil, cancelHandler: nil)
 
                 case UNNotificationDismissActionIdentifier:
-                    trace("in userNotificationCenter, received actionIdentifier : UNNotificationDismissActionIdentifier", log: self.log, category: ConstantsLog.categoryAlertManager, type: .info)
+                    trace("in userNotificationCenter, received actionIdentifier : UNNotificationDismissActionIdentifier", log: log, category: ConstantsLog.categoryAlertManager, type: .info)
 
                     // user is swiping away the notification without opening the app, and not choosing the snooze option even if there would be an option to snooze
                     // if it's a reading alert (low, high, ...) then it will go off again in 5 minutes
@@ -259,7 +268,7 @@ class AlertManager: NSObject {
 
     /// get the snoozeParameter for the alertKind
     func getSnoozeParameters(alertKind: AlertKind) -> SnoozeParameters {
-        return snoozeParameters[alertKind.rawValue]
+        snoozeParameters[alertKind.rawValue]
     }
 
     var hasSnoozedAlerts: Bool {
@@ -301,7 +310,7 @@ class AlertManager: NSObject {
     /// to unSnooze an already snoozed alert
     func unSnooze(alertKind: AlertKind) {
 
-        // unsnooze
+        // unSnooze
         getSnoozeParameters(alertKind: alertKind).unSnooze()
 
         // save changes in coredata

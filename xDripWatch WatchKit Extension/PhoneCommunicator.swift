@@ -118,27 +118,35 @@ class PhoneCommunicator: NSObject {
 	}
 	
 	func requestRecentlyChart() {
-//		DispatchQueue.main.async {
-//			let fake = PhoneCommunicator.fakeRecently()
-//			self.usefulData.bgLatest = fake.last
-//			self.usefulData.bgInfoList = fake
-//			self.usefulData.bgConfig = PhoneCommunicator.fakeConfig()
-//			self.usefulData.slope = nil
-//		}
-//		return
 		guard session.isReady else {
 			return
 		}
 		let message = Common.DataTransformToPhone.init(type: .recently).toDic()
 		print(message)
+		DispatchQueue.main.async {
+			self.usefulData.isLoadingLatest = true
+		}
+		// Test Data
+//		DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//			let fake = PhoneCommunicator.fakeRecently()
+//			self.usefulData.bgLatest = nil//fake.last
+//			self.usefulData.bgInfoList = []//fake
+//			self.usefulData.bgConfig = PhoneCommunicator.fakeConfig()
+//			self.usefulData.slope = nil
+//		}
+//		return
 		session.sendMessage(message) { [unowned self] reply in
-			print("requestLatest reply: \(reply)")
+			print("requestRecentlyChart reply: \(reply)")
 			if reply.keys.count == 0 {
 				self.requestTimer?.fire()
+				DispatchQueue.main.async {
+					self.usefulData.isLoadingLatest = false
+				}
 				return
 			}
 			let data = Common.DataTransformToWatch.init(dic: reply)
 			DispatchQueue.main.async {
+				self.usefulData.isLoadingLatest = false
 				self.usefulData.bgLatest = data.latest
 				self.usefulData.bgInfoList = data.recently ?? []
 				self.usefulData.bgConfig = data.config
@@ -180,16 +188,17 @@ extension PhoneCommunicator: WCSessionDelegate {
 		print("session didReceiveMessage: \(message)")
 	}
 }
+
 extension PhoneCommunicator {
 	static func fakeConfig() -> Common.BgConfig {
 		Common.BgConfig(interval5Mins: true,
                         showAsMgDl: false,
                         chartLow: 2.2,
 						chartHigh: 16.6,
-                        urgentLow: 0,//3.9,
-                        urgentHigh: 0,//10,
-                        suggestLow: 0,//4.5,
-						suggestHigh: 0)//7.8)
+                        urgentLow: 3.9,
+                        urgentHigh: 10,
+                        suggestLow: 4.5,
+						suggestHigh: 7.8)
 	}
 	
 	static func fakeRecently() -> [Common.BgInfo] {

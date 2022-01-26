@@ -119,7 +119,7 @@ extension WatchCommunicator {
 	static func getConfig() -> Common.BgConfig {
 		let showAsMgDl = UserDefaults.standard.bloodGlucoseUnitIsMgDl
 		return Common.BgConfig(
-			interval5Mins: UserDefaults.standard.chartDots5MinsApart,
+			interval5Mins: UserDefaults.standard.chartPoints5MinsApart,
 			showAsMgDl: showAsMgDl,
 			chartLow: (40).mgdlToMmol(mgdl: showAsMgDl),
 			chartHigh: UserDefaults.standard.chartHeight.mgdlToMmol(mgdl: showAsMgDl),

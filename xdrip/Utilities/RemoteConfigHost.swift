@@ -25,12 +25,12 @@ class RemoteConfigHost {
             UserDefaults.standard.isRemoteConfigTestMode
         }
         set {
-            RemoteConfigProxy.shared.testMode = newValue
+            RemoteConfig.shared.testMode = newValue
             UserDefaults.standard.isRemoteConfigTestMode = newValue
         }
     }
     
     static var latestAppVersion: JSON {
-        RemoteConfigProxy.shared.configValue(forKey: commonKey(key: "LatestAppVersion"), defaultValue: JSON())
+        RemoteConfig.shared.value(forKey: commonKey(key: "LatestAppVersion"), defaultValue: JSON())
     }
 }

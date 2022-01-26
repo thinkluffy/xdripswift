@@ -3,7 +3,7 @@ import UIKit
 enum ConstantsGlucoseChart {
     
     /// default value for glucosechart width in hours
-    static let defaultChartWidthInHours = 3.0;
+    static let defaultChartWidthInHours = ChartHours.h3.rawValue
     
     /// default value for timeformat for labels in chart, time axis
     /// H is hour 24 hour format, "h a" is hour 12 hour format  with a either am or pm
@@ -110,7 +110,13 @@ enum ConstantsGlucoseChart {
     static let glucoseCircleDiameter6h: CGFloat = 3
     static let glucoseCircleDiameter12h: CGFloat = 3
     static let glucoseCircleDiameter24h: CGFloat = 3
-    
+
+    static let glucoseCircleDiameterBiggerSize1h: CGFloat = 5
+    static let glucoseCircleDiameterBiggerSize3h: CGFloat = 5
+    static let glucoseCircleDiameterBiggerSize6h: CGFloat = 5
+    static let glucoseCircleDiameterBiggerSize12h: CGFloat = 4
+    static let glucoseCircleDiameterBiggerSize24h: CGFloat = 3
+
     /// diameter of the circle for calibration chart points (outer circle)
     static let calibrationCircleScaleOuter: CGFloat = 1.9
     

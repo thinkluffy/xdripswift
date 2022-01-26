@@ -39,29 +39,29 @@ struct ContentView: View {
 							Text(String(format: "%.0f", bgLatest.value))
 								.font(.title)
 								.foregroundColor(color)
-                            
+							
 						} else {
 							let number = Int(round(bgLatest.value * 10))
 							let int = floor(Double(number / 10))
 							let point = number - Int(int * 10)
-                            
+							
 							HStack(alignment: .lastTextBaseline, spacing: 0) {
 								Text(String(format: "%.0f.", int))
-                                    .font(.title.bold())
+									.font(.title.bold())
 									.foregroundColor(color)
-                                
+								
 								Text(String(point))
 									.font(.title2)
 									.foregroundColor(color)
 							}
 							.overlay(
 								Rectangle()
-                                    .frame(maxWidth: isDataValid ? 0: 60,
-                                           maxHeight: isDataValid ? 0: 1),
+									.frame(maxWidth: isDataValid ? 0: 60,
+										   maxHeight: isDataValid ? 0: 1),
 								alignment: .center
 							)
 						}
-                        
+						
 						if isDataValid, let slope = usefulData.slope {
 							// 有效期内
 							Text(slope.description)
@@ -69,21 +69,30 @@ struct ContentView: View {
 								.foregroundColor(color)
 						}
 					}
-					Text(config.showAsMgDl ? "mg/dL" : "mmol/L")
-						   .font(.footnote)
-						   .foregroundColor(Color.secondary)
+				} else {
+					Text("---")
+						.font(.title)
 				}
+				Text(config.showAsMgDl ? "mg/dL" : "mmol/L")
+					.font(.footnote)
+					.foregroundColor(Color.secondary)
                 
-                
-				if usefulData.bgInfoList.count > 0 {
-					WatchChartView(pointDigit: config.showAsMgDl ? 0 : 1,
-                                   chartLow: config.chartLow,
-                                   chartHigh: config.chartHigh,
-                                   urgentLow: config.urgentLow,
-                                   urgentHigh: config.urgentHigh,
-                                   suggestLow: config.suggestLow,
-                                   suggestHigh: config.suggestHigh,
-								   values: getChartPointList(config.interval5Mins, from: usefulData.bgInfoList))
+				WatchChartView(pointDigit: config.showAsMgDl ? 0 : 1,
+							   chartLow: config.chartLow,
+							   chartHigh: config.chartHigh,
+							   urgentLow: config.urgentLow,
+							   urgentHigh: config.urgentHigh,
+							   suggestLow: config.suggestLow,
+							   suggestHigh: config.suggestHigh,
+							   values: getChartPointList(config.interval5Mins, from: usefulData.bgInfoList))
+				
+			} else {
+				if let isLoading = usefulData.isLoadingLatest {
+					if isLoading {
+						Text("loading")
+					} else {
+						Text("invalid_data")
+					}
 				}
 			}
 			Spacer(minLength: 10).frame(maxHeight: 10)

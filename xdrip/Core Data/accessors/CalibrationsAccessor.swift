@@ -16,7 +16,7 @@ class CalibrationsAccessor {
     ///     - withActivesensor : should be currently active sensor
     /// - returns:
     ///     - the first calibration, can be nil
-    func firstCalibrationForActiveSensor(withActivesensor sensor:Sensor) -> Calibration? {
+    func firstCalibrationForActiveSensor(withActiveSensor sensor:Sensor) -> Calibration? {
         return getFirstOrLastCalibration(withActivesensor: sensor, first: true)
     }
 

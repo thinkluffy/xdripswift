@@ -1609,7 +1609,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.string` struct is generated, and contains static references to 19 localization tables.
+  /// This `R.string` struct is generated, and contains static references to 20 localization tables.
   struct string {
     /// This `R.string.alertTypesSettingsView` struct is generated, and contains static references to 16 localization keys.
     struct alertTypesSettingsView {
@@ -2271,7 +2271,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.bluetoothPeripheralView` struct is generated, and contains static references to 33 localization keys.
+    /// This `R.string.bluetoothPeripheralView` struct is generated, and contains static references to 36 localization keys.
     struct bluetoothPeripheralView {
       /// en translation: Address
       ///
@@ -2353,6 +2353,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let resistance = Rswift.StringResource(key: "resistance", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Runtime
+      ///
+      /// Locales: en, zh
+      static let runtime = Rswift.StringResource(key: "runtime", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Scan
       ///
       /// Locales: en, zh
@@ -2401,6 +2405,14 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let transmittterStartDate = Rswift.StringResource(key: "transmittterStartDate", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Voltage A
+      ///
+      /// Locales: en, zh
+      static let dexcom_voltage_A = Rswift.StringResource(key: "dexcom_voltage_A", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Voltage B
+      ///
+      /// Locales: en, zh
+      static let dexcom_voltage_B = Rswift.StringResource(key: "dexcom_voltage_B", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: You can not activate a CGM in Follower Mode
       ///
       /// Locales: en, zh
@@ -2706,6 +2718,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("resistance", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
+      /// en translation: Runtime
+      ///
+      /// Locales: en, zh
+      static func runtime(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("runtime", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
+          return "runtime"
+        }
+
+        return NSLocalizedString("runtime", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
+      }
+
       /// en translation: Scan
       ///
       /// Locales: en, zh
@@ -2884,6 +2911,36 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("transmittterStartDate", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Voltage A
+      ///
+      /// Locales: en, zh
+      static func dexcom_voltage_A(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("dexcom_voltage_A", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
+          return "dexcom_voltage_A"
+        }
+
+        return NSLocalizedString("dexcom_voltage_A", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Voltage B
+      ///
+      /// Locales: en, zh
+      static func dexcom_voltage_B(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("dexcom_voltage_B", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
+          return "dexcom_voltage_B"
+        }
+
+        return NSLocalizedString("dexcom_voltage_B", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
       /// en translation: You can not activate a CGM in Follower Mode
@@ -3087,7 +3144,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.common` struct is generated, and contains static references to 63 localization keys.
+    /// This `R.string.common` struct is generated, and contains static references to 73 localization keys.
     struct common {
       /// en translation: %@ must not be used to make medical decisions. It is a research and education tool only and is provided as-is without warranty of any kind, either expressed or implied, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose. The entire risk as to the quality and performance of the program is with you. Should the program prove defective, you assume the cost of all necessary servicing, repair, or correction.
       ///
@@ -3101,6 +3158,14 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let howManyMinutes = Rswift.StringResource(key: "howManyMinutes", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: 75 Percentile
+      ///
+      /// Locales: en, zh
+      static let seventyFifthPercentile = Rswift.StringResource(key: "seventyFifthPercentile", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: 90 Percentile
+      ///
+      /// Locales: en, zh
+      static let ninetyPercentile = Rswift.StringResource(key: "ninetyPercentile", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: About
       ///
       /// Locales: en, zh
@@ -3133,6 +3198,14 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let common_cancel = Rswift.StringResource(key: "common_cancel", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Daily Patterns
+      ///
+      /// Locales: en, zh
+      static let daily_trend = Rswift.StringResource(key: "daily_trend", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Decile
+      ///
+      /// Locales: en, zh
+      static let decile = Rswift.StringResource(key: "decile", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Default
       ///
       /// Locales: en, zh
@@ -3153,6 +3226,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let common_dontshowagain = Rswift.StringResource(key: "common_dontshowagain", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Error
+      ///
+      /// Locales: en, zh
+      static let error = Rswift.StringResource(key: "error", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Firmware
       ///
       /// Locales: en, zh
@@ -3197,10 +3274,18 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let common_low = Rswift.StringResource(key: "common_low", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Loading
+      ///
+      /// Locales: en, zh
+      static let loading = Rswift.StringResource(key: "loading", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Low
       ///
       /// Locales: en, zh
       static let common_statistics_low = Rswift.StringResource(key: "common_statistics_low", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Median
+      ///
+      /// Locales: en, zh
+      static let median = Rswift.StringResource(key: "median", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Name
       ///
       /// Locales: en, zh
@@ -3209,6 +3294,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let no = Rswift.StringResource(key: "no", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Not enough data
+      ///
+      /// Locales: en, zh
+      static let not_enough_data = Rswift.StringResource(key: "not_enough_data", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: OK
       ///
       /// Locales: en, zh
@@ -3233,6 +3322,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let privacyPolicy = Rswift.StringResource(key: "privacyPolicy", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Quartile
+      ///
+      /// Locales: en, zh
+      static let quartile = Rswift.StringResource(key: "quartile", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Readings
       ///
       /// Locales: en, zh
@@ -3253,6 +3346,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let start_to_use = Rswift.StringResource(key: "start_to_use", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: The feature is under development.
+      ///
+      /// Locales: en, zh
+      static let feature_is_under_development = Rswift.StringResource(key: "feature_is_under_development", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Today
       ///
       /// Locales: en, zh
@@ -3393,6 +3490,36 @@ struct R: Rswift.Validatable {
         return String(format: format, locale: locale, value1)
       }
 
+      /// en translation: 75 Percentile
+      ///
+      /// Locales: en, zh
+      static func seventyFifthPercentile(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("seventyFifthPercentile", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "seventyFifthPercentile"
+        }
+
+        return NSLocalizedString("seventyFifthPercentile", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: 90 Percentile
+      ///
+      /// Locales: en, zh
+      static func ninetyPercentile(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("ninetyPercentile", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "ninetyPercentile"
+        }
+
+        return NSLocalizedString("ninetyPercentile", tableName: "Common", bundle: bundle, comment: "")
+      }
+
       /// en translation: About
       ///
       /// Locales: en, zh
@@ -3515,6 +3642,36 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("common_cancel", tableName: "Common", bundle: bundle, comment: "")
       }
 
+      /// en translation: Daily Patterns
+      ///
+      /// Locales: en, zh
+      static func daily_trend(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("daily_trend", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "daily_trend"
+        }
+
+        return NSLocalizedString("daily_trend", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Decile
+      ///
+      /// Locales: en, zh
+      static func decile(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("decile", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "decile"
+        }
+
+        return NSLocalizedString("decile", tableName: "Common", bundle: bundle, comment: "")
+      }
+
       /// en translation: Default
       ///
       /// Locales: en, zh
@@ -3588,6 +3745,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("common_dontshowagain", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Error
+      ///
+      /// Locales: en, zh
+      static func error(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("error", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "error"
+        }
+
+        return NSLocalizedString("error", tableName: "Common", bundle: bundle, comment: "")
       }
 
       /// en translation: Firmware
@@ -3755,6 +3927,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("common_low", tableName: "Common", bundle: bundle, comment: "")
       }
 
+      /// en translation: Loading
+      ///
+      /// Locales: en, zh
+      static func loading(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("loading", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "loading"
+        }
+
+        return NSLocalizedString("loading", tableName: "Common", bundle: bundle, comment: "")
+      }
+
       /// en translation: Low
       ///
       /// Locales: en, zh
@@ -3768,6 +3955,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("common_statistics_low", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Median
+      ///
+      /// Locales: en, zh
+      static func median(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("median", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "median"
+        }
+
+        return NSLocalizedString("median", tableName: "Common", bundle: bundle, comment: "")
       }
 
       /// en translation: Name
@@ -3798,6 +4000,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("no", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Not enough data
+      ///
+      /// Locales: en, zh
+      static func not_enough_data(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("not_enough_data", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "not_enough_data"
+        }
+
+        return NSLocalizedString("not_enough_data", tableName: "Common", bundle: bundle, comment: "")
       }
 
       /// en translation: OK
@@ -3890,6 +4107,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("privacyPolicy", tableName: "Common", bundle: bundle, comment: "")
       }
 
+      /// en translation: Quartile
+      ///
+      /// Locales: en, zh
+      static func quartile(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("quartile", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "quartile"
+        }
+
+        return NSLocalizedString("quartile", tableName: "Common", bundle: bundle, comment: "")
+      }
+
       /// en translation: Readings
       ///
       /// Locales: en, zh
@@ -3963,6 +4195,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("start_to_use", tableName: "Common", bundle: bundle, comment: "")
+      }
+
+      /// en translation: The feature is under development.
+      ///
+      /// Locales: en, zh
+      static func feature_is_under_development(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("feature_is_under_development", tableName: "Common", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
+          return "feature_is_under_development"
+        }
+
+        return NSLocalizedString("feature_is_under_development", tableName: "Common", bundle: bundle, comment: "")
       }
 
       /// en translation: Today
@@ -4298,6 +4545,33 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
+    /// This `R.string.dailyTrend` struct is generated, and contains static references to 1 localization keys.
+    struct dailyTrend {
+      /// en translation: Data available for %1$d of %2$d days
+      ///
+      /// Locales: en, zh
+      static let daily_trend_available_days = Rswift.StringResource(key: "daily_trend_available_days", tableName: "DailyTrend", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+
+      /// en translation: Data available for %1$d of %2$d days
+      ///
+      /// Locales: en, zh
+      static func daily_trend_available_days(_ value1: Int, _ value2: Int, preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          let format = NSLocalizedString("daily_trend_available_days", tableName: "DailyTrend", bundle: hostingBundle, comment: "")
+          return String(format: format, locale: applicationLocale, value1, value2)
+        }
+
+        guard let (locale, bundle) = localeBundle(tableName: "DailyTrend", preferredLanguages: preferredLanguages) else {
+          return "daily_trend_available_days"
+        }
+
+        let format = NSLocalizedString("daily_trend_available_days", tableName: "DailyTrend", bundle: bundle, comment: "")
+        return String(format: format, locale: locale, value1, value2)
+      }
+
+      fileprivate init() {}
+    }
+
     /// This `R.string.dexcomShareTestResult` struct is generated, and contains static references to 9 localization keys.
     struct dexcomShareTestResult {
       /// en translation: Dexcom Share Upload Error
@@ -4557,7 +4831,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.homeView` struct is generated, and contains static references to 39 localization keys.
+    /// This `R.string.homeView` struct is generated, and contains static references to 40 localization keys.
     struct homeView {
       /// en translation: Are you sure you want to stop the sensor?
       ///
@@ -4571,6 +4845,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let calibrate = Rswift.StringResource(key: "calibrate", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Choose the time the sensor is started
+      ///
+      /// Locales: en, zh
+      static let dialog_subtitle_startSensorTime = Rswift.StringResource(key: "dialog_subtitle_startSensorTime", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Failed
       ///
       /// Locales: en, zh
@@ -4583,14 +4861,14 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let forgetbluetoothdeviceactiontitle = Rswift.StringResource(key: "forgetbluetoothdeviceactiontitle", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: If you don't have a sensor code use 0000 but be aware that you will not get readings until you calibrate
+      /// en translation: If you don't have a sensor code, please use 0000. But be aware that you will not get readings until you calibrate.
       ///
       /// Locales: en, zh
       static let enterSensorCode = Rswift.StringResource(key: "enterSensorCode", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: In the next dialogs, you will need to set the date and time the sensor was inserted. It is important that you set the date and time as correct as possible.
       ///
       /// Locales: en, zh
-      static let startsensortimeinfo = Rswift.StringResource(key: "startsensortimeinfo", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      static let startSensorTimeInfo = Rswift.StringResource(key: "startSensorTimeInfo", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Keep %@ open in the foreground until a connection is made. Don't exit the app and don't lock your iPhone.
       ///
       /// Locales: en, zh
@@ -4646,7 +4924,7 @@ struct R: Rswift.Validatable {
       /// en translation: Start Sensor
       ///
       /// Locales: en, zh
-      static let startsensor = Rswift.StringResource(key: "startsensor", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      static let startSensor = Rswift.StringResource(key: "startSensor", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Status
       ///
       /// Locales: en, zh
@@ -4654,7 +4932,7 @@ struct R: Rswift.Validatable {
       /// en translation: Stop Sensor
       ///
       /// Locales: en, zh
-      static let stopsensor = Rswift.StringResource(key: "stopsensor", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      static let stopSensor = Rswift.StringResource(key: "stopSensor", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Success
       ///
       /// Locales: en, zh
@@ -4695,7 +4973,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let transmitterpairingattempttimeout = Rswift.StringResource(key: "transmitterpairingattempttimeout", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: When using the Transmitter algorithm, it is not necessary to calibrate the sensor.
+      /// en translation: When Manual Calibration is disabled, it is not necessary to calibrate the sensor.
       ///
       /// Locales: en, zh
       static let calibrationNotNecessary = Rswift.StringResource(key: "calibrationNotNecessary", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
@@ -4761,6 +5039,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("calibrate", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
+      /// en translation: Choose the time the sensor is started
+      ///
+      /// Locales: en, zh
+      static func dialog_subtitle_startSensorTime(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("dialog_subtitle_startSensorTime", tableName: "HomeView", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
+          return "dialog_subtitle_startSensorTime"
+        }
+
+        return NSLocalizedString("dialog_subtitle_startSensorTime", tableName: "HomeView", bundle: bundle, comment: "")
+      }
+
       /// en translation: Failed
       ///
       /// Locales: en, zh
@@ -4806,7 +5099,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("forgetbluetoothdeviceactiontitle", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
-      /// en translation: If you don't have a sensor code use 0000 but be aware that you will not get readings until you calibrate
+      /// en translation: If you don't have a sensor code, please use 0000. But be aware that you will not get readings until you calibrate.
       ///
       /// Locales: en, zh
       static func enterSensorCode(preferredLanguages: [String]? = nil) -> String {
@@ -4824,16 +5117,16 @@ struct R: Rswift.Validatable {
       /// en translation: In the next dialogs, you will need to set the date and time the sensor was inserted. It is important that you set the date and time as correct as possible.
       ///
       /// Locales: en, zh
-      static func startsensortimeinfo(preferredLanguages: [String]? = nil) -> String {
+      static func startSensorTimeInfo(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("startsensortimeinfo", tableName: "HomeView", bundle: hostingBundle, comment: "")
+          return NSLocalizedString("startSensorTimeInfo", tableName: "HomeView", bundle: hostingBundle, comment: "")
         }
 
         guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "startsensortimeinfo"
+          return "startSensorTimeInfo"
         }
 
-        return NSLocalizedString("startsensortimeinfo", tableName: "HomeView", bundle: bundle, comment: "")
+        return NSLocalizedString("startSensorTimeInfo", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
       /// en translation: Keep %@ open in the foreground until a connection is made. Don't exit the app and don't lock your iPhone.
@@ -5036,16 +5329,16 @@ struct R: Rswift.Validatable {
       /// en translation: Start Sensor
       ///
       /// Locales: en, zh
-      static func startsensor(preferredLanguages: [String]? = nil) -> String {
+      static func startSensor(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("startsensor", tableName: "HomeView", bundle: hostingBundle, comment: "")
+          return NSLocalizedString("startSensor", tableName: "HomeView", bundle: hostingBundle, comment: "")
         }
 
         guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "startsensor"
+          return "startSensor"
         }
 
-        return NSLocalizedString("startsensor", tableName: "HomeView", bundle: bundle, comment: "")
+        return NSLocalizedString("startSensor", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
       /// en translation: Status
@@ -5066,16 +5359,16 @@ struct R: Rswift.Validatable {
       /// en translation: Stop Sensor
       ///
       /// Locales: en, zh
-      static func stopsensor(preferredLanguages: [String]? = nil) -> String {
+      static func stopSensor(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("stopsensor", tableName: "HomeView", bundle: hostingBundle, comment: "")
+          return NSLocalizedString("stopSensor", tableName: "HomeView", bundle: hostingBundle, comment: "")
         }
 
         guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "stopsensor"
+          return "stopSensor"
         }
 
-        return NSLocalizedString("stopsensor", tableName: "HomeView", bundle: bundle, comment: "")
+        return NSLocalizedString("stopSensor", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
       /// en translation: Success
@@ -5228,7 +5521,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("transmitterpairingattempttimeout", tableName: "HomeView", bundle: bundle, comment: "")
       }
 
-      /// en translation: When using the Transmitter algorithm, it is not necessary to calibrate the sensor.
+      /// en translation: When Manual Calibration is disabled, it is not necessary to calibrate the sensor.
       ///
       /// Locales: en, zh
       static func calibrationNotNecessary(preferredLanguages: [String]? = nil) -> String {
@@ -5971,8 +6264,12 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.notes` struct is generated, and contains static references to 2 localization keys.
+    /// This `R.string.notes` struct is generated, and contains static references to 3 localization keys.
     struct notes {
+      /// en translation: Add a Note
+      ///
+      /// Locales: en, zh
+      static let dialog_title_add_note = Rswift.StringResource(key: "dialog_title_add_note", tableName: "Notes", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Alarms and Notes will show here
       ///
       /// Locales: en, zh
@@ -5981,6 +6278,21 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let emptyview_title_no_notes = Rswift.StringResource(key: "emptyview_title_no_notes", tableName: "Notes", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+
+      /// en translation: Add a Note
+      ///
+      /// Locales: en, zh
+      static func dialog_title_add_note(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("dialog_title_add_note", tableName: "Notes", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Notes", preferredLanguages: preferredLanguages) else {
+          return "dialog_title_add_note"
+        }
+
+        return NSLocalizedString("dialog_title_add_note", tableName: "Notes", bundle: bundle, comment: "")
+      }
 
       /// en translation: Alarms and Notes will show here
       ///
@@ -8609,6 +8921,7 @@ struct _R: Rswift.Validatable {
 
       let bluetoothPeripheral = StoryboardViewControllerResource<BluetoothPeripheralViewController>(identifier: "BluetoothPeripheral")
       let bundle = R.hostingBundle
+      let dailyTrend = StoryboardViewControllerResource<DailyTrendViewController>(identifier: "DailyTrend")
       let mainTabBarController = StoryboardViewControllerResource<MainTabBarController>(identifier: "MainTabBarController")
       let name = "Main"
       let snoozeAlarms = StoryboardViewControllerResource<SnoozeViewController>(identifier: "snoozeAlarms")
@@ -8616,6 +8929,10 @@ struct _R: Rswift.Validatable {
 
       func bluetoothPeripheral(_: Void = ()) -> BluetoothPeripheralViewController? {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: bluetoothPeripheral)
+      }
+
+      func dailyTrend(_: Void = ()) -> DailyTrendViewController? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: dailyTrend)
       }
 
       func mainTabBarController(_: Void = ()) -> MainTabBarController? {
@@ -8647,6 +8964,7 @@ struct _R: Rswift.Validatable {
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
         if _R.storyboard.main().bluetoothPeripheral() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'bluetoothPeripheral' could not be loaded from storyboard 'Main' as 'BluetoothPeripheralViewController'.") }
+        if _R.storyboard.main().dailyTrend() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'dailyTrend' could not be loaded from storyboard 'Main' as 'DailyTrendViewController'.") }
         if _R.storyboard.main().mainTabBarController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'mainTabBarController' could not be loaded from storyboard 'Main' as 'MainTabBarController'.") }
         if _R.storyboard.main().totalAlertSettingsViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'totalAlertSettingsViewController' could not be loaded from storyboard 'Main' as 'TotalAlertSettingsViewController'.") }
         if _R.storyboard.main().snoozeAlarms() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'snoozeAlarms' could not be loaded from storyboard 'Main' as 'SnoozeViewController'.") }

@@ -87,5 +87,6 @@
 "resistance" = "电阻";
 "dialog_title_manual_calibration_enabled" = "手动校准已开启";
 "dialog_msg_manual_calibration_enabled" = "稍后请按照提示输入校准血糖值。";
-
-
+"dexcom_voltage_A" = "电压 A";
+"dexcom_voltage_B" = "电压 B";
+"runtime" = "运行";

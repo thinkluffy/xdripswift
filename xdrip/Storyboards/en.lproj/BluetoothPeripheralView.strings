@@ -31,3 +31,7 @@
 "resistance" = "Resistance";
 "dialog_title_manual_calibration_enabled" = "Manual Calibration Enabled";
 "dialog_msg_manual_calibration_enabled" = "Please follow the prompts to enter the calibration blood glucose value later.";
+"dexcom_voltage_A" = "Voltage A";
+"dexcom_voltage_B" = "Voltage B";
+"runtime" = "Runtime";
+
