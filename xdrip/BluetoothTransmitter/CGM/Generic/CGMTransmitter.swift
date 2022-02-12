@@ -163,16 +163,13 @@ enum CGMTransmitterType: String, CaseIterable {
     ///
     /// Would normally not be required, because if canDetectNewSensor returns true, then manual start shouldn't e necessary. However blucon automatic sensor start does not always work. So for this reason, this function is used.
     func allowManualSensorStart() -> Bool {
-        
         switch self {
             
         case .dexcom, .GNSentry, .Droplet1, .blueReader, .watlaa:
             return true
             
         case .miaomiao, .Bubble, .Blucon, .Libre2, .Atom:
-            return true
-        
-        
+            return false
         }
     }
         

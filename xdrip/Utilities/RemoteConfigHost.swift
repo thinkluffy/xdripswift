@@ -33,4 +33,10 @@ class RemoteConfigHost {
     static var latestAppVersion: JSON {
         RemoteConfig.shared.value(forKey: commonKey(key: "LatestAppVersion"), defaultValue: JSON())
     }
+    
+    // MARK: - app keys
+    
+    static var fullFeatureMode: Bool {
+        RemoteConfig.shared.value(forKey: appKey(key: "FullFeatureMode"), defaultValue: true)
+    }
 }

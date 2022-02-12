@@ -918,7 +918,6 @@ class CGMG5Transmitter: BluetoothTransmitter, CGMTransmitter {
             trace("in calibrate. New calibration stored. value = %{public}@, timestamp = %{public}@ ", log: log, category: ConstantsLog.categoryCGMG5, type: .info, calibration.bg.description, calibration.timeStamp.toString(timeStyle: .long, dateStyle: .none))
 
         }
-
     }
 
     func needsSensorStartCode() -> Bool {

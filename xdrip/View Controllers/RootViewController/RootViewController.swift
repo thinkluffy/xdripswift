@@ -566,16 +566,19 @@ final class RootViewController: UIViewController {
                 return
             }
 
-            // only if no webOOPEnabled : if no two calibration exist yet then create calibration request notification, otherwise a bgreading notification and update labels
-            if firstCalibrationForActiveSensor == nil && lastCalibrationForActiveSensor == nil && !cgmTransmitter.isWebOOPEnabled() {
+            // only if no webOOPEnabled and overruleIsWebOOPEnabled false : if no two calibration exist yet then create calibration request notification, otherwise a bgreading notification and update labels
+            if firstCalibrationForActiveSensor == nil && lastCalibrationForActiveSensor == nil && (!cgmTransmitter.isWebOOPEnabled() && !cgmTransmitter.overruleIsWebOOPEnabled()) {
 
                 // there must be at least 2 readings
                 let latestReadings = bgReadingsAccessor.getLatestBgReadings(limit: 36, howOld: nil, forSensor: activeSensor, ignoreRawData: false, ignoreCalculatedValue: true)
 
                 if latestReadings.count > 1 {
-                    trace("calibration: two readings received, no calibrations exist yet and not weboopenabled, request calibation to user", log: log, category: ConstantsLog.categoryRootView, type: .info)
+                    RootViewController.log.d("calibration: two readings received, no calibrations exist yet and not weboopenabled, request calibation to user")
 
                     createInitialCalibrationRequest()
+                    
+                } else {
+                    RootViewController.log.d("Not enough readings to calibrate, latestReadings.count: \(latestReadings.count)")
                 }
 
             } else {
@@ -710,7 +713,9 @@ final class RootViewController: UIViewController {
         }
 
         calibrateButton.onTap { [unowned self] _ in
-            if let cgmTransmitter = bluetoothPeripheralManager?.getCGMTransmitter(), cgmTransmitter.isWebOOPEnabled() {
+            // if this is a transmitter that does not require and is not allowed to be calibrated, then give warning message
+            if let cgmTransmitter = self.bluetoothPeripheralManager?.getCGMTransmitter(),
+                (cgmTransmitter.isWebOOPEnabled() && !cgmTransmitter.overruleIsWebOOPEnabled()) {
                 let dialog = PopupDialog(title: R.string.common.warning(),
                         message: R.string.homeView.calibrationNotNecessary(),
                         actionHandler: nil)
@@ -818,11 +823,12 @@ final class RootViewController: UIViewController {
     /// - parameters:
     ///     - userRequested : if true, it's a requestCalibration initiated by user clicking on the calibrate button in the homescreen
     private func requestCalibration(userRequested: Bool) {
-
+        RootViewController.log.d("==> requestCalibration, userRequested: \(userRequested)")
+        
         // check that there's an active cgmTransmitter (not necessarily connected, just one that is created and configured with shouldconnect = true)
         guard let cgmTransmitter = bluetoothPeripheralManager?.getCGMTransmitter(), let bluetoothTransmitter = cgmTransmitter as? BluetoothTransmitter else {
 
-            trace("in requestCalibration, calibrationsAccessor or cgmTransmitter is nil, no further processing", log: log, category: ConstantsLog.categoryRootView, type: .info)
+            RootViewController.log.d("in requestCalibration, calibrationsAccessor or cgmTransmitter is nil, no further processing")
 
             present(PopupDialog(title: Texts_HomeView.info,
                     message: Texts_HomeView.theresNoCGMTransmitterActive,
@@ -836,7 +842,7 @@ final class RootViewController: UIViewController {
         // check if sensor active and if not don't continue
         guard let activeSensor = activeSensor else {
 
-            trace("in requestCalibration, there is no active sensor, no further processing", log: log, category: ConstantsLog.categoryRootView, type: .info)
+            RootViewController.log.d("in requestCalibration, there is no active sensor, no further processing")
 
             present(PopupDialog(title: R.string.common.wait_a_moment(),
                     message: R.string.homeView.startSensorBeforeCalibration(),
@@ -848,7 +854,10 @@ final class RootViewController: UIViewController {
         }
 
         // if it's a user requested calibration, but there's no calibration yet, then give info and return - first calibration will be requested by app via notification
-        if calibrationsAccessor.firstCalibrationForActiveSensor(withActiveSensor: activeSensor) == nil && userRequested {
+        // cgmTransmitter.overruleIsWebOOPEnabled() : that means it's a transmitter that gives calibrated values (ie doesn't need to be calibrated) but it can use calibration
+        if calibrationsAccessor.firstCalibrationForActiveSensor(withActiveSensor: activeSensor) == nil &&
+            userRequested &&
+            !cgmTransmitter.overruleIsWebOOPEnabled() {
 
             present(PopupDialog(title: Texts_HomeView.info,
                     message: Texts_HomeView.thereMustBeAreadingBeforeCalibration,
@@ -1226,7 +1235,7 @@ final class RootViewController: UIViewController {
 
             let data = BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(
                     withCategory: .CGM,
-                    isFullFeatureMode: UserDefaults.standard.isFullFeatureMode
+                    isFullFeatureMode: RemoteConfigHost.fullFeatureMode || UserDefaults.standard.isFullFeatureMode
             )
 
             let pickerViewData = PickerViewDataBuilder(
@@ -1236,7 +1245,7 @@ final class RootViewController: UIViewController {
 
                         let typeRawValue = BluetoothPeripheralCategory.listOfBluetoothPeripheralTypes(
                                 withCategory: .CGM,
-                                isFullFeatureMode: UserDefaults.standard.isFullFeatureMode
+                                isFullFeatureMode: RemoteConfigHost.fullFeatureMode || UserDefaults.standard.isFullFeatureMode
                         )[typeIndex]
 
                         // get the selected BluetoothPeripheralType

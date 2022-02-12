@@ -16,7 +16,7 @@ class ServiceIntegrationSettingsViewController: LegacySubSettingsViewController 
     }
     
     override func configureSections() -> [LegacySettingSection]? {
-        if UserDefaults.standard.isFullFeatureMode {
+        if RemoteConfigHost.fullFeatureMode || UserDefaults.standard.isFullFeatureMode {
             return [
                 LegacySettingSection(viewModelProtocol: SettingsViewNightScoutSettingsViewModel()),
                 LegacySettingSection(viewModelProtocol: SettingsViewDexcomSettingsViewModel()),

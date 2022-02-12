@@ -87,35 +87,35 @@ class BgReadingsAccessor {
     ///     Order by timestamp, descending meaning the reading at index 0 is the youngest
    func getLatestBgReadings(limit: Int?, fromDate: Date?, forSensor sensor: Sensor?, ignoreRawData: Bool, ignoreCalculatedValue: Bool) -> [BgReading] {
         
-        var returnValue: [BgReading] = []
-        
-        let ignoreSensorId = sensor == nil ? true:false
-        
-        let bgReadings = fetchBgReadings(limit: limit, fromDate: fromDate)
-        
-        loop: for bgReading in bgReadings {
-            if ignoreSensorId {
-                if (bgReading.calculatedValue != 0.0 || ignoreCalculatedValue) && (bgReading.rawData != 0.0 || ignoreRawData) {
-                    returnValue.append(bgReading)
-                }
-                
-            } else {
-                if let readingsensor = bgReading.sensor {
-                    if readingsensor.id == sensor!.id {
-                        if (bgReading.calculatedValue != 0.0 || ignoreCalculatedValue) && (bgReading.rawData != 0.0 || ignoreRawData) {
-                            returnValue.append(bgReading)
-                        }
-                    }
-                }
-            }
-            
-            if let limit = limit {
-                if returnValue.count == limit {
-                    break loop
-                }
-            }
-        }
-        return returnValue
+       var returnValue: [BgReading] = []
+       
+       let ignoreSensorId = sensor == nil ? true : false
+       
+       let bgReadings = fetchBgReadings(limit: limit, fromDate: fromDate, filterCalculatedValue: !ignoreCalculatedValue)
+       
+       loop: for bgReading in bgReadings {
+           if ignoreSensorId {
+               if (bgReading.calculatedValue != 0.0 || ignoreCalculatedValue) && (bgReading.rawData != 0.0 || ignoreRawData) {
+                   returnValue.append(bgReading)
+               }
+               
+           } else {
+               if let readingSensor = bgReading.sensor {
+                   if readingSensor.id == sensor!.id {
+                       if (bgReading.calculatedValue != 0.0 || ignoreCalculatedValue) && (bgReading.rawData != 0.0 || ignoreRawData) {
+                           returnValue.append(bgReading)
+                       }
+                   }
+               }
+           }
+           
+           if let limit = limit {
+               if returnValue.count == limit {
+                   break loop
+               }
+           }
+       }
+       return returnValue
     }
     
     /// gets last reading, ignores rawData and calculatedValue
@@ -262,25 +262,35 @@ class BgReadingsAccessor {
     /// - parameters:
     ///     - limit: maximum amount of readings to fetch, if 0 then no limit
     ///     - fromDate : if specified, only return readings with timestamp > fromDate
+    ///     - filterCalculatedValue: true to filter calculatedValue between maxBg and minBg
     /// - returns:
     ///     List of readings, descending, ie first is youngest
-    private func fetchBgReadings(limit: Int?, fromDate: Date?) -> [BgReading] {
+    private func fetchBgReadings(limit: Int?, fromDate: Date?, filterCalculatedValue: Bool = true) -> [BgReading] {
         let fetchRequest: NSFetchRequest<BgReading> = BgReading.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(BgReading.timeStamp), ascending: false)]
         
         // if fromDate specified then create predicate
         if let fromDate = fromDate {
-            let predicate = NSPredicate(format: "timeStamp > %@ AND calculatedValue < %d AND calculatedValue > %d",
+            let predicate: NSPredicate
+            if filterCalculatedValue {
+                predicate = NSPredicate(format: "timeStamp > %@ AND calculatedValue < %d AND calculatedValue > %d",
                                         NSDate(timeIntervalSince1970: fromDate.timeIntervalSince1970),
                                         Int(Constants.maxBgMgDl),
                                         Int(Constants.minBgMgDl))
+                
+            } else {
+                predicate = NSPredicate(format: "timeStamp > %@",
+                                        NSDate(timeIntervalSince1970: fromDate.timeIntervalSince1970))
+            }
             fetchRequest.predicate = predicate
 			
 		} else {
-			let predicate = NSPredicate(format: "calculatedValue < %d AND calculatedValue > %d",
-										Int(Constants.maxBgMgDl),
-										Int(Constants.minBgMgDl))
-			fetchRequest.predicate = predicate
+            if filterCalculatedValue {
+                let predicate = NSPredicate(format: "calculatedValue < %d AND calculatedValue > %d",
+                                            Int(Constants.maxBgMgDl),
+                                            Int(Constants.minBgMgDl))
+                fetchRequest.predicate = predicate
+            }
 		}
         
         // set fetchLimit

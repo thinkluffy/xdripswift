@@ -533,13 +533,8 @@ class BluetoothPeripheralViewController: UIViewController {
 
     /// user clicked connect button
     @objc private func connectButtonHandler() {
-        // unwrap bluetoothPeripheralManager
-        guard let bluetoothPeripheralManager = bluetoothPeripheralManager else {
-            return
-        }
-
-        // unwrap expectedBluetoothPeripheralType
-        guard let expectedBluetoothPeripheralType = expectedBluetoothPeripheralType else {
+        guard let bluetoothPeripheralManager = bluetoothPeripheralManager,
+              let expectedBluetoothPeripheralType = expectedBluetoothPeripheralType else {
             return
         }
 
@@ -610,7 +605,7 @@ class BluetoothPeripheralViewController: UIViewController {
                         startSensorAskUserForSensorCode(cgmTransmitter: cgmTransmitter)
 
                     } else {
-                        startSensor(cgmTransmitter: cgmTransmitter, sensorStarDate: Date(), sensorCode: nil, sendToTransmitter: true)
+                        startSensor(cgmTransmitter: cgmTransmitter, sensorStartDate: Date(), sensorCode: nil, sendToTransmitter: true)
                     }
                 }
             }
@@ -640,20 +635,20 @@ class BluetoothPeripheralViewController: UIViewController {
     /// - creates a new sensor and assigns it to activeSensor
     /// - if sendToTransmitter is true then sends startSensor command to transmitter (ony useful for Firefly)
     /// - saves to coredata
-    private func startSensor(cgmTransmitter: CGMTransmitter, sensorStarDate: Date, sensorCode: String?, sendToTransmitter: Bool) {
+    private func startSensor(cgmTransmitter: CGMTransmitter, sensorStartDate: Date, sensorCode: String?, sendToTransmitter: Bool) {
         BluetoothPeripheralViewController.log.d("==> startSensor")
 
         EasyTracker.logEvent(Events.prefixStartSensor + cgmTransmitter.cgmTransmitterType().rawValue)
 
         // create active sensor
-        let _ = Sensor(startDate: sensorStarDate, nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
+        let _ = Sensor(startDate: sensorStartDate, nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
 
         // save the newly created Sensor permenantly in coredata
         CoreDataManager.shared.saveChanges()
 
         // send to transmitter
         if sendToTransmitter {
-            cgmTransmitter.startSensor(sensorCode: sensorCode, startDate: sensorStarDate)
+            cgmTransmitter.startSensor(sensorCode: sensorCode, startDate: sensorStartDate)
         }
     }
     
@@ -684,7 +679,7 @@ class BluetoothPeripheralViewController: UIViewController {
         let datePickerData = DatePickerDataBuilder(
             datePickerMode: .dateAndTime,
             actionHandler: { date in
-                self.startSensor(cgmTransmitter: cgmTransmitter, sensorStarDate: date, sensorCode: nil, sendToTransmitter: true)
+                self.startSensor(cgmTransmitter: cgmTransmitter, sensorStartDate: date, sensorCode: nil, sendToTransmitter: true)
             }
         )
             .title(R.string.homeView.startSensor())
@@ -737,7 +732,7 @@ class BluetoothPeripheralViewController: UIViewController {
                 
                 dialog.dismiss()
                 // start sensor with date chosen by user, sensorCode nil
-                self.startSensor(cgmTransmitter: cgmTransmitter, sensorStarDate: Date(), sensorCode: text, sendToTransmitter: true)
+                self.startSensor(cgmTransmitter: cgmTransmitter, sensorStartDate: Date(), sensorCode: text, sendToTransmitter: true)
             },
             cancelTitle: R.string.common.common_cancel()
         )

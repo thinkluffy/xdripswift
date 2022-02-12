@@ -33,7 +33,7 @@ struct Endpoint {
 }
 
 /// enums for http, https, ...
-enum EndPointScheme:String, CaseIterable {
+enum EndPointScheme: String, CaseIterable {
     
     /// https://, rawvalue includes ://
     case https = "https"
