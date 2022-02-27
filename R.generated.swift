@@ -2313,10 +2313,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let confirmDisconnectMessage = Rswift.StringResource(key: "confirmDisconnectMessage", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Follow Dexcom-app
-      ///
-      /// Locales: en, zh
-      static let useOtherDexcomApp = Rswift.StringResource(key: "useOtherDexcomApp", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Last Reset
       ///
       /// Locales: en, zh
@@ -2413,6 +2409,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let dexcom_voltage_B = Rswift.StringResource(key: "dexcom_voltage_B", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: With Dexcom-app Together
+      ///
+      /// Locales: en, zh
+      static let useOtherDexcomApp = Rswift.StringResource(key: "useOtherDexcomApp", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: You can not activate a CGM in Follower Mode
       ///
       /// Locales: en, zh
@@ -2566,21 +2566,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("confirmDisconnectMessage", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Follow Dexcom-app
-      ///
-      /// Locales: en, zh
-      static func useOtherDexcomApp(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("useOtherDexcomApp", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "useOtherDexcomApp"
-        }
-
-        return NSLocalizedString("useOtherDexcomApp", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
       /// en translation: Last Reset
@@ -2941,6 +2926,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("dexcom_voltage_B", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
+      }
+
+      /// en translation: With Dexcom-app Together
+      ///
+      /// Locales: en, zh
+      static func useOtherDexcomApp(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("useOtherDexcomApp", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
+          return "useOtherDexcomApp"
+        }
+
+        return NSLocalizedString("useOtherDexcomApp", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
       }
 
       /// en translation: You can not activate a CGM in Follower Mode
