@@ -2,6 +2,7 @@ import UIKit
 import CoreBluetooth
 import os
 import PopupDialog
+import FirebaseCrashlytics
 
 fileprivate let generalSettingSectionNumber = 0
 
@@ -1226,7 +1227,8 @@ extension BluetoothPeripheralViewController: BluetoothTransmitterDelegate {
         bluetoothPeripheralManager?.didDisconnectFrom(bluetoothTransmitter: bluetoothTransmitter)
 
         // refresh complete first section (only status and connection timestamp changed but reload complete section)
-        tableView.reloadSections(IndexSet(integer: 0), with: .none)
+//        tableView.reloadSections(IndexSet(integer: 0), with: .none)
+        tableView.reloadData()
     }
 
     func deviceDidUpdateBluetoothState(state: CBManagerState, bluetoothTransmitter: BluetoothTransmitter) {

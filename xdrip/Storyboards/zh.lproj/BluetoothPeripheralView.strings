@@ -73,7 +73,7 @@
 "resetRequired" = "重置发射器";
 
 /// Dexcom bluetooth screen. Is another app used in parallel or not
-"useOtherDexcomApp" = "与 Dexcom 官方软件一起使用";
+"useOtherDexcomApp" = "与 Dexcom App 一起使用";
 
 /// Confirm that the user wants to really disconnect the transmitter, title
 "confirmDisconnectMessage" = "要从发射器断开连接吗？";
