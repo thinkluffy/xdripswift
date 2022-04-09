@@ -353,9 +353,15 @@ public enum AlertKind: Int, CaseIterable {
             }
 
         case .calibration:
+            if !UserDefaults.standard.isMaster {
+                return (false, nil, nil, nil)
+            }
+            
             // if alertEntry not enabled, return false
             // if lastCalibration == nil then also no need to create an alert, could be an oop web enabled transmitter
-            if !currentAlertEntry.alertType.enabled || lastCalibration == nil {return (false, nil, nil, nil)}
+            if !currentAlertEntry.alertType.enabled || lastCalibration == nil {
+                return (false, nil, nil, nil)
+            }
                             
             // if lastCalibration not nil, check the timestamp and check if delay > value (in hours)
             if abs(lastCalibration!.timeStamp.timeIntervalSinceNow) > TimeInterval(Double(currentAlertEntry.value) * 3600.0) {
@@ -364,11 +370,19 @@ public enum AlertKind: Int, CaseIterable {
             return (false, nil, nil, nil)
             
         case .batterylow:
+            if !UserDefaults.standard.isMaster {
+                return (false, nil, nil, nil)
+            }
+            
             // if alertEntry not enabled, return false
-            if !currentAlertEntry.alertType.enabled {return (false, nil, nil, nil)}
+            if !currentAlertEntry.alertType.enabled {
+                return (false, nil, nil, nil)
+            }
             
             // if transmitterBatteryInfo is nil, return false
-            guard let transmitterBatteryInfo = transmitterBatteryInfo else {return (false, nil, nil, nil)}
+            guard let transmitterBatteryInfo = transmitterBatteryInfo else {
+                return (false, nil, nil, nil)
+            }
             
             // get level
             var batteryLevelToCheck: Int?
