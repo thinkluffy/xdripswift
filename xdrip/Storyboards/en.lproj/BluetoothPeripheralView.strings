@@ -26,7 +26,7 @@
 "confirmDisconnectMessage" = "Do you really want to disconnect from the transmitter?";
 "transmittterStartDate" = "Transmitter Start";
 "sensorStartDate" = "Sensor Started At";
-"useOtherDexcomApp" = "Follow Dexcom-app";
+"useOtherDexcomApp" = "With Dexcom-app Together";
 "temperature" = "Temperature";
 "resistance" = "Resistance";
 "dialog_title_manual_calibration_enabled" = "Manual Calibration Enabled";

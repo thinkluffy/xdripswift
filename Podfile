@@ -17,7 +17,7 @@ target 'xdrip' do
   pod 'SwiftEventBus', :tag => '5.0.1', :git => 'https://github.com/cesarferreira/SwiftEventBus.git'
   pod 'Alamofire', '5.5.0'
 
-  pod 'Firebase', '8.10.0', :subspecs => ['Analytics', 'Crashlytics', 'Performance']
+  pod 'Firebase', '8.13.0', :subspecs => ['Analytics', 'Crashlytics', 'Performance']
 
   pod 'AppCenter'
 
