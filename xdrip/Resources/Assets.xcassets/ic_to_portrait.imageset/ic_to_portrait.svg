@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ic_portrait</title>
+    <g id="ic_portrait" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="矩形" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round" x="3" y="4" width="9" height="16" rx="1"></rect>
+        <path d="M15,11 C16.2,11 17.4,11 19.8,11 C20.4627417,11 21,11.4029437 21,11.9 L21,19.1 C21,19.5970563 20.4627417,20 19.8,20 C17.4,20 16.2,20 15,20" id="路径" stroke-opacity="0.6" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <line x1="6.5" y1="16.5" x2="8.5" y2="16.5" id="路径-8" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round"></line>
+        <g id="编组" transform="translate(14.787624, 1.729642)" stroke="#FFFFFF" stroke-linecap="round">
+            <path d="M5.74102785,7.06764019 C5.77960151,6.83059127 5.79965505,6.5873252 5.79965505,6.33937538 C5.79965505,3.85409401 3.78493642,1.83937538 1.29965505,1.83937538" id="路径" transform="translate(3.549655, 4.453508) rotate(-10.000000) translate(-3.549655, -4.453508) "></path>
+            <polyline id="路径-25" stroke-width="1.2" stroke-linejoin="round" transform="translate(1.424272, 2.173691) rotate(103.000000) translate(-1.424272, -2.173691) " points="-0.575727827 1.17369118 1.42427217 3.17369118 3.42427217 1.17369118"></polyline>
+        </g>
+    </g>
+</svg>

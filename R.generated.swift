@@ -1286,7 +1286,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 33 images.
+  /// This `R.image` struct is generated, and contains static references to 34 images.
   struct image {
     /// Image `dexcomG6`.
     static let dexcomG6 = Rswift.ImageResource(bundle: R.hostingBundle, name: "dexcomG6")
@@ -1348,6 +1348,8 @@ struct R: Rswift.Validatable {
     static let ic_tab_settings_h = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_settings_h")
     /// Image `ic_tab_settings`.
     static let ic_tab_settings = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_settings")
+    /// Image `ic_to_landscape`.
+    static let ic_to_landscape = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_to_landscape")
     /// Image `ic_to_portrait`.
     static let ic_to_portrait = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_to_portrait")
     /// Image `libre`.
@@ -1562,6 +1564,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ic_tab_settings_h", bundle: ..., traitCollection: ...)`
     static func ic_tab_settings_h(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ic_tab_settings_h, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_to_landscape", bundle: ..., traitCollection: ...)`
+    static func ic_to_landscape(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_to_landscape, compatibleWith: traitCollection)
     }
     #endif
 
@@ -8952,7 +8961,6 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "ic_calibrate", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_calibrate' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_clock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_clock' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_pushpin_unlock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_pushpin_unlock' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ic_search", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_search' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_statistics", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_statistics' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_bloodsugar", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_bloodsugar' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_bloodsugar_h", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_bloodsugar_h' is used in storyboard 'Main', but couldn't be loaded.") }
@@ -8960,6 +8968,7 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "ic_tab_notes_h", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_notes_h' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_settings", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_settings' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_tab_settings_h", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_settings_h' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ic_to_landscape", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_to_landscape' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "logo-launchScreen.png", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'logo-launchScreen.png' is used in storyboard 'Main', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
