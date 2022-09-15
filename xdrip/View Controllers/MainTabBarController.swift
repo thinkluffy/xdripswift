@@ -26,4 +26,8 @@ class MainTabBarController: UITabBarController {
         UITableViewCell.appearance().selectedBackgroundView = backgroundColorView
         UITableViewCell.appearance().backgroundColor = ConstantsUI.contentBackgroundColor
     }
+    
+    override public var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        .portrait
+    }
 }

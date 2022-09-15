@@ -72,10 +72,6 @@ class ChartDetailsViewController: UIViewController {
         .landscapeLeft
     }
     
-    override public var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
-        .landscapeLeft
-    }
-    
     private func instancePresenter() {
         presenter = ChartDetailsPresenter(view: self)
     }

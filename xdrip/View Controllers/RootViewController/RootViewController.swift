@@ -187,7 +187,7 @@ final class RootViewController: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -704,7 +704,7 @@ final class RootViewController: UIViewController {
     private func setupView() {
         // set texts for buttons on top
 
-        snoozeButton.onTap { [unowned self] _ in
+        snoozeButton.on(.touchUpInside) { [unowned self] _ in
             guard let snoozeAlarmsViewController = R.storyboard.main.snoozeAlarms() else {
                 return
             }
@@ -712,7 +712,7 @@ final class RootViewController: UIViewController {
             present(snoozeAlarmsViewController, animated: true)
         }
 
-        calibrateButton.onTap { [unowned self] _ in
+        calibrateButton.on(.touchUpInside) { [unowned self] _ in
             // if this is a transmitter that does not require and is not allowed to be calibrated, then give warning message
             if let cgmTransmitter = self.bluetoothPeripheralManager?.getCGMTransmitter(),
                 (cgmTransmitter.isWebOOPEnabled() && !cgmTransmitter.overruleIsWebOOPEnabled()) {
