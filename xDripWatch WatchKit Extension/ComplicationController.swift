@@ -129,22 +129,19 @@ extension ComplicationController {
 extension ComplicationController {
     
 	func getImage(from text: String) -> UIImage? {
-		let maxWidth: CGFloat = 162
-		let maxHeight: CGFloat = 69
+		let scale = WKInterfaceDevice.current().screenScale
+		let maxWidth: CGFloat = 162*scale
+		let maxHeight: CGFloat = 69*scale
 		let size = CGSize(width: maxWidth, height: maxHeight)
 		UIGraphicsBeginImageContext(size)
 		
-		let context = UIGraphicsGetCurrentContext()
-		context?.setFillColor(UIColor.black.cgColor)
-		context?.fill(CGRect(origin: .zero, size: size))
-		
-		let font = UIFont(name: "Helvetica-Bold", size: 32)!
+		let font = UIFont(name: "Helvetica-Bold", size: 32*scale)!
 		let textStyle = NSMutableParagraphStyle()
-		textStyle.alignment = NSTextAlignment.center
-		let textColor = UIColor.white
+		textStyle.alignment = NSTextAlignment.left
+		let textColor = UIColor.label
 		let attributes = [NSAttributedString.Key.font:font,
-						NSAttributedString.Key.paragraphStyle:textStyle,
-						NSAttributedString.Key.foregroundColor:textColor]
+						  NSAttributedString.Key.paragraphStyle:textStyle,
+						  NSAttributedString.Key.foregroundColor:textColor]
 
 		//vertically center (depending on font)
 		let text_h = font.lineHeight
