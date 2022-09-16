@@ -129,16 +129,16 @@ extension ComplicationController {
 extension ComplicationController {
     
 	func getImage(from text: String) -> UIImage? {
-		let scale = WKInterfaceDevice.current().screenScale
-		let maxWidth: CGFloat = 162*scale
-		let maxHeight: CGFloat = 69*scale
+		
+		let maxWidth: CGFloat = 162
+		let maxHeight: CGFloat = 69
 		let size = CGSize(width: maxWidth, height: maxHeight)
 		UIGraphicsBeginImageContext(size)
 		
-		let font = UIFont(name: "Helvetica-Bold", size: 32*scale)!
+		let font = UIFont(name: "Helvetica-Bold", size: 32)!
 		let textStyle = NSMutableParagraphStyle()
-		textStyle.alignment = NSTextAlignment.left
-		let textColor = UIColor.label
+		textStyle.alignment = NSTextAlignment.center
+		let textColor = UIColor.white
 		let attributes = [NSAttributedString.Key.font:font,
 						  NSAttributedString.Key.paragraphStyle:textStyle,
 						  NSAttributedString.Key.foregroundColor:textColor]
@@ -151,5 +151,20 @@ extension ComplicationController {
 		let image = UIGraphicsGetImageFromCurrentImageContext()
 		UIGraphicsEndImageContext()
 		return image
+	}
+}
+
+extension ComplicationController: CLKComplicationWidgetMigrator {
+	
+	@available(watchOSApplicationExtension 9.0, *)
+	var widgetMigrator: CLKComplicationWidgetMigrator {
+		self
+	}
+	@available(watchOSApplicationExtension 9.0, *)
+	func widgetConfiguration(from complicationDescriptor: CLKComplicationDescriptor) async -> CLKComplicationWidgetMigrationConfiguration? {
+		return CLKComplicationStaticWidgetMigrationConfiguration(
+				   kind: "xDripWatch_Widget",
+				   extensionBundleIdentifier: "bg.cgm.zdrip.watchkitapp.watchkitextension.xDripWatch-Widget")
+
 	}
 }

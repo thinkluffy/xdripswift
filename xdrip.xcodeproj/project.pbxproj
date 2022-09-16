@@ -178,6 +178,15 @@
 		E53D049C274391F000CA548E /* PhoneCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D0498274391EF00CA548E /* PhoneCommunicator.swift */; };
 		E53D049D274391F000CA548E /* WatchChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D0499274391F000CA548E /* WatchChartView.swift */; };
 		E53D049E274391F000CA548E /* UsefulData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D049A274391F000CA548E /* UsefulData.swift */; };
+		E54C856A28D46AC900098323 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E54C856928D46AC900098323 /* WidgetKit.framework */; };
+		E54C856C28D46ACA00098323 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E54C856B28D46ACA00098323 /* SwiftUI.framework */; };
+		E54C856F28D46ACA00098323 /* xDripWatch_Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54C856E28D46ACA00098323 /* xDripWatch_Widget.swift */; };
+		E54C857128D46ACC00098323 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E54C857028D46ACC00098323 /* Assets.xcassets */; };
+		E54C857528D46ACC00098323 /* xDripWatch WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E54C856828D46AC900098323 /* xDripWatch WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E54C857A28D47C2500098323 /* PhoneCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D0498274391EF00CA548E /* PhoneCommunicator.swift */; };
+		E54C857B28D47C2900098323 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D0497274391EF00CA548E /* Constants.swift */; };
+		E54C857C28D47D7600098323 /* UsefulData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D049A274391F000CA548E /* UsefulData.swift */; };
+		E54C857D28D47DCC00098323 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D0490274390E000CA548E /* Common.swift */; };
 		E57304DE27990F21009B7305 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E57304E027990F21009B7305 /* Localizable.strings */; };
 		E584FBF7278698E100BEA224 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53D0490274390E000CA548E /* Common.swift */; };
 		E584FBF92786CE1C00BEA224 /* DailyTrend.swift in Sources */ = {isa = PBXBuildFile; fileRef = E584FBF82786CE1C00BEA224 /* DailyTrend.swift */; };
@@ -596,6 +605,13 @@
 			remoteGlobalIDString = E53D044F27438C5D00CA548E;
 			remoteInfo = xDripWatch;
 		};
+		E54C857328D46ACC00098323 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8AC425221ADEBD60078C348 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E54C856728D46AC900098323;
+			remoteInfo = "xDripWatch WidgetExtension";
+		};
 		F870D3DB25126A49008967B0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F8AC425221ADEBD60078C348 /* Project object */;
@@ -626,6 +642,17 @@
 				E53D045927438C5F00CA548E /* xDripWatch WatchKit Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E54C857628D46ACC00098323 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				E54C857528D46ACC00098323 /* xDripWatch WidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F870D3DE25126A49008967B0 /* Embed App Extensions */ = {
@@ -822,6 +849,12 @@
 		E53D0498274391EF00CA548E /* PhoneCommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneCommunicator.swift; sourceTree = "<group>"; };
 		E53D0499274391F000CA548E /* WatchChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchChartView.swift; sourceTree = "<group>"; };
 		E53D049A274391F000CA548E /* UsefulData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsefulData.swift; sourceTree = "<group>"; };
+		E54C856828D46AC900098323 /* xDripWatch WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "xDripWatch WidgetExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E54C856928D46AC900098323 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		E54C856B28D46ACA00098323 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		E54C856E28D46ACA00098323 /* xDripWatch_Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xDripWatch_Widget.swift; sourceTree = "<group>"; };
+		E54C857028D46ACC00098323 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E54C857228D46ACC00098323 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E57304DF27990F21009B7305 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E57304E127990F25009B7305 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E584FBF82786CE1C00BEA224 /* DailyTrend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTrend.swift; sourceTree = "<group>"; };
@@ -1273,6 +1306,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E54C856528D46AC900098323 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E54C856C28D46ACA00098323 /* SwiftUI.framework in Frameworks */,
+				E54C856A28D46AC900098323 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F870D3CE25126A49008967B0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1312,6 +1354,8 @@
 				F821CF9622AE589E005C1E43 /* HealthKit.framework */,
 				F870D3D225126A49008967B0 /* NotificationCenter.framework */,
 				4DB0736D7B1553FC8350324C /* Pods_xdrip.framework */,
+				E54C856928D46AC900098323 /* WidgetKit.framework */,
+				E54C856B28D46ACA00098323 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1645,6 +1689,16 @@
 			children = (
 			);
 			path = Base.lproj;
+			sourceTree = "<group>";
+		};
+		E54C856D28D46ACA00098323 /* xDripWatch Widget */ = {
+			isa = PBXGroup;
+			children = (
+				E54C856E28D46ACA00098323 /* xDripWatch_Widget.swift */,
+				E54C857028D46ACC00098323 /* Assets.xcassets */,
+				E54C857228D46ACC00098323 /* Info.plist */,
+			);
+			path = "xDripWatch Widget";
 			sourceTree = "<group>";
 		};
 		E584FBFA2786CE2300BEA224 /* DailyTrend */ = {
@@ -2059,6 +2113,7 @@
 				F870D3D425126A49008967B0 /* xDrip4iOS Widget */,
 				E53D045127438C5D00CA548E /* xDripWatch */,
 				E53D045C27438C5F00CA548E /* xDripWatch WatchKit Extension */,
+				E54C856D28D46ACA00098323 /* xDripWatch Widget */,
 				F8AC425B21ADEBD60078C348 /* Products */,
 				F8AC425C21ADEBD60078C348 /* xdrip */,
 				F85DC29B21CFCEB800B9F74A /* Recovered References */,
@@ -2076,6 +2131,7 @@
 				F870D3D125126A49008967B0 /* xDrip4iOS Widget.appex */,
 				E53D045027438C5D00CA548E /* zDrip.app */,
 				E53D045827438C5F00CA548E /* xDripWatch WatchKit Extension.appex */,
+				E54C856828D46AC900098323 /* xDripWatch WidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2806,15 +2862,34 @@
 				E53D045427438C5F00CA548E /* Sources */,
 				E53D045527438C5F00CA548E /* Frameworks */,
 				E53D045627438C5F00CA548E /* Resources */,
+				E54C857628D46ACC00098323 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E54C857428D46ACC00098323 /* PBXTargetDependency */,
 			);
 			name = "xDripWatch WatchKit Extension";
 			productName = "xDripWatch WatchKit Extension";
 			productReference = E53D045827438C5F00CA548E /* xDripWatch WatchKit Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
+		};
+		E54C856728D46AC900098323 /* xDripWatch WidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E54C857928D46ACC00098323 /* Build configuration list for PBXNativeTarget "xDripWatch WidgetExtension" */;
+			buildPhases = (
+				E54C856428D46AC900098323 /* Sources */,
+				E54C856528D46AC900098323 /* Frameworks */,
+				E54C856628D46AC900098323 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "xDripWatch WidgetExtension";
+			productName = "xDripWatch WidgetExtension";
+			productReference = E54C856828D46AC900098323 /* xDripWatch WidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		F870D3D025126A49008967B0 /* xDrip4iOS Widget */ = {
 			isa = PBXNativeTarget;
@@ -2865,7 +2940,7 @@
 			isa = PBXProject;
 			attributes = {
 				DefaultBuildSystemTypeForWorkspace = Latest;
-				LastSwiftUpdateCheck = 1310;
+				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1310;
 				ORGANIZATIONNAME = zDrip;
 				TargetAttributes = {
@@ -2875,6 +2950,9 @@
 					};
 					E53D045727438C5F00CA548E = {
 						CreatedOnToolsVersion = 13.1;
+					};
+					E54C856728D46AC900098323 = {
+						CreatedOnToolsVersion = 14.0;
 					};
 					F870D3D025126A49008967B0 = {
 						CreatedOnToolsVersion = 11.7;
@@ -2911,6 +2989,7 @@
 				F870D3D025126A49008967B0 /* xDrip4iOS Widget */,
 				E53D044F27438C5D00CA548E /* xDripWatch */,
 				E53D045727438C5F00CA548E /* xDripWatch WatchKit Extension */,
+				E54C856728D46AC900098323 /* xDripWatch WidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -2932,6 +3011,14 @@
 				E57304DE27990F21009B7305 /* Localizable.strings in Resources */,
 				E53D048027438D0100CA548E /* PushNotificationPayload.apns in Resources */,
 				E53D048B27438D3B00CA548E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E54C856628D46AC900098323 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E54C857128D46ACC00098323 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3198,6 +3285,18 @@
 				E53D049E274391F000CA548E /* UsefulData.swift in Sources */,
 				E53D047927438CED00CA548E /* xdripApp.swift in Sources */,
 				E53D049B274391F000CA548E /* Constants.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E54C856428D46AC900098323 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E54C856F28D46ACA00098323 /* xDripWatch_Widget.swift in Sources */,
+				E54C857C28D47D7600098323 /* UsefulData.swift in Sources */,
+				E54C857A28D47C2500098323 /* PhoneCommunicator.swift in Sources */,
+				E54C857D28D47DCC00098323 /* Common.swift in Sources */,
+				E54C857B28D47C2900098323 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3625,6 +3724,11 @@
 			target = E53D044F27438C5D00CA548E /* xDripWatch */;
 			targetProxy = E53D046E27438C6100CA548E /* PBXContainerItemProxy */;
 		};
+		E54C857428D46ACC00098323 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E54C856728D46AC900098323 /* xDripWatch WidgetExtension */;
+			targetProxy = E54C857328D46ACC00098323 /* PBXContainerItemProxy */;
+		};
 		F870D3DC25126A49008967B0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F870D3D025126A49008967B0 /* xDrip4iOS Widget */;
@@ -3980,6 +4084,68 @@
 			};
 			name = Release;
 		};
+		E54C857728D46ACC00098323 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VR4VF2C8TC;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "xDripWatch Widget/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "xDripWatch Widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 zDrip. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "bg.cgm.zdrip.watchkitapp.watchkitextension.xDripWatch-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		E54C857828D46ACC00098323 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VR4VF2C8TC;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "xDripWatch Widget/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "xDripWatch Widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 zDrip. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "bg.cgm.zdrip.watchkitapp.watchkitextension.xDripWatch-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
 		F870D3DF25126A49008967B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4234,6 +4400,15 @@
 			buildConfigurations = (
 				E53D047627438C6100CA548E /* Debug */,
 				E53D047727438C6100CA548E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E54C857928D46ACC00098323 /* Build configuration list for PBXNativeTarget "xDripWatch WidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E54C857728D46ACC00098323 /* Debug */,
+				E54C857828D46ACC00098323 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
