@@ -4095,7 +4095,7 @@
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "xDripWatch Widget/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "xDripWatch Widget";
+				INFOPLIST_KEY_CFBundleDisplayName = "zDripWatch Widget";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 zDrip. All rights reserved.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4126,7 +4126,7 @@
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "xDripWatch Widget/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "xDripWatch Widget";
+				INFOPLIST_KEY_CFBundleDisplayName = "zDripWatch Widget";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 zDrip. All rights reserved.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

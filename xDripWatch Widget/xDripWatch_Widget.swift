@@ -11,42 +11,53 @@ import SwiftUI
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date())
+		print(#function)
+        return SimpleEntry(date: Date())
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
+		print(#function)
 		let date = Date()
 		let placeHolder = SimpleEntry(date: date)
-		if context.isPreview {
-			completion(placeHolder)
-			return
-		}
-		PhoneCommunicator.shared.requestLatest { result in
-			if let result = result {
-				let text = Date().timeIntervalSince(result.0) > Constants.DataValidTimeInterval ? "---" : result.1
-				completion(SimpleEntry(date: result.0, text: text))
-			} else {
-				completion(placeHolder)
-			}
-		}
+		completion(placeHolder)
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        var entries: [SimpleEntry] = []
-
+		print(#function, "will requestLatest")
+		PhoneCommunicator.shared.requestLatest { result in
+			let nextUpdateDate: Date
+			var entry = SimpleEntry(date: Date())
+			if let result = result {
+				print(#function, "get: \(result.0),\(result.1)")
+//				let text = Date().timeIntervalSince(result.0) > Constants.DataValidTimeInterval ? "--" : result.1
+				entry.date = result.0
+				entry.text = result.1
+				nextUpdateDate = Date().addingTimeInterval(Constants.DataValidTimeInterval)
+			} else {
+				entry.text = "None"
+				nextUpdateDate = Date().addingTimeInterval(60)
+			}
+			let timeline = Timeline(entries: [entry], policy: .after(nextUpdateDate))
+			completion(timeline)
+		}
+		/*
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
-		let entryDate = Calendar.current.date(byAdding: .minute, value: Int(Constants.DataValidTimeInterval), to: currentDate)!
-		let entry = SimpleEntry(date: entryDate)
-		entries.append(entry)
+		let entry = SimpleEntry(date: currentDate)
+		
+		let nextDate = Calendar.current.date(byAdding: .second, value: Int(Constants.DataValidTimeInterval), to: currentDate)!
+		let nextEntry = SimpleEntry(date: nextDate)
+		
+		var entries: [SimpleEntry] = [entry, nextEntry]
 
         let timeline = Timeline(entries: entries, policy: .atEnd)
         completion(timeline)
+		 */
     }
 }
 
 struct SimpleEntry: TimelineEntry {
-    let date: Date
+    var date: Date
 	var text: String = "---"
 }
 
@@ -75,7 +86,6 @@ struct xDripWatch_WidgetEntryView : View {
 			VStack {
 				Text(entry.date, style: .time)
 				Text(entry.text)
-				
 			}
 			.minimumScaleFactor(0.5)
 			.padding(4)
