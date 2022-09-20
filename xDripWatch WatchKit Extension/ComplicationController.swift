@@ -6,6 +6,7 @@
 //
 
 import ClockKit
+import WatchKit
 
 class ComplicationController: NSObject, CLKComplicationDataSource {
 	
@@ -73,7 +74,10 @@ extension ComplicationController {
 				
 				let imageProvider = CLKFullColorImageProvider(fullColorImage: self.getImage(from: text) ?? UIImage())
 
-				let template: CLKComplicationTemplate? = self.getTemplate(for: complication, dateProvider: dateProvider, textProvider: textProvider, imageProvider: imageProvider)
+				let template: CLKComplicationTemplate? = self.getTemplate(for: complication,
+                                                                          dateProvider: dateProvider,
+                                                                          textProvider: textProvider,
+                                                                          imageProvider: imageProvider)
                 
 				if let template = template {
 					completion(CLKComplicationTimelineEntry(date: date, complicationTemplate: template))
@@ -129,25 +133,40 @@ extension ComplicationController {
 extension ComplicationController {
     
 	func getImage(from text: String) -> UIImage? {
-		let scale = WKInterfaceDevice.current().screenScale
-		let maxWidth: CGFloat = 162*scale
-		let maxHeight: CGFloat = 69*scale
-		let size = CGSize(width: maxWidth, height: maxHeight)
+        let canvasWidth = WKInterfaceDevice.current().screenBounds.width - 14
+		let canvasHeight: CGFloat = 69
+        
+//        let scale = WKInterfaceDevice.current().screenScale
+        
+		let size = CGSize(width: canvasWidth, height: canvasHeight)
+        
 		UIGraphicsBeginImageContext(size)
-		
-		let font = UIFont(name: "Helvetica-Bold", size: 32*scale)!
-		let textStyle = NSMutableParagraphStyle()
-		textStyle.alignment = NSTextAlignment.left
-		let textColor = UIColor.label
-		let attributes = [NSAttributedString.Key.font:font,
-						  NSAttributedString.Key.paragraphStyle:textStyle,
-						  NSAttributedString.Key.foregroundColor:textColor]
+        
+    
+//        let context = UIGraphicsGetCurrentContext()
+//        context?.scaleBy(x: 1/scale, y: 1/scale)
+        
+        let font = UIFont.systemFont(ofSize: 40)
 
-		//vertically center (depending on font)
+		let textStyle = NSMutableParagraphStyle()
+		textStyle.alignment = .left
+        let textColor = UIColor.white
+		let attributes = [
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.paragraphStyle: textStyle,
+            NSAttributedString.Key.foregroundColor: textColor
+        ]
+
+		// vertically center (depending on font)
 		let text_h = font.lineHeight
-		let text_y = (maxHeight - text_h)/2
-		let text_rect = CGRect(x: 0, y: text_y, width: maxWidth, height: text_h)
-		text.draw(in: text_rect.integral, withAttributes: attributes)
+		let text_y = (canvasHeight - text_h)/2
+		let text_rect = CGRect(x: 0, y: text_y, width: canvasWidth, height: text_h)
+        
+//        let context = UIGraphicsGetCurrentContext()
+//        context?.setFillColor(UIColor.red.cgColor)
+//        context?.fill(text_rect)
+
+        text.draw(in: text_rect, withAttributes: attributes)
 		let image = UIGraphicsGetImageFromCurrentImageContext()
 		UIGraphicsEndImageContext()
 		return image
