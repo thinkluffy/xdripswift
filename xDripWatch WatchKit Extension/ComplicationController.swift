@@ -74,7 +74,10 @@ extension ComplicationController {
 				
 				let imageProvider = CLKFullColorImageProvider(fullColorImage: self.getImage(from: text) ?? UIImage())
 
-				let template: CLKComplicationTemplate? = self.getTemplate(for: complication, dateProvider: dateProvider, textProvider: textProvider, imageProvider: imageProvider)
+				let template: CLKComplicationTemplate? = self.getTemplate(for: complication,
+                                                                          dateProvider: dateProvider,
+                                                                          textProvider: textProvider,
+                                                                          imageProvider: imageProvider)
                 
 				if let template = template {
 					completion(CLKComplicationTimelineEntry(date: date, complicationTemplate: template))
@@ -167,6 +170,7 @@ extension ComplicationController {
 		let text_y = (maxHeight - text_h)/2
 		let text_rect = CGRect(x: 0, y: text_y, width: maxWidth, height: text_h)
 		text.draw(in: text_rect, withAttributes: attributes)
+		
 		let image = UIGraphicsGetImageFromCurrentImageContext()
 		UIGraphicsEndImageContext()
 		return image
