@@ -6,6 +6,7 @@
 //
 
 import ClockKit
+import WatchKit
 
 class ComplicationController: NSObject, CLKComplicationDataSource {
 	
@@ -129,16 +130,34 @@ extension ComplicationController {
 extension ComplicationController {
     
 	func getImage(from text: String) -> UIImage? {
-		let scale = WKInterfaceDevice.current().screenScale
-		let maxWidth: CGFloat = 162*scale
-		let maxHeight: CGFloat = 69*scale
-		let size = CGSize(width: maxWidth, height: maxHeight)
-		UIGraphicsBeginImageContext(size)
+		func imageSize() -> CGSize {
+			switch WKInterfaceDevice.current().screenBounds.width {
+			case 198...:
+				return CGSize(width: 178.5, height: 56)
+			case 184...:
+				return CGSize(width: 171, height: 54)
+			case 176...:
+				return CGSize(width: 159, height: 50)
+			default:
+				return CGSize(width: 150, height: 47)
+			}
+		}
+		let size = imageSize()
+		let maxWidth: CGFloat = imageSize().width
+		let maxHeight: CGFloat = imageSize().height
+		UIGraphicsBeginImageContextWithOptions(size, false, 0)
 		
-		let font = UIFont(name: "Helvetica-Bold", size: 32*scale)!
+		if #available(watchOS 9.0, *) {
+		} else {
+			let context = UIGraphicsGetCurrentContext()
+			context?.setFillColor(UIColor.black.cgColor)
+			context?.fill([CGRect.init(origin: .zero, size: size)])
+		}
+		
+		let font = UIFont.monospacedSystemFont(ofSize: 32, weight: .medium)
 		let textStyle = NSMutableParagraphStyle()
 		textStyle.alignment = NSTextAlignment.left
-		let textColor = UIColor.label
+		let textColor = UIColor.white
 		let attributes = [NSAttributedString.Key.font:font,
 						  NSAttributedString.Key.paragraphStyle:textStyle,
 						  NSAttributedString.Key.foregroundColor:textColor]
@@ -147,7 +166,7 @@ extension ComplicationController {
 		let text_h = font.lineHeight
 		let text_y = (maxHeight - text_h)/2
 		let text_rect = CGRect(x: 0, y: text_y, width: maxWidth, height: text_h)
-		text.draw(in: text_rect.integral, withAttributes: attributes)
+		text.draw(in: text_rect, withAttributes: attributes)
 		let image = UIGraphicsGetImageFromCurrentImageContext()
 		UIGraphicsEndImageContext()
 		return image
