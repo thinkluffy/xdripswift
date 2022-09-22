@@ -148,22 +148,24 @@ extension ComplicationController {
 		let size = imageSize()
 		let maxWidth: CGFloat = imageSize().width
 		let maxHeight: CGFloat = imageSize().height
-		UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
 		
 		if #available(watchOS 9.0, *) {
 		} else {
 			let context = UIGraphicsGetCurrentContext()
 			context?.setFillColor(UIColor.black.cgColor)
-			context?.fill([CGRect.init(origin: .zero, size: size)])
+			context?.fill([CGRect(origin: .zero, size: size)])
 		}
 		
-		let font = UIFont.monospacedSystemFont(ofSize: 32, weight: .medium)
+        let font = UIFont.monospacedDigitSystemFont(ofSize: 40, weight: .light)
 		let textStyle = NSMutableParagraphStyle()
-		textStyle.alignment = NSTextAlignment.left
+		textStyle.alignment = .left
 		let textColor = UIColor.white
-		let attributes = [NSAttributedString.Key.font:font,
-						  NSAttributedString.Key.paragraphStyle:textStyle,
-						  NSAttributedString.Key.foregroundColor:textColor]
+		let attributes = [
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.paragraphStyle: textStyle,
+            NSAttributedString.Key.foregroundColor: textColor
+        ]
 
 		//vertically center (depending on font)
 		let text_h = font.lineHeight
