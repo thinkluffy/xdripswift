@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rfm-D0-ioj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rfm-D0-ioj">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -361,14 +361,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9T5-Iq-CgP" userLabel="TitleBar">
-                                <rect key="frame" x="0.0" y="57" width="926" height="50"/>
+                                <rect key="frame" x="0.0" y="10" width="926" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="vUx-fL-OlF"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="spV-Wq-MSW" userLabel="Card" customClass="Card" customModule="xdrip" customModuleProvider="target">
-                                <rect key="frame" x="10" y="107" width="906" height="277"/>
+                                <rect key="frame" x="10" y="60" width="906" height="358"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_clock" translatesAutoresizingMaskIntoConstraints="NO" id="eyY-zN-0mj" userLabel="Clock">
                                         <rect key="frame" x="20" y="15" width="15" height="15"/>
@@ -400,7 +400,7 @@
                                         <state key="normal" image="ic_statistics"/>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SY5-Dp-dbs" customClass="GlucoseChart" customModule="xdrip" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="50" width="886" height="217"/>
+                                        <rect key="frame" x="10" y="50" width="886" height="298"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
@@ -931,7 +931,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-launchScreen.png" translatesAutoresizingMaskIntoConstraints="NO" id="SAf-7G-76S">
-                                <rect key="frame" x="154" y="268.66666666666669" width="120" height="120"/>
+                                <rect key="frame" x="154" y="409.66666666666669" width="120" height="120.00000000000006"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="UJg-od-GuU"/>
                                     <constraint firstAttribute="height" constant="120" id="mgO-C2-d0s"/>
@@ -941,7 +941,7 @@
                         <viewLayoutGuide key="safeArea" id="QKQ-1O-Z44"/>
                         <color key="backgroundColor" red="0.13333333333333333" green="0.15294117647058825" blue="0.28235294117647058" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="SAf-7G-76S" firstAttribute="centerY" secondItem="QKQ-1O-Z44" secondAttribute="centerY" multiplier="0.7" id="QFV-f7-K6f"/>
+                            <constraint firstItem="SAf-7G-76S" firstAttribute="centerY" secondItem="QKQ-1O-Z44" secondAttribute="centerY" id="QFV-f7-K6f"/>
                             <constraint firstItem="SAf-7G-76S" firstAttribute="centerX" secondItem="QKQ-1O-Z44" secondAttribute="centerX" id="XYb-hJ-jaw"/>
                         </constraints>
                     </view>

@@ -50,17 +50,16 @@ class NightScoutFollowManager: NSObject {
         bgReadingsAccessor = BgReadingsAccessor()
         
         // creat audioplayer
-        do {
-            // set up url to create audioplayer
-            let soundFileName = ConstantsSuspensionPrevention.soundFileName
-            if let url = Bundle.main.url(forResource: soundFileName, withExtension: "")  {
-                try audioPlayer = AVAudioPlayer(contentsOf: url)
+        if let url = Bundle.main.url(forResource: ConstantsSuspensionPrevention.soundFileName, withExtension: "")  {
+            do {
+                // create audioplayer
+                audioPlayer = try AVAudioPlayer(contentsOf: url)
+                
+            } catch let error {
+                NightScoutFollowManager.log.e("in init, exception while trying to create audoplayer, error: \(error.localizedDescription)")
             }
-            
-        } catch let error {
-            NightScoutFollowManager.log.e("in init, exception while trying to create audoplayer, error: \(error.localizedDescription)")
         }
-
+        
         // call super.init
         super.init()
         

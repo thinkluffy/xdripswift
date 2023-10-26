@@ -79,7 +79,7 @@ class SoundPlayer {
     
     private func doPlaySound(soundUrl: URL) {
         do {
-            try audioPlayer = AVAudioPlayer(contentsOf: soundUrl)
+            audioPlayer = try AVAudioPlayer(contentsOf: soundUrl)
             
             if let audioPlayer = audioPlayer {
                 audioPlayer.play()

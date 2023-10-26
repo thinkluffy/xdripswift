@@ -237,10 +237,19 @@ struct R: Rswift.Validatable {
   #endif
 
   #if os(iOS) || os(tvOS)
-  /// This `R.storyboard` struct is generated, and contains static references to 1 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 2 storyboards.
   struct storyboard {
+    /// Storyboard `LaunchScreen`.
+    static let launchScreen = _R.storyboard.launchScreen()
     /// Storyboard `Main`.
     static let main = _R.storyboard.main()
+
+    #if os(iOS) || os(tvOS)
+    /// `UIStoryboard(name: "LaunchScreen", bundle: ...)`
+    static func launchScreen(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.launchScreen)
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     /// `UIStoryboard(name: "Main", bundle: ...)`
@@ -272,10 +281,12 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.file` struct is generated, and contains static references to 126 files.
+  /// This `R.file` struct is generated, and contains static references to 127 files.
   struct file {
     /// Resource file `1-millisecond-of-silence.mp3`.
     static let millisecondOfSilenceMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "1-millisecond-of-silence", pathExtension: "mp3")
+    /// Resource file `1-millisecond-of-silence.wav`.
+    static let millisecondOfSilenceWav = Rswift.FileResource(bundle: R.hostingBundle, name: "1-millisecond-of-silence", pathExtension: "wav")
     /// Resource file `20ms-of-silence.caf`.
     static let msOfSilenceCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "20ms-of-silence", pathExtension: "caf")
     /// Resource file `Alarm_Buzzer.caf`.
@@ -530,6 +541,12 @@ struct R: Rswift.Validatable {
     /// `bundle.url(forResource: "1-millisecond-of-silence", withExtension: "mp3")`
     static func millisecondOfSilenceMp3(_: Void = ()) -> Foundation.URL? {
       let fileResource = R.file.millisecondOfSilenceMp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "1-millisecond-of-silence", withExtension: "wav")`
+    static func millisecondOfSilenceWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.millisecondOfSilenceWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
@@ -8920,9 +8937,27 @@ struct _R: Rswift.Validatable {
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
       #if os(iOS) || os(tvOS)
+      try launchScreen.validate()
+      #endif
+      #if os(iOS) || os(tvOS)
       try main.validate()
       #endif
     }
+
+    #if os(iOS) || os(tvOS)
+    struct launchScreen: Rswift.StoryboardResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "LaunchScreen"
+
+      static func validate() throws {
+        if UIKit.UIImage(named: "logo-launchScreen.png", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'logo-launchScreen.png' is used in storyboard 'LaunchScreen', but couldn't be loaded.") }
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+      }
+
+      fileprivate init() {}
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     struct main: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
