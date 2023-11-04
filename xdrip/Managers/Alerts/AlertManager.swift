@@ -643,7 +643,7 @@ class AlertManager: NSObject {
                 // a sound name has been found in the alertType different from empty string (ie a sound must be played and it's not the default iOS sound)
                 // need to find the corresponding sound file name in ConstantsSounds
                 // start by setting it to to xdripalert, because the soundname found in the alert type might not be found in the list of sounds stored in the resources (although that shouldn't happen)
-                soundToSet = "xdripalert.aif"
+                soundToSet = "xdripalert.wav"
                 soundloop: for sound in ConstantsSounds.allCases {
                     // ConstantsSounds defines available sounds. Per case there a string which is the soundname as shown in the UI and the filename of the sound in the Resources folder, seperated by backslash
                     // get array of indexes, of location of "/"
@@ -669,7 +669,7 @@ class AlertManager: NSObject {
 
         // if soundToSet == nil, it means user selected the default iOS sound in the alert type, however we don't have the mp3, so if override mute is on and delayInSeconds = nil, then we need to be able to play the sound here with the soundplayer, so we set soundToSet to xdrip sound
         if soundToSet == nil && applicableAlertType.overridemute && delayInSecondsToUse == 0 {
-            soundToSet = "xdripalert.aif"
+            soundToSet = "xdripalert.wav"
         }
 
         // assign the sound to the notification, or play it here, depending on value

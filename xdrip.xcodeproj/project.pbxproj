@@ -157,6 +157,129 @@
 		4EC48D152770827200EEB0BA /* NotesAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC48D142770827200EEB0BA /* NotesAccessor.swift */; };
 		4EC48D182770882A00EEB0BA /* NoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC48D172770882A00EEB0BA /* NoteManager.swift */; };
 		4ECA4D182796C72C008AB111 /* Trc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECA4D172796C72C008AB111 /* Trc.swift */; };
+		4ED318D22AF624260044D2B3 /* Chimes_Glassy.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318562AF6241D0044D2B3 /* Chimes_Glassy.wav */; };
+		4ED318D32AF624260044D2B3 /* Siri_High_Glucose.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318572AF6241D0044D2B3 /* Siri_High_Glucose.wav */; };
+		4ED318D42AF624260044D2B3 /* Time_Has_Come.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318582AF6241D0044D2B3 /* Time_Has_Come.wav */; };
+		4ED318D52AF624260044D2B3 /* Sci-Fi_Air_Raid_Alarm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318592AF6241D0044D2B3 /* Sci-Fi_Air_Raid_Alarm.wav */; };
+		4ED318D62AF624260044D2B3 /* shorthigh1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3185A2AF6241D0044D2B3 /* shorthigh1.wav */; };
+		4ED318D72AF624260044D2B3 /* Cartoon_Machine_Clumsy_Loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3185B2AF6241D0044D2B3 /* Cartoon_Machine_Clumsy_Loop.wav */; };
+		4ED318D82AF624260044D2B3 /* Laser_Shoot.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3185C2AF6241D0044D2B3 /* Laser_Shoot.wav */; };
+		4ED318D92AF624260044D2B3 /* Siri_Alert_Low_Glucose.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3185D2AF6241D0044D2B3 /* Siri_Alert_Low_Glucose.wav */; };
+		4ED318DA2AF624260044D2B3 /* Martian_Scanner.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3185E2AF6241D0044D2B3 /* Martian_Scanner.wav */; };
+		4ED318DB2AF624260044D2B3 /* 1-millisecond-of-silence.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3185F2AF6241D0044D2B3 /* 1-millisecond-of-silence.wav */; };
+		4ED318DC2AF624260044D2B3 /* In_A_Hurry.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318602AF6241E0044D2B3 /* In_A_Hurry.wav */; };
+		4ED318DE2AF624260044D2B3 /* 20ms-of-silence.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318622AF6241E0044D2B3 /* 20ms-of-silence.wav */; };
+		4ED318DF2AF624260044D2B3 /* Cartoon_Uh_Oh.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318632AF6241E0044D2B3 /* Cartoon_Uh_Oh.wav */; };
+		4ED318E02AF624260044D2B3 /* Alert_Tone_Ringtone_2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318642AF6241E0044D2B3 /* Alert_Tone_Ringtone_2.wav */; };
+		4ED318E12AF624260044D2B3 /* Siri_Alert_High_Glucose.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318652AF6241E0044D2B3 /* Siri_Alert_High_Glucose.wav */; };
+		4ED318E22AF624260044D2B3 /* Burglar_Alarm_Siren_1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318662AF6241E0044D2B3 /* Burglar_Alarm_Siren_1.wav */; };
+		4ED318E32AF624260044D2B3 /* Sci-Fi_Spaceship_Message.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318672AF6241E0044D2B3 /* Sci-Fi_Spaceship_Message.wav */; };
+		4ED318E42AF624260044D2B3 /* Not_Kiddin.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318682AF6241E0044D2B3 /* Not_Kiddin.wav */; };
+		4ED318E52AF624260044D2B3 /* Marching_Heavy_Footed_Fat_Elephants.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318692AF6241E0044D2B3 /* Marching_Heavy_Footed_Fat_Elephants.wav */; };
+		4ED318E62AF624260044D2B3 /* Siri_Alert_Calibration_Needed.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3186A2AF6241E0044D2B3 /* Siri_Alert_Calibration_Needed.wav */; };
+		4ED318E72AF624260044D2B3 /* shortlow4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3186B2AF6241E0044D2B3 /* shortlow4.wav */; };
+		4ED318E82AF624260044D2B3 /* Ambulance.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3186C2AF6241E0044D2B3 /* Ambulance.wav */; };
+		4ED318E92AF624260044D2B3 /* Cell_Phone_Ring_Tone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3186D2AF6241E0044D2B3 /* Cell_Phone_Ring_Tone.wav */; };
+		4ED318EA2AF624260044D2B3 /* Sci-Fi_Incoming_Message_Alert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3186E2AF6241F0044D2B3 /* Sci-Fi_Incoming_Message_Alert.wav */; };
+		4ED318EB2AF624260044D2B3 /* Martian_Gun.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3186F2AF6241F0044D2B3 /* Martian_Gun.wav */; };
+		4ED318EC2AF624260044D2B3 /* shorthigh2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318702AF6241F0044D2B3 /* shorthigh2.wav */; };
+		4ED318ED2AF624260044D2B3 /* Pager_Beeps.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318712AF6241F0044D2B3 /* Pager_Beeps.wav */; };
+		4ED318EE2AF624260044D2B3 /* Jingle_All_The_Way.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318722AF6241F0044D2B3 /* Jingle_All_The_Way.wav */; };
+		4ED318EF2AF624260044D2B3 /* Sunny.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318732AF6241F0044D2B3 /* Sunny.wav */; };
+		4ED318F02AF624260044D2B3 /* Cartoon_Ascend_Then_Descend.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318742AF6241F0044D2B3 /* Cartoon_Ascend_Then_Descend.wav */; };
+		4ED318F12AF624260044D2B3 /* Machine_Charge.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318752AF6241F0044D2B3 /* Machine_Charge.wav */; };
+		4ED318F22AF624260044D2B3 /* shorthigh3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318762AF6241F0044D2B3 /* shorthigh3.wav */; };
+		4ED318F32AF624260044D2B3 /* Siri_Alert_Urgent_High_Glucose.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318772AF6241F0044D2B3 /* Siri_Alert_Urgent_High_Glucose.wav */; };
+		4ED318F42AF624260044D2B3 /* Siri_Alert_Transmitter_Battery_Low.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318782AF6241F0044D2B3 /* Siri_Alert_Transmitter_Battery_Low.wav */; };
+		4ED318F52AF624260044D2B3 /* Alarm_Buzzer.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318792AF6241F0044D2B3 /* Alarm_Buzzer.wav */; };
+		4ED318F62AF624260044D2B3 /* Siri_Glucose_Dropping_Fast.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3187A2AF6241F0044D2B3 /* Siri_Glucose_Dropping_Fast.wav */; };
+		4ED318F72AF624260044D2B3 /* Tornado_Siren.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3187B2AF624200044D2B3 /* Tornado_Siren.wav */; };
+		4ED318F82AF624260044D2B3 /* Cartoon_Tip_Toe_Sneaky_Walk.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3187C2AF624200044D2B3 /* Cartoon_Tip_Toe_Sneaky_Walk.wav */; };
+		4ED318F92AF624260044D2B3 /* Thunder_Sound_FX.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3187D2AF624200044D2B3 /* Thunder_Sound_FX.wav */; };
+		4ED318FA2AF624260044D2B3 /* Wake_Up_Will_You.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3187E2AF624200044D2B3 /* Wake_Up_Will_You.wav */; };
+		4ED318FB2AF624260044D2B3 /* Soft_Warm_Airy_Reassuring.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3187F2AF624200044D2B3 /* Soft_Warm_Airy_Reassuring.wav */; };
+		4ED318FC2AF624260044D2B3 /* Open_Your_Eyes_And_See.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318802AF624200044D2B3 /* Open_Your_Eyes_And_See.wav */; };
+		4ED318FD2AF624260044D2B3 /* Sci-Fi_Alarm_Loop_4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318812AF624200044D2B3 /* Sci-Fi_Alarm_Loop_4.wav */; };
+		4ED318FE2AF624260044D2B3 /* Early_Sunrise.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318822AF624200044D2B3 /* Early_Sunrise.wav */; };
+		4ED318FF2AF624260044D2B3 /* Burglar_Alarm_Siren_2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318832AF624200044D2B3 /* Burglar_Alarm_Siren_2.wav */; };
+		4ED319002AF624260044D2B3 /* Ghost_Hover.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318842AF624200044D2B3 /* Ghost_Hover.wav */; };
+		4ED319012AF624260044D2B3 /* Magical_Twinkle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318852AF624200044D2B3 /* Magical_Twinkle.wav */; };
+		4ED319022AF624260044D2B3 /* Sci-Fi_Alarm_Loop_3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318862AF624200044D2B3 /* Sci-Fi_Alarm_Loop_3.wav */; };
+		4ED319032AF624260044D2B3 /* Marimba_Flutter_or_Shake.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318872AF624200044D2B3 /* Marimba_Flutter_or_Shake.wav */; };
+		4ED319042AF624260044D2B3 /* CSFX-2_Alarm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318882AF624200044D2B3 /* CSFX-2_Alarm.wav */; };
+		4ED319052AF624260044D2B3 /* Siri_Alert_Urgent_Low_Glucose.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318892AF624200044D2B3 /* Siri_Alert_Urgent_Low_Glucose.wav */; };
+		4ED319062AF624260044D2B3 /* Siri_Urgent_Low_Glucose.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3188A2AF624210044D2B3 /* Siri_Urgent_Low_Glucose.wav */; };
+		4ED319072AF624260044D2B3 /* Emergency_Alarm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3188B2AF624210044D2B3 /* Emergency_Alarm.wav */; };
+		4ED319082AF624260044D2B3 /* Siri_Transmitter_Battery_Low.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3188C2AF624210044D2B3 /* Siri_Transmitter_Battery_Low.wav */; };
+		4ED319092AF624260044D2B3 /* Alert_Tone_Ringtone_1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3188D2AF624210044D2B3 /* Alert_Tone_Ringtone_1.wav */; };
+		4ED3190A2AF624260044D2B3 /* Rise_And_Shine.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3188E2AF624210044D2B3 /* Rise_And_Shine.wav */; };
+		4ED3190B2AF624260044D2B3 /* Siri_Alert_Device_Muted.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3188F2AF624210044D2B3 /* Siri_Alert_Device_Muted.wav */; };
+		4ED3190C2AF624260044D2B3 /* Sci-Fi_Eerie_Alarm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318902AF624210044D2B3 /* Sci-Fi_Eerie_Alarm.wav */; };
+		4ED3190D2AF624260044D2B3 /* Sci-Fi_Warning.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318912AF624210044D2B3 /* Sci-Fi_Warning.wav */; };
+		4ED3190E2AF624260044D2B3 /* Soft_Warm_Airy_Optimistic.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318922AF624210044D2B3 /* Soft_Warm_Airy_Optimistic.wav */; };
+		4ED3190F2AF624260044D2B3 /* Sci-Fi_Alarm_Loop_2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318932AF624210044D2B3 /* Sci-Fi_Alarm_Loop_2.wav */; };
+		4ED319102AF624260044D2B3 /* Discreet.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318942AF624210044D2B3 /* Discreet.wav */; };
+		4ED319112AF624260044D2B3 /* Sci-Fi_Alarm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318952AF624210044D2B3 /* Sci-Fi_Alarm.wav */; };
+		4ED319122AF624260044D2B3 /* Sci-Fi_Spaceship_Warm_Up.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318962AF624210044D2B3 /* Sci-Fi_Spaceship_Warm_Up.wav */; };
+		4ED319132AF624260044D2B3 /* Sci-Fi_Computer_Console_Alarm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318972AF624210044D2B3 /* Sci-Fi_Computer_Console_Alarm.wav */; };
+		4ED319142AF624260044D2B3 /* Cartoon_Siren.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318982AF624210044D2B3 /* Cartoon_Siren.wav */; };
+		4ED319152AF624260044D2B3 /* Siri_Device_Muted.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318992AF624210044D2B3 /* Siri_Device_Muted.wav */; };
+		4ED319162AF624260044D2B3 /* Cartoon_Fail_Strings_Trumpet.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3189A2AF624220044D2B3 /* Cartoon_Fail_Strings_Trumpet.wav */; };
+		4ED319172AF624260044D2B3 /* Siri_Alert_Glucose_Rising_Fast.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3189B2AF624220044D2B3 /* Siri_Alert_Glucose_Rising_Fast.wav */; };
+		4ED319182AF624260044D2B3 /* Big_Clock_Ticking.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3189C2AF624220044D2B3 /* Big_Clock_Ticking.wav */; };
+		4ED319192AF624260044D2B3 /* Store_Door_Chime.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3189D2AF624220044D2B3 /* Store_Door_Chime.wav */; };
+		4ED3191A2AF624260044D2B3 /* Unpaved.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3189E2AF624220044D2B3 /* Unpaved.wav */; };
+		4ED3191B2AF624260044D2B3 /* Wrong_Answer.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3189F2AF624220044D2B3 /* Wrong_Answer.wav */; };
+		4ED3191C2AF624260044D2B3 /* Cartoon_Villain_Horns.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318A02AF624220044D2B3 /* Cartoon_Villain_Horns.wav */; };
+		4ED3191D2AF624260044D2B3 /* Sci-Fi_Console_Alarm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318A12AF624220044D2B3 /* Sci-Fi_Console_Alarm.wav */; };
+		4ED3191F2AF624260044D2B3 /* Siri_Urgent_High_Glucose.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318A32AF624220044D2B3 /* Siri_Urgent_High_Glucose.wav */; };
+		4ED319202AF624260044D2B3 /* Cuckoo_Clock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318A42AF624220044D2B3 /* Cuckoo_Clock.wav */; };
+		4ED319212AF624260044D2B3 /* Good_Morning.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318A52AF624220044D2B3 /* Good_Morning.wav */; };
+		4ED319222AF624260044D2B3 /* Siri_Alert_Missed_Readings.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318A62AF624220044D2B3 /* Siri_Alert_Missed_Readings.wav */; };
+		4ED319232AF624260044D2B3 /* Cartoon_Bounce_To_Ceiling.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318A72AF624220044D2B3 /* Cartoon_Bounce_To_Ceiling.wav */; };
+		4ED319242AF624260044D2B3 /* Alien_Siren.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318A82AF624220044D2B3 /* Alien_Siren.wav */; };
+		4ED319252AF624260044D2B3 /* shortlow2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318A92AF624230044D2B3 /* shortlow2.wav */; };
+		4ED319262AF624260044D2B3 /* Signature_Corporate.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318AA2AF624230044D2B3 /* Signature_Corporate.wav */; };
+		4ED319272AF624260044D2B3 /* xdripalert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318AB2AF624230044D2B3 /* xdripalert.wav */; };
+		4ED319282AF624260044D2B3 /* Siri_Missed_Readings.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318AC2AF624230044D2B3 /* Siri_Missed_Readings.wav */; };
+		4ED319292AF624260044D2B3 /* Insistently.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318AD2AF624230044D2B3 /* Insistently.wav */; };
+		4ED3192A2AF624260044D2B3 /* Siri_Low_Glucose.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318AE2AF624230044D2B3 /* Siri_Low_Glucose.wav */; };
+		4ED3192B2AF624260044D2B3 /* Metallic.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318AF2AF624230044D2B3 /* Metallic.wav */; };
+		4ED3192C2AF624260044D2B3 /* Siri_Calibration_Needed.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318B02AF624230044D2B3 /* Siri_Calibration_Needed.wav */; };
+		4ED3192D2AF624260044D2B3 /* Rush.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318B12AF624230044D2B3 /* Rush.wav */; };
+		4ED3192E2AF624260044D2B3 /* Siri_Glucose_Rising_Fast.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318B22AF624230044D2B3 /* Siri_Glucose_Rising_Fast.wav */; };
+		4ED3192F2AF624260044D2B3 /* Soft_Marimba_Pad_Positive.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318B32AF624230044D2B3 /* Soft_Marimba_Pad_Positive.wav */; };
+		4ED319302AF624260044D2B3 /* Fly.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318B42AF624230044D2B3 /* Fly.wav */; };
+		4ED319312AF624260044D2B3 /* Hell_Yeah_Somewhat_Calmer.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318B52AF624230044D2B3 /* Hell_Yeah_Somewhat_Calmer.wav */; };
+		4ED319322AF624260044D2B3 /* shorthigh4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318B62AF624230044D2B3 /* shorthigh4.wav */; };
+		4ED319332AF624260044D2B3 /* Indeed.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318B72AF624230044D2B3 /* Indeed.wav */; };
+		4ED319342AF624260044D2B3 /* Computer_Magic.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318B82AF624240044D2B3 /* Computer_Magic.wav */; };
+		4ED319352AF624260044D2B3 /* spaceship.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318B92AF624240044D2B3 /* spaceship.wav */; };
+		4ED319362AF624260044D2B3 /* Marimba_Descend.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318BA2AF624240044D2B3 /* Marimba_Descend.wav */; };
+		4ED319372AF624260044D2B3 /* Alarm_Clock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318BB2AF624240044D2B3 /* Alarm_Clock.wav */; };
+		4ED319382AF624260044D2B3 /* Emergency_Alarm_Carbon_Monoxide.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318BC2AF624240044D2B3 /* Emergency_Alarm_Carbon_Monoxide.wav */; };
+		4ED319392AF624260044D2B3 /* Sci-Fi_Engine_Shut_Down.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318BD2AF624240044D2B3 /* Sci-Fi_Engine_Shut_Down.wav */; };
+		4ED3193A2AF624260044D2B3 /* Analog_Watch_Alarm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318BE2AF624240044D2B3 /* Analog_Watch_Alarm.wav */; };
+		4ED3193B2AF624260044D2B3 /* Cartoon_Ascend_Climb_Sneaky.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318BF2AF624240044D2B3 /* Cartoon_Ascend_Climb_Sneaky.wav */; };
+		4ED3193C2AF624260044D2B3 /* Emergency_Alarm_Siren.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318C02AF624240044D2B3 /* Emergency_Alarm_Siren.wav */; };
+		4ED3193D2AF624260044D2B3 /* Two_Turtle_Doves.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318C12AF624240044D2B3 /* Two_Turtle_Doves.wav */; };
+		4ED3193E2AF624260044D2B3 /* Alert_Tone_Busy.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318C22AF624240044D2B3 /* Alert_Tone_Busy.wav */; };
+		4ED3193F2AF624260044D2B3 /* Sci-Fi_Alarm_Loop_1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318C32AF624240044D2B3 /* Sci-Fi_Alarm_Loop_1.wav */; };
+		4ED319402AF624260044D2B3 /* Ending_Reached.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318C42AF624240044D2B3 /* Ending_Reached.wav */; };
+		4ED319412AF624260044D2B3 /* modern2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318C52AF624250044D2B3 /* modern2.wav */; };
+		4ED319422AF624260044D2B3 /* Cartoon_Dreamy_Glissando_Harp.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318C62AF624250044D2B3 /* Cartoon_Dreamy_Glissando_Harp.wav */; };
+		4ED319432AF624260044D2B3 /* Nightguard.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318C72AF624250044D2B3 /* Nightguard.wav */; };
+		4ED319442AF624260044D2B3 /* Orchestral_Horns.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318C82AF624250044D2B3 /* Orchestral_Horns.wav */; };
+		4ED319452AF624260044D2B3 /* Oringz.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318C92AF624250044D2B3 /* Oringz.wav */; };
+		4ED319462AF624260044D2B3 /* Siri_Alert_Glucose_Dropping_Fast.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318CA2AF624250044D2B3 /* Siri_Alert_Glucose_Dropping_Fast.wav */; };
+		4ED319472AF624260044D2B3 /* Win_Gain.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318CB2AF624250044D2B3 /* Win_Gain.wav */; };
+		4ED319492AF624260044D2B3 /* shortlow3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318CD2AF624250044D2B3 /* shortlow3.wav */; };
+		4ED3194A2AF624260044D2B3 /* Remembers_Me_Of_Asia.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318CE2AF624250044D2B3 /* Remembers_Me_Of_Asia.wav */; };
+		4ED3194B2AF624260044D2B3 /* modernalarm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318CF2AF624250044D2B3 /* modernalarm.wav */; };
+		4ED3194C2AF624260044D2B3 /* shortlow1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318D02AF624250044D2B3 /* shortlow1.wav */; };
+		4ED3194D2AF624260044D2B3 /* Dhol_Shuffleloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED318D12AF624260044D2B3 /* Dhol_Shuffleloop.wav */; };
+		4ED3194F2AF628490044D2B3 /* betterwakeup.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3194E2AF628490044D2B3 /* betterwakeup.wav */; };
+		4ED319512AF628530044D2B3 /* bruteforce.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4ED319502AF628530044D2B3 /* bruteforce.wav */; };
 		4EE66F082733E01500548A46 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F072733E01500548A46 /* R.generated.swift */; };
 		4EE66F0B2733EB0D00548A46 /* MoreSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F0A2733EB0D00548A46 /* MoreSettingsViewController.swift */; };
 		4EE66F132735064E00548A46 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE66F122735064E00548A46 /* MainTabBarController.swift */; };
@@ -247,120 +370,11 @@
 		F821CF6B229FC22D005C1E43 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F821CF6A229FC22D005C1E43 /* Endpoint.swift */; };
 		F821CF6F229FC280005C1E43 /* Endpoint+NightScout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F821CF6E229FC280005C1E43 /* Endpoint+NightScout.swift */; };
 		F821CF7B22A1D359005C1E43 /* NightScoutFollowerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F821CF7A22A1D359005C1E43 /* NightScoutFollowerDelegate.swift */; };
-		F821CF7D22A46CDD005C1E43 /* 1-millisecond-of-silence.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F821CF7C22A46CDD005C1E43 /* 1-millisecond-of-silence.mp3 */; };
-		F821CF7F22A4EDCF005C1E43 /* 20ms-of-silence.caf in Resources */ = {isa = PBXBuildFile; fileRef = F821CF7E22A4EDCF005C1E43 /* 20ms-of-silence.caf */; };
 		F821CF8122A5C814005C1E43 /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F821CF8022A5C814005C1E43 /* RepeatingTimer.swift */; };
 		F821CF9522ADB0D7005C1E43 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F821CF9422ADB0D7005C1E43 /* HealthKitManager.swift */; };
 		F821CF9722AE589E005C1E43 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F821CF9622AE589E005C1E43 /* HealthKit.framework */; };
 		F821CF9D22AEF483005C1E43 /* BGReadingSpeaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F821CF9C22AEF483005C1E43 /* BGReadingSpeaker.swift */; };
 		F82436FC24BE014000BED341 /* TextsLibreStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82436FB24BE014000BED341 /* TextsLibreStates.swift */; };
-		F824376A24CB7A9800BED341 /* Martian_Gun.caf in Resources */ = {isa = PBXBuildFile; fileRef = F82436FF24CB7A7F00BED341 /* Martian_Gun.caf */; };
-		F824376B24CB7A9800BED341 /* Thunder_Sound_FX.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824370024CB7A8000BED341 /* Thunder_Sound_FX.caf */; };
-		F824376C24CB7A9800BED341 /* Chimes_Glassy.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824370124CB7A8000BED341 /* Chimes_Glassy.caf */; };
-		F824376D24CB7A9800BED341 /* Time_Has_Come.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824370224CB7A8000BED341 /* Time_Has_Come.caf */; };
-		F824376E24CB7A9800BED341 /* Burglar_Alarm_Siren_1.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824370324CB7A8000BED341 /* Burglar_Alarm_Siren_1.caf */; };
-		F824376F24CB7A9800BED341 /* Ambulance.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824370424CB7A8100BED341 /* Ambulance.caf */; };
-		F824377024CB7A9800BED341 /* Siri_Alert_Urgent_Low_Glucose.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824370524CB7A8100BED341 /* Siri_Alert_Urgent_Low_Glucose.caf */; };
-		F824377124CB7A9800BED341 /* Indeed.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824370624CB7A8200BED341 /* Indeed.caf */; };
-		F824377224CB7A9800BED341 /* Ending_Reached.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824370724CB7A8300BED341 /* Ending_Reached.caf */; };
-		F824377324CB7A9800BED341 /* Store_Door_Chime.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824370824CB7A8300BED341 /* Store_Door_Chime.caf */; };
-		F824377424CB7A9800BED341 /* Cartoon_Siren.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824370924CB7A8300BED341 /* Cartoon_Siren.caf */; };
-		F824377524CB7A9800BED341 /* Big_Clock_Ticking.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824370A24CB7A8300BED341 /* Big_Clock_Ticking.caf */; };
-		F824377624CB7A9800BED341 /* Siri_Glucose_Dropping_Fast.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824370B24CB7A8300BED341 /* Siri_Glucose_Dropping_Fast.caf */; };
-		F824377724CB7A9800BED341 /* Siri_Urgent_Low_Glucose.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824370C24CB7A8300BED341 /* Siri_Urgent_Low_Glucose.caf */; };
-		F824377824CB7A9800BED341 /* Sci-Fi_Alarm_Loop_2.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824370D24CB7A8300BED341 /* Sci-Fi_Alarm_Loop_2.caf */; };
-		F824377924CB7A9800BED341 /* Sci-Fi_Alarm_Loop_3.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824370E24CB7A8400BED341 /* Sci-Fi_Alarm_Loop_3.caf */; };
-		F824377A24CB7A9800BED341 /* Sci-Fi_Spaceship_Message.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824370F24CB7A8400BED341 /* Sci-Fi_Spaceship_Message.caf */; };
-		F824377B24CB7A9800BED341 /* Emergency_Alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824371024CB7A8400BED341 /* Emergency_Alarm.caf */; };
-		F824377C24CB7A9800BED341 /* Machine_Charge.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824371124CB7A8400BED341 /* Machine_Charge.caf */; };
-		F824377D24CB7A9800BED341 /* Open_Your_Eyes_And_See.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824371224CB7A8400BED341 /* Open_Your_Eyes_And_See.caf */; };
-		F824377E24CB7A9800BED341 /* Sci-Fi_Warning.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824371324CB7A8400BED341 /* Sci-Fi_Warning.caf */; };
-		F824377F24CB7A9800BED341 /* Sci-Fi_Alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824371424CB7A8500BED341 /* Sci-Fi_Alarm.caf */; };
-		F824378024CB7A9800BED341 /* Sci-Fi_Alarm_Loop_4.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824371524CB7A8500BED341 /* Sci-Fi_Alarm_Loop_4.caf */; };
-		F824378124CB7A9800BED341 /* Cartoon_Uh_Oh.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824371624CB7A8500BED341 /* Cartoon_Uh_Oh.caf */; };
-		F824378224CB7A9900BED341 /* Cartoon_Villain_Horns.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824371724CB7A8500BED341 /* Cartoon_Villain_Horns.caf */; };
-		F824378324CB7A9900BED341 /* Tornado_Siren.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824371824CB7A8600BED341 /* Tornado_Siren.caf */; };
-		F824378424CB7A9900BED341 /* Early_Sunrise.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824371924CB7A8600BED341 /* Early_Sunrise.caf */; };
-		F824378524CB7A9900BED341 /* Siri_Low_Glucose.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824371A24CB7A8600BED341 /* Siri_Low_Glucose.caf */; };
-		F824378624CB7A9900BED341 /* Alien_Siren.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824371B24CB7A8600BED341 /* Alien_Siren.caf */; };
-		F824378724CB7A9900BED341 /* Ghost_Hover.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824371C24CB7A8700BED341 /* Ghost_Hover.caf */; };
-		F824378824CB7A9900BED341 /* Insistently.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824371D24CB7A8700BED341 /* Insistently.caf */; };
-		F824378924CB7A9900BED341 /* Soft_Warm_Airy_Optimistic.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824371E24CB7A8700BED341 /* Soft_Warm_Airy_Optimistic.caf */; };
-		F824378A24CB7A9900BED341 /* Two_Turtle_Doves.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824371F24CB7A8700BED341 /* Two_Turtle_Doves.caf */; };
-		F824378B24CB7A9900BED341 /* Fly.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824372024CB7A8800BED341 /* Fly.caf */; };
-		F824378C24CB7A9900BED341 /* Marimba_Descend.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824372124CB7A8800BED341 /* Marimba_Descend.caf */; };
-		F824378D24CB7A9900BED341 /* Soft_Warm_Airy_Reassuring.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824372224CB7A8800BED341 /* Soft_Warm_Airy_Reassuring.caf */; };
-		F824378E24CB7A9900BED341 /* Win_Gain.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824372324CB7A8900BED341 /* Win_Gain.caf */; };
-		F824378F24CB7A9900BED341 /* Siri_Alert_Glucose_Rising_Fast.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824372424CB7A8A00BED341 /* Siri_Alert_Glucose_Rising_Fast.caf */; };
-		F824379024CB7A9900BED341 /* CSFX-2_Alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824372524CB7A8A00BED341 /* CSFX-2_Alarm.caf */; };
-		F824379124CB7A9900BED341 /* Sci-Fi_Computer_Console_Alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824372624CB7A8A00BED341 /* Sci-Fi_Computer_Console_Alarm.caf */; };
-		F824379224CB7A9900BED341 /* Unpaved.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824372724CB7A8A00BED341 /* Unpaved.caf */; };
-		F824379324CB7A9900BED341 /* Martian_Scanner.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824372824CB7A8B00BED341 /* Martian_Scanner.caf */; };
-		F824379424CB7A9900BED341 /* Cartoon_Ascend_Then_Descend.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824372924CB7A8B00BED341 /* Cartoon_Ascend_Then_Descend.caf */; };
-		F824379524CB7A9900BED341 /* Pager_Beeps.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824372A24CB7A8B00BED341 /* Pager_Beeps.caf */; };
-		F824379624CB7A9900BED341 /* Oringz.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824372B24CB7A8B00BED341 /* Oringz.caf */; };
-		F824379724CB7A9900BED341 /* Siri_Transmitter_Battery_Low.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824372C24CB7A8C00BED341 /* Siri_Transmitter_Battery_Low.caf */; };
-		F824379824CB7A9900BED341 /* Not_Kiddin.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824372D24CB7A8C00BED341 /* Not_Kiddin.caf */; };
-		F824379924CB7A9900BED341 /* Magical_Twinkle.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824372E24CB7A8C00BED341 /* Magical_Twinkle.caf */; };
-		F824379A24CB7A9900BED341 /* Siri_Alert_Device_Muted.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824372F24CB7A8C00BED341 /* Siri_Alert_Device_Muted.caf */; };
-		F824379B24CB7A9900BED341 /* Sci-Fi_Console_Alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824373024CB7A8D00BED341 /* Sci-Fi_Console_Alarm.caf */; };
-		F824379C24CB7A9900BED341 /* Wrong_Answer.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824373124CB7A8D00BED341 /* Wrong_Answer.caf */; };
-		F824379D24CB7A9900BED341 /* Alarm_Buzzer.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824373224CB7A8D00BED341 /* Alarm_Buzzer.caf */; };
-		F824379E24CB7A9900BED341 /* Hell_Yeah_Somewhat_Calmer.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824373324CB7A8D00BED341 /* Hell_Yeah_Somewhat_Calmer.caf */; };
-		F824379F24CB7A9900BED341 /* Sci-Fi_Incoming_Message_Alert.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824373424CB7A8D00BED341 /* Sci-Fi_Incoming_Message_Alert.caf */; };
-		F82437A024CB7A9900BED341 /* Siri_Missed_Readings.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824373524CB7A8D00BED341 /* Siri_Missed_Readings.caf */; };
-		F82437A124CB7A9900BED341 /* Jingle_All_The_Way.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824373624CB7A8E00BED341 /* Jingle_All_The_Way.caf */; };
-		F82437A224CB7A9900BED341 /* Sci-Fi_Eerie_Alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824373724CB7A8E00BED341 /* Sci-Fi_Eerie_Alarm.caf */; };
-		F82437A324CB7A9900BED341 /* Siri_Alert_Glucose_Dropping_Fast.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824373824CB7A8E00BED341 /* Siri_Alert_Glucose_Dropping_Fast.caf */; };
-		F82437A424CB7A9900BED341 /* Alert_Tone_Ringtone_1.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824373924CB7A8E00BED341 /* Alert_Tone_Ringtone_1.caf */; };
-		F82437A524CB7A9900BED341 /* Cartoon_Machine_Clumsy_Loop.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824373A24CB7A8E00BED341 /* Cartoon_Machine_Clumsy_Loop.caf */; };
-		F82437A624CB7A9900BED341 /* Siri_Glucose_Rising_Fast.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824373B24CB7A8F00BED341 /* Siri_Glucose_Rising_Fast.caf */; };
-		F82437A724CB7A9900BED341 /* Alarm_Clock.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824373C24CB7A8F00BED341 /* Alarm_Clock.caf */; };
-		F82437A824CB7A9900BED341 /* Sunny.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824373D24CB7A8F00BED341 /* Sunny.caf */; };
-		F82437A924CB7A9900BED341 /* Wake_Up_Will_You.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824373E24CB7A8F00BED341 /* Wake_Up_Will_You.caf */; };
-		F82437AA24CB7A9900BED341 /* Discreet.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824373F24CB7A8F00BED341 /* Discreet.caf */; };
-		F82437AB24CB7A9900BED341 /* Emergency_Alarm_Siren.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824374024CB7A8F00BED341 /* Emergency_Alarm_Siren.caf */; };
-		F82437AC24CB7A9900BED341 /* Siri_Alert_Calibration_Needed.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824374124CB7A9000BED341 /* Siri_Alert_Calibration_Needed.caf */; };
-		F82437AD24CB7A9900BED341 /* Laser_Shoot.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824374224CB7A9000BED341 /* Laser_Shoot.caf */; };
-		F82437AE24CB7A9900BED341 /* Cell_Phone_Ring_Tone.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824374324CB7A9000BED341 /* Cell_Phone_Ring_Tone.caf */; };
-		F82437AF24CB7A9900BED341 /* Siri_Alert_Urgent_High_Glucose.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824374424CB7A9100BED341 /* Siri_Alert_Urgent_High_Glucose.caf */; };
-		F82437B024CB7A9900BED341 /* In_A_Hurry.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824374524CB7A9100BED341 /* In_A_Hurry.caf */; };
-		F82437B124CB7A9900BED341 /* Nightguard.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824374624CB7A9100BED341 /* Nightguard.caf */; };
-		F82437B224CB7A9900BED341 /* Burglar_Alarm_Siren_2.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824374724CB7A9100BED341 /* Burglar_Alarm_Siren_2.caf */; };
-		F82437B324CB7A9900BED341 /* Rush.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824374824CB7A9200BED341 /* Rush.caf */; };
-		F82437B424CB7A9900BED341 /* Siri_Urgent_High_Glucose.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824374924CB7A9200BED341 /* Siri_Urgent_High_Glucose.caf */; };
-		F82437B524CB7A9900BED341 /* Alert_Tone_Busy.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824374A24CB7A9200BED341 /* Alert_Tone_Busy.caf */; };
-		F82437B624CB7A9900BED341 /* Rise_And_Shine.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824374B24CB7A9200BED341 /* Rise_And_Shine.caf */; };
-		F82437B724CB7A9900BED341 /* Cartoon_Tip_Toe_Sneaky_Walk.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824374C24CB7A9300BED341 /* Cartoon_Tip_Toe_Sneaky_Walk.caf */; };
-		F82437B824CB7A9900BED341 /* Cuckoo_Clock.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824374D24CB7A9300BED341 /* Cuckoo_Clock.caf */; };
-		F82437B924CB7A9900BED341 /* Siri_Alert_Transmitter_Battery_Low.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824374E24CB7A9300BED341 /* Siri_Alert_Transmitter_Battery_Low.caf */; };
-		F82437BA24CB7A9900BED341 /* Cartoon_Fail_Strings_Trumpet.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824374F24CB7A9300BED341 /* Cartoon_Fail_Strings_Trumpet.caf */; };
-		F82437BB24CB7A9900BED341 /* Sci-Fi_Alarm_Loop_1.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824375024CB7A9300BED341 /* Sci-Fi_Alarm_Loop_1.caf */; };
-		F82437BC24CB7A9900BED341 /* Siri_Device_Muted.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824375124CB7A9400BED341 /* Siri_Device_Muted.caf */; };
-		F82437BD24CB7A9900BED341 /* Sci-Fi_Spaceship_Warm_Up.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824375224CB7A9400BED341 /* Sci-Fi_Spaceship_Warm_Up.caf */; };
-		F82437BE24CB7A9900BED341 /* Cartoon_Dreamy_Glissando_Harp.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824375324CB7A9400BED341 /* Cartoon_Dreamy_Glissando_Harp.caf */; };
-		F82437BF24CB7A9900BED341 /* Good_Morning.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824375424CB7A9400BED341 /* Good_Morning.caf */; };
-		F82437C024CB7A9900BED341 /* Sci-Fi_Air_Raid_Alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824375524CB7A9400BED341 /* Sci-Fi_Air_Raid_Alarm.caf */; };
-		F82437C124CB7A9900BED341 /* Emergency_Alarm_Carbon_Monoxide.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824375624CB7A9500BED341 /* Emergency_Alarm_Carbon_Monoxide.caf */; };
-		F82437C224CB7A9900BED341 /* Alert_Tone_Ringtone_2.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824375724CB7A9500BED341 /* Alert_Tone_Ringtone_2.caf */; };
-		F82437C324CB7A9900BED341 /* Metallic.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824375824CB7A9500BED341 /* Metallic.caf */; };
-		F82437C424CB7A9900BED341 /* Cartoon_Bounce_To_Ceiling.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824375924CB7A9500BED341 /* Cartoon_Bounce_To_Ceiling.caf */; };
-		F82437C524CB7A9900BED341 /* Marching_Heavy_Footed_Fat_Elephants.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824375A24CB7A9500BED341 /* Marching_Heavy_Footed_Fat_Elephants.caf */; };
-		F82437C624CB7A9900BED341 /* Siri_Alert_High_Glucose.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824375B24CB7A9600BED341 /* Siri_Alert_High_Glucose.caf */; };
-		F82437C724CB7A9900BED341 /* Siri_Calibration_Needed.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824375C24CB7A9600BED341 /* Siri_Calibration_Needed.caf */; };
-		F82437C824CB7A9900BED341 /* Siri_Alert_Missed_Readings.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824375D24CB7A9600BED341 /* Siri_Alert_Missed_Readings.caf */; };
-		F82437C924CB7A9900BED341 /* Computer_Magic.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824375E24CB7A9700BED341 /* Computer_Magic.caf */; };
-		F82437CA24CB7A9900BED341 /* Marimba_Flutter_or_Shake.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824375F24CB7A9700BED341 /* Marimba_Flutter_or_Shake.caf */; };
-		F82437CB24CB7A9900BED341 /* Orchestral_Horns.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824376024CB7A9700BED341 /* Orchestral_Horns.caf */; };
-		F82437CC24CB7A9900BED341 /* Analog_Watch_Alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824376124CB7A9700BED341 /* Analog_Watch_Alarm.caf */; };
-		F82437CD24CB7A9900BED341 /* Dhol_Shuffleloop.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824376224CB7A9700BED341 /* Dhol_Shuffleloop.caf */; };
-		F82437CE24CB7A9900BED341 /* Cartoon_Ascend_Climb_Sneaky.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824376324CB7A9700BED341 /* Cartoon_Ascend_Climb_Sneaky.caf */; };
-		F82437CF24CB7A9900BED341 /* Siri_High_Glucose.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824376424CB7A9800BED341 /* Siri_High_Glucose.caf */; };
-		F82437D024CB7A9900BED341 /* Sci-Fi_Engine_Shut_Down.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824376524CB7A9800BED341 /* Sci-Fi_Engine_Shut_Down.caf */; };
-		F82437D124CB7A9900BED341 /* Signature_Corporate.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824376624CB7A9800BED341 /* Signature_Corporate.caf */; };
-		F82437D224CB7A9900BED341 /* Remembers_Me_Of_Asia.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824376724CB7A9800BED341 /* Remembers_Me_Of_Asia.caf */; };
-		F82437D324CB7A9900BED341 /* Soft_Marimba_Pad_Positive.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824376824CB7A9800BED341 /* Soft_Marimba_Pad_Positive.caf */; };
-		F82437D424CB7A9900BED341 /* Siri_Alert_Low_Glucose.caf in Resources */ = {isa = PBXBuildFile; fileRef = F824376924CB7A9800BED341 /* Siri_Alert_Low_Glucose.caf */; };
 		F8252867243E50FE0067AF77 /* ConstantsLibre.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8252866243E50FE0067AF77 /* ConstantsLibre.swift */; };
 		F8297F59238EE14E00D74D66 /* TextsBluetoothPeripheralsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8297F57238EE14E00D74D66 /* TextsBluetoothPeripheralsView.swift */; };
 		F8297F5A238EE14E00D74D66 /* TextsBluetoothPeripheralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8297F58238EE14E00D74D66 /* TextsBluetoothPeripheralView.swift */; };
@@ -463,20 +477,6 @@
 		F8B3A79722635A25004BA588 /* AlertEntry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A79222635A25004BA588 /* AlertEntry+CoreDataProperties.swift */; };
 		F8B3A7B2226A0878004BA588 /* TextsAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A7B1226A0878004BA588 /* TextsAlerts.swift */; };
 		F8B3A7B5226A0A71004BA588 /* Alerts.strings in Resources */ = {isa = PBXBuildFile; fileRef = F8B3A7B3226A0A71004BA588 /* Alerts.strings */; };
-		F8B3A7C6226CC0B7004BA588 /* shortlow2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F8B3A7B8226CC0B7004BA588 /* shortlow2.mp3 */; };
-		F8B3A7C7226CC0B7004BA588 /* shortlow3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F8B3A7B9226CC0B7004BA588 /* shortlow3.mp3 */; };
-		F8B3A7C8226CC0B7004BA588 /* bruteforce.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F8B3A7BA226CC0B7004BA588 /* bruteforce.mp3 */; };
-		F8B3A7C9226CC0B7004BA588 /* modern2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F8B3A7BB226CC0B7004BA588 /* modern2.mp3 */; };
-		F8B3A7CA226CC0B7004BA588 /* shortlow1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F8B3A7BC226CC0B7004BA588 /* shortlow1.mp3 */; };
-		F8B3A7CB226CC0B7004BA588 /* shortlow4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F8B3A7BD226CC0B7004BA588 /* shortlow4.mp3 */; };
-		F8B3A7CC226CC0B7004BA588 /* shorthigh1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F8B3A7BE226CC0B7004BA588 /* shorthigh1.mp3 */; };
-		F8B3A7CD226CC0B7004BA588 /* shorthigh3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F8B3A7BF226CC0B7004BA588 /* shorthigh3.mp3 */; };
-		F8B3A7CE226CC0B7004BA588 /* shorthigh2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F8B3A7C0226CC0B7004BA588 /* shorthigh2.mp3 */; };
-		F8B3A7CF226CC0B7004BA588 /* shorthigh4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F8B3A7C1226CC0B7004BA588 /* shorthigh4.mp3 */; };
-		F8B3A7D0226CC0B7004BA588 /* modernalarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F8B3A7C2226CC0B7004BA588 /* modernalarm.mp3 */; };
-		F8B3A7D1226CC0B7004BA588 /* betterwakeup.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F8B3A7C3226CC0B7004BA588 /* betterwakeup.mp3 */; };
-		F8B3A7D2226CC0B7004BA588 /* spaceship.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F8B3A7C4226CC0B7004BA588 /* spaceship.mp3 */; };
-		F8B3A7D3226CC0B7004BA588 /* xdripalert.aif in Resources */ = {isa = PBXBuildFile; fileRef = F8B3A7C5226CC0B7004BA588 /* xdripalert.aif */; };
 		F8B3A7DF226E48C1004BA588 /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A7DE226E48C1004BA588 /* SoundPlayer.swift */; };
 		F8B3A7FA2278E0E8004BA588 /* SettingsViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A7F22278E0E7004BA588 /* SettingsViewModelProtocol.swift */; };
 		F8B3A808227A2933004BA588 /* SettingsSelectedRowAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B3A807227A2933004BA588 /* SettingsSelectedRowAction.swift */; };
@@ -801,6 +801,129 @@
 		4EC48D142770827200EEB0BA /* NotesAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesAccessor.swift; sourceTree = "<group>"; };
 		4EC48D172770882A00EEB0BA /* NoteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteManager.swift; sourceTree = "<group>"; };
 		4ECA4D172796C72C008AB111 /* Trc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trc.swift; sourceTree = "<group>"; };
+		4ED318562AF6241D0044D2B3 /* Chimes_Glassy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Chimes_Glassy.wav; sourceTree = "<group>"; };
+		4ED318572AF6241D0044D2B3 /* Siri_High_Glucose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Siri_High_Glucose.wav; sourceTree = "<group>"; };
+		4ED318582AF6241D0044D2B3 /* Time_Has_Come.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Time_Has_Come.wav; sourceTree = "<group>"; };
+		4ED318592AF6241D0044D2B3 /* Sci-Fi_Air_Raid_Alarm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Sci-Fi_Air_Raid_Alarm.wav"; sourceTree = "<group>"; };
+		4ED3185A2AF6241D0044D2B3 /* shorthigh1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shorthigh1.wav; sourceTree = "<group>"; };
+		4ED3185B2AF6241D0044D2B3 /* Cartoon_Machine_Clumsy_Loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Cartoon_Machine_Clumsy_Loop.wav; sourceTree = "<group>"; };
+		4ED3185C2AF6241D0044D2B3 /* Laser_Shoot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Laser_Shoot.wav; sourceTree = "<group>"; };
+		4ED3185D2AF6241D0044D2B3 /* Siri_Alert_Low_Glucose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Siri_Alert_Low_Glucose.wav; sourceTree = "<group>"; };
+		4ED3185E2AF6241D0044D2B3 /* Martian_Scanner.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Martian_Scanner.wav; sourceTree = "<group>"; };
+		4ED3185F2AF6241D0044D2B3 /* 1-millisecond-of-silence.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "1-millisecond-of-silence.wav"; sourceTree = "<group>"; };
+		4ED318602AF6241E0044D2B3 /* In_A_Hurry.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = In_A_Hurry.wav; sourceTree = "<group>"; };
+		4ED318622AF6241E0044D2B3 /* 20ms-of-silence.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "20ms-of-silence.wav"; sourceTree = "<group>"; };
+		4ED318632AF6241E0044D2B3 /* Cartoon_Uh_Oh.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Cartoon_Uh_Oh.wav; sourceTree = "<group>"; };
+		4ED318642AF6241E0044D2B3 /* Alert_Tone_Ringtone_2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Alert_Tone_Ringtone_2.wav; sourceTree = "<group>"; };
+		4ED318652AF6241E0044D2B3 /* Siri_Alert_High_Glucose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Siri_Alert_High_Glucose.wav; sourceTree = "<group>"; };
+		4ED318662AF6241E0044D2B3 /* Burglar_Alarm_Siren_1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Burglar_Alarm_Siren_1.wav; sourceTree = "<group>"; };
+		4ED318672AF6241E0044D2B3 /* Sci-Fi_Spaceship_Message.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Sci-Fi_Spaceship_Message.wav"; sourceTree = "<group>"; };
+		4ED318682AF6241E0044D2B3 /* Not_Kiddin.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Not_Kiddin.wav; sourceTree = "<group>"; };
+		4ED318692AF6241E0044D2B3 /* Marching_Heavy_Footed_Fat_Elephants.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Marching_Heavy_Footed_Fat_Elephants.wav; sourceTree = "<group>"; };
+		4ED3186A2AF6241E0044D2B3 /* Siri_Alert_Calibration_Needed.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Siri_Alert_Calibration_Needed.wav; sourceTree = "<group>"; };
+		4ED3186B2AF6241E0044D2B3 /* shortlow4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shortlow4.wav; sourceTree = "<group>"; };
+		4ED3186C2AF6241E0044D2B3 /* Ambulance.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Ambulance.wav; sourceTree = "<group>"; };
+		4ED3186D2AF6241E0044D2B3 /* Cell_Phone_Ring_Tone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Cell_Phone_Ring_Tone.wav; sourceTree = "<group>"; };
+		4ED3186E2AF6241F0044D2B3 /* Sci-Fi_Incoming_Message_Alert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Sci-Fi_Incoming_Message_Alert.wav"; sourceTree = "<group>"; };
+		4ED3186F2AF6241F0044D2B3 /* Martian_Gun.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Martian_Gun.wav; sourceTree = "<group>"; };
+		4ED318702AF6241F0044D2B3 /* shorthigh2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shorthigh2.wav; sourceTree = "<group>"; };
+		4ED318712AF6241F0044D2B3 /* Pager_Beeps.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Pager_Beeps.wav; sourceTree = "<group>"; };
+		4ED318722AF6241F0044D2B3 /* Jingle_All_The_Way.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Jingle_All_The_Way.wav; sourceTree = "<group>"; };
+		4ED318732AF6241F0044D2B3 /* Sunny.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Sunny.wav; sourceTree = "<group>"; };
+		4ED318742AF6241F0044D2B3 /* Cartoon_Ascend_Then_Descend.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Cartoon_Ascend_Then_Descend.wav; sourceTree = "<group>"; };
+		4ED318752AF6241F0044D2B3 /* Machine_Charge.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Machine_Charge.wav; sourceTree = "<group>"; };
+		4ED318762AF6241F0044D2B3 /* shorthigh3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shorthigh3.wav; sourceTree = "<group>"; };
+		4ED318772AF6241F0044D2B3 /* Siri_Alert_Urgent_High_Glucose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Siri_Alert_Urgent_High_Glucose.wav; sourceTree = "<group>"; };
+		4ED318782AF6241F0044D2B3 /* Siri_Alert_Transmitter_Battery_Low.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Siri_Alert_Transmitter_Battery_Low.wav; sourceTree = "<group>"; };
+		4ED318792AF6241F0044D2B3 /* Alarm_Buzzer.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Alarm_Buzzer.wav; sourceTree = "<group>"; };
+		4ED3187A2AF6241F0044D2B3 /* Siri_Glucose_Dropping_Fast.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Siri_Glucose_Dropping_Fast.wav; sourceTree = "<group>"; };
+		4ED3187B2AF624200044D2B3 /* Tornado_Siren.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Tornado_Siren.wav; sourceTree = "<group>"; };
+		4ED3187C2AF624200044D2B3 /* Cartoon_Tip_Toe_Sneaky_Walk.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Cartoon_Tip_Toe_Sneaky_Walk.wav; sourceTree = "<group>"; };
+		4ED3187D2AF624200044D2B3 /* Thunder_Sound_FX.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Thunder_Sound_FX.wav; sourceTree = "<group>"; };
+		4ED3187E2AF624200044D2B3 /* Wake_Up_Will_You.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Wake_Up_Will_You.wav; sourceTree = "<group>"; };
+		4ED3187F2AF624200044D2B3 /* Soft_Warm_Airy_Reassuring.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Soft_Warm_Airy_Reassuring.wav; sourceTree = "<group>"; };
+		4ED318802AF624200044D2B3 /* Open_Your_Eyes_And_See.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Open_Your_Eyes_And_See.wav; sourceTree = "<group>"; };
+		4ED318812AF624200044D2B3 /* Sci-Fi_Alarm_Loop_4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Sci-Fi_Alarm_Loop_4.wav"; sourceTree = "<group>"; };
+		4ED318822AF624200044D2B3 /* Early_Sunrise.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Early_Sunrise.wav; sourceTree = "<group>"; };
+		4ED318832AF624200044D2B3 /* Burglar_Alarm_Siren_2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Burglar_Alarm_Siren_2.wav; sourceTree = "<group>"; };
+		4ED318842AF624200044D2B3 /* Ghost_Hover.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Ghost_Hover.wav; sourceTree = "<group>"; };
+		4ED318852AF624200044D2B3 /* Magical_Twinkle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Magical_Twinkle.wav; sourceTree = "<group>"; };
+		4ED318862AF624200044D2B3 /* Sci-Fi_Alarm_Loop_3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Sci-Fi_Alarm_Loop_3.wav"; sourceTree = "<group>"; };
+		4ED318872AF624200044D2B3 /* Marimba_Flutter_or_Shake.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Marimba_Flutter_or_Shake.wav; sourceTree = "<group>"; };
+		4ED318882AF624200044D2B3 /* CSFX-2_Alarm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "CSFX-2_Alarm.wav"; sourceTree = "<group>"; };
+		4ED318892AF624200044D2B3 /* Siri_Alert_Urgent_Low_Glucose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Siri_Alert_Urgent_Low_Glucose.wav; sourceTree = "<group>"; };
+		4ED3188A2AF624210044D2B3 /* Siri_Urgent_Low_Glucose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Siri_Urgent_Low_Glucose.wav; sourceTree = "<group>"; };
+		4ED3188B2AF624210044D2B3 /* Emergency_Alarm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Emergency_Alarm.wav; sourceTree = "<group>"; };
+		4ED3188C2AF624210044D2B3 /* Siri_Transmitter_Battery_Low.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Siri_Transmitter_Battery_Low.wav; sourceTree = "<group>"; };
+		4ED3188D2AF624210044D2B3 /* Alert_Tone_Ringtone_1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Alert_Tone_Ringtone_1.wav; sourceTree = "<group>"; };
+		4ED3188E2AF624210044D2B3 /* Rise_And_Shine.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Rise_And_Shine.wav; sourceTree = "<group>"; };
+		4ED3188F2AF624210044D2B3 /* Siri_Alert_Device_Muted.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Siri_Alert_Device_Muted.wav; sourceTree = "<group>"; };
+		4ED318902AF624210044D2B3 /* Sci-Fi_Eerie_Alarm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Sci-Fi_Eerie_Alarm.wav"; sourceTree = "<group>"; };
+		4ED318912AF624210044D2B3 /* Sci-Fi_Warning.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Sci-Fi_Warning.wav"; sourceTree = "<group>"; };
+		4ED318922AF624210044D2B3 /* Soft_Warm_Airy_Optimistic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Soft_Warm_Airy_Optimistic.wav; sourceTree = "<group>"; };
+		4ED318932AF624210044D2B3 /* Sci-Fi_Alarm_Loop_2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Sci-Fi_Alarm_Loop_2.wav"; sourceTree = "<group>"; };
+		4ED318942AF624210044D2B3 /* Discreet.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Discreet.wav; sourceTree = "<group>"; };
+		4ED318952AF624210044D2B3 /* Sci-Fi_Alarm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Sci-Fi_Alarm.wav"; sourceTree = "<group>"; };
+		4ED318962AF624210044D2B3 /* Sci-Fi_Spaceship_Warm_Up.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Sci-Fi_Spaceship_Warm_Up.wav"; sourceTree = "<group>"; };
+		4ED318972AF624210044D2B3 /* Sci-Fi_Computer_Console_Alarm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Sci-Fi_Computer_Console_Alarm.wav"; sourceTree = "<group>"; };
+		4ED318982AF624210044D2B3 /* Cartoon_Siren.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Cartoon_Siren.wav; sourceTree = "<group>"; };
+		4ED318992AF624210044D2B3 /* Siri_Device_Muted.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Siri_Device_Muted.wav; sourceTree = "<group>"; };
+		4ED3189A2AF624220044D2B3 /* Cartoon_Fail_Strings_Trumpet.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Cartoon_Fail_Strings_Trumpet.wav; sourceTree = "<group>"; };
+		4ED3189B2AF624220044D2B3 /* Siri_Alert_Glucose_Rising_Fast.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Siri_Alert_Glucose_Rising_Fast.wav; sourceTree = "<group>"; };
+		4ED3189C2AF624220044D2B3 /* Big_Clock_Ticking.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Big_Clock_Ticking.wav; sourceTree = "<group>"; };
+		4ED3189D2AF624220044D2B3 /* Store_Door_Chime.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Store_Door_Chime.wav; sourceTree = "<group>"; };
+		4ED3189E2AF624220044D2B3 /* Unpaved.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Unpaved.wav; sourceTree = "<group>"; };
+		4ED3189F2AF624220044D2B3 /* Wrong_Answer.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Wrong_Answer.wav; sourceTree = "<group>"; };
+		4ED318A02AF624220044D2B3 /* Cartoon_Villain_Horns.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Cartoon_Villain_Horns.wav; sourceTree = "<group>"; };
+		4ED318A12AF624220044D2B3 /* Sci-Fi_Console_Alarm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Sci-Fi_Console_Alarm.wav"; sourceTree = "<group>"; };
+		4ED318A32AF624220044D2B3 /* Siri_Urgent_High_Glucose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Siri_Urgent_High_Glucose.wav; sourceTree = "<group>"; };
+		4ED318A42AF624220044D2B3 /* Cuckoo_Clock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Cuckoo_Clock.wav; sourceTree = "<group>"; };
+		4ED318A52AF624220044D2B3 /* Good_Morning.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Good_Morning.wav; sourceTree = "<group>"; };
+		4ED318A62AF624220044D2B3 /* Siri_Alert_Missed_Readings.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Siri_Alert_Missed_Readings.wav; sourceTree = "<group>"; };
+		4ED318A72AF624220044D2B3 /* Cartoon_Bounce_To_Ceiling.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Cartoon_Bounce_To_Ceiling.wav; sourceTree = "<group>"; };
+		4ED318A82AF624220044D2B3 /* Alien_Siren.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Alien_Siren.wav; sourceTree = "<group>"; };
+		4ED318A92AF624230044D2B3 /* shortlow2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shortlow2.wav; sourceTree = "<group>"; };
+		4ED318AA2AF624230044D2B3 /* Signature_Corporate.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Signature_Corporate.wav; sourceTree = "<group>"; };
+		4ED318AB2AF624230044D2B3 /* xdripalert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = xdripalert.wav; sourceTree = "<group>"; };
+		4ED318AC2AF624230044D2B3 /* Siri_Missed_Readings.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Siri_Missed_Readings.wav; sourceTree = "<group>"; };
+		4ED318AD2AF624230044D2B3 /* Insistently.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Insistently.wav; sourceTree = "<group>"; };
+		4ED318AE2AF624230044D2B3 /* Siri_Low_Glucose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Siri_Low_Glucose.wav; sourceTree = "<group>"; };
+		4ED318AF2AF624230044D2B3 /* Metallic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Metallic.wav; sourceTree = "<group>"; };
+		4ED318B02AF624230044D2B3 /* Siri_Calibration_Needed.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Siri_Calibration_Needed.wav; sourceTree = "<group>"; };
+		4ED318B12AF624230044D2B3 /* Rush.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Rush.wav; sourceTree = "<group>"; };
+		4ED318B22AF624230044D2B3 /* Siri_Glucose_Rising_Fast.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Siri_Glucose_Rising_Fast.wav; sourceTree = "<group>"; };
+		4ED318B32AF624230044D2B3 /* Soft_Marimba_Pad_Positive.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Soft_Marimba_Pad_Positive.wav; sourceTree = "<group>"; };
+		4ED318B42AF624230044D2B3 /* Fly.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Fly.wav; sourceTree = "<group>"; };
+		4ED318B52AF624230044D2B3 /* Hell_Yeah_Somewhat_Calmer.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Hell_Yeah_Somewhat_Calmer.wav; sourceTree = "<group>"; };
+		4ED318B62AF624230044D2B3 /* shorthigh4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shorthigh4.wav; sourceTree = "<group>"; };
+		4ED318B72AF624230044D2B3 /* Indeed.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Indeed.wav; sourceTree = "<group>"; };
+		4ED318B82AF624240044D2B3 /* Computer_Magic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Computer_Magic.wav; sourceTree = "<group>"; };
+		4ED318B92AF624240044D2B3 /* spaceship.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = spaceship.wav; sourceTree = "<group>"; };
+		4ED318BA2AF624240044D2B3 /* Marimba_Descend.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Marimba_Descend.wav; sourceTree = "<group>"; };
+		4ED318BB2AF624240044D2B3 /* Alarm_Clock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Alarm_Clock.wav; sourceTree = "<group>"; };
+		4ED318BC2AF624240044D2B3 /* Emergency_Alarm_Carbon_Monoxide.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Emergency_Alarm_Carbon_Monoxide.wav; sourceTree = "<group>"; };
+		4ED318BD2AF624240044D2B3 /* Sci-Fi_Engine_Shut_Down.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Sci-Fi_Engine_Shut_Down.wav"; sourceTree = "<group>"; };
+		4ED318BE2AF624240044D2B3 /* Analog_Watch_Alarm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Analog_Watch_Alarm.wav; sourceTree = "<group>"; };
+		4ED318BF2AF624240044D2B3 /* Cartoon_Ascend_Climb_Sneaky.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Cartoon_Ascend_Climb_Sneaky.wav; sourceTree = "<group>"; };
+		4ED318C02AF624240044D2B3 /* Emergency_Alarm_Siren.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Emergency_Alarm_Siren.wav; sourceTree = "<group>"; };
+		4ED318C12AF624240044D2B3 /* Two_Turtle_Doves.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Two_Turtle_Doves.wav; sourceTree = "<group>"; };
+		4ED318C22AF624240044D2B3 /* Alert_Tone_Busy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Alert_Tone_Busy.wav; sourceTree = "<group>"; };
+		4ED318C32AF624240044D2B3 /* Sci-Fi_Alarm_Loop_1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Sci-Fi_Alarm_Loop_1.wav"; sourceTree = "<group>"; };
+		4ED318C42AF624240044D2B3 /* Ending_Reached.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Ending_Reached.wav; sourceTree = "<group>"; };
+		4ED318C52AF624250044D2B3 /* modern2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = modern2.wav; sourceTree = "<group>"; };
+		4ED318C62AF624250044D2B3 /* Cartoon_Dreamy_Glissando_Harp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Cartoon_Dreamy_Glissando_Harp.wav; sourceTree = "<group>"; };
+		4ED318C72AF624250044D2B3 /* Nightguard.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Nightguard.wav; sourceTree = "<group>"; };
+		4ED318C82AF624250044D2B3 /* Orchestral_Horns.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Orchestral_Horns.wav; sourceTree = "<group>"; };
+		4ED318C92AF624250044D2B3 /* Oringz.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Oringz.wav; sourceTree = "<group>"; };
+		4ED318CA2AF624250044D2B3 /* Siri_Alert_Glucose_Dropping_Fast.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Siri_Alert_Glucose_Dropping_Fast.wav; sourceTree = "<group>"; };
+		4ED318CB2AF624250044D2B3 /* Win_Gain.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Win_Gain.wav; sourceTree = "<group>"; };
+		4ED318CD2AF624250044D2B3 /* shortlow3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shortlow3.wav; sourceTree = "<group>"; };
+		4ED318CE2AF624250044D2B3 /* Remembers_Me_Of_Asia.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Remembers_Me_Of_Asia.wav; sourceTree = "<group>"; };
+		4ED318CF2AF624250044D2B3 /* modernalarm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = modernalarm.wav; sourceTree = "<group>"; };
+		4ED318D02AF624250044D2B3 /* shortlow1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shortlow1.wav; sourceTree = "<group>"; };
+		4ED318D12AF624260044D2B3 /* Dhol_Shuffleloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Dhol_Shuffleloop.wav; sourceTree = "<group>"; };
+		4ED3194E2AF628490044D2B3 /* betterwakeup.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = betterwakeup.wav; sourceTree = "<group>"; };
+		4ED319502AF628530044D2B3 /* bruteforce.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bruteforce.wav; sourceTree = "<group>"; };
 		4EE66F072733E01500548A46 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		4EE66F0A2733EB0D00548A46 /* MoreSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreSettingsViewController.swift; sourceTree = "<group>"; };
 		4EE66F122735064E00548A46 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
@@ -901,121 +1024,12 @@
 		F821CF6A229FC22D005C1E43 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		F821CF6E229FC280005C1E43 /* Endpoint+NightScout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Endpoint+NightScout.swift"; sourceTree = "<group>"; };
 		F821CF7A22A1D359005C1E43 /* NightScoutFollowerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightScoutFollowerDelegate.swift; sourceTree = "<group>"; };
-		F821CF7C22A46CDD005C1E43 /* 1-millisecond-of-silence.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "1-millisecond-of-silence.mp3"; sourceTree = "<group>"; };
-		F821CF7E22A4EDCF005C1E43 /* 20ms-of-silence.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "20ms-of-silence.caf"; sourceTree = "<group>"; };
 		F821CF8022A5C814005C1E43 /* RepeatingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingTimer.swift; sourceTree = "<group>"; };
 		F821CF9422ADB0D7005C1E43 /* HealthKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		F821CF9622AE589E005C1E43 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		F821CF9822AE589E005C1E43 /* xdrip.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xdrip.entitlements; sourceTree = "<group>"; };
 		F821CF9C22AEF483005C1E43 /* BGReadingSpeaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BGReadingSpeaker.swift; sourceTree = "<group>"; };
 		F82436FB24BE014000BED341 /* TextsLibreStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextsLibreStates.swift; sourceTree = "<group>"; };
-		F82436FF24CB7A7F00BED341 /* Martian_Gun.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Martian_Gun.caf; sourceTree = "<group>"; };
-		F824370024CB7A8000BED341 /* Thunder_Sound_FX.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Thunder_Sound_FX.caf; sourceTree = "<group>"; };
-		F824370124CB7A8000BED341 /* Chimes_Glassy.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Chimes_Glassy.caf; sourceTree = "<group>"; };
-		F824370224CB7A8000BED341 /* Time_Has_Come.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Time_Has_Come.caf; sourceTree = "<group>"; };
-		F824370324CB7A8000BED341 /* Burglar_Alarm_Siren_1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Burglar_Alarm_Siren_1.caf; sourceTree = "<group>"; };
-		F824370424CB7A8100BED341 /* Ambulance.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ambulance.caf; sourceTree = "<group>"; };
-		F824370524CB7A8100BED341 /* Siri_Alert_Urgent_Low_Glucose.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Siri_Alert_Urgent_Low_Glucose.caf; sourceTree = "<group>"; };
-		F824370624CB7A8200BED341 /* Indeed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Indeed.caf; sourceTree = "<group>"; };
-		F824370724CB7A8300BED341 /* Ending_Reached.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ending_Reached.caf; sourceTree = "<group>"; };
-		F824370824CB7A8300BED341 /* Store_Door_Chime.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Store_Door_Chime.caf; sourceTree = "<group>"; };
-		F824370924CB7A8300BED341 /* Cartoon_Siren.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cartoon_Siren.caf; sourceTree = "<group>"; };
-		F824370A24CB7A8300BED341 /* Big_Clock_Ticking.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Big_Clock_Ticking.caf; sourceTree = "<group>"; };
-		F824370B24CB7A8300BED341 /* Siri_Glucose_Dropping_Fast.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Siri_Glucose_Dropping_Fast.caf; sourceTree = "<group>"; };
-		F824370C24CB7A8300BED341 /* Siri_Urgent_Low_Glucose.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Siri_Urgent_Low_Glucose.caf; sourceTree = "<group>"; };
-		F824370D24CB7A8300BED341 /* Sci-Fi_Alarm_Loop_2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sci-Fi_Alarm_Loop_2.caf"; sourceTree = "<group>"; };
-		F824370E24CB7A8400BED341 /* Sci-Fi_Alarm_Loop_3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sci-Fi_Alarm_Loop_3.caf"; sourceTree = "<group>"; };
-		F824370F24CB7A8400BED341 /* Sci-Fi_Spaceship_Message.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sci-Fi_Spaceship_Message.caf"; sourceTree = "<group>"; };
-		F824371024CB7A8400BED341 /* Emergency_Alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Emergency_Alarm.caf; sourceTree = "<group>"; };
-		F824371124CB7A8400BED341 /* Machine_Charge.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Machine_Charge.caf; sourceTree = "<group>"; };
-		F824371224CB7A8400BED341 /* Open_Your_Eyes_And_See.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Open_Your_Eyes_And_See.caf; sourceTree = "<group>"; };
-		F824371324CB7A8400BED341 /* Sci-Fi_Warning.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sci-Fi_Warning.caf"; sourceTree = "<group>"; };
-		F824371424CB7A8500BED341 /* Sci-Fi_Alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sci-Fi_Alarm.caf"; sourceTree = "<group>"; };
-		F824371524CB7A8500BED341 /* Sci-Fi_Alarm_Loop_4.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sci-Fi_Alarm_Loop_4.caf"; sourceTree = "<group>"; };
-		F824371624CB7A8500BED341 /* Cartoon_Uh_Oh.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cartoon_Uh_Oh.caf; sourceTree = "<group>"; };
-		F824371724CB7A8500BED341 /* Cartoon_Villain_Horns.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cartoon_Villain_Horns.caf; sourceTree = "<group>"; };
-		F824371824CB7A8600BED341 /* Tornado_Siren.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Tornado_Siren.caf; sourceTree = "<group>"; };
-		F824371924CB7A8600BED341 /* Early_Sunrise.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Early_Sunrise.caf; sourceTree = "<group>"; };
-		F824371A24CB7A8600BED341 /* Siri_Low_Glucose.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Siri_Low_Glucose.caf; sourceTree = "<group>"; };
-		F824371B24CB7A8600BED341 /* Alien_Siren.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Alien_Siren.caf; sourceTree = "<group>"; };
-		F824371C24CB7A8700BED341 /* Ghost_Hover.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ghost_Hover.caf; sourceTree = "<group>"; };
-		F824371D24CB7A8700BED341 /* Insistently.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Insistently.caf; sourceTree = "<group>"; };
-		F824371E24CB7A8700BED341 /* Soft_Warm_Airy_Optimistic.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Soft_Warm_Airy_Optimistic.caf; sourceTree = "<group>"; };
-		F824371F24CB7A8700BED341 /* Two_Turtle_Doves.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Two_Turtle_Doves.caf; sourceTree = "<group>"; };
-		F824372024CB7A8800BED341 /* Fly.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fly.caf; sourceTree = "<group>"; };
-		F824372124CB7A8800BED341 /* Marimba_Descend.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Marimba_Descend.caf; sourceTree = "<group>"; };
-		F824372224CB7A8800BED341 /* Soft_Warm_Airy_Reassuring.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Soft_Warm_Airy_Reassuring.caf; sourceTree = "<group>"; };
-		F824372324CB7A8900BED341 /* Win_Gain.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Win_Gain.caf; sourceTree = "<group>"; };
-		F824372424CB7A8A00BED341 /* Siri_Alert_Glucose_Rising_Fast.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Siri_Alert_Glucose_Rising_Fast.caf; sourceTree = "<group>"; };
-		F824372524CB7A8A00BED341 /* CSFX-2_Alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CSFX-2_Alarm.caf"; sourceTree = "<group>"; };
-		F824372624CB7A8A00BED341 /* Sci-Fi_Computer_Console_Alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sci-Fi_Computer_Console_Alarm.caf"; sourceTree = "<group>"; };
-		F824372724CB7A8A00BED341 /* Unpaved.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Unpaved.caf; sourceTree = "<group>"; };
-		F824372824CB7A8B00BED341 /* Martian_Scanner.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Martian_Scanner.caf; sourceTree = "<group>"; };
-		F824372924CB7A8B00BED341 /* Cartoon_Ascend_Then_Descend.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cartoon_Ascend_Then_Descend.caf; sourceTree = "<group>"; };
-		F824372A24CB7A8B00BED341 /* Pager_Beeps.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pager_Beeps.caf; sourceTree = "<group>"; };
-		F824372B24CB7A8B00BED341 /* Oringz.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Oringz.caf; sourceTree = "<group>"; };
-		F824372C24CB7A8C00BED341 /* Siri_Transmitter_Battery_Low.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Siri_Transmitter_Battery_Low.caf; sourceTree = "<group>"; };
-		F824372D24CB7A8C00BED341 /* Not_Kiddin.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Not_Kiddin.caf; sourceTree = "<group>"; };
-		F824372E24CB7A8C00BED341 /* Magical_Twinkle.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Magical_Twinkle.caf; sourceTree = "<group>"; };
-		F824372F24CB7A8C00BED341 /* Siri_Alert_Device_Muted.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Siri_Alert_Device_Muted.caf; sourceTree = "<group>"; };
-		F824373024CB7A8D00BED341 /* Sci-Fi_Console_Alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sci-Fi_Console_Alarm.caf"; sourceTree = "<group>"; };
-		F824373124CB7A8D00BED341 /* Wrong_Answer.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Wrong_Answer.caf; sourceTree = "<group>"; };
-		F824373224CB7A8D00BED341 /* Alarm_Buzzer.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Alarm_Buzzer.caf; sourceTree = "<group>"; };
-		F824373324CB7A8D00BED341 /* Hell_Yeah_Somewhat_Calmer.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Hell_Yeah_Somewhat_Calmer.caf; sourceTree = "<group>"; };
-		F824373424CB7A8D00BED341 /* Sci-Fi_Incoming_Message_Alert.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sci-Fi_Incoming_Message_Alert.caf"; sourceTree = "<group>"; };
-		F824373524CB7A8D00BED341 /* Siri_Missed_Readings.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Siri_Missed_Readings.caf; sourceTree = "<group>"; };
-		F824373624CB7A8E00BED341 /* Jingle_All_The_Way.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Jingle_All_The_Way.caf; sourceTree = "<group>"; };
-		F824373724CB7A8E00BED341 /* Sci-Fi_Eerie_Alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sci-Fi_Eerie_Alarm.caf"; sourceTree = "<group>"; };
-		F824373824CB7A8E00BED341 /* Siri_Alert_Glucose_Dropping_Fast.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Siri_Alert_Glucose_Dropping_Fast.caf; sourceTree = "<group>"; };
-		F824373924CB7A8E00BED341 /* Alert_Tone_Ringtone_1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Alert_Tone_Ringtone_1.caf; sourceTree = "<group>"; };
-		F824373A24CB7A8E00BED341 /* Cartoon_Machine_Clumsy_Loop.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cartoon_Machine_Clumsy_Loop.caf; sourceTree = "<group>"; };
-		F824373B24CB7A8F00BED341 /* Siri_Glucose_Rising_Fast.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Siri_Glucose_Rising_Fast.caf; sourceTree = "<group>"; };
-		F824373C24CB7A8F00BED341 /* Alarm_Clock.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Alarm_Clock.caf; sourceTree = "<group>"; };
-		F824373D24CB7A8F00BED341 /* Sunny.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Sunny.caf; sourceTree = "<group>"; };
-		F824373E24CB7A8F00BED341 /* Wake_Up_Will_You.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Wake_Up_Will_You.caf; sourceTree = "<group>"; };
-		F824373F24CB7A8F00BED341 /* Discreet.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Discreet.caf; sourceTree = "<group>"; };
-		F824374024CB7A8F00BED341 /* Emergency_Alarm_Siren.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Emergency_Alarm_Siren.caf; sourceTree = "<group>"; };
-		F824374124CB7A9000BED341 /* Siri_Alert_Calibration_Needed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Siri_Alert_Calibration_Needed.caf; sourceTree = "<group>"; };
-		F824374224CB7A9000BED341 /* Laser_Shoot.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Laser_Shoot.caf; sourceTree = "<group>"; };
-		F824374324CB7A9000BED341 /* Cell_Phone_Ring_Tone.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cell_Phone_Ring_Tone.caf; sourceTree = "<group>"; };
-		F824374424CB7A9100BED341 /* Siri_Alert_Urgent_High_Glucose.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Siri_Alert_Urgent_High_Glucose.caf; sourceTree = "<group>"; };
-		F824374524CB7A9100BED341 /* In_A_Hurry.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = In_A_Hurry.caf; sourceTree = "<group>"; };
-		F824374624CB7A9100BED341 /* Nightguard.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Nightguard.caf; sourceTree = "<group>"; };
-		F824374724CB7A9100BED341 /* Burglar_Alarm_Siren_2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Burglar_Alarm_Siren_2.caf; sourceTree = "<group>"; };
-		F824374824CB7A9200BED341 /* Rush.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Rush.caf; sourceTree = "<group>"; };
-		F824374924CB7A9200BED341 /* Siri_Urgent_High_Glucose.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Siri_Urgent_High_Glucose.caf; sourceTree = "<group>"; };
-		F824374A24CB7A9200BED341 /* Alert_Tone_Busy.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Alert_Tone_Busy.caf; sourceTree = "<group>"; };
-		F824374B24CB7A9200BED341 /* Rise_And_Shine.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Rise_And_Shine.caf; sourceTree = "<group>"; };
-		F824374C24CB7A9300BED341 /* Cartoon_Tip_Toe_Sneaky_Walk.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cartoon_Tip_Toe_Sneaky_Walk.caf; sourceTree = "<group>"; };
-		F824374D24CB7A9300BED341 /* Cuckoo_Clock.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cuckoo_Clock.caf; sourceTree = "<group>"; };
-		F824374E24CB7A9300BED341 /* Siri_Alert_Transmitter_Battery_Low.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Siri_Alert_Transmitter_Battery_Low.caf; sourceTree = "<group>"; };
-		F824374F24CB7A9300BED341 /* Cartoon_Fail_Strings_Trumpet.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cartoon_Fail_Strings_Trumpet.caf; sourceTree = "<group>"; };
-		F824375024CB7A9300BED341 /* Sci-Fi_Alarm_Loop_1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sci-Fi_Alarm_Loop_1.caf"; sourceTree = "<group>"; };
-		F824375124CB7A9400BED341 /* Siri_Device_Muted.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Siri_Device_Muted.caf; sourceTree = "<group>"; };
-		F824375224CB7A9400BED341 /* Sci-Fi_Spaceship_Warm_Up.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sci-Fi_Spaceship_Warm_Up.caf"; sourceTree = "<group>"; };
-		F824375324CB7A9400BED341 /* Cartoon_Dreamy_Glissando_Harp.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cartoon_Dreamy_Glissando_Harp.caf; sourceTree = "<group>"; };
-		F824375424CB7A9400BED341 /* Good_Morning.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Good_Morning.caf; sourceTree = "<group>"; };
-		F824375524CB7A9400BED341 /* Sci-Fi_Air_Raid_Alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sci-Fi_Air_Raid_Alarm.caf"; sourceTree = "<group>"; };
-		F824375624CB7A9500BED341 /* Emergency_Alarm_Carbon_Monoxide.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Emergency_Alarm_Carbon_Monoxide.caf; sourceTree = "<group>"; };
-		F824375724CB7A9500BED341 /* Alert_Tone_Ringtone_2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Alert_Tone_Ringtone_2.caf; sourceTree = "<group>"; };
-		F824375824CB7A9500BED341 /* Metallic.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Metallic.caf; sourceTree = "<group>"; };
-		F824375924CB7A9500BED341 /* Cartoon_Bounce_To_Ceiling.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cartoon_Bounce_To_Ceiling.caf; sourceTree = "<group>"; };
-		F824375A24CB7A9500BED341 /* Marching_Heavy_Footed_Fat_Elephants.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Marching_Heavy_Footed_Fat_Elephants.caf; sourceTree = "<group>"; };
-		F824375B24CB7A9600BED341 /* Siri_Alert_High_Glucose.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Siri_Alert_High_Glucose.caf; sourceTree = "<group>"; };
-		F824375C24CB7A9600BED341 /* Siri_Calibration_Needed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Siri_Calibration_Needed.caf; sourceTree = "<group>"; };
-		F824375D24CB7A9600BED341 /* Siri_Alert_Missed_Readings.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Siri_Alert_Missed_Readings.caf; sourceTree = "<group>"; };
-		F824375E24CB7A9700BED341 /* Computer_Magic.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Computer_Magic.caf; sourceTree = "<group>"; };
-		F824375F24CB7A9700BED341 /* Marimba_Flutter_or_Shake.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Marimba_Flutter_or_Shake.caf; sourceTree = "<group>"; };
-		F824376024CB7A9700BED341 /* Orchestral_Horns.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Orchestral_Horns.caf; sourceTree = "<group>"; };
-		F824376124CB7A9700BED341 /* Analog_Watch_Alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Analog_Watch_Alarm.caf; sourceTree = "<group>"; };
-		F824376224CB7A9700BED341 /* Dhol_Shuffleloop.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Dhol_Shuffleloop.caf; sourceTree = "<group>"; };
-		F824376324CB7A9700BED341 /* Cartoon_Ascend_Climb_Sneaky.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cartoon_Ascend_Climb_Sneaky.caf; sourceTree = "<group>"; };
-		F824376424CB7A9800BED341 /* Siri_High_Glucose.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Siri_High_Glucose.caf; sourceTree = "<group>"; };
-		F824376524CB7A9800BED341 /* Sci-Fi_Engine_Shut_Down.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sci-Fi_Engine_Shut_Down.caf"; sourceTree = "<group>"; };
-		F824376624CB7A9800BED341 /* Signature_Corporate.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Signature_Corporate.caf; sourceTree = "<group>"; };
-		F824376724CB7A9800BED341 /* Remembers_Me_Of_Asia.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Remembers_Me_Of_Asia.caf; sourceTree = "<group>"; };
-		F824376824CB7A9800BED341 /* Soft_Marimba_Pad_Positive.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Soft_Marimba_Pad_Positive.caf; sourceTree = "<group>"; };
-		F824376924CB7A9800BED341 /* Siri_Alert_Low_Glucose.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Siri_Alert_Low_Glucose.caf; sourceTree = "<group>"; };
 		F8252866243E50FE0067AF77 /* ConstantsLibre.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstantsLibre.swift; sourceTree = "<group>"; };
 		F8297F57238EE14E00D74D66 /* TextsBluetoothPeripheralsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextsBluetoothPeripheralsView.swift; sourceTree = "<group>"; };
 		F8297F58238EE14E00D74D66 /* TextsBluetoothPeripheralView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextsBluetoothPeripheralView.swift; sourceTree = "<group>"; };
@@ -1127,20 +1141,6 @@
 		F8B3A79122635A25004BA588 /* AlertEntry+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlertEntry+CoreDataClass.swift"; sourceTree = "<group>"; };
 		F8B3A79222635A25004BA588 /* AlertEntry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlertEntry+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F8B3A7B1226A0878004BA588 /* TextsAlerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextsAlerts.swift; sourceTree = "<group>"; };
-		F8B3A7B8226CC0B7004BA588 /* shortlow2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shortlow2.mp3; sourceTree = "<group>"; };
-		F8B3A7B9226CC0B7004BA588 /* shortlow3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shortlow3.mp3; sourceTree = "<group>"; };
-		F8B3A7BA226CC0B7004BA588 /* bruteforce.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bruteforce.mp3; sourceTree = "<group>"; };
-		F8B3A7BB226CC0B7004BA588 /* modern2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = modern2.mp3; sourceTree = "<group>"; };
-		F8B3A7BC226CC0B7004BA588 /* shortlow1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shortlow1.mp3; sourceTree = "<group>"; };
-		F8B3A7BD226CC0B7004BA588 /* shortlow4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shortlow4.mp3; sourceTree = "<group>"; };
-		F8B3A7BE226CC0B7004BA588 /* shorthigh1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shorthigh1.mp3; sourceTree = "<group>"; };
-		F8B3A7BF226CC0B7004BA588 /* shorthigh3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shorthigh3.mp3; sourceTree = "<group>"; };
-		F8B3A7C0226CC0B7004BA588 /* shorthigh2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shorthigh2.mp3; sourceTree = "<group>"; };
-		F8B3A7C1226CC0B7004BA588 /* shorthigh4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shorthigh4.mp3; sourceTree = "<group>"; };
-		F8B3A7C2226CC0B7004BA588 /* modernalarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = modernalarm.mp3; sourceTree = "<group>"; };
-		F8B3A7C3226CC0B7004BA588 /* betterwakeup.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = betterwakeup.mp3; sourceTree = "<group>"; };
-		F8B3A7C4226CC0B7004BA588 /* spaceship.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = spaceship.mp3; sourceTree = "<group>"; };
-		F8B3A7C5226CC0B7004BA588 /* xdripalert.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = xdripalert.aif; sourceTree = "<group>"; };
 		F8B3A7DE226E48C1004BA588 /* SoundPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
 		F8B3A7F22278E0E7004BA588 /* SettingsViewModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModelProtocol.swift; sourceTree = "<group>"; };
 		F8B3A807227A2933004BA588 /* SettingsSelectedRowAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSelectedRowAction.swift; sourceTree = "<group>"; };
@@ -2138,130 +2138,130 @@
 		F8B3A7B7226CC0B7004BA588 /* sounds */ = {
 			isa = PBXGroup;
 			children = (
-				F824373224CB7A8D00BED341 /* Alarm_Buzzer.caf */,
-				F824373C24CB7A8F00BED341 /* Alarm_Clock.caf */,
-				F824374A24CB7A9200BED341 /* Alert_Tone_Busy.caf */,
-				F824373924CB7A8E00BED341 /* Alert_Tone_Ringtone_1.caf */,
-				F824375724CB7A9500BED341 /* Alert_Tone_Ringtone_2.caf */,
-				F824371B24CB7A8600BED341 /* Alien_Siren.caf */,
-				F824370424CB7A8100BED341 /* Ambulance.caf */,
-				F824376124CB7A9700BED341 /* Analog_Watch_Alarm.caf */,
-				F824370A24CB7A8300BED341 /* Big_Clock_Ticking.caf */,
-				F824370324CB7A8000BED341 /* Burglar_Alarm_Siren_1.caf */,
-				F824374724CB7A9100BED341 /* Burglar_Alarm_Siren_2.caf */,
-				F824376324CB7A9700BED341 /* Cartoon_Ascend_Climb_Sneaky.caf */,
-				F824372924CB7A8B00BED341 /* Cartoon_Ascend_Then_Descend.caf */,
-				F824375924CB7A9500BED341 /* Cartoon_Bounce_To_Ceiling.caf */,
-				F824375324CB7A9400BED341 /* Cartoon_Dreamy_Glissando_Harp.caf */,
-				F824374F24CB7A9300BED341 /* Cartoon_Fail_Strings_Trumpet.caf */,
-				F824373A24CB7A8E00BED341 /* Cartoon_Machine_Clumsy_Loop.caf */,
-				F824370924CB7A8300BED341 /* Cartoon_Siren.caf */,
-				F824374C24CB7A9300BED341 /* Cartoon_Tip_Toe_Sneaky_Walk.caf */,
-				F824371624CB7A8500BED341 /* Cartoon_Uh_Oh.caf */,
-				F824371724CB7A8500BED341 /* Cartoon_Villain_Horns.caf */,
-				F824374324CB7A9000BED341 /* Cell_Phone_Ring_Tone.caf */,
-				F824370124CB7A8000BED341 /* Chimes_Glassy.caf */,
-				F824375E24CB7A9700BED341 /* Computer_Magic.caf */,
-				F824372524CB7A8A00BED341 /* CSFX-2_Alarm.caf */,
-				F824374D24CB7A9300BED341 /* Cuckoo_Clock.caf */,
-				F824376224CB7A9700BED341 /* Dhol_Shuffleloop.caf */,
-				F824373F24CB7A8F00BED341 /* Discreet.caf */,
-				F824371924CB7A8600BED341 /* Early_Sunrise.caf */,
-				F824375624CB7A9500BED341 /* Emergency_Alarm_Carbon_Monoxide.caf */,
-				F824374024CB7A8F00BED341 /* Emergency_Alarm_Siren.caf */,
-				F824371024CB7A8400BED341 /* Emergency_Alarm.caf */,
-				F824370724CB7A8300BED341 /* Ending_Reached.caf */,
-				F824372024CB7A8800BED341 /* Fly.caf */,
-				F824371C24CB7A8700BED341 /* Ghost_Hover.caf */,
-				F824375424CB7A9400BED341 /* Good_Morning.caf */,
-				F824373324CB7A8D00BED341 /* Hell_Yeah_Somewhat_Calmer.caf */,
-				F824374524CB7A9100BED341 /* In_A_Hurry.caf */,
-				F824370624CB7A8200BED341 /* Indeed.caf */,
-				F824371D24CB7A8700BED341 /* Insistently.caf */,
-				F824373624CB7A8E00BED341 /* Jingle_All_The_Way.caf */,
-				F824374224CB7A9000BED341 /* Laser_Shoot.caf */,
-				F824371124CB7A8400BED341 /* Machine_Charge.caf */,
-				F824372E24CB7A8C00BED341 /* Magical_Twinkle.caf */,
-				F824375A24CB7A9500BED341 /* Marching_Heavy_Footed_Fat_Elephants.caf */,
-				F824372124CB7A8800BED341 /* Marimba_Descend.caf */,
-				F824375F24CB7A9700BED341 /* Marimba_Flutter_or_Shake.caf */,
-				F82436FF24CB7A7F00BED341 /* Martian_Gun.caf */,
-				F824372824CB7A8B00BED341 /* Martian_Scanner.caf */,
-				F824375824CB7A9500BED341 /* Metallic.caf */,
-				F824374624CB7A9100BED341 /* Nightguard.caf */,
-				F824372D24CB7A8C00BED341 /* Not_Kiddin.caf */,
-				F824371224CB7A8400BED341 /* Open_Your_Eyes_And_See.caf */,
-				F824376024CB7A9700BED341 /* Orchestral_Horns.caf */,
-				F824372B24CB7A8B00BED341 /* Oringz.caf */,
-				F824372A24CB7A8B00BED341 /* Pager_Beeps.caf */,
-				F824376724CB7A9800BED341 /* Remembers_Me_Of_Asia.caf */,
-				F824374B24CB7A9200BED341 /* Rise_And_Shine.caf */,
-				F824374824CB7A9200BED341 /* Rush.caf */,
-				F824375524CB7A9400BED341 /* Sci-Fi_Air_Raid_Alarm.caf */,
-				F824375024CB7A9300BED341 /* Sci-Fi_Alarm_Loop_1.caf */,
-				F824370D24CB7A8300BED341 /* Sci-Fi_Alarm_Loop_2.caf */,
-				F824370E24CB7A8400BED341 /* Sci-Fi_Alarm_Loop_3.caf */,
-				F824371524CB7A8500BED341 /* Sci-Fi_Alarm_Loop_4.caf */,
-				F824371424CB7A8500BED341 /* Sci-Fi_Alarm.caf */,
-				F824372624CB7A8A00BED341 /* Sci-Fi_Computer_Console_Alarm.caf */,
-				F824373024CB7A8D00BED341 /* Sci-Fi_Console_Alarm.caf */,
-				F824373724CB7A8E00BED341 /* Sci-Fi_Eerie_Alarm.caf */,
-				F824376524CB7A9800BED341 /* Sci-Fi_Engine_Shut_Down.caf */,
-				F824373424CB7A8D00BED341 /* Sci-Fi_Incoming_Message_Alert.caf */,
-				F824370F24CB7A8400BED341 /* Sci-Fi_Spaceship_Message.caf */,
-				F824375224CB7A9400BED341 /* Sci-Fi_Spaceship_Warm_Up.caf */,
-				F824371324CB7A8400BED341 /* Sci-Fi_Warning.caf */,
-				F824376624CB7A9800BED341 /* Signature_Corporate.caf */,
-				F824374124CB7A9000BED341 /* Siri_Alert_Calibration_Needed.caf */,
-				F824372F24CB7A8C00BED341 /* Siri_Alert_Device_Muted.caf */,
-				F824373824CB7A8E00BED341 /* Siri_Alert_Glucose_Dropping_Fast.caf */,
-				F824372424CB7A8A00BED341 /* Siri_Alert_Glucose_Rising_Fast.caf */,
-				F824375B24CB7A9600BED341 /* Siri_Alert_High_Glucose.caf */,
-				F824376924CB7A9800BED341 /* Siri_Alert_Low_Glucose.caf */,
-				F824375D24CB7A9600BED341 /* Siri_Alert_Missed_Readings.caf */,
-				F824374E24CB7A9300BED341 /* Siri_Alert_Transmitter_Battery_Low.caf */,
-				F824374424CB7A9100BED341 /* Siri_Alert_Urgent_High_Glucose.caf */,
-				F824370524CB7A8100BED341 /* Siri_Alert_Urgent_Low_Glucose.caf */,
-				F824375C24CB7A9600BED341 /* Siri_Calibration_Needed.caf */,
-				F824375124CB7A9400BED341 /* Siri_Device_Muted.caf */,
-				F824370B24CB7A8300BED341 /* Siri_Glucose_Dropping_Fast.caf */,
-				F824373B24CB7A8F00BED341 /* Siri_Glucose_Rising_Fast.caf */,
-				F824376424CB7A9800BED341 /* Siri_High_Glucose.caf */,
-				F824371A24CB7A8600BED341 /* Siri_Low_Glucose.caf */,
-				F824373524CB7A8D00BED341 /* Siri_Missed_Readings.caf */,
-				F824372C24CB7A8C00BED341 /* Siri_Transmitter_Battery_Low.caf */,
-				F824374924CB7A9200BED341 /* Siri_Urgent_High_Glucose.caf */,
-				F824370C24CB7A8300BED341 /* Siri_Urgent_Low_Glucose.caf */,
-				F824376824CB7A9800BED341 /* Soft_Marimba_Pad_Positive.caf */,
-				F824371E24CB7A8700BED341 /* Soft_Warm_Airy_Optimistic.caf */,
-				F824372224CB7A8800BED341 /* Soft_Warm_Airy_Reassuring.caf */,
-				F824370824CB7A8300BED341 /* Store_Door_Chime.caf */,
-				F824373D24CB7A8F00BED341 /* Sunny.caf */,
-				F824370024CB7A8000BED341 /* Thunder_Sound_FX.caf */,
-				F824370224CB7A8000BED341 /* Time_Has_Come.caf */,
-				F824371824CB7A8600BED341 /* Tornado_Siren.caf */,
-				F824371F24CB7A8700BED341 /* Two_Turtle_Doves.caf */,
-				F824372724CB7A8A00BED341 /* Unpaved.caf */,
-				F824373E24CB7A8F00BED341 /* Wake_Up_Will_You.caf */,
-				F824372324CB7A8900BED341 /* Win_Gain.caf */,
-				F824373124CB7A8D00BED341 /* Wrong_Answer.caf */,
-				F821CF7E22A4EDCF005C1E43 /* 20ms-of-silence.caf */,
+				4ED3185F2AF6241D0044D2B3 /* 1-millisecond-of-silence.wav */,
+				4ED318622AF6241E0044D2B3 /* 20ms-of-silence.wav */,
+				4ED318792AF6241F0044D2B3 /* Alarm_Buzzer.wav */,
+				4ED318BB2AF624240044D2B3 /* Alarm_Clock.wav */,
+				4ED318C22AF624240044D2B3 /* Alert_Tone_Busy.wav */,
+				4ED3188D2AF624210044D2B3 /* Alert_Tone_Ringtone_1.wav */,
+				4ED318642AF6241E0044D2B3 /* Alert_Tone_Ringtone_2.wav */,
+				4ED318A82AF624220044D2B3 /* Alien_Siren.wav */,
+				4ED3186C2AF6241E0044D2B3 /* Ambulance.wav */,
+				4ED318BE2AF624240044D2B3 /* Analog_Watch_Alarm.wav */,
+				4ED3194E2AF628490044D2B3 /* betterwakeup.wav */,
+				4ED3189C2AF624220044D2B3 /* Big_Clock_Ticking.wav */,
+				4ED319502AF628530044D2B3 /* bruteforce.wav */,
+				4ED318662AF6241E0044D2B3 /* Burglar_Alarm_Siren_1.wav */,
+				4ED318832AF624200044D2B3 /* Burglar_Alarm_Siren_2.wav */,
+				4ED318BF2AF624240044D2B3 /* Cartoon_Ascend_Climb_Sneaky.wav */,
+				4ED318742AF6241F0044D2B3 /* Cartoon_Ascend_Then_Descend.wav */,
+				4ED318A72AF624220044D2B3 /* Cartoon_Bounce_To_Ceiling.wav */,
+				4ED318C62AF624250044D2B3 /* Cartoon_Dreamy_Glissando_Harp.wav */,
+				4ED3189A2AF624220044D2B3 /* Cartoon_Fail_Strings_Trumpet.wav */,
+				4ED3185B2AF6241D0044D2B3 /* Cartoon_Machine_Clumsy_Loop.wav */,
+				4ED318982AF624210044D2B3 /* Cartoon_Siren.wav */,
+				4ED3187C2AF624200044D2B3 /* Cartoon_Tip_Toe_Sneaky_Walk.wav */,
+				4ED318632AF6241E0044D2B3 /* Cartoon_Uh_Oh.wav */,
+				4ED318A02AF624220044D2B3 /* Cartoon_Villain_Horns.wav */,
+				4ED3186D2AF6241E0044D2B3 /* Cell_Phone_Ring_Tone.wav */,
+				4ED318562AF6241D0044D2B3 /* Chimes_Glassy.wav */,
+				4ED318B82AF624240044D2B3 /* Computer_Magic.wav */,
+				4ED318882AF624200044D2B3 /* CSFX-2_Alarm.wav */,
+				4ED318A42AF624220044D2B3 /* Cuckoo_Clock.wav */,
+				4ED318D12AF624260044D2B3 /* Dhol_Shuffleloop.wav */,
+				4ED318942AF624210044D2B3 /* Discreet.wav */,
+				4ED318822AF624200044D2B3 /* Early_Sunrise.wav */,
+				4ED318BC2AF624240044D2B3 /* Emergency_Alarm_Carbon_Monoxide.wav */,
+				4ED318C02AF624240044D2B3 /* Emergency_Alarm_Siren.wav */,
+				4ED3188B2AF624210044D2B3 /* Emergency_Alarm.wav */,
+				4ED318C42AF624240044D2B3 /* Ending_Reached.wav */,
+				4ED318B42AF624230044D2B3 /* Fly.wav */,
+				4ED318842AF624200044D2B3 /* Ghost_Hover.wav */,
+				4ED318A52AF624220044D2B3 /* Good_Morning.wav */,
+				4ED318B52AF624230044D2B3 /* Hell_Yeah_Somewhat_Calmer.wav */,
+				4ED318602AF6241E0044D2B3 /* In_A_Hurry.wav */,
+				4ED318B72AF624230044D2B3 /* Indeed.wav */,
+				4ED318AD2AF624230044D2B3 /* Insistently.wav */,
+				4ED318722AF6241F0044D2B3 /* Jingle_All_The_Way.wav */,
+				4ED3185C2AF6241D0044D2B3 /* Laser_Shoot.wav */,
+				4ED318752AF6241F0044D2B3 /* Machine_Charge.wav */,
+				4ED318852AF624200044D2B3 /* Magical_Twinkle.wav */,
+				4ED318692AF6241E0044D2B3 /* Marching_Heavy_Footed_Fat_Elephants.wav */,
+				4ED318BA2AF624240044D2B3 /* Marimba_Descend.wav */,
+				4ED318872AF624200044D2B3 /* Marimba_Flutter_or_Shake.wav */,
+				4ED3186F2AF6241F0044D2B3 /* Martian_Gun.wav */,
+				4ED3185E2AF6241D0044D2B3 /* Martian_Scanner.wav */,
+				4ED318AF2AF624230044D2B3 /* Metallic.wav */,
+				4ED318C52AF624250044D2B3 /* modern2.wav */,
+				4ED318CF2AF624250044D2B3 /* modernalarm.wav */,
+				4ED318C72AF624250044D2B3 /* Nightguard.wav */,
+				4ED318682AF6241E0044D2B3 /* Not_Kiddin.wav */,
+				4ED318802AF624200044D2B3 /* Open_Your_Eyes_And_See.wav */,
+				4ED318C82AF624250044D2B3 /* Orchestral_Horns.wav */,
+				4ED318C92AF624250044D2B3 /* Oringz.wav */,
+				4ED318712AF6241F0044D2B3 /* Pager_Beeps.wav */,
+				4ED318CE2AF624250044D2B3 /* Remembers_Me_Of_Asia.wav */,
+				4ED3188E2AF624210044D2B3 /* Rise_And_Shine.wav */,
+				4ED318B12AF624230044D2B3 /* Rush.wav */,
+				4ED318592AF6241D0044D2B3 /* Sci-Fi_Air_Raid_Alarm.wav */,
+				4ED318C32AF624240044D2B3 /* Sci-Fi_Alarm_Loop_1.wav */,
+				4ED318932AF624210044D2B3 /* Sci-Fi_Alarm_Loop_2.wav */,
+				4ED318862AF624200044D2B3 /* Sci-Fi_Alarm_Loop_3.wav */,
+				4ED318812AF624200044D2B3 /* Sci-Fi_Alarm_Loop_4.wav */,
+				4ED318952AF624210044D2B3 /* Sci-Fi_Alarm.wav */,
+				4ED318972AF624210044D2B3 /* Sci-Fi_Computer_Console_Alarm.wav */,
+				4ED318A12AF624220044D2B3 /* Sci-Fi_Console_Alarm.wav */,
+				4ED318902AF624210044D2B3 /* Sci-Fi_Eerie_Alarm.wav */,
+				4ED318BD2AF624240044D2B3 /* Sci-Fi_Engine_Shut_Down.wav */,
+				4ED3186E2AF6241F0044D2B3 /* Sci-Fi_Incoming_Message_Alert.wav */,
+				4ED318672AF6241E0044D2B3 /* Sci-Fi_Spaceship_Message.wav */,
+				4ED318962AF624210044D2B3 /* Sci-Fi_Spaceship_Warm_Up.wav */,
+				4ED318912AF624210044D2B3 /* Sci-Fi_Warning.wav */,
+				4ED3185A2AF6241D0044D2B3 /* shorthigh1.wav */,
+				4ED318702AF6241F0044D2B3 /* shorthigh2.wav */,
+				4ED318762AF6241F0044D2B3 /* shorthigh3.wav */,
+				4ED318B62AF624230044D2B3 /* shorthigh4.wav */,
+				4ED318D02AF624250044D2B3 /* shortlow1.wav */,
+				4ED318A92AF624230044D2B3 /* shortlow2.wav */,
+				4ED318CD2AF624250044D2B3 /* shortlow3.wav */,
+				4ED3186B2AF6241E0044D2B3 /* shortlow4.wav */,
+				4ED318AA2AF624230044D2B3 /* Signature_Corporate.wav */,
+				4ED3186A2AF6241E0044D2B3 /* Siri_Alert_Calibration_Needed.wav */,
+				4ED3188F2AF624210044D2B3 /* Siri_Alert_Device_Muted.wav */,
+				4ED318CA2AF624250044D2B3 /* Siri_Alert_Glucose_Dropping_Fast.wav */,
+				4ED3189B2AF624220044D2B3 /* Siri_Alert_Glucose_Rising_Fast.wav */,
+				4ED318652AF6241E0044D2B3 /* Siri_Alert_High_Glucose.wav */,
+				4ED3185D2AF6241D0044D2B3 /* Siri_Alert_Low_Glucose.wav */,
+				4ED318A62AF624220044D2B3 /* Siri_Alert_Missed_Readings.wav */,
+				4ED318782AF6241F0044D2B3 /* Siri_Alert_Transmitter_Battery_Low.wav */,
+				4ED318772AF6241F0044D2B3 /* Siri_Alert_Urgent_High_Glucose.wav */,
+				4ED318892AF624200044D2B3 /* Siri_Alert_Urgent_Low_Glucose.wav */,
+				4ED318B02AF624230044D2B3 /* Siri_Calibration_Needed.wav */,
+				4ED318992AF624210044D2B3 /* Siri_Device_Muted.wav */,
+				4ED3187A2AF6241F0044D2B3 /* Siri_Glucose_Dropping_Fast.wav */,
+				4ED318B22AF624230044D2B3 /* Siri_Glucose_Rising_Fast.wav */,
+				4ED318572AF6241D0044D2B3 /* Siri_High_Glucose.wav */,
+				4ED318AE2AF624230044D2B3 /* Siri_Low_Glucose.wav */,
+				4ED318AC2AF624230044D2B3 /* Siri_Missed_Readings.wav */,
+				4ED3188C2AF624210044D2B3 /* Siri_Transmitter_Battery_Low.wav */,
+				4ED318A32AF624220044D2B3 /* Siri_Urgent_High_Glucose.wav */,
+				4ED3188A2AF624210044D2B3 /* Siri_Urgent_Low_Glucose.wav */,
+				4ED318B32AF624230044D2B3 /* Soft_Marimba_Pad_Positive.wav */,
+				4ED318922AF624210044D2B3 /* Soft_Warm_Airy_Optimistic.wav */,
+				4ED3187F2AF624200044D2B3 /* Soft_Warm_Airy_Reassuring.wav */,
+				4ED318B92AF624240044D2B3 /* spaceship.wav */,
+				4ED3189D2AF624220044D2B3 /* Store_Door_Chime.wav */,
+				4ED318732AF6241F0044D2B3 /* Sunny.wav */,
+				4ED3187D2AF624200044D2B3 /* Thunder_Sound_FX.wav */,
+				4ED318582AF6241D0044D2B3 /* Time_Has_Come.wav */,
+				4ED3187B2AF624200044D2B3 /* Tornado_Siren.wav */,
+				4ED318C12AF624240044D2B3 /* Two_Turtle_Doves.wav */,
+				4ED3189E2AF624220044D2B3 /* Unpaved.wav */,
+				4ED3187E2AF624200044D2B3 /* Wake_Up_Will_You.wav */,
+				4ED318CB2AF624250044D2B3 /* Win_Gain.wav */,
+				4ED3189F2AF624220044D2B3 /* Wrong_Answer.wav */,
+				4ED318AB2AF624230044D2B3 /* xdripalert.wav */,
 				4EA477872AEA77E5005F39C9 /* 1-millisecond-of-silence.wav */,
-				F821CF7C22A46CDD005C1E43 /* 1-millisecond-of-silence.mp3 */,
-				F8B3A7C3226CC0B7004BA588 /* betterwakeup.mp3 */,
-				F8B3A7BA226CC0B7004BA588 /* bruteforce.mp3 */,
-				F8B3A7BB226CC0B7004BA588 /* modern2.mp3 */,
-				F8B3A7C2226CC0B7004BA588 /* modernalarm.mp3 */,
-				F8B3A7BE226CC0B7004BA588 /* shorthigh1.mp3 */,
-				F8B3A7C0226CC0B7004BA588 /* shorthigh2.mp3 */,
-				F8B3A7BF226CC0B7004BA588 /* shorthigh3.mp3 */,
-				F8B3A7C1226CC0B7004BA588 /* shorthigh4.mp3 */,
-				F8B3A7BC226CC0B7004BA588 /* shortlow1.mp3 */,
-				F8B3A7B8226CC0B7004BA588 /* shortlow2.mp3 */,
-				F8B3A7B9226CC0B7004BA588 /* shortlow3.mp3 */,
-				F8B3A7BD226CC0B7004BA588 /* shortlow4.mp3 */,
-				F8B3A7C4226CC0B7004BA588 /* spaceship.mp3 */,
-				F8B3A7C5226CC0B7004BA588 /* xdripalert.aif */,
 			);
 			path = sounds;
 			sourceTree = "<group>";
@@ -2954,157 +2954,157 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F82437AF24CB7A9900BED341 /* Siri_Alert_Urgent_High_Glucose.caf in Resources */,
-				F82437CA24CB7A9900BED341 /* Marimba_Flutter_or_Shake.caf in Resources */,
-				F824377724CB7A9800BED341 /* Siri_Urgent_Low_Glucose.caf in Resources */,
-				F82437D424CB7A9900BED341 /* Siri_Alert_Low_Glucose.caf in Resources */,
+				4ED318ED2AF624260044D2B3 /* Pager_Beeps.wav in Resources */,
+				4ED319032AF624260044D2B3 /* Marimba_Flutter_or_Shake.wav in Resources */,
+				4ED3190B2AF624260044D2B3 /* Siri_Alert_Device_Muted.wav in Resources */,
+				4ED319142AF624260044D2B3 /* Cartoon_Siren.wav in Resources */,
 				F8E6C79124CEC2E3007C1199 /* Snooze.strings in Resources */,
-				F824379B24CB7A9900BED341 /* Sci-Fi_Console_Alarm.caf in Resources */,
+				4ED3194B2AF624260044D2B3 /* modernalarm.wav in Resources */,
+				4ED318DF2AF624260044D2B3 /* Cartoon_Uh_Oh.wav in Resources */,
+				4ED319232AF624260044D2B3 /* Cartoon_Bounce_To_Ceiling.wav in Resources */,
 				47503382247420A200D2260B /* BluetoothPeripheralView.strings in Resources */,
-				F824377324CB7A9800BED341 /* Store_Door_Chime.caf in Resources */,
+				4ED318EA2AF624260044D2B3 /* Sci-Fi_Incoming_Message_Alert.wav in Resources */,
 				F8AF11FD24B3B62D00AE5BA2 /* LibreErrors.strings in Resources */,
-				F82437B624CB7A9900BED341 /* Rise_And_Shine.caf in Resources */,
-				F824376D24CB7A9800BED341 /* Time_Has_Come.caf in Resources */,
-				F824379E24CB7A9900BED341 /* Hell_Yeah_Somewhat_Calmer.caf in Resources */,
+				4ED318E22AF624260044D2B3 /* Burglar_Alarm_Siren_1.wav in Resources */,
 				F8BDD442221C9D0D006EAB84 /* Common.strings in Resources */,
-				F824378524CB7A9900BED341 /* Siri_Low_Glucose.caf in Resources */,
-				F824378124CB7A9800BED341 /* Cartoon_Uh_Oh.caf in Resources */,
-				F824377F24CB7A9800BED341 /* Sci-Fi_Alarm.caf in Resources */,
-				F82437C324CB7A9900BED341 /* Metallic.caf in Resources */,
-				F82437C224CB7A9900BED341 /* Alert_Tone_Ringtone_2.caf in Resources */,
+				4ED318F12AF624260044D2B3 /* Machine_Charge.wav in Resources */,
+				4ED3190E2AF624260044D2B3 /* Soft_Warm_Airy_Optimistic.wav in Resources */,
+				4ED319412AF624260044D2B3 /* modern2.wav in Resources */,
+				4ED319452AF624260044D2B3 /* Oringz.wav in Resources */,
+				4ED319282AF624260044D2B3 /* Siri_Missed_Readings.wav in Resources */,
 				F81F370325C1583400520946 /* WatlaaView.strings in Resources */,
-				F824377E24CB7A9800BED341 /* Sci-Fi_Warning.caf in Resources */,
+				4ED319512AF628530044D2B3 /* bruteforce.wav in Resources */,
+				4ED319082AF624260044D2B3 /* Siri_Transmitter_Battery_Low.wav in Resources */,
+				4ED3193D2AF624260044D2B3 /* Two_Turtle_Doves.wav in Resources */,
+				4ED319222AF624260044D2B3 /* Siri_Alert_Missed_Readings.wav in Resources */,
+				4ED3192B2AF624260044D2B3 /* Metallic.wav in Resources */,
+				4ED318DC2AF624260044D2B3 /* In_A_Hurry.wav in Resources */,
+				4ED3190F2AF624260044D2B3 /* Sci-Fi_Alarm_Loop_2.wav in Resources */,
+				4ED319212AF624260044D2B3 /* Good_Morning.wav in Resources */,
 				F8B3A786225D4473004BA588 /* NightScoutTestResult.strings in Resources */,
-				F824377C24CB7A9800BED341 /* Machine_Charge.caf in Resources */,
-				F824377624CB7A9800BED341 /* Siri_Glucose_Dropping_Fast.caf in Resources */,
-				F824376F24CB7A9800BED341 /* Ambulance.caf in Resources */,
-				F824378B24CB7A9900BED341 /* Fly.caf in Resources */,
 				F8B48AA022B2FA7B009BCC01 /* HomeView.strings in Resources */,
-				F824377424CB7A9800BED341 /* Cartoon_Siren.caf in Resources */,
-				F824379424CB7A9900BED341 /* Cartoon_Ascend_Then_Descend.caf in Resources */,
-				F82437BC24CB7A9900BED341 /* Siri_Device_Muted.caf in Resources */,
-				F824377024CB7A9800BED341 /* Siri_Alert_Urgent_Low_Glucose.caf in Resources */,
-				F82437A824CB7A9900BED341 /* Sunny.caf in Resources */,
+				4ED319242AF624260044D2B3 /* Alien_Siren.wav in Resources */,
+				4ED318F32AF624260044D2B3 /* Siri_Alert_Urgent_High_Glucose.wav in Resources */,
+				4ED319072AF624260044D2B3 /* Emergency_Alarm.wav in Resources */,
+				4ED3193A2AF624260044D2B3 /* Analog_Watch_Alarm.wav in Resources */,
+				4ED318F02AF624260044D2B3 /* Cartoon_Ascend_Then_Descend.wav in Resources */,
 				4EB0DE6F27744EB500DBF7C1 /* Common.xcassets in Resources */,
+				4ED319062AF624260044D2B3 /* Siri_Urgent_Low_Glucose.wav in Resources */,
+				4ED3190D2AF624260044D2B3 /* Sci-Fi_Warning.wav in Resources */,
+				4ED318D32AF624260044D2B3 /* Siri_High_Glucose.wav in Resources */,
+				4ED319052AF624260044D2B3 /* Siri_Alert_Urgent_Low_Glucose.wav in Resources */,
 				F8BDD448221C9D70006EAB84 /* ErrorMessages.strings in Resources */,
+				4ED3192A2AF624260044D2B3 /* Siri_Low_Glucose.wav in Resources */,
+				4ED319202AF624260044D2B3 /* Cuckoo_Clock.wav in Resources */,
+				4ED319392AF624260044D2B3 /* Sci-Fi_Engine_Shut_Down.wav in Resources */,
+				4ED318D92AF624260044D2B3 /* Siri_Alert_Low_Glucose.wav in Resources */,
+				4ED318DE2AF624260044D2B3 /* 20ms-of-silence.wav in Resources */,
+				4ED319462AF624260044D2B3 /* Siri_Alert_Glucose_Dropping_Fast.wav in Resources */,
+				4ED319492AF624260044D2B3 /* shortlow3.wav in Resources */,
+				4ED3190A2AF624260044D2B3 /* Rise_And_Shine.wav in Resources */,
+				4ED318F22AF624260044D2B3 /* shorthigh3.wav in Resources */,
+				4ED318EF2AF624260044D2B3 /* Sunny.wav in Resources */,
+				4ED318F42AF624260044D2B3 /* Siri_Alert_Transmitter_Battery_Low.wav in Resources */,
+				4ED319372AF624260044D2B3 /* Alarm_Clock.wav in Resources */,
+				4ED318D22AF624260044D2B3 /* Chimes_Glassy.wav in Resources */,
 				4EA477862AEA6BEA005F39C9 /* LaunchScreen.storyboard in Resources */,
-				F82437CE24CB7A9900BED341 /* Cartoon_Ascend_Climb_Sneaky.caf in Resources */,
-				F824379F24CB7A9900BED341 /* Sci-Fi_Incoming_Message_Alert.caf in Resources */,
-				F8B3A7C9226CC0B7004BA588 /* modern2.mp3 in Resources */,
-				F82437CD24CB7A9900BED341 /* Dhol_Shuffleloop.caf in Resources */,
-				F824379024CB7A9900BED341 /* CSFX-2_Alarm.caf in Resources */,
-				F82437CB24CB7A9900BED341 /* Orchestral_Horns.caf in Resources */,
-				F82437AA24CB7A9900BED341 /* Discreet.caf in Resources */,
-				F82437BF24CB7A9900BED341 /* Good_Morning.caf in Resources */,
+				4ED319022AF624260044D2B3 /* Sci-Fi_Alarm_Loop_3.wav in Resources */,
+				4ED3192D2AF624260044D2B3 /* Rush.wav in Resources */,
+				4ED318FC2AF624260044D2B3 /* Open_Your_Eyes_And_See.wav in Resources */,
+				4ED318F52AF624260044D2B3 /* Alarm_Buzzer.wav in Resources */,
+				4ED319402AF624260044D2B3 /* Ending_Reached.wav in Resources */,
+				4ED319162AF624260044D2B3 /* Cartoon_Fail_Strings_Trumpet.wav in Resources */,
+				4ED319182AF624260044D2B3 /* Big_Clock_Ticking.wav in Resources */,
+				4ED319112AF624260044D2B3 /* Sci-Fi_Alarm.wav in Resources */,
 				4E9D79D7273E683100B666C5 /* logo-launchScreen@3x.png in Resources */,
-				F82437B824CB7A9900BED341 /* Cuckoo_Clock.caf in Resources */,
-				F82437A224CB7A9900BED341 /* Sci-Fi_Eerie_Alarm.caf in Resources */,
-				F824379524CB7A9900BED341 /* Pager_Beeps.caf in Resources */,
-				F8B3A7CD226CC0B7004BA588 /* shorthigh3.mp3 in Resources */,
-				F824376A24CB7A9800BED341 /* Martian_Gun.caf in Resources */,
-				F824378824CB7A9900BED341 /* Insistently.caf in Resources */,
-				F82437B924CB7A9900BED341 /* Siri_Alert_Transmitter_Battery_Low.caf in Resources */,
-				F8B3A7D0226CC0B7004BA588 /* modernalarm.mp3 in Resources */,
-				F8B3A7C8226CC0B7004BA588 /* bruteforce.mp3 in Resources */,
-				F8B3A7C6226CC0B7004BA588 /* shortlow2.mp3 in Resources */,
-				F8B3A7CA226CC0B7004BA588 /* shortlow1.mp3 in Resources */,
-				F824379324CB7A9900BED341 /* Martian_Scanner.caf in Resources */,
-				F824379124CB7A9900BED341 /* Sci-Fi_Computer_Console_Alarm.caf in Resources */,
-				F8B3A7D1226CC0B7004BA588 /* betterwakeup.mp3 in Resources */,
-				F824376C24CB7A9800BED341 /* Chimes_Glassy.caf in Resources */,
-				F82437A524CB7A9900BED341 /* Cartoon_Machine_Clumsy_Loop.caf in Resources */,
-				F82437A324CB7A9900BED341 /* Siri_Alert_Glucose_Dropping_Fast.caf in Resources */,
-				F824379224CB7A9900BED341 /* Unpaved.caf in Resources */,
-				F824379D24CB7A9900BED341 /* Alarm_Buzzer.caf in Resources */,
+				4ED318DA2AF624260044D2B3 /* Martian_Scanner.wav in Resources */,
 				F8B3A81F227DEC92004BA588 /* README.md in Resources */,
-				F82437B024CB7A9900BED341 /* In_A_Hurry.caf in Resources */,
-				F824378924CB7A9900BED341 /* Soft_Warm_Airy_Optimistic.caf in Resources */,
-				F82437C024CB7A9900BED341 /* Sci-Fi_Air_Raid_Alarm.caf in Resources */,
+				4ED319102AF624260044D2B3 /* Discreet.wav in Resources */,
 				F8BDD455221DEF22006EAB84 /* SettingsViews.strings in Resources */,
-				F82437C724CB7A9900BED341 /* Siri_Calibration_Needed.caf in Resources */,
-				F824378324CB7A9900BED341 /* Tornado_Siren.caf in Resources */,
-				F82437AC24CB7A9900BED341 /* Siri_Alert_Calibration_Needed.caf in Resources */,
-				F824379624CB7A9900BED341 /* Oringz.caf in Resources */,
-				F824377D24CB7A9800BED341 /* Open_Your_Eyes_And_See.caf in Resources */,
+				4ED318F92AF624260044D2B3 /* Thunder_Sound_FX.wav in Resources */,
+				4ED319472AF624260044D2B3 /* Win_Gain.wav in Resources */,
 				4E67D2F027886BD800586BF8 /* GoogleService-Info.plist in Resources */,
-				F82437A624CB7A9900BED341 /* Siri_Glucose_Rising_Fast.caf in Resources */,
+				4ED318E82AF624260044D2B3 /* Ambulance.wav in Resources */,
+				4ED318F82AF624260044D2B3 /* Cartoon_Tip_Toe_Sneaky_Walk.wav in Resources */,
+				4ED319382AF624260044D2B3 /* Emergency_Alarm_Carbon_Monoxide.wav in Resources */,
+				4ED319272AF624260044D2B3 /* xdripalert.wav in Resources */,
 				F81F370825C1584A00520946 /* LibreStates.strings in Resources */,
-				F82437B724CB7A9900BED341 /* Cartoon_Tip_Toe_Sneaky_Walk.caf in Resources */,
-				F824379A24CB7A9900BED341 /* Siri_Alert_Device_Muted.caf in Resources */,
-				F824378024CB7A9800BED341 /* Sci-Fi_Alarm_Loop_4.caf in Resources */,
-				F824378C24CB7A9900BED341 /* Marimba_Descend.caf in Resources */,
+				4ED318E42AF624260044D2B3 /* Not_Kiddin.wav in Resources */,
+				4ED318E32AF624260044D2B3 /* Sci-Fi_Spaceship_Message.wav in Resources */,
+				4ED3192E2AF624260044D2B3 /* Siri_Glucose_Rising_Fast.wav in Resources */,
+				4ED319152AF624260044D2B3 /* Siri_Device_Muted.wav in Resources */,
+				4ED319252AF624260044D2B3 /* shortlow2.wav in Resources */,
+				4ED3193F2AF624260044D2B3 /* Sci-Fi_Alarm_Loop_1.wav in Resources */,
 				F8B48A9C22B2FA66009BCC01 /* SpeakReading.strings in Resources */,
-				F82437C124CB7A9900BED341 /* Emergency_Alarm_Carbon_Monoxide.caf in Resources */,
-				F824377B24CB7A9800BED341 /* Emergency_Alarm.caf in Resources */,
+				4ED318E72AF624260044D2B3 /* shortlow4.wav in Resources */,
+				4ED3193E2AF624260044D2B3 /* Alert_Tone_Busy.wav in Resources */,
+				4ED3191B2AF624260044D2B3 /* Wrong_Answer.wav in Resources */,
+				4ED318FE2AF624260044D2B3 /* Early_Sunrise.wav in Resources */,
+				4ED319352AF624260044D2B3 /* spaceship.wav in Resources */,
+				4ED319322AF624260044D2B3 /* shorthigh4.wav in Resources */,
+				4ED319012AF624260044D2B3 /* Magical_Twinkle.wav in Resources */,
+				4ED319332AF624260044D2B3 /* Indeed.wav in Resources */,
+				4ED319312AF624260044D2B3 /* Hell_Yeah_Somewhat_Calmer.wav in Resources */,
+				4ED318E92AF624260044D2B3 /* Cell_Phone_Ring_Tone.wav in Resources */,
 				4EC42970279470AE009B8437 /* DailyTrend.strings in Resources */,
-				F82437A724CB7A9900BED341 /* Alarm_Clock.caf in Resources */,
-				F8B3A7C7226CC0B7004BA588 /* shortlow3.mp3 in Resources */,
-				F82437B324CB7A9900BED341 /* Rush.caf in Resources */,
-				F82437A024CB7A9900BED341 /* Siri_Missed_Readings.caf in Resources */,
-				F824377924CB7A9800BED341 /* Sci-Fi_Alarm_Loop_3.caf in Resources */,
-				F8B3A7CB226CC0B7004BA588 /* shortlow4.mp3 in Resources */,
+				4ED318F72AF624260044D2B3 /* Tornado_Siren.wav in Resources */,
 				4749EB9B25B36E010072DF8B /* LibreNFC.strings in Resources */,
-				F82437C624CB7A9900BED341 /* Siri_Alert_High_Glucose.caf in Resources */,
-				F82437A924CB7A9900BED341 /* Wake_Up_Will_You.caf in Resources */,
-				F82437D024CB7A9900BED341 /* Sci-Fi_Engine_Shut_Down.caf in Resources */,
-				F82437BA24CB7A9900BED341 /* Cartoon_Fail_Strings_Trumpet.caf in Resources */,
-				F82437B124CB7A9900BED341 /* Nightguard.caf in Resources */,
-				F82437C424CB7A9900BED341 /* Cartoon_Bounce_To_Ceiling.caf in Resources */,
-				F82437AB24CB7A9900BED341 /* Emergency_Alarm_Siren.caf in Resources */,
-				F824378724CB7A9900BED341 /* Ghost_Hover.caf in Resources */,
+				4ED3192C2AF624260044D2B3 /* Siri_Calibration_Needed.wav in Resources */,
 				F8B3A80D227A3E98004BA588 /* AlertTypesSettingsView.strings in Resources */,
-				F8B3A7D3226CC0B7004BA588 /* xdripalert.aif in Resources */,
-				F824379C24CB7A9900BED341 /* Wrong_Answer.caf in Resources */,
-				F82437A424CB7A9900BED341 /* Alert_Tone_Ringtone_1.caf in Resources */,
+				4ED319122AF624260044D2B3 /* Sci-Fi_Spaceship_Warm_Up.wav in Resources */,
+				4ED318FD2AF624260044D2B3 /* Sci-Fi_Alarm_Loop_4.wav in Resources */,
 				F8AC426721ADEBD70078C348 /* Assets.xcassets in Resources */,
-				F824377524CB7A9800BED341 /* Big_Clock_Ticking.caf in Resources */,
-				F82437BE24CB7A9900BED341 /* Cartoon_Dreamy_Glissando_Harp.caf in Resources */,
-				F82437B424CB7A9900BED341 /* Siri_Urgent_High_Glucose.caf in Resources */,
-				F82437CC24CB7A9900BED341 /* Analog_Watch_Alarm.caf in Resources */,
-				F82437B524CB7A9900BED341 /* Alert_Tone_Busy.caf in Resources */,
+				4ED318D52AF624260044D2B3 /* Sci-Fi_Air_Raid_Alarm.wav in Resources */,
+				4ED318FA2AF624260044D2B3 /* Wake_Up_Will_You.wav in Resources */,
+				4ED318EB2AF624260044D2B3 /* Martian_Gun.wav in Resources */,
+				4ED318E62AF624260044D2B3 /* Siri_Alert_Calibration_Needed.wav in Resources */,
+				4ED3193C2AF624260044D2B3 /* Emergency_Alarm_Siren.wav in Resources */,
+				4ED318FF2AF624260044D2B3 /* Burglar_Alarm_Siren_2.wav in Resources */,
+				4ED318EC2AF624260044D2B3 /* shorthigh2.wav in Resources */,
+				4ED318D82AF624260044D2B3 /* Laser_Shoot.wav in Resources */,
+				4ED319342AF624260044D2B3 /* Computer_Magic.wav in Resources */,
+				4ED319262AF624260044D2B3 /* Signature_Corporate.wav in Resources */,
+				4ED3194F2AF628490044D2B3 /* betterwakeup.wav in Resources */,
 				F8EEDD552300136F00D2D610 /* DexcomShareTestResult.strings in Resources */,
-				F82437AD24CB7A9900BED341 /* Laser_Shoot.caf in Resources */,
-				F824379824CB7A9900BED341 /* Not_Kiddin.caf in Resources */,
-				F824378E24CB7A9900BED341 /* Win_Gain.caf in Resources */,
-				F824378624CB7A9900BED341 /* Alien_Siren.caf in Resources */,
-				F8B3A7CF226CC0B7004BA588 /* shorthigh4.mp3 in Resources */,
+				4ED3194A2AF624260044D2B3 /* Remembers_Me_Of_Asia.wav in Resources */,
+				4ED3191D2AF624260044D2B3 /* Sci-Fi_Console_Alarm.wav in Resources */,
+				4ED318FB2AF624260044D2B3 /* Soft_Warm_Airy_Reassuring.wav in Resources */,
+				4ED319292AF624260044D2B3 /* Insistently.wav in Resources */,
+				4ED3194D2AF624260044D2B3 /* Dhol_Shuffleloop.wav in Resources */,
+				4ED319192AF624260044D2B3 /* Store_Door_Chime.wav in Resources */,
+				4ED319422AF624260044D2B3 /* Cartoon_Dreamy_Glissando_Harp.wav in Resources */,
 				4E1CFF38274F89420020F0F1 /* StatisticsView.xib in Resources */,
-				F824378224CB7A9900BED341 /* Cartoon_Villain_Horns.caf in Resources */,
-				F824379724CB7A9900BED341 /* Siri_Transmitter_Battery_Low.caf in Resources */,
-				F82437AE24CB7A9900BED341 /* Cell_Phone_Ring_Tone.caf in Resources */,
-				F82437C824CB7A9900BED341 /* Siri_Alert_Missed_Readings.caf in Resources */,
-				F821CF7D22A46CDD005C1E43 /* 1-millisecond-of-silence.mp3 in Resources */,
-				F824377A24CB7A9800BED341 /* Sci-Fi_Spaceship_Message.caf in Resources */,
-				F824377124CB7A9800BED341 /* Indeed.caf in Resources */,
-				F8B3A7CE226CC0B7004BA588 /* shorthigh2.mp3 in Resources */,
-				F82437D224CB7A9900BED341 /* Remembers_Me_Of_Asia.caf in Resources */,
-				F824378F24CB7A9900BED341 /* Siri_Alert_Glucose_Rising_Fast.caf in Resources */,
-				F824378A24CB7A9900BED341 /* Two_Turtle_Doves.caf in Resources */,
-				F82437BB24CB7A9900BED341 /* Sci-Fi_Alarm_Loop_1.caf in Resources */,
-				F82437CF24CB7A9900BED341 /* Siri_High_Glucose.caf in Resources */,
-				F82437C924CB7A9900BED341 /* Computer_Magic.caf in Resources */,
-				F82437A124CB7A9900BED341 /* Jingle_All_The_Way.caf in Resources */,
 				470CE1FC246802EB00D5CB74 /* BluetoothPeripheralsView.strings in Resources */,
-				F821CF7F22A4EDCF005C1E43 /* 20ms-of-silence.caf in Resources */,
-				F82437D324CB7A9900BED341 /* Soft_Marimba_Pad_Positive.caf in Resources */,
-				F824379924CB7A9900BED341 /* Magical_Twinkle.caf in Resources */,
-				F8B3A7CC226CC0B7004BA588 /* shorthigh1.mp3 in Resources */,
-				F824377824CB7A9800BED341 /* Sci-Fi_Alarm_Loop_2.caf in Resources */,
+				4ED3190C2AF624260044D2B3 /* Sci-Fi_Eerie_Alarm.wav in Resources */,
+				4ED319362AF624260044D2B3 /* Marimba_Descend.wav in Resources */,
 				4E94C33C277B597200382122 /* Notes.strings in Resources */,
-				F824378424CB7A9900BED341 /* Early_Sunrise.caf in Resources */,
-				F82437C524CB7A9900BED341 /* Marching_Heavy_Footed_Fat_Elephants.caf in Resources */,
-				F824376B24CB7A9800BED341 /* Thunder_Sound_FX.caf in Resources */,
-				F824376E24CB7A9800BED341 /* Burglar_Alarm_Siren_1.caf in Resources */,
-				F82437D124CB7A9900BED341 /* Signature_Corporate.caf in Resources */,
-				F824377224CB7A9800BED341 /* Ending_Reached.caf in Resources */,
+				4ED3191F2AF624260044D2B3 /* Siri_Urgent_High_Glucose.wav in Resources */,
+				4ED318E52AF624260044D2B3 /* Marching_Heavy_Footed_Fat_Elephants.wav in Resources */,
+				4ED319302AF624260044D2B3 /* Fly.wav in Resources */,
+				4ED318F62AF624260044D2B3 /* Siri_Glucose_Dropping_Fast.wav in Resources */,
+				4ED318E02AF624260044D2B3 /* Alert_Tone_Ringtone_2.wav in Resources */,
+				4ED319092AF624260044D2B3 /* Alert_Tone_Ringtone_1.wav in Resources */,
+				4ED3191A2AF624260044D2B3 /* Unpaved.wav in Resources */,
 				F8AC426521ADEBD60078C348 /* Main.storyboard in Resources */,
+				4ED3194C2AF624260044D2B3 /* shortlow1.wav in Resources */,
+				4ED319172AF624260044D2B3 /* Siri_Alert_Glucose_Rising_Fast.wav in Resources */,
 				F8B48AA422B2FA9B009BCC01 /* CalibrationRequest.strings in Resources */,
 				F8B3A7B5226A0A71004BA588 /* Alerts.strings in Resources */,
-				F8B3A7D2226CC0B7004BA588 /* spaceship.mp3 in Resources */,
-				F82437B224CB7A9900BED341 /* Burglar_Alarm_Siren_2.caf in Resources */,
-				F82437BD24CB7A9900BED341 /* Sci-Fi_Spaceship_Warm_Up.caf in Resources */,
-				F824378D24CB7A9900BED341 /* Soft_Warm_Airy_Reassuring.caf in Resources */,
+				4ED318D72AF624260044D2B3 /* Cartoon_Machine_Clumsy_Loop.wav in Resources */,
 				4EA477882AEA77E5005F39C9 /* 1-millisecond-of-silence.wav in Resources */,
+				4ED318DB2AF624260044D2B3 /* 1-millisecond-of-silence.wav in Resources */,
+				4ED319432AF624260044D2B3 /* Nightguard.wav in Resources */,
+				4ED3193B2AF624260044D2B3 /* Cartoon_Ascend_Climb_Sneaky.wav in Resources */,
+				4ED3192F2AF624260044D2B3 /* Soft_Marimba_Pad_Positive.wav in Resources */,
+				4ED318EE2AF624260044D2B3 /* Jingle_All_The_Way.wav in Resources */,
+				4ED318E12AF624260044D2B3 /* Siri_Alert_High_Glucose.wav in Resources */,
+				4ED319442AF624260044D2B3 /* Orchestral_Horns.wav in Resources */,
+				4ED319002AF624260044D2B3 /* Ghost_Hover.wav in Resources */,
+				4ED319132AF624260044D2B3 /* Sci-Fi_Computer_Console_Alarm.wav in Resources */,
+				4ED319042AF624260044D2B3 /* CSFX-2_Alarm.wav in Resources */,
+				4ED318D62AF624260044D2B3 /* shorthigh1.wav in Resources */,
+				4ED318D42AF624260044D2B3 /* Time_Has_Come.wav in Resources */,
+				4ED3191C2AF624260044D2B3 /* Cartoon_Villain_Horns.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3926,7 +3926,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "$(XDRIP_CODE_SIGN_IDENTITY_DEBUG)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1307;
+				CURRENT_PROJECT_VERSION = 1308;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = NO;
@@ -3939,7 +3939,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.7;
+				MARKETING_VERSION = 1.3.8;
 				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip.watchkitapp;
 				PRODUCT_NAME = zDrip;
 				SDKROOT = watchos;
@@ -3962,7 +3962,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "$(XDRIP_CODE_SIGN_IDENTITY_RELEASE)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1307;
+				CURRENT_PROJECT_VERSION = 1308;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = NO;
@@ -3975,7 +3975,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.7;
+				MARKETING_VERSION = 1.3.8;
 				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip.watchkitapp;
 				PRODUCT_NAME = zDrip;
 				SDKROOT = watchos;
@@ -4174,7 +4174,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(XDRIP_ENTITLEMENTS_DEBUG)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1307;
+				CURRENT_PROJECT_VERSION = 1308;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/xdrip/Supporting Files/Info.plist";
@@ -4184,7 +4184,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.7;
+				MARKETING_VERSION = 1.3.8;
 				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4205,7 +4205,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(XDRIP_ENTITLEMENTS_RELEASE)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1307;
+				CURRENT_PROJECT_VERSION = 1308;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/xdrip/Supporting Files/Info.plist";
@@ -4215,7 +4215,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.7;
+				MARKETING_VERSION = 1.3.8;
 				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

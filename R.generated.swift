@@ -281,268 +281,260 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.file` struct is generated, and contains static references to 127 files.
+  /// This `R.file` struct is generated, and contains static references to 126 files.
   struct file {
-    /// Resource file `1-millisecond-of-silence.mp3`.
-    static let millisecondOfSilenceMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "1-millisecond-of-silence", pathExtension: "mp3")
     /// Resource file `1-millisecond-of-silence.wav`.
     static let millisecondOfSilenceWav = Rswift.FileResource(bundle: R.hostingBundle, name: "1-millisecond-of-silence", pathExtension: "wav")
-    /// Resource file `20ms-of-silence.caf`.
-    static let msOfSilenceCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "20ms-of-silence", pathExtension: "caf")
-    /// Resource file `Alarm_Buzzer.caf`.
-    static let alarm_BuzzerCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Alarm_Buzzer", pathExtension: "caf")
-    /// Resource file `Alarm_Clock.caf`.
-    static let alarm_ClockCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Alarm_Clock", pathExtension: "caf")
-    /// Resource file `Alert_Tone_Busy.caf`.
-    static let alert_Tone_BusyCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Alert_Tone_Busy", pathExtension: "caf")
-    /// Resource file `Alert_Tone_Ringtone_1.caf`.
-    static let alert_Tone_Ringtone_1Caf = Rswift.FileResource(bundle: R.hostingBundle, name: "Alert_Tone_Ringtone_1", pathExtension: "caf")
-    /// Resource file `Alert_Tone_Ringtone_2.caf`.
-    static let alert_Tone_Ringtone_2Caf = Rswift.FileResource(bundle: R.hostingBundle, name: "Alert_Tone_Ringtone_2", pathExtension: "caf")
-    /// Resource file `Alien_Siren.caf`.
-    static let alien_SirenCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Alien_Siren", pathExtension: "caf")
-    /// Resource file `Ambulance.caf`.
-    static let ambulanceCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Ambulance", pathExtension: "caf")
-    /// Resource file `Analog_Watch_Alarm.caf`.
-    static let analog_Watch_AlarmCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Analog_Watch_Alarm", pathExtension: "caf")
-    /// Resource file `Big_Clock_Ticking.caf`.
-    static let big_Clock_TickingCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Big_Clock_Ticking", pathExtension: "caf")
-    /// Resource file `Burglar_Alarm_Siren_1.caf`.
-    static let burglar_Alarm_Siren_1Caf = Rswift.FileResource(bundle: R.hostingBundle, name: "Burglar_Alarm_Siren_1", pathExtension: "caf")
-    /// Resource file `Burglar_Alarm_Siren_2.caf`.
-    static let burglar_Alarm_Siren_2Caf = Rswift.FileResource(bundle: R.hostingBundle, name: "Burglar_Alarm_Siren_2", pathExtension: "caf")
-    /// Resource file `CSFX-2_Alarm.caf`.
-    static let csfx2_AlarmCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "CSFX-2_Alarm", pathExtension: "caf")
-    /// Resource file `Cartoon_Ascend_Climb_Sneaky.caf`.
-    static let cartoon_Ascend_Climb_SneakyCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Ascend_Climb_Sneaky", pathExtension: "caf")
-    /// Resource file `Cartoon_Ascend_Then_Descend.caf`.
-    static let cartoon_Ascend_Then_DescendCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Ascend_Then_Descend", pathExtension: "caf")
-    /// Resource file `Cartoon_Bounce_To_Ceiling.caf`.
-    static let cartoon_Bounce_To_CeilingCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Bounce_To_Ceiling", pathExtension: "caf")
-    /// Resource file `Cartoon_Dreamy_Glissando_Harp.caf`.
-    static let cartoon_Dreamy_Glissando_HarpCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Dreamy_Glissando_Harp", pathExtension: "caf")
-    /// Resource file `Cartoon_Fail_Strings_Trumpet.caf`.
-    static let cartoon_Fail_Strings_TrumpetCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Fail_Strings_Trumpet", pathExtension: "caf")
-    /// Resource file `Cartoon_Machine_Clumsy_Loop.caf`.
-    static let cartoon_Machine_Clumsy_LoopCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Machine_Clumsy_Loop", pathExtension: "caf")
-    /// Resource file `Cartoon_Siren.caf`.
-    static let cartoon_SirenCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Siren", pathExtension: "caf")
-    /// Resource file `Cartoon_Tip_Toe_Sneaky_Walk.caf`.
-    static let cartoon_Tip_Toe_Sneaky_WalkCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Tip_Toe_Sneaky_Walk", pathExtension: "caf")
-    /// Resource file `Cartoon_Uh_Oh.caf`.
-    static let cartoon_Uh_OhCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Uh_Oh", pathExtension: "caf")
-    /// Resource file `Cartoon_Villain_Horns.caf`.
-    static let cartoon_Villain_HornsCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Villain_Horns", pathExtension: "caf")
-    /// Resource file `Cell_Phone_Ring_Tone.caf`.
-    static let cell_Phone_Ring_ToneCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Cell_Phone_Ring_Tone", pathExtension: "caf")
-    /// Resource file `Chimes_Glassy.caf`.
-    static let chimes_GlassyCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Chimes_Glassy", pathExtension: "caf")
-    /// Resource file `Computer_Magic.caf`.
-    static let computer_MagicCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Computer_Magic", pathExtension: "caf")
-    /// Resource file `Cuckoo_Clock.caf`.
-    static let cuckoo_ClockCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Cuckoo_Clock", pathExtension: "caf")
-    /// Resource file `Dhol_Shuffleloop.caf`.
-    static let dhol_ShuffleloopCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Dhol_Shuffleloop", pathExtension: "caf")
-    /// Resource file `Discreet.caf`.
-    static let discreetCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Discreet", pathExtension: "caf")
-    /// Resource file `Early_Sunrise.caf`.
-    static let early_SunriseCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Early_Sunrise", pathExtension: "caf")
-    /// Resource file `Emergency_Alarm.caf`.
-    static let emergency_AlarmCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Emergency_Alarm", pathExtension: "caf")
-    /// Resource file `Emergency_Alarm_Carbon_Monoxide.caf`.
-    static let emergency_Alarm_Carbon_MonoxideCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Emergency_Alarm_Carbon_Monoxide", pathExtension: "caf")
-    /// Resource file `Emergency_Alarm_Siren.caf`.
-    static let emergency_Alarm_SirenCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Emergency_Alarm_Siren", pathExtension: "caf")
-    /// Resource file `Ending_Reached.caf`.
-    static let ending_ReachedCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Ending_Reached", pathExtension: "caf")
-    /// Resource file `Fly.caf`.
-    static let flyCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Fly", pathExtension: "caf")
-    /// Resource file `Ghost_Hover.caf`.
-    static let ghost_HoverCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Ghost_Hover", pathExtension: "caf")
-    /// Resource file `Good_Morning.caf`.
-    static let good_MorningCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Good_Morning", pathExtension: "caf")
+    /// Resource file `20ms-of-silence.wav`.
+    static let msOfSilenceWav = Rswift.FileResource(bundle: R.hostingBundle, name: "20ms-of-silence", pathExtension: "wav")
+    /// Resource file `Alarm_Buzzer.wav`.
+    static let alarm_BuzzerWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Alarm_Buzzer", pathExtension: "wav")
+    /// Resource file `Alarm_Clock.wav`.
+    static let alarm_ClockWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Alarm_Clock", pathExtension: "wav")
+    /// Resource file `Alert_Tone_Busy.wav`.
+    static let alert_Tone_BusyWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Alert_Tone_Busy", pathExtension: "wav")
+    /// Resource file `Alert_Tone_Ringtone_1.wav`.
+    static let alert_Tone_Ringtone_1Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "Alert_Tone_Ringtone_1", pathExtension: "wav")
+    /// Resource file `Alert_Tone_Ringtone_2.wav`.
+    static let alert_Tone_Ringtone_2Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "Alert_Tone_Ringtone_2", pathExtension: "wav")
+    /// Resource file `Alien_Siren.wav`.
+    static let alien_SirenWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Alien_Siren", pathExtension: "wav")
+    /// Resource file `Ambulance.wav`.
+    static let ambulanceWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Ambulance", pathExtension: "wav")
+    /// Resource file `Analog_Watch_Alarm.wav`.
+    static let analog_Watch_AlarmWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Analog_Watch_Alarm", pathExtension: "wav")
+    /// Resource file `Big_Clock_Ticking.wav`.
+    static let big_Clock_TickingWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Big_Clock_Ticking", pathExtension: "wav")
+    /// Resource file `Burglar_Alarm_Siren_1.wav`.
+    static let burglar_Alarm_Siren_1Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "Burglar_Alarm_Siren_1", pathExtension: "wav")
+    /// Resource file `Burglar_Alarm_Siren_2.wav`.
+    static let burglar_Alarm_Siren_2Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "Burglar_Alarm_Siren_2", pathExtension: "wav")
+    /// Resource file `CSFX-2_Alarm.wav`.
+    static let csfx2_AlarmWav = Rswift.FileResource(bundle: R.hostingBundle, name: "CSFX-2_Alarm", pathExtension: "wav")
+    /// Resource file `Cartoon_Ascend_Climb_Sneaky.wav`.
+    static let cartoon_Ascend_Climb_SneakyWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Ascend_Climb_Sneaky", pathExtension: "wav")
+    /// Resource file `Cartoon_Ascend_Then_Descend.wav`.
+    static let cartoon_Ascend_Then_DescendWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Ascend_Then_Descend", pathExtension: "wav")
+    /// Resource file `Cartoon_Bounce_To_Ceiling.wav`.
+    static let cartoon_Bounce_To_CeilingWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Bounce_To_Ceiling", pathExtension: "wav")
+    /// Resource file `Cartoon_Dreamy_Glissando_Harp.wav`.
+    static let cartoon_Dreamy_Glissando_HarpWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Dreamy_Glissando_Harp", pathExtension: "wav")
+    /// Resource file `Cartoon_Fail_Strings_Trumpet.wav`.
+    static let cartoon_Fail_Strings_TrumpetWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Fail_Strings_Trumpet", pathExtension: "wav")
+    /// Resource file `Cartoon_Machine_Clumsy_Loop.wav`.
+    static let cartoon_Machine_Clumsy_LoopWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Machine_Clumsy_Loop", pathExtension: "wav")
+    /// Resource file `Cartoon_Siren.wav`.
+    static let cartoon_SirenWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Siren", pathExtension: "wav")
+    /// Resource file `Cartoon_Tip_Toe_Sneaky_Walk.wav`.
+    static let cartoon_Tip_Toe_Sneaky_WalkWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Tip_Toe_Sneaky_Walk", pathExtension: "wav")
+    /// Resource file `Cartoon_Uh_Oh.wav`.
+    static let cartoon_Uh_OhWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Uh_Oh", pathExtension: "wav")
+    /// Resource file `Cartoon_Villain_Horns.wav`.
+    static let cartoon_Villain_HornsWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Villain_Horns", pathExtension: "wav")
+    /// Resource file `Cell_Phone_Ring_Tone.wav`.
+    static let cell_Phone_Ring_ToneWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Cell_Phone_Ring_Tone", pathExtension: "wav")
+    /// Resource file `Chimes_Glassy.wav`.
+    static let chimes_GlassyWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Chimes_Glassy", pathExtension: "wav")
+    /// Resource file `Computer_Magic.wav`.
+    static let computer_MagicWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Computer_Magic", pathExtension: "wav")
+    /// Resource file `Cuckoo_Clock.wav`.
+    static let cuckoo_ClockWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Cuckoo_Clock", pathExtension: "wav")
+    /// Resource file `Dhol_Shuffleloop.wav`.
+    static let dhol_ShuffleloopWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Dhol_Shuffleloop", pathExtension: "wav")
+    /// Resource file `Discreet.wav`.
+    static let discreetWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Discreet", pathExtension: "wav")
+    /// Resource file `Early_Sunrise.wav`.
+    static let early_SunriseWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Early_Sunrise", pathExtension: "wav")
+    /// Resource file `Emergency_Alarm.wav`.
+    static let emergency_AlarmWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Emergency_Alarm", pathExtension: "wav")
+    /// Resource file `Emergency_Alarm_Carbon_Monoxide.wav`.
+    static let emergency_Alarm_Carbon_MonoxideWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Emergency_Alarm_Carbon_Monoxide", pathExtension: "wav")
+    /// Resource file `Emergency_Alarm_Siren.wav`.
+    static let emergency_Alarm_SirenWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Emergency_Alarm_Siren", pathExtension: "wav")
+    /// Resource file `Ending_Reached.wav`.
+    static let ending_ReachedWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Ending_Reached", pathExtension: "wav")
+    /// Resource file `Fly.wav`.
+    static let flyWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Fly", pathExtension: "wav")
+    /// Resource file `Ghost_Hover.wav`.
+    static let ghost_HoverWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Ghost_Hover", pathExtension: "wav")
+    /// Resource file `Good_Morning.wav`.
+    static let good_MorningWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Good_Morning", pathExtension: "wav")
     /// Resource file `GoogleService-Info.plist`.
     static let googleServiceInfoPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "GoogleService-Info", pathExtension: "plist")
-    /// Resource file `Hell_Yeah_Somewhat_Calmer.caf`.
-    static let hell_Yeah_Somewhat_CalmerCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Hell_Yeah_Somewhat_Calmer", pathExtension: "caf")
-    /// Resource file `In_A_Hurry.caf`.
-    static let in_A_HurryCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "In_A_Hurry", pathExtension: "caf")
-    /// Resource file `Indeed.caf`.
-    static let indeedCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Indeed", pathExtension: "caf")
-    /// Resource file `Insistently.caf`.
-    static let insistentlyCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Insistently", pathExtension: "caf")
-    /// Resource file `Jingle_All_The_Way.caf`.
-    static let jingle_All_The_WayCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Jingle_All_The_Way", pathExtension: "caf")
-    /// Resource file `Laser_Shoot.caf`.
-    static let laser_ShootCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Laser_Shoot", pathExtension: "caf")
-    /// Resource file `Machine_Charge.caf`.
-    static let machine_ChargeCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Machine_Charge", pathExtension: "caf")
-    /// Resource file `Magical_Twinkle.caf`.
-    static let magical_TwinkleCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Magical_Twinkle", pathExtension: "caf")
-    /// Resource file `Marching_Heavy_Footed_Fat_Elephants.caf`.
-    static let marching_Heavy_Footed_Fat_ElephantsCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Marching_Heavy_Footed_Fat_Elephants", pathExtension: "caf")
-    /// Resource file `Marimba_Descend.caf`.
-    static let marimba_DescendCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Marimba_Descend", pathExtension: "caf")
-    /// Resource file `Marimba_Flutter_or_Shake.caf`.
-    static let marimba_Flutter_or_ShakeCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Marimba_Flutter_or_Shake", pathExtension: "caf")
-    /// Resource file `Martian_Gun.caf`.
-    static let martian_GunCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Martian_Gun", pathExtension: "caf")
-    /// Resource file `Martian_Scanner.caf`.
-    static let martian_ScannerCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Martian_Scanner", pathExtension: "caf")
-    /// Resource file `Metallic.caf`.
-    static let metallicCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Metallic", pathExtension: "caf")
-    /// Resource file `Nightguard.caf`.
-    static let nightguardCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Nightguard", pathExtension: "caf")
-    /// Resource file `Not_Kiddin.caf`.
-    static let not_KiddinCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Not_Kiddin", pathExtension: "caf")
-    /// Resource file `Open_Your_Eyes_And_See.caf`.
-    static let open_Your_Eyes_And_SeeCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Open_Your_Eyes_And_See", pathExtension: "caf")
-    /// Resource file `Orchestral_Horns.caf`.
-    static let orchestral_HornsCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Orchestral_Horns", pathExtension: "caf")
-    /// Resource file `Oringz.caf`.
-    static let oringzCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Oringz", pathExtension: "caf")
-    /// Resource file `Pager_Beeps.caf`.
-    static let pager_BeepsCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Pager_Beeps", pathExtension: "caf")
+    /// Resource file `Hell_Yeah_Somewhat_Calmer.wav`.
+    static let hell_Yeah_Somewhat_CalmerWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Hell_Yeah_Somewhat_Calmer", pathExtension: "wav")
+    /// Resource file `In_A_Hurry.wav`.
+    static let in_A_HurryWav = Rswift.FileResource(bundle: R.hostingBundle, name: "In_A_Hurry", pathExtension: "wav")
+    /// Resource file `Indeed.wav`.
+    static let indeedWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Indeed", pathExtension: "wav")
+    /// Resource file `Insistently.wav`.
+    static let insistentlyWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Insistently", pathExtension: "wav")
+    /// Resource file `Jingle_All_The_Way.wav`.
+    static let jingle_All_The_WayWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Jingle_All_The_Way", pathExtension: "wav")
+    /// Resource file `Laser_Shoot.wav`.
+    static let laser_ShootWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Laser_Shoot", pathExtension: "wav")
+    /// Resource file `Machine_Charge.wav`.
+    static let machine_ChargeWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Machine_Charge", pathExtension: "wav")
+    /// Resource file `Magical_Twinkle.wav`.
+    static let magical_TwinkleWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Magical_Twinkle", pathExtension: "wav")
+    /// Resource file `Marching_Heavy_Footed_Fat_Elephants.wav`.
+    static let marching_Heavy_Footed_Fat_ElephantsWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Marching_Heavy_Footed_Fat_Elephants", pathExtension: "wav")
+    /// Resource file `Marimba_Descend.wav`.
+    static let marimba_DescendWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Marimba_Descend", pathExtension: "wav")
+    /// Resource file `Marimba_Flutter_or_Shake.wav`.
+    static let marimba_Flutter_or_ShakeWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Marimba_Flutter_or_Shake", pathExtension: "wav")
+    /// Resource file `Martian_Gun.wav`.
+    static let martian_GunWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Martian_Gun", pathExtension: "wav")
+    /// Resource file `Martian_Scanner.wav`.
+    static let martian_ScannerWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Martian_Scanner", pathExtension: "wav")
+    /// Resource file `Metallic.wav`.
+    static let metallicWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Metallic", pathExtension: "wav")
+    /// Resource file `Nightguard.wav`.
+    static let nightguardWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Nightguard", pathExtension: "wav")
+    /// Resource file `Not_Kiddin.wav`.
+    static let not_KiddinWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Not_Kiddin", pathExtension: "wav")
+    /// Resource file `Open_Your_Eyes_And_See.wav`.
+    static let open_Your_Eyes_And_SeeWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Open_Your_Eyes_And_See", pathExtension: "wav")
+    /// Resource file `Orchestral_Horns.wav`.
+    static let orchestral_HornsWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Orchestral_Horns", pathExtension: "wav")
+    /// Resource file `Oringz.wav`.
+    static let oringzWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Oringz", pathExtension: "wav")
+    /// Resource file `Pager_Beeps.wav`.
+    static let pager_BeepsWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Pager_Beeps", pathExtension: "wav")
     /// Resource file `README.md`.
     static let readmeMd = Rswift.FileResource(bundle: R.hostingBundle, name: "README", pathExtension: "md")
-    /// Resource file `Remembers_Me_Of_Asia.caf`.
-    static let remembers_Me_Of_AsiaCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Remembers_Me_Of_Asia", pathExtension: "caf")
-    /// Resource file `Rise_And_Shine.caf`.
-    static let rise_And_ShineCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Rise_And_Shine", pathExtension: "caf")
-    /// Resource file `Rush.caf`.
-    static let rushCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Rush", pathExtension: "caf")
-    /// Resource file `Sci-Fi_Air_Raid_Alarm.caf`.
-    static let sciFi_Air_Raid_AlarmCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Air_Raid_Alarm", pathExtension: "caf")
-    /// Resource file `Sci-Fi_Alarm.caf`.
-    static let sciFi_AlarmCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Alarm", pathExtension: "caf")
-    /// Resource file `Sci-Fi_Alarm_Loop_1.caf`.
-    static let sciFi_Alarm_Loop_1Caf = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Alarm_Loop_1", pathExtension: "caf")
-    /// Resource file `Sci-Fi_Alarm_Loop_2.caf`.
-    static let sciFi_Alarm_Loop_2Caf = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Alarm_Loop_2", pathExtension: "caf")
-    /// Resource file `Sci-Fi_Alarm_Loop_3.caf`.
-    static let sciFi_Alarm_Loop_3Caf = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Alarm_Loop_3", pathExtension: "caf")
-    /// Resource file `Sci-Fi_Alarm_Loop_4.caf`.
-    static let sciFi_Alarm_Loop_4Caf = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Alarm_Loop_4", pathExtension: "caf")
-    /// Resource file `Sci-Fi_Computer_Console_Alarm.caf`.
-    static let sciFi_Computer_Console_AlarmCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Computer_Console_Alarm", pathExtension: "caf")
-    /// Resource file `Sci-Fi_Console_Alarm.caf`.
-    static let sciFi_Console_AlarmCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Console_Alarm", pathExtension: "caf")
-    /// Resource file `Sci-Fi_Eerie_Alarm.caf`.
-    static let sciFi_Eerie_AlarmCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Eerie_Alarm", pathExtension: "caf")
-    /// Resource file `Sci-Fi_Engine_Shut_Down.caf`.
-    static let sciFi_Engine_Shut_DownCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Engine_Shut_Down", pathExtension: "caf")
-    /// Resource file `Sci-Fi_Incoming_Message_Alert.caf`.
-    static let sciFi_Incoming_Message_AlertCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Incoming_Message_Alert", pathExtension: "caf")
-    /// Resource file `Sci-Fi_Spaceship_Message.caf`.
-    static let sciFi_Spaceship_MessageCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Spaceship_Message", pathExtension: "caf")
-    /// Resource file `Sci-Fi_Spaceship_Warm_Up.caf`.
-    static let sciFi_Spaceship_Warm_UpCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Spaceship_Warm_Up", pathExtension: "caf")
-    /// Resource file `Sci-Fi_Warning.caf`.
-    static let sciFi_WarningCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Warning", pathExtension: "caf")
-    /// Resource file `Signature_Corporate.caf`.
-    static let signature_CorporateCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Signature_Corporate", pathExtension: "caf")
-    /// Resource file `Siri_Alert_Calibration_Needed.caf`.
-    static let siri_Alert_Calibration_NeededCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Calibration_Needed", pathExtension: "caf")
-    /// Resource file `Siri_Alert_Device_Muted.caf`.
-    static let siri_Alert_Device_MutedCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Device_Muted", pathExtension: "caf")
-    /// Resource file `Siri_Alert_Glucose_Dropping_Fast.caf`.
-    static let siri_Alert_Glucose_Dropping_FastCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Glucose_Dropping_Fast", pathExtension: "caf")
-    /// Resource file `Siri_Alert_Glucose_Rising_Fast.caf`.
-    static let siri_Alert_Glucose_Rising_FastCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Glucose_Rising_Fast", pathExtension: "caf")
-    /// Resource file `Siri_Alert_High_Glucose.caf`.
-    static let siri_Alert_High_GlucoseCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_High_Glucose", pathExtension: "caf")
-    /// Resource file `Siri_Alert_Low_Glucose.caf`.
-    static let siri_Alert_Low_GlucoseCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Low_Glucose", pathExtension: "caf")
-    /// Resource file `Siri_Alert_Missed_Readings.caf`.
-    static let siri_Alert_Missed_ReadingsCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Missed_Readings", pathExtension: "caf")
-    /// Resource file `Siri_Alert_Transmitter_Battery_Low.caf`.
-    static let siri_Alert_Transmitter_Battery_LowCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Transmitter_Battery_Low", pathExtension: "caf")
-    /// Resource file `Siri_Alert_Urgent_High_Glucose.caf`.
-    static let siri_Alert_Urgent_High_GlucoseCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Urgent_High_Glucose", pathExtension: "caf")
-    /// Resource file `Siri_Alert_Urgent_Low_Glucose.caf`.
-    static let siri_Alert_Urgent_Low_GlucoseCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Urgent_Low_Glucose", pathExtension: "caf")
-    /// Resource file `Siri_Calibration_Needed.caf`.
-    static let siri_Calibration_NeededCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Calibration_Needed", pathExtension: "caf")
-    /// Resource file `Siri_Device_Muted.caf`.
-    static let siri_Device_MutedCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Device_Muted", pathExtension: "caf")
-    /// Resource file `Siri_Glucose_Dropping_Fast.caf`.
-    static let siri_Glucose_Dropping_FastCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Glucose_Dropping_Fast", pathExtension: "caf")
-    /// Resource file `Siri_Glucose_Rising_Fast.caf`.
-    static let siri_Glucose_Rising_FastCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Glucose_Rising_Fast", pathExtension: "caf")
-    /// Resource file `Siri_High_Glucose.caf`.
-    static let siri_High_GlucoseCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_High_Glucose", pathExtension: "caf")
-    /// Resource file `Siri_Low_Glucose.caf`.
-    static let siri_Low_GlucoseCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Low_Glucose", pathExtension: "caf")
-    /// Resource file `Siri_Missed_Readings.caf`.
-    static let siri_Missed_ReadingsCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Missed_Readings", pathExtension: "caf")
-    /// Resource file `Siri_Transmitter_Battery_Low.caf`.
-    static let siri_Transmitter_Battery_LowCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Transmitter_Battery_Low", pathExtension: "caf")
-    /// Resource file `Siri_Urgent_High_Glucose.caf`.
-    static let siri_Urgent_High_GlucoseCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Urgent_High_Glucose", pathExtension: "caf")
-    /// Resource file `Siri_Urgent_Low_Glucose.caf`.
-    static let siri_Urgent_Low_GlucoseCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Urgent_Low_Glucose", pathExtension: "caf")
-    /// Resource file `Soft_Marimba_Pad_Positive.caf`.
-    static let soft_Marimba_Pad_PositiveCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Soft_Marimba_Pad_Positive", pathExtension: "caf")
-    /// Resource file `Soft_Warm_Airy_Optimistic.caf`.
-    static let soft_Warm_Airy_OptimisticCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Soft_Warm_Airy_Optimistic", pathExtension: "caf")
-    /// Resource file `Soft_Warm_Airy_Reassuring.caf`.
-    static let soft_Warm_Airy_ReassuringCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Soft_Warm_Airy_Reassuring", pathExtension: "caf")
-    /// Resource file `Store_Door_Chime.caf`.
-    static let store_Door_ChimeCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Store_Door_Chime", pathExtension: "caf")
-    /// Resource file `Sunny.caf`.
-    static let sunnyCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Sunny", pathExtension: "caf")
-    /// Resource file `Thunder_Sound_FX.caf`.
-    static let thunder_Sound_FXCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Thunder_Sound_FX", pathExtension: "caf")
-    /// Resource file `Time_Has_Come.caf`.
-    static let time_Has_ComeCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Time_Has_Come", pathExtension: "caf")
-    /// Resource file `Tornado_Siren.caf`.
-    static let tornado_SirenCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Tornado_Siren", pathExtension: "caf")
-    /// Resource file `Two_Turtle_Doves.caf`.
-    static let two_Turtle_DovesCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Two_Turtle_Doves", pathExtension: "caf")
-    /// Resource file `Unpaved.caf`.
-    static let unpavedCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Unpaved", pathExtension: "caf")
-    /// Resource file `Wake_Up_Will_You.caf`.
-    static let wake_Up_Will_YouCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Wake_Up_Will_You", pathExtension: "caf")
-    /// Resource file `Win_Gain.caf`.
-    static let win_GainCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Win_Gain", pathExtension: "caf")
-    /// Resource file `Wrong_Answer.caf`.
-    static let wrong_AnswerCaf = Rswift.FileResource(bundle: R.hostingBundle, name: "Wrong_Answer", pathExtension: "caf")
-    /// Resource file `betterwakeup.mp3`.
-    static let betterwakeupMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "betterwakeup", pathExtension: "mp3")
-    /// Resource file `bruteforce.mp3`.
-    static let bruteforceMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "bruteforce", pathExtension: "mp3")
+    /// Resource file `Remembers_Me_Of_Asia.wav`.
+    static let remembers_Me_Of_AsiaWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Remembers_Me_Of_Asia", pathExtension: "wav")
+    /// Resource file `Rise_And_Shine.wav`.
+    static let rise_And_ShineWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Rise_And_Shine", pathExtension: "wav")
+    /// Resource file `Rush.wav`.
+    static let rushWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Rush", pathExtension: "wav")
+    /// Resource file `Sci-Fi_Air_Raid_Alarm.wav`.
+    static let sciFi_Air_Raid_AlarmWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Air_Raid_Alarm", pathExtension: "wav")
+    /// Resource file `Sci-Fi_Alarm.wav`.
+    static let sciFi_AlarmWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Alarm", pathExtension: "wav")
+    /// Resource file `Sci-Fi_Alarm_Loop_1.wav`.
+    static let sciFi_Alarm_Loop_1Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Alarm_Loop_1", pathExtension: "wav")
+    /// Resource file `Sci-Fi_Alarm_Loop_2.wav`.
+    static let sciFi_Alarm_Loop_2Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Alarm_Loop_2", pathExtension: "wav")
+    /// Resource file `Sci-Fi_Alarm_Loop_3.wav`.
+    static let sciFi_Alarm_Loop_3Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Alarm_Loop_3", pathExtension: "wav")
+    /// Resource file `Sci-Fi_Alarm_Loop_4.wav`.
+    static let sciFi_Alarm_Loop_4Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Alarm_Loop_4", pathExtension: "wav")
+    /// Resource file `Sci-Fi_Computer_Console_Alarm.wav`.
+    static let sciFi_Computer_Console_AlarmWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Computer_Console_Alarm", pathExtension: "wav")
+    /// Resource file `Sci-Fi_Console_Alarm.wav`.
+    static let sciFi_Console_AlarmWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Console_Alarm", pathExtension: "wav")
+    /// Resource file `Sci-Fi_Eerie_Alarm.wav`.
+    static let sciFi_Eerie_AlarmWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Eerie_Alarm", pathExtension: "wav")
+    /// Resource file `Sci-Fi_Engine_Shut_Down.wav`.
+    static let sciFi_Engine_Shut_DownWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Engine_Shut_Down", pathExtension: "wav")
+    /// Resource file `Sci-Fi_Incoming_Message_Alert.wav`.
+    static let sciFi_Incoming_Message_AlertWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Incoming_Message_Alert", pathExtension: "wav")
+    /// Resource file `Sci-Fi_Spaceship_Message.wav`.
+    static let sciFi_Spaceship_MessageWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Spaceship_Message", pathExtension: "wav")
+    /// Resource file `Sci-Fi_Spaceship_Warm_Up.wav`.
+    static let sciFi_Spaceship_Warm_UpWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Spaceship_Warm_Up", pathExtension: "wav")
+    /// Resource file `Sci-Fi_Warning.wav`.
+    static let sciFi_WarningWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Warning", pathExtension: "wav")
+    /// Resource file `Signature_Corporate.wav`.
+    static let signature_CorporateWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Signature_Corporate", pathExtension: "wav")
+    /// Resource file `Siri_Alert_Calibration_Needed.wav`.
+    static let siri_Alert_Calibration_NeededWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Calibration_Needed", pathExtension: "wav")
+    /// Resource file `Siri_Alert_Device_Muted.wav`.
+    static let siri_Alert_Device_MutedWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Device_Muted", pathExtension: "wav")
+    /// Resource file `Siri_Alert_Glucose_Dropping_Fast.wav`.
+    static let siri_Alert_Glucose_Dropping_FastWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Glucose_Dropping_Fast", pathExtension: "wav")
+    /// Resource file `Siri_Alert_Glucose_Rising_Fast.wav`.
+    static let siri_Alert_Glucose_Rising_FastWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Glucose_Rising_Fast", pathExtension: "wav")
+    /// Resource file `Siri_Alert_High_Glucose.wav`.
+    static let siri_Alert_High_GlucoseWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_High_Glucose", pathExtension: "wav")
+    /// Resource file `Siri_Alert_Low_Glucose.wav`.
+    static let siri_Alert_Low_GlucoseWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Low_Glucose", pathExtension: "wav")
+    /// Resource file `Siri_Alert_Missed_Readings.wav`.
+    static let siri_Alert_Missed_ReadingsWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Missed_Readings", pathExtension: "wav")
+    /// Resource file `Siri_Alert_Transmitter_Battery_Low.wav`.
+    static let siri_Alert_Transmitter_Battery_LowWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Transmitter_Battery_Low", pathExtension: "wav")
+    /// Resource file `Siri_Alert_Urgent_High_Glucose.wav`.
+    static let siri_Alert_Urgent_High_GlucoseWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Urgent_High_Glucose", pathExtension: "wav")
+    /// Resource file `Siri_Alert_Urgent_Low_Glucose.wav`.
+    static let siri_Alert_Urgent_Low_GlucoseWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Urgent_Low_Glucose", pathExtension: "wav")
+    /// Resource file `Siri_Calibration_Needed.wav`.
+    static let siri_Calibration_NeededWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Calibration_Needed", pathExtension: "wav")
+    /// Resource file `Siri_Device_Muted.wav`.
+    static let siri_Device_MutedWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Device_Muted", pathExtension: "wav")
+    /// Resource file `Siri_Glucose_Dropping_Fast.wav`.
+    static let siri_Glucose_Dropping_FastWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Glucose_Dropping_Fast", pathExtension: "wav")
+    /// Resource file `Siri_Glucose_Rising_Fast.wav`.
+    static let siri_Glucose_Rising_FastWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Glucose_Rising_Fast", pathExtension: "wav")
+    /// Resource file `Siri_High_Glucose.wav`.
+    static let siri_High_GlucoseWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_High_Glucose", pathExtension: "wav")
+    /// Resource file `Siri_Low_Glucose.wav`.
+    static let siri_Low_GlucoseWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Low_Glucose", pathExtension: "wav")
+    /// Resource file `Siri_Missed_Readings.wav`.
+    static let siri_Missed_ReadingsWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Missed_Readings", pathExtension: "wav")
+    /// Resource file `Siri_Transmitter_Battery_Low.wav`.
+    static let siri_Transmitter_Battery_LowWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Transmitter_Battery_Low", pathExtension: "wav")
+    /// Resource file `Siri_Urgent_High_Glucose.wav`.
+    static let siri_Urgent_High_GlucoseWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Urgent_High_Glucose", pathExtension: "wav")
+    /// Resource file `Siri_Urgent_Low_Glucose.wav`.
+    static let siri_Urgent_Low_GlucoseWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Urgent_Low_Glucose", pathExtension: "wav")
+    /// Resource file `Soft_Marimba_Pad_Positive.wav`.
+    static let soft_Marimba_Pad_PositiveWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Soft_Marimba_Pad_Positive", pathExtension: "wav")
+    /// Resource file `Soft_Warm_Airy_Optimistic.wav`.
+    static let soft_Warm_Airy_OptimisticWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Soft_Warm_Airy_Optimistic", pathExtension: "wav")
+    /// Resource file `Soft_Warm_Airy_Reassuring.wav`.
+    static let soft_Warm_Airy_ReassuringWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Soft_Warm_Airy_Reassuring", pathExtension: "wav")
+    /// Resource file `Store_Door_Chime.wav`.
+    static let store_Door_ChimeWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Store_Door_Chime", pathExtension: "wav")
+    /// Resource file `Sunny.wav`.
+    static let sunnyWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sunny", pathExtension: "wav")
+    /// Resource file `Thunder_Sound_FX.wav`.
+    static let thunder_Sound_FXWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Thunder_Sound_FX", pathExtension: "wav")
+    /// Resource file `Time_Has_Come.wav`.
+    static let time_Has_ComeWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Time_Has_Come", pathExtension: "wav")
+    /// Resource file `Tornado_Siren.wav`.
+    static let tornado_SirenWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Tornado_Siren", pathExtension: "wav")
+    /// Resource file `Two_Turtle_Doves.wav`.
+    static let two_Turtle_DovesWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Two_Turtle_Doves", pathExtension: "wav")
+    /// Resource file `Unpaved.wav`.
+    static let unpavedWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Unpaved", pathExtension: "wav")
+    /// Resource file `Wake_Up_Will_You.wav`.
+    static let wake_Up_Will_YouWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Wake_Up_Will_You", pathExtension: "wav")
+    /// Resource file `Win_Gain.wav`.
+    static let win_GainWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Win_Gain", pathExtension: "wav")
+    /// Resource file `Wrong_Answer.wav`.
+    static let wrong_AnswerWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Wrong_Answer", pathExtension: "wav")
+    /// Resource file `betterwakeup.wav`.
+    static let betterwakeupWav = Rswift.FileResource(bundle: R.hostingBundle, name: "betterwakeup", pathExtension: "wav")
+    /// Resource file `bruteforce.wav`.
+    static let bruteforceWav = Rswift.FileResource(bundle: R.hostingBundle, name: "bruteforce", pathExtension: "wav")
     /// Resource file `logo-launchScreen@3x.png`.
     static let logoLaunchScreen3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "logo-launchScreen@3x", pathExtension: "png")
-    /// Resource file `modern2.mp3`.
-    static let modern2Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "modern2", pathExtension: "mp3")
-    /// Resource file `modernalarm.mp3`.
-    static let modernalarmMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "modernalarm", pathExtension: "mp3")
-    /// Resource file `shorthigh1.mp3`.
-    static let shorthigh1Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "shorthigh1", pathExtension: "mp3")
-    /// Resource file `shorthigh2.mp3`.
-    static let shorthigh2Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "shorthigh2", pathExtension: "mp3")
-    /// Resource file `shorthigh3.mp3`.
-    static let shorthigh3Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "shorthigh3", pathExtension: "mp3")
-    /// Resource file `shorthigh4.mp3`.
-    static let shorthigh4Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "shorthigh4", pathExtension: "mp3")
-    /// Resource file `shortlow1.mp3`.
-    static let shortlow1Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "shortlow1", pathExtension: "mp3")
-    /// Resource file `shortlow2.mp3`.
-    static let shortlow2Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "shortlow2", pathExtension: "mp3")
-    /// Resource file `shortlow3.mp3`.
-    static let shortlow3Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "shortlow3", pathExtension: "mp3")
-    /// Resource file `shortlow4.mp3`.
-    static let shortlow4Mp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "shortlow4", pathExtension: "mp3")
-    /// Resource file `spaceship.mp3`.
-    static let spaceshipMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "spaceship", pathExtension: "mp3")
-    /// Resource file `xdripalert.aif`.
-    static let xdripalertAif = Rswift.FileResource(bundle: R.hostingBundle, name: "xdripalert", pathExtension: "aif")
-
-    /// `bundle.url(forResource: "1-millisecond-of-silence", withExtension: "mp3")`
-    static func millisecondOfSilenceMp3(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.millisecondOfSilenceMp3
-      return fileResource.bundle.url(forResource: fileResource)
-    }
+    /// Resource file `modern2.wav`.
+    static let modern2Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "modern2", pathExtension: "wav")
+    /// Resource file `modernalarm.wav`.
+    static let modernalarmWav = Rswift.FileResource(bundle: R.hostingBundle, name: "modernalarm", pathExtension: "wav")
+    /// Resource file `shorthigh1.wav`.
+    static let shorthigh1Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "shorthigh1", pathExtension: "wav")
+    /// Resource file `shorthigh2.wav`.
+    static let shorthigh2Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "shorthigh2", pathExtension: "wav")
+    /// Resource file `shorthigh3.wav`.
+    static let shorthigh3Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "shorthigh3", pathExtension: "wav")
+    /// Resource file `shorthigh4.wav`.
+    static let shorthigh4Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "shorthigh4", pathExtension: "wav")
+    /// Resource file `shortlow1.wav`.
+    static let shortlow1Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "shortlow1", pathExtension: "wav")
+    /// Resource file `shortlow2.wav`.
+    static let shortlow2Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "shortlow2", pathExtension: "wav")
+    /// Resource file `shortlow3.wav`.
+    static let shortlow3Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "shortlow3", pathExtension: "wav")
+    /// Resource file `shortlow4.wav`.
+    static let shortlow4Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "shortlow4", pathExtension: "wav")
+    /// Resource file `spaceship.wav`.
+    static let spaceshipWav = Rswift.FileResource(bundle: R.hostingBundle, name: "spaceship", pathExtension: "wav")
+    /// Resource file `xdripalert.wav`.
+    static let xdripalertWav = Rswift.FileResource(bundle: R.hostingBundle, name: "xdripalert", pathExtension: "wav")
 
     /// `bundle.url(forResource: "1-millisecond-of-silence", withExtension: "wav")`
     static func millisecondOfSilenceWav(_: Void = ()) -> Foundation.URL? {
@@ -550,225 +542,225 @@ struct R: Rswift.Validatable {
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "20ms-of-silence", withExtension: "caf")`
-    static func msOfSilenceCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.msOfSilenceCaf
+    /// `bundle.url(forResource: "20ms-of-silence", withExtension: "wav")`
+    static func msOfSilenceWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.msOfSilenceWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Alarm_Buzzer", withExtension: "caf")`
-    static func alarm_BuzzerCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.alarm_BuzzerCaf
+    /// `bundle.url(forResource: "Alarm_Buzzer", withExtension: "wav")`
+    static func alarm_BuzzerWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.alarm_BuzzerWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Alarm_Clock", withExtension: "caf")`
-    static func alarm_ClockCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.alarm_ClockCaf
+    /// `bundle.url(forResource: "Alarm_Clock", withExtension: "wav")`
+    static func alarm_ClockWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.alarm_ClockWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Alert_Tone_Busy", withExtension: "caf")`
-    static func alert_Tone_BusyCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.alert_Tone_BusyCaf
+    /// `bundle.url(forResource: "Alert_Tone_Busy", withExtension: "wav")`
+    static func alert_Tone_BusyWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.alert_Tone_BusyWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Alert_Tone_Ringtone_1", withExtension: "caf")`
-    static func alert_Tone_Ringtone_1Caf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.alert_Tone_Ringtone_1Caf
+    /// `bundle.url(forResource: "Alert_Tone_Ringtone_1", withExtension: "wav")`
+    static func alert_Tone_Ringtone_1Wav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.alert_Tone_Ringtone_1Wav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Alert_Tone_Ringtone_2", withExtension: "caf")`
-    static func alert_Tone_Ringtone_2Caf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.alert_Tone_Ringtone_2Caf
+    /// `bundle.url(forResource: "Alert_Tone_Ringtone_2", withExtension: "wav")`
+    static func alert_Tone_Ringtone_2Wav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.alert_Tone_Ringtone_2Wav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Alien_Siren", withExtension: "caf")`
-    static func alien_SirenCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.alien_SirenCaf
+    /// `bundle.url(forResource: "Alien_Siren", withExtension: "wav")`
+    static func alien_SirenWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.alien_SirenWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Ambulance", withExtension: "caf")`
-    static func ambulanceCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.ambulanceCaf
+    /// `bundle.url(forResource: "Ambulance", withExtension: "wav")`
+    static func ambulanceWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.ambulanceWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Analog_Watch_Alarm", withExtension: "caf")`
-    static func analog_Watch_AlarmCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.analog_Watch_AlarmCaf
+    /// `bundle.url(forResource: "Analog_Watch_Alarm", withExtension: "wav")`
+    static func analog_Watch_AlarmWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.analog_Watch_AlarmWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Big_Clock_Ticking", withExtension: "caf")`
-    static func big_Clock_TickingCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.big_Clock_TickingCaf
+    /// `bundle.url(forResource: "Big_Clock_Ticking", withExtension: "wav")`
+    static func big_Clock_TickingWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.big_Clock_TickingWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Burglar_Alarm_Siren_1", withExtension: "caf")`
-    static func burglar_Alarm_Siren_1Caf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.burglar_Alarm_Siren_1Caf
+    /// `bundle.url(forResource: "Burglar_Alarm_Siren_1", withExtension: "wav")`
+    static func burglar_Alarm_Siren_1Wav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.burglar_Alarm_Siren_1Wav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Burglar_Alarm_Siren_2", withExtension: "caf")`
-    static func burglar_Alarm_Siren_2Caf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.burglar_Alarm_Siren_2Caf
+    /// `bundle.url(forResource: "Burglar_Alarm_Siren_2", withExtension: "wav")`
+    static func burglar_Alarm_Siren_2Wav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.burglar_Alarm_Siren_2Wav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "CSFX-2_Alarm", withExtension: "caf")`
-    static func csfx2_AlarmCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.csfx2_AlarmCaf
+    /// `bundle.url(forResource: "CSFX-2_Alarm", withExtension: "wav")`
+    static func csfx2_AlarmWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.csfx2_AlarmWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Cartoon_Ascend_Climb_Sneaky", withExtension: "caf")`
-    static func cartoon_Ascend_Climb_SneakyCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.cartoon_Ascend_Climb_SneakyCaf
+    /// `bundle.url(forResource: "Cartoon_Ascend_Climb_Sneaky", withExtension: "wav")`
+    static func cartoon_Ascend_Climb_SneakyWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.cartoon_Ascend_Climb_SneakyWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Cartoon_Ascend_Then_Descend", withExtension: "caf")`
-    static func cartoon_Ascend_Then_DescendCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.cartoon_Ascend_Then_DescendCaf
+    /// `bundle.url(forResource: "Cartoon_Ascend_Then_Descend", withExtension: "wav")`
+    static func cartoon_Ascend_Then_DescendWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.cartoon_Ascend_Then_DescendWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Cartoon_Bounce_To_Ceiling", withExtension: "caf")`
-    static func cartoon_Bounce_To_CeilingCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.cartoon_Bounce_To_CeilingCaf
+    /// `bundle.url(forResource: "Cartoon_Bounce_To_Ceiling", withExtension: "wav")`
+    static func cartoon_Bounce_To_CeilingWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.cartoon_Bounce_To_CeilingWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Cartoon_Dreamy_Glissando_Harp", withExtension: "caf")`
-    static func cartoon_Dreamy_Glissando_HarpCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.cartoon_Dreamy_Glissando_HarpCaf
+    /// `bundle.url(forResource: "Cartoon_Dreamy_Glissando_Harp", withExtension: "wav")`
+    static func cartoon_Dreamy_Glissando_HarpWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.cartoon_Dreamy_Glissando_HarpWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Cartoon_Fail_Strings_Trumpet", withExtension: "caf")`
-    static func cartoon_Fail_Strings_TrumpetCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.cartoon_Fail_Strings_TrumpetCaf
+    /// `bundle.url(forResource: "Cartoon_Fail_Strings_Trumpet", withExtension: "wav")`
+    static func cartoon_Fail_Strings_TrumpetWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.cartoon_Fail_Strings_TrumpetWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Cartoon_Machine_Clumsy_Loop", withExtension: "caf")`
-    static func cartoon_Machine_Clumsy_LoopCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.cartoon_Machine_Clumsy_LoopCaf
+    /// `bundle.url(forResource: "Cartoon_Machine_Clumsy_Loop", withExtension: "wav")`
+    static func cartoon_Machine_Clumsy_LoopWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.cartoon_Machine_Clumsy_LoopWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Cartoon_Siren", withExtension: "caf")`
-    static func cartoon_SirenCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.cartoon_SirenCaf
+    /// `bundle.url(forResource: "Cartoon_Siren", withExtension: "wav")`
+    static func cartoon_SirenWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.cartoon_SirenWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Cartoon_Tip_Toe_Sneaky_Walk", withExtension: "caf")`
-    static func cartoon_Tip_Toe_Sneaky_WalkCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.cartoon_Tip_Toe_Sneaky_WalkCaf
+    /// `bundle.url(forResource: "Cartoon_Tip_Toe_Sneaky_Walk", withExtension: "wav")`
+    static func cartoon_Tip_Toe_Sneaky_WalkWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.cartoon_Tip_Toe_Sneaky_WalkWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Cartoon_Uh_Oh", withExtension: "caf")`
-    static func cartoon_Uh_OhCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.cartoon_Uh_OhCaf
+    /// `bundle.url(forResource: "Cartoon_Uh_Oh", withExtension: "wav")`
+    static func cartoon_Uh_OhWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.cartoon_Uh_OhWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Cartoon_Villain_Horns", withExtension: "caf")`
-    static func cartoon_Villain_HornsCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.cartoon_Villain_HornsCaf
+    /// `bundle.url(forResource: "Cartoon_Villain_Horns", withExtension: "wav")`
+    static func cartoon_Villain_HornsWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.cartoon_Villain_HornsWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Cell_Phone_Ring_Tone", withExtension: "caf")`
-    static func cell_Phone_Ring_ToneCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.cell_Phone_Ring_ToneCaf
+    /// `bundle.url(forResource: "Cell_Phone_Ring_Tone", withExtension: "wav")`
+    static func cell_Phone_Ring_ToneWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.cell_Phone_Ring_ToneWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Chimes_Glassy", withExtension: "caf")`
-    static func chimes_GlassyCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.chimes_GlassyCaf
+    /// `bundle.url(forResource: "Chimes_Glassy", withExtension: "wav")`
+    static func chimes_GlassyWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.chimes_GlassyWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Computer_Magic", withExtension: "caf")`
-    static func computer_MagicCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.computer_MagicCaf
+    /// `bundle.url(forResource: "Computer_Magic", withExtension: "wav")`
+    static func computer_MagicWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.computer_MagicWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Cuckoo_Clock", withExtension: "caf")`
-    static func cuckoo_ClockCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.cuckoo_ClockCaf
+    /// `bundle.url(forResource: "Cuckoo_Clock", withExtension: "wav")`
+    static func cuckoo_ClockWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.cuckoo_ClockWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Dhol_Shuffleloop", withExtension: "caf")`
-    static func dhol_ShuffleloopCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.dhol_ShuffleloopCaf
+    /// `bundle.url(forResource: "Dhol_Shuffleloop", withExtension: "wav")`
+    static func dhol_ShuffleloopWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.dhol_ShuffleloopWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Discreet", withExtension: "caf")`
-    static func discreetCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.discreetCaf
+    /// `bundle.url(forResource: "Discreet", withExtension: "wav")`
+    static func discreetWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.discreetWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Early_Sunrise", withExtension: "caf")`
-    static func early_SunriseCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.early_SunriseCaf
+    /// `bundle.url(forResource: "Early_Sunrise", withExtension: "wav")`
+    static func early_SunriseWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.early_SunriseWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Emergency_Alarm", withExtension: "caf")`
-    static func emergency_AlarmCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.emergency_AlarmCaf
+    /// `bundle.url(forResource: "Emergency_Alarm", withExtension: "wav")`
+    static func emergency_AlarmWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.emergency_AlarmWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Emergency_Alarm_Carbon_Monoxide", withExtension: "caf")`
-    static func emergency_Alarm_Carbon_MonoxideCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.emergency_Alarm_Carbon_MonoxideCaf
+    /// `bundle.url(forResource: "Emergency_Alarm_Carbon_Monoxide", withExtension: "wav")`
+    static func emergency_Alarm_Carbon_MonoxideWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.emergency_Alarm_Carbon_MonoxideWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Emergency_Alarm_Siren", withExtension: "caf")`
-    static func emergency_Alarm_SirenCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.emergency_Alarm_SirenCaf
+    /// `bundle.url(forResource: "Emergency_Alarm_Siren", withExtension: "wav")`
+    static func emergency_Alarm_SirenWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.emergency_Alarm_SirenWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Ending_Reached", withExtension: "caf")`
-    static func ending_ReachedCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.ending_ReachedCaf
+    /// `bundle.url(forResource: "Ending_Reached", withExtension: "wav")`
+    static func ending_ReachedWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.ending_ReachedWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Fly", withExtension: "caf")`
-    static func flyCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.flyCaf
+    /// `bundle.url(forResource: "Fly", withExtension: "wav")`
+    static func flyWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.flyWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Ghost_Hover", withExtension: "caf")`
-    static func ghost_HoverCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.ghost_HoverCaf
+    /// `bundle.url(forResource: "Ghost_Hover", withExtension: "wav")`
+    static func ghost_HoverWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.ghost_HoverWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Good_Morning", withExtension: "caf")`
-    static func good_MorningCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.good_MorningCaf
+    /// `bundle.url(forResource: "Good_Morning", withExtension: "wav")`
+    static func good_MorningWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.good_MorningWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
@@ -778,123 +770,123 @@ struct R: Rswift.Validatable {
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Hell_Yeah_Somewhat_Calmer", withExtension: "caf")`
-    static func hell_Yeah_Somewhat_CalmerCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.hell_Yeah_Somewhat_CalmerCaf
+    /// `bundle.url(forResource: "Hell_Yeah_Somewhat_Calmer", withExtension: "wav")`
+    static func hell_Yeah_Somewhat_CalmerWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.hell_Yeah_Somewhat_CalmerWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "In_A_Hurry", withExtension: "caf")`
-    static func in_A_HurryCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.in_A_HurryCaf
+    /// `bundle.url(forResource: "In_A_Hurry", withExtension: "wav")`
+    static func in_A_HurryWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.in_A_HurryWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Indeed", withExtension: "caf")`
-    static func indeedCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.indeedCaf
+    /// `bundle.url(forResource: "Indeed", withExtension: "wav")`
+    static func indeedWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.indeedWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Insistently", withExtension: "caf")`
-    static func insistentlyCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.insistentlyCaf
+    /// `bundle.url(forResource: "Insistently", withExtension: "wav")`
+    static func insistentlyWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.insistentlyWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Jingle_All_The_Way", withExtension: "caf")`
-    static func jingle_All_The_WayCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.jingle_All_The_WayCaf
+    /// `bundle.url(forResource: "Jingle_All_The_Way", withExtension: "wav")`
+    static func jingle_All_The_WayWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.jingle_All_The_WayWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Laser_Shoot", withExtension: "caf")`
-    static func laser_ShootCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.laser_ShootCaf
+    /// `bundle.url(forResource: "Laser_Shoot", withExtension: "wav")`
+    static func laser_ShootWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.laser_ShootWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Machine_Charge", withExtension: "caf")`
-    static func machine_ChargeCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.machine_ChargeCaf
+    /// `bundle.url(forResource: "Machine_Charge", withExtension: "wav")`
+    static func machine_ChargeWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.machine_ChargeWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Magical_Twinkle", withExtension: "caf")`
-    static func magical_TwinkleCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.magical_TwinkleCaf
+    /// `bundle.url(forResource: "Magical_Twinkle", withExtension: "wav")`
+    static func magical_TwinkleWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.magical_TwinkleWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Marching_Heavy_Footed_Fat_Elephants", withExtension: "caf")`
-    static func marching_Heavy_Footed_Fat_ElephantsCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.marching_Heavy_Footed_Fat_ElephantsCaf
+    /// `bundle.url(forResource: "Marching_Heavy_Footed_Fat_Elephants", withExtension: "wav")`
+    static func marching_Heavy_Footed_Fat_ElephantsWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.marching_Heavy_Footed_Fat_ElephantsWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Marimba_Descend", withExtension: "caf")`
-    static func marimba_DescendCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.marimba_DescendCaf
+    /// `bundle.url(forResource: "Marimba_Descend", withExtension: "wav")`
+    static func marimba_DescendWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.marimba_DescendWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Marimba_Flutter_or_Shake", withExtension: "caf")`
-    static func marimba_Flutter_or_ShakeCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.marimba_Flutter_or_ShakeCaf
+    /// `bundle.url(forResource: "Marimba_Flutter_or_Shake", withExtension: "wav")`
+    static func marimba_Flutter_or_ShakeWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.marimba_Flutter_or_ShakeWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Martian_Gun", withExtension: "caf")`
-    static func martian_GunCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.martian_GunCaf
+    /// `bundle.url(forResource: "Martian_Gun", withExtension: "wav")`
+    static func martian_GunWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.martian_GunWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Martian_Scanner", withExtension: "caf")`
-    static func martian_ScannerCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.martian_ScannerCaf
+    /// `bundle.url(forResource: "Martian_Scanner", withExtension: "wav")`
+    static func martian_ScannerWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.martian_ScannerWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Metallic", withExtension: "caf")`
-    static func metallicCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.metallicCaf
+    /// `bundle.url(forResource: "Metallic", withExtension: "wav")`
+    static func metallicWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.metallicWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Nightguard", withExtension: "caf")`
-    static func nightguardCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.nightguardCaf
+    /// `bundle.url(forResource: "Nightguard", withExtension: "wav")`
+    static func nightguardWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.nightguardWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Not_Kiddin", withExtension: "caf")`
-    static func not_KiddinCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.not_KiddinCaf
+    /// `bundle.url(forResource: "Not_Kiddin", withExtension: "wav")`
+    static func not_KiddinWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.not_KiddinWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Open_Your_Eyes_And_See", withExtension: "caf")`
-    static func open_Your_Eyes_And_SeeCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.open_Your_Eyes_And_SeeCaf
+    /// `bundle.url(forResource: "Open_Your_Eyes_And_See", withExtension: "wav")`
+    static func open_Your_Eyes_And_SeeWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.open_Your_Eyes_And_SeeWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Orchestral_Horns", withExtension: "caf")`
-    static func orchestral_HornsCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.orchestral_HornsCaf
+    /// `bundle.url(forResource: "Orchestral_Horns", withExtension: "wav")`
+    static func orchestral_HornsWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.orchestral_HornsWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Oringz", withExtension: "caf")`
-    static func oringzCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.oringzCaf
+    /// `bundle.url(forResource: "Oringz", withExtension: "wav")`
+    static func oringzWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.oringzWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Pager_Beeps", withExtension: "caf")`
-    static func pager_BeepsCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.pager_BeepsCaf
+    /// `bundle.url(forResource: "Pager_Beeps", withExtension: "wav")`
+    static func pager_BeepsWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.pager_BeepsWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
@@ -904,321 +896,321 @@ struct R: Rswift.Validatable {
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Remembers_Me_Of_Asia", withExtension: "caf")`
-    static func remembers_Me_Of_AsiaCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.remembers_Me_Of_AsiaCaf
+    /// `bundle.url(forResource: "Remembers_Me_Of_Asia", withExtension: "wav")`
+    static func remembers_Me_Of_AsiaWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.remembers_Me_Of_AsiaWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Rise_And_Shine", withExtension: "caf")`
-    static func rise_And_ShineCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.rise_And_ShineCaf
+    /// `bundle.url(forResource: "Rise_And_Shine", withExtension: "wav")`
+    static func rise_And_ShineWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.rise_And_ShineWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Rush", withExtension: "caf")`
-    static func rushCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.rushCaf
+    /// `bundle.url(forResource: "Rush", withExtension: "wav")`
+    static func rushWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.rushWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Sci-Fi_Air_Raid_Alarm", withExtension: "caf")`
-    static func sciFi_Air_Raid_AlarmCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_Air_Raid_AlarmCaf
+    /// `bundle.url(forResource: "Sci-Fi_Air_Raid_Alarm", withExtension: "wav")`
+    static func sciFi_Air_Raid_AlarmWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.sciFi_Air_Raid_AlarmWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Sci-Fi_Alarm", withExtension: "caf")`
-    static func sciFi_AlarmCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_AlarmCaf
+    /// `bundle.url(forResource: "Sci-Fi_Alarm", withExtension: "wav")`
+    static func sciFi_AlarmWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.sciFi_AlarmWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Sci-Fi_Alarm_Loop_1", withExtension: "caf")`
-    static func sciFi_Alarm_Loop_1Caf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_Alarm_Loop_1Caf
+    /// `bundle.url(forResource: "Sci-Fi_Alarm_Loop_1", withExtension: "wav")`
+    static func sciFi_Alarm_Loop_1Wav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.sciFi_Alarm_Loop_1Wav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Sci-Fi_Alarm_Loop_2", withExtension: "caf")`
-    static func sciFi_Alarm_Loop_2Caf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_Alarm_Loop_2Caf
+    /// `bundle.url(forResource: "Sci-Fi_Alarm_Loop_2", withExtension: "wav")`
+    static func sciFi_Alarm_Loop_2Wav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.sciFi_Alarm_Loop_2Wav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Sci-Fi_Alarm_Loop_3", withExtension: "caf")`
-    static func sciFi_Alarm_Loop_3Caf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_Alarm_Loop_3Caf
+    /// `bundle.url(forResource: "Sci-Fi_Alarm_Loop_3", withExtension: "wav")`
+    static func sciFi_Alarm_Loop_3Wav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.sciFi_Alarm_Loop_3Wav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Sci-Fi_Alarm_Loop_4", withExtension: "caf")`
-    static func sciFi_Alarm_Loop_4Caf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_Alarm_Loop_4Caf
+    /// `bundle.url(forResource: "Sci-Fi_Alarm_Loop_4", withExtension: "wav")`
+    static func sciFi_Alarm_Loop_4Wav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.sciFi_Alarm_Loop_4Wav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Sci-Fi_Computer_Console_Alarm", withExtension: "caf")`
-    static func sciFi_Computer_Console_AlarmCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_Computer_Console_AlarmCaf
+    /// `bundle.url(forResource: "Sci-Fi_Computer_Console_Alarm", withExtension: "wav")`
+    static func sciFi_Computer_Console_AlarmWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.sciFi_Computer_Console_AlarmWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Sci-Fi_Console_Alarm", withExtension: "caf")`
-    static func sciFi_Console_AlarmCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_Console_AlarmCaf
+    /// `bundle.url(forResource: "Sci-Fi_Console_Alarm", withExtension: "wav")`
+    static func sciFi_Console_AlarmWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.sciFi_Console_AlarmWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Sci-Fi_Eerie_Alarm", withExtension: "caf")`
-    static func sciFi_Eerie_AlarmCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_Eerie_AlarmCaf
+    /// `bundle.url(forResource: "Sci-Fi_Eerie_Alarm", withExtension: "wav")`
+    static func sciFi_Eerie_AlarmWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.sciFi_Eerie_AlarmWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Sci-Fi_Engine_Shut_Down", withExtension: "caf")`
-    static func sciFi_Engine_Shut_DownCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_Engine_Shut_DownCaf
+    /// `bundle.url(forResource: "Sci-Fi_Engine_Shut_Down", withExtension: "wav")`
+    static func sciFi_Engine_Shut_DownWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.sciFi_Engine_Shut_DownWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Sci-Fi_Incoming_Message_Alert", withExtension: "caf")`
-    static func sciFi_Incoming_Message_AlertCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_Incoming_Message_AlertCaf
+    /// `bundle.url(forResource: "Sci-Fi_Incoming_Message_Alert", withExtension: "wav")`
+    static func sciFi_Incoming_Message_AlertWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.sciFi_Incoming_Message_AlertWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Sci-Fi_Spaceship_Message", withExtension: "caf")`
-    static func sciFi_Spaceship_MessageCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_Spaceship_MessageCaf
+    /// `bundle.url(forResource: "Sci-Fi_Spaceship_Message", withExtension: "wav")`
+    static func sciFi_Spaceship_MessageWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.sciFi_Spaceship_MessageWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Sci-Fi_Spaceship_Warm_Up", withExtension: "caf")`
-    static func sciFi_Spaceship_Warm_UpCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_Spaceship_Warm_UpCaf
+    /// `bundle.url(forResource: "Sci-Fi_Spaceship_Warm_Up", withExtension: "wav")`
+    static func sciFi_Spaceship_Warm_UpWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.sciFi_Spaceship_Warm_UpWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Sci-Fi_Warning", withExtension: "caf")`
-    static func sciFi_WarningCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_WarningCaf
+    /// `bundle.url(forResource: "Sci-Fi_Warning", withExtension: "wav")`
+    static func sciFi_WarningWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.sciFi_WarningWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Signature_Corporate", withExtension: "caf")`
-    static func signature_CorporateCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.signature_CorporateCaf
+    /// `bundle.url(forResource: "Signature_Corporate", withExtension: "wav")`
+    static func signature_CorporateWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.signature_CorporateWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Siri_Alert_Calibration_Needed", withExtension: "caf")`
-    static func siri_Alert_Calibration_NeededCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Alert_Calibration_NeededCaf
+    /// `bundle.url(forResource: "Siri_Alert_Calibration_Needed", withExtension: "wav")`
+    static func siri_Alert_Calibration_NeededWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.siri_Alert_Calibration_NeededWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Siri_Alert_Device_Muted", withExtension: "caf")`
-    static func siri_Alert_Device_MutedCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Alert_Device_MutedCaf
+    /// `bundle.url(forResource: "Siri_Alert_Device_Muted", withExtension: "wav")`
+    static func siri_Alert_Device_MutedWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.siri_Alert_Device_MutedWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Siri_Alert_Glucose_Dropping_Fast", withExtension: "caf")`
-    static func siri_Alert_Glucose_Dropping_FastCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Alert_Glucose_Dropping_FastCaf
+    /// `bundle.url(forResource: "Siri_Alert_Glucose_Dropping_Fast", withExtension: "wav")`
+    static func siri_Alert_Glucose_Dropping_FastWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.siri_Alert_Glucose_Dropping_FastWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Siri_Alert_Glucose_Rising_Fast", withExtension: "caf")`
-    static func siri_Alert_Glucose_Rising_FastCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Alert_Glucose_Rising_FastCaf
+    /// `bundle.url(forResource: "Siri_Alert_Glucose_Rising_Fast", withExtension: "wav")`
+    static func siri_Alert_Glucose_Rising_FastWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.siri_Alert_Glucose_Rising_FastWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Siri_Alert_High_Glucose", withExtension: "caf")`
-    static func siri_Alert_High_GlucoseCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Alert_High_GlucoseCaf
+    /// `bundle.url(forResource: "Siri_Alert_High_Glucose", withExtension: "wav")`
+    static func siri_Alert_High_GlucoseWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.siri_Alert_High_GlucoseWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Siri_Alert_Low_Glucose", withExtension: "caf")`
-    static func siri_Alert_Low_GlucoseCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Alert_Low_GlucoseCaf
+    /// `bundle.url(forResource: "Siri_Alert_Low_Glucose", withExtension: "wav")`
+    static func siri_Alert_Low_GlucoseWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.siri_Alert_Low_GlucoseWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Siri_Alert_Missed_Readings", withExtension: "caf")`
-    static func siri_Alert_Missed_ReadingsCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Alert_Missed_ReadingsCaf
+    /// `bundle.url(forResource: "Siri_Alert_Missed_Readings", withExtension: "wav")`
+    static func siri_Alert_Missed_ReadingsWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.siri_Alert_Missed_ReadingsWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Siri_Alert_Transmitter_Battery_Low", withExtension: "caf")`
-    static func siri_Alert_Transmitter_Battery_LowCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Alert_Transmitter_Battery_LowCaf
+    /// `bundle.url(forResource: "Siri_Alert_Transmitter_Battery_Low", withExtension: "wav")`
+    static func siri_Alert_Transmitter_Battery_LowWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.siri_Alert_Transmitter_Battery_LowWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Siri_Alert_Urgent_High_Glucose", withExtension: "caf")`
-    static func siri_Alert_Urgent_High_GlucoseCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Alert_Urgent_High_GlucoseCaf
+    /// `bundle.url(forResource: "Siri_Alert_Urgent_High_Glucose", withExtension: "wav")`
+    static func siri_Alert_Urgent_High_GlucoseWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.siri_Alert_Urgent_High_GlucoseWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Siri_Alert_Urgent_Low_Glucose", withExtension: "caf")`
-    static func siri_Alert_Urgent_Low_GlucoseCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Alert_Urgent_Low_GlucoseCaf
+    /// `bundle.url(forResource: "Siri_Alert_Urgent_Low_Glucose", withExtension: "wav")`
+    static func siri_Alert_Urgent_Low_GlucoseWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.siri_Alert_Urgent_Low_GlucoseWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Siri_Calibration_Needed", withExtension: "caf")`
-    static func siri_Calibration_NeededCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Calibration_NeededCaf
+    /// `bundle.url(forResource: "Siri_Calibration_Needed", withExtension: "wav")`
+    static func siri_Calibration_NeededWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.siri_Calibration_NeededWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Siri_Device_Muted", withExtension: "caf")`
-    static func siri_Device_MutedCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Device_MutedCaf
+    /// `bundle.url(forResource: "Siri_Device_Muted", withExtension: "wav")`
+    static func siri_Device_MutedWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.siri_Device_MutedWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Siri_Glucose_Dropping_Fast", withExtension: "caf")`
-    static func siri_Glucose_Dropping_FastCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Glucose_Dropping_FastCaf
+    /// `bundle.url(forResource: "Siri_Glucose_Dropping_Fast", withExtension: "wav")`
+    static func siri_Glucose_Dropping_FastWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.siri_Glucose_Dropping_FastWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Siri_Glucose_Rising_Fast", withExtension: "caf")`
-    static func siri_Glucose_Rising_FastCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Glucose_Rising_FastCaf
+    /// `bundle.url(forResource: "Siri_Glucose_Rising_Fast", withExtension: "wav")`
+    static func siri_Glucose_Rising_FastWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.siri_Glucose_Rising_FastWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Siri_High_Glucose", withExtension: "caf")`
-    static func siri_High_GlucoseCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_High_GlucoseCaf
+    /// `bundle.url(forResource: "Siri_High_Glucose", withExtension: "wav")`
+    static func siri_High_GlucoseWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.siri_High_GlucoseWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Siri_Low_Glucose", withExtension: "caf")`
-    static func siri_Low_GlucoseCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Low_GlucoseCaf
+    /// `bundle.url(forResource: "Siri_Low_Glucose", withExtension: "wav")`
+    static func siri_Low_GlucoseWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.siri_Low_GlucoseWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Siri_Missed_Readings", withExtension: "caf")`
-    static func siri_Missed_ReadingsCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Missed_ReadingsCaf
+    /// `bundle.url(forResource: "Siri_Missed_Readings", withExtension: "wav")`
+    static func siri_Missed_ReadingsWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.siri_Missed_ReadingsWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Siri_Transmitter_Battery_Low", withExtension: "caf")`
-    static func siri_Transmitter_Battery_LowCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Transmitter_Battery_LowCaf
+    /// `bundle.url(forResource: "Siri_Transmitter_Battery_Low", withExtension: "wav")`
+    static func siri_Transmitter_Battery_LowWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.siri_Transmitter_Battery_LowWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Siri_Urgent_High_Glucose", withExtension: "caf")`
-    static func siri_Urgent_High_GlucoseCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Urgent_High_GlucoseCaf
+    /// `bundle.url(forResource: "Siri_Urgent_High_Glucose", withExtension: "wav")`
+    static func siri_Urgent_High_GlucoseWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.siri_Urgent_High_GlucoseWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Siri_Urgent_Low_Glucose", withExtension: "caf")`
-    static func siri_Urgent_Low_GlucoseCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Urgent_Low_GlucoseCaf
+    /// `bundle.url(forResource: "Siri_Urgent_Low_Glucose", withExtension: "wav")`
+    static func siri_Urgent_Low_GlucoseWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.siri_Urgent_Low_GlucoseWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Soft_Marimba_Pad_Positive", withExtension: "caf")`
-    static func soft_Marimba_Pad_PositiveCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.soft_Marimba_Pad_PositiveCaf
+    /// `bundle.url(forResource: "Soft_Marimba_Pad_Positive", withExtension: "wav")`
+    static func soft_Marimba_Pad_PositiveWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.soft_Marimba_Pad_PositiveWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Soft_Warm_Airy_Optimistic", withExtension: "caf")`
-    static func soft_Warm_Airy_OptimisticCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.soft_Warm_Airy_OptimisticCaf
+    /// `bundle.url(forResource: "Soft_Warm_Airy_Optimistic", withExtension: "wav")`
+    static func soft_Warm_Airy_OptimisticWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.soft_Warm_Airy_OptimisticWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Soft_Warm_Airy_Reassuring", withExtension: "caf")`
-    static func soft_Warm_Airy_ReassuringCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.soft_Warm_Airy_ReassuringCaf
+    /// `bundle.url(forResource: "Soft_Warm_Airy_Reassuring", withExtension: "wav")`
+    static func soft_Warm_Airy_ReassuringWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.soft_Warm_Airy_ReassuringWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Store_Door_Chime", withExtension: "caf")`
-    static func store_Door_ChimeCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.store_Door_ChimeCaf
+    /// `bundle.url(forResource: "Store_Door_Chime", withExtension: "wav")`
+    static func store_Door_ChimeWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.store_Door_ChimeWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Sunny", withExtension: "caf")`
-    static func sunnyCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sunnyCaf
+    /// `bundle.url(forResource: "Sunny", withExtension: "wav")`
+    static func sunnyWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.sunnyWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Thunder_Sound_FX", withExtension: "caf")`
-    static func thunder_Sound_FXCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.thunder_Sound_FXCaf
+    /// `bundle.url(forResource: "Thunder_Sound_FX", withExtension: "wav")`
+    static func thunder_Sound_FXWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.thunder_Sound_FXWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Time_Has_Come", withExtension: "caf")`
-    static func time_Has_ComeCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.time_Has_ComeCaf
+    /// `bundle.url(forResource: "Time_Has_Come", withExtension: "wav")`
+    static func time_Has_ComeWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.time_Has_ComeWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Tornado_Siren", withExtension: "caf")`
-    static func tornado_SirenCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.tornado_SirenCaf
+    /// `bundle.url(forResource: "Tornado_Siren", withExtension: "wav")`
+    static func tornado_SirenWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.tornado_SirenWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Two_Turtle_Doves", withExtension: "caf")`
-    static func two_Turtle_DovesCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.two_Turtle_DovesCaf
+    /// `bundle.url(forResource: "Two_Turtle_Doves", withExtension: "wav")`
+    static func two_Turtle_DovesWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.two_Turtle_DovesWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Unpaved", withExtension: "caf")`
-    static func unpavedCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.unpavedCaf
+    /// `bundle.url(forResource: "Unpaved", withExtension: "wav")`
+    static func unpavedWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.unpavedWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Wake_Up_Will_You", withExtension: "caf")`
-    static func wake_Up_Will_YouCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.wake_Up_Will_YouCaf
+    /// `bundle.url(forResource: "Wake_Up_Will_You", withExtension: "wav")`
+    static func wake_Up_Will_YouWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.wake_Up_Will_YouWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Win_Gain", withExtension: "caf")`
-    static func win_GainCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.win_GainCaf
+    /// `bundle.url(forResource: "Win_Gain", withExtension: "wav")`
+    static func win_GainWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.win_GainWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "Wrong_Answer", withExtension: "caf")`
-    static func wrong_AnswerCaf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.wrong_AnswerCaf
+    /// `bundle.url(forResource: "Wrong_Answer", withExtension: "wav")`
+    static func wrong_AnswerWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.wrong_AnswerWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "betterwakeup", withExtension: "mp3")`
-    static func betterwakeupMp3(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.betterwakeupMp3
+    /// `bundle.url(forResource: "betterwakeup", withExtension: "wav")`
+    static func betterwakeupWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.betterwakeupWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "bruteforce", withExtension: "mp3")`
-    static func bruteforceMp3(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.bruteforceMp3
+    /// `bundle.url(forResource: "bruteforce", withExtension: "wav")`
+    static func bruteforceWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.bruteforceWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
@@ -1228,75 +1220,75 @@ struct R: Rswift.Validatable {
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "modern2", withExtension: "mp3")`
-    static func modern2Mp3(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.modern2Mp3
+    /// `bundle.url(forResource: "modern2", withExtension: "wav")`
+    static func modern2Wav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.modern2Wav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "modernalarm", withExtension: "mp3")`
-    static func modernalarmMp3(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.modernalarmMp3
+    /// `bundle.url(forResource: "modernalarm", withExtension: "wav")`
+    static func modernalarmWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.modernalarmWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "shorthigh1", withExtension: "mp3")`
-    static func shorthigh1Mp3(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.shorthigh1Mp3
+    /// `bundle.url(forResource: "shorthigh1", withExtension: "wav")`
+    static func shorthigh1Wav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.shorthigh1Wav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "shorthigh2", withExtension: "mp3")`
-    static func shorthigh2Mp3(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.shorthigh2Mp3
+    /// `bundle.url(forResource: "shorthigh2", withExtension: "wav")`
+    static func shorthigh2Wav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.shorthigh2Wav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "shorthigh3", withExtension: "mp3")`
-    static func shorthigh3Mp3(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.shorthigh3Mp3
+    /// `bundle.url(forResource: "shorthigh3", withExtension: "wav")`
+    static func shorthigh3Wav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.shorthigh3Wav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "shorthigh4", withExtension: "mp3")`
-    static func shorthigh4Mp3(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.shorthigh4Mp3
+    /// `bundle.url(forResource: "shorthigh4", withExtension: "wav")`
+    static func shorthigh4Wav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.shorthigh4Wav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "shortlow1", withExtension: "mp3")`
-    static func shortlow1Mp3(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.shortlow1Mp3
+    /// `bundle.url(forResource: "shortlow1", withExtension: "wav")`
+    static func shortlow1Wav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.shortlow1Wav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "shortlow2", withExtension: "mp3")`
-    static func shortlow2Mp3(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.shortlow2Mp3
+    /// `bundle.url(forResource: "shortlow2", withExtension: "wav")`
+    static func shortlow2Wav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.shortlow2Wav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "shortlow3", withExtension: "mp3")`
-    static func shortlow3Mp3(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.shortlow3Mp3
+    /// `bundle.url(forResource: "shortlow3", withExtension: "wav")`
+    static func shortlow3Wav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.shortlow3Wav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "shortlow4", withExtension: "mp3")`
-    static func shortlow4Mp3(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.shortlow4Mp3
+    /// `bundle.url(forResource: "shortlow4", withExtension: "wav")`
+    static func shortlow4Wav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.shortlow4Wav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "spaceship", withExtension: "mp3")`
-    static func spaceshipMp3(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.spaceshipMp3
+    /// `bundle.url(forResource: "spaceship", withExtension: "wav")`
+    static func spaceshipWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.spaceshipWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "xdripalert", withExtension: "aif")`
-    static func xdripalertAif(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.xdripalertAif
+    /// `bundle.url(forResource: "xdripalert", withExtension: "wav")`
+    static func xdripalertWav(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.xdripalertWav
       return fileResource.bundle.url(forResource: fileResource)
     }
 

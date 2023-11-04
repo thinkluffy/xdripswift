@@ -46,8 +46,8 @@ struct SettingsViewAlertSettingsViewModel: SettingsViewModelProtocol {
             // here the volume of the soundplayer will be tested.
             // soundplayer is used for alerts with override mute = on, except for missed reading alerts or any other delayed alert
             
-            // start playing the xdripalert.aif
-            SoundPlayer.shared.playSound(soundFileName: "xdripalert.aif")
+            // start playing the xdripalert.wav
+            SoundPlayer.shared.playSound(soundFileName: "xdripalert.wav")
             
             return .showInfoText(title: Texts_Common.warning, message: Texts_SettingsView.volumeTestSoundPlayerExplanation) {
                 // user clicked ok, which will close the pop up and also player should stop playing
