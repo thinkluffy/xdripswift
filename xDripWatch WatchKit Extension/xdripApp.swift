@@ -21,8 +21,8 @@ struct xdripApp: App {
 				ContentView()
 					.environmentObject(PhoneCommunicator.shared.usefulData)
 					.ignoresSafeArea(.container, edges: .bottom)
-					.navigationTitle(Constants.DisplayName)
-					.navigationBarTitleDisplayMode(.inline)
+//					.navigationTitle(Constants.DisplayName)
+//					.navigationBarTitleDisplayMode(.inline)
 			}
 		}
 		.onChange(of: scenePhase) { newScenePhase in
