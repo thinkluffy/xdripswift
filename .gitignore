@@ -117,9 +117,6 @@ Podfile.lock
 # wiki
 xdripswift.wiki/
 
-# Firebase GoogleService plist
-GoogleService-info.plist
-
 # Idea
 .idea/
 *.iml
