@@ -255,16 +255,18 @@ class NightScoutFollowManager: NSObject {
         
         NightScoutFollowManager.log.d("==> scheduleNewDownload")
         
-        // start with timestamp now + 5 minutes and 10 seconds
-        var nextFollowDownloadTimeStamp = Date(timeIntervalSinceNow: 5 * 60 + 10)
+        let interval = 1 * 60
+        
+        // start with timestamp now + 3 minutes and 10 seconds
+        var nextFollowDownloadTimeStamp = Date(timeIntervalSinceNow: TimeInterval((interval + 10)))
         
         // followGlucoseDataArray.count > 0 then use the timestamp of the latest reading to calculate the next downloadtimestamp
         if followGlucoseDataArray.count > 0 {
-            // use timestamp of latest stored reading + 5 minutes + 10 seconds
-            nextFollowDownloadTimeStamp = Date(timeInterval: 5 * 60 + 10, since: followGlucoseDataArray[0].timeStamp)
+            // use timestamp of latest stored reading + 3 minutes + 10 seconds
+            nextFollowDownloadTimeStamp = Date(timeInterval: TimeInterval(interval + 10), since: followGlucoseDataArray[0].timeStamp)
             // now increase till next timestamp is bigger than now
             while (nextFollowDownloadTimeStamp < Date()) {
-                nextFollowDownloadTimeStamp = Date(timeInterval: 5 * 60, since: nextFollowDownloadTimeStamp)
+                nextFollowDownloadTimeStamp = Date(timeInterval: TimeInterval(interval), since: nextFollowDownloadTimeStamp)
             }
         }
         
