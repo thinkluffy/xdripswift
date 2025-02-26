@@ -36,6 +36,7 @@ class StatisticsView: UIView {
     @IBOutlet weak var stdDeviationStatisticLabelOutlet: UILabel!
     @IBOutlet weak var gviLabel: UILabel!
     @IBOutlet weak var pgsLabel: UILabel!
+    @IBOutlet weak var mageLabel: UILabel!
 
     private var contentView: UIView!
     
@@ -185,6 +186,18 @@ class StatisticsView: UIView {
 		} else {
 			pgsLabel.text = "--"
 		}
+        
+        if let mageStatisticValue = statistics.mageStatisticValue {
+            if isMgDl {
+                mageLabel.text = Int(mageStatisticValue.round(toDecimalPlaces: 0)).description + " mg/dL"
+                
+            } else {
+                mageLabel.text = mageStatisticValue.round(toDecimalPlaces: 1).description + " mmol/L"
+            }
+            
+        } else {
+            mageLabel.text = "--"
+        }
         
         // disable the chart animation if it's just a normal update, enable it if the call comes from didAppear()
         if animatePieChart {

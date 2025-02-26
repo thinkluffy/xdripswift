@@ -62,7 +62,8 @@ public final class StatisticsManager {
             var readingsCount: Int?
             var stdDeviation: Double?
 			var gviStatisticValue: Double?
-			var pgsStatisticValue: Double?
+            var pgsStatisticValue: Double?
+			var mageStatisticValue: Double?
 
             let moc = CoreDataManager.shared.privateChildManagedObjectContext()
             moc.performAndWait {
@@ -212,6 +213,8 @@ public final class StatisticsManager {
 					} else {
 						pgsStatisticValue = gviStatisticValue! * averageStatisticValue! * (isMgDl ? 1 : ConstantsBloodGlucose.mmollToMgdl ) * (1 - inRangeStatisticValue!/100)
 					}
+                    
+                    mageStatisticValue = self.calculateMAGE(glucoseReadings: glucoseValues)
                 }
             }
             
@@ -230,7 +233,8 @@ public final class StatisticsManager {
                                         readingsCount: readingsCount,
                                         stdDeviation: stdDeviation,
 										gviStatisticValue: gviStatisticValue,
-										pgsStatisticValue: pgsStatisticValue))
+										pgsStatisticValue: pgsStatisticValue,
+                                        mageStatisticValue: mageStatisticValue))
                 }
             }
         })
@@ -239,6 +243,60 @@ public final class StatisticsManager {
         operationQueue.addOperation {
             operation.start()
         }
+    }
+    
+    func calculateMAGE(glucoseReadings: [Double]) -> Double {
+        guard glucoseReadings.count > 2 else { return 0 }
+        
+        let sdThreshold: Double = 1.0
+
+        // 1. 计算平均值和标准差
+        let mean = glucoseReadings.reduce(0, +) / Double(glucoseReadings.count)
+        let standardDeviation = sqrt(glucoseReadings.reduce(0, { $0 + pow($1 - mean, 2.0) }) / Double(glucoseReadings.count))
+        
+        let threshold = standardDeviation * sdThreshold
+        
+        // 2. 找出显著波动
+        var significantExcursions: [Double] = []
+        var isAscending = true
+        var currentPeak = glucoseReadings[0].value
+        var currentValley = glucoseReadings[0].value
+        
+        for i in 1..<glucoseReadings.count {
+            let currentValue = glucoseReadings[i].value
+            
+            if isAscending {
+                if currentValue > currentPeak {
+                    currentPeak = currentValue
+                    
+                } else if currentPeak - currentValue > threshold {
+                    // 找到一个下降点
+                    let excursion = abs(currentPeak - currentValley)
+                    if excursion > threshold {
+                        significantExcursions.append(excursion)
+                    }
+                    currentValley = currentValue
+                    isAscending = false
+                }
+                
+            } else {
+                if currentValue < currentValley {
+                    currentValley = currentValue
+                    
+                } else if currentValue - currentValley > threshold {
+                    // 找到一个上升点
+                    let excursion = abs(currentPeak - currentValley)
+                    if excursion > threshold {
+                        significantExcursions.append(excursion)
+                    }
+                    currentPeak = currentValue
+                    isAscending = true
+                }
+            }
+        }
+        
+        // 3. 计算平均波动幅度
+        return significantExcursions.isEmpty ? 0 : significantExcursions.reduce(0, +) / Double(significantExcursions.count)
     }
     
     /// can store rresult off calculations in calculateStatistics,  to be used in UI
@@ -257,6 +315,7 @@ public final class StatisticsManager {
         var stdDeviation: Double?
 		var gviStatisticValue: Double?
 		var pgsStatisticValue: Double?
+        var mageStatisticValue: Double?
     }
      
 }
