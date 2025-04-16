@@ -76,7 +76,7 @@ class SettingsViewController: UIViewController {
                         detailedText: UserDefaults.standard.isMaster ? R.string.settingsViews.settingsviews_master() : R.string.settingsViews.settingsviews_follower(),
                         didClick: {
                             [unowned self] operationCell, tableView, indexPath in
-
+					/*
                             // switching from master to follower will set cgm transmitter to nil and stop the sensor. If there's a sensor active then it's better to ask for a confirmation, if not then do the change without asking confirmation
                             if UserDefaults.standard.isMaster {
                                 if SensorsAccessor().fetchActiveSensor() != nil {
@@ -113,7 +113,7 @@ class SettingsViewController: UIViewController {
                                 tableView.reloadRows(at: [indexPath], with: .none)
 
                                 EasyTracker.logEvent(Events.enableMasterMode)
-                            }
+                            }*/
                         })
                 .operationCell(title: R.string.settingsViews.settingsviews_selectbgunit(),
                         detailedText: UserDefaults.standard.bloodGlucoseUnitIsMgDl ? R.string.common.common_mgdl() : R.string.common.common_mmol(),

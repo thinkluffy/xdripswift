@@ -19,7 +19,7 @@ class ServiceIntegrationSettingsViewController: LegacySubSettingsViewController 
         if RemoteConfigHost.fullFeatureMode || UserDefaults.standard.isFullFeatureMode {
             return [
                 LegacySettingSection(viewModelProtocol: SettingsViewNightScoutSettingsViewModel()),
-                LegacySettingSection(viewModelProtocol: SettingsViewDexcomSettingsViewModel()),
+//                LegacySettingSection(viewModelProtocol: SettingsViewDexcomSettingsViewModel()),
                 LegacySettingSection(viewModelProtocol: SettingsViewHealthKitSettingsViewModel()),
                 LegacySettingSection(viewModelProtocol: SettingsViewAppleWatchSettingsViewModel())
             ]

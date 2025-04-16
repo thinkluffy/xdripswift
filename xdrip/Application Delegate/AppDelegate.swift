@@ -51,6 +51,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
                 
+		// This Target App is For "Follower" Only
+		if UserDefaults.standard.isMaster {
+			UserDefaults.standard.isMaster = false
+		}
         return true
     }
     
