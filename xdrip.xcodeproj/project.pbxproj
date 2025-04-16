@@ -954,7 +954,6 @@
 		E584FBF82786CE1C00BEA224 /* DailyTrend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTrend.swift; sourceTree = "<group>"; };
 		E584FC03278828D700BEA224 /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		E5D5EB7D2745F00E003D0DD9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		E5D5EB7F2745F02A003D0DD9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS8.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		F51B9F7C24B216CD00FC0643 /* Libre1NonFixedSlopeCalibrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Libre1NonFixedSlopeCalibrator.swift; sourceTree = "<group>"; };
 		F8025C0921D94FD700ECF0C0 /* CBManagerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBManagerState.swift; sourceTree = "<group>"; };
 		F8025C1221DA683400ECF0C0 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
@@ -1311,7 +1310,6 @@
 			isa = PBXGroup;
 			children = (
 				E5D5EB7D2745F00E003D0DD9 /* UIKit.framework */,
-				E5D5EB7F2745F02A003D0DD9 /* UIKit.framework */,
 				F81F3C4125D1D91300520946 /* CoreNFC.framework */,
 				F821CF9622AE589E005C1E43 /* HealthKit.framework */,
 				F870D3D225126A49008967B0 /* NotificationCenter.framework */,

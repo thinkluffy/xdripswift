@@ -1,14 +1,6 @@
 PODS:
   - ActionClosurable (2.0.0)
   - Alamofire (5.5.0)
-  - AppCenter (5.0.4):
-    - AppCenter/Analytics (= 5.0.4)
-    - AppCenter/Crashes (= 5.0.4)
-  - AppCenter/Analytics (5.0.4):
-    - AppCenter/Core
-  - AppCenter/Core (5.0.4)
-  - AppCenter/Crashes (5.0.4):
-    - AppCenter/Core
   - Charts (3.6.0):
     - Charts/Core (= 3.6.0)
   - Charts/Core (3.6.0)
@@ -150,7 +142,6 @@ PODS:
 DEPENDENCIES:
   - ActionClosurable (from `https://github.com/takasek/ActionClosurable.git`)
   - Alamofire (= 5.5.0)
-  - AppCenter
   - Charts (from `https://github.com/thinkluffy/Charts.git`, tag `v3.6.5-th`)
   - CocoaLumberjack/Swift (= 3.7.0)
   - CryptoSwift (= 1.4.0)
@@ -168,7 +159,6 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
-    - AppCenter
     - CocoaLumberjack
     - CryptoSwift
     - DynamicBlurView
@@ -223,7 +213,6 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   ActionClosurable: 92729a0f0bb4b38d2744319ea8282a3ce8fb1e0a
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
-  AppCenter: 85c92db0759d2792a65eb61d6842d2e86611a49a
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   CocoaLumberjack: e8955b9d337ac307103b0a34fd141c32f27e53c5
   CryptoSwift: 7cc902df1784de3b389a387756c7d710f197730c
@@ -251,6 +240,6 @@ SPEC CHECKSUMS:
   SwiftEventBus: b30f617a6aca5a9336464b4d3f5931034762f2d5
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 3f92b950115c9bec0f8d19957a2d52d18bc2548a
+PODFILE CHECKSUM: cfebdbe6ea260da6b54be1437b6938feba3ed7fc
 
-COCOAPODS: 1.14.3
+COCOAPODS: 1.16.2

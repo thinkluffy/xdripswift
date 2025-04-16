@@ -3,9 +3,6 @@ import CoreData
 import OSLog
 import PopupDialog
 import Firebase
-import AppCenter
-import AppCenterAnalytics
-import AppCenterCrashes
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,11 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppDelegate.log.i("==> didFinishLaunchingWithOptions")
         
         FirebaseApp.configure()
-        
-        AppCenter.start(withAppSecret: "c82a0872-7dfa-46bd-b404-8af3b60be189", services:[
-            Analytics.self,
-            Crashes.self
-        ])
         
         RemoteConfigHost.testMode = UserDefaults.standard.isRemoteConfigTestMode
         RemoteConfig.shared.initialize(remoteConfigProvider: Trc(trcId: "zDrip", useChinaUrl: false))

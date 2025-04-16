@@ -19,8 +19,6 @@ target 'xdrip' do
 
   pod 'Firebase', '8.13.0', :subspecs => ['Analytics', 'Crashlytics', 'Performance']
 
-  pod 'AppCenter'
-
 end
 
 post_install do |installer|

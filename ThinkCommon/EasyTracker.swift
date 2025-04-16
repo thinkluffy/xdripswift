@@ -8,13 +8,11 @@
 
 import FirebaseAnalytics
 import FirebaseCrashlytics
-import AppCenterAnalytics
 
 public class EasyTracker {
     
     public static func logEvent(_ eventName: String, parameters: [String: String]? = nil) {
         FirebaseAnalytics.Analytics.logEvent(eventName, parameters: parameters)
-        AppCenterAnalytics.Analytics.trackEvent(eventName, withProperties: parameters)
     }
     
     public static func value(_ value: Int) -> [String: Int] {
