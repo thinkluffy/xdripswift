@@ -19,8 +19,5 @@ protocol RootV: MVPV {
 
 protocol RootP: MVPP {
     
-    // temp used during refactoring
-    func setup(bluetoothPeripheralManager: BluetoothPeripheralManager)
-    
     func loadChartReadings()
 }

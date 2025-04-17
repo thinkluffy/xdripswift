@@ -21,15 +21,9 @@ class RootPresenter: RootP {
     private let loopManager = LoopManager()
     private let nightScoutFollowManager = NightScoutFollowManager()
 
-    private var bluetoothPeripheralManager: BluetoothPeripheralManager?
-
     init(view: RootV) {
         self.view = view
         self.nightScoutFollowManager.nightScoutFollowerDelegate = self
-    }
-    
-    func setup(bluetoothPeripheralManager: BluetoothPeripheralManager) {
-        self.bluetoothPeripheralManager = bluetoothPeripheralManager
     }
     
     func loadChartReadings() {
@@ -59,20 +53,6 @@ class RootPresenter: RootP {
     
     func onViewWillDisappear() {
         SwiftEventBus.unregister(self)
-    }
-    
-    // a long function just to get the timestamp of the last disconnect or reconnect. If not known then returns 1 1 1970
-    private func lastConnectionStatusChangeTimeStamp() -> Date  {
-        // this is actually unwrapping of optionals, goal is to get date of last disconnect/reconnect - all optionals should exist so it doesn't matter what is returned true or false
-        guard let cgmTransmitter = bluetoothPeripheralManager?.getCGMTransmitter(),
-                let bluetoothTransmitter = cgmTransmitter as? BluetoothTransmitter,
-                let bluetoothPeripheral = bluetoothPeripheralManager?.getBluetoothPeripheral(for: bluetoothTransmitter),
-                let lastConnectionStatusChangeTimeStamp = bluetoothPeripheral.blePeripheral.lastConnectionStatusChangeTimeStamp
-        else {
-            return Date(timeIntervalSince1970: 0)
-        }
-        
-        return lastConnectionStatusChangeTimeStamp
     }
 }
 
@@ -110,7 +90,6 @@ extension RootPresenter: NightScoutFollowerDelegate {
             CoreDataManager.shared.saveChanges()
             
             healthKitManager.storeBgReadings()
-            bgReadingSpeaker.speakNewReading(lastConnectionStatusChangeTimeStamp: lastConnectionStatusChangeTimeStamp())
             
             // ask watchManager to process new reading, ignore last connection change timestamp because this is follower mode, there is no connection to a transmitter
             WatchManager.shared.processNewReading(lastConnectionStatusChangeTimeStamp: nil)
