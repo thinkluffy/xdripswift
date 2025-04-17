@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 class Constants {
-	static let DisplayName = "zDrip"
+	static let DisplayName = "zDrip Guard"
 	static let RefreshComplicationBackgroundTaskName: String = "RefreshComplicationBackgroundTaskName"
 	
 	static let UpdateTimeInterval = 60.0 // Senconds

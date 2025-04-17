@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         RemoteConfigHost.testMode = UserDefaults.standard.isRemoteConfigTestMode
-        RemoteConfig.shared.initialize(remoteConfigProvider: Trc(trcId: "zDrip", useChinaUrl: false))
+        RemoteConfig.shared.initialize(remoteConfigProvider: Trc(trcId: "zDripGuard", useChinaUrl: false))
         
         AppDelegate.log.d("remote config ready to refresh")
         RemoteConfig.shared.refresh { refreshed in

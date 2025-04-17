@@ -48,7 +48,6 @@
 		4E46D933275663AF00C79F86 /* CountDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46D932275663AF00C79F86 /* CountDownView.swift */; };
 		4E46D9372759086C00C79F86 /* SlideInSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46D9362759086C00C79F86 /* SlideInSheet.swift */; };
 		4E46D940275A565100C79F86 /* SensorIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46D93F275A565100C79F86 /* SensorIndicator.swift */; };
-		4E67D2F027886BD800586BF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E67D2EF27886BD800586BF8 /* GoogleService-Info.plist */; };
 		4E88B464278C7160003B5C48 /* DailyTrendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E88B463278C7160003B5C48 /* DailyTrendViewController.swift */; };
 		4E88B466278C7293003B5C48 /* DailyTrendPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E88B465278C7293003B5C48 /* DailyTrendPresenter.swift */; };
 		4E88B468278C72C3003B5C48 /* DailyTrendContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E88B467278C72C3003B5C48 /* DailyTrendContract.swift */; };
@@ -237,6 +236,7 @@
 		533272967B05B378D81F6529 /* Pods_xdrip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB0736D7B1553FC8350324C /* Pods_xdrip.framework */; };
 		E51542502DB0AB8100733515 /* LibreSensorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E515424C2DB0AB8100733515 /* LibreSensorType.swift */; };
 		E51542512DB0AB8100733515 /* LibreSensorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E515424B2DB0AB8100733515 /* LibreSensorState.swift */; };
+		E51542532DB0CB2F00733515 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E51542522DB0CB2F00733515 /* GoogleService-Info.plist */; };
 		E53D045327438C5F00CA548E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E53D045227438C5F00CA548E /* Assets.xcassets */; };
 		E53D045927438C5F00CA548E /* xDripWatch WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E53D045827438C5F00CA548E /* xDripWatch WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E53D047027438C6100CA548E /* zDrip.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = E53D045027438C5D00CA548E /* zDrip.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -287,8 +287,6 @@
 		F81D6D4E22BFC762005EFAE2 /* TextsDexcomShareTestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81D6D4D22BFC762005EFAE2 /* TextsDexcomShareTestResult.swift */; };
 		F81F370325C1583400520946 /* WatlaaView.strings in Resources */ = {isa = PBXBuildFile; fileRef = F81F370525C1583400520946 /* WatlaaView.strings */; };
 		F81F370825C1584A00520946 /* LibreStates.strings in Resources */ = {isa = PBXBuildFile; fileRef = F81F370A25C1584A00520946 /* LibreStates.strings */; };
-		F81F3C4225D1D91300520946 /* CoreNFC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F81F3C4125D1D91300520946 /* CoreNFC.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		F81F3C4325D1DA1300520946 /* CoreNFC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F81F3C4125D1D91300520946 /* CoreNFC.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F81F9FF822861E6D0028C70F /* KeyValueObserverTimeKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81F9FF722861E6D0028C70F /* KeyValueObserverTimeKeeper.swift */; };
 		F81F9FFC2288C7530028C70F /* NewAlertSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81F9FFB2288C7530028C70F /* NewAlertSettingsViewController.swift */; };
 		F81FA0002289E4990028C70F /* AlertSettingsViewControllerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81F9FFF2289E4990028C70F /* AlertSettingsViewControllerData.swift */; };
@@ -564,7 +562,6 @@
 		4E46D932275663AF00C79F86 /* CountDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownView.swift; sourceTree = "<group>"; };
 		4E46D9362759086C00C79F86 /* SlideInSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideInSheet.swift; sourceTree = "<group>"; };
 		4E46D93F275A565100C79F86 /* SensorIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorIndicator.swift; sourceTree = "<group>"; };
-		4E67D2EF27886BD800586BF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4E88B463278C7160003B5C48 /* DailyTrendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTrendViewController.swift; sourceTree = "<group>"; };
 		4E88B465278C7293003B5C48 /* DailyTrendPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTrendPresenter.swift; sourceTree = "<group>"; };
 		4E88B467278C72C3003B5C48 /* DailyTrendContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTrendContract.swift; sourceTree = "<group>"; };
@@ -756,6 +753,7 @@
 		666E283826F7E54C00ACE4DF /* xDrip.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = xDrip.xcconfig; path = xdrip/xDrip.xcconfig; sourceTree = "<group>"; };
 		E515424B2DB0AB8100733515 /* LibreSensorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibreSensorState.swift; sourceTree = "<group>"; };
 		E515424C2DB0AB8100733515 /* LibreSensorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibreSensorType.swift; sourceTree = "<group>"; };
+		E51542522DB0CB2F00733515 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E53D045027438C5D00CA548E /* zDrip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zDrip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E53D045227438C5F00CA548E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E53D045827438C5F00CA548E /* xDripWatch WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "xDripWatch WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -816,7 +814,6 @@
 		F81F3C0D25D0969700520946 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/WatlaaView.strings; sourceTree = "<group>"; };
 		F81F3C0F25D096BC00520946 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/BluetoothPeripheralView.strings; sourceTree = "<group>"; };
 		F81F3C1025D096C000520946 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/BluetoothPeripheralsView.strings; sourceTree = "<group>"; };
-		F81F3C4125D1D91300520946 /* CoreNFC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreNFC.framework; path = System/Library/Frameworks/CoreNFC.framework; sourceTree = SDKROOT; };
 		F81F9FF722861E6D0028C70F /* KeyValueObserverTimeKeeper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueObserverTimeKeeper.swift; sourceTree = "<group>"; };
 		F81F9FFB2288C7530028C70F /* NewAlertSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAlertSettingsViewController.swift; sourceTree = "<group>"; };
 		F81F9FFF2289E4990028C70F /* AlertSettingsViewControllerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSettingsViewControllerData.swift; sourceTree = "<group>"; };
@@ -1031,7 +1028,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F81F3C4325D1DA1300520946 /* CoreNFC.framework in Frameworks */,
 				F870D3D325126A49008967B0 /* NotificationCenter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1040,7 +1036,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F81F3C4225D1D91300520946 /* CoreNFC.framework in Frameworks */,
 				F821CF9722AE589E005C1E43 /* HealthKit.framework in Frameworks */,
 				533272967B05B378D81F6529 /* Pods_xdrip.framework in Frameworks */,
 			);
@@ -1061,7 +1056,6 @@
 			isa = PBXGroup;
 			children = (
 				E5D5EB7D2745F00E003D0DD9 /* UIKit.framework */,
-				F81F3C4125D1D91300520946 /* CoreNFC.framework */,
 				F821CF9622AE589E005C1E43 /* HealthKit.framework */,
 				F870D3D225126A49008967B0 /* NotificationCenter.framework */,
 				4DB0736D7B1553FC8350324C /* Pods_xdrip.framework */,
@@ -1648,7 +1642,7 @@
 				F821CF9822AE589E005C1E43 /* xdrip.entitlements */,
 				4E9D79D6273E683100B666C5 /* logo-launchScreen@3x.png */,
 				4EE66F072733E01500548A46 /* R.generated.swift */,
-				4E67D2EF27886BD800586BF8 /* GoogleService-Info.plist */,
+				E51542522DB0CB2F00733515 /* GoogleService-Info.plist */,
 				4E94C340277DBE7500382122 /* TrySomething.playground */,
 			);
 			path = xdrip;
@@ -2035,7 +2029,6 @@
 				F8FDFEA6260DE1A70047597D /* CustomColoredDisclosureIndicator */,
 				F8AF11F624B1E6D700AE5BA2 /* Errors */,
 				F85FF38F25288860004E6FF1 /* HouseKeeping */,
-				F8F7B8EE259A84A300C47B04 /* KalmanFilter */,
 				F81F9FF722861E6D0028C70F /* KeyValueObserverTimeKeeper.swift */,
 				F821CF69229FC22D005C1E43 /* Network */,
 				F821CF8022A5C814005C1E43 /* RepeatingTimer.swift */,
@@ -2097,13 +2090,6 @@
 				F8F7B8EA259A7B1C00C47B04 /* SavitzkyGolaySmoothableArray.swift */,
 			);
 			path = SavitzkyGolayFilter;
-			sourceTree = "<group>";
-		};
-		F8F7B8EE259A84A300C47B04 /* KalmanFilter */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = KalmanFilter;
 			sourceTree = "<group>";
 		};
 		F8F971AD23A5914C00C3F17D /* BluetoothPeripheral */ = {
@@ -2383,7 +2369,6 @@
 				F8BDD455221DEF22006EAB84 /* SettingsViews.strings in Resources */,
 				4ED318F92AF624260044D2B3 /* Thunder_Sound_FX.wav in Resources */,
 				4ED319472AF624260044D2B3 /* Win_Gain.wav in Resources */,
-				4E67D2F027886BD800586BF8 /* GoogleService-Info.plist in Resources */,
 				4ED318E82AF624260044D2B3 /* Ambulance.wav in Resources */,
 				4ED318F82AF624260044D2B3 /* Cartoon_Tip_Toe_Sneaky_Walk.wav in Resources */,
 				4ED319382AF624260044D2B3 /* Emergency_Alarm_Carbon_Monoxide.wav in Resources */,
@@ -2401,6 +2386,7 @@
 				4ED3191B2AF624260044D2B3 /* Wrong_Answer.wav in Resources */,
 				4ED318FE2AF624260044D2B3 /* Early_Sunrise.wav in Resources */,
 				4ED319352AF624260044D2B3 /* spaceship.wav in Resources */,
+				E51542532DB0CB2F00733515 /* GoogleService-Info.plist in Resources */,
 				4ED319322AF624260044D2B3 /* shorthigh4.wav in Resources */,
 				4ED319012AF624260044D2B3 /* Magical_Twinkle.wav in Resources */,
 				4ED319332AF624260044D2B3 /* Indeed.wav in Resources */,
@@ -3093,9 +3079,9 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10315;
+				CURRENT_PROJECT_VERSION = 10301;
 				DEVELOPMENT_ASSET_PATHS = "\"xDripWatch WatchKit Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = KHV6JJH7M8;
+				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -3108,8 +3094,8 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.15;
-				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip.watchkitapp.watchkitextension;
+				MARKETING_VERSION = 1.3.1;
+				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdripfollower.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -3126,9 +3112,9 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10315;
+				CURRENT_PROJECT_VERSION = 10301;
 				DEVELOPMENT_ASSET_PATHS = "\"xDripWatch WatchKit Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = KHV6JJH7M8;
+				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -3141,8 +3127,8 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.15;
-				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip.watchkitapp.watchkitextension;
+				MARKETING_VERSION = 1.3.1;
+				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdripfollower.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -3162,21 +3148,21 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "$(XDRIP_CODE_SIGN_IDENTITY_DEBUG)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10315;
-				DEVELOPMENT_TEAM = KHV6JJH7M8;
+				CURRENT_PROJECT_VERSION = 10301;
+				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				IBSC_MODULE = xDripWatch_WatchKit_Extension;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = bg.cgm.zdrip;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = bg.cgm.zdripfollower;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.15;
-				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip.watchkitapp;
+				MARKETING_VERSION = 1.3.1;
+				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdripfollower.watchkitapp;
 				PRODUCT_NAME = zDrip;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -3198,21 +3184,21 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "$(XDRIP_CODE_SIGN_IDENTITY_RELEASE)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10315;
-				DEVELOPMENT_TEAM = KHV6JJH7M8;
+				CURRENT_PROJECT_VERSION = 10301;
+				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				IBSC_MODULE = xDripWatch_WatchKit_Extension;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = bg.cgm.zdrip;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = bg.cgm.zdripfollower;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.15;
-				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip.watchkitapp;
+				MARKETING_VERSION = 1.3.1;
+				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdripfollower.watchkitapp;
 				PRODUCT_NAME = zDrip;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -3231,8 +3217,8 @@
 				CODE_SIGN_ENTITLEMENTS = "$(XDRIP_WIDGET_ENTITLEMENTS_DEBUG)";
 				CODE_SIGN_IDENTITY = "$(XDRIP_CODE_SIGN_IDENTITY_DEBUG)";
 				CODE_SIGN_STYLE = "$(XDRIP_CODE_SIGN_STYLE)";
-				CURRENT_PROJECT_VERSION = 10315;
-				DEVELOPMENT_TEAM = KHV6JJH7M8;
+				CURRENT_PROJECT_VERSION = 10301;
+				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "xDrip4iOS Widget/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
@@ -3241,8 +3227,8 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.15;
-				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip.Widget;
+				MARKETING_VERSION = 1.3.1;
+				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdripfollower.Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -3257,8 +3243,8 @@
 				CODE_SIGN_ENTITLEMENTS = "$(XDRIP_WIDGET_ENTITLEMENTS_RELEASE)";
 				CODE_SIGN_IDENTITY = "$(XDRIP_CODE_SIGN_IDENTITY_RELEASE)";
 				CODE_SIGN_STYLE = "$(XDRIP_CODE_SIGN_STYLE)";
-				CURRENT_PROJECT_VERSION = 10315;
-				DEVELOPMENT_TEAM = KHV6JJH7M8;
+				CURRENT_PROJECT_VERSION = 10301;
+				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "xDrip4iOS Widget/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
@@ -3267,8 +3253,8 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.15;
-				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip.Widget;
+				MARKETING_VERSION = 1.3.1;
+				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdripfollower.Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -3410,7 +3396,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(XDRIP_ENTITLEMENTS_DEBUG)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10315;
+				CURRENT_PROJECT_VERSION = 10301;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/xdrip/Supporting Files/Info.plist";
@@ -3420,8 +3406,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.15;
-				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip;
+				MARKETING_VERSION = 1.3.1;
+				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdripfollower;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "xdrip/xdrip-Bridging-Header.h";
@@ -3441,7 +3427,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(XDRIP_ENTITLEMENTS_RELEASE)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10315;
+				CURRENT_PROJECT_VERSION = 10301;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/xdrip/Supporting Files/Info.plist";
@@ -3451,8 +3437,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.15;
-				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip;
+				MARKETING_VERSION = 1.3.1;
+				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdripfollower;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "xdrip/xdrip-Bridging-Header.h";

@@ -273,7 +273,7 @@ struct R: Rswift.Validatable {
     }
 
     struct comAppleSecurityApplicationGroups {
-      static let groupComDEVELOPMENT_TEAMLoopkitLoopGroup = infoPlistString(path: ["com.apple.security.application-groups"], key: "group.com.${DEVELOPMENT_TEAM}.loopkit.LoopGroup") ?? "group.com.${DEVELOPMENT_TEAM}.loopkit.LoopGroup"
+      static let groupBgCgmZdripfollower = infoPlistString(path: ["com.apple.security.application-groups"], key: "group.bg.cgm.zdripfollower") ?? "group.bg.cgm.zdripfollower"
 
       fileprivate init() {}
     }
