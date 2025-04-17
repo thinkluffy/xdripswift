@@ -134,9 +134,6 @@ class AlertManager: NSObject {
             lastCalibration = calibrationsAccessor.lastCalibrationForActiveSensor(withActivesensor: latestSensor)
         }
 
-        // get transmitterBatteryInfo
-        let transmitterBatteryInfo = UserDefaults.standard.transmitterBatteryInfo
-
         // all alerts will only be created if there's a reading, less than maxAgeOfLastBgReadingInSeconds seconds old
         if latestBgReadings.count > 0 {
 
@@ -160,8 +157,7 @@ class AlertManager: NSObject {
                     self.checkAlertAndFire(alertKind: alertKind,
                             lastBgReading: lastBgReading,
                             lastButOneBgReading: lastButOneBgReading,
-                            lastCalibration: lastCalibration,
-                            transmitterBatteryInfo: transmitterBatteryInfo)
+                            lastCalibration: lastCalibration)
                 }
 
                 // specify the order in which alerts should be checked and group those with related snoozes
@@ -372,7 +368,7 @@ class AlertManager: NSObject {
                     self.scheduleMissedReadingAlert(snoozePeriodInMinutes: snoozePeriod, content: content)
 
                 } else {
-                    _ = self.checkAlertAndFire(alertKind: .missedreading, lastBgReading: nil, lastButOneBgReading: nil, lastCalibration: nil, transmitterBatteryInfo: nil)
+                    _ = self.checkAlertAndFire(alertKind: .missedreading, lastBgReading: nil, lastButOneBgReading: nil, lastCalibration: nil)
                 }
             }
 
@@ -455,7 +451,7 @@ class AlertManager: NSObject {
                         uNUserNotificationCenter.removeDeliveredNotifications(withIdentifiers: [AlertKind.missedreading.notificationIdentifier()])
                         uNUserNotificationCenter.removePendingNotificationRequests(withIdentifiers: [AlertKind.missedreading.notificationIdentifier()])
 
-                        _ = checkAlertAndFire(alertKind: .missedreading, lastBgReading: latestBgReadings[0], lastButOneBgReading: nil, lastCalibration: nil, transmitterBatteryInfo: nil)
+                        _ = checkAlertAndFire(alertKind: .missedreading, lastBgReading: latestBgReadings[0], lastButOneBgReading: nil, lastCalibration: nil)
 
                     }
 
@@ -526,8 +522,7 @@ class AlertManager: NSObject {
     private func checkAlertAndFire(alertKind: AlertKind,
                                    lastBgReading: BgReading?,
                                    lastButOneBgReading: BgReading?,
-                                   lastCalibration: Calibration?,
-                                   transmitterBatteryInfo: TransmitterBatteryInfo?) -> Bool {
+                                   lastCalibration: Calibration?) -> Bool {
 
         trace("in checkAlertAndFire for alert = %{public}@", log: self.log, category: ConstantsLog.categoryAlertManager, type: .info, alertKind.descriptionForLogging())
 
@@ -568,8 +563,7 @@ class AlertManager: NSObject {
                 nextAlertEntry: nextAlertEntry,
                 lastBgReading: lastBgReading,
                 lastButOneBgReading: lastButOneBgReading,
-                lastCalibration: lastCalibration,
-                transmitterBatteryInfo: transmitterBatteryInfo
+                lastCalibration: lastCalibration
         )
 
         // create a new property for delayInSeconds, if it's nil then set to 0 - because returnvalue might either be nil or 0, to be treated in the same way

@@ -148,7 +148,7 @@ extension AlertSettingsViewControllerData {
             
         case .value:
             // note that value will not be shown if alerttype not enabled or alertkind doesn't need a value, means if that's the case, setting will never be .value
-            cell.textLabel?.text = Texts_Alerts.alertValue + (alertKindAsAlertKind.valueUnitText(transmitterType: UserDefaults.standard.cgmTransmitterType) != "" ? (" (" + alertKindAsAlertKind.valueUnitText(transmitterType: UserDefaults.standard.cgmTransmitterType) + ")"):"")
+            cell.textLabel?.text = Texts_Alerts.alertValue
             if alertKindAsAlertKind.valueNeedsConversionToMmol() {
                 cell.detailTextLabel?.text = Double(value).mgdlToMmolAndToString(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl)
                 
@@ -223,7 +223,7 @@ extension AlertSettingsViewControllerData {
             
             let dialog = PopupDialog(
                 title: AlertSettingsViewControllerData.getAlertKind(alertKind: alertKind).alertTitle(),
-                message: Texts_Alerts.changeAlertValue + " (" + alertKindAsAlertKind.valueUnitText(transmitterType: UserDefaults.standard.cgmTransmitterType) + ")",
+                message: Texts_Alerts.changeAlertValue + " ( Unknown )",
                 keyboardType: keyboardType,
                 text: Double(value).mgdlToMmolAndToString(mgdl: UserDefaults.standard.bloodGlucoseUnitIsMgDl || !AlertSettingsViewControllerData.getAlertKind(alertKind: self.alertKind).valueNeedsConversionToMmol()),
                 placeHolder: nil

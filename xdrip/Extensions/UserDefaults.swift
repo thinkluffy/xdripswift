@@ -699,34 +699,6 @@ extension UserDefaults {
         }
     }
     
-    // MARK: Transmitter Settings
-    
-    /// cgm ransmittertype currently active
-    var cgmTransmitterType: CGMTransmitterType? {
-        get {
-            if let transmitterTypeAsString = cgmTransmitterTypeAsString {
-                return CGMTransmitterType(rawValue: transmitterTypeAsString)
-                
-            } else {
-                return nil
-            }
-        }
-    }
-    
-    /// transmittertype as String, just to be able to define dynamic dispatch and obj-c visibility
-    @objc dynamic var cgmTransmitterTypeAsString: String? {
-        get {
-            return string(forKey: Key.transmitterTypeAsString.rawValue)
-        }
-        set {
-            // if transmittertype has changed then also reset the transmitter id to nil
-            // this is also a check to see if transmitterTypeAsString has really changed, because just calling a set without a new value may cause a transmittertype reset in other parts of the call (inclusive stopping sensor etc.)
-            if newValue != string(forKey: Key.transmitterTypeAsString.rawValue) {
-                set(newValue, forKey: Key.transmitterTypeAsString.rawValue)
-            }
-        }
-    }
-    
     // MARK: Nightscout Share Settings
     
     /// nightscout enabled ? this impacts follower mode (download) and master mode (upload)
@@ -1007,26 +979,6 @@ extension UserDefaults {
         }
     }
     
-    /// transmitterBatteryInfo, this should be the transmitter battery info of the latest active cgmTransmitter
-    var transmitterBatteryInfo:TransmitterBatteryInfo? {
-        get {
-            if let data = object(forKey: Key.transmitterBatteryInfo.rawValue) as? Data {
-                return TransmitterBatteryInfo(data: data)
-            } else {
-                return nil
-            }
-            
-        }
-        set {
-            if let newValue = newValue {
-                set(newValue.toData(), forKey: Key.transmitterBatteryInfo.rawValue)
-            } else {
-                set(nil, forKey: Key.transmitterBatteryInfo.rawValue)
-            }
-            timeStampOfLastBatteryReading = Date()
-        }
-    }
-    
     /// timestamp latest calibration uploaded to NightScout
     var timeStampOfLastBatteryReading:Date? {
         get {
@@ -1222,22 +1174,6 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: Key.cgmTransmitterDeviceAddress.rawValue)
-        }
-    }
-    
-    /// web oop parameters, only for bubble, miaomiao and Libre 2
-    var libre1DerivedAlgorithmParameters: Libre1DerivedAlgorithmParameters? {
-        get {
-            guard let jsonString = string(forKey: Key.libre1DerivedAlgorithmParameters.rawValue) else { return nil }
-            guard let jsonData = jsonString.data(using: .utf8) else { return nil }
-            guard let value = try? JSONDecoder().decode(Libre1DerivedAlgorithmParameters.self, from: jsonData) else { return nil }
-            return value
-        }
-        set {
-            let encoder = JSONEncoder()
-            guard let jsonData = try? encoder.encode(newValue) else { return }
-            let jsonString = String(bytes: jsonData, encoding: .utf8)
-            set(jsonString, forKey: Key.libre1DerivedAlgorithmParameters.rawValue)
         }
     }
     

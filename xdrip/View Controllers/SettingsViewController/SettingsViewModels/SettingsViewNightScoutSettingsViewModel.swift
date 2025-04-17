@@ -56,7 +56,6 @@ class SettingsViewNightScoutSettingsViewModel {
         }
 
         if UserDefaults.standard.isMaster {
-            NightScoutUploadManager.testNightScoutCredentials(resultCallback)
 
         } else {
             NightScoutFollowManager.testNightScoutCredentials(resultCallback)

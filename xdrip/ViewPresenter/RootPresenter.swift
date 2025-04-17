@@ -18,7 +18,6 @@ class RootPresenter: RootP {
     private let bgReadingsAccessor = BgReadingsAccessor()
     private let healthKitManager = HealthKitManager()
     private let bgReadingSpeaker = BGReadingSpeaker()
-    private let loopManager = LoopManager()
     private let nightScoutFollowManager = NightScoutFollowManager()
 
     init(view: RootV) {
@@ -93,9 +92,6 @@ extension RootPresenter: NightScoutFollowerDelegate {
             
             // ask watchManager to process new reading, ignore last connection change timestamp because this is follower mode, there is no connection to a transmitter
             WatchManager.shared.processNewReading(lastConnectionStatusChangeTimeStamp: nil)
-            
-            // send also to loopmanager, not interesting for loop probably, but the data is also used for today widget
-            loopManager.share()
             
             view?.showNewFollowerReading()
         }

@@ -129,11 +129,11 @@ public enum AlertKind: Int, CaseIterable {
         case .calibration:
             return ConstantsDefaultAlertLevels.calibration
         case .batterylow:
-            if let transmitterType = UserDefaults.standard.cgmTransmitterType {
-                return transmitterType.defaultBatteryAlertLevel()
-            } else {
+//            if let transmitterType = UserDefaults.standard.cgmTransmitterType {
+//                return transmitterType.defaultBatteryAlertLevel()
+//            } else {
                 return ConstantsDefaultAlertLevels.defaultBatteryAlertLevelMiaoMiao
-            }
+//            }
         case .fastdrop:
             return ConstantsDefaultAlertLevels.fastdrop;
         case .fastrise:
@@ -184,7 +184,7 @@ public enum AlertKind: Int, CaseIterable {
     ///     - alertbody : AlertBody, AlertTitle and delay are used if an alert needs to be raised for the notification.
     ///     - alerttitle : AlertBody, AlertTitle and delay are used if an alert needs to be raised for the notification.
     ///     - delayInSeconds : If delayInSeconds not nil and > 0 or if delayInSeconds is nil, then the alert will be a future planned Alert. This will only be applicable to missed reading alerts.
-    func alertNeeded(currentAlertEntry: AlertEntry, nextAlertEntry: AlertEntry?, lastBgReading: BgReading?, lastButOneBgReading: BgReading?, lastCalibration: Calibration?, transmitterBatteryInfo: TransmitterBatteryInfo?) -> (alertNeeded: Bool, alertBody: String?, alertTitle: String?, delayInSeconds: Int?) {
+    func alertNeeded(currentAlertEntry: AlertEntry, nextAlertEntry: AlertEntry?, lastBgReading: BgReading?, lastButOneBgReading: BgReading?, lastCalibration: Calibration?) -> (alertNeeded: Bool, alertBody: String?, alertTitle: String?, delayInSeconds: Int?) {
         
         let isMg = UserDefaults.standard.bloodGlucoseUnitIsMgDl
         
@@ -379,28 +379,7 @@ public enum AlertKind: Int, CaseIterable {
                 return (false, nil, nil, nil)
             }
             
-            // if transmitterBatteryInfo is nil, return false
-            guard let transmitterBatteryInfo = transmitterBatteryInfo else {
-                return (false, nil, nil, nil)
-            }
-            
-            // get level
-            var batteryLevelToCheck: Int?
-            
-            switch transmitterBatteryInfo {
-            case .percentage(let percentage):
-                batteryLevelToCheck = percentage
-            case .DexcomG5(let voltageA, _, _, _, _):
-                batteryLevelToCheck = voltageA
-            case .DexcomG4(let level):
-                batteryLevelToCheck = level
-            }
-
-            if let batteryLevelToCheck = batteryLevelToCheck, currentAlertEntry.value > batteryLevelToCheck {
-                return (true, "", Texts_Alerts.batteryLowAlertTitle, nil)
-            }
-            
-            return (false, nil, nil, nil)
+			return (false, nil, nil, nil)
         }
     }
     
@@ -451,26 +430,6 @@ public enum AlertKind: Int, CaseIterable {
             return Texts_Alerts.fastDropTitle
         case .fastrise:
             return Texts_Alerts.fastRiseTitle
-        }
-    }
-    
-    /// for UI, when value is requested, text should show also the unit (eg mgdl, mmol, minutes, days ...)
-    /// What is this text ?
-    func valueUnitText(transmitterType:CGMTransmitterType?) -> String {
-        switch self {
-
-        case .verylow, .low, .high, .veryhigh, .fastdrop, .fastrise:
-            return UserDefaults.standard.bloodGlucoseUnitIsMgDl ? Texts_Common.mgdl:Texts_Common.mmol
-        case .missedreading:
-            return Texts_Common.minutes
-        case .calibration:
-            return Texts_Common.hours
-        case .batterylow:
-            if let transmitterType = transmitterType {
-                return transmitterType.batteryUnit()
-            } else {
-                return ""// even though 20 is used as default alert level (assuming 20%) give as default value empty string
-            }
         }
     }
 }

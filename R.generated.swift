@@ -8955,7 +8955,7 @@ struct _R: Rswift.Validatable {
     struct main: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
       typealias InitialController = InitViewController
 
-      let bluetoothPeripheral = StoryboardViewControllerResource<BluetoothPeripheralViewController>(identifier: "BluetoothPeripheral")
+      let bluetoothPeripheral = StoryboardViewControllerResource<UIKit.UIViewController>(identifier: "BluetoothPeripheral")
       let bundle = R.hostingBundle
       let dailyTrend = StoryboardViewControllerResource<DailyTrendViewController>(identifier: "DailyTrend")
       let mainTabBarController = StoryboardViewControllerResource<MainTabBarController>(identifier: "MainTabBarController")
@@ -8963,7 +8963,7 @@ struct _R: Rswift.Validatable {
       let snoozeAlarms = StoryboardViewControllerResource<SnoozeViewController>(identifier: "snoozeAlarms")
       let totalAlertSettingsViewController = StoryboardViewControllerResource<TotalAlertSettingsViewController>(identifier: "TotalAlertSettingsViewController")
 
-      func bluetoothPeripheral(_: Void = ()) -> BluetoothPeripheralViewController? {
+      func bluetoothPeripheral(_: Void = ()) -> UIKit.UIViewController? {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: bluetoothPeripheral)
       }
 
@@ -8985,7 +8985,6 @@ struct _R: Rswift.Validatable {
 
       static func validate() throws {
         if UIKit.UIImage(named: "ic_alarm", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_alarm' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ic_calibrate", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_calibrate' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_clock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_clock' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_pushpin_unlock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_pushpin_unlock' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ic_statistics", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_statistics' is used in storyboard 'Main', but couldn't be loaded.") }
@@ -8999,7 +8998,7 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "logo-launchScreen.png", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'logo-launchScreen.png' is used in storyboard 'Main', but couldn't be loaded.") }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
-        if _R.storyboard.main().bluetoothPeripheral() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'bluetoothPeripheral' could not be loaded from storyboard 'Main' as 'BluetoothPeripheralViewController'.") }
+        if _R.storyboard.main().bluetoothPeripheral() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'bluetoothPeripheral' could not be loaded from storyboard 'Main' as 'UIKit.UIViewController'.") }
         if _R.storyboard.main().dailyTrend() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'dailyTrend' could not be loaded from storyboard 'Main' as 'DailyTrendViewController'.") }
         if _R.storyboard.main().mainTabBarController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'mainTabBarController' could not be loaded from storyboard 'Main' as 'MainTabBarController'.") }
         if _R.storyboard.main().totalAlertSettingsViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'totalAlertSettingsViewController' could not be loaded from storyboard 'Main' as 'TotalAlertSettingsViewController'.") }

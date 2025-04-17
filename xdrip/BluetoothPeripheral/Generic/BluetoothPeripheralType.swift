@@ -36,43 +36,6 @@ enum BluetoothPeripheralType: String, CaseIterable {
     
     /// Atom
     case AtomType = "Atom"
-
-    /// - returns: the BluetoothPeripheralViewModel. If nil then there's no specific settings for the tpe of bluetoothPeripheral
-    func viewModel() -> BluetoothPeripheralViewModel? {
-        switch self {
-            
-        case .WatlaaType:
-            return WatlaaBluetoothPeripheralViewModel()
-            
-        case .DexcomType:
-            return DexcomG5BluetoothPeripheralViewModel()
-            
-        case .BubbleType:
-            return BubbleBluetoothPeripheralViewModel()
-            
-        case .MiaoMiaoType:
-            return MiaoMiaoBluetoothPeripheralViewModel()
-            
-        case .BluconType:
-            return BluconBluetoothPeripheralViewModel()
-            
-        case .GNSentryType:
-            return GNSEntryBluetoothPeripheralViewModel()
-         
-        case .BlueReaderType:
-            return nil
-            
-        case .DropletType:
-            return DropletBluetoothPeripheralViewModel()
-            
-        case .Libre2Type:
-            return Libre2BluetoothPeripheralViewModel()
-            
-        case .AtomType:
-            return AtomBluetoothPeripheralViewModel()
-            
-        }
-    }
     
     func createNewBluetoothPeripheral(withAddress address: String, withName name: String, nsManagedObjectContext: NSManagedObjectContext) -> BluetoothPeripheral {
     

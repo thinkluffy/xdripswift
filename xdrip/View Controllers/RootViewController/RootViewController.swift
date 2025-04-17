@@ -1,7 +1,6 @@
 import UIKit
 import CoreData
 import os
-import CoreBluetooth
 import UserNotifications
 import HealthKitUI
 import AVFoundation
@@ -83,20 +82,11 @@ final class RootViewController: UIViewController {
     /// to solve problem that sometemes UserDefaults key value changes is triggered twice for just one change
     private let keyValueObserverTimeKeeper: KeyValueObserverTimeKeeper = KeyValueObserverTimeKeeper()
 
-    /// calibrator to be used for calibration, value will depend on transmitter type
-    private var calibrator: Calibrator?
-
     /// BgReadingsAccessor instance
     private let bgReadingsAccessor = BgReadingsAccessor()
 
     /// CalibrationsAccessor instance
     private let calibrationsAccessor = CalibrationsAccessor()
-
-    /// NightScoutUploadManager instance
-    private var nightScoutUploadManager: NightScoutUploadManager?
-
-    /// LoopManager instance
-    private let loopManager = LoopManager()
 
     /// SoundPlayer instance
     private var soundPlayer: SoundPlayer?
@@ -320,15 +310,6 @@ final class RootViewController: UIViewController {
         }
 
 //        SensorsAccessor().listSensors(on: CoreDataManager.shared.mainManagedObjectContext)
-
-        // setup nightscout synchronizer
-        nightScoutUploadManager = NightScoutUploadManager { (title: String, message: String) in
-            let alert = PopupDialog(title: title,
-                    message: message,
-                    actionTitle: R.string.common.common_Ok(),
-                    actionHandler: nil)
-            self.present(alert, animated: true, completion: nil)
-        }
 
         // initialize statisticsManager
         statisticsManager = StatisticsManager()
