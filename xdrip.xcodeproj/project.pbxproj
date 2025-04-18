@@ -87,7 +87,6 @@
 		4E9D79CE273BF04400B666C5 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D79AF273BF04400B666C5 /* RoundedButton.swift */; };
 		4E9D79CF273BF04400B666C5 /* VerticalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D79B0273BF04400B666C5 /* VerticalButton.swift */; };
 		4E9D79D1273BF04400B666C5 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D79B2273BF04400B666C5 /* Toast.swift */; };
-		4E9D79D7273E683100B666C5 /* logo-launchScreen@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E9D79D6273E683100B666C5 /* logo-launchScreen@3x.png */; };
 		4E9D79D9273E695C00B666C5 /* CalendarTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D79D8273E695C00B666C5 /* CalendarTitle.swift */; };
 		4EA477862AEA6BEA005F39C9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EA477852AEA6BEA005F39C9 /* LaunchScreen.storyboard */; };
 		4EA477882AEA77E5005F39C9 /* 1-millisecond-of-silence.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4EA477872AEA77E5005F39C9 /* 1-millisecond-of-silence.wav */; };
@@ -237,6 +236,7 @@
 		E51542502DB0AB8100733515 /* LibreSensorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E515424C2DB0AB8100733515 /* LibreSensorType.swift */; };
 		E51542512DB0AB8100733515 /* LibreSensorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E515424B2DB0AB8100733515 /* LibreSensorState.swift */; };
 		E51542532DB0CB2F00733515 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E51542522DB0CB2F00733515 /* GoogleService-Info.plist */; };
+		E515447E2DB249EA00733515 /* logo-launchScreen@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E515447D2DB249EA00733515 /* logo-launchScreen@3x.png */; };
 		E53D045327438C5F00CA548E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E53D045227438C5F00CA548E /* Assets.xcassets */; };
 		E53D045927438C5F00CA548E /* xDripWatch WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E53D045827438C5F00CA548E /* xDripWatch WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E53D047027438C6100CA548E /* zDrip.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = E53D045027438C5D00CA548E /* zDrip.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -603,7 +603,6 @@
 		4E9D79AF273BF04400B666C5 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		4E9D79B0273BF04400B666C5 /* VerticalButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalButton.swift; sourceTree = "<group>"; };
 		4E9D79B2273BF04400B666C5 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
-		4E9D79D6273E683100B666C5 /* logo-launchScreen@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-launchScreen@3x.png"; sourceTree = "<group>"; };
 		4E9D79D8273E695C00B666C5 /* CalendarTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTitle.swift; sourceTree = "<group>"; };
 		4EA477852AEA6BEA005F39C9 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4EA477872AEA77E5005F39C9 /* 1-millisecond-of-silence.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "1-millisecond-of-silence.wav"; sourceTree = "<group>"; };
@@ -754,6 +753,7 @@
 		E515424B2DB0AB8100733515 /* LibreSensorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibreSensorState.swift; sourceTree = "<group>"; };
 		E515424C2DB0AB8100733515 /* LibreSensorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibreSensorType.swift; sourceTree = "<group>"; };
 		E51542522DB0CB2F00733515 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E515447D2DB249EA00733515 /* logo-launchScreen@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-launchScreen@3x.png"; sourceTree = "<group>"; };
 		E53D045027438C5D00CA548E /* zDrip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zDrip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E53D045227438C5F00CA548E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E53D045827438C5F00CA548E /* xDripWatch WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "xDripWatch WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1640,7 +1640,7 @@
 				F8A54B0A22D9215500934E7A /* xdrip-Bridging-Header.h */,
 				F8A5EEC5257EDC910085E660 /* xdripDebug.entitlements */,
 				F821CF9822AE589E005C1E43 /* xdrip.entitlements */,
-				4E9D79D6273E683100B666C5 /* logo-launchScreen@3x.png */,
+				E515447D2DB249EA00733515 /* logo-launchScreen@3x.png */,
 				4EE66F072733E01500548A46 /* R.generated.swift */,
 				E51542522DB0CB2F00733515 /* GoogleService-Info.plist */,
 				4E94C340277DBE7500382122 /* TrySomething.playground */,
@@ -2362,7 +2362,6 @@
 				4ED319162AF624260044D2B3 /* Cartoon_Fail_Strings_Trumpet.wav in Resources */,
 				4ED319182AF624260044D2B3 /* Big_Clock_Ticking.wav in Resources */,
 				4ED319112AF624260044D2B3 /* Sci-Fi_Alarm.wav in Resources */,
-				4E9D79D7273E683100B666C5 /* logo-launchScreen@3x.png in Resources */,
 				4ED318DA2AF624260044D2B3 /* Martian_Scanner.wav in Resources */,
 				F8B3A81F227DEC92004BA588 /* README.md in Resources */,
 				4ED319102AF624260044D2B3 /* Discreet.wav in Resources */,
@@ -2410,6 +2409,7 @@
 				4ED318D82AF624260044D2B3 /* Laser_Shoot.wav in Resources */,
 				4ED319342AF624260044D2B3 /* Computer_Magic.wav in Resources */,
 				4ED319262AF624260044D2B3 /* Signature_Corporate.wav in Resources */,
+				E515447E2DB249EA00733515 /* logo-launchScreen@3x.png in Resources */,
 				4ED3194F2AF628490044D2B3 /* betterwakeup.wav in Resources */,
 				F8EEDD552300136F00D2D610 /* DexcomShareTestResult.strings in Resources */,
 				4ED3194A2AF624260044D2B3 /* Remembers_Me_Of_Asia.wav in Resources */,
@@ -3079,7 +3079,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10301;
+				CURRENT_PROJECT_VERSION = 10302;
 				DEVELOPMENT_ASSET_PATHS = "\"xDripWatch WatchKit Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
@@ -3112,7 +3112,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10301;
+				CURRENT_PROJECT_VERSION = 10302;
 				DEVELOPMENT_ASSET_PATHS = "\"xDripWatch WatchKit Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
@@ -3148,7 +3148,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "$(XDRIP_CODE_SIGN_IDENTITY_DEBUG)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10301;
+				CURRENT_PROJECT_VERSION = 10302;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = NO;
@@ -3184,7 +3184,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "$(XDRIP_CODE_SIGN_IDENTITY_RELEASE)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10301;
+				CURRENT_PROJECT_VERSION = 10302;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = NO;
@@ -3217,7 +3217,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(XDRIP_WIDGET_ENTITLEMENTS_DEBUG)";
 				CODE_SIGN_IDENTITY = "$(XDRIP_CODE_SIGN_IDENTITY_DEBUG)";
 				CODE_SIGN_STYLE = "$(XDRIP_CODE_SIGN_STYLE)";
-				CURRENT_PROJECT_VERSION = 10301;
+				CURRENT_PROJECT_VERSION = 10302;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "xDrip4iOS Widget/Info.plist";
@@ -3243,7 +3243,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(XDRIP_WIDGET_ENTITLEMENTS_RELEASE)";
 				CODE_SIGN_IDENTITY = "$(XDRIP_CODE_SIGN_IDENTITY_RELEASE)";
 				CODE_SIGN_STYLE = "$(XDRIP_CODE_SIGN_STYLE)";
-				CURRENT_PROJECT_VERSION = 10301;
+				CURRENT_PROJECT_VERSION = 10302;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "xDrip4iOS Widget/Info.plist";
@@ -3396,7 +3396,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(XDRIP_ENTITLEMENTS_DEBUG)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10301;
+				CURRENT_PROJECT_VERSION = 10302;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/xdrip/Supporting Files/Info.plist";
@@ -3427,7 +3427,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(XDRIP_ENTITLEMENTS_RELEASE)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10301;
+				CURRENT_PROJECT_VERSION = 10302;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/xdrip/Supporting Files/Info.plist";
