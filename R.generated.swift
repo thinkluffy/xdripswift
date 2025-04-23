@@ -262,15 +262,9 @@ struct R: Rswift.Validatable {
   }
   #endif
 
-  /// This `R.entitlements` struct is generated, and contains static references to 3 properties.
+  /// This `R.entitlements` struct is generated, and contains static references to 2 properties.
   struct entitlements {
     static let comAppleDeveloperHealthkit = true
-
-    struct comAppleDeveloperNfcReadersessionFormats {
-      static let taG = infoPlistString(path: ["com.apple.developer.nfc.readersession.formats"], key: "TAG") ?? "TAG"
-
-      fileprivate init() {}
-    }
 
     struct comAppleSecurityApplicationGroups {
       static let groupBgCgmZdripfollower = infoPlistString(path: ["com.apple.security.application-groups"], key: "group.bg.cgm.zdripfollower") ?? "group.bg.cgm.zdripfollower"
