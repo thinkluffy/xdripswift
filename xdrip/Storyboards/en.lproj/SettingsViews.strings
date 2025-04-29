@@ -42,6 +42,8 @@
 "settingsviews_row_alerts" = "Alarms";
 "settingsviews_sectiontitlehealthkit" = "Apple Health";
 "settingsviews_healthkit" = "Write Data to Apple Health";
+"settingsviews_healthkit_title" = "Health Data Integration Notice";
+"settingsviews_healthkit_detail" = "This app supports writing your blood glucose data to Apple Health (HealthKit), allowing you to manage your health data in one place via the Health app. We will only access and write data with your explicit permission, and all data is securely stored on your device.";
 "settingsviews_sectiontitledexcomshare" = "Dexcom Share";
 "settingsviews_uploadReadingstoDexcomShare" = "Upload to Dexcom Share";
 "settingsviews_dexcomShareSerialNumber" = "Receiver Serial Number";
