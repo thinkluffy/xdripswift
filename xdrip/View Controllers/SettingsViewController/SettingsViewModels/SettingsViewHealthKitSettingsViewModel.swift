@@ -1,4 +1,5 @@
 import UIKit
+import PopupDialog
 import HealthKit
 import os
 
@@ -63,11 +64,11 @@ class SettingsViewHealthKitSettingsViewModel:SettingsViewModelProtocol {
             
             // if value change to on, then verify authorization status and if needed ask authorization
             if isOn {
-				let alert = PopupDialog(title: R.settingsViews.settingsviews_healthkit_title(),
-										message: R.settingsViews.settingsviews_healthkit_detail(),
+				let alert = PopupDialog(title: R.string.settingsViews.settingsviews_healthkit_title(),
+										message: R.string.settingsViews.settingsviews_healthkit_detail(),
 										actionTitle: R.string.common.common_Ok(),
-										actionHandler: {
-					requestHealthKit()
+										actionHandler: { [weak self] in
+					self?.requestHealthKit()
 				})
 				self.uiViewController?.present(alert, animated: true, completion: nil)
             }
