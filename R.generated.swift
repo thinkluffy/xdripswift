@@ -1854,7 +1854,7 @@ struct _R {
       var emptyview_title_no_notes: RswiftResources.StringResource { .init(key: "emptyview_title_no_notes", tableName: "Notes", source: source, developmentValue: "No Alarms or Notes", comment: nil) }
     }
 
-    /// This `_R.string.settingsViews` struct is generated, and contains static references to 115 localization keys.
+    /// This `_R.string.settingsViews` struct is generated, and contains static references to 117 localization keys.
     struct settingsViews {
       let source: RswiftResources.StringResource.Source
 
@@ -2193,6 +2193,20 @@ struct _R {
       ///
       /// Locales: en, zh
       var settingsviews_healthkit: RswiftResources.StringResource { .init(key: "settingsviews_healthkit", tableName: "SettingsViews", source: source, developmentValue: "Write Data to Apple Health", comment: nil) }
+
+      /// en translation: This app supports writing your blood glucose data to Apple Health (HealthKit), allowing you to manage your health data in one place via the Health app. We will only access and write data with your explicit permission, and all data is securely stored on your device.
+      ///
+      /// Key: settingsviews_healthkit_detail
+      ///
+      /// Locales: en, zh
+      var settingsviews_healthkit_detail: RswiftResources.StringResource { .init(key: "settingsviews_healthkit_detail", tableName: "SettingsViews", source: source, developmentValue: "This app supports writing your blood glucose data to Apple Health (HealthKit), allowing you to manage your health data in one place via the Health app. We will only access and write data with your explicit permission, and all data is securely stored on your device.", comment: nil) }
+
+      /// en translation: Health Data Integration Notice
+      ///
+      /// Key: settingsviews_healthkit_title
+      ///
+      /// Locales: en, zh
+      var settingsviews_healthkit_title: RswiftResources.StringResource { .init(key: "settingsviews_healthkit_title", tableName: "SettingsViews", source: source, developmentValue: "Health Data Integration Notice", comment: nil) }
 
       /// en translation: High Value
       ///
