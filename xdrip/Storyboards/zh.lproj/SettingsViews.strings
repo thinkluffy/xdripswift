@@ -119,6 +119,9 @@
 /// healthkit settings, literally 'healthkit'
 "settingsviews_healthkit" = "数据写入苹果健康";
 
+"settingsviews_healthkit_title" = "健康数据接入说明";
+"settingsviews_healthkit_detail" = "本应用支持将您的血糖数据写入 Apple 健康（HealthKit），以便您能在“健康”App 中集中查看和管理个人健康信息。只有在您授权的前提下，我们才会访问并写入相关健康数据，且所有数据均在设备本地安全存储。";
+
 /// Apple Watch Settings - section title
 "appleWatchSectionTitle" = "苹果手表";
 
@@ -138,7 +141,7 @@
 "infoCalendarAccessDeniedByUser" = "You previously denied access to your Calendar.\n\nTo enable it go to your device settings, privacy, calendars and enable it.";
 
 /// In Settings, Alerts section, there's an option to test the volume settings, this is text explaining the test when clicking the row - this is for sound player volume test
-"volumeTestSoundPlayerExplanation" = "An alarm sound is now being played with the same volume that will be used for an Alarm Type with 'Override Mute' = On\n\n(Used for all alarms except Missed Reading alerts which always use the iOS volume.)\n\nChange the volume with the volume buttons and press OK when done.";
+"volumeTestSoundPlayerExplanation" = "现在正在播放一段警报声音，其音量与启用“忽略静音（Override Mute）”的警报类型相同。\n\n（该音量适用于所有警报，除了“未读取提醒”，该提醒始终使用 iOS 系统音量。）\n\n请使用音量按钮调整音量，完成后点击“确定”。";
 
 /// home screen settings, use objectives in graph
 "settingsviews_useobjectives" = "图表中显示目标";
