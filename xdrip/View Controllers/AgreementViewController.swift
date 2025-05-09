@@ -109,7 +109,8 @@ class AgreementViewController: UIViewController {
         checkbox.onSelectionStateDidChange() { [unowned self] checkbox, isSelected in
             self.startToUseButton.isDisabled = !isSelected
         }
-        startToUseButton.addTarget(self, action: #selector(agreeButtonDidClick(_:)), for: .touchUpInside)
+//        startToUseButton.addTarget(self, action: #selector(agreeButtonDidClick(_:)), for: .touchUpInside)
+		startToUseButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(agreeButtonDidClick(_:))))
     }
     
     @objc private func agreeButtonDidClick(_ sender: UIControl) {
