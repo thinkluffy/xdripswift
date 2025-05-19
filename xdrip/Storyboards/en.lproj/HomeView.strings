@@ -38,3 +38,5 @@
 "enterSensorCode" = "If you don't have a sensor code, please use 0000. But be aware that you will not get readings until you calibrate.";
 "stopSensorConfirmation" = "Are you sure you want to stop the sensor?";
 "dialog_subtitle_startSensorTime" = "Choose the time the sensor is started";
+
+"start_use" = "Start Use";

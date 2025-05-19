@@ -712,7 +712,7 @@ struct _R {
       var enter_calibration_value: RswiftResources.StringResource { .init(key: "enter_calibration_value", tableName: "CalibrationRequest", source: source, developmentValue: "Enter Calibration Value", comment: nil) }
     }
 
-    /// This `_R.string.common` struct is generated, and contains static references to 73 localization keys.
+    /// This `_R.string.common` struct is generated, and contains static references to 74 localization keys.
     struct common {
       let source: RswiftResources.StringResource.Source
 
@@ -988,6 +988,13 @@ struct _R {
       ///
       /// Locales: en, zh
       var disclaimer: RswiftResources.StringResource { .init(key: "disclaimer", tableName: "Common", source: source, developmentValue: "Disclaimer", comment: nil) }
+
+      /// en translation: Done
+      ///
+      /// Key: done
+      ///
+      /// Locales: en, zh
+      var done: RswiftResources.StringResource { .init(key: "done", tableName: "Common", source: source, developmentValue: "Done", comment: nil) }
 
       /// en translation: Error
       ///
@@ -1341,7 +1348,7 @@ struct _R {
       var error_message_transmitter_id_should_have_length_6: RswiftResources.StringResource { .init(key: "error_message_transmitter_id_should_have_length_6", tableName: "ErrorMessages", source: source, developmentValue: "The Transmitter ID should be 6 characters long", comment: nil) }
     }
 
-    /// This `_R.string.homeView` struct is generated, and contains static references to 40 localization keys.
+    /// This `_R.string.homeView` struct is generated, and contains static references to 41 localization keys.
     struct homeView {
       let source: RswiftResources.StringResource.Source
 
@@ -1533,6 +1540,13 @@ struct _R {
       ///
       /// Locales: en, zh
       var startSensorTimeInfo: RswiftResources.StringResource { .init(key: "startSensorTimeInfo", tableName: "HomeView", source: source, developmentValue: "In the next dialogs, you will need to set the date and time the sensor was inserted. It is important that you set the date and time as correct as possible.", comment: nil) }
+
+      /// en translation: Start Use
+      ///
+      /// Key: start_use
+      ///
+      /// Locales: en, zh
+      var start_use: RswiftResources.StringResource { .init(key: "start_use", tableName: "HomeView", source: source, developmentValue: "Start Use", comment: nil) }
 
       /// en translation: Status
       ///

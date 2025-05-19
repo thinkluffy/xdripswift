@@ -69,3 +69,4 @@
 /// status info : literally 'Sensor End'
 "sensorend" = "Sensor Ends";
 "dialog_subtitle_startSensorTime" = "请选择传感器启动的时间";
+"start_use" = "开始使用";

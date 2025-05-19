@@ -8,6 +8,7 @@ import PieCharts
 import Charts
 import PopupDialog
 import FirebasePerformance
+import SnapKit
 
 /// viewController for the home screen
 final class RootViewController: UIViewController {
@@ -37,6 +38,17 @@ final class RootViewController: UIViewController {
     @IBOutlet weak var statisticsView: StatisticsView!
 
     @IBOutlet weak var sensorCountdown: SensorCountdown!
+
+    /// Start Use button for Nightscout setup
+    private lazy var startUseButton: UIButton = {
+        let button = UIButton(type: .system)
+		button.setTitle(R.string.homeView.start_use(), for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = ConstantsUI.accentRed
+        button.layer.cornerRadius = 8
+		button.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
+        return button
+    }()
 
     @IBAction func showChartDetailsButtonClicked(_ sender: UIButton) {
         performSegue(withIdentifier: R.segue.rootViewController.chartDetails, sender: self)
@@ -400,9 +412,38 @@ final class RootViewController: UIViewController {
             present(snoozeAlarmsViewController, animated: true)
         }
 
+        // Setup start use button
+		glucoseIndicator.addSubview(startUseButton)
+        startUseButton.snp.makeConstraints { make in
+			make.leading.trailing.equalToSuperview().inset(56)
+			make.bottom.equalToSuperview().offset(-56)
+            make.height.equalTo(56)
+        }
+        
+        startUseButton.addTarget(self, action: #selector(startUseButtonTapped), for: .touchUpInside)
+        updateStartUseButtonVisibility()
+
         glucoseChart.chartHours = selectedChartHours
         glucoseChart.isLongPressSupported = true
         glucoseChart.delegate = self
+    }
+
+    @objc private func startUseButtonTapped() {
+        // 打开设置页面
+		print("startUseButtonTapped")
+		let vc = ConfigNightScoutViewController()
+		vc.modalPresentationStyle = .overFullScreen
+		self.present(vc, animated: true)
+    }
+
+    /// Update start use button visibility based on Nightscout status
+    private func updateStartUseButtonVisibility() {
+        // 检查是否有 Nightscout 配置
+		let hasNightScoutConfig = UserDefaults.standard.isMaster == false &&
+		UserDefaults.standard.nightScoutUrl != nil
+        
+        // 只有在没有配置或没有数据时显示按钮
+        startUseButton.isHidden = hasNightScoutConfig
     }
 
     // MARK: - private helper functions
@@ -819,6 +860,9 @@ extension RootViewController: RootV {
 
         // check alerts, create notification, set app badge
         checkAlertsCreateNotificationAndSetAppBadge()
+
+        // 更新按钮状态
+        updateStartUseButtonVisibility()
 
         showNewBGReadingToast()
     }
