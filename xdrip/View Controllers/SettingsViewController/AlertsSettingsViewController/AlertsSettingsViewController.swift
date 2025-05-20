@@ -69,8 +69,7 @@ final class AlertsSettingsViewController: SubSettingsViewController {
             toDoWhenUnwinding = {self.tableView.reloadSections(IndexSet(integer: section), with: .none)}
             
             // do the mapping for section number. The sections in the view are ordered differently than the cases in AlertKind.
-            let mappedSectionNumber = AlertKind.alertKindRawValue(forSection: section)
-            
+            let mappedSectionNumber = section
             // minimumStart should be 1 minute higher than start of previous row, except if this is the first row, then minimumStart is 0
             var minimumStart: Int16 = 0
             if row > 0 {
@@ -118,7 +117,7 @@ extension AlertsSettingsViewController:UITableViewDataSource, UITableViewDelegat
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return alertEntriesPerAlertKind[AlertKind.alertKindRawValue(forSection: section)].count
+        return alertEntriesPerAlertKind[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -126,13 +125,8 @@ extension AlertsSettingsViewController:UITableViewDataSource, UITableViewDelegat
         cell.textLabel?.textColor = ConstantsUI.tableTitleColor
         cell.detailTextLabel?.textColor = ConstantsUI.tableDetailTextColor
         
-        // alertKind corresponds to the section number, mapped to correct section
-        guard let alertKind = AlertKind(forSection: indexPath.section) else {
-            fatalError("AlertsSettingsViewController, in cellForRowAt, failed to create alertKind")
-        }
-        
         // get the alertEntry
-        let alertEntry = alertEntriesPerAlertKind[alertKind.rawValue][indexPath.row]
+        let alertEntry = alertEntriesPerAlertKind[indexPath.section][indexPath.row]
 
         // get alertValue as Double
         let alertValue = alertEntry.value
@@ -146,6 +140,7 @@ extension AlertsSettingsViewController:UITableViewDataSource, UITableViewDelegat
         // do we add the alert value or not ?
         //   - is the alerttype enabled ? If it's not no need to show the value (it was like that in iosxdrip, seems a good approach)
         //   - does the alert type need a value ? at the moment al do, iphone muted alert (not present) yet would need it
+		let alertKind = AlertKind.followerAppCases[indexPath.section]
         if alertKind.needsAlertValue() && alertEntry.alertType.enabled {
             // only bg level alerts would need conversion
             if alertKind.valueNeedsConversionToMmol() {

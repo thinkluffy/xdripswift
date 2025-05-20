@@ -31,7 +31,7 @@ extension SnoozeViewController: UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
         // number of sections corresponds to number of alarm types
-        AlertKind.allCases.count
+        AlertKind.followerAppCases.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -116,7 +116,7 @@ class AlertEntriesAccessor {
         var returnValue = [[AlertEntry]]()
         
         // loop through alertkinds
-        for alertKind in AlertKind.allCases {
+		for alertKind in AlertKind.followerAppCases {
             // get all alertEntries for this AlertKind
             let alertEntries = getAllEntries(forAlertKind: alertKind, alertTypesAccessor: alertTypesAccessor)
             returnValue.append(alertEntries)

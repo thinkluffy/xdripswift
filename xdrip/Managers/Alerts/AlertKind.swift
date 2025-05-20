@@ -16,7 +16,10 @@ public enum AlertKind: Int, CaseIterable {
     case batterylow = 6
     case fastdrop = 7
     case fastrise = 8
-
+	
+	static var followerAppCases: [AlertKind] {
+		return [.verylow, .low, .fastdrop, .high, .veryhigh, .fastrise, .missedreading]
+	}
     /// this is used for presentation in UI table view. It allows to order the alert kinds in the view, different than they case ordering, and so allows to add new cases
     init?(forSection section: Int) {
         switch section {
