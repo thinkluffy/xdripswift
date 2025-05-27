@@ -417,7 +417,7 @@ final class RootViewController: UIViewController {
         startUseButton.snp.makeConstraints { make in
 			make.leading.trailing.equalToSuperview().inset(56)
 			make.bottom.equalToSuperview().offset(-56)
-            make.height.equalTo(56)
+            make.height.equalTo(48)
         }
         
         startUseButton.addTarget(self, action: #selector(startUseButtonTapped), for: .touchUpInside)
@@ -432,8 +432,10 @@ final class RootViewController: UIViewController {
         // 打开设置页面
 		print("startUseButtonTapped")
 		let vc = ConfigNightScoutViewController()
-		vc.modalPresentationStyle = .overFullScreen
-		self.present(vc, animated: true)
+		vc.hidesBottomBarWhenPushed = true
+		self.navigationController?.pushViewController(vc, animated: true)
+//		vc.modalPresentationStyle = .overFullScreen
+//		self.present(vc, animated: true)
     }
 
     /// Update start use button visibility based on Nightscout status

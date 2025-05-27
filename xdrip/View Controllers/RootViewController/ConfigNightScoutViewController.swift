@@ -17,13 +17,13 @@ class ConfigNightScoutViewController: UIViewController {
     private let tokenTextField = UITextField()
     private let portTextField = UITextField()
 	
-	private lazy var cancelButton: UIButton = {
-		let button = UIButton(type: .system)
-		button.setTitle(R.string.common.common_cancel(), for: .normal)
-		button.titleLabel?.font  = .systemFont(ofSize: 17, weight: .bold)
-		button.setTitleColor(UIColor.rgba(0, 122, 255), for: .normal)
-		return button
-	}()
+//	private lazy var cancelButton: UIButton = {
+//		let button = UIButton(type: .system)
+//		button.setTitle(R.string.common.common_cancel(), for: .normal)
+//		button.titleLabel?.font  = .systemFont(ofSize: 17, weight: .bold)
+//		button.setTitleColor(UIColor.rgba(0, 122, 255), for: .normal)
+//		return button
+//	}()
 	
     private lazy var testButton: UIButton = {
 		let button = UIButton(type: .system)
@@ -76,20 +76,23 @@ class ConfigNightScoutViewController: UIViewController {
     }
     
     private func setupUI() {
+		view.backgroundColor = ConstantsUI.mainBackgroundColor
 		let contentView = UIView()
-		contentView.backgroundColor = ConstantsUI.mainBackgroundColor
-		contentView.roundCorners(radius: 16, corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
+//		contentView.roundCorners(radius: 16, corners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
 		contentView.addGestureRecognizer(UITapGestureRecognizer(closure: { gesture in
 			self.view.endEditing(true)
 		}))
         // 标题
-        let titleLabel = UILabel()
-        titleLabel.text = "NIGHTSCOUT"
-        titleLabel.textColor = .white
-		titleLabel.font = .systemFont(ofSize: 17, weight: .semibold)
-        titleLabel.textAlignment = .center
-        
-		cancelButton.addTarget(self, action: #selector(cancelAction), for: .touchUpInside)
+		self.title = "NIGHTSCOUT"
+		self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward")?.withTintColor(.white, renderingMode: .alwaysOriginal), style: .plain, closure: { item in
+			self.backAction()
+		})
+//        let titleLabel = UILabel()
+//        titleLabel.text = "NIGHTSCOUT"
+//        titleLabel.textColor = .white
+//		titleLabel.font = .systemFont(ofSize: 17, weight: .semibold)
+//        titleLabel.textAlignment = .center
+//		cancelButton.addTarget(self, action: #selector(cancelAction), for: .touchUpInside)
         // textfields
         configureTextField(urlTextField, placeholder: "URL", keyboardType: .URL)
         urlTextField.addTarget(self, action: #selector(urlChanged), for: .editingChanged)
@@ -130,8 +133,8 @@ class ConfigNightScoutViewController: UIViewController {
         
         // 布局
 		view.addSubview(contentView)
-		contentView.addSubview(titleLabel)
-		contentView.addSubview(cancelButton)
+//		contentView.addSubview(titleLabel)
+//		contentView.addSubview(cancelButton)
 		contentView.addSubview(doneButton)
 		contentView.addSubview(stackSuperView)
 		stackSuperView.addSubview(stackView)
@@ -139,19 +142,21 @@ class ConfigNightScoutViewController: UIViewController {
         
 		contentView.snp.makeConstraints { make in
 			make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-			make.leading.trailing.bottom.equalToSuperview()
+			make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+			make.leading.trailing.equalToSuperview()
 		}
-		cancelButton.snp.makeConstraints { make in
-			make.centerY.equalTo(titleLabel)
-			make.leading.equalToSuperview().inset(16)
-		}
-		
-        titleLabel.snp.makeConstraints { make in
-			make.top.equalToSuperview().offset(12)
-            make.centerX.equalToSuperview()
-        }
+//		cancelButton.snp.makeConstraints { make in
+//			make.centerY.equalTo(titleLabel)
+//			make.leading.equalToSuperview().inset(16)
+//		}
+//		
+//        titleLabel.snp.makeConstraints { make in
+//			make.top.equalToSuperview().offset(12)
+//            make.centerX.equalToSuperview()
+//        }
 		stackSuperView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(16)
+//            make.top.equalTo(titleLabel.snp.bottom).offset(16)
+			make.top.equalToSuperview().inset(16)
 			make.leading.trailing.equalToSuperview().inset(16)
         }
 		stackView.snp.makeConstraints { make in
@@ -161,7 +166,7 @@ class ConfigNightScoutViewController: UIViewController {
 		}
         doneButton.snp.makeConstraints { make in
 			make.leading.trailing.equalToSuperview().inset(16)
-			make.bottom.equalToSuperview().offset(-20)
+			make.bottom.equalToSuperview().offset(-12)
             make.height.equalTo(52)
         }
         activityIndicator.snp.makeConstraints { make in
@@ -251,6 +256,16 @@ class ConfigNightScoutViewController: UIViewController {
 		self.dismiss(animated: true)
 	}
 	
+	@objc private func backAction() {
+		// 保存到 UserDefaults
+		UserDefaults.standard.nightScoutEnabled = cachedEnabled
+		UserDefaults.standard.nightScoutUrl = cachedURL
+		UserDefaults.standard.nightScoutAPIKey = cachedApi
+		UserDefaults.standard.nightScoutToken = cachedToken
+		UserDefaults.standard.nightScoutPort = cachedPort
+		self.navigationController?.popViewController(animated: true)
+	}
+	
     @objc private func testConnection() {
         view.endEditing(true)
 		setData()
@@ -318,7 +333,7 @@ class ConfigNightScoutViewController: UIViewController {
     @objc private func doneTapped() {
 		setData()
 		UserDefaults.standard.nightScoutEnabled = true
-        self.dismiss(animated: true)
+		self.navigationController?.popViewController(animated: true)
     }
 }
 
