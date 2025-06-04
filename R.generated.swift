@@ -6345,7 +6345,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.settingsViews` struct is generated, and contains static references to 115 localization keys.
+    /// This `R.string.settingsViews` struct is generated, and contains static references to 117 localization keys.
     struct settingsViews {
       /// en translation: 5 Mins per Dot
       ///
@@ -6507,6 +6507,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let settingsviews_useIFCCA1C = Rswift.StringResource(key: "settingsviews_useIFCCA1C", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: Health Data Integration Notice
+      ///
+      /// Locales: en, zh
+      static let settingsviews_healthkit_title = Rswift.StringResource(key: "settingsviews_healthkit_title", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Help & Documentation
       ///
       /// Locales: en
@@ -6715,6 +6719,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh
       static let volumeTestSoundPlayer = Rswift.StringResource(key: "volumeTestSoundPlayer", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+      /// en translation: This app supports writing your blood glucose data to Apple Health (HealthKit), allowing you to manage your health data in one place via the Health app. We will only access and write data with your explicit permission, and all data is securely stored on your device.
+      ///
+      /// Locales: en, zh
+      static let settingsviews_healthkit_detail = Rswift.StringResource(key: "settingsviews_healthkit_detail", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
       /// en translation: Token
       ///
       /// Locales: en, zh
@@ -7410,6 +7418,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("settingsviews_useIFCCA1C", tableName: "SettingsViews", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Health Data Integration Notice
+      ///
+      /// Locales: en, zh
+      static func settingsviews_healthkit_title(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("settingsviews_healthkit_title", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
+          return "settingsviews_healthkit_title"
+        }
+
+        return NSLocalizedString("settingsviews_healthkit_title", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
       /// en translation: Help & Documentation
@@ -8192,6 +8215,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("volumeTestSoundPlayer", tableName: "SettingsViews", bundle: bundle, comment: "")
+      }
+
+      /// en translation: This app supports writing your blood glucose data to Apple Health (HealthKit), allowing you to manage your health data in one place via the Health app. We will only access and write data with your explicit permission, and all data is securely stored on your device.
+      ///
+      /// Locales: en, zh
+      static func settingsviews_healthkit_detail(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("settingsviews_healthkit_detail", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
+          return "settingsviews_healthkit_detail"
+        }
+
+        return NSLocalizedString("settingsviews_healthkit_detail", tableName: "SettingsViews", bundle: bundle, comment: "")
       }
 
       /// en translation: Token
