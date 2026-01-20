@@ -60,7 +60,7 @@ public enum LibreSensorType: String {
                     trace("    decrypting libre data", log: log, category: ConstantsLog.categoryLibreSensorType, type: .info)
                 }
                 
-                libreData = Data(PreLibre2.decryptFRAM(uid, info.bytes, libreData.bytes))
+                libreData = Data(PreLibre2.decryptFRAM(uid, [UInt8](info), [UInt8](libreData)))
                 
             } else {
                 
