@@ -29,7 +29,7 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = iOS.appDisplayName
+        navigationItem.title = iOS.appDisplayName
         navigationController?.setNoBackground()
 
         setupView()
