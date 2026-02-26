@@ -41,6 +41,7 @@ final class RootViewController: UIViewController {
     @IBOutlet weak var statisticsView: StatisticsView!
 
     @IBOutlet weak var sensorCountdown: SensorCountdown!
+    @IBOutlet weak var upperAreaHeightConstraint: NSLayoutConstraint!
 
     @IBAction func showChartDetailsButtonClicked(_ sender: UIButton) {
         performSegue(withIdentifier: R.segue.rootViewController.chartDetails, sender: self)
@@ -180,6 +181,7 @@ final class RootViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         presenter.onViewDidAppear()
+		configureUpperAreaHeightConstraint()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -313,6 +315,10 @@ final class RootViewController: UIViewController {
 
     private func instancePresenter() {
         presenter = RootPresenter(view: self)
+    }
+
+    private func configureUpperAreaHeightConstraint() {
+		upperAreaHeightConstraint.constant = -view.safeAreaInsets.top-view.safeAreaInsets.bottom
     }
 
     /// sets AVAudioSession category to AVAudioSession.Category.playback with option mixWithOthers and
