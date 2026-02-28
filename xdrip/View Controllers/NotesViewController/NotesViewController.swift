@@ -89,7 +89,7 @@ class NotesViewController: UIViewController {
 
         instancePresenter()
 
-        title = "Notes"
+//        title = "Notes"
 
         setupView()
 
