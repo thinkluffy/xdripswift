@@ -4,9053 +4,3458 @@
 //
 
 import Foundation
-import Rswift
+import RswiftResources
 import UIKit
 
-/// This `R` struct is generated and contains references to static resources.
-struct R: Rswift.Validatable {
-  fileprivate static let applicationLocale = hostingBundle.preferredLocalizations.first.flatMap { Locale(identifier: $0) } ?? Locale.current
-  fileprivate static let hostingBundle = Bundle(for: R.Class.self)
+private class BundleFinder {}
+let R = _R(bundle: Bundle(for: BundleFinder.self))
 
-  /// Find first language and bundle for which the table exists
-  fileprivate static func localeBundle(tableName: String, preferredLanguages: [String]) -> (Foundation.Locale, Foundation.Bundle)? {
-    // Filter preferredLanguages to localizations, use first locale
-    var languages = preferredLanguages
-      .map { Locale(identifier: $0) }
-      .prefix(1)
-      .flatMap { locale -> [String] in
-        if hostingBundle.localizations.contains(locale.identifier) {
-          if let language = locale.languageCode, hostingBundle.localizations.contains(language) {
-            return [locale.identifier, language]
-          } else {
-            return [locale.identifier]
-          }
-        } else if let language = locale.languageCode, hostingBundle.localizations.contains(language) {
-          return [language]
-        } else {
-          return []
-        }
-      }
+struct _R {
+  let bundle: Foundation.Bundle
+  var string: string { .init(bundle: bundle, preferredLanguages: nil, locale: nil) }
+  var image: image { .init(bundle: bundle) }
+  var entitlements: entitlements { .init() }
+  var file: file { .init(bundle: bundle) }
+  var segue: segue { .init() }
+  var nib: nib { .init(bundle: bundle) }
+  var storyboard: storyboard { .init(bundle: bundle) }
 
-    // If there's no languages, use development language as backstop
-    if languages.isEmpty {
-      if let developmentLocalization = hostingBundle.developmentLocalization {
-        languages = [developmentLocalization]
-      }
-    } else {
-      // Insert Base as second item (between locale identifier and languageCode)
-      languages.insert("Base", at: 1)
-
-      // Add development language as backstop
-      if let developmentLocalization = hostingBundle.developmentLocalization {
-        languages.append(developmentLocalization)
-      }
-    }
-
-    // Find first language for which table exists
-    // Note: key might not exist in chosen language (in that case, key will be shown)
-    for language in languages {
-      if let lproj = hostingBundle.url(forResource: language, withExtension: "lproj"),
-         let lbundle = Bundle(url: lproj)
-      {
-        let strings = lbundle.url(forResource: tableName, withExtension: "strings")
-        let stringsdict = lbundle.url(forResource: tableName, withExtension: "stringsdict")
-
-        if strings != nil || stringsdict != nil {
-          return (Locale(identifier: language), lbundle)
-        }
-      }
-    }
-
-    // If table is available in main bundle, don't look for localized resources
-    let strings = hostingBundle.url(forResource: tableName, withExtension: "strings", subdirectory: nil, localization: nil)
-    let stringsdict = hostingBundle.url(forResource: tableName, withExtension: "stringsdict", subdirectory: nil, localization: nil)
-
-    if strings != nil || stringsdict != nil {
-      return (applicationLocale, hostingBundle)
-    }
-
-    // If table is not found for requested languages, key will be shown
-    return nil
+  func string(bundle: Foundation.Bundle) -> string {
+    .init(bundle: bundle, preferredLanguages: nil, locale: nil)
+  }
+  func string(locale: Foundation.Locale) -> string {
+    .init(bundle: bundle, preferredLanguages: nil, locale: locale)
+  }
+  func string(preferredLanguages: [String], locale: Locale? = nil) -> string {
+    .init(bundle: bundle, preferredLanguages: preferredLanguages, locale: locale)
+  }
+  func image(bundle: Foundation.Bundle) -> image {
+    .init(bundle: bundle)
+  }
+  func file(bundle: Foundation.Bundle) -> file {
+    .init(bundle: bundle)
+  }
+  func nib(bundle: Foundation.Bundle) -> nib {
+    .init(bundle: bundle)
+  }
+  func storyboard(bundle: Foundation.Bundle) -> storyboard {
+    .init(bundle: bundle)
+  }
+  func validate() throws {
+    try self.nib.validate()
+    try self.storyboard.validate()
   }
 
-  /// Load string from Info.plist file
-  fileprivate static func infoPlistString(path: [String], key: String) -> String? {
-    var dict = hostingBundle.infoDictionary
-    for step in path {
-      guard let obj = dict?[step] as? [String: Any] else { return nil }
-      dict = obj
+  struct project {
+    let developmentRegion = "en"
+  }
+
+  /// This `_R.string` struct is generated, and contains static references to 19 localization tables.
+  struct string {
+    let bundle: Foundation.Bundle
+    let preferredLanguages: [String]?
+    let locale: Locale?
+    var alertTypesSettingsView: alertTypesSettingsView { .init(source: .init(bundle: bundle, tableName: "AlertTypesSettingsView", preferredLanguages: preferredLanguages, locale: locale)) }
+    var alerts: alerts { .init(source: .init(bundle: bundle, tableName: "Alerts", preferredLanguages: preferredLanguages, locale: locale)) }
+    var bluetoothPeripheralView: bluetoothPeripheralView { .init(source: .init(bundle: bundle, tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages, locale: locale)) }
+    var bluetoothPeripheralsView: bluetoothPeripheralsView { .init(source: .init(bundle: bundle, tableName: "BluetoothPeripheralsView", preferredLanguages: preferredLanguages, locale: locale)) }
+    var calibrationRequest: calibrationRequest { .init(source: .init(bundle: bundle, tableName: "CalibrationRequest", preferredLanguages: preferredLanguages, locale: locale)) }
+    var common: common { .init(source: .init(bundle: bundle, tableName: "Common", preferredLanguages: preferredLanguages, locale: locale)) }
+    var dailyTrend: dailyTrend { .init(source: .init(bundle: bundle, tableName: "DailyTrend", preferredLanguages: preferredLanguages, locale: locale)) }
+    var dexcomShareTestResult: dexcomShareTestResult { .init(source: .init(bundle: bundle, tableName: "DexcomShareTestResult", preferredLanguages: preferredLanguages, locale: locale)) }
+    var errorMessages: errorMessages { .init(source: .init(bundle: bundle, tableName: "ErrorMessages", preferredLanguages: preferredLanguages, locale: locale)) }
+    var homeView: homeView { .init(source: .init(bundle: bundle, tableName: "HomeView", preferredLanguages: preferredLanguages, locale: locale)) }
+    var libreErrors: libreErrors { .init(source: .init(bundle: bundle, tableName: "LibreErrors", preferredLanguages: preferredLanguages, locale: locale)) }
+    var libreNFC: libreNFC { .init(source: .init(bundle: bundle, tableName: "LibreNFC", preferredLanguages: preferredLanguages, locale: locale)) }
+    var libreStates: libreStates { .init(source: .init(bundle: bundle, tableName: "LibreStates", preferredLanguages: preferredLanguages, locale: locale)) }
+    var nightScoutTestResult: nightScoutTestResult { .init(source: .init(bundle: bundle, tableName: "NightScoutTestResult", preferredLanguages: preferredLanguages, locale: locale)) }
+    var notes: notes { .init(source: .init(bundle: bundle, tableName: "Notes", preferredLanguages: preferredLanguages, locale: locale)) }
+    var settingsViews: settingsViews { .init(source: .init(bundle: bundle, tableName: "SettingsViews", preferredLanguages: preferredLanguages, locale: locale)) }
+    var snooze: snooze { .init(source: .init(bundle: bundle, tableName: "Snooze", preferredLanguages: preferredLanguages, locale: locale)) }
+    var speakReading: speakReading { .init(source: .init(bundle: bundle, tableName: "SpeakReading", preferredLanguages: preferredLanguages, locale: locale)) }
+    var watlaaView: watlaaView { .init(source: .init(bundle: bundle, tableName: "WatlaaView", preferredLanguages: preferredLanguages, locale: locale)) }
+
+    func alertTypesSettingsView(preferredLanguages: [String]) -> alertTypesSettingsView {
+      .init(source: .init(bundle: bundle, tableName: "AlertTypesSettingsView", preferredLanguages: preferredLanguages, locale: locale))
     }
-    return dict?[key] as? String
+    func alerts(preferredLanguages: [String]) -> alerts {
+      .init(source: .init(bundle: bundle, tableName: "Alerts", preferredLanguages: preferredLanguages, locale: locale))
+    }
+    func bluetoothPeripheralView(preferredLanguages: [String]) -> bluetoothPeripheralView {
+      .init(source: .init(bundle: bundle, tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages, locale: locale))
+    }
+    func bluetoothPeripheralsView(preferredLanguages: [String]) -> bluetoothPeripheralsView {
+      .init(source: .init(bundle: bundle, tableName: "BluetoothPeripheralsView", preferredLanguages: preferredLanguages, locale: locale))
+    }
+    func calibrationRequest(preferredLanguages: [String]) -> calibrationRequest {
+      .init(source: .init(bundle: bundle, tableName: "CalibrationRequest", preferredLanguages: preferredLanguages, locale: locale))
+    }
+    func common(preferredLanguages: [String]) -> common {
+      .init(source: .init(bundle: bundle, tableName: "Common", preferredLanguages: preferredLanguages, locale: locale))
+    }
+    func dailyTrend(preferredLanguages: [String]) -> dailyTrend {
+      .init(source: .init(bundle: bundle, tableName: "DailyTrend", preferredLanguages: preferredLanguages, locale: locale))
+    }
+    func dexcomShareTestResult(preferredLanguages: [String]) -> dexcomShareTestResult {
+      .init(source: .init(bundle: bundle, tableName: "DexcomShareTestResult", preferredLanguages: preferredLanguages, locale: locale))
+    }
+    func errorMessages(preferredLanguages: [String]) -> errorMessages {
+      .init(source: .init(bundle: bundle, tableName: "ErrorMessages", preferredLanguages: preferredLanguages, locale: locale))
+    }
+    func homeView(preferredLanguages: [String]) -> homeView {
+      .init(source: .init(bundle: bundle, tableName: "HomeView", preferredLanguages: preferredLanguages, locale: locale))
+    }
+    func libreErrors(preferredLanguages: [String]) -> libreErrors {
+      .init(source: .init(bundle: bundle, tableName: "LibreErrors", preferredLanguages: preferredLanguages, locale: locale))
+    }
+    func libreNFC(preferredLanguages: [String]) -> libreNFC {
+      .init(source: .init(bundle: bundle, tableName: "LibreNFC", preferredLanguages: preferredLanguages, locale: locale))
+    }
+    func libreStates(preferredLanguages: [String]) -> libreStates {
+      .init(source: .init(bundle: bundle, tableName: "LibreStates", preferredLanguages: preferredLanguages, locale: locale))
+    }
+    func nightScoutTestResult(preferredLanguages: [String]) -> nightScoutTestResult {
+      .init(source: .init(bundle: bundle, tableName: "NightScoutTestResult", preferredLanguages: preferredLanguages, locale: locale))
+    }
+    func notes(preferredLanguages: [String]) -> notes {
+      .init(source: .init(bundle: bundle, tableName: "Notes", preferredLanguages: preferredLanguages, locale: locale))
+    }
+    func settingsViews(preferredLanguages: [String]) -> settingsViews {
+      .init(source: .init(bundle: bundle, tableName: "SettingsViews", preferredLanguages: preferredLanguages, locale: locale))
+    }
+    func snooze(preferredLanguages: [String]) -> snooze {
+      .init(source: .init(bundle: bundle, tableName: "Snooze", preferredLanguages: preferredLanguages, locale: locale))
+    }
+    func speakReading(preferredLanguages: [String]) -> speakReading {
+      .init(source: .init(bundle: bundle, tableName: "SpeakReading", preferredLanguages: preferredLanguages, locale: locale))
+    }
+    func watlaaView(preferredLanguages: [String]) -> watlaaView {
+      .init(source: .init(bundle: bundle, tableName: "WatlaaView", preferredLanguages: preferredLanguages, locale: locale))
+    }
+
+
+    /// This `_R.string.alertTypesSettingsView` struct is generated, and contains static references to 16 localization keys.
+    struct alertTypesSettingsView {
+      let source: RswiftResources.StringResource.Source
+
+      /// en translation: Name already exists
+      ///
+      /// Key: alertTypeNameAlreadyExists
+      ///
+      /// Locales: en, zh
+      var alertTypeNameAlreadyExists: RswiftResources.StringResource { .init(key: "alertTypeNameAlreadyExists", tableName: "AlertTypesSettingsView", source: source, developmentValue: "Name already exists", comment: nil) }
+
+      /// en translation: No Sound
+      ///
+      /// Key: alertTypeNoSound
+      ///
+      /// Locales: en, zh
+      var alertTypeNoSound: RswiftResources.StringResource { .init(key: "alertTypeNoSound", tableName: "AlertTypesSettingsView", source: source, developmentValue: "No Sound", comment: nil) }
+
+      /// en translation: iOS Sound
+      ///
+      /// Key: alerttypesettingsview_defaultiossound
+      ///
+      /// Locales: en, zh
+      var alerttypesettingsview_defaultiossound: RswiftResources.StringResource { .init(key: "alerttypesettingsview_defaultiossound", tableName: "AlertTypesSettingsView", source: source, developmentValue: "iOS Sound", comment: nil) }
+
+      /// en translation: Default Snooze Time
+      ///
+      /// Key: alerttypesettingsview_defaultsnoozeperiod
+      ///
+      /// Locales: en, zh
+      var alerttypesettingsview_defaultsnoozeperiod: RswiftResources.StringResource { .init(key: "alerttypesettingsview_defaultsnoozeperiod", tableName: "AlertTypesSettingsView", source: source, developmentValue: "Default Snooze Time", comment: nil) }
+
+      /// en translation: Enabled
+      ///
+      /// Key: alerttypesettingsview_enabled
+      ///
+      /// Locales: en, zh
+      var alerttypesettingsview_enabled: RswiftResources.StringResource { .init(key: "alerttypesettingsview_enabled", tableName: "AlertTypesSettingsView", source: source, developmentValue: "Enabled", comment: nil) }
+
+      /// en translation: Alarm Name
+      ///
+      /// Key: alerttypesettingsview_givename
+      ///
+      /// Locales: en, zh
+      var alerttypesettingsview_givename: RswiftResources.StringResource { .init(key: "alerttypesettingsview_givename", tableName: "AlertTypesSettingsView", source: source, developmentValue: "Alarm Name", comment: nil) }
+
+      /// en translation: Snooze Time in Minutes
+      ///
+      /// Key: alerttypesettingsview_givesnoozeperiod
+      ///
+      /// Locales: en, zh
+      var alerttypesettingsview_givesnoozeperiod: RswiftResources.StringResource { .init(key: "alerttypesettingsview_givesnoozeperiod", tableName: "AlertTypesSettingsView", source: source, developmentValue: "Snooze Time in Minutes", comment: nil) }
+
+      /// en translation: Name
+      ///
+      /// Key: alerttypesettingsview_name
+      ///
+      /// Locales: en, zh
+      var alerttypesettingsview_name: RswiftResources.StringResource { .init(key: "alerttypesettingsview_name", tableName: "AlertTypesSettingsView", source: source, developmentValue: "Name", comment: nil) }
+
+      /// en translation: Override Mute
+      ///
+      /// Key: alerttypesettingsview_overridemute
+      ///
+      /// Locales: en, zh
+      var alerttypesettingsview_overridemute: RswiftResources.StringResource { .init(key: "alerttypesettingsview_overridemute", tableName: "AlertTypesSettingsView", source: source, developmentValue: "Override Mute", comment: nil) }
+
+      /// en translation: Sound Name
+      ///
+      /// Key: alerttypesettingsview_picksoundname
+      ///
+      /// Locales: en, zh
+      var alerttypesettingsview_picksoundname: RswiftResources.StringResource { .init(key: "alerttypesettingsview_picksoundname", tableName: "AlertTypesSettingsView", source: source, developmentValue: "Sound Name", comment: nil) }
+
+      /// en translation: Edit Alarm Type
+      ///
+      /// Key: alerttypesettingsview_screentitle
+      ///
+      /// Locales: en, zh
+      var alerttypesettingsview_screentitle: RswiftResources.StringResource { .init(key: "alerttypesettingsview_screentitle", tableName: "AlertTypesSettingsView", source: source, developmentValue: "Edit Alarm Type", comment: nil) }
+
+      /// en translation: Snooze via Notification
+      ///
+      /// Key: alerttypesettingsview_snoozevianotification
+      ///
+      /// Locales: en, zh
+      var alerttypesettingsview_snoozevianotification: RswiftResources.StringResource { .init(key: "alerttypesettingsview_snoozevianotification", tableName: "AlertTypesSettingsView", source: source, developmentValue: "Snooze via Notification", comment: nil) }
+
+      /// en translation: Sound
+      ///
+      /// Key: alerttypesettingsview_sound
+      ///
+      /// Locales: en, zh
+      var alerttypesettingsview_sound: RswiftResources.StringResource { .init(key: "alerttypesettingsview_sound", tableName: "AlertTypesSettingsView", source: source, developmentValue: "Sound", comment: nil) }
+
+      /// en translation: Vibrate
+      ///
+      /// Key: alerttypesettingsview_vibrate
+      ///
+      /// Locales: en, zh
+      var alerttypesettingsview_vibrate: RswiftResources.StringResource { .init(key: "alerttypesettingsview_vibrate", tableName: "AlertTypesSettingsView", source: source, developmentValue: "Vibrate", comment: nil) }
+
+      /// en translation: Alarm Types
+      ///
+      /// Key: alerttypessettingsview_screentitle
+      ///
+      /// Locales: en, zh
+      var alerttypessettingsview_screentitle: RswiftResources.StringResource { .init(key: "alerttypessettingsview_screentitle", tableName: "AlertTypesSettingsView", source: source, developmentValue: "Alarm Types", comment: nil) }
+
+      /// en translation: Delete Alarm Type "%@"?
+      ///
+      /// Key: confirmdeletionalerttype
+      ///
+      /// Locales: en, zh
+      var confirmdeletionalerttype: RswiftResources.StringResource1<String> { .init(key: "confirmdeletionalerttype", tableName: "AlertTypesSettingsView", source: source, developmentValue: "Delete Alarm Type \"%@\"?", comment: nil) }
+    }
+
+    /// This `_R.string.alerts` struct is generated, and contains static references to 18 localization keys.
+    struct alerts {
+      let source: RswiftResources.StringResource.Source
+
+      /// en translation: Transmitter Battery Low
+      ///
+      /// Key: alerts_batterylow
+      ///
+      /// Locales: en, zh
+      var alerts_batterylow: RswiftResources.StringResource { .init(key: "alerts_batterylow", tableName: "Alerts", source: source, developmentValue: "Transmitter Battery Low", comment: nil) }
+
+      /// en translation: Calibration Needed
+      ///
+      /// Key: alerts_calibrationneeded
+      ///
+      /// Locales: en, zh
+      var alerts_calibrationneeded: RswiftResources.StringResource { .init(key: "alerts_calibrationneeded", tableName: "Alerts", source: source, developmentValue: "Calibration Needed", comment: nil) }
+
+      /// en translation: Fast Drop Alarm
+      ///
+      /// Key: alerts_fastdrop
+      ///
+      /// Locales: en, zh
+      var alerts_fastdrop: RswiftResources.StringResource { .init(key: "alerts_fastdrop", tableName: "Alerts", source: source, developmentValue: "Fast Drop Alarm", comment: nil) }
+
+      /// en translation: Fast Rise Alarm
+      ///
+      /// Key: alerts_fastrise
+      ///
+      /// Locales: en, zh
+      var alerts_fastrise: RswiftResources.StringResource { .init(key: "alerts_fastrise", tableName: "Alerts", source: source, developmentValue: "Fast Rise Alarm", comment: nil) }
+
+      /// en translation: High Alarm
+      ///
+      /// Key: alerts_highalerttitle
+      ///
+      /// Locales: en, zh
+      var alerts_highalerttitle: RswiftResources.StringResource { .init(key: "alerts_highalerttitle", tableName: "Alerts", source: source, developmentValue: "High Alarm", comment: nil) }
+
+      /// en translation: Low Alarm
+      ///
+      /// Key: alerts_lowalerttitle
+      ///
+      /// Locales: en, zh
+      var alerts_lowalerttitle: RswiftResources.StringResource { .init(key: "alerts_lowalerttitle", tableName: "Alerts", source: source, developmentValue: "Low Alarm", comment: nil) }
+
+      /// en translation: Missed Readings
+      ///
+      /// Key: alerts_missedreadingalerttitle
+      ///
+      /// Locales: en, zh
+      var alerts_missedreadingalerttitle: RswiftResources.StringResource { .init(key: "alerts_missedreadingalerttitle", tableName: "Alerts", source: source, developmentValue: "Missed Readings", comment: nil) }
+
+      /// en translation: Select Snooze Time
+      ///
+      /// Key: alerts_select_snooze_time
+      ///
+      /// Locales: en, zh
+      var alerts_select_snooze_time: RswiftResources.StringResource { .init(key: "alerts_select_snooze_time", tableName: "Alerts", source: source, developmentValue: "Select Snooze Time", comment: nil) }
+
+      /// en translation: Snooze
+      ///
+      /// Key: alerts_snooze
+      ///
+      /// Locales: en, zh
+      var alerts_snooze: RswiftResources.StringResource { .init(key: "alerts_snooze", tableName: "Alerts", source: source, developmentValue: "Snooze", comment: nil) }
+
+      /// en translation: Urgent High Alarm
+      ///
+      /// Key: alerts_veryhighalerttitle
+      ///
+      /// Locales: en, zh
+      var alerts_veryhighalerttitle: RswiftResources.StringResource { .init(key: "alerts_veryhighalerttitle", tableName: "Alerts", source: source, developmentValue: "Urgent High Alarm", comment: nil) }
+
+      /// en translation: Urgent Low Alarm
+      ///
+      /// Key: alerts_verylowalerttitle
+      ///
+      /// Locales: en, zh
+      var alerts_verylowalerttitle: RswiftResources.StringResource { .init(key: "alerts_verylowalerttitle", tableName: "Alerts", source: source, developmentValue: "Urgent Low Alarm", comment: nil) }
+
+      /// en translation: Alarms
+      ///
+      /// Key: alertsettingsview_screentitle
+      ///
+      /// Locales: en, zh
+      var alertsettingsview_screentitle: RswiftResources.StringResource { .init(key: "alertsettingsview_screentitle", tableName: "Alerts", source: source, developmentValue: "Alarms", comment: nil) }
+
+      /// en translation: Edit Alarm
+      ///
+      /// Key: alertssettingsview_screentitle
+      ///
+      /// Locales: en, zh
+      var alertssettingsview_screentitle: RswiftResources.StringResource { .init(key: "alertssettingsview_screentitle", tableName: "Alerts", source: source, developmentValue: "Edit Alarm", comment: nil) }
+
+      /// en translation: Apply from
+      ///
+      /// Key: alertstart
+      ///
+      /// Locales: en, zh
+      var alertstart: RswiftResources.StringResource { .init(key: "alertstart", tableName: "Alerts", source: source, developmentValue: "Apply from", comment: nil) }
+
+      /// en translation: Alarm Type
+      ///
+      /// Key: alerttype
+      ///
+      /// Locales: en, zh
+      var alerttype: RswiftResources.StringResource { .init(key: "alerttype", tableName: "Alerts", source: source, developmentValue: "Alarm Type", comment: nil) }
+
+      /// en translation: Value
+      ///
+      /// Key: alertvalue
+      ///
+      /// Locales: en, zh
+      var alertvalue: RswiftResources.StringResource { .init(key: "alertvalue", tableName: "Alerts", source: source, developmentValue: "Value", comment: nil) }
+
+      /// en translation: Change Alarm Value
+      ///
+      /// Key: changealertvalue
+      ///
+      /// Locales: en, zh
+      var changealertvalue: RswiftResources.StringResource { .init(key: "changealertvalue", tableName: "Alerts", source: source, developmentValue: "Change Alarm Value", comment: nil) }
+
+      /// en translation: Delete Alarm?
+      ///
+      /// Key: confirmdeletionalert
+      ///
+      /// Locales: en, zh
+      var confirmdeletionalert: RswiftResources.StringResource { .init(key: "confirmdeletionalert", tableName: "Alerts", source: source, developmentValue: "Delete Alarm?", comment: nil) }
+    }
+
+    /// This `_R.string.bluetoothPeripheralView` struct is generated, and contains static references to 36 localization keys.
+    struct bluetoothPeripheralView {
+      let source: RswiftResources.StringResource.Source
+
+      /// en translation: Serial Number
+      ///
+      /// Key: SensorSerialNumber
+      ///
+      /// Locales: en, zh
+      var sensorSerialNumber: RswiftResources.StringResource { .init(key: "SensorSerialNumber", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Serial Number", comment: nil) }
+
+      /// en translation: Address
+      ///
+      /// Key: address
+      ///
+      /// Locales: en, zh
+      var address: RswiftResources.StringResource { .init(key: "address", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Address", comment: nil) }
+
+      /// en translation: Battery
+      ///
+      /// Key: battery
+      ///
+      /// Locales: en, zh
+      var battery: RswiftResources.StringResource { .init(key: "battery", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Battery", comment: nil) }
+
+      /// en translation: Bootloader
+      ///
+      /// Key: bootLoader
+      ///
+      /// Locales: en, zh
+      var bootLoader: RswiftResources.StringResource { .init(key: "bootLoader", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Bootloader", comment: nil) }
+
+      /// en translation: You can not activate a CGM in Follower Mode
+      ///
+      /// Key: cannotActiveCGMInFollowerMode
+      ///
+      /// Locales: en, zh
+      var cannotActiveCGMInFollowerMode: RswiftResources.StringResource { .init(key: "cannotActiveCGMInFollowerMode", tableName: "BluetoothPeripheralView", source: source, developmentValue: "You can not activate a CGM in Follower Mode", comment: nil) }
+
+      /// en translation: Delete bluetooth device?
+      ///
+      /// Key: confirmDeletionPeripheral
+      ///
+      /// Locales: en, zh
+      var confirmDeletionPeripheral: RswiftResources.StringResource { .init(key: "confirmDeletionPeripheral", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Delete bluetooth device?", comment: nil) }
+
+      /// en translation: Do you really want to disconnect from the transmitter?
+      ///
+      /// Key: confirmDisconnectMessage
+      ///
+      /// Locales: en, zh
+      var confirmDisconnectMessage: RswiftResources.StringResource { .init(key: "confirmDisconnectMessage", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Do you really want to disconnect from the transmitter?", comment: nil) }
+
+      /// en translation: Connect
+      ///
+      /// Key: connect
+      ///
+      /// Locales: en, zh
+      var connect: RswiftResources.StringResource { .init(key: "connect", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Connect", comment: nil) }
+
+      /// en translation: Connected
+      ///
+      /// Key: connected
+      ///
+      /// Locales: en, zh
+      var connected: RswiftResources.StringResource { .init(key: "connected", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Connected", comment: nil) }
+
+      /// en translation: Connected At
+      ///
+      /// Key: connectedAt
+      ///
+      /// Locales: en, zh
+      var connectedAt: RswiftResources.StringResource { .init(key: "connectedAt", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Connected At", comment: nil) }
+
+      /// en translation: Voltage A
+      ///
+      /// Key: dexcom_voltage_A
+      ///
+      /// Locales: en, zh
+      var dexcom_voltage_A: RswiftResources.StringResource { .init(key: "dexcom_voltage_A", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Voltage A", comment: nil) }
+
+      /// en translation: Voltage B
+      ///
+      /// Key: dexcom_voltage_B
+      ///
+      /// Locales: en, zh
+      var dexcom_voltage_B: RswiftResources.StringResource { .init(key: "dexcom_voltage_B", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Voltage B", comment: nil) }
+
+      /// en translation: Please follow the prompts to enter the calibration blood glucose value later.
+      ///
+      /// Key: dialog_msg_manual_calibration_enabled
+      ///
+      /// Locales: en, zh
+      var dialog_msg_manual_calibration_enabled: RswiftResources.StringResource { .init(key: "dialog_msg_manual_calibration_enabled", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Please follow the prompts to enter the calibration blood glucose value later.", comment: nil) }
+
+      /// en translation: Manual Calibration Enabled
+      ///
+      /// Key: dialog_title_manual_calibration_enabled
+      ///
+      /// Locales: en, zh
+      var dialog_title_manual_calibration_enabled: RswiftResources.StringResource { .init(key: "dialog_title_manual_calibration_enabled", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Manual Calibration Enabled", comment: nil) }
+
+      /// en translation: Disconnected At
+      ///
+      /// Key: disConnectedAt
+      ///
+      /// Locales: en, zh
+      var disConnectedAt: RswiftResources.StringResource { .init(key: "disConnectedAt", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Disconnected At", comment: nil) }
+
+      /// en translation: Disconnect
+      ///
+      /// Key: disconnect
+      ///
+      /// Locales: en, zh
+      var disconnect: RswiftResources.StringResource { .init(key: "disconnect", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Disconnect", comment: nil) }
+
+      /// en translation: Stop Scanning
+      ///
+      /// Key: donotconnect
+      ///
+      /// Locales: en, zh
+      var donotconnect: RswiftResources.StringResource { .init(key: "donotconnect", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Stop Scanning", comment: nil) }
+
+      /// en translation: Last Reset
+      ///
+      /// Key: lastReset
+      ///
+      /// Locales: en, zh
+      var lastReset: RswiftResources.StringResource { .init(key: "lastReset", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Last Reset", comment: nil) }
+
+      /// en translation: Missing Transmitter ID
+      ///
+      /// Key: needsTransmitterId
+      ///
+      /// Locales: en, zh
+      var needsTransmitterId: RswiftResources.StringResource { .init(key: "needsTransmitterId", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Missing Transmitter ID", comment: nil) }
+
+      /// en translation: Not Connected
+      ///
+      /// Key: notConnected
+      ///
+      /// Locales: en, zh
+      var notConnected: RswiftResources.StringResource { .init(key: "notConnected", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Not Connected", comment: nil) }
+
+      /// en translation: Not Scanning
+      ///
+      /// Key: notTryingToConnect
+      ///
+      /// Locales: en, zh
+      var notTryingToConnect: RswiftResources.StringResource { .init(key: "notTryingToConnect", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Not Scanning", comment: nil) }
+
+      /// en translation: Ready to Scan
+      ///
+      /// Key: readyToScan
+      ///
+      /// Locales: en, zh
+      var readyToScan: RswiftResources.StringResource { .init(key: "readyToScan", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Ready to Scan", comment: nil) }
+
+      /// en translation: Reset Transmitter
+      ///
+      /// Key: resetRequired
+      ///
+      /// Locales: en, zh
+      var resetRequired: RswiftResources.StringResource { .init(key: "resetRequired", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Reset Transmitter", comment: nil) }
+
+      /// en translation: Resistance
+      ///
+      /// Key: resistance
+      ///
+      /// Locales: en, zh
+      var resistance: RswiftResources.StringResource { .init(key: "resistance", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Resistance", comment: nil) }
+
+      /// en translation: Runtime
+      ///
+      /// Key: runtime
+      ///
+      /// Locales: en, zh
+      var runtime: RswiftResources.StringResource { .init(key: "runtime", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Runtime", comment: nil) }
+
+      /// en translation: Scan
+      ///
+      /// Key: scan
+      ///
+      /// Locales: en, zh
+      var scan: RswiftResources.StringResource { .init(key: "scan", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Scan", comment: nil) }
+
+      /// en translation: Scanning
+      ///
+      /// Key: scanning
+      ///
+      /// Locales: en, zh
+      var scanning: RswiftResources.StringResource { .init(key: "scanning", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Scanning", comment: nil) }
+
+      /// en translation: Sensor Started At
+      ///
+      /// Key: sensorStartDate
+      ///
+      /// Locales: en, zh
+      var sensorStartDate: RswiftResources.StringResource { .init(key: "sensorStartDate", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Sensor Started At", comment: nil) }
+
+      /// en translation: Sensor Type
+      ///
+      /// Key: sensorType
+      ///
+      /// Locales: en, zh
+      var sensorType: RswiftResources.StringResource { .init(key: "sensorType", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Sensor Type", comment: nil) }
+
+      /// en translation: Serial Number
+      ///
+      /// Key: serialNumber
+      ///
+      /// Locales: en, zh
+      var serialNumber: RswiftResources.StringResource { .init(key: "serialNumber", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Serial Number", comment: nil) }
+
+      /// en translation: Status
+      ///
+      /// Key: status
+      ///
+      /// Locales: en, zh
+      var status: RswiftResources.StringResource { .init(key: "status", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Status", comment: nil) }
+
+      /// en translation: Temperature
+      ///
+      /// Key: temperature
+      ///
+      /// Locales: en, zh
+      var temperature: RswiftResources.StringResource { .init(key: "temperature", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Temperature", comment: nil) }
+
+      /// en translation: Transmitter Reset Result
+      ///
+      /// Key: transmitterResultResult
+      ///
+      /// Locales: en, zh
+      var transmitterResultResult: RswiftResources.StringResource { .init(key: "transmitterResultResult", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Transmitter Reset Result", comment: nil) }
+
+      /// en translation: Transmitter Start
+      ///
+      /// Key: transmittterStartDate
+      ///
+      /// Locales: en, zh
+      var transmittterStartDate: RswiftResources.StringResource { .init(key: "transmittterStartDate", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Transmitter Start", comment: nil) }
+
+      /// en translation: Scanning
+      ///
+      /// Key: tryingToConnect
+      ///
+      /// Locales: en, zh
+      var tryingToConnect: RswiftResources.StringResource { .init(key: "tryingToConnect", tableName: "BluetoothPeripheralView", source: source, developmentValue: "Scanning", comment: nil) }
+
+      /// en translation: With Dexcom-app Together
+      ///
+      /// Key: useOtherDexcomApp
+      ///
+      /// Locales: en, zh
+      var useOtherDexcomApp: RswiftResources.StringResource { .init(key: "useOtherDexcomApp", tableName: "BluetoothPeripheralView", source: source, developmentValue: "With Dexcom-app Together", comment: nil) }
+    }
+
+    /// This `_R.string.bluetoothPeripheralsView` struct is generated, and contains static references to 5 localization keys.
+    struct bluetoothPeripheralsView {
+      let source: RswiftResources.StringResource.Source
+
+      /// en translation: Battery Level
+      ///
+      /// Key: batteryLevel
+      ///
+      /// Locales: en, zh
+      var batteryLevel: RswiftResources.StringResource { .init(key: "batteryLevel", tableName: "BluetoothPeripheralsView", source: source, developmentValue: "Battery Level", comment: nil) }
+
+      /// en translation: You cannot have more than one CGM Transmitter which is connected or being scanned for. Verify your other CGM Transmitters and click 'Stop Scanning', 'Disconnect' or just delete them
+      ///
+      /// Key: noMultipleActiveCGMsAllowed
+      ///
+      /// Locales: en, zh
+      var noMultipleActiveCGMsAllowed: RswiftResources.StringResource { .init(key: "noMultipleActiveCGMsAllowed", tableName: "BluetoothPeripheralsView", source: source, developmentValue: "You cannot have more than one CGM Transmitter which is connected or being scanned for.\nVerify your other CGM Transmitters and click 'Stop Scanning', 'Disconnect' or just delete them", comment: nil) }
+
+      /// en translation: Bluetooth
+      ///
+      /// Key: screenTitle
+      ///
+      /// Locales: en, zh
+      var screenTitle: RswiftResources.StringResource { .init(key: "screenTitle", tableName: "BluetoothPeripheralsView", source: source, developmentValue: "Bluetooth", comment: nil) }
+
+      /// en translation: Select Device Type
+      ///
+      /// Key: selectCategory
+      ///
+      /// Locales: en, zh
+      var selectCategory: RswiftResources.StringResource { .init(key: "selectCategory", tableName: "BluetoothPeripheralsView", source: source, developmentValue: "Select Device Type", comment: nil) }
+
+      /// en translation: Select Transmitter Type
+      ///
+      /// Key: selectType
+      ///
+      /// Locales: en, zh
+      var selectType: RswiftResources.StringResource { .init(key: "selectType", tableName: "BluetoothPeripheralsView", source: source, developmentValue: "Select Transmitter Type", comment: nil) }
+    }
+
+    /// This `_R.string.calibrationRequest` struct is generated, and contains static references to 4 localization keys.
+    struct calibrationRequest {
+      let source: RswiftResources.StringResource.Source
+
+      /// en translation: Click the Notification to Calibrate
+      ///
+      /// Key: calibration_notification_body
+      ///
+      /// Locales: en, zh
+      var calibration_notification_body: RswiftResources.StringResource { .init(key: "calibration_notification_body", tableName: "CalibrationRequest", source: source, developmentValue: "Click the Notification to Calibrate", comment: nil) }
+
+      /// en translation: Calibration
+      ///
+      /// Key: calibration_notification_title
+      ///
+      /// Locales: en, zh
+      var calibration_notification_title: RswiftResources.StringResource { .init(key: "calibration_notification_title", tableName: "CalibrationRequest", source: source, developmentValue: "Calibration", comment: nil) }
+
+      /// en translation: Calibration
+      ///
+      /// Key: calibration_title
+      ///
+      /// Locales: en, zh
+      var calibration_title: RswiftResources.StringResource { .init(key: "calibration_title", tableName: "CalibrationRequest", source: source, developmentValue: "Calibration", comment: nil) }
+
+      /// en translation: Enter Calibration Value
+      ///
+      /// Key: enter_calibration_value
+      ///
+      /// Locales: en, zh
+      var enter_calibration_value: RswiftResources.StringResource { .init(key: "enter_calibration_value", tableName: "CalibrationRequest", source: source, developmentValue: "Enter Calibration Value", comment: nil) }
+    }
+
+    /// This `_R.string.common` struct is generated, and contains static references to 73 localization keys.
+    struct common {
+      let source: RswiftResources.StringResource.Source
+
+      /// en translation: Wi-Fi
+      ///
+      /// Key: WiFi
+      ///
+      /// Locales: en, zh
+      var wiFi: RswiftResources.StringResource { .init(key: "WiFi", tableName: "Common", source: source, developmentValue: "Wi-Fi", comment: nil) }
+
+      /// en translation: About
+      ///
+      /// Key: about
+      ///
+      /// Locales: en, zh
+      var about: RswiftResources.StringResource { .init(key: "about", tableName: "Common", source: source, developmentValue: "About", comment: nil) }
+
+      /// en translation: Add
+      ///
+      /// Key: add
+      ///
+      /// Locales: en, zh
+      var add: RswiftResources.StringResource { .init(key: "add", tableName: "Common", source: source, developmentValue: "Add", comment: nil) }
+
+      /// en translation: %@ must not be used to make medical decisions. It is a research and education tool only and is provided as-is without warranty of any kind, either expressed or implied, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose. The entire risk as to the quality and performance of the program is with you. Should the program prove defective, you assume the cost of all necessary servicing, repair, or correction.
+      ///
+      /// Key: agreement
+      ///
+      /// Locales: en, zh
+      var agreement: RswiftResources.StringResource1<String> { .init(key: "agreement", tableName: "Common", source: source, developmentValue: "%@ must not be used to make medical decisions. It is a research and education tool only and is provided as-is without warranty of any kind, either expressed or implied, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose. The entire risk as to the quality and performance of the program is with you. Should the program prove defective, you assume the cost of all necessary servicing, repair, or correction.", comment: nil) }
+
+      /// en translation: I understand and agree
+      ///
+      /// Key: btn_understand_and_agree
+      ///
+      /// Locales: en, zh
+      var btn_understand_and_agree: RswiftResources.StringResource { .init(key: "btn_understand_and_agree", tableName: "Common", source: source, developmentValue: "I understand and agree", comment: nil) }
+
+      /// en translation: %@/min
+      ///
+      /// Key: change_per_min
+      ///
+      /// Locales: en, zh
+      var change_per_min: RswiftResources.StringResource1<String> { .init(key: "change_per_min", tableName: "Common", source: source, developmentValue: "%@/min", comment: nil) }
+
+      /// en translation: OK
+      ///
+      /// Key: common_Ok
+      ///
+      /// Locales: en, zh
+      var common_Ok: RswiftResources.StringResource { .init(key: "common_Ok", tableName: "Common", source: source, developmentValue: "OK", comment: nil) }
+
+      /// en translation: Blood Glucose Unit
+      ///
+      /// Key: common_bloodglucoseunit
+      ///
+      /// Locales: en, zh
+      var common_bloodglucoseunit: RswiftResources.StringResource { .init(key: "common_bloodglucoseunit", tableName: "Common", source: source, developmentValue: "Blood Glucose Unit", comment: nil) }
+
+      /// en translation: BG Unit
+      ///
+      /// Key: common_bloodglucoseunit_short
+      ///
+      /// Locales: en, zh
+      var common_bloodglucoseunit_short: RswiftResources.StringResource { .init(key: "common_bloodglucoseunit_short", tableName: "Common", source: source, developmentValue: "BG Unit", comment: nil) }
+
+      /// en translation: Cancel
+      ///
+      /// Key: common_cancel
+      ///
+      /// Locales: en, zh
+      var common_cancel: RswiftResources.StringResource { .init(key: "common_cancel", tableName: "Common", source: source, developmentValue: "Cancel", comment: nil) }
+
+      /// en translation: day
+      ///
+      /// Key: common_day
+      ///
+      /// Locales: en, zh
+      var common_day: RswiftResources.StringResource { .init(key: "common_day", tableName: "Common", source: source, developmentValue: "day", comment: nil) }
+
+      /// en translation: days
+      ///
+      /// Key: common_days
+      ///
+      /// Locales: en, zh
+      var common_days: RswiftResources.StringResource { .init(key: "common_days", tableName: "Common", source: source, developmentValue: "days", comment: nil) }
+
+      /// en translation: d
+      ///
+      /// Key: common_dayshort
+      ///
+      /// Locales: en, zh
+      var common_dayshort: RswiftResources.StringResource { .init(key: "common_dayshort", tableName: "Common", source: source, developmentValue: "d", comment: nil) }
+
+      /// en translation: Default
+      ///
+      /// Key: common_default
+      ///
+      /// Locales: en, zh
+      var common_default: RswiftResources.StringResource { .init(key: "common_default", tableName: "Common", source: source, developmentValue: "Default", comment: nil) }
+
+      /// en translation: Don't Show Again
+      ///
+      /// Key: common_dontshowagain
+      ///
+      /// Locales: en, zh
+      var common_dontshowagain: RswiftResources.StringResource { .init(key: "common_dontshowagain", tableName: "Common", source: source, developmentValue: "Don't Show Again", comment: nil) }
+
+      /// en translation: HIGH
+      ///
+      /// Key: common_high
+      ///
+      /// Locales: en, zh
+      var common_high: RswiftResources.StringResource { .init(key: "common_high", tableName: "Common", source: source, developmentValue: "HIGH", comment: nil) }
+
+      /// en translation: hour
+      ///
+      /// Key: common_hour
+      ///
+      /// Locales: en, zh
+      var common_hour: RswiftResources.StringResource { .init(key: "common_hour", tableName: "Common", source: source, developmentValue: "hour", comment: nil) }
+
+      /// en translation: hours
+      ///
+      /// Key: common_hours
+      ///
+      /// Locales: en, zh
+      var common_hours: RswiftResources.StringResource { .init(key: "common_hours", tableName: "Common", source: source, developmentValue: "hours", comment: nil) }
+
+      /// en translation: H
+      ///
+      /// Key: common_hourshort
+      ///
+      /// Locales: en, zh
+      var common_hourshort: RswiftResources.StringResource { .init(key: "common_hourshort", tableName: "Common", source: source, developmentValue: "H", comment: nil) }
+
+      /// en translation: LOW
+      ///
+      /// Key: common_low
+      ///
+      /// Locales: en, zh
+      var common_low: RswiftResources.StringResource { .init(key: "common_low", tableName: "Common", source: source, developmentValue: "LOW", comment: nil) }
+
+      /// en translation: mg/dL
+      ///
+      /// Key: common_mgdl
+      ///
+      /// Locales: en, zh
+      var common_mgdl: RswiftResources.StringResource { .init(key: "common_mgdl", tableName: "Common", source: source, developmentValue: "mg/dL", comment: nil) }
+
+      /// en translation: min
+      ///
+      /// Key: common_minute
+      ///
+      /// Locales: en, zh
+      var common_minute: RswiftResources.StringResource { .init(key: "common_minute", tableName: "Common", source: source, developmentValue: "min", comment: nil) }
+
+      /// en translation: mins
+      ///
+      /// Key: common_minutes
+      ///
+      /// Locales: en, zh
+      var common_minutes: RswiftResources.StringResource { .init(key: "common_minutes", tableName: "Common", source: source, developmentValue: "mins", comment: nil) }
+
+      /// en translation: mmol/L
+      ///
+      /// Key: common_mmol
+      ///
+      /// Locales: en, zh
+      var common_mmol: RswiftResources.StringResource { .init(key: "common_mmol", tableName: "Common", source: source, developmentValue: "mmol/L", comment: nil) }
+
+      /// en translation: Password
+      ///
+      /// Key: common_password
+      ///
+      /// Locales: en, zh
+      var common_password: RswiftResources.StringResource { .init(key: "common_password", tableName: "Common", source: source, developmentValue: "Password", comment: nil) }
+
+      /// en translation: HbA1c
+      ///
+      /// Key: common_statistics_a1c
+      ///
+      /// Locales: en, zh
+      var common_statistics_a1c: RswiftResources.StringResource { .init(key: "common_statistics_a1c", tableName: "Common", source: source, developmentValue: "HbA1c", comment: nil) }
+
+      /// en translation: Average
+      ///
+      /// Key: common_statistics_average
+      ///
+      /// Locales: en, zh
+      var common_statistics_average: RswiftResources.StringResource { .init(key: "common_statistics_average", tableName: "Common", source: source, developmentValue: "Average", comment: nil) }
+
+      /// en translation: Readings
+      ///
+      /// Key: common_statistics_bgReadingsCount
+      ///
+      /// Locales: en, zh
+      var common_statistics_bgReadingsCount: RswiftResources.StringResource { .init(key: "common_statistics_bgReadingsCount", tableName: "Common", source: source, developmentValue: "Readings", comment: nil) }
+
+      /// en translation: CV
+      ///
+      /// Key: common_statistics_cv
+      ///
+      /// Locales: en, zh
+      var common_statistics_cv: RswiftResources.StringResource { .init(key: "common_statistics_cv", tableName: "Common", source: source, developmentValue: "CV", comment: nil) }
+
+      /// en translation: High
+      ///
+      /// Key: common_statistics_high
+      ///
+      /// Locales: en, zh
+      var common_statistics_high: RswiftResources.StringResource { .init(key: "common_statistics_high", tableName: "Common", source: source, developmentValue: "High", comment: nil) }
+
+      /// en translation: In Range
+      ///
+      /// Key: common_statistics_inRange
+      ///
+      /// Locales: en, zh
+      var common_statistics_inRange: RswiftResources.StringResource { .init(key: "common_statistics_inRange", tableName: "Common", source: source, developmentValue: "In Range", comment: nil) }
+
+      /// en translation: Low
+      ///
+      /// Key: common_statistics_low
+      ///
+      /// Locales: en, zh
+      var common_statistics_low: RswiftResources.StringResource { .init(key: "common_statistics_low", tableName: "Common", source: source, developmentValue: "Low", comment: nil) }
+
+      /// en translation: SD
+      ///
+      /// Key: common_statistics_stdDeviation
+      ///
+      /// Locales: en, zh
+      var common_statistics_stdDeviation: RswiftResources.StringResource { .init(key: "common_statistics_stdDeviation", tableName: "Common", source: source, developmentValue: "SD", comment: nil) }
+
+      /// en translation: week
+      ///
+      /// Key: common_week
+      ///
+      /// Locales: en, zh
+      var common_week: RswiftResources.StringResource { .init(key: "common_week", tableName: "Common", source: source, developmentValue: "week", comment: nil) }
+
+      /// en translation: Daily Patterns
+      ///
+      /// Key: daily_trend
+      ///
+      /// Locales: en, zh
+      var daily_trend: RswiftResources.StringResource { .init(key: "daily_trend", tableName: "Common", source: source, developmentValue: "Daily Patterns", comment: nil) }
+
+      /// en translation: Decile
+      ///
+      /// Key: decile
+      ///
+      /// Locales: en, zh
+      var decile: RswiftResources.StringResource { .init(key: "decile", tableName: "Common", source: source, developmentValue: "Decile", comment: nil) }
+
+      /// en translation: Delete
+      ///
+      /// Key: delete
+      ///
+      /// Locales: en, zh
+      var delete: RswiftResources.StringResource { .init(key: "delete", tableName: "Common", source: source, developmentValue: "Delete", comment: nil) }
+
+      /// en translation: Developer Mode Enabled
+      ///
+      /// Key: developerModeEnabled
+      ///
+      /// Locales: en, zh
+      var developerModeEnabled: RswiftResources.StringResource { .init(key: "developerModeEnabled", tableName: "Common", source: source, developmentValue: "Developer Mode Enabled", comment: nil) }
+
+      /// en translation: Disclaimer
+      ///
+      /// Key: disclaimer
+      ///
+      /// Locales: en, zh
+      var disclaimer: RswiftResources.StringResource { .init(key: "disclaimer", tableName: "Common", source: source, developmentValue: "Disclaimer", comment: nil) }
+
+      /// en translation: Error
+      ///
+      /// Key: error
+      ///
+      /// Locales: en, zh
+      var error: RswiftResources.StringResource { .init(key: "error", tableName: "Common", source: source, developmentValue: "Error", comment: nil) }
+
+      /// en translation: The feature is under development.
+      ///
+      /// Key: feature_is_under_development
+      ///
+      /// Locales: en, zh
+      var feature_is_under_development: RswiftResources.StringResource { .init(key: "feature_is_under_development", tableName: "Common", source: source, developmentValue: "The feature is under development.", comment: nil) }
+
+      /// en translation: Firmware
+      ///
+      /// Key: firmware
+      ///
+      /// Locales: en, zh
+      var firmware: RswiftResources.StringResource { .init(key: "firmware", tableName: "Common", source: source, developmentValue: "Firmware", comment: nil) }
+
+      /// en translation: green
+      ///
+      /// Key: green
+      ///
+      /// Locales: en, zh
+      var green: RswiftResources.StringResource { .init(key: "green", tableName: "Common", source: source, developmentValue: "green", comment: nil) }
+
+      /// en translation: Hardware
+      ///
+      /// Key: hardware
+      ///
+      /// Locales: en, zh
+      var hardware: RswiftResources.StringResource { .init(key: "hardware", tableName: "Common", source: source, developmentValue: "Hardware", comment: nil) }
+
+      /// en translation: %d Mins
+      ///
+      /// Key: howManyMinutes
+      ///
+      /// Locales: en, zh
+      var howManyMinutes: RswiftResources.StringResource1<Int> { .init(key: "howManyMinutes", tableName: "Common", source: source, developmentValue: "%d Mins", comment: nil) }
+
+      /// en translation: Invalid account or password
+      ///
+      /// Key: invalidAccountOrPassword
+      ///
+      /// Locales: en, zh
+      var invalidAccountOrPassword: RswiftResources.StringResource { .init(key: "invalidAccountOrPassword", tableName: "Common", source: source, developmentValue: "Invalid account or password", comment: nil) }
+
+      /// en translation: Invalid Value
+      ///
+      /// Key: invalidValue
+      ///
+      /// Locales: en, zh
+      var invalidValue: RswiftResources.StringResource { .init(key: "invalidValue", tableName: "Common", source: source, developmentValue: "Invalid Value", comment: nil) }
+
+      /// en translation: Loading
+      ///
+      /// Key: loading
+      ///
+      /// Locales: en, zh
+      var loading: RswiftResources.StringResource { .init(key: "loading", tableName: "Common", source: source, developmentValue: "Loading", comment: nil) }
+
+      /// en translation: Median
+      ///
+      /// Key: median
+      ///
+      /// Locales: en, zh
+      var median: RswiftResources.StringResource { .init(key: "median", tableName: "Common", source: source, developmentValue: "Median", comment: nil) }
+
+      /// en translation: Name
+      ///
+      /// Key: name
+      ///
+      /// Locales: en, zh
+      var name: RswiftResources.StringResource { .init(key: "name", tableName: "Common", source: source, developmentValue: "Name", comment: nil) }
+
+      /// en translation: 90 Percentile
+      ///
+      /// Key: ninetyPercentile
+      ///
+      /// Locales: en, zh
+      var ninetyPercentile: RswiftResources.StringResource { .init(key: "ninetyPercentile", tableName: "Common", source: source, developmentValue: "90 Percentile", comment: nil) }
+
+      /// en translation: No
+      ///
+      /// Key: no
+      ///
+      /// Locales: en, zh
+      var no: RswiftResources.StringResource { .init(key: "no", tableName: "Common", source: source, developmentValue: "No", comment: nil) }
+
+      /// en translation: Not enough data
+      ///
+      /// Key: not_enough_data
+      ///
+      /// Locales: en, zh
+      var not_enough_data: RswiftResources.StringResource { .init(key: "not_enough_data", tableName: "Common", source: source, developmentValue: "Not enough data", comment: nil) }
+
+      /// en translation: Off
+      ///
+      /// Key: off
+      ///
+      /// Locales: en, zh
+      var off: RswiftResources.StringResource { .init(key: "off", tableName: "Common", source: source, developmentValue: "Off", comment: nil) }
+
+      /// en translation: On
+      ///
+      /// Key: on
+      ///
+      /// Locales: en, zh
+      var on: RswiftResources.StringResource { .init(key: "on", tableName: "Common", source: source, developmentValue: "On", comment: nil) }
+
+      /// en translation: Please Confirm
+      ///
+      /// Key: pleaseConfirm
+      ///
+      /// Locales: en, zh
+      var pleaseConfirm: RswiftResources.StringResource { .init(key: "pleaseConfirm", tableName: "Common", source: source, developmentValue: "Please Confirm", comment: nil) }
+
+      /// en translation: Privacy Policy
+      ///
+      /// Key: privacyPolicy
+      ///
+      /// Locales: en, zh
+      var privacyPolicy: RswiftResources.StringResource { .init(key: "privacyPolicy", tableName: "Common", source: source, developmentValue: "Privacy Policy", comment: nil) }
+
+      /// en translation: Quartile
+      ///
+      /// Key: quartile
+      ///
+      /// Locales: en, zh
+      var quartile: RswiftResources.StringResource { .init(key: "quartile", tableName: "Common", source: source, developmentValue: "Quartile", comment: nil) }
+
+      /// en translation: red
+      ///
+      /// Key: red
+      ///
+      /// Locales: en, zh
+      var red: RswiftResources.StringResource { .init(key: "red", tableName: "Common", source: source, developmentValue: "red", comment: nil) }
+
+      /// en translation: Save
+      ///
+      /// Key: save
+      ///
+      /// Locales: en, zh
+      var save: RswiftResources.StringResource { .init(key: "save", tableName: "Common", source: source, developmentValue: "Save", comment: nil) }
+
+      /// en translation: Sensor Status
+      ///
+      /// Key: sensorStatus
+      ///
+      /// Locales: en, zh
+      var sensorStatus: RswiftResources.StringResource { .init(key: "sensorStatus", tableName: "Common", source: source, developmentValue: "Sensor Status", comment: nil) }
+
+      /// en translation: 75 Percentile
+      ///
+      /// Key: seventyFifthPercentile
+      ///
+      /// Locales: en, zh
+      var seventyFifthPercentile: RswiftResources.StringResource { .init(key: "seventyFifthPercentile", tableName: "Common", source: source, developmentValue: "75 Percentile", comment: nil) }
+
+      /// en translation: Been with you for %d days
+      ///
+      /// Key: slogan
+      ///
+      /// Locales: en, zh
+      var slogan: RswiftResources.StringResource1<Int> { .init(key: "slogan", tableName: "Common", source: source, developmentValue: "Been with you for %d days", comment: nil) }
+
+      /// en translation: Start to Use
+      ///
+      /// Key: start_to_use
+      ///
+      /// Locales: en, zh
+      var start_to_use: RswiftResources.StringResource { .init(key: "start_to_use", tableName: "Common", source: source, developmentValue: "Start to Use", comment: nil) }
+
+      /// en translation: Today
+      ///
+      /// Key: today
+      ///
+      /// Locales: en, zh
+      var today: RswiftResources.StringResource { .init(key: "today", tableName: "Common", source: source, developmentValue: "Today", comment: nil) }
+
+      /// en translation: Unknown
+      ///
+      /// Key: unknown
+      ///
+      /// Locales: en, zh
+      var unknown: RswiftResources.StringResource { .init(key: "unknown", tableName: "Common", source: source, developmentValue: "Unknown", comment: nil) }
+
+      /// en translation: Update
+      ///
+      /// Key: update
+      ///
+      /// Locales: en, zh
+      var update: RswiftResources.StringResource { .init(key: "update", tableName: "Common", source: source, developmentValue: "Update", comment: nil) }
+
+      /// en translation: Wait a Moment
+      ///
+      /// Key: wait_a_moment
+      ///
+      /// Locales: en, zh
+      var wait_a_moment: RswiftResources.StringResource { .init(key: "wait_a_moment", tableName: "Common", source: source, developmentValue: "Wait a Moment", comment: nil) }
+
+      /// en translation: Warning
+      ///
+      /// Key: warning
+      ///
+      /// Locales: en, zh
+      var warning: RswiftResources.StringResource { .init(key: "warning", tableName: "Common", source: source, developmentValue: "Warning", comment: nil) }
+
+      /// en translation: white
+      ///
+      /// Key: white
+      ///
+      /// Locales: en, zh
+      var white: RswiftResources.StringResource { .init(key: "white", tableName: "Common", source: source, developmentValue: "white", comment: nil) }
+
+      /// en translation: yellow
+      ///
+      /// Key: yellow
+      ///
+      /// Locales: en, zh
+      var yellow: RswiftResources.StringResource { .init(key: "yellow", tableName: "Common", source: source, developmentValue: "yellow", comment: nil) }
+
+      /// en translation: Yes
+      ///
+      /// Key: yes
+      ///
+      /// Locales: en, zh
+      var yes: RswiftResources.StringResource { .init(key: "yes", tableName: "Common", source: source, developmentValue: "Yes", comment: nil) }
+
+      /// en translation: Yesterday
+      ///
+      /// Key: yesterday
+      ///
+      /// Locales: en, zh
+      var yesterday: RswiftResources.StringResource { .init(key: "yesterday", tableName: "Common", source: source, developmentValue: "Yesterday", comment: nil) }
+    }
+
+    /// This `_R.string.dailyTrend` struct is generated, and contains static references to 1 localization keys.
+    struct dailyTrend {
+      let source: RswiftResources.StringResource.Source
+
+      /// en translation: Data available for %1$d of %2$d days
+      ///
+      /// Key: daily_trend_available_days
+      ///
+      /// Locales: en, zh
+      var daily_trend_available_days: RswiftResources.StringResource2<Int, Int> { .init(key: "daily_trend_available_days", tableName: "DailyTrend", source: source, developmentValue: "Data available for %1$d of %2$d days", comment: nil) }
+    }
+
+    /// This `_R.string.dexcomShareTestResult` struct is generated, and contains static references to 9 localization keys.
+    struct dexcomShareTestResult {
+      let source: RswiftResources.StringResource.Source
+
+      /// en translation: Maximum login attempts exceeded. Wait 10 minutes and try again.
+      ///
+      /// Key: dexcomsharetestresult_SSO_AuthenticateMaxAttemptsExceeed
+      ///
+      /// Locales: en, zh
+      var dexcomsharetestresult_SSO_AuthenticateMaxAttemptsExceeed: RswiftResources.StringResource { .init(key: "dexcomsharetestresult_SSO_AuthenticateMaxAttemptsExceeed", tableName: "DexcomShareTestResult", source: source, developmentValue: "Maximum login attempts exceeded. Wait 10 minutes and try again.", comment: nil) }
+
+      /// en translation: It seems that the Transmitter ID or serial number
+      ///
+      /// Key: dexcomsharetestresult_monitored_receiver_not_assigned_1
+      ///
+      /// Locales: en, zh
+      var dexcomsharetestresult_monitored_receiver_not_assigned_1: RswiftResources.StringResource { .init(key: "dexcomsharetestresult_monitored_receiver_not_assigned_1", tableName: "DexcomShareTestResult", source: source, developmentValue: "It seems that the Transmitter ID or serial number", comment: nil) }
+
+      /// en translation: is not assigned to
+      ///
+      /// Key: dexcomsharetestresult_monitored_receiver_not_assigned_2
+      ///
+      /// Locales: en, zh
+      var dexcomsharetestresult_monitored_receiver_not_assigned_2: RswiftResources.StringResource { .init(key: "dexcomsharetestresult_monitored_receiver_not_assigned_2", tableName: "DexcomShareTestResult", source: source, developmentValue: "is not assigned to", comment: nil) }
+
+      /// en translation: Use the official Dexcom app to register the Transmitter (G5) or Share receiver (G4)  You are possibly just using the wrong URL, verify the setting 'Use US URL?'
+      ///
+      /// Key: dexcomsharetestresult_monitored_receiver_not_assigned_3
+      ///
+      /// Locales: en, zh
+      var dexcomsharetestresult_monitored_receiver_not_assigned_3: RswiftResources.StringResource { .init(key: "dexcomsharetestresult_monitored_receiver_not_assigned_3", tableName: "DexcomShareTestResult", source: source, developmentValue: "Use the official Dexcom app to register the Transmitter (G5) or Share receiver (G4)\r\n\r\nYou are possibly just using the wrong URL, verify the setting 'Use US URL?'", comment: nil) }
+
+      /// en translation: The Dexcom Share Serial Number does not match the serial number for this account. Verify the Serial Number in the settings.
+      ///
+      /// Key: dexcomsharetestresult_monitored_receiver_sn_doesnotmatch
+      ///
+      /// Locales: en, zh
+      var dexcomsharetestresult_monitored_receiver_sn_doesnotmatch: RswiftResources.StringResource { .init(key: "dexcomsharetestresult_monitored_receiver_sn_doesnotmatch", tableName: "DexcomShareTestResult", source: source, developmentValue: "The Dexcom Share Serial Number does not match the serial number for this account. Verify the Serial Number in the settings.", comment: nil) }
+
+      /// en translation: Dexcom Share Upload Error
+      ///
+      /// Key: dexcomsharetestresult_uploadErrorWarning
+      ///
+      /// Locales: en, zh
+      var dexcomsharetestresult_uploadErrorWarning: RswiftResources.StringResource { .init(key: "dexcomsharetestresult_uploadErrorWarning", tableName: "DexcomShareTestResult", source: source, developmentValue: "Dexcom Share Upload Error", comment: nil) }
+
+      /// en translation: Verification Error
+      ///
+      /// Key: dexcomsharetestresult_verificationerroralerttitle
+      ///
+      /// Locales: en, zh
+      var dexcomsharetestresult_verificationerroralerttitle: RswiftResources.StringResource { .init(key: "dexcomsharetestresult_verificationerroralerttitle", tableName: "DexcomShareTestResult", source: source, developmentValue: "Verification Error", comment: nil) }
+
+      /// en translation: Your Dexcom Share account was verified successfully
+      ///
+      /// Key: dexcomsharetestresult_verificationsuccessfulalertbody
+      ///
+      /// Locales: en, zh
+      var dexcomsharetestresult_verificationsuccessfulalertbody: RswiftResources.StringResource { .init(key: "dexcomsharetestresult_verificationsuccessfulalertbody", tableName: "DexcomShareTestResult", source: source, developmentValue: "Your Dexcom Share account was verified successfully", comment: nil) }
+
+      /// en translation: Verification Successful
+      ///
+      /// Key: dexcomsharetestresult_verificationsuccessfulalerttitle
+      ///
+      /// Locales: en, zh
+      var dexcomsharetestresult_verificationsuccessfulalerttitle: RswiftResources.StringResource { .init(key: "dexcomsharetestresult_verificationsuccessfulalerttitle", tableName: "DexcomShareTestResult", source: source, developmentValue: "Verification Successful", comment: nil) }
+    }
+
+    /// This `_R.string.errorMessages` struct is generated, and contains static references to 4 localization keys.
+    struct errorMessages {
+      let source: RswiftResources.StringResource.Source
+
+      /// en translation: The Transmitter ID should be the last 5 numbers of the BluCon ID written on side of the device.  Example: If the BluCon ID is BLU1742B01007, the Transmitter ID you should use is 01007.
+      ///
+      /// Key: TransmitterIdBluCon
+      ///
+      /// Locales: en, zh
+      var transmitterIdBluCon: RswiftResources.StringResource { .init(key: "TransmitterIdBluCon", tableName: "ErrorMessages", source: source, developmentValue: "The Transmitter ID should be the last 5 numbers of the BluCon ID written on side of the device.\n\nExample: If the BluCon ID is BLU1742B01007, the Transmitter ID you should use is 01007.", comment: nil) }
+
+      /// en translation: The Transmitter ID should only contain characters a-z, A-Z or 0-9
+      ///
+      /// Key: error_message_Dexcom_transmitter_id_invalid_characters
+      ///
+      /// Locales: en, zh
+      var error_message_Dexcom_transmitter_id_invalid_characters: RswiftResources.StringResource { .init(key: "error_message_Dexcom_transmitter_id_invalid_characters", tableName: "ErrorMessages", source: source, developmentValue: "The Transmitter ID should only contain characters a-z, A-Z or 0-9", comment: nil) }
+
+      /// en translation: The Transmitter ID should be 5 characters long
+      ///
+      /// Key: error_message_transmitter_id_should_have_length_5
+      ///
+      /// Locales: en, zh
+      var error_message_transmitter_id_should_have_length_5: RswiftResources.StringResource { .init(key: "error_message_transmitter_id_should_have_length_5", tableName: "ErrorMessages", source: source, developmentValue: "The Transmitter ID should be 5 characters long", comment: nil) }
+
+      /// en translation: The Transmitter ID should be 6 characters long
+      ///
+      /// Key: error_message_transmitter_id_should_have_length_6
+      ///
+      /// Locales: en, zh
+      var error_message_transmitter_id_should_have_length_6: RswiftResources.StringResource { .init(key: "error_message_transmitter_id_should_have_length_6", tableName: "ErrorMessages", source: source, developmentValue: "The Transmitter ID should be 6 characters long", comment: nil) }
+    }
+
+    /// This `_R.string.homeView` struct is generated, and contains static references to 40 localization keys.
+    struct homeView {
+      let source: RswiftResources.StringResource.Source
+
+      /// en translation: ago
+      ///
+      /// Key: ago
+      ///
+      /// Locales: en, zh
+      var ago: RswiftResources.StringResource { .init(key: "ago", tableName: "HomeView", source: source, developmentValue: "ago", comment: nil) }
+
+      /// en translation: You did not give bluetooth permission for %@. Go to the settings, find the %@ app, and enable Bluetooth.
+      ///
+      /// Key: bluetoothIsNotAuthorized
+      ///
+      /// Locales: en, zh
+      var bluetoothIsNotAuthorized: RswiftResources.StringResource2<String, String> { .init(key: "bluetoothIsNotAuthorized", tableName: "HomeView", source: source, developmentValue: "You did not give bluetooth permission for %@. Go to the settings, find the %@ app, and enable Bluetooth.", comment: nil) }
+
+      /// en translation: Bluetooth is not on. Switch on bluetooth first and then try again.
+      ///
+      /// Key: bluetoothisnoton
+      ///
+      /// Locales: en, zh
+      var bluetoothisnoton: RswiftResources.StringResource { .init(key: "bluetoothisnoton", tableName: "HomeView", source: source, developmentValue: "Bluetooth is not on. Switch on bluetooth first and then try again.", comment: nil) }
+
+      /// en translation: Calibrate
+      ///
+      /// Key: calibrate
+      ///
+      /// Locales: en, zh
+      var calibrate: RswiftResources.StringResource { .init(key: "calibrate", tableName: "HomeView", source: source, developmentValue: "Calibrate", comment: nil) }
+
+      /// en translation: When Manual Calibration is disabled, it is not necessary to calibrate the sensor.
+      ///
+      /// Key: calibrationNotNecessary
+      ///
+      /// Locales: en, zh
+      var calibrationNotNecessary: RswiftResources.StringResource { .init(key: "calibrationNotNecessary", tableName: "HomeView", source: source, developmentValue: "When Manual Calibration is disabled, it is not necessary to calibrate the sensor.", comment: nil) }
+
+      /// en translation: The Transmitter battery is too low!
+      ///
+      /// Key: dexcomBatteryTooLow
+      ///
+      /// Locales: en, zh
+      var dexcomBatteryTooLow: RswiftResources.StringResource { .init(key: "dexcomBatteryTooLow", tableName: "HomeView", source: source, developmentValue: "The Transmitter battery is too low!", comment: nil) }
+
+      /// en translation: Choose the time the sensor is started
+      ///
+      /// Key: dialog_subtitle_startSensorTime
+      ///
+      /// Locales: en, zh
+      var dialog_subtitle_startSensorTime: RswiftResources.StringResource { .init(key: "dialog_subtitle_startSensorTime", tableName: "HomeView", source: source, developmentValue: "Choose the time the sensor is started", comment: nil) }
+
+      /// en translation: If you don't have a sensor code, please use 0000. But be aware that you will not get readings until you calibrate.
+      ///
+      /// Key: enterSensorCode
+      ///
+      /// Locales: en, zh
+      var enterSensorCode: RswiftResources.StringResource { .init(key: "enterSensorCode", tableName: "HomeView", source: source, developmentValue: "If you don't have a sensor code, please use 0000. But be aware that you will not get readings until you calibrate.", comment: nil) }
+
+      /// en translation: Failed
+      ///
+      /// Key: failed
+      ///
+      /// Locales: en, zh
+      var failed: RswiftResources.StringResource { .init(key: "failed", tableName: "HomeView", source: source, developmentValue: "Failed", comment: nil) }
+
+      /// en translation: Forget Transmitter
+      ///
+      /// Key: forgetbluetoothdeviceactiontitle
+      ///
+      /// Locales: en, zh
+      var forgetbluetoothdeviceactiontitle: RswiftResources.StringResource { .init(key: "forgetbluetoothdeviceactiontitle", tableName: "HomeView", source: source, developmentValue: "Forget Transmitter", comment: nil) }
+
+      /// en translation: Please Read
+      ///
+      /// Key: info
+      ///
+      /// Locales: en, zh
+      var info: RswiftResources.StringResource { .init(key: "info", tableName: "HomeView", source: source, developmentValue: "Please Read", comment: nil) }
+
+      /// en translation: Last Connection
+      ///
+      /// Key: lastconnection
+      ///
+      /// Locales: en, zh
+      var lastconnection: RswiftResources.StringResource { .init(key: "lastconnection", tableName: "HomeView", source: source, developmentValue: "Last Connection", comment: nil) }
+
+      /// en translation: This program is free software distributed under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY.  See http://www.gnu.org/licenses/gpl.txt for more details.  Info: 
+      ///
+      /// Key: licenseinfo
+      ///
+      /// Locales: en, zh
+      var licenseinfo: RswiftResources.StringResource { .init(key: "licenseinfo", tableName: "HomeView", source: source, developmentValue: "This program is free software distributed under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.\r\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY.\r\n\nSee http://www.gnu.org/licenses/gpl.txt for more details.\r\n\r\nInfo: ", comment: nil) }
+
+      /// en translation: Not Known
+      ///
+      /// Key: notknown
+      ///
+      /// Locales: en, zh
+      var notknown: RswiftResources.StringResource { .init(key: "notknown", tableName: "HomeView", source: source, developmentValue: "Not Known", comment: nil) }
+
+      /// en translation: Not Started
+      ///
+      /// Key: notstarted
+      ///
+      /// Locales: en, zh
+      var notstarted: RswiftResources.StringResource { .init(key: "notstarted", tableName: "HomeView", source: source, developmentValue: "Not Started", comment: nil) }
+
+      /// en translation: Snooze
+      ///
+      /// Key: presnooze
+      ///
+      /// Locales: en, zh
+      var presnooze: RswiftResources.StringResource { .init(key: "presnooze", tableName: "HomeView", source: source, developmentValue: "Snooze", comment: nil) }
+
+      /// en translation: Scan for Transmitter
+      ///
+      /// Key: scanbluetoothdeviceactiontitle
+      ///
+      /// Locales: en, zh
+      var scanbluetoothdeviceactiontitle: RswiftResources.StringResource { .init(key: "scanbluetoothdeviceactiontitle", tableName: "HomeView", source: source, developmentValue: "Scan for Transmitter", comment: nil) }
+
+      /// en translation: Scanning for Transmitter...
+      ///
+      /// Key: scanbluetoothdeviceongoing
+      ///
+      /// Locales: en, zh
+      var scanbluetoothdeviceongoing: RswiftResources.StringResource { .init(key: "scanbluetoothdeviceongoing", tableName: "HomeView", source: source, developmentValue: "Scanning for Transmitter...", comment: nil) }
+
+      /// en translation: Sensor
+      ///
+      /// Key: sensor
+      ///
+      /// Locales: en, zh
+      var sensor: RswiftResources.StringResource { .init(key: "sensor", tableName: "HomeView", source: source, developmentValue: "Sensor", comment: nil) }
+
+      /// en translation: Sensor Ends
+      ///
+      /// Key: sensorend
+      ///
+      /// Locales: en, zh
+      var sensorend: RswiftResources.StringResource { .init(key: "sensorend", tableName: "HomeView", source: source, developmentValue: "Sensor Ends", comment: nil) }
+
+      /// en translation: The sensor was not detected. Check if the Transmitter is correctly placed on the sensor.
+      ///
+      /// Key: sensornotdetected
+      ///
+      /// Locales: en, zh
+      var sensornotdetected: RswiftResources.StringResource { .init(key: "sensornotdetected", tableName: "HomeView", source: source, developmentValue: "The sensor was not detected. Check if the Transmitter is correctly placed on the sensor.", comment: nil) }
+
+      /// en translation: Sensor Started
+      ///
+      /// Key: sensorstart
+      ///
+      /// Locales: en, zh
+      var sensorstart: RswiftResources.StringResource { .init(key: "sensorstart", tableName: "HomeView", source: source, developmentValue: "Sensor Started", comment: nil) }
+
+      /// en translation: Keep %@ open in the foreground until a connection is made. Don't exit the app and don't lock your iPhone.
+      ///
+      /// Key: startScanningInfo
+      ///
+      /// Locales: en, zh
+      var startScanningInfo: RswiftResources.StringResource1<String> { .init(key: "startScanningInfo", tableName: "HomeView", source: source, developmentValue: "Keep %@ open in the foreground until a connection is made. Don't exit the app and don't lock your iPhone.", comment: nil) }
+
+      /// en translation: Scanning Started
+      ///
+      /// Key: startScanningTitle
+      ///
+      /// Locales: en, zh
+      var startScanningTitle: RswiftResources.StringResource { .init(key: "startScanningTitle", tableName: "HomeView", source: source, developmentValue: "Scanning Started", comment: nil) }
+
+      /// en translation: Start Sensor
+      ///
+      /// Key: startSensor
+      ///
+      /// Locales: en, zh
+      var startSensor: RswiftResources.StringResource { .init(key: "startSensor", tableName: "HomeView", source: source, developmentValue: "Start Sensor", comment: nil) }
+
+      /// en translation: You cannot calibrate now, please follow the prompts to enter the calibration blood glucose value later.
+      ///
+      /// Key: startSensorBeforeCalibration
+      ///
+      /// Locales: en, zh
+      var startSensorBeforeCalibration: RswiftResources.StringResource { .init(key: "startSensorBeforeCalibration", tableName: "HomeView", source: source, developmentValue: "You cannot calibrate now, please follow the prompts to enter the calibration blood glucose value later.", comment: nil) }
+
+      /// en translation: In the next dialogs, you will need to set the date and time the sensor was inserted. It is important that you set the date and time as correct as possible.
+      ///
+      /// Key: startSensorTimeInfo
+      ///
+      /// Locales: en, zh
+      var startSensorTimeInfo: RswiftResources.StringResource { .init(key: "startSensorTimeInfo", tableName: "HomeView", source: source, developmentValue: "In the next dialogs, you will need to set the date and time the sensor was inserted. It is important that you set the date and time as correct as possible.", comment: nil) }
+
+      /// en translation: Status
+      ///
+      /// Key: statusactiontitle
+      ///
+      /// Locales: en, zh
+      var statusactiontitle: RswiftResources.StringResource { .init(key: "statusactiontitle", tableName: "HomeView", source: source, developmentValue: "Status", comment: nil) }
+
+      /// en translation: Stop Sensor
+      ///
+      /// Key: stopSensor
+      ///
+      /// Locales: en, zh
+      var stopSensor: RswiftResources.StringResource { .init(key: "stopSensor", tableName: "HomeView", source: source, developmentValue: "Stop Sensor", comment: nil) }
+
+      /// en translation: Are you sure you want to stop the sensor?
+      ///
+      /// Key: stopSensorConfirmation
+      ///
+      /// Locales: en, zh
+      var stopSensorConfirmation: RswiftResources.StringResource { .init(key: "stopSensorConfirmation", tableName: "HomeView", source: source, developmentValue: "Are you sure you want to stop the sensor?", comment: nil) }
+
+      /// en translation: Success
+      ///
+      /// Key: success
+      ///
+      /// Locales: en, zh
+      var success: RswiftResources.StringResource { .init(key: "success", tableName: "HomeView", source: source, developmentValue: "Success", comment: nil) }
+
+      /// en translation: There must be at least two readings before you can calibrate. You will be requested to calibrate as soon as there is another reading.
+      ///
+      /// Key: theremustbeareadingbeforecalibration
+      ///
+      /// Locales: en, zh
+      var theremustbeareadingbeforecalibration: RswiftResources.StringResource { .init(key: "theremustbeareadingbeforecalibration", tableName: "HomeView", source: source, developmentValue: "There must be at least two readings before you can calibrate. You will be requested to calibrate as soon as there is another reading.", comment: nil) }
+
+      /// en translation: You cannot calibrate unless you have a transmitter connected.
+      ///
+      /// Key: theresNoCGMTransmitterActive
+      ///
+      /// Locales: en, zh
+      var theresNoCGMTransmitterActive: RswiftResources.StringResource { .init(key: "theresNoCGMTransmitterActive", tableName: "HomeView", source: source, developmentValue: "You cannot calibrate unless you have a transmitter connected.", comment: nil) }
+
+      /// en translation: New BG Reading
+      ///
+      /// Key: toast_new_bg_reading
+      ///
+      /// Locales: en, zh
+      var toast_new_bg_reading: RswiftResources.StringResource { .init(key: "toast_new_bg_reading", tableName: "HomeView", source: source, developmentValue: "New BG Reading", comment: nil) }
+
+      /// en translation: Transmitter Battery Level
+      ///
+      /// Key: transmitterbatterylevel
+      ///
+      /// Locales: en, zh
+      var transmitterbatterylevel: RswiftResources.StringResource { .init(key: "transmitterbatterylevel", tableName: "HomeView", source: source, developmentValue: "Transmitter Battery Level", comment: nil) }
+
+      /// en translation: First go to the Bluetooth screen where you can add and scan for your transmitter.  Then come back to the Home screen and start your sensor.
+      ///
+      /// Key: transmitterinfo
+      ///
+      /// Locales: en, zh
+      var transmitterinfo: RswiftResources.StringResource { .init(key: "transmitterinfo", tableName: "HomeView", source: source, developmentValue: "First go to the Bluetooth screen where you can add and scan for your transmitter.\r\n\nThen come back to the Home screen and start your sensor.", comment: nil) }
+
+      /// en translation: The Transmitter is not paired with this iPhone. Open the application.
+      ///
+      /// Key: transmitternotpaired
+      ///
+      /// Locales: en, zh
+      var transmitternotpaired: RswiftResources.StringResource { .init(key: "transmitternotpaired", tableName: "HomeView", source: source, developmentValue: "The Transmitter is not paired with this iPhone. Open the application.", comment: nil) }
+
+      /// en translation: Transmitter did not reply to pairing request.
+      ///
+      /// Key: transmitterpairingattempttimeout
+      ///
+      /// Locales: en, zh
+      var transmitterpairingattempttimeout: RswiftResources.StringResource { .init(key: "transmitterpairingattempttimeout", tableName: "HomeView", source: source, developmentValue: "Transmitter did not reply to pairing request.", comment: nil) }
+
+      /// en translation: The Transmitter was successfully paired.
+      ///
+      /// Key: transmitterpairingsuccessful
+      ///
+      /// Locales: en, zh
+      var transmitterpairingsuccessful: RswiftResources.StringResource { .init(key: "transmitterpairingsuccessful", tableName: "HomeView", source: source, developmentValue: "The Transmitter was successfully paired.", comment: nil) }
+
+      /// en translation: Too late! The Transmitter has already been disconnected. You should get a new pairing request in a few minutes.
+      ///
+      /// Key: transmitterpairingtoolate
+      ///
+      /// Locales: en, zh
+      var transmitterpairingtoolate: RswiftResources.StringResource { .init(key: "transmitterpairingtoolate", tableName: "HomeView", source: source, developmentValue: "Too late! The Transmitter has already been disconnected. You should get a new pairing request in a few minutes.", comment: nil) }
+    }
+
+    /// This `_R.string.libreErrors` struct is generated, and contains static references to 4 localization keys.
+    struct libreErrors {
+      let source: RswiftResources.StringResource.Source
+
+      /// en translation: Libre sensor not in status ready
+      ///
+      /// Key: libreSensorNotReady
+      ///
+      /// Locales: en, zh
+      var libreSensorNotReady: RswiftResources.StringResource { .init(key: "libreSensorNotReady", tableName: "LibreErrors", source: source, developmentValue: "Libre sensor not in status ready", comment: nil) }
+
+      /// en translation: Libre US is not supported
+      ///
+      /// Key: libreUSNotSupported
+      ///
+      /// Locales: en, zh
+      var libreUSNotSupported: RswiftResources.StringResource { .init(key: "libreUSNotSupported", tableName: "LibreErrors", source: source, developmentValue: "Libre US is not supported", comment: nil) }
+
+      /// en translation: OOP Web Server error: 
+      ///
+      /// Key: oOPWebServerError
+      ///
+      /// Locales: en, zh
+      var oOPWebServerError: RswiftResources.StringResource { .init(key: "oOPWebServerError", tableName: "LibreErrors", source: source, developmentValue: "OOP Web Server error: ", comment: nil) }
+
+      /// en translation: No data received from oop web server
+      ///
+      /// Key: receivedDataIsNil
+      ///
+      /// Locales: en, zh
+      var receivedDataIsNil: RswiftResources.StringResource { .init(key: "receivedDataIsNil", tableName: "LibreErrors", source: source, developmentValue: "No data received from oop web server", comment: nil) }
+    }
+
+    /// This `_R.string.libreNFC` struct is generated, and contains static references to 7 localization keys.
+    struct libreNFC {
+      let source: RswiftResources.StringResource.Source
+
+      /// en translation: You seem to have scanned a new sensor, but %@ is having the Bluetooth connection to the old sensor.  To solve this : - Click 'disconnect' or 'stop scanning' - Go back to previous screen and add a new CGM of type Libre 2 and scan again.  %@ should now connect to the new sensor.
+      ///
+      /// Key: connectedLibre2DoesNotMatchScannedLibre2
+      ///
+      /// Locales: en, zh
+      var connectedLibre2DoesNotMatchScannedLibre2: RswiftResources.StringResource2<String, String> { .init(key: "connectedLibre2DoesNotMatchScannedLibre2", tableName: "LibreNFC", source: source, developmentValue: "You seem to have scanned a new sensor, but %@ is having the Bluetooth connection to the old sensor.\r\n\r\nTo solve this :\r\n- Click 'disconnect' or 'stop scanning'\r\n- Go back to previous screen and add a new CGM of type Libre 2 and scan again.\r\n\r\n%@ should now connect to the new sensor.", comment: nil) }
+
+      /// en translation: To connect to Libre 2, this iPhone needs upgrading to iOS14
+      ///
+      /// Key: deviceMustSupportIOS14
+      ///
+      /// Locales: en, zh
+      var deviceMustSupportIOS14: RswiftResources.StringResource { .init(key: "deviceMustSupportIOS14", tableName: "LibreNFC", source: source, developmentValue: "To connect to Libre 2, this iPhone needs upgrading to iOS14", comment: nil) }
+
+      /// en translation: This iPhone does not support NFC
+      ///
+      /// Key: deviceMustSupportNFC
+      ///
+      /// Locales: en, zh
+      var deviceMustSupportNFC: RswiftResources.StringResource { .init(key: "deviceMustSupportNFC", tableName: "LibreNFC", source: source, developmentValue: "This iPhone does not support NFC", comment: nil) }
+
+      /// en translation: Connected to Libre 2.  If you want to keeping scanning sometimes the Libre sensor with the official Libre app, then disallow bluetooth permission for the Libre app.   Otherwise, scanning the NFC with the Libre app and with the bluetooth permission allowed will break the connection between %@ and the Libre 2.
+      ///
+      /// Key: donotusethelibrelinkapp
+      ///
+      /// Locales: en, zh
+      var donotusethelibrelinkapp: RswiftResources.StringResource1<String> { .init(key: "donotusethelibrelinkapp", tableName: "LibreNFC", source: source, developmentValue: "Connected to Libre 2.\r\n\r\nIf you want to keeping scanning sometimes the Libre sensor with the official Libre app, then disallow bluetooth permission for the Libre app. \r\n\r\nOtherwise, scanning the NFC with the Libre app and with the bluetooth permission allowed will break the connection between %@ and the Libre 2.", comment: nil) }
+
+      /// en translation: Hold the top of your iOS device near the sensor to scan
+      ///
+      /// Key: holdTopOfIphoneNearSensor
+      ///
+      /// Locales: en, zh
+      var holdTopOfIphoneNearSensor: RswiftResources.StringResource { .init(key: "holdTopOfIphoneNearSensor", tableName: "LibreNFC", source: source, developmentValue: "Hold the top of your iOS device near the sensor to scan", comment: nil) }
+
+      /// en translation: Error occured while scanning the sensor. Click 'Scan' top left or click 'back' and add the Libre 2 again, and scan again.
+      ///
+      /// Key: nfcErrorRetryScan
+      ///
+      /// Locales: en, zh
+      var nfcErrorRetryScan: RswiftResources.StringResource { .init(key: "nfcErrorRetryScan", tableName: "LibreNFC", source: source, developmentValue: "Error occured while scanning the sensor. Click 'Scan' top left or click 'back' and add the Libre 2 again, and scan again.", comment: nil) }
+
+      /// en translation: Scan Complete
+      ///
+      /// Key: scanComplete
+      ///
+      /// Locales: en, zh
+      var scanComplete: RswiftResources.StringResource { .init(key: "scanComplete", tableName: "LibreNFC", source: source, developmentValue: "Scan Complete", comment: nil) }
+    }
+
+    /// This `_R.string.libreStates` struct is generated, and contains static references to 7 localization keys.
+    struct libreStates {
+      let source: RswiftResources.StringResource.Source
+
+      /// en translation: expired
+      ///
+      /// Key: expired
+      ///
+      /// Locales: en, zh
+      var expired: RswiftResources.StringResource { .init(key: "expired", tableName: "LibreStates", source: source, developmentValue: "expired", comment: nil) }
+
+      /// en translation: failed
+      ///
+      /// Key: failure
+      ///
+      /// Locales: en, zh
+      var failure: RswiftResources.StringResource { .init(key: "failure", tableName: "LibreStates", source: source, developmentValue: "failed", comment: nil) }
+
+      /// en translation: not yet started
+      ///
+      /// Key: notYetStarted
+      ///
+      /// Locales: en, zh
+      var notYetStarted: RswiftResources.StringResource { .init(key: "notYetStarted", tableName: "LibreStates", source: source, developmentValue: "not yet started", comment: nil) }
+
+      /// en translation: ready
+      ///
+      /// Key: ready
+      ///
+      /// Locales: en, zh
+      var ready: RswiftResources.StringResource { .init(key: "ready", tableName: "LibreStates", source: source, developmentValue: "ready", comment: nil) }
+
+      /// en translation: shut down
+      ///
+      /// Key: shutdown
+      ///
+      /// Locales: en, zh
+      var shutdown: RswiftResources.StringResource { .init(key: "shutdown", tableName: "LibreStates", source: source, developmentValue: "shut down", comment: nil) }
+
+      /// en translation: starting
+      ///
+      /// Key: starting
+      ///
+      /// Locales: en, zh
+      var starting: RswiftResources.StringResource { .init(key: "starting", tableName: "LibreStates", source: source, developmentValue: "starting", comment: nil) }
+
+      /// en translation: unknown
+      ///
+      /// Key: unknown
+      ///
+      /// Locales: en, zh
+      var unknown: RswiftResources.StringResource { .init(key: "unknown", tableName: "LibreStates", source: source, developmentValue: "unknown", comment: nil) }
+    }
+
+    /// This `_R.string.nightScoutTestResult` struct is generated, and contains static references to 8 localization keys.
+    struct nightScoutTestResult {
+      let source: RswiftResources.StringResource.Source
+
+      /// en translation: Please check the URL and other inputs.  Error code: %d
+      ///
+      /// Key: dialog_msg_nightScoutResult_verification_failed
+      ///
+      /// Locales: en, zh
+      var dialog_msg_nightScoutResult_verification_failed: RswiftResources.StringResource1<Int> { .init(key: "dialog_msg_nightScoutResult_verification_failed", tableName: "NightScoutTestResult", source: source, developmentValue: "Please check the URL and other inputs.\n\nError code: %d", comment: nil) }
+
+      /// en translation: Verification Error
+      ///
+      /// Key: dialog_title_nightScoutResult_verification_failed
+      ///
+      /// Locales: en, zh
+      var dialog_title_nightScoutResult_verification_failed: RswiftResources.StringResource { .init(key: "dialog_title_nightScoutResult_verification_failed", tableName: "NightScoutTestResult", source: source, developmentValue: "Verification Error", comment: nil) }
+
+      /// en translation: Please wait a moment
+      ///
+      /// Key: nightScoutAPIKeyAndURLStartedBody
+      ///
+      /// Locales: en, zh
+      var nightScoutAPIKeyAndURLStartedBody: RswiftResources.StringResource { .init(key: "nightScoutAPIKeyAndURLStartedBody", tableName: "NightScoutTestResult", source: source, developmentValue: "Please wait a moment", comment: nil) }
+
+      /// en translation: Verifying...
+      ///
+      /// Key: nightScoutAPIKeyAndURLStartedTitle
+      ///
+      /// Locales: en, zh
+      var nightScoutAPIKeyAndURLStartedTitle: RswiftResources.StringResource { .init(key: "nightScoutAPIKeyAndURLStartedTitle", tableName: "NightScoutTestResult", source: source, developmentValue: "Verifying...", comment: nil) }
+
+      /// en translation: URL responds OK but authentication method is missing and cannot be checked
+      ///
+      /// Key: nightScoutResult_no_auth_method
+      ///
+      /// Locales: en, zh
+      var nightScoutResult_no_auth_method: RswiftResources.StringResource { .init(key: "nightScoutResult_no_auth_method", tableName: "NightScoutTestResult", source: source, developmentValue: "URL responds OK but authentication method is missing and cannot be checked", comment: nil) }
+
+      /// en translation: Your Nightscout site was verified successfully
+      ///
+      /// Key: nightscouttestresult_verificationsuccessfulalertbody
+      ///
+      /// Locales: en, zh
+      var nightscouttestresult_verificationsuccessfulalertbody: RswiftResources.StringResource { .init(key: "nightscouttestresult_verificationsuccessfulalertbody", tableName: "NightScoutTestResult", source: source, developmentValue: "Your Nightscout site was verified successfully", comment: nil) }
+
+      /// en translation: Verification Successful
+      ///
+      /// Key: nightscouttestresult_verificationsuccessfulalerttitle
+      ///
+      /// Locales: en, zh
+      var nightscouttestresult_verificationsuccessfulalerttitle: RswiftResources.StringResource { .init(key: "nightscouttestresult_verificationsuccessfulalerttitle", tableName: "NightScoutTestResult", source: source, developmentValue: "Verification Successful", comment: nil) }
+
+      /// en translation: Your Nightscout URL (and optionally API-Secret or Token) must be set before you can run the test
+      ///
+      /// Key: warningAPIKeyOrURLIsnil
+      ///
+      /// Locales: en, zh
+      var warningAPIKeyOrURLIsnil: RswiftResources.StringResource { .init(key: "warningAPIKeyOrURLIsnil", tableName: "NightScoutTestResult", source: source, developmentValue: "Your Nightscout URL (and optionally API-Secret or Token) must be set before you can run the test", comment: nil) }
+    }
+
+    /// This `_R.string.notes` struct is generated, and contains static references to 3 localization keys.
+    struct notes {
+      let source: RswiftResources.StringResource.Source
+
+      /// en translation: Add a Note
+      ///
+      /// Key: dialog_title_add_note
+      ///
+      /// Locales: en, zh
+      var dialog_title_add_note: RswiftResources.StringResource { .init(key: "dialog_title_add_note", tableName: "Notes", source: source, developmentValue: "Add a Note", comment: nil) }
+
+      /// en translation: Alarms and Notes will show here
+      ///
+      /// Key: emptyview_msg_no_notes
+      ///
+      /// Locales: en, zh
+      var emptyview_msg_no_notes: RswiftResources.StringResource { .init(key: "emptyview_msg_no_notes", tableName: "Notes", source: source, developmentValue: "Alarms and Notes will show here", comment: nil) }
+
+      /// en translation: No Alarms or Notes
+      ///
+      /// Key: emptyview_title_no_notes
+      ///
+      /// Locales: en, zh
+      var emptyview_title_no_notes: RswiftResources.StringResource { .init(key: "emptyview_title_no_notes", tableName: "Notes", source: source, developmentValue: "No Alarms or Notes", comment: nil) }
+    }
+
+    /// This `_R.string.settingsViews` struct is generated, and contains static references to 117 localization keys.
+    struct settingsViews {
+      let source: RswiftResources.StringResource.Source
+
+      /// en translation: Apple Watch
+      ///
+      /// Key: appleWatchSectionTitle
+      ///
+      /// Locales: en, zh
+      var appleWatchSectionTitle: RswiftResources.StringResource { .init(key: "appleWatchSectionTitle", tableName: "SettingsViews", source: source, developmentValue: "Apple Watch", comment: nil) }
+
+      /// en translation: Calendar Events
+      ///
+      /// Key: calendarEventsSectionTitle
+      ///
+      /// Locales: en, zh
+      var calendarEventsSectionTitle: RswiftResources.StringResource { .init(key: "calendarEventsSectionTitle", tableName: "SettingsViews", source: source, developmentValue: "Calendar Events", comment: nil) }
+
+      /// en translation: Calendar to Use
+      ///
+      /// Key: calenderId
+      ///
+      /// Locales: en, zh
+      var calenderId: RswiftResources.StringResource { .init(key: "calenderId", tableName: "SettingsViews", source: source, developmentValue: "Calendar to Use", comment: nil) }
+
+      /// en translation: Check App Verison
+      ///
+      /// Key: check_app_version
+      ///
+      /// Locales: en, zh
+      var check_app_version: RswiftResources.StringResource { .init(key: "check_app_version", tableName: "SettingsViews", source: source, developmentValue: "Check App Verison", comment: nil) }
+
+      /// en translation: Common Settings
+      ///
+      /// Key: commonSettings
+      ///
+      /// Locales: en, zh
+      var commonSettings: RswiftResources.StringResource { .init(key: "commonSettings", tableName: "SettingsViews", source: source, developmentValue: "Common Settings", comment: nil) }
+
+      /// en translation: Create Calendar Events
+      ///
+      /// Key: createCalendarEvent
+      ///
+      /// Locales: en, zh
+      var createCalendarEvent: RswiftResources.StringResource { .init(key: "createCalendarEvent", tableName: "SettingsViews", source: source, developmentValue: "Create Calendar Events", comment: nil) }
+
+      /// en translation: Include Debug Level
+      ///
+      /// Key: debugLevel
+      ///
+      /// Locales: en
+      var debugLevel: RswiftResources.StringResource { .init(key: "debugLevel", tableName: "SettingsViews", source: source, developmentValue: "Include Debug Level", comment: nil) }
+
+      /// en translation: Explain why you need to send the trace file with as much detail as possible. If you have already reported your problem in the Facebook support group '%@', then mention your facebook name in the e-mail
+      ///
+      /// Key: describeProblem
+      ///
+      /// Locales: en, zh
+      var describeProblem: RswiftResources.StringResource1<String> { .init(key: "describeProblem", tableName: "SettingsViews", source: source, developmentValue: "Explain why you need to send the trace file with as much detail as possible. If you have already reported your problem in the Facebook support group '%@', then mention your facebook name in the e-mail", comment: nil) }
+
+      /// en translation: Developer Settings
+      ///
+      /// Key: developerSettings
+      ///
+      /// Locales: en, zh
+      var developerSettings: RswiftResources.StringResource { .init(key: "developerSettings", tableName: "SettingsViews", source: source, developmentValue: "Developer Settings", comment: nil) }
+
+      /// en translation: Please input URL first
+      ///
+      /// Key: dialog_ns_input_url_before_test
+      ///
+      /// Locales: en, zh
+      var dialog_ns_input_url_before_test: RswiftResources.StringResource { .init(key: "dialog_ns_input_url_before_test", tableName: "SettingsViews", source: source, developmentValue: "Please input URL first", comment: nil) }
+
+      /// en translation: Update Available
+      ///
+      /// Key: dialog_title_update_available
+      ///
+      /// Locales: en, zh
+      var dialog_title_update_available: RswiftResources.StringResource { .init(key: "dialog_title_update_available", tableName: "SettingsViews", source: source, developmentValue: "Update Available", comment: nil) }
+
+      /// en translation: Display Delta
+      ///
+      /// Key: displayDeltaInCalendarEvent
+      ///
+      /// Locales: en, zh
+      var displayDeltaInCalendarEvent: RswiftResources.StringResource { .init(key: "displayDeltaInCalendarEvent", tableName: "SettingsViews", source: source, developmentValue: "Display Delta", comment: nil) }
+
+      /// en translation: Display Unit
+      ///
+      /// Key: displayUnitInCalendarEvent
+      ///
+      /// Locales: en, zh
+      var displayUnitInCalendarEvent: RswiftResources.StringResource { .init(key: "displayUnitInCalendarEvent", tableName: "SettingsViews", source: source, developmentValue: "Display Unit", comment: nil) }
+
+      /// en translation: Change 
+      ///
+      /// Key: editScheduleTimePickerSubtitle
+      ///
+      /// Locales: en, zh
+      var editScheduleTimePickerSubtitle: RswiftResources.StringResource { .init(key: "editScheduleTimePickerSubtitle", tableName: "SettingsViews", source: source, developmentValue: "Change ", comment: nil) }
+
+      /// en translation: You must configure an e-mail account on your iOS device.
+      ///
+      /// Key: emailNotConfigured
+      ///
+      /// Locales: en
+      var emailNotConfigured: RswiftResources.StringResource { .init(key: "emailNotConfigured", tableName: "SettingsViews", source: source, developmentValue: "You must configure an e-mail account on your iOS device.", comment: nil) }
+
+      /// en translation: Problem Description: 
+      ///
+      /// Key: emailbodyText
+      ///
+      /// Locales: en
+      var emailbodyText: RswiftResources.StringResource { .init(key: "emailbodyText", tableName: "SettingsViews", source: source, developmentValue: "Problem Description: ", comment: nil) }
+
+      /// en translation: Failed to Send Email
+      ///
+      /// Key: failedToSendEmail
+      ///
+      /// Locales: en
+      var failedToSendEmail: RswiftResources.StringResource { .init(key: "failedToSendEmail", tableName: "SettingsViews", source: source, developmentValue: "Failed to Send Email", comment: nil) }
+
+      /// en translation: You previously denied access to your Calendar.  To enable it go to your device settings, privacy, calendars and enable it.
+      ///
+      /// Key: infoCalendarAccessDeniedByUser
+      ///
+      /// Locales: en, zh
+      var infoCalendarAccessDeniedByUser: RswiftResources.StringResource { .init(key: "infoCalendarAccessDeniedByUser", tableName: "SettingsViews", source: source, developmentValue: "You previously denied access to your Calendar.\n\nTo enable it go to your device settings, privacy, calendars and enable it.", comment: nil) }
+
+      /// en translation: You cannot give authorization to %@ to access your calendar. This is possibly due to active restrictions such as parental controls being in place.
+      ///
+      /// Key: infoCalendarAccessRestricted
+      ///
+      /// Locales: en, zh
+      var infoCalendarAccessRestricted: RswiftResources.StringResource1<String> { .init(key: "infoCalendarAccessRestricted", tableName: "SettingsViews", source: source, developmentValue: "You cannot give authorization to %@ to access your calendar. This is possibly due to active restrictions such as parental controls being in place.", comment: nil) }
+
+      /// en translation: More Settings
+      ///
+      /// Key: moreSettings
+      ///
+      /// Locales: en, zh
+      var moreSettings: RswiftResources.StringResource { .init(key: "moreSettings", tableName: "SettingsViews", source: source, developmentValue: "More Settings", comment: nil) }
+
+      /// en translation: New Version (%@), please update
+      ///
+      /// Key: newer_app_version
+      ///
+      /// Locales: en, zh
+      var newer_app_version: RswiftResources.StringResource1<String> { .init(key: "newer_app_version", tableName: "SettingsViews", source: source, developmentValue: "New Version (%@), please update", comment: nil) }
+
+      /// en translation: Port
+      ///
+      /// Key: nightScoutPort
+      ///
+      /// Locales: en, zh
+      var nightScoutPort: RswiftResources.StringResource { .init(key: "nightScoutPort", tableName: "SettingsViews", source: source, developmentValue: "Port", comment: nil) }
+
+      /// en translation: Token
+      ///
+      /// Key: nightScoutToken
+      ///
+      /// Locales: en, zh
+      var nightScoutToken: RswiftResources.StringResource { .init(key: "nightScoutToken", tableName: "SettingsViews", source: source, developmentValue: "Token", comment: nil) }
+
+      /// en translation: OSLog
+      ///
+      /// Key: oslog
+      ///
+      /// Locales: en, zh
+      var oslog: RswiftResources.StringResource { .init(key: "oslog", tableName: "SettingsViews", source: source, developmentValue: "OSLog", comment: nil) }
+
+      /// en translation: Schedule
+      ///
+      /// Key: schedule
+      ///
+      /// Locales: en
+      var schedule: RswiftResources.StringResource { .init(key: "schedule", tableName: "SettingsViews", source: source, developmentValue: "Schedule", comment: nil) }
+
+      /// en translation: More
+      ///
+      /// Key: sectionTitleMore
+      ///
+      /// Locales: en, zh
+      var sectionTitleMore: RswiftResources.StringResource { .init(key: "sectionTitleMore", tableName: "SettingsViews", source: source, developmentValue: "More", comment: nil) }
+
+      /// en translation: Issue Reporting
+      ///
+      /// Key: sectionTitleTrace
+      ///
+      /// Locales: en
+      var sectionTitleTrace: RswiftResources.StringResource { .init(key: "sectionTitleTrace", tableName: "SettingsViews", source: source, developmentValue: "Issue Reporting", comment: nil) }
+
+      /// en translation: Send Issue Report
+      ///
+      /// Key: sendTraceFile
+      ///
+      /// Locales: en
+      var sendTraceFile: RswiftResources.StringResource { .init(key: "sendTraceFile", tableName: "SettingsViews", source: source, developmentValue: "Send Issue Report", comment: nil) }
+
+      /// en translation: Service Integration
+      ///
+      /// Key: serviceIntegration
+      ///
+      /// Locales: en, zh
+      var serviceIntegration: RswiftResources.StringResource { .init(key: "serviceIntegration", tableName: "SettingsViews", source: source, developmentValue: "Service Integration", comment: nil) }
+
+      /// en translation: Minimum interval between two readings
+      ///
+      /// Key: settingsviews_IntervalMessage
+      ///
+      /// Locales: en, zh
+      var settingsviews_IntervalMessage: RswiftResources.StringResource { .init(key: "settingsviews_IntervalMessage", tableName: "SettingsViews", source: source, developmentValue: "Minimum interval between two readings", comment: nil) }
+
+      /// en translation: Interval
+      ///
+      /// Key: settingsviews_IntervalTitle
+      ///
+      /// Locales: en, zh
+      var settingsviews_IntervalTitle: RswiftResources.StringResource { .init(key: "settingsviews_IntervalTitle", tableName: "SettingsViews", source: source, developmentValue: "Interval", comment: nil) }
+
+      /// en translation: Version
+      ///
+      /// Key: settingsviews_Version
+      ///
+      /// Locales: en, zh
+      var settingsviews_Version: RswiftResources.StringResource { .init(key: "settingsviews_Version", tableName: "SettingsViews", source: source, developmentValue: "Version", comment: nil) }
+
+      /// en translation: Build
+      ///
+      /// Key: settingsviews_build
+      ///
+      /// Locales: en, zh
+      var settingsviews_build: RswiftResources.StringResource { .init(key: "settingsviews_build", tableName: "SettingsViews", source: source, developmentValue: "Build", comment: nil) }
+
+      /// en translation: 5 Mins per Dot
+      ///
+      /// Key: settingsviews_chartDots5MinsApart
+      ///
+      /// Locales: en, zh
+      var settingsviews_chartDots5MinsApart: RswiftResources.StringResource { .init(key: "settingsviews_chartDots5MinsApart", tableName: "SettingsViews", source: source, developmentValue: "5 Mins per Dot", comment: nil) }
+
+      /// en translation: Chart Height
+      ///
+      /// Key: settingsviews_chartHeight
+      ///
+      /// Locales: en, zh
+      var settingsviews_chartHeight: RswiftResources.StringResource { .init(key: "settingsviews_chartHeight", tableName: "SettingsViews", source: source, developmentValue: "Chart Height", comment: nil) }
+
+      /// en translation: Maximum days we should try to use to calculate the statistics?  (Enter 0 to calculate today since midnight)
+      ///
+      /// Key: settingsviews_daysToUseStatisticsMessage
+      ///
+      /// Locales: en, zh
+      var settingsviews_daysToUseStatisticsMessage: RswiftResources.StringResource { .init(key: "settingsviews_daysToUseStatisticsMessage", tableName: "SettingsViews", source: source, developmentValue: "Maximum days we should try to use to calculate the statistics?\n\n(Enter 0 to calculate today since midnight)", comment: nil) }
+
+      /// en translation: Days to Calculate
+      ///
+      /// Key: settingsviews_daysToUseStatisticsTitle
+      ///
+      /// Locales: en, zh
+      var settingsviews_daysToUseStatisticsTitle: RswiftResources.StringResource { .init(key: "settingsviews_daysToUseStatisticsTitle", tableName: "SettingsViews", source: source, developmentValue: "Days to Calculate", comment: nil) }
+
+      /// en translation: Account Name
+      ///
+      /// Key: settingsviews_dexcomShareAccountName
+      ///
+      /// Locales: en, zh
+      var settingsviews_dexcomShareAccountName: RswiftResources.StringResource { .init(key: "settingsviews_dexcomShareAccountName", tableName: "SettingsViews", source: source, developmentValue: "Account Name", comment: nil) }
+
+      /// en translation: Receiver Serial Number
+      ///
+      /// Key: settingsviews_dexcomShareSerialNumber
+      ///
+      /// Locales: en, zh
+      var settingsviews_dexcomShareSerialNumber: RswiftResources.StringResource { .init(key: "settingsviews_dexcomShareSerialNumber", tableName: "SettingsViews", source: source, developmentValue: "Receiver Serial Number", comment: nil) }
+
+      /// en translation: Display Trend
+      ///
+      /// Key: settingsviews_displayTrendInCalendarEvent
+      ///
+      /// Locales: en, zh
+      var settingsviews_displayTrendInCalendarEvent: RswiftResources.StringResource { .init(key: "settingsviews_displayTrendInCalendarEvent", tableName: "SettingsViews", source: source, developmentValue: "Display Trend", comment: nil) }
+
+      /// en translation: Follower
+      ///
+      /// Key: settingsviews_follower
+      ///
+      /// Locales: en, zh
+      var settingsviews_follower: RswiftResources.StringResource { .init(key: "settingsviews_follower", tableName: "SettingsViews", source: source, developmentValue: "Follower", comment: nil) }
+
+      /// en translation: Enter Dexcom Share Account Name
+      ///
+      /// Key: settingsviews_giveDexcomShareAccountName
+      ///
+      /// Locales: en, zh
+      var settingsviews_giveDexcomShareAccountName: RswiftResources.StringResource { .init(key: "settingsviews_giveDexcomShareAccountName", tableName: "SettingsViews", source: source, developmentValue: "Enter Dexcom Share Account Name", comment: nil) }
+
+      /// en translation: Give Dexcom Share Password
+      ///
+      /// Key: settingsviews_giveDexcomSharePassword
+      ///
+      /// Locales: en, zh
+      var settingsviews_giveDexcomSharePassword: RswiftResources.StringResource { .init(key: "settingsviews_giveDexcomSharePassword", tableName: "SettingsViews", source: source, developmentValue: "Give Dexcom Share Password", comment: nil) }
+
+      /// en translation: Enter the Dexcom Receiver Serial Number
+      ///
+      /// Key: settingsviews_giveDexcomShareSerialNumber
+      ///
+      /// Locales: en, zh
+      var settingsviews_giveDexcomShareSerialNumber: RswiftResources.StringResource { .init(key: "settingsviews_giveDexcomShareSerialNumber", tableName: "SettingsViews", source: source, developmentValue: "Enter the Dexcom Receiver Serial Number", comment: nil) }
+
+      /// en translation: Enter your API Secret
+      ///
+      /// Key: settingsviews_giveNightScoutAPIKey
+      ///
+      /// Locales: en, zh
+      var settingsviews_giveNightScoutAPIKey: RswiftResources.StringResource { .init(key: "settingsviews_giveNightScoutAPIKey", tableName: "SettingsViews", source: source, developmentValue: "Enter your API Secret", comment: nil) }
+
+      /// en translation: Enter your NightScout URL
+      ///
+      /// Key: settingsviews_giveNightScoutUrl
+      ///
+      /// Locales: en, zh
+      var settingsviews_giveNightScoutUrl: RswiftResources.StringResource { .init(key: "settingsviews_giveNightScoutUrl", tableName: "SettingsViews", source: source, developmentValue: "Enter your NightScout URL", comment: nil) }
+
+      /// en translation: Enter Transmitter ID
+      ///
+      /// Key: settingsviews_givetransmitterid
+      ///
+      /// Locales: en, zh
+      var settingsviews_givetransmitterid: RswiftResources.StringResource { .init(key: "settingsviews_givetransmitterid", tableName: "SettingsViews", source: source, developmentValue: "Enter Transmitter ID", comment: nil) }
+
+      /// en translation: Write Data to Apple Health
+      ///
+      /// Key: settingsviews_healthkit
+      ///
+      /// Locales: en, zh
+      var settingsviews_healthkit: RswiftResources.StringResource { .init(key: "settingsviews_healthkit", tableName: "SettingsViews", source: source, developmentValue: "Write Data to Apple Health", comment: nil) }
+
+      /// en translation: This app supports writing your blood glucose data to Apple Health (HealthKit), allowing you to manage your health data in one place via the Health app. We will only access and write data with your explicit permission, and all data is securely stored on your device.
+      ///
+      /// Key: settingsviews_healthkit_detail
+      ///
+      /// Locales: en, zh
+      var settingsviews_healthkit_detail: RswiftResources.StringResource { .init(key: "settingsviews_healthkit_detail", tableName: "SettingsViews", source: source, developmentValue: "This app supports writing your blood glucose data to Apple Health (HealthKit), allowing you to manage your health data in one place via the Health app. We will only access and write data with your explicit permission, and all data is securely stored on your device.", comment: nil) }
+
+      /// en translation: Health Data Integration Notice
+      ///
+      /// Key: settingsviews_healthkit_title
+      ///
+      /// Locales: en, zh
+      var settingsviews_healthkit_title: RswiftResources.StringResource { .init(key: "settingsviews_healthkit_title", tableName: "SettingsViews", source: source, developmentValue: "Health Data Integration Notice", comment: nil) }
+
+      /// en translation: High Value
+      ///
+      /// Key: settingsviews_highValue
+      ///
+      /// Locales: en, zh
+      var settingsviews_highValue: RswiftResources.StringResource { .init(key: "settingsviews_highValue", tableName: "SettingsViews", source: source, developmentValue: "High Value", comment: nil) }
+
+      /// en translation: Multi-point Calibration
+      ///
+      /// Key: settingsviews_labelNonFixed
+      ///
+      /// Locales: en, zh
+      var settingsviews_labelNonFixed: RswiftResources.StringResource { .init(key: "settingsviews_labelNonFixed", tableName: "SettingsViews", source: source, developmentValue: "Multi-point Calibration", comment: nil) }
+
+      /// en translation: Show BG in the App Badge?
+      ///
+      /// Key: settingsviews_labelShowReadingInAppBadge
+      ///
+      /// Locales: en, zh
+      var settingsviews_labelShowReadingInAppBadge: RswiftResources.StringResource { .init(key: "settingsviews_labelShowReadingInAppBadge", tableName: "SettingsViews", source: source, developmentValue: "Show BG in the App Badge?", comment: nil) }
+
+      /// en translation: zDrip or Transmitter Algorithm
+      ///
+      /// Key: settingsviews_labelWebOOP
+      ///
+      /// Locales: en, zh
+      var settingsviews_labelWebOOP: RswiftResources.StringResource { .init(key: "settingsviews_labelWebOOP", tableName: "SettingsViews", source: source, developmentValue: "zDrip or Transmitter Algorithm", comment: nil) }
+
+      /// en translation: License
+      ///
+      /// Key: settingsviews_license
+      ///
+      /// Locales: en
+      var settingsviews_license: RswiftResources.StringResource { .init(key: "settingsviews_license", tableName: "SettingsViews", source: source, developmentValue: "License", comment: nil) }
+
+      /// en translation: Low Value
+      ///
+      /// Key: settingsviews_lowValue
+      ///
+      /// Locales: en, zh
+      var settingsviews_lowValue: RswiftResources.StringResource { .init(key: "settingsviews_lowValue", tableName: "SettingsViews", source: source, developmentValue: "Low Value", comment: nil) }
+
+      /// en translation: Manual Calibration
+      ///
+      /// Key: settingsviews_manualcalibration
+      ///
+      /// Locales: en, zh
+      var settingsviews_manualcalibration: RswiftResources.StringResource { .init(key: "settingsviews_manualcalibration", tableName: "SettingsViews", source: source, developmentValue: "Manual Calibration", comment: nil) }
+
+      /// en translation: Master
+      ///
+      /// Key: settingsviews_master
+      ///
+      /// Locales: en, zh
+      var settingsviews_master: RswiftResources.StringResource { .init(key: "settingsviews_master", tableName: "SettingsViews", source: source, developmentValue: "Master", comment: nil) }
+
+      /// en translation: Master/Follower
+      ///
+      /// Key: settingsviews_masterorfollower
+      ///
+      /// Locales: en, zh
+      var settingsviews_masterorfollower: RswiftResources.StringResource { .init(key: "settingsviews_masterorfollower", tableName: "SettingsViews", source: source, developmentValue: "Master/Follower", comment: nil) }
+
+      /// en translation: Multiply App Badge Reading by 10?
+      ///
+      /// Key: settingsviews_multipleAppBadgeValueWith10
+      ///
+      /// Locales: en
+      var settingsviews_multipleAppBadgeValueWith10: RswiftResources.StringResource { .init(key: "settingsviews_multipleAppBadgeValueWith10", tableName: "SettingsViews", source: source, developmentValue: "Multiply App Badge Reading by 10?", comment: nil) }
+
+      /// en translation: API Secret
+      ///
+      /// Key: settingsviews_nightScoutAPIKey
+      ///
+      /// Locales: en, zh
+      var settingsviews_nightScoutAPIKey: RswiftResources.StringResource { .init(key: "settingsviews_nightScoutAPIKey", tableName: "SettingsViews", source: source, developmentValue: "API Secret", comment: nil) }
+
+      /// en translation: Enable Nightscout
+      ///
+      /// Key: settingsviews_nightScoutEnabled
+      ///
+      /// Locales: en, zh
+      var settingsviews_nightScoutEnabled: RswiftResources.StringResource { .init(key: "settingsviews_nightScoutEnabled", tableName: "SettingsViews", source: source, developmentValue: "Enable Nightscout", comment: nil) }
+
+      /// en translation: URL
+      ///
+      /// Key: settingsviews_nightScoutUrl
+      ///
+      /// Locales: en, zh
+      var settingsviews_nightScoutUrl: RswiftResources.StringResource { .init(key: "settingsviews_nightScoutUrl", tableName: "SettingsViews", source: source, developmentValue: "URL", comment: nil) }
+
+      /// en translation: Multi-point Calibration
+      ///
+      /// Key: settingsviews_nonfixedtransmitter
+      ///
+      /// Locales: en, zh
+      var settingsviews_nonfixedtransmitter: RswiftResources.StringResource { .init(key: "settingsviews_nonfixedtransmitter", tableName: "SettingsViews", source: source, developmentValue: "Multi-point Calibration", comment: nil) }
+
+      /// en translation: Reset Transmitter
+      ///
+      /// Key: settingsviews_resettransmitter
+      ///
+      /// Locales: en, zh
+      var settingsviews_resettransmitter: RswiftResources.StringResource { .init(key: "settingsviews_resettransmitter", tableName: "SettingsViews", source: source, developmentValue: "Reset Transmitter", comment: nil) }
+
+      /// en translation: Alarm Types
+      ///
+      /// Key: settingsviews_row_alert_types
+      ///
+      /// Locales: en, zh
+      var settingsviews_row_alert_types: RswiftResources.StringResource { .init(key: "settingsviews_row_alert_types", tableName: "SettingsViews", source: source, developmentValue: "Alarm Types", comment: nil) }
+
+      /// en translation: Alarms
+      ///
+      /// Key: settingsviews_row_alerts
+      ///
+      /// Locales: en, zh
+      var settingsviews_row_alerts: RswiftResources.StringResource { .init(key: "settingsviews_row_alerts", tableName: "SettingsViews", source: source, developmentValue: "Alarms", comment: nil) }
+
+      /// en translation: About %@
+      ///
+      /// Key: settingsviews_sectiontitleAbout
+      ///
+      /// Locales: en, zh
+      var settingsviews_sectiontitleAbout: RswiftResources.StringResource1<String> { .init(key: "settingsviews_sectiontitleAbout", tableName: "SettingsViews", source: source, developmentValue: "About %@", comment: nil) }
+
+      /// en translation: Alarms
+      ///
+      /// Key: settingsviews_sectiontitlealerting
+      ///
+      /// Locales: en, zh
+      var settingsviews_sectiontitlealerting: RswiftResources.StringResource { .init(key: "settingsviews_sectiontitlealerting", tableName: "SettingsViews", source: source, developmentValue: "Alarms", comment: nil) }
+
+      /// en translation: Dexcom Share
+      ///
+      /// Key: settingsviews_sectiontitledexcomshare
+      ///
+      /// Locales: en, zh
+      var settingsviews_sectiontitledexcomshare: RswiftResources.StringResource { .init(key: "settingsviews_sectiontitledexcomshare", tableName: "SettingsViews", source: source, developmentValue: "Dexcom Share", comment: nil) }
+
+      /// en translation: General
+      ///
+      /// Key: settingsviews_sectiontitlegeneral
+      ///
+      /// Locales: en, zh
+      var settingsviews_sectiontitlegeneral: RswiftResources.StringResource { .init(key: "settingsviews_sectiontitlegeneral", tableName: "SettingsViews", source: source, developmentValue: "General", comment: nil) }
+
+      /// en translation: Apple Health
+      ///
+      /// Key: settingsviews_sectiontitlehealthkit
+      ///
+      /// Locales: en, zh
+      var settingsviews_sectiontitlehealthkit: RswiftResources.StringResource { .init(key: "settingsviews_sectiontitlehealthkit", tableName: "SettingsViews", source: source, developmentValue: "Apple Health", comment: nil) }
+
+      /// en translation: Help & Documentation
+      ///
+      /// Key: settingsviews_sectiontitlehelp
+      ///
+      /// Locales: en
+      var settingsviews_sectiontitlehelp: RswiftResources.StringResource { .init(key: "settingsviews_sectiontitlehelp", tableName: "SettingsViews", source: source, developmentValue: "Help & Documentation", comment: nil) }
+
+      /// en translation: Home Screen
+      ///
+      /// Key: settingsviews_sectiontitlehomescreen
+      ///
+      /// Locales: en, zh
+      var settingsviews_sectiontitlehomescreen: RswiftResources.StringResource { .init(key: "settingsviews_sectiontitlehomescreen", tableName: "SettingsViews", source: source, developmentValue: "Home Screen", comment: nil) }
+
+      /// en translation: NightScout
+      ///
+      /// Key: settingsviews_sectiontitlenightscout
+      ///
+      /// Locales: en, zh
+      var settingsviews_sectiontitlenightscout: RswiftResources.StringResource { .init(key: "settingsviews_sectiontitlenightscout", tableName: "SettingsViews", source: source, developmentValue: "NightScout", comment: nil) }
+
+      /// en translation: Sensor Countdown
+      ///
+      /// Key: settingsviews_sectiontitlesensorcountdown
+      ///
+      /// Locales: en
+      var settingsviews_sectiontitlesensorcountdown: RswiftResources.StringResource { .init(key: "settingsviews_sectiontitlesensorcountdown", tableName: "SettingsViews", source: source, developmentValue: "Sensor Countdown", comment: nil) }
+
+      /// en translation: Voice
+      ///
+      /// Key: settingsviews_sectiontitlespeak
+      ///
+      /// Locales: en, zh
+      var settingsviews_sectiontitlespeak: RswiftResources.StringResource { .init(key: "settingsviews_sectiontitlespeak", tableName: "SettingsViews", source: source, developmentValue: "Voice", comment: nil) }
+
+      /// en translation: Statistics
+      ///
+      /// Key: settingsviews_sectiontitlestatistics
+      ///
+      /// Locales: en, zh
+      var settingsviews_sectiontitlestatistics: RswiftResources.StringResource { .init(key: "settingsviews_sectiontitlestatistics", tableName: "SettingsViews", source: source, developmentValue: "Statistics", comment: nil) }
+
+      /// en translation: Transmitter
+      ///
+      /// Key: settingsviews_sectiontitletransmitter
+      ///
+      /// Locales: en, zh
+      var settingsviews_sectiontitletransmitter: RswiftResources.StringResource { .init(key: "settingsviews_sectiontitletransmitter", tableName: "SettingsViews", source: source, developmentValue: "Transmitter", comment: nil) }
+
+      /// en translation: Blood Glucose Units
+      ///
+      /// Key: settingsviews_selectbgunit
+      ///
+      /// Locales: en, zh
+      var settingsviews_selectbgunit: RswiftResources.StringResource { .init(key: "settingsviews_selectbgunit", tableName: "SettingsViews", source: source, developmentValue: "Blood Glucose Units", comment: nil) }
+
+      /// en translation: Settings
+      ///
+      /// Key: settingsviews_settingstitle
+      ///
+      /// Locales: en, zh
+      var settingsviews_settingstitle: RswiftResources.StringResource { .init(key: "settingsviews_settingstitle", tableName: "SettingsViews", source: source, developmentValue: "Settings", comment: nil) }
+
+      /// en translation: Open Online Help?
+      ///
+      /// Key: settingsviews_showOnlineHelp
+      ///
+      /// Locales: en
+      var settingsviews_showOnlineHelp: RswiftResources.StringResource { .init(key: "settingsviews_showOnlineHelp", tableName: "SettingsViews", source: source, developmentValue: "Open Online Help?", comment: nil) }
+
+      /// en translation: Show BG in Notifications?
+      ///
+      /// Key: settingsviews_showReadingInNotification
+      ///
+      /// Locales: en, zh
+      var settingsviews_showReadingInNotification: RswiftResources.StringResource { .init(key: "settingsviews_showReadingInNotification", tableName: "SettingsViews", source: source, developmentValue: "Show BG in Notifications?", comment: nil) }
+
+      /// en translation: Show Sensor Countdown
+      ///
+      /// Key: settingsviews_showSensorCountdown
+      ///
+      /// Locales: en
+      var settingsviews_showSensorCountdown: RswiftResources.StringResource { .init(key: "settingsviews_showSensorCountdown", tableName: "SettingsViews", source: source, developmentValue: "Show Sensor Countdown", comment: nil) }
+
+      /// en translation: Use Alternative Graphics
+      ///
+      /// Key: settingsviews_showSensorCountdownAlternativeGraphics
+      ///
+      /// Locales: en
+      var settingsviews_showSensorCountdownAlternativeGraphics: RswiftResources.StringResource { .init(key: "settingsviews_showSensorCountdownAlternativeGraphics", tableName: "SettingsViews", source: source, developmentValue: "Use Alternative Graphics", comment: nil) }
+
+      /// en translation: Show Statistics
+      ///
+      /// Key: settingsviews_showStatistics
+      ///
+      /// Locales: en, zh
+      var settingsviews_showStatistics: RswiftResources.StringResource { .init(key: "settingsviews_showStatistics", tableName: "SettingsViews", source: source, developmentValue: "Show Statistics", comment: nil) }
+
+      /// en translation: Show Colored Lines
+      ///
+      /// Key: settingsviews_showcoloredobjectives
+      ///
+      /// Locales: en, zh
+      var settingsviews_showcoloredobjectives: RswiftResources.StringResource { .init(key: "settingsviews_showcoloredobjectives", tableName: "SettingsViews", source: source, developmentValue: "Show Colored Lines", comment: nil) }
+
+      /// en translation: Speak BG Readings
+      ///
+      /// Key: settingsviews_speakBgReadings
+      ///
+      /// Locales: en, zh
+      var settingsviews_speakBgReadings: RswiftResources.StringResource { .init(key: "settingsviews_speakBgReadings", tableName: "SettingsViews", source: source, developmentValue: "Speak BG Readings", comment: nil) }
+
+      /// en translation: Language
+      ///
+      /// Key: settingsviews_speakBgReadingslanguage
+      ///
+      /// Locales: en, zh
+      var settingsviews_speakBgReadingslanguage: RswiftResources.StringResource { .init(key: "settingsviews_speakBgReadingslanguage", tableName: "SettingsViews", source: source, developmentValue: "Language", comment: nil) }
+
+      /// en translation: Speak Delta
+      ///
+      /// Key: settingsviews_speakDelta
+      ///
+      /// Locales: en, zh
+      var settingsviews_speakDelta: RswiftResources.StringResource { .init(key: "settingsviews_speakDelta", tableName: "SettingsViews", source: source, developmentValue: "Speak Delta", comment: nil) }
+
+      /// en translation: Speak Trend
+      ///
+      /// Key: settingsviews_speakTrend
+      ///
+      /// Locales: en, zh
+      var settingsviews_speakTrend: RswiftResources.StringResource { .init(key: "settingsviews_speakTrend", tableName: "SettingsViews", source: source, developmentValue: "Speak Trend", comment: nil) }
+
+      /// en translation: Speak Only When High or Low
+      ///
+      /// Key: settingsviews_speakWhenOutOfRange
+      ///
+      /// Locales: en, zh
+      var settingsviews_speakWhenOutOfRange: RswiftResources.StringResource { .init(key: "settingsviews_speakWhenOutOfRange", tableName: "SettingsViews", source: source, developmentValue: "Speak Only When High or Low", comment: nil) }
+
+      /// en translation: Select Language
+      ///
+      /// Key: settingsviews_speakreadingslanguageselection
+      ///
+      /// Locales: en, zh
+      var settingsviews_speakreadingslanguageselection: RswiftResources.StringResource { .init(key: "settingsviews_speakreadingslanguageselection", tableName: "SettingsViews", source: source, developmentValue: "Select Language", comment: nil) }
+
+      /// en translation: Translate Automatically?
+      ///
+      /// Key: settingsviews_translateOnlineHelp
+      ///
+      /// Locales: en
+      var settingsviews_translateOnlineHelp: RswiftResources.StringResource { .init(key: "settingsviews_translateOnlineHelp", tableName: "SettingsViews", source: source, developmentValue: "Translate Automatically?", comment: nil) }
+
+      /// en translation: Transmitter ID
+      ///
+      /// Key: settingsviews_transmitterid
+      ///
+      /// Locales: en, zh
+      var settingsviews_transmitterid: RswiftResources.StringResource { .init(key: "settingsviews_transmitterid", tableName: "SettingsViews", source: source, developmentValue: "Transmitter ID", comment: nil) }
+
+      /// en translation: Transmitter ID
+      ///
+      /// Key: settingsviews_transmitterid_text_for_button
+      ///
+      /// Locales: en, zh
+      var settingsviews_transmitterid_text_for_button: RswiftResources.StringResource { .init(key: "settingsviews_transmitterid_text_for_button", tableName: "SettingsViews", source: source, developmentValue: "Transmitter ID", comment: nil) }
+
+      /// en translation: Transmitter Type
+      ///
+      /// Key: settingsviews_transmittertype
+      ///
+      /// Locales: en, zh
+      var settingsviews_transmittertype: RswiftResources.StringResource { .init(key: "settingsviews_transmittertype", tableName: "SettingsViews", source: source, developmentValue: "Transmitter Type", comment: nil) }
+
+      /// en translation: Upload to Dexcom Share
+      ///
+      /// Key: settingsviews_uploadReadingstoDexcomShare
+      ///
+      /// Locales: en, zh
+      var settingsviews_uploadReadingstoDexcomShare: RswiftResources.StringResource { .init(key: "settingsviews_uploadReadingstoDexcomShare", tableName: "SettingsViews", source: source, developmentValue: "Upload to Dexcom Share", comment: nil) }
+
+      /// en translation: Urgent High Value
+      ///
+      /// Key: settingsviews_urgentHighValue
+      ///
+      /// Locales: en, zh
+      var settingsviews_urgentHighValue: RswiftResources.StringResource { .init(key: "settingsviews_urgentHighValue", tableName: "SettingsViews", source: source, developmentValue: "Urgent High Value", comment: nil) }
+
+      /// en translation: Urgent Low Value
+      ///
+      /// Key: settingsviews_urgentLowValue
+      ///
+      /// Locales: en, zh
+      var settingsviews_urgentLowValue: RswiftResources.StringResource { .init(key: "settingsviews_urgentLowValue", tableName: "SettingsViews", source: source, developmentValue: "Urgent Low Value", comment: nil) }
+
+      /// en translation: HbA1c in mmols/mol
+      ///
+      /// Key: settingsviews_useIFCCA1C
+      ///
+      /// Locales: en, zh
+      var settingsviews_useIFCCA1C: RswiftResources.StringResource { .init(key: "settingsviews_useIFCCA1C", tableName: "SettingsViews", source: source, developmentValue: "HbA1c in mmols/mol", comment: nil) }
+
+      /// en translation: Use Upload Schedule
+      ///
+      /// Key: settingsviews_useSchedule
+      ///
+      /// Locales: en
+      var settingsviews_useSchedule: RswiftResources.StringResource { .init(key: "settingsviews_useSchedule", tableName: "SettingsViews", source: source, developmentValue: "Use Upload Schedule", comment: nil) }
+
+      /// en translation: Use Standard Range
+      ///
+      /// Key: settingsviews_useStandardStatisticsRange
+      ///
+      /// Locales: en, zh
+      var settingsviews_useStandardStatisticsRange: RswiftResources.StringResource { .init(key: "settingsviews_useStandardStatisticsRange", tableName: "SettingsViews", source: source, developmentValue: "Use Standard Range", comment: nil) }
+
+      /// en translation: Use Dexcom US Servers
+      ///
+      /// Key: settingsviews_useUSDexcomShareurl
+      ///
+      /// Locales: en, zh
+      var settingsviews_useUSDexcomShareurl: RswiftResources.StringResource { .init(key: "settingsviews_useUSDexcomShareurl", tableName: "SettingsViews", source: source, developmentValue: "Use Dexcom US Servers", comment: nil) }
+
+      /// en translation: Show Objectives in Graph
+      ///
+      /// Key: settingsviews_useobjectives
+      ///
+      /// Locales: en, zh
+      var settingsviews_useobjectives: RswiftResources.StringResource { .init(key: "settingsviews_useobjectives", tableName: "SettingsViews", source: source, developmentValue: "Show Objectives in Graph", comment: nil) }
+
+      /// en translation: Smooth Glucose Values
+      ///
+      /// Key: smoothBgValues
+      ///
+      /// Locales: en, zh
+      var smoothBgValues: RswiftResources.StringResource { .init(key: "smoothBgValues", tableName: "SettingsViews", source: source, developmentValue: "Smooth Glucose Values", comment: nil) }
+
+      /// en translation: Test Connection (Follower Mode)
+      ///
+      /// Key: testUrlAndAPIKeyInFollowerMode
+      ///
+      /// Locales: en, zh
+      var testUrlAndAPIKeyInFollowerMode: RswiftResources.StringResource { .init(key: "testUrlAndAPIKeyInFollowerMode", tableName: "SettingsViews", source: source, developmentValue: "Test Connection (Follower Mode)", comment: nil) }
+
+      /// en translation: Test Connection (Master Mode)
+      ///
+      /// Key: testUrlAndAPIKeyInMasterMode
+      ///
+      /// Locales: en, zh
+      var testUrlAndAPIKeyInMasterMode: RswiftResources.StringResource { .init(key: "testUrlAndAPIKeyInMasterMode", tableName: "SettingsViews", source: source, developmentValue: "Test Connection (Master Mode)", comment: nil) }
+
+      /// en translation: On/Off Time Schedule for 
+      ///
+      /// Key: timeScheduleViewTitle
+      ///
+      /// Locales: en
+      var timeScheduleViewTitle: RswiftResources.StringResource { .init(key: "timeScheduleViewTitle", tableName: "SettingsViews", source: source, developmentValue: "On/Off Time Schedule for ", comment: nil) }
+
+      /// en translation: Chart Height can not be smaller than Urgent High Value
+      ///
+      /// Key: toast_chart_height_smaller_than_urgent_high
+      ///
+      /// Locales: en, zh
+      var toast_chart_height_smaller_than_urgent_high: RswiftResources.StringResource { .init(key: "toast_chart_height_smaller_than_urgent_high", tableName: "SettingsViews", source: source, developmentValue: "Chart Height can not be smaller than Urgent High Value", comment: nil) }
+
+      /// en translation: Already the latest version
+      ///
+      /// Key: toast_no_newer_app_version
+      ///
+      /// Locales: en, zh
+      var toast_no_newer_app_version: RswiftResources.StringResource { .init(key: "toast_no_newer_app_version", tableName: "SettingsViews", source: source, developmentValue: "Already the latest version", comment: nil) }
+
+      /// en translation: Upload Sensor Start Time
+      ///
+      /// Key: uploadSensorStartTime
+      ///
+      /// Locales: en, zh
+      var uploadSensorStartTime: RswiftResources.StringResource { .init(key: "uploadSensorStartTime", tableName: "SettingsViews", source: source, developmentValue: "Upload Sensor Start Time", comment: nil) }
+
+      /// en translation: Test Volume (if Override Mute On)
+      ///
+      /// Key: volumeTestSoundPlayer
+      ///
+      /// Locales: en, zh
+      var volumeTestSoundPlayer: RswiftResources.StringResource { .init(key: "volumeTestSoundPlayer", tableName: "SettingsViews", source: source, developmentValue: "Test Volume (if Override Mute On)", comment: nil) }
+
+      /// en translation: An alarm sound is now being played with the same volume that will be used for an Alarm Type with 'Override Mute' = On  (Used for all alarms except Missed Reading alerts which always use the iOS volume.)  Change the volume with the volume buttons and press OK when done.
+      ///
+      /// Key: volumeTestSoundPlayerExplanation
+      ///
+      /// Locales: en, zh
+      var volumeTestSoundPlayerExplanation: RswiftResources.StringResource { .init(key: "volumeTestSoundPlayerExplanation", tableName: "SettingsViews", source: source, developmentValue: "An alarm sound is now being played with the same volume that will be used for an Alarm Type with 'Override Mute' = On\n\n(Used for all alarms except Missed Reading alerts which always use the iOS volume.)\n\nChange the volume with the volume buttons and press OK when done.", comment: nil) }
+
+      /// en translation: Test Volume (Current iPhone Volume)
+      ///
+      /// Key: volumeTestiOSSound
+      ///
+      /// Locales: en, zh
+      var volumeTestiOSSound: RswiftResources.StringResource { .init(key: "volumeTestiOSSound", tableName: "SettingsViews", source: source, developmentValue: "Test Volume (Current iPhone Volume)", comment: nil) }
+
+      /// en translation: An alarm sound is now being played with the same volume that will be used for an Alarm Type with 'Override Mute' = Off  (Also used always for Missed Reading alarms which use the iOS volume.)  Press one of the volume buttons to stop the sound, then change the volume with the volume buttons to the desired volume and test again.
+      ///
+      /// Key: volumeTestiOSSoundExplanation
+      ///
+      /// Locales: en, zh
+      var volumeTestiOSSoundExplanation: RswiftResources.StringResource { .init(key: "volumeTestiOSSoundExplanation", tableName: "SettingsViews", source: source, developmentValue: "An alarm sound is now being played with the same volume that will be used for an Alarm Type with 'Override Mute' = Off\n\n(Also used always for Missed Reading alarms which use the iOS volume.)\n\nPress one of the volume buttons to stop the sound, then change the volume with the volume buttons to the desired volume and test again.", comment: nil) }
+
+      /// en translation: Switching from master to follower will stop your current sensor. Do you want to continue?
+      ///
+      /// Key: warningChangeFromMasterToFollower
+      ///
+      /// Locales: en, zh
+      var warningChangeFromMasterToFollower: RswiftResources.StringResource { .init(key: "warningChangeFromMasterToFollower", tableName: "SettingsViews", source: source, developmentValue: "Switching from master to follower will stop your current sensor. Do you want to continue?", comment: nil) }
+    }
+
+    /// This `_R.string.snooze` struct is generated, and contains static references to 2 localization keys.
+    struct snooze {
+      let source: RswiftResources.StringResource.Source
+
+      /// en translation: Not snoozed
+      ///
+      /// Key: not_snoozed
+      ///
+      /// Locales: en, zh
+      var not_snoozed: RswiftResources.StringResource { .init(key: "not_snoozed", tableName: "Snooze", source: source, developmentValue: "Not snoozed", comment: nil) }
+
+      /// en translation: Snoozed until
+      ///
+      /// Key: snoozed_until
+      ///
+      /// Locales: en, zh
+      var snoozed_until: RswiftResources.StringResource { .init(key: "snoozed_until", tableName: "Snooze", source: source, developmentValue: "Snoozed until", comment: nil) }
+    }
+
+    /// This `_R.string.speakReading` struct is generated, and contains static references to 14 localization keys.
+    struct speakReading {
+      let source: RswiftResources.StringResource.Source
+
+      /// en translation: Difference from last reading is
+      ///
+      /// Key: currentdelta
+      ///
+      /// Locales: en, zh
+      var currentdelta: RswiftResources.StringResource { .init(key: "currentdelta", tableName: "SpeakReading", source: source, developmentValue: "Difference from last reading is", comment: nil) }
+
+      /// en translation: Your current blood glucose is
+      ///
+      /// Key: currentglucose
+      ///
+      /// Locales: en, zh
+      var currentglucose: RswiftResources.StringResource { .init(key: "currentglucose", tableName: "SpeakReading", source: source, developmentValue: "Your current blood glucose is", comment: nil) }
+
+      /// en translation: It's trending
+      ///
+      /// Key: currenttrend
+      ///
+      /// Locales: en, zh
+      var currenttrend: RswiftResources.StringResource { .init(key: "currenttrend", tableName: "SpeakReading", source: source, developmentValue: "It's trending", comment: nil) }
+
+      /// en translation: non computable
+      ///
+      /// Key: deltanoncomputable
+      ///
+      /// Locales: en, zh
+      var deltanoncomputable: RswiftResources.StringResource { .init(key: "deltanoncomputable", tableName: "SpeakReading", source: source, developmentValue: "non computable", comment: nil) }
+
+      /// en translation: high
+      ///
+      /// Key: high
+      ///
+      /// Locales: en, zh
+      var high: RswiftResources.StringResource { .init(key: "high", tableName: "SpeakReading", source: source, developmentValue: "high", comment: nil) }
+
+      /// en translation: low
+      ///
+      /// Key: low
+      ///
+      /// Locales: en, zh
+      var low: RswiftResources.StringResource { .init(key: "low", tableName: "SpeakReading", source: source, developmentValue: "low", comment: nil) }
+
+      /// en translation: dramatically downward
+      ///
+      /// Key: trenddoubledown
+      ///
+      /// Locales: en, zh
+      var trenddoubledown: RswiftResources.StringResource { .init(key: "trenddoubledown", tableName: "SpeakReading", source: source, developmentValue: "dramatically downward", comment: nil) }
+
+      /// en translation: dramatically upward
+      ///
+      /// Key: trenddoubleup
+      ///
+      /// Locales: en, zh
+      var trenddoubleup: RswiftResources.StringResource { .init(key: "trenddoubleup", tableName: "SpeakReading", source: source, developmentValue: "dramatically upward", comment: nil) }
+
+      /// en translation: flat
+      ///
+      /// Key: trendflat
+      ///
+      /// Locales: en, zh
+      var trendflat: RswiftResources.StringResource { .init(key: "trendflat", tableName: "SpeakReading", source: source, developmentValue: "flat", comment: nil) }
+
+      /// en translation: down
+      ///
+      /// Key: trendfortyfivedown
+      ///
+      /// Locales: en, zh
+      var trendfortyfivedown: RswiftResources.StringResource { .init(key: "trendfortyfivedown", tableName: "SpeakReading", source: source, developmentValue: "down", comment: nil) }
+
+      /// en translation: up
+      ///
+      /// Key: trendfortyfiveup
+      ///
+      /// Locales: en, zh
+      var trendfortyfiveup: RswiftResources.StringResource { .init(key: "trendfortyfiveup", tableName: "SpeakReading", source: source, developmentValue: "up", comment: nil) }
+
+      /// en translation: non computable
+      ///
+      /// Key: trendnoncomputable
+      ///
+      /// Locales: en, zh
+      var trendnoncomputable: RswiftResources.StringResource { .init(key: "trendnoncomputable", tableName: "SpeakReading", source: source, developmentValue: "non computable", comment: nil) }
+
+      /// en translation: significantly downward
+      ///
+      /// Key: trendsingledown
+      ///
+      /// Locales: en, zh
+      var trendsingledown: RswiftResources.StringResource { .init(key: "trendsingledown", tableName: "SpeakReading", source: source, developmentValue: "significantly downward", comment: nil) }
+
+      /// en translation: significantly upward
+      ///
+      /// Key: trendsingleup
+      ///
+      /// Locales: en, zh
+      var trendsingleup: RswiftResources.StringResource { .init(key: "trendsingleup", tableName: "SpeakReading", source: source, developmentValue: "significantly upward", comment: nil) }
+    }
+
+    /// This `_R.string.watlaaView` struct is generated, and contains static references to 1 localization keys.
+    struct watlaaView {
+      let source: RswiftResources.StringResource.Source
+
+      /// en translation: Watlaa
+      ///
+      /// Key: watlaaViewscreenTitle
+      ///
+      /// Locales: en, zh
+      var watlaaViewscreenTitle: RswiftResources.StringResource { .init(key: "watlaaViewscreenTitle", tableName: "WatlaaView", source: source, developmentValue: "Watlaa", comment: nil) }
+    }
   }
 
-  static func validate() throws {
-    try intern.validate()
+  /// This `_R.image` struct is generated, and contains static references to 34 images.
+  struct image {
+    let bundle: Foundation.Bundle
+
+    /// Image `dexcomG6`.
+    var dexcomG6: RswiftResources.ImageResource { .init(name: "dexcomG6", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_alarm`.
+    var ic_alarm: RswiftResources.ImageResource { .init(name: "ic_alarm", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_alarm_snoozed`.
+    var ic_alarm_snoozed: RswiftResources.ImageResource { .init(name: "ic_alarm_snoozed", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_arrow_left`.
+    var ic_arrow_left: RswiftResources.ImageResource { .init(name: "ic_arrow_left", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_arrow_right`.
+    var ic_arrow_right: RswiftResources.ImageResource { .init(name: "ic_arrow_right", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_bg_high`.
+    var ic_bg_high: RswiftResources.ImageResource { .init(name: "ic_bg_high", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_bg_low`.
+    var ic_bg_low: RswiftResources.ImageResource { .init(name: "ic_bg_low", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_calibrate`.
+    var ic_calibrate: RswiftResources.ImageResource { .init(name: "ic_calibrate", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_clock`.
+    var ic_clock: RswiftResources.ImageResource { .init(name: "ic_clock", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_common_checkbox`.
+    var ic_common_checkbox: RswiftResources.ImageResource { .init(name: "ic_common_checkbox", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_common_checkbox_h`.
+    var ic_common_checkbox_h: RswiftResources.ImageResource { .init(name: "ic_common_checkbox_h", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_edit`.
+    var ic_edit: RswiftResources.ImageResource { .init(name: "ic_edit", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_fastdrop`.
+    var ic_fastdrop: RswiftResources.ImageResource { .init(name: "ic_fastdrop", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_fastrise`.
+    var ic_fastrise: RswiftResources.ImageResource { .init(name: "ic_fastrise", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_note_food`.
+    var ic_note_food: RswiftResources.ImageResource { .init(name: "ic_note_food", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_note_insulin`.
+    var ic_note_insulin: RswiftResources.ImageResource { .init(name: "ic_note_insulin", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_note_sport`.
+    var ic_note_sport: RswiftResources.ImageResource { .init(name: "ic_note_sport", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_note_userinput`.
+    var ic_note_userinput: RswiftResources.ImageResource { .init(name: "ic_note_userinput", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_pushpin_lock`.
+    var ic_pushpin_lock: RswiftResources.ImageResource { .init(name: "ic_pushpin_lock", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_pushpin_unlock`.
+    var ic_pushpin_unlock: RswiftResources.ImageResource { .init(name: "ic_pushpin_unlock", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_radio_button`.
+    var ic_radio_button: RswiftResources.ImageResource { .init(name: "ic_radio_button", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_radio_button_on`.
+    var ic_radio_button_on: RswiftResources.ImageResource { .init(name: "ic_radio_button_on", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_search`.
+    var ic_search: RswiftResources.ImageResource { .init(name: "ic_search", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_statistics`.
+    var ic_statistics: RswiftResources.ImageResource { .init(name: "ic_statistics", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_tab_bloodsugar`.
+    var ic_tab_bloodsugar: RswiftResources.ImageResource { .init(name: "ic_tab_bloodsugar", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_tab_bloodsugar_h`.
+    var ic_tab_bloodsugar_h: RswiftResources.ImageResource { .init(name: "ic_tab_bloodsugar_h", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_tab_notes`.
+    var ic_tab_notes: RswiftResources.ImageResource { .init(name: "ic_tab_notes", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_tab_notes_h`.
+    var ic_tab_notes_h: RswiftResources.ImageResource { .init(name: "ic_tab_notes_h", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_tab_settings`.
+    var ic_tab_settings: RswiftResources.ImageResource { .init(name: "ic_tab_settings", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_tab_settings_h`.
+    var ic_tab_settings_h: RswiftResources.ImageResource { .init(name: "ic_tab_settings_h", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_to_landscape`.
+    var ic_to_landscape: RswiftResources.ImageResource { .init(name: "ic_to_landscape", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `ic_to_portrait`.
+    var ic_to_portrait: RswiftResources.ImageResource { .init(name: "ic_to_portrait", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `libre`.
+    var libre: RswiftResources.ImageResource { .init(name: "libre", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `logo-launchScreen`.
+    var logoLaunchScreen: RswiftResources.ImageResource { .init(name: "logo-launchScreen", path: [], bundle: bundle, locale: LocaleReference.none, onDemandResourceTags: nil) }
   }
 
-  #if os(iOS) || os(tvOS)
-  /// This `R.segue` struct is generated, and contains static references to 7 view controllers.
+  /// This `_R.entitlements` struct is generated, and contains static references to 2 properties.
+  struct entitlements {
+    let comAppleDeveloperHealthkit: Bool = true
+    let comAppleDeveloperNfcReadersessionFormats = comAppleDeveloperNfcReadersessionFormats()
+    let comAppleSecurityApplicationGroups = comAppleSecurityApplicationGroups()
+    struct comAppleDeveloperNfcReadersessionFormats {
+      let taG: String = "TAG"
+    }
+    struct comAppleSecurityApplicationGroups {
+      let groupComDEVELOPMENT_TEAMLoopkitLoopGroup: String = "group.com.${DEVELOPMENT_TEAM}.loopkit.LoopGroup"
+    }
+  }
+
+  /// This `_R.file` struct is generated, and contains static references to 126 resource files.
+  struct file {
+    let bundle: Foundation.Bundle
+
+    /// Resource file `1-millisecond-of-silence.wav`.
+    var millisecondOfSilenceWav: RswiftResources.FileResource { .init(name: "1-millisecond-of-silence", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `20ms-of-silence.wav`.
+    var msOfSilenceWav: RswiftResources.FileResource { .init(name: "20ms-of-silence", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Alarm_Buzzer.wav`.
+    var alarm_BuzzerWav: RswiftResources.FileResource { .init(name: "Alarm_Buzzer", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Alarm_Clock.wav`.
+    var alarm_ClockWav: RswiftResources.FileResource { .init(name: "Alarm_Clock", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Alert_Tone_Busy.wav`.
+    var alert_Tone_BusyWav: RswiftResources.FileResource { .init(name: "Alert_Tone_Busy", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Alert_Tone_Ringtone_1.wav`.
+    var alert_Tone_Ringtone_1Wav: RswiftResources.FileResource { .init(name: "Alert_Tone_Ringtone_1", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Alert_Tone_Ringtone_2.wav`.
+    var alert_Tone_Ringtone_2Wav: RswiftResources.FileResource { .init(name: "Alert_Tone_Ringtone_2", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Alien_Siren.wav`.
+    var alien_SirenWav: RswiftResources.FileResource { .init(name: "Alien_Siren", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Ambulance.wav`.
+    var ambulanceWav: RswiftResources.FileResource { .init(name: "Ambulance", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Analog_Watch_Alarm.wav`.
+    var analog_Watch_AlarmWav: RswiftResources.FileResource { .init(name: "Analog_Watch_Alarm", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Big_Clock_Ticking.wav`.
+    var big_Clock_TickingWav: RswiftResources.FileResource { .init(name: "Big_Clock_Ticking", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Burglar_Alarm_Siren_1.wav`.
+    var burglar_Alarm_Siren_1Wav: RswiftResources.FileResource { .init(name: "Burglar_Alarm_Siren_1", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Burglar_Alarm_Siren_2.wav`.
+    var burglar_Alarm_Siren_2Wav: RswiftResources.FileResource { .init(name: "Burglar_Alarm_Siren_2", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `CSFX-2_Alarm.wav`.
+    var csfx2_AlarmWav: RswiftResources.FileResource { .init(name: "CSFX-2_Alarm", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Cartoon_Ascend_Climb_Sneaky.wav`.
+    var cartoon_Ascend_Climb_SneakyWav: RswiftResources.FileResource { .init(name: "Cartoon_Ascend_Climb_Sneaky", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Cartoon_Ascend_Then_Descend.wav`.
+    var cartoon_Ascend_Then_DescendWav: RswiftResources.FileResource { .init(name: "Cartoon_Ascend_Then_Descend", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Cartoon_Bounce_To_Ceiling.wav`.
+    var cartoon_Bounce_To_CeilingWav: RswiftResources.FileResource { .init(name: "Cartoon_Bounce_To_Ceiling", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Cartoon_Dreamy_Glissando_Harp.wav`.
+    var cartoon_Dreamy_Glissando_HarpWav: RswiftResources.FileResource { .init(name: "Cartoon_Dreamy_Glissando_Harp", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Cartoon_Fail_Strings_Trumpet.wav`.
+    var cartoon_Fail_Strings_TrumpetWav: RswiftResources.FileResource { .init(name: "Cartoon_Fail_Strings_Trumpet", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Cartoon_Machine_Clumsy_Loop.wav`.
+    var cartoon_Machine_Clumsy_LoopWav: RswiftResources.FileResource { .init(name: "Cartoon_Machine_Clumsy_Loop", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Cartoon_Siren.wav`.
+    var cartoon_SirenWav: RswiftResources.FileResource { .init(name: "Cartoon_Siren", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Cartoon_Tip_Toe_Sneaky_Walk.wav`.
+    var cartoon_Tip_Toe_Sneaky_WalkWav: RswiftResources.FileResource { .init(name: "Cartoon_Tip_Toe_Sneaky_Walk", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Cartoon_Uh_Oh.wav`.
+    var cartoon_Uh_OhWav: RswiftResources.FileResource { .init(name: "Cartoon_Uh_Oh", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Cartoon_Villain_Horns.wav`.
+    var cartoon_Villain_HornsWav: RswiftResources.FileResource { .init(name: "Cartoon_Villain_Horns", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Cell_Phone_Ring_Tone.wav`.
+    var cell_Phone_Ring_ToneWav: RswiftResources.FileResource { .init(name: "Cell_Phone_Ring_Tone", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Chimes_Glassy.wav`.
+    var chimes_GlassyWav: RswiftResources.FileResource { .init(name: "Chimes_Glassy", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Computer_Magic.wav`.
+    var computer_MagicWav: RswiftResources.FileResource { .init(name: "Computer_Magic", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Cuckoo_Clock.wav`.
+    var cuckoo_ClockWav: RswiftResources.FileResource { .init(name: "Cuckoo_Clock", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Dhol_Shuffleloop.wav`.
+    var dhol_ShuffleloopWav: RswiftResources.FileResource { .init(name: "Dhol_Shuffleloop", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Discreet.wav`.
+    var discreetWav: RswiftResources.FileResource { .init(name: "Discreet", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Early_Sunrise.wav`.
+    var early_SunriseWav: RswiftResources.FileResource { .init(name: "Early_Sunrise", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Emergency_Alarm.wav`.
+    var emergency_AlarmWav: RswiftResources.FileResource { .init(name: "Emergency_Alarm", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Emergency_Alarm_Carbon_Monoxide.wav`.
+    var emergency_Alarm_Carbon_MonoxideWav: RswiftResources.FileResource { .init(name: "Emergency_Alarm_Carbon_Monoxide", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Emergency_Alarm_Siren.wav`.
+    var emergency_Alarm_SirenWav: RswiftResources.FileResource { .init(name: "Emergency_Alarm_Siren", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Ending_Reached.wav`.
+    var ending_ReachedWav: RswiftResources.FileResource { .init(name: "Ending_Reached", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Fly.wav`.
+    var flyWav: RswiftResources.FileResource { .init(name: "Fly", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Ghost_Hover.wav`.
+    var ghost_HoverWav: RswiftResources.FileResource { .init(name: "Ghost_Hover", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Good_Morning.wav`.
+    var good_MorningWav: RswiftResources.FileResource { .init(name: "Good_Morning", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `GoogleService-Info.plist`.
+    var googleServiceInfoPlist: RswiftResources.FileResource { .init(name: "GoogleService-Info", pathExtension: "plist", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Hell_Yeah_Somewhat_Calmer.wav`.
+    var hell_Yeah_Somewhat_CalmerWav: RswiftResources.FileResource { .init(name: "Hell_Yeah_Somewhat_Calmer", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `In_A_Hurry.wav`.
+    var in_A_HurryWav: RswiftResources.FileResource { .init(name: "In_A_Hurry", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Indeed.wav`.
+    var indeedWav: RswiftResources.FileResource { .init(name: "Indeed", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Insistently.wav`.
+    var insistentlyWav: RswiftResources.FileResource { .init(name: "Insistently", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Jingle_All_The_Way.wav`.
+    var jingle_All_The_WayWav: RswiftResources.FileResource { .init(name: "Jingle_All_The_Way", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Laser_Shoot.wav`.
+    var laser_ShootWav: RswiftResources.FileResource { .init(name: "Laser_Shoot", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Machine_Charge.wav`.
+    var machine_ChargeWav: RswiftResources.FileResource { .init(name: "Machine_Charge", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Magical_Twinkle.wav`.
+    var magical_TwinkleWav: RswiftResources.FileResource { .init(name: "Magical_Twinkle", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Marching_Heavy_Footed_Fat_Elephants.wav`.
+    var marching_Heavy_Footed_Fat_ElephantsWav: RswiftResources.FileResource { .init(name: "Marching_Heavy_Footed_Fat_Elephants", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Marimba_Descend.wav`.
+    var marimba_DescendWav: RswiftResources.FileResource { .init(name: "Marimba_Descend", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Marimba_Flutter_or_Shake.wav`.
+    var marimba_Flutter_or_ShakeWav: RswiftResources.FileResource { .init(name: "Marimba_Flutter_or_Shake", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Martian_Gun.wav`.
+    var martian_GunWav: RswiftResources.FileResource { .init(name: "Martian_Gun", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Martian_Scanner.wav`.
+    var martian_ScannerWav: RswiftResources.FileResource { .init(name: "Martian_Scanner", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Metallic.wav`.
+    var metallicWav: RswiftResources.FileResource { .init(name: "Metallic", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Nightguard.wav`.
+    var nightguardWav: RswiftResources.FileResource { .init(name: "Nightguard", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Not_Kiddin.wav`.
+    var not_KiddinWav: RswiftResources.FileResource { .init(name: "Not_Kiddin", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Open_Your_Eyes_And_See.wav`.
+    var open_Your_Eyes_And_SeeWav: RswiftResources.FileResource { .init(name: "Open_Your_Eyes_And_See", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Orchestral_Horns.wav`.
+    var orchestral_HornsWav: RswiftResources.FileResource { .init(name: "Orchestral_Horns", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Oringz.wav`.
+    var oringzWav: RswiftResources.FileResource { .init(name: "Oringz", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Pager_Beeps.wav`.
+    var pager_BeepsWav: RswiftResources.FileResource { .init(name: "Pager_Beeps", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `README.md`.
+    var readmeMd: RswiftResources.FileResource { .init(name: "README", pathExtension: "md", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Remembers_Me_Of_Asia.wav`.
+    var remembers_Me_Of_AsiaWav: RswiftResources.FileResource { .init(name: "Remembers_Me_Of_Asia", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Rise_And_Shine.wav`.
+    var rise_And_ShineWav: RswiftResources.FileResource { .init(name: "Rise_And_Shine", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Rush.wav`.
+    var rushWav: RswiftResources.FileResource { .init(name: "Rush", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Sci-Fi_Air_Raid_Alarm.wav`.
+    var sciFi_Air_Raid_AlarmWav: RswiftResources.FileResource { .init(name: "Sci-Fi_Air_Raid_Alarm", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Sci-Fi_Alarm.wav`.
+    var sciFi_AlarmWav: RswiftResources.FileResource { .init(name: "Sci-Fi_Alarm", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Sci-Fi_Alarm_Loop_1.wav`.
+    var sciFi_Alarm_Loop_1Wav: RswiftResources.FileResource { .init(name: "Sci-Fi_Alarm_Loop_1", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Sci-Fi_Alarm_Loop_2.wav`.
+    var sciFi_Alarm_Loop_2Wav: RswiftResources.FileResource { .init(name: "Sci-Fi_Alarm_Loop_2", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Sci-Fi_Alarm_Loop_3.wav`.
+    var sciFi_Alarm_Loop_3Wav: RswiftResources.FileResource { .init(name: "Sci-Fi_Alarm_Loop_3", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Sci-Fi_Alarm_Loop_4.wav`.
+    var sciFi_Alarm_Loop_4Wav: RswiftResources.FileResource { .init(name: "Sci-Fi_Alarm_Loop_4", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Sci-Fi_Computer_Console_Alarm.wav`.
+    var sciFi_Computer_Console_AlarmWav: RswiftResources.FileResource { .init(name: "Sci-Fi_Computer_Console_Alarm", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Sci-Fi_Console_Alarm.wav`.
+    var sciFi_Console_AlarmWav: RswiftResources.FileResource { .init(name: "Sci-Fi_Console_Alarm", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Sci-Fi_Eerie_Alarm.wav`.
+    var sciFi_Eerie_AlarmWav: RswiftResources.FileResource { .init(name: "Sci-Fi_Eerie_Alarm", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Sci-Fi_Engine_Shut_Down.wav`.
+    var sciFi_Engine_Shut_DownWav: RswiftResources.FileResource { .init(name: "Sci-Fi_Engine_Shut_Down", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Sci-Fi_Incoming_Message_Alert.wav`.
+    var sciFi_Incoming_Message_AlertWav: RswiftResources.FileResource { .init(name: "Sci-Fi_Incoming_Message_Alert", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Sci-Fi_Spaceship_Message.wav`.
+    var sciFi_Spaceship_MessageWav: RswiftResources.FileResource { .init(name: "Sci-Fi_Spaceship_Message", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Sci-Fi_Spaceship_Warm_Up.wav`.
+    var sciFi_Spaceship_Warm_UpWav: RswiftResources.FileResource { .init(name: "Sci-Fi_Spaceship_Warm_Up", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Sci-Fi_Warning.wav`.
+    var sciFi_WarningWav: RswiftResources.FileResource { .init(name: "Sci-Fi_Warning", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Signature_Corporate.wav`.
+    var signature_CorporateWav: RswiftResources.FileResource { .init(name: "Signature_Corporate", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Siri_Alert_Calibration_Needed.wav`.
+    var siri_Alert_Calibration_NeededWav: RswiftResources.FileResource { .init(name: "Siri_Alert_Calibration_Needed", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Siri_Alert_Device_Muted.wav`.
+    var siri_Alert_Device_MutedWav: RswiftResources.FileResource { .init(name: "Siri_Alert_Device_Muted", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Siri_Alert_Glucose_Dropping_Fast.wav`.
+    var siri_Alert_Glucose_Dropping_FastWav: RswiftResources.FileResource { .init(name: "Siri_Alert_Glucose_Dropping_Fast", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Siri_Alert_Glucose_Rising_Fast.wav`.
+    var siri_Alert_Glucose_Rising_FastWav: RswiftResources.FileResource { .init(name: "Siri_Alert_Glucose_Rising_Fast", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Siri_Alert_High_Glucose.wav`.
+    var siri_Alert_High_GlucoseWav: RswiftResources.FileResource { .init(name: "Siri_Alert_High_Glucose", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Siri_Alert_Low_Glucose.wav`.
+    var siri_Alert_Low_GlucoseWav: RswiftResources.FileResource { .init(name: "Siri_Alert_Low_Glucose", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Siri_Alert_Missed_Readings.wav`.
+    var siri_Alert_Missed_ReadingsWav: RswiftResources.FileResource { .init(name: "Siri_Alert_Missed_Readings", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Siri_Alert_Transmitter_Battery_Low.wav`.
+    var siri_Alert_Transmitter_Battery_LowWav: RswiftResources.FileResource { .init(name: "Siri_Alert_Transmitter_Battery_Low", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Siri_Alert_Urgent_High_Glucose.wav`.
+    var siri_Alert_Urgent_High_GlucoseWav: RswiftResources.FileResource { .init(name: "Siri_Alert_Urgent_High_Glucose", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Siri_Alert_Urgent_Low_Glucose.wav`.
+    var siri_Alert_Urgent_Low_GlucoseWav: RswiftResources.FileResource { .init(name: "Siri_Alert_Urgent_Low_Glucose", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Siri_Calibration_Needed.wav`.
+    var siri_Calibration_NeededWav: RswiftResources.FileResource { .init(name: "Siri_Calibration_Needed", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Siri_Device_Muted.wav`.
+    var siri_Device_MutedWav: RswiftResources.FileResource { .init(name: "Siri_Device_Muted", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Siri_Glucose_Dropping_Fast.wav`.
+    var siri_Glucose_Dropping_FastWav: RswiftResources.FileResource { .init(name: "Siri_Glucose_Dropping_Fast", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Siri_Glucose_Rising_Fast.wav`.
+    var siri_Glucose_Rising_FastWav: RswiftResources.FileResource { .init(name: "Siri_Glucose_Rising_Fast", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Siri_High_Glucose.wav`.
+    var siri_High_GlucoseWav: RswiftResources.FileResource { .init(name: "Siri_High_Glucose", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Siri_Low_Glucose.wav`.
+    var siri_Low_GlucoseWav: RswiftResources.FileResource { .init(name: "Siri_Low_Glucose", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Siri_Missed_Readings.wav`.
+    var siri_Missed_ReadingsWav: RswiftResources.FileResource { .init(name: "Siri_Missed_Readings", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Siri_Transmitter_Battery_Low.wav`.
+    var siri_Transmitter_Battery_LowWav: RswiftResources.FileResource { .init(name: "Siri_Transmitter_Battery_Low", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Siri_Urgent_High_Glucose.wav`.
+    var siri_Urgent_High_GlucoseWav: RswiftResources.FileResource { .init(name: "Siri_Urgent_High_Glucose", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Siri_Urgent_Low_Glucose.wav`.
+    var siri_Urgent_Low_GlucoseWav: RswiftResources.FileResource { .init(name: "Siri_Urgent_Low_Glucose", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Soft_Marimba_Pad_Positive.wav`.
+    var soft_Marimba_Pad_PositiveWav: RswiftResources.FileResource { .init(name: "Soft_Marimba_Pad_Positive", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Soft_Warm_Airy_Optimistic.wav`.
+    var soft_Warm_Airy_OptimisticWav: RswiftResources.FileResource { .init(name: "Soft_Warm_Airy_Optimistic", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Soft_Warm_Airy_Reassuring.wav`.
+    var soft_Warm_Airy_ReassuringWav: RswiftResources.FileResource { .init(name: "Soft_Warm_Airy_Reassuring", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Store_Door_Chime.wav`.
+    var store_Door_ChimeWav: RswiftResources.FileResource { .init(name: "Store_Door_Chime", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Sunny.wav`.
+    var sunnyWav: RswiftResources.FileResource { .init(name: "Sunny", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Thunder_Sound_FX.wav`.
+    var thunder_Sound_FXWav: RswiftResources.FileResource { .init(name: "Thunder_Sound_FX", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Time_Has_Come.wav`.
+    var time_Has_ComeWav: RswiftResources.FileResource { .init(name: "Time_Has_Come", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Tornado_Siren.wav`.
+    var tornado_SirenWav: RswiftResources.FileResource { .init(name: "Tornado_Siren", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Two_Turtle_Doves.wav`.
+    var two_Turtle_DovesWav: RswiftResources.FileResource { .init(name: "Two_Turtle_Doves", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Unpaved.wav`.
+    var unpavedWav: RswiftResources.FileResource { .init(name: "Unpaved", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Wake_Up_Will_You.wav`.
+    var wake_Up_Will_YouWav: RswiftResources.FileResource { .init(name: "Wake_Up_Will_You", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Win_Gain.wav`.
+    var win_GainWav: RswiftResources.FileResource { .init(name: "Win_Gain", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `Wrong_Answer.wav`.
+    var wrong_AnswerWav: RswiftResources.FileResource { .init(name: "Wrong_Answer", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `betterwakeup.wav`.
+    var betterwakeupWav: RswiftResources.FileResource { .init(name: "betterwakeup", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `bruteforce.wav`.
+    var bruteforceWav: RswiftResources.FileResource { .init(name: "bruteforce", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `logo-launchScreen@3x.png`.
+    var logoLaunchScreen3xPng: RswiftResources.FileResource { .init(name: "logo-launchScreen@3x", pathExtension: "png", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `modern2.wav`.
+    var modern2Wav: RswiftResources.FileResource { .init(name: "modern2", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `modernalarm.wav`.
+    var modernalarmWav: RswiftResources.FileResource { .init(name: "modernalarm", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `shorthigh1.wav`.
+    var shorthigh1Wav: RswiftResources.FileResource { .init(name: "shorthigh1", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `shorthigh2.wav`.
+    var shorthigh2Wav: RswiftResources.FileResource { .init(name: "shorthigh2", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `shorthigh3.wav`.
+    var shorthigh3Wav: RswiftResources.FileResource { .init(name: "shorthigh3", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `shorthigh4.wav`.
+    var shorthigh4Wav: RswiftResources.FileResource { .init(name: "shorthigh4", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `shortlow1.wav`.
+    var shortlow1Wav: RswiftResources.FileResource { .init(name: "shortlow1", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `shortlow2.wav`.
+    var shortlow2Wav: RswiftResources.FileResource { .init(name: "shortlow2", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `shortlow3.wav`.
+    var shortlow3Wav: RswiftResources.FileResource { .init(name: "shortlow3", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `shortlow4.wav`.
+    var shortlow4Wav: RswiftResources.FileResource { .init(name: "shortlow4", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `spaceship.wav`.
+    var spaceshipWav: RswiftResources.FileResource { .init(name: "spaceship", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `xdripalert.wav`.
+    var xdripalertWav: RswiftResources.FileResource { .init(name: "xdripalert", pathExtension: "wav", bundle: bundle, locale: LocaleReference.none) }
+  }
+
+  /// This `_R.segue` struct is generated, and contains static references to 7 view controllers.
   struct segue {
+    let alertSettingsViewController = alertSettingsViewController()
+    let alertTypeSettingsViewController = alertTypeSettingsViewController()
+    let alertTypesSettingsViewController = alertTypesSettingsViewController()
+    let alertsSettingsViewController = alertsSettingsViewController()
+    let newAlertSettingsViewController = newAlertSettingsViewController()
+    let rootViewController = rootViewController()
+    let totalAlertSettingsViewController = totalAlertSettingsViewController()
+
     /// This struct is generated for `AlertSettingsViewController`, and contains static references to 2 segues.
     struct alertSettingsViewController {
+
       /// Segue identifier `alertToNewAlertSettings`.
-      static let alertToNewAlertSettings: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, AlertSettingsViewController, NewAlertSettingsViewController> = Rswift.StoryboardSegueIdentifier(identifier: "alertToNewAlertSettings")
+      var alertToNewAlertSettings: RswiftResources.SegueIdentifier<UIKit.UIStoryboardSegue, AlertSettingsViewController, NewAlertSettingsViewController> { .init(identifier: "alertToNewAlertSettings") }
+
       /// Segue identifier `unwindToAlertsSettingsViewController`.
-      static let unwindToAlertsSettingsViewController: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, AlertSettingsViewController, UIKit.UIViewController> = Rswift.StoryboardSegueIdentifier(identifier: "unwindToAlertsSettingsViewController")
-
-      #if os(iOS) || os(tvOS)
-      /// Optionally returns a typed version of segue `alertToNewAlertSettings`.
-      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
-      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      static func alertToNewAlertSettings(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, AlertSettingsViewController, NewAlertSettingsViewController>? {
-        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.alertSettingsViewController.alertToNewAlertSettings, segue: segue)
-      }
-      #endif
-
-      #if os(iOS) || os(tvOS)
-      /// Optionally returns a typed version of segue `unwindToAlertsSettingsViewController`.
-      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
-      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      static func unwindToAlertsSettingsViewController(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, AlertSettingsViewController, UIKit.UIViewController>? {
-        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.alertSettingsViewController.unwindToAlertsSettingsViewController, segue: segue)
-      }
-      #endif
-
-      fileprivate init() {}
+      var unwindToAlertsSettingsViewController: RswiftResources.SegueIdentifier<UIKit.UIStoryboardSegue, AlertSettingsViewController, UIKit.UIViewController> { .init(identifier: "unwindToAlertsSettingsViewController") }
     }
 
     /// This struct is generated for `AlertTypeSettingsViewController`, and contains static references to 1 segues.
     struct alertTypeSettingsViewController {
+
       /// Segue identifier `unwindToAlertTypesSettingsViewController`.
-      static let unwindToAlertTypesSettingsViewController: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, AlertTypeSettingsViewController, UIKit.UIViewController> = Rswift.StoryboardSegueIdentifier(identifier: "unwindToAlertTypesSettingsViewController")
-
-      #if os(iOS) || os(tvOS)
-      /// Optionally returns a typed version of segue `unwindToAlertTypesSettingsViewController`.
-      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
-      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      static func unwindToAlertTypesSettingsViewController(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, AlertTypeSettingsViewController, UIKit.UIViewController>? {
-        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.alertTypeSettingsViewController.unwindToAlertTypesSettingsViewController, segue: segue)
-      }
-      #endif
-
-      fileprivate init() {}
+      var unwindToAlertTypesSettingsViewController: RswiftResources.SegueIdentifier<UIKit.UIStoryboardSegue, AlertTypeSettingsViewController, UIKit.UIViewController> { .init(identifier: "unwindToAlertTypesSettingsViewController") }
     }
 
     /// This struct is generated for `AlertTypesSettingsViewController`, and contains static references to 1 segues.
-    struct xdripAlertTypesSettingsViewController {
+    struct alertTypesSettingsViewController {
+
       /// Segue identifier `alertTypesToAlertTypeSettings`.
-      static let alertTypesToAlertTypeSettings: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, xdrip.AlertTypesSettingsViewController, AlertTypeSettingsViewController> = Rswift.StoryboardSegueIdentifier(identifier: "alertTypesToAlertTypeSettings")
-
-      #if os(iOS) || os(tvOS)
-      /// Optionally returns a typed version of segue `alertTypesToAlertTypeSettings`.
-      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
-      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      static func alertTypesToAlertTypeSettings(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, xdrip.AlertTypesSettingsViewController, AlertTypeSettingsViewController>? {
-        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.xdripAlertTypesSettingsViewController.alertTypesToAlertTypeSettings, segue: segue)
-      }
-      #endif
-
-      fileprivate init() {}
+      var alertTypesToAlertTypeSettings: RswiftResources.SegueIdentifier<UIKit.UIStoryboardSegue, xdrip.AlertTypesSettingsViewController, AlertTypeSettingsViewController> { .init(identifier: "alertTypesToAlertTypeSettings") }
     }
 
     /// This struct is generated for `AlertsSettingsViewController`, and contains static references to 1 segues.
-    struct xdripAlertsSettingsViewController {
+    struct alertsSettingsViewController {
+
       /// Segue identifier `alertsToAlertSettings`.
-      static let alertsToAlertSettings: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, xdrip.AlertsSettingsViewController, AlertSettingsViewController> = Rswift.StoryboardSegueIdentifier(identifier: "alertsToAlertSettings")
-
-      #if os(iOS) || os(tvOS)
-      /// Optionally returns a typed version of segue `alertsToAlertSettings`.
-      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
-      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      static func alertsToAlertSettings(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, xdrip.AlertsSettingsViewController, AlertSettingsViewController>? {
-        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.xdripAlertsSettingsViewController.alertsToAlertSettings, segue: segue)
-      }
-      #endif
-
-      fileprivate init() {}
+      var alertsToAlertSettings: RswiftResources.SegueIdentifier<UIKit.UIStoryboardSegue, xdrip.AlertsSettingsViewController, AlertSettingsViewController> { .init(identifier: "alertsToAlertSettings") }
     }
 
     /// This struct is generated for `NewAlertSettingsViewController`, and contains static references to 1 segues.
     struct newAlertSettingsViewController {
+
       /// Segue identifier `unwindToAlertsSettingsViewController`.
-      static let unwindToAlertsSettingsViewController: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, NewAlertSettingsViewController, UIKit.UIViewController> = Rswift.StoryboardSegueIdentifier(identifier: "unwindToAlertsSettingsViewController")
-
-      #if os(iOS) || os(tvOS)
-      /// Optionally returns a typed version of segue `unwindToAlertsSettingsViewController`.
-      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
-      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      static func unwindToAlertsSettingsViewController(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, NewAlertSettingsViewController, UIKit.UIViewController>? {
-        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.newAlertSettingsViewController.unwindToAlertsSettingsViewController, segue: segue)
-      }
-      #endif
-
-      fileprivate init() {}
+      var unwindToAlertsSettingsViewController: RswiftResources.SegueIdentifier<UIKit.UIStoryboardSegue, NewAlertSettingsViewController, UIKit.UIViewController> { .init(identifier: "unwindToAlertsSettingsViewController") }
     }
 
     /// This struct is generated for `RootViewController`, and contains static references to 1 segues.
     struct rootViewController {
+
       /// Segue identifier `ChartDetails`.
-      static let chartDetails: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, RootViewController, ChartDetailsViewController> = Rswift.StoryboardSegueIdentifier(identifier: "ChartDetails")
-
-      #if os(iOS) || os(tvOS)
-      /// Optionally returns a typed version of segue `ChartDetails`.
-      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
-      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      static func chartDetails(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, RootViewController, ChartDetailsViewController>? {
-        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.rootViewController.chartDetails, segue: segue)
-      }
-      #endif
-
-      fileprivate init() {}
+      var chartDetails: RswiftResources.SegueIdentifier<UIKit.UIStoryboardSegue, RootViewController, ChartDetailsViewController> { .init(identifier: "ChartDetails") }
     }
 
     /// This struct is generated for `TotalAlertSettingsViewController`, and contains static references to 2 segues.
     struct totalAlertSettingsViewController {
+
       /// Segue identifier `alertTypesSettings`.
-      static let alertTypesSettings: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, TotalAlertSettingsViewController, xdrip.AlertTypesSettingsViewController> = Rswift.StoryboardSegueIdentifier(identifier: "alertTypesSettings")
+      var alertTypesSettings: RswiftResources.SegueIdentifier<UIKit.UIStoryboardSegue, TotalAlertSettingsViewController, xdrip.AlertTypesSettingsViewController> { .init(identifier: "alertTypesSettings") }
+
       /// Segue identifier `alertsSettings`.
-      static let alertsSettings: Rswift.StoryboardSegueIdentifier<UIKit.UIStoryboardSegue, TotalAlertSettingsViewController, xdrip.AlertsSettingsViewController> = Rswift.StoryboardSegueIdentifier(identifier: "alertsSettings")
-
-      #if os(iOS) || os(tvOS)
-      /// Optionally returns a typed version of segue `alertTypesSettings`.
-      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
-      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      static func alertTypesSettings(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, TotalAlertSettingsViewController, xdrip.AlertTypesSettingsViewController>? {
-        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.totalAlertSettingsViewController.alertTypesSettings, segue: segue)
-      }
-      #endif
-
-      #if os(iOS) || os(tvOS)
-      /// Optionally returns a typed version of segue `alertsSettings`.
-      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
-      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      static func alertsSettings(segue: UIKit.UIStoryboardSegue) -> Rswift.TypedStoryboardSegueInfo<UIKit.UIStoryboardSegue, TotalAlertSettingsViewController, xdrip.AlertsSettingsViewController>? {
-        return Rswift.TypedStoryboardSegueInfo(segueIdentifier: R.segue.totalAlertSettingsViewController.alertsSettings, segue: segue)
-      }
-      #endif
-
-      fileprivate init() {}
+      var alertsSettings: RswiftResources.SegueIdentifier<UIKit.UIStoryboardSegue, TotalAlertSettingsViewController, xdrip.AlertsSettingsViewController> { .init(identifier: "alertsSettings") }
     }
-
-    fileprivate init() {}
-  }
-  #endif
-
-  #if os(iOS) || os(tvOS)
-  /// This `R.storyboard` struct is generated, and contains static references to 2 storyboards.
-  struct storyboard {
-    /// Storyboard `LaunchScreen`.
-    static let launchScreen = _R.storyboard.launchScreen()
-    /// Storyboard `Main`.
-    static let main = _R.storyboard.main()
-
-    #if os(iOS) || os(tvOS)
-    /// `UIStoryboard(name: "LaunchScreen", bundle: ...)`
-    static func launchScreen(_: Void = ()) -> UIKit.UIStoryboard {
-      return UIKit.UIStoryboard(resource: R.storyboard.launchScreen)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIStoryboard(name: "Main", bundle: ...)`
-    static func main(_: Void = ()) -> UIKit.UIStoryboard {
-      return UIKit.UIStoryboard(resource: R.storyboard.main)
-    }
-    #endif
-
-    fileprivate init() {}
-  }
-  #endif
-
-  /// This `R.entitlements` struct is generated, and contains static references to 3 properties.
-  struct entitlements {
-    static let comAppleDeveloperHealthkit = true
-
-    struct comAppleDeveloperNfcReadersessionFormats {
-      static let taG = infoPlistString(path: ["com.apple.developer.nfc.readersession.formats"], key: "TAG") ?? "TAG"
-
-      fileprivate init() {}
-    }
-
-    struct comAppleSecurityApplicationGroups {
-      static let groupComDEVELOPMENT_TEAMLoopkitLoopGroup = infoPlistString(path: ["com.apple.security.application-groups"], key: "group.com.${DEVELOPMENT_TEAM}.loopkit.LoopGroup") ?? "group.com.${DEVELOPMENT_TEAM}.loopkit.LoopGroup"
-
-      fileprivate init() {}
-    }
-
-    fileprivate init() {}
   }
 
-  /// This `R.file` struct is generated, and contains static references to 126 files.
-  struct file {
-    /// Resource file `1-millisecond-of-silence.wav`.
-    static let millisecondOfSilenceWav = Rswift.FileResource(bundle: R.hostingBundle, name: "1-millisecond-of-silence", pathExtension: "wav")
-    /// Resource file `20ms-of-silence.wav`.
-    static let msOfSilenceWav = Rswift.FileResource(bundle: R.hostingBundle, name: "20ms-of-silence", pathExtension: "wav")
-    /// Resource file `Alarm_Buzzer.wav`.
-    static let alarm_BuzzerWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Alarm_Buzzer", pathExtension: "wav")
-    /// Resource file `Alarm_Clock.wav`.
-    static let alarm_ClockWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Alarm_Clock", pathExtension: "wav")
-    /// Resource file `Alert_Tone_Busy.wav`.
-    static let alert_Tone_BusyWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Alert_Tone_Busy", pathExtension: "wav")
-    /// Resource file `Alert_Tone_Ringtone_1.wav`.
-    static let alert_Tone_Ringtone_1Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "Alert_Tone_Ringtone_1", pathExtension: "wav")
-    /// Resource file `Alert_Tone_Ringtone_2.wav`.
-    static let alert_Tone_Ringtone_2Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "Alert_Tone_Ringtone_2", pathExtension: "wav")
-    /// Resource file `Alien_Siren.wav`.
-    static let alien_SirenWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Alien_Siren", pathExtension: "wav")
-    /// Resource file `Ambulance.wav`.
-    static let ambulanceWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Ambulance", pathExtension: "wav")
-    /// Resource file `Analog_Watch_Alarm.wav`.
-    static let analog_Watch_AlarmWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Analog_Watch_Alarm", pathExtension: "wav")
-    /// Resource file `Big_Clock_Ticking.wav`.
-    static let big_Clock_TickingWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Big_Clock_Ticking", pathExtension: "wav")
-    /// Resource file `Burglar_Alarm_Siren_1.wav`.
-    static let burglar_Alarm_Siren_1Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "Burglar_Alarm_Siren_1", pathExtension: "wav")
-    /// Resource file `Burglar_Alarm_Siren_2.wav`.
-    static let burglar_Alarm_Siren_2Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "Burglar_Alarm_Siren_2", pathExtension: "wav")
-    /// Resource file `CSFX-2_Alarm.wav`.
-    static let csfx2_AlarmWav = Rswift.FileResource(bundle: R.hostingBundle, name: "CSFX-2_Alarm", pathExtension: "wav")
-    /// Resource file `Cartoon_Ascend_Climb_Sneaky.wav`.
-    static let cartoon_Ascend_Climb_SneakyWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Ascend_Climb_Sneaky", pathExtension: "wav")
-    /// Resource file `Cartoon_Ascend_Then_Descend.wav`.
-    static let cartoon_Ascend_Then_DescendWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Ascend_Then_Descend", pathExtension: "wav")
-    /// Resource file `Cartoon_Bounce_To_Ceiling.wav`.
-    static let cartoon_Bounce_To_CeilingWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Bounce_To_Ceiling", pathExtension: "wav")
-    /// Resource file `Cartoon_Dreamy_Glissando_Harp.wav`.
-    static let cartoon_Dreamy_Glissando_HarpWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Dreamy_Glissando_Harp", pathExtension: "wav")
-    /// Resource file `Cartoon_Fail_Strings_Trumpet.wav`.
-    static let cartoon_Fail_Strings_TrumpetWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Fail_Strings_Trumpet", pathExtension: "wav")
-    /// Resource file `Cartoon_Machine_Clumsy_Loop.wav`.
-    static let cartoon_Machine_Clumsy_LoopWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Machine_Clumsy_Loop", pathExtension: "wav")
-    /// Resource file `Cartoon_Siren.wav`.
-    static let cartoon_SirenWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Siren", pathExtension: "wav")
-    /// Resource file `Cartoon_Tip_Toe_Sneaky_Walk.wav`.
-    static let cartoon_Tip_Toe_Sneaky_WalkWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Tip_Toe_Sneaky_Walk", pathExtension: "wav")
-    /// Resource file `Cartoon_Uh_Oh.wav`.
-    static let cartoon_Uh_OhWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Uh_Oh", pathExtension: "wav")
-    /// Resource file `Cartoon_Villain_Horns.wav`.
-    static let cartoon_Villain_HornsWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Cartoon_Villain_Horns", pathExtension: "wav")
-    /// Resource file `Cell_Phone_Ring_Tone.wav`.
-    static let cell_Phone_Ring_ToneWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Cell_Phone_Ring_Tone", pathExtension: "wav")
-    /// Resource file `Chimes_Glassy.wav`.
-    static let chimes_GlassyWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Chimes_Glassy", pathExtension: "wav")
-    /// Resource file `Computer_Magic.wav`.
-    static let computer_MagicWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Computer_Magic", pathExtension: "wav")
-    /// Resource file `Cuckoo_Clock.wav`.
-    static let cuckoo_ClockWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Cuckoo_Clock", pathExtension: "wav")
-    /// Resource file `Dhol_Shuffleloop.wav`.
-    static let dhol_ShuffleloopWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Dhol_Shuffleloop", pathExtension: "wav")
-    /// Resource file `Discreet.wav`.
-    static let discreetWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Discreet", pathExtension: "wav")
-    /// Resource file `Early_Sunrise.wav`.
-    static let early_SunriseWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Early_Sunrise", pathExtension: "wav")
-    /// Resource file `Emergency_Alarm.wav`.
-    static let emergency_AlarmWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Emergency_Alarm", pathExtension: "wav")
-    /// Resource file `Emergency_Alarm_Carbon_Monoxide.wav`.
-    static let emergency_Alarm_Carbon_MonoxideWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Emergency_Alarm_Carbon_Monoxide", pathExtension: "wav")
-    /// Resource file `Emergency_Alarm_Siren.wav`.
-    static let emergency_Alarm_SirenWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Emergency_Alarm_Siren", pathExtension: "wav")
-    /// Resource file `Ending_Reached.wav`.
-    static let ending_ReachedWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Ending_Reached", pathExtension: "wav")
-    /// Resource file `Fly.wav`.
-    static let flyWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Fly", pathExtension: "wav")
-    /// Resource file `Ghost_Hover.wav`.
-    static let ghost_HoverWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Ghost_Hover", pathExtension: "wav")
-    /// Resource file `Good_Morning.wav`.
-    static let good_MorningWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Good_Morning", pathExtension: "wav")
-    /// Resource file `GoogleService-Info.plist`.
-    static let googleServiceInfoPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "GoogleService-Info", pathExtension: "plist")
-    /// Resource file `Hell_Yeah_Somewhat_Calmer.wav`.
-    static let hell_Yeah_Somewhat_CalmerWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Hell_Yeah_Somewhat_Calmer", pathExtension: "wav")
-    /// Resource file `In_A_Hurry.wav`.
-    static let in_A_HurryWav = Rswift.FileResource(bundle: R.hostingBundle, name: "In_A_Hurry", pathExtension: "wav")
-    /// Resource file `Indeed.wav`.
-    static let indeedWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Indeed", pathExtension: "wav")
-    /// Resource file `Insistently.wav`.
-    static let insistentlyWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Insistently", pathExtension: "wav")
-    /// Resource file `Jingle_All_The_Way.wav`.
-    static let jingle_All_The_WayWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Jingle_All_The_Way", pathExtension: "wav")
-    /// Resource file `Laser_Shoot.wav`.
-    static let laser_ShootWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Laser_Shoot", pathExtension: "wav")
-    /// Resource file `Machine_Charge.wav`.
-    static let machine_ChargeWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Machine_Charge", pathExtension: "wav")
-    /// Resource file `Magical_Twinkle.wav`.
-    static let magical_TwinkleWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Magical_Twinkle", pathExtension: "wav")
-    /// Resource file `Marching_Heavy_Footed_Fat_Elephants.wav`.
-    static let marching_Heavy_Footed_Fat_ElephantsWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Marching_Heavy_Footed_Fat_Elephants", pathExtension: "wav")
-    /// Resource file `Marimba_Descend.wav`.
-    static let marimba_DescendWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Marimba_Descend", pathExtension: "wav")
-    /// Resource file `Marimba_Flutter_or_Shake.wav`.
-    static let marimba_Flutter_or_ShakeWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Marimba_Flutter_or_Shake", pathExtension: "wav")
-    /// Resource file `Martian_Gun.wav`.
-    static let martian_GunWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Martian_Gun", pathExtension: "wav")
-    /// Resource file `Martian_Scanner.wav`.
-    static let martian_ScannerWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Martian_Scanner", pathExtension: "wav")
-    /// Resource file `Metallic.wav`.
-    static let metallicWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Metallic", pathExtension: "wav")
-    /// Resource file `Nightguard.wav`.
-    static let nightguardWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Nightguard", pathExtension: "wav")
-    /// Resource file `Not_Kiddin.wav`.
-    static let not_KiddinWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Not_Kiddin", pathExtension: "wav")
-    /// Resource file `Open_Your_Eyes_And_See.wav`.
-    static let open_Your_Eyes_And_SeeWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Open_Your_Eyes_And_See", pathExtension: "wav")
-    /// Resource file `Orchestral_Horns.wav`.
-    static let orchestral_HornsWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Orchestral_Horns", pathExtension: "wav")
-    /// Resource file `Oringz.wav`.
-    static let oringzWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Oringz", pathExtension: "wav")
-    /// Resource file `Pager_Beeps.wav`.
-    static let pager_BeepsWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Pager_Beeps", pathExtension: "wav")
-    /// Resource file `README.md`.
-    static let readmeMd = Rswift.FileResource(bundle: R.hostingBundle, name: "README", pathExtension: "md")
-    /// Resource file `Remembers_Me_Of_Asia.wav`.
-    static let remembers_Me_Of_AsiaWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Remembers_Me_Of_Asia", pathExtension: "wav")
-    /// Resource file `Rise_And_Shine.wav`.
-    static let rise_And_ShineWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Rise_And_Shine", pathExtension: "wav")
-    /// Resource file `Rush.wav`.
-    static let rushWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Rush", pathExtension: "wav")
-    /// Resource file `Sci-Fi_Air_Raid_Alarm.wav`.
-    static let sciFi_Air_Raid_AlarmWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Air_Raid_Alarm", pathExtension: "wav")
-    /// Resource file `Sci-Fi_Alarm.wav`.
-    static let sciFi_AlarmWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Alarm", pathExtension: "wav")
-    /// Resource file `Sci-Fi_Alarm_Loop_1.wav`.
-    static let sciFi_Alarm_Loop_1Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Alarm_Loop_1", pathExtension: "wav")
-    /// Resource file `Sci-Fi_Alarm_Loop_2.wav`.
-    static let sciFi_Alarm_Loop_2Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Alarm_Loop_2", pathExtension: "wav")
-    /// Resource file `Sci-Fi_Alarm_Loop_3.wav`.
-    static let sciFi_Alarm_Loop_3Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Alarm_Loop_3", pathExtension: "wav")
-    /// Resource file `Sci-Fi_Alarm_Loop_4.wav`.
-    static let sciFi_Alarm_Loop_4Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Alarm_Loop_4", pathExtension: "wav")
-    /// Resource file `Sci-Fi_Computer_Console_Alarm.wav`.
-    static let sciFi_Computer_Console_AlarmWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Computer_Console_Alarm", pathExtension: "wav")
-    /// Resource file `Sci-Fi_Console_Alarm.wav`.
-    static let sciFi_Console_AlarmWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Console_Alarm", pathExtension: "wav")
-    /// Resource file `Sci-Fi_Eerie_Alarm.wav`.
-    static let sciFi_Eerie_AlarmWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Eerie_Alarm", pathExtension: "wav")
-    /// Resource file `Sci-Fi_Engine_Shut_Down.wav`.
-    static let sciFi_Engine_Shut_DownWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Engine_Shut_Down", pathExtension: "wav")
-    /// Resource file `Sci-Fi_Incoming_Message_Alert.wav`.
-    static let sciFi_Incoming_Message_AlertWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Incoming_Message_Alert", pathExtension: "wav")
-    /// Resource file `Sci-Fi_Spaceship_Message.wav`.
-    static let sciFi_Spaceship_MessageWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Spaceship_Message", pathExtension: "wav")
-    /// Resource file `Sci-Fi_Spaceship_Warm_Up.wav`.
-    static let sciFi_Spaceship_Warm_UpWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Spaceship_Warm_Up", pathExtension: "wav")
-    /// Resource file `Sci-Fi_Warning.wav`.
-    static let sciFi_WarningWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sci-Fi_Warning", pathExtension: "wav")
-    /// Resource file `Signature_Corporate.wav`.
-    static let signature_CorporateWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Signature_Corporate", pathExtension: "wav")
-    /// Resource file `Siri_Alert_Calibration_Needed.wav`.
-    static let siri_Alert_Calibration_NeededWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Calibration_Needed", pathExtension: "wav")
-    /// Resource file `Siri_Alert_Device_Muted.wav`.
-    static let siri_Alert_Device_MutedWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Device_Muted", pathExtension: "wav")
-    /// Resource file `Siri_Alert_Glucose_Dropping_Fast.wav`.
-    static let siri_Alert_Glucose_Dropping_FastWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Glucose_Dropping_Fast", pathExtension: "wav")
-    /// Resource file `Siri_Alert_Glucose_Rising_Fast.wav`.
-    static let siri_Alert_Glucose_Rising_FastWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Glucose_Rising_Fast", pathExtension: "wav")
-    /// Resource file `Siri_Alert_High_Glucose.wav`.
-    static let siri_Alert_High_GlucoseWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_High_Glucose", pathExtension: "wav")
-    /// Resource file `Siri_Alert_Low_Glucose.wav`.
-    static let siri_Alert_Low_GlucoseWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Low_Glucose", pathExtension: "wav")
-    /// Resource file `Siri_Alert_Missed_Readings.wav`.
-    static let siri_Alert_Missed_ReadingsWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Missed_Readings", pathExtension: "wav")
-    /// Resource file `Siri_Alert_Transmitter_Battery_Low.wav`.
-    static let siri_Alert_Transmitter_Battery_LowWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Transmitter_Battery_Low", pathExtension: "wav")
-    /// Resource file `Siri_Alert_Urgent_High_Glucose.wav`.
-    static let siri_Alert_Urgent_High_GlucoseWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Urgent_High_Glucose", pathExtension: "wav")
-    /// Resource file `Siri_Alert_Urgent_Low_Glucose.wav`.
-    static let siri_Alert_Urgent_Low_GlucoseWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Alert_Urgent_Low_Glucose", pathExtension: "wav")
-    /// Resource file `Siri_Calibration_Needed.wav`.
-    static let siri_Calibration_NeededWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Calibration_Needed", pathExtension: "wav")
-    /// Resource file `Siri_Device_Muted.wav`.
-    static let siri_Device_MutedWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Device_Muted", pathExtension: "wav")
-    /// Resource file `Siri_Glucose_Dropping_Fast.wav`.
-    static let siri_Glucose_Dropping_FastWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Glucose_Dropping_Fast", pathExtension: "wav")
-    /// Resource file `Siri_Glucose_Rising_Fast.wav`.
-    static let siri_Glucose_Rising_FastWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Glucose_Rising_Fast", pathExtension: "wav")
-    /// Resource file `Siri_High_Glucose.wav`.
-    static let siri_High_GlucoseWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_High_Glucose", pathExtension: "wav")
-    /// Resource file `Siri_Low_Glucose.wav`.
-    static let siri_Low_GlucoseWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Low_Glucose", pathExtension: "wav")
-    /// Resource file `Siri_Missed_Readings.wav`.
-    static let siri_Missed_ReadingsWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Missed_Readings", pathExtension: "wav")
-    /// Resource file `Siri_Transmitter_Battery_Low.wav`.
-    static let siri_Transmitter_Battery_LowWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Transmitter_Battery_Low", pathExtension: "wav")
-    /// Resource file `Siri_Urgent_High_Glucose.wav`.
-    static let siri_Urgent_High_GlucoseWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Urgent_High_Glucose", pathExtension: "wav")
-    /// Resource file `Siri_Urgent_Low_Glucose.wav`.
-    static let siri_Urgent_Low_GlucoseWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Siri_Urgent_Low_Glucose", pathExtension: "wav")
-    /// Resource file `Soft_Marimba_Pad_Positive.wav`.
-    static let soft_Marimba_Pad_PositiveWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Soft_Marimba_Pad_Positive", pathExtension: "wav")
-    /// Resource file `Soft_Warm_Airy_Optimistic.wav`.
-    static let soft_Warm_Airy_OptimisticWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Soft_Warm_Airy_Optimistic", pathExtension: "wav")
-    /// Resource file `Soft_Warm_Airy_Reassuring.wav`.
-    static let soft_Warm_Airy_ReassuringWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Soft_Warm_Airy_Reassuring", pathExtension: "wav")
-    /// Resource file `Store_Door_Chime.wav`.
-    static let store_Door_ChimeWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Store_Door_Chime", pathExtension: "wav")
-    /// Resource file `Sunny.wav`.
-    static let sunnyWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Sunny", pathExtension: "wav")
-    /// Resource file `Thunder_Sound_FX.wav`.
-    static let thunder_Sound_FXWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Thunder_Sound_FX", pathExtension: "wav")
-    /// Resource file `Time_Has_Come.wav`.
-    static let time_Has_ComeWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Time_Has_Come", pathExtension: "wav")
-    /// Resource file `Tornado_Siren.wav`.
-    static let tornado_SirenWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Tornado_Siren", pathExtension: "wav")
-    /// Resource file `Two_Turtle_Doves.wav`.
-    static let two_Turtle_DovesWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Two_Turtle_Doves", pathExtension: "wav")
-    /// Resource file `Unpaved.wav`.
-    static let unpavedWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Unpaved", pathExtension: "wav")
-    /// Resource file `Wake_Up_Will_You.wav`.
-    static let wake_Up_Will_YouWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Wake_Up_Will_You", pathExtension: "wav")
-    /// Resource file `Win_Gain.wav`.
-    static let win_GainWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Win_Gain", pathExtension: "wav")
-    /// Resource file `Wrong_Answer.wav`.
-    static let wrong_AnswerWav = Rswift.FileResource(bundle: R.hostingBundle, name: "Wrong_Answer", pathExtension: "wav")
-    /// Resource file `betterwakeup.wav`.
-    static let betterwakeupWav = Rswift.FileResource(bundle: R.hostingBundle, name: "betterwakeup", pathExtension: "wav")
-    /// Resource file `bruteforce.wav`.
-    static let bruteforceWav = Rswift.FileResource(bundle: R.hostingBundle, name: "bruteforce", pathExtension: "wav")
-    /// Resource file `logo-launchScreen@3x.png`.
-    static let logoLaunchScreen3xPng = Rswift.FileResource(bundle: R.hostingBundle, name: "logo-launchScreen@3x", pathExtension: "png")
-    /// Resource file `modern2.wav`.
-    static let modern2Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "modern2", pathExtension: "wav")
-    /// Resource file `modernalarm.wav`.
-    static let modernalarmWav = Rswift.FileResource(bundle: R.hostingBundle, name: "modernalarm", pathExtension: "wav")
-    /// Resource file `shorthigh1.wav`.
-    static let shorthigh1Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "shorthigh1", pathExtension: "wav")
-    /// Resource file `shorthigh2.wav`.
-    static let shorthigh2Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "shorthigh2", pathExtension: "wav")
-    /// Resource file `shorthigh3.wav`.
-    static let shorthigh3Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "shorthigh3", pathExtension: "wav")
-    /// Resource file `shorthigh4.wav`.
-    static let shorthigh4Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "shorthigh4", pathExtension: "wav")
-    /// Resource file `shortlow1.wav`.
-    static let shortlow1Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "shortlow1", pathExtension: "wav")
-    /// Resource file `shortlow2.wav`.
-    static let shortlow2Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "shortlow2", pathExtension: "wav")
-    /// Resource file `shortlow3.wav`.
-    static let shortlow3Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "shortlow3", pathExtension: "wav")
-    /// Resource file `shortlow4.wav`.
-    static let shortlow4Wav = Rswift.FileResource(bundle: R.hostingBundle, name: "shortlow4", pathExtension: "wav")
-    /// Resource file `spaceship.wav`.
-    static let spaceshipWav = Rswift.FileResource(bundle: R.hostingBundle, name: "spaceship", pathExtension: "wav")
-    /// Resource file `xdripalert.wav`.
-    static let xdripalertWav = Rswift.FileResource(bundle: R.hostingBundle, name: "xdripalert", pathExtension: "wav")
-
-    /// `bundle.url(forResource: "1-millisecond-of-silence", withExtension: "wav")`
-    static func millisecondOfSilenceWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.millisecondOfSilenceWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "20ms-of-silence", withExtension: "wav")`
-    static func msOfSilenceWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.msOfSilenceWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Alarm_Buzzer", withExtension: "wav")`
-    static func alarm_BuzzerWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.alarm_BuzzerWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Alarm_Clock", withExtension: "wav")`
-    static func alarm_ClockWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.alarm_ClockWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Alert_Tone_Busy", withExtension: "wav")`
-    static func alert_Tone_BusyWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.alert_Tone_BusyWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Alert_Tone_Ringtone_1", withExtension: "wav")`
-    static func alert_Tone_Ringtone_1Wav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.alert_Tone_Ringtone_1Wav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Alert_Tone_Ringtone_2", withExtension: "wav")`
-    static func alert_Tone_Ringtone_2Wav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.alert_Tone_Ringtone_2Wav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Alien_Siren", withExtension: "wav")`
-    static func alien_SirenWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.alien_SirenWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Ambulance", withExtension: "wav")`
-    static func ambulanceWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.ambulanceWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Analog_Watch_Alarm", withExtension: "wav")`
-    static func analog_Watch_AlarmWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.analog_Watch_AlarmWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Big_Clock_Ticking", withExtension: "wav")`
-    static func big_Clock_TickingWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.big_Clock_TickingWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Burglar_Alarm_Siren_1", withExtension: "wav")`
-    static func burglar_Alarm_Siren_1Wav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.burglar_Alarm_Siren_1Wav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Burglar_Alarm_Siren_2", withExtension: "wav")`
-    static func burglar_Alarm_Siren_2Wav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.burglar_Alarm_Siren_2Wav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "CSFX-2_Alarm", withExtension: "wav")`
-    static func csfx2_AlarmWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.csfx2_AlarmWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Cartoon_Ascend_Climb_Sneaky", withExtension: "wav")`
-    static func cartoon_Ascend_Climb_SneakyWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.cartoon_Ascend_Climb_SneakyWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Cartoon_Ascend_Then_Descend", withExtension: "wav")`
-    static func cartoon_Ascend_Then_DescendWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.cartoon_Ascend_Then_DescendWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Cartoon_Bounce_To_Ceiling", withExtension: "wav")`
-    static func cartoon_Bounce_To_CeilingWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.cartoon_Bounce_To_CeilingWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Cartoon_Dreamy_Glissando_Harp", withExtension: "wav")`
-    static func cartoon_Dreamy_Glissando_HarpWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.cartoon_Dreamy_Glissando_HarpWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Cartoon_Fail_Strings_Trumpet", withExtension: "wav")`
-    static func cartoon_Fail_Strings_TrumpetWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.cartoon_Fail_Strings_TrumpetWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Cartoon_Machine_Clumsy_Loop", withExtension: "wav")`
-    static func cartoon_Machine_Clumsy_LoopWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.cartoon_Machine_Clumsy_LoopWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Cartoon_Siren", withExtension: "wav")`
-    static func cartoon_SirenWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.cartoon_SirenWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Cartoon_Tip_Toe_Sneaky_Walk", withExtension: "wav")`
-    static func cartoon_Tip_Toe_Sneaky_WalkWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.cartoon_Tip_Toe_Sneaky_WalkWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Cartoon_Uh_Oh", withExtension: "wav")`
-    static func cartoon_Uh_OhWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.cartoon_Uh_OhWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Cartoon_Villain_Horns", withExtension: "wav")`
-    static func cartoon_Villain_HornsWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.cartoon_Villain_HornsWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Cell_Phone_Ring_Tone", withExtension: "wav")`
-    static func cell_Phone_Ring_ToneWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.cell_Phone_Ring_ToneWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Chimes_Glassy", withExtension: "wav")`
-    static func chimes_GlassyWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.chimes_GlassyWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Computer_Magic", withExtension: "wav")`
-    static func computer_MagicWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.computer_MagicWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Cuckoo_Clock", withExtension: "wav")`
-    static func cuckoo_ClockWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.cuckoo_ClockWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Dhol_Shuffleloop", withExtension: "wav")`
-    static func dhol_ShuffleloopWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.dhol_ShuffleloopWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Discreet", withExtension: "wav")`
-    static func discreetWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.discreetWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Early_Sunrise", withExtension: "wav")`
-    static func early_SunriseWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.early_SunriseWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Emergency_Alarm", withExtension: "wav")`
-    static func emergency_AlarmWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.emergency_AlarmWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Emergency_Alarm_Carbon_Monoxide", withExtension: "wav")`
-    static func emergency_Alarm_Carbon_MonoxideWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.emergency_Alarm_Carbon_MonoxideWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Emergency_Alarm_Siren", withExtension: "wav")`
-    static func emergency_Alarm_SirenWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.emergency_Alarm_SirenWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Ending_Reached", withExtension: "wav")`
-    static func ending_ReachedWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.ending_ReachedWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Fly", withExtension: "wav")`
-    static func flyWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.flyWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Ghost_Hover", withExtension: "wav")`
-    static func ghost_HoverWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.ghost_HoverWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Good_Morning", withExtension: "wav")`
-    static func good_MorningWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.good_MorningWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "GoogleService-Info", withExtension: "plist")`
-    static func googleServiceInfoPlist(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.googleServiceInfoPlist
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Hell_Yeah_Somewhat_Calmer", withExtension: "wav")`
-    static func hell_Yeah_Somewhat_CalmerWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.hell_Yeah_Somewhat_CalmerWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "In_A_Hurry", withExtension: "wav")`
-    static func in_A_HurryWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.in_A_HurryWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Indeed", withExtension: "wav")`
-    static func indeedWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.indeedWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Insistently", withExtension: "wav")`
-    static func insistentlyWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.insistentlyWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Jingle_All_The_Way", withExtension: "wav")`
-    static func jingle_All_The_WayWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.jingle_All_The_WayWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Laser_Shoot", withExtension: "wav")`
-    static func laser_ShootWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.laser_ShootWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Machine_Charge", withExtension: "wav")`
-    static func machine_ChargeWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.machine_ChargeWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Magical_Twinkle", withExtension: "wav")`
-    static func magical_TwinkleWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.magical_TwinkleWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Marching_Heavy_Footed_Fat_Elephants", withExtension: "wav")`
-    static func marching_Heavy_Footed_Fat_ElephantsWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.marching_Heavy_Footed_Fat_ElephantsWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Marimba_Descend", withExtension: "wav")`
-    static func marimba_DescendWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.marimba_DescendWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Marimba_Flutter_or_Shake", withExtension: "wav")`
-    static func marimba_Flutter_or_ShakeWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.marimba_Flutter_or_ShakeWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Martian_Gun", withExtension: "wav")`
-    static func martian_GunWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.martian_GunWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Martian_Scanner", withExtension: "wav")`
-    static func martian_ScannerWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.martian_ScannerWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Metallic", withExtension: "wav")`
-    static func metallicWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.metallicWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Nightguard", withExtension: "wav")`
-    static func nightguardWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.nightguardWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Not_Kiddin", withExtension: "wav")`
-    static func not_KiddinWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.not_KiddinWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Open_Your_Eyes_And_See", withExtension: "wav")`
-    static func open_Your_Eyes_And_SeeWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.open_Your_Eyes_And_SeeWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Orchestral_Horns", withExtension: "wav")`
-    static func orchestral_HornsWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.orchestral_HornsWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Oringz", withExtension: "wav")`
-    static func oringzWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.oringzWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Pager_Beeps", withExtension: "wav")`
-    static func pager_BeepsWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.pager_BeepsWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "README", withExtension: "md")`
-    static func readmeMd(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.readmeMd
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Remembers_Me_Of_Asia", withExtension: "wav")`
-    static func remembers_Me_Of_AsiaWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.remembers_Me_Of_AsiaWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Rise_And_Shine", withExtension: "wav")`
-    static func rise_And_ShineWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.rise_And_ShineWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Rush", withExtension: "wav")`
-    static func rushWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.rushWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Sci-Fi_Air_Raid_Alarm", withExtension: "wav")`
-    static func sciFi_Air_Raid_AlarmWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_Air_Raid_AlarmWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Sci-Fi_Alarm", withExtension: "wav")`
-    static func sciFi_AlarmWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_AlarmWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Sci-Fi_Alarm_Loop_1", withExtension: "wav")`
-    static func sciFi_Alarm_Loop_1Wav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_Alarm_Loop_1Wav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Sci-Fi_Alarm_Loop_2", withExtension: "wav")`
-    static func sciFi_Alarm_Loop_2Wav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_Alarm_Loop_2Wav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Sci-Fi_Alarm_Loop_3", withExtension: "wav")`
-    static func sciFi_Alarm_Loop_3Wav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_Alarm_Loop_3Wav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Sci-Fi_Alarm_Loop_4", withExtension: "wav")`
-    static func sciFi_Alarm_Loop_4Wav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_Alarm_Loop_4Wav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Sci-Fi_Computer_Console_Alarm", withExtension: "wav")`
-    static func sciFi_Computer_Console_AlarmWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_Computer_Console_AlarmWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Sci-Fi_Console_Alarm", withExtension: "wav")`
-    static func sciFi_Console_AlarmWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_Console_AlarmWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Sci-Fi_Eerie_Alarm", withExtension: "wav")`
-    static func sciFi_Eerie_AlarmWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_Eerie_AlarmWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Sci-Fi_Engine_Shut_Down", withExtension: "wav")`
-    static func sciFi_Engine_Shut_DownWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_Engine_Shut_DownWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Sci-Fi_Incoming_Message_Alert", withExtension: "wav")`
-    static func sciFi_Incoming_Message_AlertWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_Incoming_Message_AlertWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Sci-Fi_Spaceship_Message", withExtension: "wav")`
-    static func sciFi_Spaceship_MessageWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_Spaceship_MessageWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Sci-Fi_Spaceship_Warm_Up", withExtension: "wav")`
-    static func sciFi_Spaceship_Warm_UpWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_Spaceship_Warm_UpWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Sci-Fi_Warning", withExtension: "wav")`
-    static func sciFi_WarningWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sciFi_WarningWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Signature_Corporate", withExtension: "wav")`
-    static func signature_CorporateWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.signature_CorporateWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Siri_Alert_Calibration_Needed", withExtension: "wav")`
-    static func siri_Alert_Calibration_NeededWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Alert_Calibration_NeededWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Siri_Alert_Device_Muted", withExtension: "wav")`
-    static func siri_Alert_Device_MutedWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Alert_Device_MutedWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Siri_Alert_Glucose_Dropping_Fast", withExtension: "wav")`
-    static func siri_Alert_Glucose_Dropping_FastWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Alert_Glucose_Dropping_FastWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Siri_Alert_Glucose_Rising_Fast", withExtension: "wav")`
-    static func siri_Alert_Glucose_Rising_FastWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Alert_Glucose_Rising_FastWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Siri_Alert_High_Glucose", withExtension: "wav")`
-    static func siri_Alert_High_GlucoseWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Alert_High_GlucoseWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Siri_Alert_Low_Glucose", withExtension: "wav")`
-    static func siri_Alert_Low_GlucoseWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Alert_Low_GlucoseWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Siri_Alert_Missed_Readings", withExtension: "wav")`
-    static func siri_Alert_Missed_ReadingsWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Alert_Missed_ReadingsWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Siri_Alert_Transmitter_Battery_Low", withExtension: "wav")`
-    static func siri_Alert_Transmitter_Battery_LowWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Alert_Transmitter_Battery_LowWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Siri_Alert_Urgent_High_Glucose", withExtension: "wav")`
-    static func siri_Alert_Urgent_High_GlucoseWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Alert_Urgent_High_GlucoseWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Siri_Alert_Urgent_Low_Glucose", withExtension: "wav")`
-    static func siri_Alert_Urgent_Low_GlucoseWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Alert_Urgent_Low_GlucoseWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Siri_Calibration_Needed", withExtension: "wav")`
-    static func siri_Calibration_NeededWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Calibration_NeededWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Siri_Device_Muted", withExtension: "wav")`
-    static func siri_Device_MutedWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Device_MutedWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Siri_Glucose_Dropping_Fast", withExtension: "wav")`
-    static func siri_Glucose_Dropping_FastWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Glucose_Dropping_FastWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Siri_Glucose_Rising_Fast", withExtension: "wav")`
-    static func siri_Glucose_Rising_FastWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Glucose_Rising_FastWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Siri_High_Glucose", withExtension: "wav")`
-    static func siri_High_GlucoseWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_High_GlucoseWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Siri_Low_Glucose", withExtension: "wav")`
-    static func siri_Low_GlucoseWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Low_GlucoseWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Siri_Missed_Readings", withExtension: "wav")`
-    static func siri_Missed_ReadingsWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Missed_ReadingsWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Siri_Transmitter_Battery_Low", withExtension: "wav")`
-    static func siri_Transmitter_Battery_LowWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Transmitter_Battery_LowWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Siri_Urgent_High_Glucose", withExtension: "wav")`
-    static func siri_Urgent_High_GlucoseWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Urgent_High_GlucoseWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Siri_Urgent_Low_Glucose", withExtension: "wav")`
-    static func siri_Urgent_Low_GlucoseWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.siri_Urgent_Low_GlucoseWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Soft_Marimba_Pad_Positive", withExtension: "wav")`
-    static func soft_Marimba_Pad_PositiveWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.soft_Marimba_Pad_PositiveWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Soft_Warm_Airy_Optimistic", withExtension: "wav")`
-    static func soft_Warm_Airy_OptimisticWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.soft_Warm_Airy_OptimisticWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Soft_Warm_Airy_Reassuring", withExtension: "wav")`
-    static func soft_Warm_Airy_ReassuringWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.soft_Warm_Airy_ReassuringWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Store_Door_Chime", withExtension: "wav")`
-    static func store_Door_ChimeWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.store_Door_ChimeWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Sunny", withExtension: "wav")`
-    static func sunnyWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sunnyWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Thunder_Sound_FX", withExtension: "wav")`
-    static func thunder_Sound_FXWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.thunder_Sound_FXWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Time_Has_Come", withExtension: "wav")`
-    static func time_Has_ComeWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.time_Has_ComeWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Tornado_Siren", withExtension: "wav")`
-    static func tornado_SirenWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.tornado_SirenWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Two_Turtle_Doves", withExtension: "wav")`
-    static func two_Turtle_DovesWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.two_Turtle_DovesWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Unpaved", withExtension: "wav")`
-    static func unpavedWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.unpavedWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Wake_Up_Will_You", withExtension: "wav")`
-    static func wake_Up_Will_YouWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.wake_Up_Will_YouWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Win_Gain", withExtension: "wav")`
-    static func win_GainWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.win_GainWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "Wrong_Answer", withExtension: "wav")`
-    static func wrong_AnswerWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.wrong_AnswerWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "betterwakeup", withExtension: "wav")`
-    static func betterwakeupWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.betterwakeupWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "bruteforce", withExtension: "wav")`
-    static func bruteforceWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.bruteforceWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "logo-launchScreen@3x", withExtension: "png")`
-    static func logoLaunchScreen3xPng(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.logoLaunchScreen3xPng
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "modern2", withExtension: "wav")`
-    static func modern2Wav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.modern2Wav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "modernalarm", withExtension: "wav")`
-    static func modernalarmWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.modernalarmWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "shorthigh1", withExtension: "wav")`
-    static func shorthigh1Wav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.shorthigh1Wav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "shorthigh2", withExtension: "wav")`
-    static func shorthigh2Wav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.shorthigh2Wav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "shorthigh3", withExtension: "wav")`
-    static func shorthigh3Wav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.shorthigh3Wav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "shorthigh4", withExtension: "wav")`
-    static func shorthigh4Wav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.shorthigh4Wav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "shortlow1", withExtension: "wav")`
-    static func shortlow1Wav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.shortlow1Wav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "shortlow2", withExtension: "wav")`
-    static func shortlow2Wav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.shortlow2Wav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "shortlow3", withExtension: "wav")`
-    static func shortlow3Wav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.shortlow3Wav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "shortlow4", withExtension: "wav")`
-    static func shortlow4Wav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.shortlow4Wav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "spaceship", withExtension: "wav")`
-    static func spaceshipWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.spaceshipWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    /// `bundle.url(forResource: "xdripalert", withExtension: "wav")`
-    static func xdripalertWav(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.xdripalertWav
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-
-    fileprivate init() {}
-  }
-
-  /// This `R.image` struct is generated, and contains static references to 34 images.
-  struct image {
-    /// Image `dexcomG6`.
-    static let dexcomG6 = Rswift.ImageResource(bundle: R.hostingBundle, name: "dexcomG6")
-    /// Image `ic_alarm_snoozed`.
-    static let ic_alarm_snoozed = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_alarm_snoozed")
-    /// Image `ic_alarm`.
-    static let ic_alarm = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_alarm")
-    /// Image `ic_arrow_left`.
-    static let ic_arrow_left = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_arrow_left")
-    /// Image `ic_arrow_right`.
-    static let ic_arrow_right = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_arrow_right")
-    /// Image `ic_bg_high`.
-    static let ic_bg_high = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_bg_high")
-    /// Image `ic_bg_low`.
-    static let ic_bg_low = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_bg_low")
-    /// Image `ic_calibrate`.
-    static let ic_calibrate = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_calibrate")
-    /// Image `ic_clock`.
-    static let ic_clock = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_clock")
-    /// Image `ic_common_checkbox_h`.
-    static let ic_common_checkbox_h = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_common_checkbox_h")
-    /// Image `ic_common_checkbox`.
-    static let ic_common_checkbox = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_common_checkbox")
-    /// Image `ic_edit`.
-    static let ic_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_edit")
-    /// Image `ic_fastdrop`.
-    static let ic_fastdrop = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_fastdrop")
-    /// Image `ic_fastrise`.
-    static let ic_fastrise = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_fastrise")
-    /// Image `ic_note_food`.
-    static let ic_note_food = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_note_food")
-    /// Image `ic_note_insulin`.
-    static let ic_note_insulin = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_note_insulin")
-    /// Image `ic_note_sport`.
-    static let ic_note_sport = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_note_sport")
-    /// Image `ic_note_userinput`.
-    static let ic_note_userinput = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_note_userinput")
-    /// Image `ic_pushpin_lock`.
-    static let ic_pushpin_lock = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_pushpin_lock")
-    /// Image `ic_pushpin_unlock`.
-    static let ic_pushpin_unlock = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_pushpin_unlock")
-    /// Image `ic_radio_button_on`.
-    static let ic_radio_button_on = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_radio_button_on")
-    /// Image `ic_radio_button`.
-    static let ic_radio_button = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_radio_button")
-    /// Image `ic_search`.
-    static let ic_search = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_search")
-    /// Image `ic_statistics`.
-    static let ic_statistics = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_statistics")
-    /// Image `ic_tab_bloodsugar_h`.
-    static let ic_tab_bloodsugar_h = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_bloodsugar_h")
-    /// Image `ic_tab_bloodsugar`.
-    static let ic_tab_bloodsugar = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_bloodsugar")
-    /// Image `ic_tab_notes_h`.
-    static let ic_tab_notes_h = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_notes_h")
-    /// Image `ic_tab_notes`.
-    static let ic_tab_notes = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_notes")
-    /// Image `ic_tab_settings_h`.
-    static let ic_tab_settings_h = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_settings_h")
-    /// Image `ic_tab_settings`.
-    static let ic_tab_settings = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_tab_settings")
-    /// Image `ic_to_landscape`.
-    static let ic_to_landscape = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_to_landscape")
-    /// Image `ic_to_portrait`.
-    static let ic_to_portrait = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_to_portrait")
-    /// Image `libre`.
-    static let libre = Rswift.ImageResource(bundle: R.hostingBundle, name: "libre")
-    /// Image `logo-launchScreen`.
-    static let logoLaunchScreen = Rswift.ImageResource(bundle: R.hostingBundle, name: "logo-launchScreen")
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "dexcomG6", bundle: ..., traitCollection: ...)`
-    static func dexcomG6(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.dexcomG6, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_alarm", bundle: ..., traitCollection: ...)`
-    static func ic_alarm(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_alarm, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_alarm_snoozed", bundle: ..., traitCollection: ...)`
-    static func ic_alarm_snoozed(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_alarm_snoozed, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_arrow_left", bundle: ..., traitCollection: ...)`
-    static func ic_arrow_left(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_arrow_left, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_arrow_right", bundle: ..., traitCollection: ...)`
-    static func ic_arrow_right(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_arrow_right, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_bg_high", bundle: ..., traitCollection: ...)`
-    static func ic_bg_high(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_bg_high, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_bg_low", bundle: ..., traitCollection: ...)`
-    static func ic_bg_low(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_bg_low, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_calibrate", bundle: ..., traitCollection: ...)`
-    static func ic_calibrate(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_calibrate, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_clock", bundle: ..., traitCollection: ...)`
-    static func ic_clock(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_clock, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_common_checkbox", bundle: ..., traitCollection: ...)`
-    static func ic_common_checkbox(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_common_checkbox, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_common_checkbox_h", bundle: ..., traitCollection: ...)`
-    static func ic_common_checkbox_h(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_common_checkbox_h, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_edit", bundle: ..., traitCollection: ...)`
-    static func ic_edit(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_edit, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_fastdrop", bundle: ..., traitCollection: ...)`
-    static func ic_fastdrop(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_fastdrop, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_fastrise", bundle: ..., traitCollection: ...)`
-    static func ic_fastrise(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_fastrise, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_note_food", bundle: ..., traitCollection: ...)`
-    static func ic_note_food(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_note_food, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_note_insulin", bundle: ..., traitCollection: ...)`
-    static func ic_note_insulin(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_note_insulin, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_note_sport", bundle: ..., traitCollection: ...)`
-    static func ic_note_sport(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_note_sport, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_note_userinput", bundle: ..., traitCollection: ...)`
-    static func ic_note_userinput(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_note_userinput, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_pushpin_lock", bundle: ..., traitCollection: ...)`
-    static func ic_pushpin_lock(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_pushpin_lock, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_pushpin_unlock", bundle: ..., traitCollection: ...)`
-    static func ic_pushpin_unlock(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_pushpin_unlock, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_radio_button", bundle: ..., traitCollection: ...)`
-    static func ic_radio_button(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_radio_button, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_radio_button_on", bundle: ..., traitCollection: ...)`
-    static func ic_radio_button_on(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_radio_button_on, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_search", bundle: ..., traitCollection: ...)`
-    static func ic_search(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_search, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_statistics", bundle: ..., traitCollection: ...)`
-    static func ic_statistics(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_statistics, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_tab_bloodsugar", bundle: ..., traitCollection: ...)`
-    static func ic_tab_bloodsugar(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_tab_bloodsugar, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_tab_bloodsugar_h", bundle: ..., traitCollection: ...)`
-    static func ic_tab_bloodsugar_h(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_tab_bloodsugar_h, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_tab_notes", bundle: ..., traitCollection: ...)`
-    static func ic_tab_notes(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_tab_notes, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_tab_notes_h", bundle: ..., traitCollection: ...)`
-    static func ic_tab_notes_h(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_tab_notes_h, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_tab_settings", bundle: ..., traitCollection: ...)`
-    static func ic_tab_settings(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_tab_settings, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_tab_settings_h", bundle: ..., traitCollection: ...)`
-    static func ic_tab_settings_h(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_tab_settings_h, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_to_landscape", bundle: ..., traitCollection: ...)`
-    static func ic_to_landscape(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_to_landscape, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "ic_to_portrait", bundle: ..., traitCollection: ...)`
-    static func ic_to_portrait(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ic_to_portrait, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "libre", bundle: ..., traitCollection: ...)`
-    static func libre(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.libre, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "logo-launchScreen", bundle: ..., traitCollection: ...)`
-    static func logoLaunchScreen(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.logoLaunchScreen, compatibleWith: traitCollection)
-    }
-    #endif
-
-    fileprivate init() {}
-  }
-
-  /// This `R.nib` struct is generated, and contains static references to 1 nibs.
+  /// This `_R.nib` struct is generated, and contains static references to 1 nibs.
   struct nib {
+    let bundle: Foundation.Bundle
+
     /// Nib `StatisticsView`.
-    static let statisticsView = _R.nib._StatisticsView()
+    var statisticsView: RswiftResources.NibReference<UIKit.UIView> { .init(name: "StatisticsView", bundle: bundle) }
 
-    #if os(iOS) || os(tvOS)
-    /// `UINib(name: "StatisticsView", in: bundle)`
-    @available(*, deprecated, message: "Use UINib(resource: R.nib.statisticsView) instead")
-    static func statisticsView(_: Void = ()) -> UIKit.UINib {
-      return UIKit.UINib(resource: R.nib.statisticsView)
+    func validate() throws {
+
     }
-    #endif
-
-    static func statisticsView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-      return R.nib.statisticsView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-    }
-
-    fileprivate init() {}
   }
 
-  /// This `R.string` struct is generated, and contains static references to 20 localization tables.
-  struct string {
-    /// This `R.string.alertTypesSettingsView` struct is generated, and contains static references to 16 localization keys.
-    struct alertTypesSettingsView {
-      /// en translation: Alarm Name
-      ///
-      /// Locales: en, zh
-      static let alerttypesettingsview_givename = Rswift.StringResource(key: "alerttypesettingsview_givename", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Alarm Types
-      ///
-      /// Locales: en, zh
-      static let alerttypessettingsview_screentitle = Rswift.StringResource(key: "alerttypessettingsview_screentitle", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Default Snooze Time
-      ///
-      /// Locales: en, zh
-      static let alerttypesettingsview_defaultsnoozeperiod = Rswift.StringResource(key: "alerttypesettingsview_defaultsnoozeperiod", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Delete Alarm Type "%@"?
-      ///
-      /// Locales: en, zh
-      static let confirmdeletionalerttype = Rswift.StringResource(key: "confirmdeletionalerttype", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Edit Alarm Type
-      ///
-      /// Locales: en, zh
-      static let alerttypesettingsview_screentitle = Rswift.StringResource(key: "alerttypesettingsview_screentitle", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Enabled
-      ///
-      /// Locales: en, zh
-      static let alerttypesettingsview_enabled = Rswift.StringResource(key: "alerttypesettingsview_enabled", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Name
-      ///
-      /// Locales: en, zh
-      static let alerttypesettingsview_name = Rswift.StringResource(key: "alerttypesettingsview_name", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Name already exists
-      ///
-      /// Locales: en, zh
-      static let alertTypeNameAlreadyExists = Rswift.StringResource(key: "alertTypeNameAlreadyExists", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: No Sound
-      ///
-      /// Locales: en, zh
-      static let alertTypeNoSound = Rswift.StringResource(key: "alertTypeNoSound", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Override Mute
-      ///
-      /// Locales: en, zh
-      static let alerttypesettingsview_overridemute = Rswift.StringResource(key: "alerttypesettingsview_overridemute", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Snooze Time in Minutes
-      ///
-      /// Locales: en, zh
-      static let alerttypesettingsview_givesnoozeperiod = Rswift.StringResource(key: "alerttypesettingsview_givesnoozeperiod", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Snooze via Notification
-      ///
-      /// Locales: en, zh
-      static let alerttypesettingsview_snoozevianotification = Rswift.StringResource(key: "alerttypesettingsview_snoozevianotification", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Sound
-      ///
-      /// Locales: en, zh
-      static let alerttypesettingsview_sound = Rswift.StringResource(key: "alerttypesettingsview_sound", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Sound Name
-      ///
-      /// Locales: en, zh
-      static let alerttypesettingsview_picksoundname = Rswift.StringResource(key: "alerttypesettingsview_picksoundname", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Vibrate
-      ///
-      /// Locales: en, zh
-      static let alerttypesettingsview_vibrate = Rswift.StringResource(key: "alerttypesettingsview_vibrate", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: iOS Sound
-      ///
-      /// Locales: en, zh
-      static let alerttypesettingsview_defaultiossound = Rswift.StringResource(key: "alerttypesettingsview_defaultiossound", tableName: "AlertTypesSettingsView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
+  /// This `_R.storyboard` struct is generated, and contains static references to 2 storyboards.
+  struct storyboard {
+    let bundle: Foundation.Bundle
+    var launchScreen: launchScreen { .init(bundle: bundle) }
+    var main: main { .init(bundle: bundle) }
 
-      /// en translation: Alarm Name
-      ///
-      /// Locales: en, zh
-      static func alerttypesettingsview_givename(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerttypesettingsview_givename", tableName: "AlertTypesSettingsView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "AlertTypesSettingsView", preferredLanguages: preferredLanguages) else {
-          return "alerttypesettingsview_givename"
-        }
-
-        return NSLocalizedString("alerttypesettingsview_givename", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Alarm Types
-      ///
-      /// Locales: en, zh
-      static func alerttypessettingsview_screentitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerttypessettingsview_screentitle", tableName: "AlertTypesSettingsView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "AlertTypesSettingsView", preferredLanguages: preferredLanguages) else {
-          return "alerttypessettingsview_screentitle"
-        }
-
-        return NSLocalizedString("alerttypessettingsview_screentitle", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Default Snooze Time
-      ///
-      /// Locales: en, zh
-      static func alerttypesettingsview_defaultsnoozeperiod(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerttypesettingsview_defaultsnoozeperiod", tableName: "AlertTypesSettingsView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "AlertTypesSettingsView", preferredLanguages: preferredLanguages) else {
-          return "alerttypesettingsview_defaultsnoozeperiod"
-        }
-
-        return NSLocalizedString("alerttypesettingsview_defaultsnoozeperiod", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Delete Alarm Type "%@"?
-      ///
-      /// Locales: en, zh
-      static func confirmdeletionalerttype(_ value1: String, preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          let format = NSLocalizedString("confirmdeletionalerttype", tableName: "AlertTypesSettingsView", bundle: hostingBundle, comment: "")
-          return String(format: format, locale: applicationLocale, value1)
-        }
-
-        guard let (locale, bundle) = localeBundle(tableName: "AlertTypesSettingsView", preferredLanguages: preferredLanguages) else {
-          return "confirmdeletionalerttype"
-        }
-
-        let format = NSLocalizedString("confirmdeletionalerttype", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
-        return String(format: format, locale: locale, value1)
-      }
-
-      /// en translation: Edit Alarm Type
-      ///
-      /// Locales: en, zh
-      static func alerttypesettingsview_screentitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerttypesettingsview_screentitle", tableName: "AlertTypesSettingsView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "AlertTypesSettingsView", preferredLanguages: preferredLanguages) else {
-          return "alerttypesettingsview_screentitle"
-        }
-
-        return NSLocalizedString("alerttypesettingsview_screentitle", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Enabled
-      ///
-      /// Locales: en, zh
-      static func alerttypesettingsview_enabled(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerttypesettingsview_enabled", tableName: "AlertTypesSettingsView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "AlertTypesSettingsView", preferredLanguages: preferredLanguages) else {
-          return "alerttypesettingsview_enabled"
-        }
-
-        return NSLocalizedString("alerttypesettingsview_enabled", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Name
-      ///
-      /// Locales: en, zh
-      static func alerttypesettingsview_name(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerttypesettingsview_name", tableName: "AlertTypesSettingsView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "AlertTypesSettingsView", preferredLanguages: preferredLanguages) else {
-          return "alerttypesettingsview_name"
-        }
-
-        return NSLocalizedString("alerttypesettingsview_name", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Name already exists
-      ///
-      /// Locales: en, zh
-      static func alertTypeNameAlreadyExists(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alertTypeNameAlreadyExists", tableName: "AlertTypesSettingsView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "AlertTypesSettingsView", preferredLanguages: preferredLanguages) else {
-          return "alertTypeNameAlreadyExists"
-        }
-
-        return NSLocalizedString("alertTypeNameAlreadyExists", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: No Sound
-      ///
-      /// Locales: en, zh
-      static func alertTypeNoSound(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alertTypeNoSound", tableName: "AlertTypesSettingsView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "AlertTypesSettingsView", preferredLanguages: preferredLanguages) else {
-          return "alertTypeNoSound"
-        }
-
-        return NSLocalizedString("alertTypeNoSound", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Override Mute
-      ///
-      /// Locales: en, zh
-      static func alerttypesettingsview_overridemute(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerttypesettingsview_overridemute", tableName: "AlertTypesSettingsView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "AlertTypesSettingsView", preferredLanguages: preferredLanguages) else {
-          return "alerttypesettingsview_overridemute"
-        }
-
-        return NSLocalizedString("alerttypesettingsview_overridemute", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Snooze Time in Minutes
-      ///
-      /// Locales: en, zh
-      static func alerttypesettingsview_givesnoozeperiod(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerttypesettingsview_givesnoozeperiod", tableName: "AlertTypesSettingsView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "AlertTypesSettingsView", preferredLanguages: preferredLanguages) else {
-          return "alerttypesettingsview_givesnoozeperiod"
-        }
-
-        return NSLocalizedString("alerttypesettingsview_givesnoozeperiod", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Snooze via Notification
-      ///
-      /// Locales: en, zh
-      static func alerttypesettingsview_snoozevianotification(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerttypesettingsview_snoozevianotification", tableName: "AlertTypesSettingsView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "AlertTypesSettingsView", preferredLanguages: preferredLanguages) else {
-          return "alerttypesettingsview_snoozevianotification"
-        }
-
-        return NSLocalizedString("alerttypesettingsview_snoozevianotification", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Sound
-      ///
-      /// Locales: en, zh
-      static func alerttypesettingsview_sound(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerttypesettingsview_sound", tableName: "AlertTypesSettingsView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "AlertTypesSettingsView", preferredLanguages: preferredLanguages) else {
-          return "alerttypesettingsview_sound"
-        }
-
-        return NSLocalizedString("alerttypesettingsview_sound", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Sound Name
-      ///
-      /// Locales: en, zh
-      static func alerttypesettingsview_picksoundname(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerttypesettingsview_picksoundname", tableName: "AlertTypesSettingsView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "AlertTypesSettingsView", preferredLanguages: preferredLanguages) else {
-          return "alerttypesettingsview_picksoundname"
-        }
-
-        return NSLocalizedString("alerttypesettingsview_picksoundname", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Vibrate
-      ///
-      /// Locales: en, zh
-      static func alerttypesettingsview_vibrate(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerttypesettingsview_vibrate", tableName: "AlertTypesSettingsView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "AlertTypesSettingsView", preferredLanguages: preferredLanguages) else {
-          return "alerttypesettingsview_vibrate"
-        }
-
-        return NSLocalizedString("alerttypesettingsview_vibrate", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: iOS Sound
-      ///
-      /// Locales: en, zh
-      static func alerttypesettingsview_defaultiossound(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerttypesettingsview_defaultiossound", tableName: "AlertTypesSettingsView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "AlertTypesSettingsView", preferredLanguages: preferredLanguages) else {
-          return "alerttypesettingsview_defaultiossound"
-        }
-
-        return NSLocalizedString("alerttypesettingsview_defaultiossound", tableName: "AlertTypesSettingsView", bundle: bundle, comment: "")
-      }
-
-      fileprivate init() {}
+    func launchScreen(bundle: Foundation.Bundle) -> launchScreen {
+      .init(bundle: bundle)
+    }
+    func main(bundle: Foundation.Bundle) -> main {
+      .init(bundle: bundle)
+    }
+    func validate() throws {
+      try self.launchScreen.validate()
+      try self.main.validate()
     }
 
-    /// This `R.string.alerts` struct is generated, and contains static references to 18 localization keys.
-    struct alerts {
-      /// en translation: Alarm Type
-      ///
-      /// Locales: zh, en
-      static let alerttype = Rswift.StringResource(key: "alerttype", tableName: "Alerts", bundle: R.hostingBundle, locales: ["zh", "en"], comment: nil)
-      /// en translation: Alarms
-      ///
-      /// Locales: zh, en
-      static let alertsettingsview_screentitle = Rswift.StringResource(key: "alertsettingsview_screentitle", tableName: "Alerts", bundle: R.hostingBundle, locales: ["zh", "en"], comment: nil)
-      /// en translation: Apply from
-      ///
-      /// Locales: zh, en
-      static let alertstart = Rswift.StringResource(key: "alertstart", tableName: "Alerts", bundle: R.hostingBundle, locales: ["zh", "en"], comment: nil)
-      /// en translation: Calibration Needed
-      ///
-      /// Locales: zh, en
-      static let alerts_calibrationneeded = Rswift.StringResource(key: "alerts_calibrationneeded", tableName: "Alerts", bundle: R.hostingBundle, locales: ["zh", "en"], comment: nil)
-      /// en translation: Change Alarm Value
-      ///
-      /// Locales: zh, en
-      static let changealertvalue = Rswift.StringResource(key: "changealertvalue", tableName: "Alerts", bundle: R.hostingBundle, locales: ["zh", "en"], comment: nil)
-      /// en translation: Delete Alarm?
-      ///
-      /// Locales: zh, en
-      static let confirmdeletionalert = Rswift.StringResource(key: "confirmdeletionalert", tableName: "Alerts", bundle: R.hostingBundle, locales: ["zh", "en"], comment: nil)
-      /// en translation: Edit Alarm
-      ///
-      /// Locales: zh, en
-      static let alertssettingsview_screentitle = Rswift.StringResource(key: "alertssettingsview_screentitle", tableName: "Alerts", bundle: R.hostingBundle, locales: ["zh", "en"], comment: nil)
-      /// en translation: Fast Drop Alarm
-      ///
-      /// Locales: zh, en
-      static let alerts_fastdrop = Rswift.StringResource(key: "alerts_fastdrop", tableName: "Alerts", bundle: R.hostingBundle, locales: ["zh", "en"], comment: nil)
-      /// en translation: Fast Rise Alarm
-      ///
-      /// Locales: zh, en
-      static let alerts_fastrise = Rswift.StringResource(key: "alerts_fastrise", tableName: "Alerts", bundle: R.hostingBundle, locales: ["zh", "en"], comment: nil)
-      /// en translation: High Alarm
-      ///
-      /// Locales: zh, en
-      static let alerts_highalerttitle = Rswift.StringResource(key: "alerts_highalerttitle", tableName: "Alerts", bundle: R.hostingBundle, locales: ["zh", "en"], comment: nil)
-      /// en translation: Low Alarm
-      ///
-      /// Locales: zh, en
-      static let alerts_lowalerttitle = Rswift.StringResource(key: "alerts_lowalerttitle", tableName: "Alerts", bundle: R.hostingBundle, locales: ["zh", "en"], comment: nil)
-      /// en translation: Missed Readings
-      ///
-      /// Locales: zh, en
-      static let alerts_missedreadingalerttitle = Rswift.StringResource(key: "alerts_missedreadingalerttitle", tableName: "Alerts", bundle: R.hostingBundle, locales: ["zh", "en"], comment: nil)
-      /// en translation: Select Snooze Time
-      ///
-      /// Locales: zh, en
-      static let alerts_select_snooze_time = Rswift.StringResource(key: "alerts_select_snooze_time", tableName: "Alerts", bundle: R.hostingBundle, locales: ["zh", "en"], comment: nil)
-      /// en translation: Snooze
-      ///
-      /// Locales: zh, en
-      static let alerts_snooze = Rswift.StringResource(key: "alerts_snooze", tableName: "Alerts", bundle: R.hostingBundle, locales: ["zh", "en"], comment: nil)
-      /// en translation: Transmitter Battery Low
-      ///
-      /// Locales: zh, en
-      static let alerts_batterylow = Rswift.StringResource(key: "alerts_batterylow", tableName: "Alerts", bundle: R.hostingBundle, locales: ["zh", "en"], comment: nil)
-      /// en translation: Urgent High Alarm
-      ///
-      /// Locales: zh, en
-      static let alerts_veryhighalerttitle = Rswift.StringResource(key: "alerts_veryhighalerttitle", tableName: "Alerts", bundle: R.hostingBundle, locales: ["zh", "en"], comment: nil)
-      /// en translation: Urgent Low Alarm
-      ///
-      /// Locales: zh, en
-      static let alerts_verylowalerttitle = Rswift.StringResource(key: "alerts_verylowalerttitle", tableName: "Alerts", bundle: R.hostingBundle, locales: ["zh", "en"], comment: nil)
-      /// en translation: Value
-      ///
-      /// Locales: zh, en
-      static let alertvalue = Rswift.StringResource(key: "alertvalue", tableName: "Alerts", bundle: R.hostingBundle, locales: ["zh", "en"], comment: nil)
 
-      /// en translation: Alarm Type
-      ///
-      /// Locales: zh, en
-      static func alerttype(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerttype", tableName: "Alerts", bundle: hostingBundle, comment: "")
-        }
+    /// Storyboard `LaunchScreen`.
+    struct launchScreen: RswiftResources.StoryboardReference {
+      let bundle: Foundation.Bundle
 
-        guard let (_, bundle) = localeBundle(tableName: "Alerts", preferredLanguages: preferredLanguages) else {
-          return "alerttype"
-        }
-
-        return NSLocalizedString("alerttype", tableName: "Alerts", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Alarms
-      ///
-      /// Locales: zh, en
-      static func alertsettingsview_screentitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alertsettingsview_screentitle", tableName: "Alerts", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Alerts", preferredLanguages: preferredLanguages) else {
-          return "alertsettingsview_screentitle"
-        }
-
-        return NSLocalizedString("alertsettingsview_screentitle", tableName: "Alerts", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Apply from
-      ///
-      /// Locales: zh, en
-      static func alertstart(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alertstart", tableName: "Alerts", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Alerts", preferredLanguages: preferredLanguages) else {
-          return "alertstart"
-        }
-
-        return NSLocalizedString("alertstart", tableName: "Alerts", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Calibration Needed
-      ///
-      /// Locales: zh, en
-      static func alerts_calibrationneeded(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerts_calibrationneeded", tableName: "Alerts", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Alerts", preferredLanguages: preferredLanguages) else {
-          return "alerts_calibrationneeded"
-        }
-
-        return NSLocalizedString("alerts_calibrationneeded", tableName: "Alerts", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Change Alarm Value
-      ///
-      /// Locales: zh, en
-      static func changealertvalue(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("changealertvalue", tableName: "Alerts", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Alerts", preferredLanguages: preferredLanguages) else {
-          return "changealertvalue"
-        }
-
-        return NSLocalizedString("changealertvalue", tableName: "Alerts", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Delete Alarm?
-      ///
-      /// Locales: zh, en
-      static func confirmdeletionalert(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("confirmdeletionalert", tableName: "Alerts", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Alerts", preferredLanguages: preferredLanguages) else {
-          return "confirmdeletionalert"
-        }
-
-        return NSLocalizedString("confirmdeletionalert", tableName: "Alerts", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Edit Alarm
-      ///
-      /// Locales: zh, en
-      static func alertssettingsview_screentitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alertssettingsview_screentitle", tableName: "Alerts", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Alerts", preferredLanguages: preferredLanguages) else {
-          return "alertssettingsview_screentitle"
-        }
-
-        return NSLocalizedString("alertssettingsview_screentitle", tableName: "Alerts", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Fast Drop Alarm
-      ///
-      /// Locales: zh, en
-      static func alerts_fastdrop(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerts_fastdrop", tableName: "Alerts", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Alerts", preferredLanguages: preferredLanguages) else {
-          return "alerts_fastdrop"
-        }
-
-        return NSLocalizedString("alerts_fastdrop", tableName: "Alerts", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Fast Rise Alarm
-      ///
-      /// Locales: zh, en
-      static func alerts_fastrise(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerts_fastrise", tableName: "Alerts", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Alerts", preferredLanguages: preferredLanguages) else {
-          return "alerts_fastrise"
-        }
-
-        return NSLocalizedString("alerts_fastrise", tableName: "Alerts", bundle: bundle, comment: "")
-      }
-
-      /// en translation: High Alarm
-      ///
-      /// Locales: zh, en
-      static func alerts_highalerttitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerts_highalerttitle", tableName: "Alerts", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Alerts", preferredLanguages: preferredLanguages) else {
-          return "alerts_highalerttitle"
-        }
-
-        return NSLocalizedString("alerts_highalerttitle", tableName: "Alerts", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Low Alarm
-      ///
-      /// Locales: zh, en
-      static func alerts_lowalerttitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerts_lowalerttitle", tableName: "Alerts", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Alerts", preferredLanguages: preferredLanguages) else {
-          return "alerts_lowalerttitle"
-        }
-
-        return NSLocalizedString("alerts_lowalerttitle", tableName: "Alerts", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Missed Readings
-      ///
-      /// Locales: zh, en
-      static func alerts_missedreadingalerttitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerts_missedreadingalerttitle", tableName: "Alerts", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Alerts", preferredLanguages: preferredLanguages) else {
-          return "alerts_missedreadingalerttitle"
-        }
-
-        return NSLocalizedString("alerts_missedreadingalerttitle", tableName: "Alerts", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Select Snooze Time
-      ///
-      /// Locales: zh, en
-      static func alerts_select_snooze_time(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerts_select_snooze_time", tableName: "Alerts", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Alerts", preferredLanguages: preferredLanguages) else {
-          return "alerts_select_snooze_time"
-        }
-
-        return NSLocalizedString("alerts_select_snooze_time", tableName: "Alerts", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Snooze
-      ///
-      /// Locales: zh, en
-      static func alerts_snooze(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerts_snooze", tableName: "Alerts", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Alerts", preferredLanguages: preferredLanguages) else {
-          return "alerts_snooze"
-        }
-
-        return NSLocalizedString("alerts_snooze", tableName: "Alerts", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Transmitter Battery Low
-      ///
-      /// Locales: zh, en
-      static func alerts_batterylow(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerts_batterylow", tableName: "Alerts", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Alerts", preferredLanguages: preferredLanguages) else {
-          return "alerts_batterylow"
-        }
-
-        return NSLocalizedString("alerts_batterylow", tableName: "Alerts", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Urgent High Alarm
-      ///
-      /// Locales: zh, en
-      static func alerts_veryhighalerttitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerts_veryhighalerttitle", tableName: "Alerts", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Alerts", preferredLanguages: preferredLanguages) else {
-          return "alerts_veryhighalerttitle"
-        }
-
-        return NSLocalizedString("alerts_veryhighalerttitle", tableName: "Alerts", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Urgent Low Alarm
-      ///
-      /// Locales: zh, en
-      static func alerts_verylowalerttitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alerts_verylowalerttitle", tableName: "Alerts", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Alerts", preferredLanguages: preferredLanguages) else {
-          return "alerts_verylowalerttitle"
-        }
-
-        return NSLocalizedString("alerts_verylowalerttitle", tableName: "Alerts", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Value
-      ///
-      /// Locales: zh, en
-      static func alertvalue(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("alertvalue", tableName: "Alerts", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Alerts", preferredLanguages: preferredLanguages) else {
-          return "alertvalue"
-        }
-
-        return NSLocalizedString("alertvalue", tableName: "Alerts", bundle: bundle, comment: "")
-      }
-
-      fileprivate init() {}
-    }
-
-    /// This `R.string.bluetoothPeripheralView` struct is generated, and contains static references to 36 localization keys.
-    struct bluetoothPeripheralView {
-      /// en translation: Address
-      ///
-      /// Locales: en, zh
-      static let address = Rswift.StringResource(key: "address", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Battery
-      ///
-      /// Locales: en, zh
-      static let battery = Rswift.StringResource(key: "battery", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Bootloader
-      ///
-      /// Locales: en, zh
-      static let bootLoader = Rswift.StringResource(key: "bootLoader", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Connect
-      ///
-      /// Locales: en, zh
-      static let connect = Rswift.StringResource(key: "connect", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Connected
-      ///
-      /// Locales: en, zh
-      static let connected = Rswift.StringResource(key: "connected", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Connected At
-      ///
-      /// Locales: en, zh
-      static let connectedAt = Rswift.StringResource(key: "connectedAt", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Delete bluetooth device?
-      ///
-      /// Locales: en, zh
-      static let confirmDeletionPeripheral = Rswift.StringResource(key: "confirmDeletionPeripheral", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Disconnect
-      ///
-      /// Locales: en, zh
-      static let disconnect = Rswift.StringResource(key: "disconnect", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Disconnected At
-      ///
-      /// Locales: en, zh
-      static let disConnectedAt = Rswift.StringResource(key: "disConnectedAt", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Do you really want to disconnect from the transmitter?
-      ///
-      /// Locales: en, zh
-      static let confirmDisconnectMessage = Rswift.StringResource(key: "confirmDisconnectMessage", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Last Reset
-      ///
-      /// Locales: en, zh
-      static let lastReset = Rswift.StringResource(key: "lastReset", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Manual Calibration Enabled
-      ///
-      /// Locales: en, zh
-      static let dialog_title_manual_calibration_enabled = Rswift.StringResource(key: "dialog_title_manual_calibration_enabled", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Missing Transmitter ID
-      ///
-      /// Locales: en, zh
-      static let needsTransmitterId = Rswift.StringResource(key: "needsTransmitterId", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Not Connected
-      ///
-      /// Locales: en, zh
-      static let notConnected = Rswift.StringResource(key: "notConnected", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Not Scanning
-      ///
-      /// Locales: en, zh
-      static let notTryingToConnect = Rswift.StringResource(key: "notTryingToConnect", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Please follow the prompts to enter the calibration blood glucose value later.
-      ///
-      /// Locales: en, zh
-      static let dialog_msg_manual_calibration_enabled = Rswift.StringResource(key: "dialog_msg_manual_calibration_enabled", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Ready to Scan
-      ///
-      /// Locales: en, zh
-      static let readyToScan = Rswift.StringResource(key: "readyToScan", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Reset Transmitter
-      ///
-      /// Locales: en, zh
-      static let resetRequired = Rswift.StringResource(key: "resetRequired", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Resistance
-      ///
-      /// Locales: en, zh
-      static let resistance = Rswift.StringResource(key: "resistance", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Runtime
-      ///
-      /// Locales: en, zh
-      static let runtime = Rswift.StringResource(key: "runtime", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Scan
-      ///
-      /// Locales: en, zh
-      static let scan = Rswift.StringResource(key: "scan", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Scanning
-      ///
-      /// Locales: en, zh
-      static let scanning = Rswift.StringResource(key: "scanning", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Scanning
-      ///
-      /// Locales: en, zh
-      static let tryingToConnect = Rswift.StringResource(key: "tryingToConnect", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Sensor Started At
-      ///
-      /// Locales: en, zh
-      static let sensorStartDate = Rswift.StringResource(key: "sensorStartDate", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Sensor Type
-      ///
-      /// Locales: en, zh
-      static let sensorType = Rswift.StringResource(key: "sensorType", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Serial Number
-      ///
-      /// Locales: en, zh
-      static let sensorSerialNumber = Rswift.StringResource(key: "SensorSerialNumber", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Serial Number
-      ///
-      /// Locales: en, zh
-      static let serialNumber = Rswift.StringResource(key: "serialNumber", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Status
-      ///
-      /// Locales: en, zh
-      static let status = Rswift.StringResource(key: "status", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Stop Scanning
-      ///
-      /// Locales: en, zh
-      static let donotconnect = Rswift.StringResource(key: "donotconnect", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Temperature
-      ///
-      /// Locales: en, zh
-      static let temperature = Rswift.StringResource(key: "temperature", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Transmitter Reset Result
-      ///
-      /// Locales: en, zh
-      static let transmitterResultResult = Rswift.StringResource(key: "transmitterResultResult", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Transmitter Start
-      ///
-      /// Locales: en, zh
-      static let transmittterStartDate = Rswift.StringResource(key: "transmittterStartDate", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Voltage A
-      ///
-      /// Locales: en, zh
-      static let dexcom_voltage_A = Rswift.StringResource(key: "dexcom_voltage_A", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Voltage B
-      ///
-      /// Locales: en, zh
-      static let dexcom_voltage_B = Rswift.StringResource(key: "dexcom_voltage_B", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: With Dexcom-app Together
-      ///
-      /// Locales: en, zh
-      static let useOtherDexcomApp = Rswift.StringResource(key: "useOtherDexcomApp", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: You can not activate a CGM in Follower Mode
-      ///
-      /// Locales: en, zh
-      static let cannotActiveCGMInFollowerMode = Rswift.StringResource(key: "cannotActiveCGMInFollowerMode", tableName: "BluetoothPeripheralView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-
-      /// en translation: Address
-      ///
-      /// Locales: en, zh
-      static func address(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("address", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "address"
-        }
-
-        return NSLocalizedString("address", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Battery
-      ///
-      /// Locales: en, zh
-      static func battery(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("battery", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "battery"
-        }
-
-        return NSLocalizedString("battery", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Bootloader
-      ///
-      /// Locales: en, zh
-      static func bootLoader(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("bootLoader", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "bootLoader"
-        }
-
-        return NSLocalizedString("bootLoader", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Connect
-      ///
-      /// Locales: en, zh
-      static func connect(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("connect", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "connect"
-        }
-
-        return NSLocalizedString("connect", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Connected
-      ///
-      /// Locales: en, zh
-      static func connected(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("connected", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "connected"
-        }
-
-        return NSLocalizedString("connected", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Connected At
-      ///
-      /// Locales: en, zh
-      static func connectedAt(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("connectedAt", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "connectedAt"
-        }
-
-        return NSLocalizedString("connectedAt", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Delete bluetooth device?
-      ///
-      /// Locales: en, zh
-      static func confirmDeletionPeripheral(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("confirmDeletionPeripheral", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "confirmDeletionPeripheral"
-        }
-
-        return NSLocalizedString("confirmDeletionPeripheral", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Disconnect
-      ///
-      /// Locales: en, zh
-      static func disconnect(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("disconnect", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "disconnect"
-        }
-
-        return NSLocalizedString("disconnect", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Disconnected At
-      ///
-      /// Locales: en, zh
-      static func disConnectedAt(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("disConnectedAt", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "disConnectedAt"
-        }
-
-        return NSLocalizedString("disConnectedAt", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Do you really want to disconnect from the transmitter?
-      ///
-      /// Locales: en, zh
-      static func confirmDisconnectMessage(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("confirmDisconnectMessage", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "confirmDisconnectMessage"
-        }
-
-        return NSLocalizedString("confirmDisconnectMessage", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Last Reset
-      ///
-      /// Locales: en, zh
-      static func lastReset(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("lastReset", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "lastReset"
-        }
-
-        return NSLocalizedString("lastReset", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Manual Calibration Enabled
-      ///
-      /// Locales: en, zh
-      static func dialog_title_manual_calibration_enabled(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("dialog_title_manual_calibration_enabled", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "dialog_title_manual_calibration_enabled"
-        }
-
-        return NSLocalizedString("dialog_title_manual_calibration_enabled", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Missing Transmitter ID
-      ///
-      /// Locales: en, zh
-      static func needsTransmitterId(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("needsTransmitterId", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "needsTransmitterId"
-        }
-
-        return NSLocalizedString("needsTransmitterId", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Not Connected
-      ///
-      /// Locales: en, zh
-      static func notConnected(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("notConnected", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "notConnected"
-        }
-
-        return NSLocalizedString("notConnected", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Not Scanning
-      ///
-      /// Locales: en, zh
-      static func notTryingToConnect(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("notTryingToConnect", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "notTryingToConnect"
-        }
-
-        return NSLocalizedString("notTryingToConnect", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Please follow the prompts to enter the calibration blood glucose value later.
-      ///
-      /// Locales: en, zh
-      static func dialog_msg_manual_calibration_enabled(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("dialog_msg_manual_calibration_enabled", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "dialog_msg_manual_calibration_enabled"
-        }
-
-        return NSLocalizedString("dialog_msg_manual_calibration_enabled", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Ready to Scan
-      ///
-      /// Locales: en, zh
-      static func readyToScan(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("readyToScan", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "readyToScan"
-        }
-
-        return NSLocalizedString("readyToScan", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Reset Transmitter
-      ///
-      /// Locales: en, zh
-      static func resetRequired(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("resetRequired", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "resetRequired"
-        }
-
-        return NSLocalizedString("resetRequired", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Resistance
-      ///
-      /// Locales: en, zh
-      static func resistance(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("resistance", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "resistance"
-        }
-
-        return NSLocalizedString("resistance", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Runtime
-      ///
-      /// Locales: en, zh
-      static func runtime(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("runtime", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "runtime"
-        }
-
-        return NSLocalizedString("runtime", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Scan
-      ///
-      /// Locales: en, zh
-      static func scan(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("scan", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "scan"
-        }
-
-        return NSLocalizedString("scan", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Scanning
-      ///
-      /// Locales: en, zh
-      static func scanning(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("scanning", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "scanning"
-        }
-
-        return NSLocalizedString("scanning", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Scanning
-      ///
-      /// Locales: en, zh
-      static func tryingToConnect(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("tryingToConnect", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "tryingToConnect"
-        }
-
-        return NSLocalizedString("tryingToConnect", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Sensor Started At
-      ///
-      /// Locales: en, zh
-      static func sensorStartDate(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("sensorStartDate", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "sensorStartDate"
-        }
-
-        return NSLocalizedString("sensorStartDate", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Sensor Type
-      ///
-      /// Locales: en, zh
-      static func sensorType(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("sensorType", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "sensorType"
-        }
-
-        return NSLocalizedString("sensorType", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Serial Number
-      ///
-      /// Locales: en, zh
-      static func sensorSerialNumber(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("SensorSerialNumber", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "SensorSerialNumber"
-        }
-
-        return NSLocalizedString("SensorSerialNumber", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Serial Number
-      ///
-      /// Locales: en, zh
-      static func serialNumber(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("serialNumber", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "serialNumber"
-        }
-
-        return NSLocalizedString("serialNumber", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Status
-      ///
-      /// Locales: en, zh
-      static func status(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("status", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "status"
-        }
-
-        return NSLocalizedString("status", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Stop Scanning
-      ///
-      /// Locales: en, zh
-      static func donotconnect(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("donotconnect", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "donotconnect"
-        }
-
-        return NSLocalizedString("donotconnect", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Temperature
-      ///
-      /// Locales: en, zh
-      static func temperature(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("temperature", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "temperature"
-        }
-
-        return NSLocalizedString("temperature", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Transmitter Reset Result
-      ///
-      /// Locales: en, zh
-      static func transmitterResultResult(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("transmitterResultResult", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "transmitterResultResult"
-        }
-
-        return NSLocalizedString("transmitterResultResult", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Transmitter Start
-      ///
-      /// Locales: en, zh
-      static func transmittterStartDate(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("transmittterStartDate", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "transmittterStartDate"
-        }
-
-        return NSLocalizedString("transmittterStartDate", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Voltage A
-      ///
-      /// Locales: en, zh
-      static func dexcom_voltage_A(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("dexcom_voltage_A", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "dexcom_voltage_A"
-        }
-
-        return NSLocalizedString("dexcom_voltage_A", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Voltage B
-      ///
-      /// Locales: en, zh
-      static func dexcom_voltage_B(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("dexcom_voltage_B", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "dexcom_voltage_B"
-        }
-
-        return NSLocalizedString("dexcom_voltage_B", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: With Dexcom-app Together
-      ///
-      /// Locales: en, zh
-      static func useOtherDexcomApp(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("useOtherDexcomApp", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "useOtherDexcomApp"
-        }
-
-        return NSLocalizedString("useOtherDexcomApp", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: You can not activate a CGM in Follower Mode
-      ///
-      /// Locales: en, zh
-      static func cannotActiveCGMInFollowerMode(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("cannotActiveCGMInFollowerMode", tableName: "BluetoothPeripheralView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralView", preferredLanguages: preferredLanguages) else {
-          return "cannotActiveCGMInFollowerMode"
-        }
-
-        return NSLocalizedString("cannotActiveCGMInFollowerMode", tableName: "BluetoothPeripheralView", bundle: bundle, comment: "")
-      }
-
-      fileprivate init() {}
-    }
-
-    /// This `R.string.bluetoothPeripheralsView` struct is generated, and contains static references to 5 localization keys.
-    struct bluetoothPeripheralsView {
-      /// en translation: Battery Level
-      ///
-      /// Locales: en, zh
-      static let batteryLevel = Rswift.StringResource(key: "batteryLevel", tableName: "BluetoothPeripheralsView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Bluetooth
-      ///
-      /// Locales: en, zh
-      static let screenTitle = Rswift.StringResource(key: "screenTitle", tableName: "BluetoothPeripheralsView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Select Device Type
-      ///
-      /// Locales: en, zh
-      static let selectCategory = Rswift.StringResource(key: "selectCategory", tableName: "BluetoothPeripheralsView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Select Transmitter Type
-      ///
-      /// Locales: en, zh
-      static let selectType = Rswift.StringResource(key: "selectType", tableName: "BluetoothPeripheralsView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: You cannot have more than one CGM Transmitter which is connected or being scanned for. Verify your other CGM Transmitters and click 'Stop Scanning', 'Disconnect' or just delete them
-      ///
-      /// Locales: en, zh
-      static let noMultipleActiveCGMsAllowed = Rswift.StringResource(key: "noMultipleActiveCGMsAllowed", tableName: "BluetoothPeripheralsView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-
-      /// en translation: Battery Level
-      ///
-      /// Locales: en, zh
-      static func batteryLevel(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("batteryLevel", tableName: "BluetoothPeripheralsView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralsView", preferredLanguages: preferredLanguages) else {
-          return "batteryLevel"
-        }
-
-        return NSLocalizedString("batteryLevel", tableName: "BluetoothPeripheralsView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Bluetooth
-      ///
-      /// Locales: en, zh
-      static func screenTitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("screenTitle", tableName: "BluetoothPeripheralsView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralsView", preferredLanguages: preferredLanguages) else {
-          return "screenTitle"
-        }
-
-        return NSLocalizedString("screenTitle", tableName: "BluetoothPeripheralsView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Select Device Type
-      ///
-      /// Locales: en, zh
-      static func selectCategory(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("selectCategory", tableName: "BluetoothPeripheralsView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralsView", preferredLanguages: preferredLanguages) else {
-          return "selectCategory"
-        }
-
-        return NSLocalizedString("selectCategory", tableName: "BluetoothPeripheralsView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Select Transmitter Type
-      ///
-      /// Locales: en, zh
-      static func selectType(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("selectType", tableName: "BluetoothPeripheralsView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralsView", preferredLanguages: preferredLanguages) else {
-          return "selectType"
-        }
-
-        return NSLocalizedString("selectType", tableName: "BluetoothPeripheralsView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: You cannot have more than one CGM Transmitter which is connected or being scanned for. Verify your other CGM Transmitters and click 'Stop Scanning', 'Disconnect' or just delete them
-      ///
-      /// Locales: en, zh
-      static func noMultipleActiveCGMsAllowed(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("noMultipleActiveCGMsAllowed", tableName: "BluetoothPeripheralsView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "BluetoothPeripheralsView", preferredLanguages: preferredLanguages) else {
-          return "noMultipleActiveCGMsAllowed"
-        }
-
-        return NSLocalizedString("noMultipleActiveCGMsAllowed", tableName: "BluetoothPeripheralsView", bundle: bundle, comment: "")
-      }
-
-      fileprivate init() {}
-    }
-
-    /// This `R.string.calibrationRequest` struct is generated, and contains static references to 4 localization keys.
-    struct calibrationRequest {
-      /// en translation: Calibration
-      ///
-      /// Locales: en, zh
-      static let calibration_notification_title = Rswift.StringResource(key: "calibration_notification_title", tableName: "CalibrationRequest", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Calibration
-      ///
-      /// Locales: en, zh
-      static let calibration_title = Rswift.StringResource(key: "calibration_title", tableName: "CalibrationRequest", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Click the Notification to Calibrate
-      ///
-      /// Locales: en, zh
-      static let calibration_notification_body = Rswift.StringResource(key: "calibration_notification_body", tableName: "CalibrationRequest", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Enter Calibration Value
-      ///
-      /// Locales: en, zh
-      static let enter_calibration_value = Rswift.StringResource(key: "enter_calibration_value", tableName: "CalibrationRequest", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-
-      /// en translation: Calibration
-      ///
-      /// Locales: en, zh
-      static func calibration_notification_title(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("calibration_notification_title", tableName: "CalibrationRequest", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "CalibrationRequest", preferredLanguages: preferredLanguages) else {
-          return "calibration_notification_title"
-        }
-
-        return NSLocalizedString("calibration_notification_title", tableName: "CalibrationRequest", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Calibration
-      ///
-      /// Locales: en, zh
-      static func calibration_title(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("calibration_title", tableName: "CalibrationRequest", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "CalibrationRequest", preferredLanguages: preferredLanguages) else {
-          return "calibration_title"
-        }
-
-        return NSLocalizedString("calibration_title", tableName: "CalibrationRequest", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Click the Notification to Calibrate
-      ///
-      /// Locales: en, zh
-      static func calibration_notification_body(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("calibration_notification_body", tableName: "CalibrationRequest", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "CalibrationRequest", preferredLanguages: preferredLanguages) else {
-          return "calibration_notification_body"
-        }
-
-        return NSLocalizedString("calibration_notification_body", tableName: "CalibrationRequest", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Enter Calibration Value
-      ///
-      /// Locales: en, zh
-      static func enter_calibration_value(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("enter_calibration_value", tableName: "CalibrationRequest", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "CalibrationRequest", preferredLanguages: preferredLanguages) else {
-          return "enter_calibration_value"
-        }
-
-        return NSLocalizedString("enter_calibration_value", tableName: "CalibrationRequest", bundle: bundle, comment: "")
-      }
-
-      fileprivate init() {}
-    }
-
-    /// This `R.string.common` struct is generated, and contains static references to 73 localization keys.
-    struct common {
-      /// en translation: %@ must not be used to make medical decisions. It is a research and education tool only and is provided as-is without warranty of any kind, either expressed or implied, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose. The entire risk as to the quality and performance of the program is with you. Should the program prove defective, you assume the cost of all necessary servicing, repair, or correction.
-      ///
-      /// Locales: en, zh
-      static let agreement = Rswift.StringResource(key: "agreement", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: %@/min
-      ///
-      /// Locales: en, zh
-      static let change_per_min = Rswift.StringResource(key: "change_per_min", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: %d Mins
-      ///
-      /// Locales: en, zh
-      static let howManyMinutes = Rswift.StringResource(key: "howManyMinutes", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: 75 Percentile
-      ///
-      /// Locales: en, zh
-      static let seventyFifthPercentile = Rswift.StringResource(key: "seventyFifthPercentile", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: 90 Percentile
-      ///
-      /// Locales: en, zh
-      static let ninetyPercentile = Rswift.StringResource(key: "ninetyPercentile", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: About
-      ///
-      /// Locales: en, zh
-      static let about = Rswift.StringResource(key: "about", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Add
-      ///
-      /// Locales: en, zh
-      static let add = Rswift.StringResource(key: "add", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Average
-      ///
-      /// Locales: en, zh
-      static let common_statistics_average = Rswift.StringResource(key: "common_statistics_average", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: BG Unit
-      ///
-      /// Locales: en, zh
-      static let common_bloodglucoseunit_short = Rswift.StringResource(key: "common_bloodglucoseunit_short", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Been with you for %d days
-      ///
-      /// Locales: en, zh
-      static let slogan = Rswift.StringResource(key: "slogan", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Blood Glucose Unit
-      ///
-      /// Locales: en, zh
-      static let common_bloodglucoseunit = Rswift.StringResource(key: "common_bloodglucoseunit", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: CV
-      ///
-      /// Locales: en, zh
-      static let common_statistics_cv = Rswift.StringResource(key: "common_statistics_cv", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Cancel
-      ///
-      /// Locales: en, zh
-      static let common_cancel = Rswift.StringResource(key: "common_cancel", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Daily Patterns
-      ///
-      /// Locales: en, zh
-      static let daily_trend = Rswift.StringResource(key: "daily_trend", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Decile
-      ///
-      /// Locales: en, zh
-      static let decile = Rswift.StringResource(key: "decile", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Default
-      ///
-      /// Locales: en, zh
-      static let common_default = Rswift.StringResource(key: "common_default", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Delete
-      ///
-      /// Locales: en, zh
-      static let delete = Rswift.StringResource(key: "delete", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Developer Mode Enabled
-      ///
-      /// Locales: en, zh
-      static let developerModeEnabled = Rswift.StringResource(key: "developerModeEnabled", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Disclaimer
-      ///
-      /// Locales: en, zh
-      static let disclaimer = Rswift.StringResource(key: "disclaimer", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Don't Show Again
-      ///
-      /// Locales: en, zh
-      static let common_dontshowagain = Rswift.StringResource(key: "common_dontshowagain", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Error
-      ///
-      /// Locales: en, zh
-      static let error = Rswift.StringResource(key: "error", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Firmware
-      ///
-      /// Locales: en, zh
-      static let firmware = Rswift.StringResource(key: "firmware", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: H
-      ///
-      /// Locales: en, zh
-      static let common_hourshort = Rswift.StringResource(key: "common_hourshort", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: HIGH
-      ///
-      /// Locales: en, zh
-      static let common_high = Rswift.StringResource(key: "common_high", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Hardware
-      ///
-      /// Locales: en, zh
-      static let hardware = Rswift.StringResource(key: "hardware", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: HbA1c
-      ///
-      /// Locales: en, zh
-      static let common_statistics_a1c = Rswift.StringResource(key: "common_statistics_a1c", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: High
-      ///
-      /// Locales: en, zh
-      static let common_statistics_high = Rswift.StringResource(key: "common_statistics_high", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: I understand and agree
-      ///
-      /// Locales: en, zh
-      static let btn_understand_and_agree = Rswift.StringResource(key: "btn_understand_and_agree", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: In Range
-      ///
-      /// Locales: en, zh
-      static let common_statistics_inRange = Rswift.StringResource(key: "common_statistics_inRange", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Invalid Value
-      ///
-      /// Locales: en, zh
-      static let invalidValue = Rswift.StringResource(key: "invalidValue", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Invalid account or password
-      ///
-      /// Locales: en, zh
-      static let invalidAccountOrPassword = Rswift.StringResource(key: "invalidAccountOrPassword", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: LOW
-      ///
-      /// Locales: en, zh
-      static let common_low = Rswift.StringResource(key: "common_low", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Loading
-      ///
-      /// Locales: en, zh
-      static let loading = Rswift.StringResource(key: "loading", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Low
-      ///
-      /// Locales: en, zh
-      static let common_statistics_low = Rswift.StringResource(key: "common_statistics_low", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Median
-      ///
-      /// Locales: en, zh
-      static let median = Rswift.StringResource(key: "median", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Name
-      ///
-      /// Locales: en, zh
-      static let name = Rswift.StringResource(key: "name", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: No
-      ///
-      /// Locales: en, zh
-      static let no = Rswift.StringResource(key: "no", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Not enough data
-      ///
-      /// Locales: en, zh
-      static let not_enough_data = Rswift.StringResource(key: "not_enough_data", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: OK
-      ///
-      /// Locales: en, zh
-      static let common_Ok = Rswift.StringResource(key: "common_Ok", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Off
-      ///
-      /// Locales: en, zh
-      static let off = Rswift.StringResource(key: "off", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: On
-      ///
-      /// Locales: en, zh
-      static let on = Rswift.StringResource(key: "on", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Password
-      ///
-      /// Locales: en, zh
-      static let common_password = Rswift.StringResource(key: "common_password", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Please Confirm
-      ///
-      /// Locales: en, zh
-      static let pleaseConfirm = Rswift.StringResource(key: "pleaseConfirm", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Privacy Policy
-      ///
-      /// Locales: en, zh
-      static let privacyPolicy = Rswift.StringResource(key: "privacyPolicy", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Quartile
-      ///
-      /// Locales: en, zh
-      static let quartile = Rswift.StringResource(key: "quartile", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Readings
-      ///
-      /// Locales: en, zh
-      static let common_statistics_bgReadingsCount = Rswift.StringResource(key: "common_statistics_bgReadingsCount", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: SD
-      ///
-      /// Locales: en, zh
-      static let common_statistics_stdDeviation = Rswift.StringResource(key: "common_statistics_stdDeviation", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Save
-      ///
-      /// Locales: en, zh
-      static let save = Rswift.StringResource(key: "save", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Sensor Status
-      ///
-      /// Locales: en, zh
-      static let sensorStatus = Rswift.StringResource(key: "sensorStatus", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Start to Use
-      ///
-      /// Locales: en, zh
-      static let start_to_use = Rswift.StringResource(key: "start_to_use", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: The feature is under development.
-      ///
-      /// Locales: en, zh
-      static let feature_is_under_development = Rswift.StringResource(key: "feature_is_under_development", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Today
-      ///
-      /// Locales: en, zh
-      static let today = Rswift.StringResource(key: "today", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Unknown
-      ///
-      /// Locales: en, zh
-      static let unknown = Rswift.StringResource(key: "unknown", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Update
-      ///
-      /// Locales: en, zh
-      static let update = Rswift.StringResource(key: "update", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Wait a Moment
-      ///
-      /// Locales: en, zh
-      static let wait_a_moment = Rswift.StringResource(key: "wait_a_moment", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Warning
-      ///
-      /// Locales: en, zh
-      static let warning = Rswift.StringResource(key: "warning", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Wi-Fi
-      ///
-      /// Locales: en, zh
-      static let wiFi = Rswift.StringResource(key: "WiFi", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Yes
-      ///
-      /// Locales: en, zh
-      static let yes = Rswift.StringResource(key: "yes", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Yesterday
-      ///
-      /// Locales: en, zh
-      static let yesterday = Rswift.StringResource(key: "yesterday", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: d
-      ///
-      /// Locales: en, zh
-      static let common_dayshort = Rswift.StringResource(key: "common_dayshort", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: day
-      ///
-      /// Locales: en, zh
-      static let common_day = Rswift.StringResource(key: "common_day", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: days
-      ///
-      /// Locales: en, zh
-      static let common_days = Rswift.StringResource(key: "common_days", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: green
-      ///
-      /// Locales: en, zh
-      static let green = Rswift.StringResource(key: "green", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: hour
-      ///
-      /// Locales: en, zh
-      static let common_hour = Rswift.StringResource(key: "common_hour", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: hours
-      ///
-      /// Locales: en, zh
-      static let common_hours = Rswift.StringResource(key: "common_hours", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: mg/dL
-      ///
-      /// Locales: en, zh
-      static let common_mgdl = Rswift.StringResource(key: "common_mgdl", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: min
-      ///
-      /// Locales: en, zh
-      static let common_minute = Rswift.StringResource(key: "common_minute", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: mins
-      ///
-      /// Locales: en, zh
-      static let common_minutes = Rswift.StringResource(key: "common_minutes", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: mmol/L
-      ///
-      /// Locales: en, zh
-      static let common_mmol = Rswift.StringResource(key: "common_mmol", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: red
-      ///
-      /// Locales: en, zh
-      static let red = Rswift.StringResource(key: "red", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: week
-      ///
-      /// Locales: en, zh
-      static let common_week = Rswift.StringResource(key: "common_week", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: white
-      ///
-      /// Locales: en, zh
-      static let white = Rswift.StringResource(key: "white", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: yellow
-      ///
-      /// Locales: en, zh
-      static let yellow = Rswift.StringResource(key: "yellow", tableName: "Common", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-
-      /// en translation: %@ must not be used to make medical decisions. It is a research and education tool only and is provided as-is without warranty of any kind, either expressed or implied, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose. The entire risk as to the quality and performance of the program is with you. Should the program prove defective, you assume the cost of all necessary servicing, repair, or correction.
-      ///
-      /// Locales: en, zh
-      static func agreement(_ value1: String, preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          let format = NSLocalizedString("agreement", tableName: "Common", bundle: hostingBundle, comment: "")
-          return String(format: format, locale: applicationLocale, value1)
-        }
-
-        guard let (locale, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "agreement"
-        }
-
-        let format = NSLocalizedString("agreement", tableName: "Common", bundle: bundle, comment: "")
-        return String(format: format, locale: locale, value1)
-      }
-
-      /// en translation: %@/min
-      ///
-      /// Locales: en, zh
-      static func change_per_min(_ value1: String, preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          let format = NSLocalizedString("change_per_min", tableName: "Common", bundle: hostingBundle, comment: "")
-          return String(format: format, locale: applicationLocale, value1)
-        }
-
-        guard let (locale, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "change_per_min"
-        }
-
-        let format = NSLocalizedString("change_per_min", tableName: "Common", bundle: bundle, comment: "")
-        return String(format: format, locale: locale, value1)
-      }
-
-      /// en translation: %d Mins
-      ///
-      /// Locales: en, zh
-      static func howManyMinutes(_ value1: Int, preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          let format = NSLocalizedString("howManyMinutes", tableName: "Common", bundle: hostingBundle, comment: "")
-          return String(format: format, locale: applicationLocale, value1)
-        }
-
-        guard let (locale, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "howManyMinutes"
-        }
-
-        let format = NSLocalizedString("howManyMinutes", tableName: "Common", bundle: bundle, comment: "")
-        return String(format: format, locale: locale, value1)
-      }
-
-      /// en translation: 75 Percentile
-      ///
-      /// Locales: en, zh
-      static func seventyFifthPercentile(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("seventyFifthPercentile", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "seventyFifthPercentile"
-        }
-
-        return NSLocalizedString("seventyFifthPercentile", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: 90 Percentile
-      ///
-      /// Locales: en, zh
-      static func ninetyPercentile(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("ninetyPercentile", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "ninetyPercentile"
-        }
-
-        return NSLocalizedString("ninetyPercentile", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: About
-      ///
-      /// Locales: en, zh
-      static func about(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("about", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "about"
-        }
-
-        return NSLocalizedString("about", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Add
-      ///
-      /// Locales: en, zh
-      static func add(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("add", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "add"
-        }
-
-        return NSLocalizedString("add", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Average
-      ///
-      /// Locales: en, zh
-      static func common_statistics_average(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_statistics_average", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_statistics_average"
-        }
-
-        return NSLocalizedString("common_statistics_average", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: BG Unit
-      ///
-      /// Locales: en, zh
-      static func common_bloodglucoseunit_short(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_bloodglucoseunit_short", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_bloodglucoseunit_short"
-        }
-
-        return NSLocalizedString("common_bloodglucoseunit_short", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Been with you for %d days
-      ///
-      /// Locales: en, zh
-      static func slogan(_ value1: Int, preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          let format = NSLocalizedString("slogan", tableName: "Common", bundle: hostingBundle, comment: "")
-          return String(format: format, locale: applicationLocale, value1)
-        }
-
-        guard let (locale, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "slogan"
-        }
-
-        let format = NSLocalizedString("slogan", tableName: "Common", bundle: bundle, comment: "")
-        return String(format: format, locale: locale, value1)
-      }
-
-      /// en translation: Blood Glucose Unit
-      ///
-      /// Locales: en, zh
-      static func common_bloodglucoseunit(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_bloodglucoseunit", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_bloodglucoseunit"
-        }
-
-        return NSLocalizedString("common_bloodglucoseunit", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: CV
-      ///
-      /// Locales: en, zh
-      static func common_statistics_cv(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_statistics_cv", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_statistics_cv"
-        }
-
-        return NSLocalizedString("common_statistics_cv", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Cancel
-      ///
-      /// Locales: en, zh
-      static func common_cancel(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_cancel", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_cancel"
-        }
-
-        return NSLocalizedString("common_cancel", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Daily Patterns
-      ///
-      /// Locales: en, zh
-      static func daily_trend(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("daily_trend", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "daily_trend"
-        }
-
-        return NSLocalizedString("daily_trend", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Decile
-      ///
-      /// Locales: en, zh
-      static func decile(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("decile", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "decile"
-        }
-
-        return NSLocalizedString("decile", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Default
-      ///
-      /// Locales: en, zh
-      static func common_default(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_default", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_default"
-        }
-
-        return NSLocalizedString("common_default", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Delete
-      ///
-      /// Locales: en, zh
-      static func delete(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("delete", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "delete"
-        }
-
-        return NSLocalizedString("delete", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Developer Mode Enabled
-      ///
-      /// Locales: en, zh
-      static func developerModeEnabled(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("developerModeEnabled", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "developerModeEnabled"
-        }
-
-        return NSLocalizedString("developerModeEnabled", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Disclaimer
-      ///
-      /// Locales: en, zh
-      static func disclaimer(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("disclaimer", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "disclaimer"
-        }
-
-        return NSLocalizedString("disclaimer", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Don't Show Again
-      ///
-      /// Locales: en, zh
-      static func common_dontshowagain(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_dontshowagain", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_dontshowagain"
-        }
-
-        return NSLocalizedString("common_dontshowagain", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Error
-      ///
-      /// Locales: en, zh
-      static func error(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("error", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "error"
-        }
-
-        return NSLocalizedString("error", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Firmware
-      ///
-      /// Locales: en, zh
-      static func firmware(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("firmware", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "firmware"
-        }
-
-        return NSLocalizedString("firmware", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: H
-      ///
-      /// Locales: en, zh
-      static func common_hourshort(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_hourshort", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_hourshort"
-        }
-
-        return NSLocalizedString("common_hourshort", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: HIGH
-      ///
-      /// Locales: en, zh
-      static func common_high(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_high", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_high"
-        }
-
-        return NSLocalizedString("common_high", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Hardware
-      ///
-      /// Locales: en, zh
-      static func hardware(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("hardware", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "hardware"
-        }
-
-        return NSLocalizedString("hardware", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: HbA1c
-      ///
-      /// Locales: en, zh
-      static func common_statistics_a1c(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_statistics_a1c", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_statistics_a1c"
-        }
-
-        return NSLocalizedString("common_statistics_a1c", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: High
-      ///
-      /// Locales: en, zh
-      static func common_statistics_high(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_statistics_high", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_statistics_high"
-        }
-
-        return NSLocalizedString("common_statistics_high", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: I understand and agree
-      ///
-      /// Locales: en, zh
-      static func btn_understand_and_agree(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("btn_understand_and_agree", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "btn_understand_and_agree"
-        }
-
-        return NSLocalizedString("btn_understand_and_agree", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: In Range
-      ///
-      /// Locales: en, zh
-      static func common_statistics_inRange(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_statistics_inRange", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_statistics_inRange"
-        }
-
-        return NSLocalizedString("common_statistics_inRange", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Invalid Value
-      ///
-      /// Locales: en, zh
-      static func invalidValue(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("invalidValue", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "invalidValue"
-        }
-
-        return NSLocalizedString("invalidValue", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Invalid account or password
-      ///
-      /// Locales: en, zh
-      static func invalidAccountOrPassword(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("invalidAccountOrPassword", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "invalidAccountOrPassword"
-        }
-
-        return NSLocalizedString("invalidAccountOrPassword", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: LOW
-      ///
-      /// Locales: en, zh
-      static func common_low(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_low", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_low"
-        }
-
-        return NSLocalizedString("common_low", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Loading
-      ///
-      /// Locales: en, zh
-      static func loading(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("loading", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "loading"
-        }
-
-        return NSLocalizedString("loading", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Low
-      ///
-      /// Locales: en, zh
-      static func common_statistics_low(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_statistics_low", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_statistics_low"
-        }
-
-        return NSLocalizedString("common_statistics_low", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Median
-      ///
-      /// Locales: en, zh
-      static func median(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("median", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "median"
-        }
-
-        return NSLocalizedString("median", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Name
-      ///
-      /// Locales: en, zh
-      static func name(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("name", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "name"
-        }
-
-        return NSLocalizedString("name", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: No
-      ///
-      /// Locales: en, zh
-      static func no(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("no", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "no"
-        }
-
-        return NSLocalizedString("no", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Not enough data
-      ///
-      /// Locales: en, zh
-      static func not_enough_data(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("not_enough_data", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "not_enough_data"
-        }
-
-        return NSLocalizedString("not_enough_data", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: OK
-      ///
-      /// Locales: en, zh
-      static func common_Ok(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_Ok", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_Ok"
-        }
-
-        return NSLocalizedString("common_Ok", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Off
-      ///
-      /// Locales: en, zh
-      static func off(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("off", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "off"
-        }
-
-        return NSLocalizedString("off", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: On
-      ///
-      /// Locales: en, zh
-      static func on(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("on", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "on"
-        }
-
-        return NSLocalizedString("on", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Password
-      ///
-      /// Locales: en, zh
-      static func common_password(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_password", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_password"
-        }
-
-        return NSLocalizedString("common_password", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Please Confirm
-      ///
-      /// Locales: en, zh
-      static func pleaseConfirm(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("pleaseConfirm", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "pleaseConfirm"
-        }
-
-        return NSLocalizedString("pleaseConfirm", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Privacy Policy
-      ///
-      /// Locales: en, zh
-      static func privacyPolicy(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("privacyPolicy", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "privacyPolicy"
-        }
-
-        return NSLocalizedString("privacyPolicy", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Quartile
-      ///
-      /// Locales: en, zh
-      static func quartile(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("quartile", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "quartile"
-        }
-
-        return NSLocalizedString("quartile", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Readings
-      ///
-      /// Locales: en, zh
-      static func common_statistics_bgReadingsCount(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_statistics_bgReadingsCount", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_statistics_bgReadingsCount"
-        }
-
-        return NSLocalizedString("common_statistics_bgReadingsCount", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: SD
-      ///
-      /// Locales: en, zh
-      static func common_statistics_stdDeviation(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_statistics_stdDeviation", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_statistics_stdDeviation"
-        }
-
-        return NSLocalizedString("common_statistics_stdDeviation", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Save
-      ///
-      /// Locales: en, zh
-      static func save(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("save", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "save"
-        }
-
-        return NSLocalizedString("save", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Sensor Status
-      ///
-      /// Locales: en, zh
-      static func sensorStatus(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("sensorStatus", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "sensorStatus"
-        }
-
-        return NSLocalizedString("sensorStatus", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Start to Use
-      ///
-      /// Locales: en, zh
-      static func start_to_use(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("start_to_use", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "start_to_use"
-        }
-
-        return NSLocalizedString("start_to_use", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: The feature is under development.
-      ///
-      /// Locales: en, zh
-      static func feature_is_under_development(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("feature_is_under_development", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "feature_is_under_development"
-        }
-
-        return NSLocalizedString("feature_is_under_development", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Today
-      ///
-      /// Locales: en, zh
-      static func today(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("today", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "today"
-        }
-
-        return NSLocalizedString("today", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Unknown
-      ///
-      /// Locales: en, zh
-      static func unknown(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("unknown", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "unknown"
-        }
-
-        return NSLocalizedString("unknown", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Update
-      ///
-      /// Locales: en, zh
-      static func update(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("update", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "update"
-        }
-
-        return NSLocalizedString("update", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Wait a Moment
-      ///
-      /// Locales: en, zh
-      static func wait_a_moment(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("wait_a_moment", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "wait_a_moment"
-        }
-
-        return NSLocalizedString("wait_a_moment", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Warning
-      ///
-      /// Locales: en, zh
-      static func warning(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("warning", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "warning"
-        }
-
-        return NSLocalizedString("warning", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Wi-Fi
-      ///
-      /// Locales: en, zh
-      static func wiFi(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("WiFi", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "WiFi"
-        }
-
-        return NSLocalizedString("WiFi", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Yes
-      ///
-      /// Locales: en, zh
-      static func yes(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("yes", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "yes"
-        }
-
-        return NSLocalizedString("yes", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Yesterday
-      ///
-      /// Locales: en, zh
-      static func yesterday(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("yesterday", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "yesterday"
-        }
-
-        return NSLocalizedString("yesterday", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: d
-      ///
-      /// Locales: en, zh
-      static func common_dayshort(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_dayshort", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_dayshort"
-        }
-
-        return NSLocalizedString("common_dayshort", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: day
-      ///
-      /// Locales: en, zh
-      static func common_day(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_day", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_day"
-        }
-
-        return NSLocalizedString("common_day", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: days
-      ///
-      /// Locales: en, zh
-      static func common_days(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_days", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_days"
-        }
-
-        return NSLocalizedString("common_days", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: green
-      ///
-      /// Locales: en, zh
-      static func green(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("green", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "green"
-        }
-
-        return NSLocalizedString("green", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: hour
-      ///
-      /// Locales: en, zh
-      static func common_hour(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_hour", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_hour"
-        }
-
-        return NSLocalizedString("common_hour", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: hours
-      ///
-      /// Locales: en, zh
-      static func common_hours(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_hours", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_hours"
-        }
-
-        return NSLocalizedString("common_hours", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: mg/dL
-      ///
-      /// Locales: en, zh
-      static func common_mgdl(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_mgdl", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_mgdl"
-        }
-
-        return NSLocalizedString("common_mgdl", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: min
-      ///
-      /// Locales: en, zh
-      static func common_minute(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_minute", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_minute"
-        }
-
-        return NSLocalizedString("common_minute", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: mins
-      ///
-      /// Locales: en, zh
-      static func common_minutes(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_minutes", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_minutes"
-        }
-
-        return NSLocalizedString("common_minutes", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: mmol/L
-      ///
-      /// Locales: en, zh
-      static func common_mmol(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_mmol", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_mmol"
-        }
-
-        return NSLocalizedString("common_mmol", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: red
-      ///
-      /// Locales: en, zh
-      static func red(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("red", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "red"
-        }
-
-        return NSLocalizedString("red", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: week
-      ///
-      /// Locales: en, zh
-      static func common_week(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common_week", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "common_week"
-        }
-
-        return NSLocalizedString("common_week", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: white
-      ///
-      /// Locales: en, zh
-      static func white(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("white", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "white"
-        }
-
-        return NSLocalizedString("white", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      /// en translation: yellow
-      ///
-      /// Locales: en, zh
-      static func yellow(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("yellow", tableName: "Common", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Common", preferredLanguages: preferredLanguages) else {
-          return "yellow"
-        }
-
-        return NSLocalizedString("yellow", tableName: "Common", bundle: bundle, comment: "")
-      }
-
-      fileprivate init() {}
-    }
-
-    /// This `R.string.dailyTrend` struct is generated, and contains static references to 1 localization keys.
-    struct dailyTrend {
-      /// en translation: Data available for %1$d of %2$d days
-      ///
-      /// Locales: en, zh
-      static let daily_trend_available_days = Rswift.StringResource(key: "daily_trend_available_days", tableName: "DailyTrend", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-
-      /// en translation: Data available for %1$d of %2$d days
-      ///
-      /// Locales: en, zh
-      static func daily_trend_available_days(_ value1: Int, _ value2: Int, preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          let format = NSLocalizedString("daily_trend_available_days", tableName: "DailyTrend", bundle: hostingBundle, comment: "")
-          return String(format: format, locale: applicationLocale, value1, value2)
-        }
-
-        guard let (locale, bundle) = localeBundle(tableName: "DailyTrend", preferredLanguages: preferredLanguages) else {
-          return "daily_trend_available_days"
-        }
-
-        let format = NSLocalizedString("daily_trend_available_days", tableName: "DailyTrend", bundle: bundle, comment: "")
-        return String(format: format, locale: locale, value1, value2)
-      }
-
-      fileprivate init() {}
-    }
-
-    /// This `R.string.dexcomShareTestResult` struct is generated, and contains static references to 9 localization keys.
-    struct dexcomShareTestResult {
-      /// en translation: Dexcom Share Upload Error
-      ///
-      /// Locales: en, zh
-      static let dexcomsharetestresult_uploadErrorWarning = Rswift.StringResource(key: "dexcomsharetestresult_uploadErrorWarning", tableName: "DexcomShareTestResult", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: It seems that the Transmitter ID or serial number
-      ///
-      /// Locales: en, zh
-      static let dexcomsharetestresult_monitored_receiver_not_assigned_1 = Rswift.StringResource(key: "dexcomsharetestresult_monitored_receiver_not_assigned_1", tableName: "DexcomShareTestResult", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Maximum login attempts exceeded. Wait 10 minutes and try again.
-      ///
-      /// Locales: en, zh
-      static let dexcomsharetestresult_SSO_AuthenticateMaxAttemptsExceeed = Rswift.StringResource(key: "dexcomsharetestresult_SSO_AuthenticateMaxAttemptsExceeed", tableName: "DexcomShareTestResult", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: The Dexcom Share Serial Number does not match the serial number for this account. Verify the Serial Number in the settings.
-      ///
-      /// Locales: en, zh
-      static let dexcomsharetestresult_monitored_receiver_sn_doesnotmatch = Rswift.StringResource(key: "dexcomsharetestresult_monitored_receiver_sn_doesnotmatch", tableName: "DexcomShareTestResult", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Use the official Dexcom app to register the Transmitter (G5) or Share receiver (G4)  You are possibly just using the wrong URL, verify the setting 'Use US URL?'
-      ///
-      /// Locales: en, zh
-      static let dexcomsharetestresult_monitored_receiver_not_assigned_3 = Rswift.StringResource(key: "dexcomsharetestresult_monitored_receiver_not_assigned_3", tableName: "DexcomShareTestResult", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Verification Error
-      ///
-      /// Locales: en, zh
-      static let dexcomsharetestresult_verificationerroralerttitle = Rswift.StringResource(key: "dexcomsharetestresult_verificationerroralerttitle", tableName: "DexcomShareTestResult", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Verification Successful
-      ///
-      /// Locales: en, zh
-      static let dexcomsharetestresult_verificationsuccessfulalerttitle = Rswift.StringResource(key: "dexcomsharetestresult_verificationsuccessfulalerttitle", tableName: "DexcomShareTestResult", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Your Dexcom Share account was verified successfully
-      ///
-      /// Locales: en, zh
-      static let dexcomsharetestresult_verificationsuccessfulalertbody = Rswift.StringResource(key: "dexcomsharetestresult_verificationsuccessfulalertbody", tableName: "DexcomShareTestResult", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: is not assigned to
-      ///
-      /// Locales: en, zh
-      static let dexcomsharetestresult_monitored_receiver_not_assigned_2 = Rswift.StringResource(key: "dexcomsharetestresult_monitored_receiver_not_assigned_2", tableName: "DexcomShareTestResult", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-
-      /// en translation: Dexcom Share Upload Error
-      ///
-      /// Locales: en, zh
-      static func dexcomsharetestresult_uploadErrorWarning(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("dexcomsharetestresult_uploadErrorWarning", tableName: "DexcomShareTestResult", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "DexcomShareTestResult", preferredLanguages: preferredLanguages) else {
-          return "dexcomsharetestresult_uploadErrorWarning"
-        }
-
-        return NSLocalizedString("dexcomsharetestresult_uploadErrorWarning", tableName: "DexcomShareTestResult", bundle: bundle, comment: "")
-      }
-
-      /// en translation: It seems that the Transmitter ID or serial number
-      ///
-      /// Locales: en, zh
-      static func dexcomsharetestresult_monitored_receiver_not_assigned_1(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("dexcomsharetestresult_monitored_receiver_not_assigned_1", tableName: "DexcomShareTestResult", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "DexcomShareTestResult", preferredLanguages: preferredLanguages) else {
-          return "dexcomsharetestresult_monitored_receiver_not_assigned_1"
-        }
-
-        return NSLocalizedString("dexcomsharetestresult_monitored_receiver_not_assigned_1", tableName: "DexcomShareTestResult", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Maximum login attempts exceeded. Wait 10 minutes and try again.
-      ///
-      /// Locales: en, zh
-      static func dexcomsharetestresult_SSO_AuthenticateMaxAttemptsExceeed(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("dexcomsharetestresult_SSO_AuthenticateMaxAttemptsExceeed", tableName: "DexcomShareTestResult", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "DexcomShareTestResult", preferredLanguages: preferredLanguages) else {
-          return "dexcomsharetestresult_SSO_AuthenticateMaxAttemptsExceeed"
-        }
-
-        return NSLocalizedString("dexcomsharetestresult_SSO_AuthenticateMaxAttemptsExceeed", tableName: "DexcomShareTestResult", bundle: bundle, comment: "")
-      }
-
-      /// en translation: The Dexcom Share Serial Number does not match the serial number for this account. Verify the Serial Number in the settings.
-      ///
-      /// Locales: en, zh
-      static func dexcomsharetestresult_monitored_receiver_sn_doesnotmatch(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("dexcomsharetestresult_monitored_receiver_sn_doesnotmatch", tableName: "DexcomShareTestResult", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "DexcomShareTestResult", preferredLanguages: preferredLanguages) else {
-          return "dexcomsharetestresult_monitored_receiver_sn_doesnotmatch"
-        }
-
-        return NSLocalizedString("dexcomsharetestresult_monitored_receiver_sn_doesnotmatch", tableName: "DexcomShareTestResult", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Use the official Dexcom app to register the Transmitter (G5) or Share receiver (G4)  You are possibly just using the wrong URL, verify the setting 'Use US URL?'
-      ///
-      /// Locales: en, zh
-      static func dexcomsharetestresult_monitored_receiver_not_assigned_3(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("dexcomsharetestresult_monitored_receiver_not_assigned_3", tableName: "DexcomShareTestResult", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "DexcomShareTestResult", preferredLanguages: preferredLanguages) else {
-          return "dexcomsharetestresult_monitored_receiver_not_assigned_3"
-        }
-
-        return NSLocalizedString("dexcomsharetestresult_monitored_receiver_not_assigned_3", tableName: "DexcomShareTestResult", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Verification Error
-      ///
-      /// Locales: en, zh
-      static func dexcomsharetestresult_verificationerroralerttitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("dexcomsharetestresult_verificationerroralerttitle", tableName: "DexcomShareTestResult", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "DexcomShareTestResult", preferredLanguages: preferredLanguages) else {
-          return "dexcomsharetestresult_verificationerroralerttitle"
-        }
-
-        return NSLocalizedString("dexcomsharetestresult_verificationerroralerttitle", tableName: "DexcomShareTestResult", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Verification Successful
-      ///
-      /// Locales: en, zh
-      static func dexcomsharetestresult_verificationsuccessfulalerttitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("dexcomsharetestresult_verificationsuccessfulalerttitle", tableName: "DexcomShareTestResult", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "DexcomShareTestResult", preferredLanguages: preferredLanguages) else {
-          return "dexcomsharetestresult_verificationsuccessfulalerttitle"
-        }
-
-        return NSLocalizedString("dexcomsharetestresult_verificationsuccessfulalerttitle", tableName: "DexcomShareTestResult", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Your Dexcom Share account was verified successfully
-      ///
-      /// Locales: en, zh
-      static func dexcomsharetestresult_verificationsuccessfulalertbody(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("dexcomsharetestresult_verificationsuccessfulalertbody", tableName: "DexcomShareTestResult", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "DexcomShareTestResult", preferredLanguages: preferredLanguages) else {
-          return "dexcomsharetestresult_verificationsuccessfulalertbody"
-        }
-
-        return NSLocalizedString("dexcomsharetestresult_verificationsuccessfulalertbody", tableName: "DexcomShareTestResult", bundle: bundle, comment: "")
-      }
-
-      /// en translation: is not assigned to
-      ///
-      /// Locales: en, zh
-      static func dexcomsharetestresult_monitored_receiver_not_assigned_2(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("dexcomsharetestresult_monitored_receiver_not_assigned_2", tableName: "DexcomShareTestResult", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "DexcomShareTestResult", preferredLanguages: preferredLanguages) else {
-          return "dexcomsharetestresult_monitored_receiver_not_assigned_2"
-        }
-
-        return NSLocalizedString("dexcomsharetestresult_monitored_receiver_not_assigned_2", tableName: "DexcomShareTestResult", bundle: bundle, comment: "")
-      }
-
-      fileprivate init() {}
-    }
-
-    /// This `R.string.errorMessages` struct is generated, and contains static references to 4 localization keys.
-    struct errorMessages {
-      /// en translation: The Transmitter ID should be 5 characters long
-      ///
-      /// Locales: en, zh
-      static let error_message_transmitter_id_should_have_length_5 = Rswift.StringResource(key: "error_message_transmitter_id_should_have_length_5", tableName: "ErrorMessages", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: The Transmitter ID should be 6 characters long
-      ///
-      /// Locales: en, zh
-      static let error_message_transmitter_id_should_have_length_6 = Rswift.StringResource(key: "error_message_transmitter_id_should_have_length_6", tableName: "ErrorMessages", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: The Transmitter ID should be the last 5 numbers of the BluCon ID written on side of the device.  Example: If the BluCon ID is BLU1742B01007, the Transmitter ID you should use is 01007.
-      ///
-      /// Locales: en, zh
-      static let transmitterIdBluCon = Rswift.StringResource(key: "TransmitterIdBluCon", tableName: "ErrorMessages", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: The Transmitter ID should only contain characters a-z, A-Z or 0-9
-      ///
-      /// Locales: en, zh
-      static let error_message_Dexcom_transmitter_id_invalid_characters = Rswift.StringResource(key: "error_message_Dexcom_transmitter_id_invalid_characters", tableName: "ErrorMessages", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-
-      /// en translation: The Transmitter ID should be 5 characters long
-      ///
-      /// Locales: en, zh
-      static func error_message_transmitter_id_should_have_length_5(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("error_message_transmitter_id_should_have_length_5", tableName: "ErrorMessages", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "ErrorMessages", preferredLanguages: preferredLanguages) else {
-          return "error_message_transmitter_id_should_have_length_5"
-        }
-
-        return NSLocalizedString("error_message_transmitter_id_should_have_length_5", tableName: "ErrorMessages", bundle: bundle, comment: "")
-      }
-
-      /// en translation: The Transmitter ID should be 6 characters long
-      ///
-      /// Locales: en, zh
-      static func error_message_transmitter_id_should_have_length_6(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("error_message_transmitter_id_should_have_length_6", tableName: "ErrorMessages", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "ErrorMessages", preferredLanguages: preferredLanguages) else {
-          return "error_message_transmitter_id_should_have_length_6"
-        }
-
-        return NSLocalizedString("error_message_transmitter_id_should_have_length_6", tableName: "ErrorMessages", bundle: bundle, comment: "")
-      }
-
-      /// en translation: The Transmitter ID should be the last 5 numbers of the BluCon ID written on side of the device.  Example: If the BluCon ID is BLU1742B01007, the Transmitter ID you should use is 01007.
-      ///
-      /// Locales: en, zh
-      static func transmitterIdBluCon(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("TransmitterIdBluCon", tableName: "ErrorMessages", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "ErrorMessages", preferredLanguages: preferredLanguages) else {
-          return "TransmitterIdBluCon"
-        }
-
-        return NSLocalizedString("TransmitterIdBluCon", tableName: "ErrorMessages", bundle: bundle, comment: "")
-      }
-
-      /// en translation: The Transmitter ID should only contain characters a-z, A-Z or 0-9
-      ///
-      /// Locales: en, zh
-      static func error_message_Dexcom_transmitter_id_invalid_characters(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("error_message_Dexcom_transmitter_id_invalid_characters", tableName: "ErrorMessages", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "ErrorMessages", preferredLanguages: preferredLanguages) else {
-          return "error_message_Dexcom_transmitter_id_invalid_characters"
-        }
-
-        return NSLocalizedString("error_message_Dexcom_transmitter_id_invalid_characters", tableName: "ErrorMessages", bundle: bundle, comment: "")
-      }
-
-      fileprivate init() {}
-    }
-
-    /// This `R.string.homeView` struct is generated, and contains static references to 40 localization keys.
-    struct homeView {
-      /// en translation: Are you sure you want to stop the sensor?
-      ///
-      /// Locales: en, zh
-      static let stopSensorConfirmation = Rswift.StringResource(key: "stopSensorConfirmation", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Bluetooth is not on. Switch on bluetooth first and then try again.
-      ///
-      /// Locales: en, zh
-      static let bluetoothisnoton = Rswift.StringResource(key: "bluetoothisnoton", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Calibrate
-      ///
-      /// Locales: en, zh
-      static let calibrate = Rswift.StringResource(key: "calibrate", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Choose the time the sensor is started
-      ///
-      /// Locales: en, zh
-      static let dialog_subtitle_startSensorTime = Rswift.StringResource(key: "dialog_subtitle_startSensorTime", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Failed
-      ///
-      /// Locales: en, zh
-      static let failed = Rswift.StringResource(key: "failed", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: First go to the Bluetooth screen where you can add and scan for your transmitter.  Then come back to the Home screen and start your sensor.
-      ///
-      /// Locales: en, zh
-      static let transmitterinfo = Rswift.StringResource(key: "transmitterinfo", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Forget Transmitter
-      ///
-      /// Locales: en, zh
-      static let forgetbluetoothdeviceactiontitle = Rswift.StringResource(key: "forgetbluetoothdeviceactiontitle", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: If you don't have a sensor code, please use 0000. But be aware that you will not get readings until you calibrate.
-      ///
-      /// Locales: en, zh
-      static let enterSensorCode = Rswift.StringResource(key: "enterSensorCode", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: In the next dialogs, you will need to set the date and time the sensor was inserted. It is important that you set the date and time as correct as possible.
-      ///
-      /// Locales: en, zh
-      static let startSensorTimeInfo = Rswift.StringResource(key: "startSensorTimeInfo", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Keep %@ open in the foreground until a connection is made. Don't exit the app and don't lock your iPhone.
-      ///
-      /// Locales: en, zh
-      static let startScanningInfo = Rswift.StringResource(key: "startScanningInfo", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Last Connection
-      ///
-      /// Locales: en, zh
-      static let lastconnection = Rswift.StringResource(key: "lastconnection", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: New BG Reading
-      ///
-      /// Locales: en, zh
-      static let toast_new_bg_reading = Rswift.StringResource(key: "toast_new_bg_reading", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Not Known
-      ///
-      /// Locales: en, zh
-      static let notknown = Rswift.StringResource(key: "notknown", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Not Started
-      ///
-      /// Locales: en, zh
-      static let notstarted = Rswift.StringResource(key: "notstarted", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Please Read
-      ///
-      /// Locales: en, zh
-      static let info = Rswift.StringResource(key: "info", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Scan for Transmitter
-      ///
-      /// Locales: en, zh
-      static let scanbluetoothdeviceactiontitle = Rswift.StringResource(key: "scanbluetoothdeviceactiontitle", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Scanning Started
-      ///
-      /// Locales: en, zh
-      static let startScanningTitle = Rswift.StringResource(key: "startScanningTitle", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Scanning for Transmitter...
-      ///
-      /// Locales: en, zh
-      static let scanbluetoothdeviceongoing = Rswift.StringResource(key: "scanbluetoothdeviceongoing", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Sensor
-      ///
-      /// Locales: en, zh
-      static let sensor = Rswift.StringResource(key: "sensor", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Sensor Ends
-      ///
-      /// Locales: en, zh
-      static let sensorend = Rswift.StringResource(key: "sensorend", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Sensor Started
-      ///
-      /// Locales: en, zh
-      static let sensorstart = Rswift.StringResource(key: "sensorstart", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Snooze
-      ///
-      /// Locales: en, zh
-      static let presnooze = Rswift.StringResource(key: "presnooze", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Start Sensor
-      ///
-      /// Locales: en, zh
-      static let startSensor = Rswift.StringResource(key: "startSensor", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Status
-      ///
-      /// Locales: en, zh
-      static let statusactiontitle = Rswift.StringResource(key: "statusactiontitle", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Stop Sensor
-      ///
-      /// Locales: en, zh
-      static let stopSensor = Rswift.StringResource(key: "stopSensor", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Success
-      ///
-      /// Locales: en, zh
-      static let success = Rswift.StringResource(key: "success", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: The Transmitter battery is too low!
-      ///
-      /// Locales: en, zh
-      static let dexcomBatteryTooLow = Rswift.StringResource(key: "dexcomBatteryTooLow", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: The Transmitter is not paired with this iPhone. Open the application.
-      ///
-      /// Locales: en, zh
-      static let transmitternotpaired = Rswift.StringResource(key: "transmitternotpaired", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: The Transmitter was successfully paired.
-      ///
-      /// Locales: en, zh
-      static let transmitterpairingsuccessful = Rswift.StringResource(key: "transmitterpairingsuccessful", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: The sensor was not detected. Check if the Transmitter is correctly placed on the sensor.
-      ///
-      /// Locales: en, zh
-      static let sensornotdetected = Rswift.StringResource(key: "sensornotdetected", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: There must be at least two readings before you can calibrate. You will be requested to calibrate as soon as there is another reading.
-      ///
-      /// Locales: en, zh
-      static let theremustbeareadingbeforecalibration = Rswift.StringResource(key: "theremustbeareadingbeforecalibration", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: This program is free software distributed under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY.  See http://www.gnu.org/licenses/gpl.txt for more details.  Info: 
-      ///
-      /// Locales: en, zh
-      static let licenseinfo = Rswift.StringResource(key: "licenseinfo", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Too late! The Transmitter has already been disconnected. You should get a new pairing request in a few minutes.
-      ///
-      /// Locales: en, zh
-      static let transmitterpairingtoolate = Rswift.StringResource(key: "transmitterpairingtoolate", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Transmitter Battery Level
-      ///
-      /// Locales: en, zh
-      static let transmitterbatterylevel = Rswift.StringResource(key: "transmitterbatterylevel", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Transmitter did not reply to pairing request.
-      ///
-      /// Locales: en, zh
-      static let transmitterpairingattempttimeout = Rswift.StringResource(key: "transmitterpairingattempttimeout", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: When Manual Calibration is disabled, it is not necessary to calibrate the sensor.
-      ///
-      /// Locales: en, zh
-      static let calibrationNotNecessary = Rswift.StringResource(key: "calibrationNotNecessary", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: You cannot calibrate now, please follow the prompts to enter the calibration blood glucose value later.
-      ///
-      /// Locales: en, zh
-      static let startSensorBeforeCalibration = Rswift.StringResource(key: "startSensorBeforeCalibration", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: You cannot calibrate unless you have a transmitter connected.
-      ///
-      /// Locales: en, zh
-      static let theresNoCGMTransmitterActive = Rswift.StringResource(key: "theresNoCGMTransmitterActive", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: You did not give bluetooth permission for %@. Go to the settings, find the %@ app, and enable Bluetooth.
-      ///
-      /// Locales: en, zh
-      static let bluetoothIsNotAuthorized = Rswift.StringResource(key: "bluetoothIsNotAuthorized", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: ago
-      ///
-      /// Locales: en, zh
-      static let ago = Rswift.StringResource(key: "ago", tableName: "HomeView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-
-      /// en translation: Are you sure you want to stop the sensor?
-      ///
-      /// Locales: en, zh
-      static func stopSensorConfirmation(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("stopSensorConfirmation", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "stopSensorConfirmation"
-        }
-
-        return NSLocalizedString("stopSensorConfirmation", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Bluetooth is not on. Switch on bluetooth first and then try again.
-      ///
-      /// Locales: en, zh
-      static func bluetoothisnoton(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("bluetoothisnoton", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "bluetoothisnoton"
-        }
-
-        return NSLocalizedString("bluetoothisnoton", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Calibrate
-      ///
-      /// Locales: en, zh
-      static func calibrate(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("calibrate", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "calibrate"
-        }
-
-        return NSLocalizedString("calibrate", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Choose the time the sensor is started
-      ///
-      /// Locales: en, zh
-      static func dialog_subtitle_startSensorTime(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("dialog_subtitle_startSensorTime", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "dialog_subtitle_startSensorTime"
-        }
-
-        return NSLocalizedString("dialog_subtitle_startSensorTime", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Failed
-      ///
-      /// Locales: en, zh
-      static func failed(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("failed", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "failed"
-        }
-
-        return NSLocalizedString("failed", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: First go to the Bluetooth screen where you can add and scan for your transmitter.  Then come back to the Home screen and start your sensor.
-      ///
-      /// Locales: en, zh
-      static func transmitterinfo(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("transmitterinfo", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "transmitterinfo"
-        }
-
-        return NSLocalizedString("transmitterinfo", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Forget Transmitter
-      ///
-      /// Locales: en, zh
-      static func forgetbluetoothdeviceactiontitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("forgetbluetoothdeviceactiontitle", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "forgetbluetoothdeviceactiontitle"
-        }
-
-        return NSLocalizedString("forgetbluetoothdeviceactiontitle", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: If you don't have a sensor code, please use 0000. But be aware that you will not get readings until you calibrate.
-      ///
-      /// Locales: en, zh
-      static func enterSensorCode(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("enterSensorCode", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "enterSensorCode"
-        }
-
-        return NSLocalizedString("enterSensorCode", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: In the next dialogs, you will need to set the date and time the sensor was inserted. It is important that you set the date and time as correct as possible.
-      ///
-      /// Locales: en, zh
-      static func startSensorTimeInfo(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("startSensorTimeInfo", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "startSensorTimeInfo"
-        }
-
-        return NSLocalizedString("startSensorTimeInfo", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Keep %@ open in the foreground until a connection is made. Don't exit the app and don't lock your iPhone.
-      ///
-      /// Locales: en, zh
-      static func startScanningInfo(_ value1: String, preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          let format = NSLocalizedString("startScanningInfo", tableName: "HomeView", bundle: hostingBundle, comment: "")
-          return String(format: format, locale: applicationLocale, value1)
-        }
-
-        guard let (locale, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "startScanningInfo"
-        }
-
-        let format = NSLocalizedString("startScanningInfo", tableName: "HomeView", bundle: bundle, comment: "")
-        return String(format: format, locale: locale, value1)
-      }
-
-      /// en translation: Last Connection
-      ///
-      /// Locales: en, zh
-      static func lastconnection(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("lastconnection", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "lastconnection"
-        }
-
-        return NSLocalizedString("lastconnection", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: New BG Reading
-      ///
-      /// Locales: en, zh
-      static func toast_new_bg_reading(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("toast_new_bg_reading", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "toast_new_bg_reading"
-        }
-
-        return NSLocalizedString("toast_new_bg_reading", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Not Known
-      ///
-      /// Locales: en, zh
-      static func notknown(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("notknown", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "notknown"
-        }
-
-        return NSLocalizedString("notknown", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Not Started
-      ///
-      /// Locales: en, zh
-      static func notstarted(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("notstarted", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "notstarted"
-        }
-
-        return NSLocalizedString("notstarted", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Please Read
-      ///
-      /// Locales: en, zh
-      static func info(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("info", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "info"
-        }
-
-        return NSLocalizedString("info", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Scan for Transmitter
-      ///
-      /// Locales: en, zh
-      static func scanbluetoothdeviceactiontitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("scanbluetoothdeviceactiontitle", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "scanbluetoothdeviceactiontitle"
-        }
-
-        return NSLocalizedString("scanbluetoothdeviceactiontitle", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Scanning Started
-      ///
-      /// Locales: en, zh
-      static func startScanningTitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("startScanningTitle", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "startScanningTitle"
-        }
-
-        return NSLocalizedString("startScanningTitle", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Scanning for Transmitter...
-      ///
-      /// Locales: en, zh
-      static func scanbluetoothdeviceongoing(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("scanbluetoothdeviceongoing", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "scanbluetoothdeviceongoing"
-        }
-
-        return NSLocalizedString("scanbluetoothdeviceongoing", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Sensor
-      ///
-      /// Locales: en, zh
-      static func sensor(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("sensor", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "sensor"
-        }
-
-        return NSLocalizedString("sensor", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Sensor Ends
-      ///
-      /// Locales: en, zh
-      static func sensorend(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("sensorend", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "sensorend"
-        }
-
-        return NSLocalizedString("sensorend", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Sensor Started
-      ///
-      /// Locales: en, zh
-      static func sensorstart(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("sensorstart", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "sensorstart"
-        }
-
-        return NSLocalizedString("sensorstart", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Snooze
-      ///
-      /// Locales: en, zh
-      static func presnooze(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("presnooze", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "presnooze"
-        }
-
-        return NSLocalizedString("presnooze", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Start Sensor
-      ///
-      /// Locales: en, zh
-      static func startSensor(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("startSensor", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "startSensor"
-        }
-
-        return NSLocalizedString("startSensor", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Status
-      ///
-      /// Locales: en, zh
-      static func statusactiontitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("statusactiontitle", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "statusactiontitle"
-        }
-
-        return NSLocalizedString("statusactiontitle", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Stop Sensor
-      ///
-      /// Locales: en, zh
-      static func stopSensor(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("stopSensor", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "stopSensor"
-        }
-
-        return NSLocalizedString("stopSensor", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Success
-      ///
-      /// Locales: en, zh
-      static func success(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("success", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "success"
-        }
-
-        return NSLocalizedString("success", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: The Transmitter battery is too low!
-      ///
-      /// Locales: en, zh
-      static func dexcomBatteryTooLow(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("dexcomBatteryTooLow", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "dexcomBatteryTooLow"
-        }
-
-        return NSLocalizedString("dexcomBatteryTooLow", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: The Transmitter is not paired with this iPhone. Open the application.
-      ///
-      /// Locales: en, zh
-      static func transmitternotpaired(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("transmitternotpaired", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "transmitternotpaired"
-        }
-
-        return NSLocalizedString("transmitternotpaired", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: The Transmitter was successfully paired.
-      ///
-      /// Locales: en, zh
-      static func transmitterpairingsuccessful(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("transmitterpairingsuccessful", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "transmitterpairingsuccessful"
-        }
-
-        return NSLocalizedString("transmitterpairingsuccessful", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: The sensor was not detected. Check if the Transmitter is correctly placed on the sensor.
-      ///
-      /// Locales: en, zh
-      static func sensornotdetected(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("sensornotdetected", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "sensornotdetected"
-        }
-
-        return NSLocalizedString("sensornotdetected", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: There must be at least two readings before you can calibrate. You will be requested to calibrate as soon as there is another reading.
-      ///
-      /// Locales: en, zh
-      static func theremustbeareadingbeforecalibration(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("theremustbeareadingbeforecalibration", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "theremustbeareadingbeforecalibration"
-        }
-
-        return NSLocalizedString("theremustbeareadingbeforecalibration", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: This program is free software distributed under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY.  See http://www.gnu.org/licenses/gpl.txt for more details.  Info: 
-      ///
-      /// Locales: en, zh
-      static func licenseinfo(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("licenseinfo", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "licenseinfo"
-        }
-
-        return NSLocalizedString("licenseinfo", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Too late! The Transmitter has already been disconnected. You should get a new pairing request in a few minutes.
-      ///
-      /// Locales: en, zh
-      static func transmitterpairingtoolate(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("transmitterpairingtoolate", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "transmitterpairingtoolate"
-        }
-
-        return NSLocalizedString("transmitterpairingtoolate", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Transmitter Battery Level
-      ///
-      /// Locales: en, zh
-      static func transmitterbatterylevel(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("transmitterbatterylevel", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "transmitterbatterylevel"
-        }
-
-        return NSLocalizedString("transmitterbatterylevel", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Transmitter did not reply to pairing request.
-      ///
-      /// Locales: en, zh
-      static func transmitterpairingattempttimeout(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("transmitterpairingattempttimeout", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "transmitterpairingattempttimeout"
-        }
-
-        return NSLocalizedString("transmitterpairingattempttimeout", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: When Manual Calibration is disabled, it is not necessary to calibrate the sensor.
-      ///
-      /// Locales: en, zh
-      static func calibrationNotNecessary(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("calibrationNotNecessary", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "calibrationNotNecessary"
-        }
-
-        return NSLocalizedString("calibrationNotNecessary", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: You cannot calibrate now, please follow the prompts to enter the calibration blood glucose value later.
-      ///
-      /// Locales: en, zh
-      static func startSensorBeforeCalibration(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("startSensorBeforeCalibration", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "startSensorBeforeCalibration"
-        }
-
-        return NSLocalizedString("startSensorBeforeCalibration", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: You cannot calibrate unless you have a transmitter connected.
-      ///
-      /// Locales: en, zh
-      static func theresNoCGMTransmitterActive(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("theresNoCGMTransmitterActive", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "theresNoCGMTransmitterActive"
-        }
-
-        return NSLocalizedString("theresNoCGMTransmitterActive", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      /// en translation: You did not give bluetooth permission for %@. Go to the settings, find the %@ app, and enable Bluetooth.
-      ///
-      /// Locales: en, zh
-      static func bluetoothIsNotAuthorized(_ value1: String, _ value2: String, preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          let format = NSLocalizedString("bluetoothIsNotAuthorized", tableName: "HomeView", bundle: hostingBundle, comment: "")
-          return String(format: format, locale: applicationLocale, value1, value2)
-        }
-
-        guard let (locale, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "bluetoothIsNotAuthorized"
-        }
-
-        let format = NSLocalizedString("bluetoothIsNotAuthorized", tableName: "HomeView", bundle: bundle, comment: "")
-        return String(format: format, locale: locale, value1, value2)
-      }
-
-      /// en translation: ago
-      ///
-      /// Locales: en, zh
-      static func ago(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("ago", tableName: "HomeView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "HomeView", preferredLanguages: preferredLanguages) else {
-          return "ago"
-        }
-
-        return NSLocalizedString("ago", tableName: "HomeView", bundle: bundle, comment: "")
-      }
-
-      fileprivate init() {}
-    }
-
-    /// This `R.string.libreErrors` struct is generated, and contains static references to 4 localization keys.
-    struct libreErrors {
-      /// en translation: Libre US is not supported
-      ///
-      /// Locales: en, zh
-      static let libreUSNotSupported = Rswift.StringResource(key: "libreUSNotSupported", tableName: "LibreErrors", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Libre sensor not in status ready
-      ///
-      /// Locales: en, zh
-      static let libreSensorNotReady = Rswift.StringResource(key: "libreSensorNotReady", tableName: "LibreErrors", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: No data received from oop web server
-      ///
-      /// Locales: en, zh
-      static let receivedDataIsNil = Rswift.StringResource(key: "receivedDataIsNil", tableName: "LibreErrors", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: OOP Web Server error: 
-      ///
-      /// Locales: en, zh
-      static let oOPWebServerError = Rswift.StringResource(key: "oOPWebServerError", tableName: "LibreErrors", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-
-      /// en translation: Libre US is not supported
-      ///
-      /// Locales: en, zh
-      static func libreUSNotSupported(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("libreUSNotSupported", tableName: "LibreErrors", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "LibreErrors", preferredLanguages: preferredLanguages) else {
-          return "libreUSNotSupported"
-        }
-
-        return NSLocalizedString("libreUSNotSupported", tableName: "LibreErrors", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Libre sensor not in status ready
-      ///
-      /// Locales: en, zh
-      static func libreSensorNotReady(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("libreSensorNotReady", tableName: "LibreErrors", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "LibreErrors", preferredLanguages: preferredLanguages) else {
-          return "libreSensorNotReady"
-        }
-
-        return NSLocalizedString("libreSensorNotReady", tableName: "LibreErrors", bundle: bundle, comment: "")
-      }
-
-      /// en translation: No data received from oop web server
-      ///
-      /// Locales: en, zh
-      static func receivedDataIsNil(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("receivedDataIsNil", tableName: "LibreErrors", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "LibreErrors", preferredLanguages: preferredLanguages) else {
-          return "receivedDataIsNil"
-        }
-
-        return NSLocalizedString("receivedDataIsNil", tableName: "LibreErrors", bundle: bundle, comment: "")
-      }
-
-      /// en translation: OOP Web Server error: 
-      ///
-      /// Locales: en, zh
-      static func oOPWebServerError(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("oOPWebServerError", tableName: "LibreErrors", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "LibreErrors", preferredLanguages: preferredLanguages) else {
-          return "oOPWebServerError"
-        }
-
-        return NSLocalizedString("oOPWebServerError", tableName: "LibreErrors", bundle: bundle, comment: "")
-      }
-
-      fileprivate init() {}
-    }
-
-    /// This `R.string.libreNFC` struct is generated, and contains static references to 7 localization keys.
-    struct libreNFC {
-      /// en translation: Connected to Libre 2.  If you want to keeping scanning sometimes the Libre sensor with the official Libre app, then disallow bluetooth permission for the Libre app.   Otherwise, scanning the NFC with the Libre app and with the bluetooth permission allowed will break the connection between %@ and the Libre 2.
-      ///
-      /// Locales: en, zh
-      static let donotusethelibrelinkapp = Rswift.StringResource(key: "donotusethelibrelinkapp", tableName: "LibreNFC", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Error occured while scanning the sensor. Click 'Scan' top left or click 'back' and add the Libre 2 again, and scan again.
-      ///
-      /// Locales: en, zh
-      static let nfcErrorRetryScan = Rswift.StringResource(key: "nfcErrorRetryScan", tableName: "LibreNFC", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Hold the top of your iOS device near the sensor to scan
-      ///
-      /// Locales: en, zh
-      static let holdTopOfIphoneNearSensor = Rswift.StringResource(key: "holdTopOfIphoneNearSensor", tableName: "LibreNFC", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Scan Complete
-      ///
-      /// Locales: en, zh
-      static let scanComplete = Rswift.StringResource(key: "scanComplete", tableName: "LibreNFC", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: This iPhone does not support NFC
-      ///
-      /// Locales: en, zh
-      static let deviceMustSupportNFC = Rswift.StringResource(key: "deviceMustSupportNFC", tableName: "LibreNFC", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: To connect to Libre 2, this iPhone needs upgrading to iOS14
-      ///
-      /// Locales: en, zh
-      static let deviceMustSupportIOS14 = Rswift.StringResource(key: "deviceMustSupportIOS14", tableName: "LibreNFC", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: You seem to have scanned a new sensor, but %@ is having the Bluetooth connection to the old sensor.  To solve this : - Click 'disconnect' or 'stop scanning' - Go back to previous screen and add a new CGM of type Libre 2 and scan again.  %@ should now connect to the new sensor.
-      ///
-      /// Locales: en, zh
-      static let connectedLibre2DoesNotMatchScannedLibre2 = Rswift.StringResource(key: "connectedLibre2DoesNotMatchScannedLibre2", tableName: "LibreNFC", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-
-      /// en translation: Connected to Libre 2.  If you want to keeping scanning sometimes the Libre sensor with the official Libre app, then disallow bluetooth permission for the Libre app.   Otherwise, scanning the NFC with the Libre app and with the bluetooth permission allowed will break the connection between %@ and the Libre 2.
-      ///
-      /// Locales: en, zh
-      static func donotusethelibrelinkapp(_ value1: String, preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          let format = NSLocalizedString("donotusethelibrelinkapp", tableName: "LibreNFC", bundle: hostingBundle, comment: "")
-          return String(format: format, locale: applicationLocale, value1)
-        }
-
-        guard let (locale, bundle) = localeBundle(tableName: "LibreNFC", preferredLanguages: preferredLanguages) else {
-          return "donotusethelibrelinkapp"
-        }
-
-        let format = NSLocalizedString("donotusethelibrelinkapp", tableName: "LibreNFC", bundle: bundle, comment: "")
-        return String(format: format, locale: locale, value1)
-      }
-
-      /// en translation: Error occured while scanning the sensor. Click 'Scan' top left or click 'back' and add the Libre 2 again, and scan again.
-      ///
-      /// Locales: en, zh
-      static func nfcErrorRetryScan(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("nfcErrorRetryScan", tableName: "LibreNFC", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "LibreNFC", preferredLanguages: preferredLanguages) else {
-          return "nfcErrorRetryScan"
-        }
-
-        return NSLocalizedString("nfcErrorRetryScan", tableName: "LibreNFC", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Hold the top of your iOS device near the sensor to scan
-      ///
-      /// Locales: en, zh
-      static func holdTopOfIphoneNearSensor(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("holdTopOfIphoneNearSensor", tableName: "LibreNFC", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "LibreNFC", preferredLanguages: preferredLanguages) else {
-          return "holdTopOfIphoneNearSensor"
-        }
-
-        return NSLocalizedString("holdTopOfIphoneNearSensor", tableName: "LibreNFC", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Scan Complete
-      ///
-      /// Locales: en, zh
-      static func scanComplete(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("scanComplete", tableName: "LibreNFC", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "LibreNFC", preferredLanguages: preferredLanguages) else {
-          return "scanComplete"
-        }
-
-        return NSLocalizedString("scanComplete", tableName: "LibreNFC", bundle: bundle, comment: "")
-      }
-
-      /// en translation: This iPhone does not support NFC
-      ///
-      /// Locales: en, zh
-      static func deviceMustSupportNFC(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("deviceMustSupportNFC", tableName: "LibreNFC", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "LibreNFC", preferredLanguages: preferredLanguages) else {
-          return "deviceMustSupportNFC"
-        }
-
-        return NSLocalizedString("deviceMustSupportNFC", tableName: "LibreNFC", bundle: bundle, comment: "")
-      }
-
-      /// en translation: To connect to Libre 2, this iPhone needs upgrading to iOS14
-      ///
-      /// Locales: en, zh
-      static func deviceMustSupportIOS14(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("deviceMustSupportIOS14", tableName: "LibreNFC", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "LibreNFC", preferredLanguages: preferredLanguages) else {
-          return "deviceMustSupportIOS14"
-        }
-
-        return NSLocalizedString("deviceMustSupportIOS14", tableName: "LibreNFC", bundle: bundle, comment: "")
-      }
-
-      /// en translation: You seem to have scanned a new sensor, but %@ is having the Bluetooth connection to the old sensor.  To solve this : - Click 'disconnect' or 'stop scanning' - Go back to previous screen and add a new CGM of type Libre 2 and scan again.  %@ should now connect to the new sensor.
-      ///
-      /// Locales: en, zh
-      static func connectedLibre2DoesNotMatchScannedLibre2(_ value1: String, _ value2: String, preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          let format = NSLocalizedString("connectedLibre2DoesNotMatchScannedLibre2", tableName: "LibreNFC", bundle: hostingBundle, comment: "")
-          return String(format: format, locale: applicationLocale, value1, value2)
-        }
-
-        guard let (locale, bundle) = localeBundle(tableName: "LibreNFC", preferredLanguages: preferredLanguages) else {
-          return "connectedLibre2DoesNotMatchScannedLibre2"
-        }
-
-        let format = NSLocalizedString("connectedLibre2DoesNotMatchScannedLibre2", tableName: "LibreNFC", bundle: bundle, comment: "")
-        return String(format: format, locale: locale, value1, value2)
-      }
-
-      fileprivate init() {}
-    }
-
-    /// This `R.string.libreStates` struct is generated, and contains static references to 7 localization keys.
-    struct libreStates {
-      /// en translation: expired
-      ///
-      /// Locales: en, zh
-      static let expired = Rswift.StringResource(key: "expired", tableName: "LibreStates", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: failed
-      ///
-      /// Locales: en, zh
-      static let failure = Rswift.StringResource(key: "failure", tableName: "LibreStates", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: not yet started
-      ///
-      /// Locales: en, zh
-      static let notYetStarted = Rswift.StringResource(key: "notYetStarted", tableName: "LibreStates", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: ready
-      ///
-      /// Locales: en, zh
-      static let ready = Rswift.StringResource(key: "ready", tableName: "LibreStates", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: shut down
-      ///
-      /// Locales: en, zh
-      static let shutdown = Rswift.StringResource(key: "shutdown", tableName: "LibreStates", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: starting
-      ///
-      /// Locales: en, zh
-      static let starting = Rswift.StringResource(key: "starting", tableName: "LibreStates", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: unknown
-      ///
-      /// Locales: en, zh
-      static let unknown = Rswift.StringResource(key: "unknown", tableName: "LibreStates", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-
-      /// en translation: expired
-      ///
-      /// Locales: en, zh
-      static func expired(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("expired", tableName: "LibreStates", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "LibreStates", preferredLanguages: preferredLanguages) else {
-          return "expired"
-        }
-
-        return NSLocalizedString("expired", tableName: "LibreStates", bundle: bundle, comment: "")
-      }
-
-      /// en translation: failed
-      ///
-      /// Locales: en, zh
-      static func failure(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("failure", tableName: "LibreStates", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "LibreStates", preferredLanguages: preferredLanguages) else {
-          return "failure"
-        }
-
-        return NSLocalizedString("failure", tableName: "LibreStates", bundle: bundle, comment: "")
-      }
-
-      /// en translation: not yet started
-      ///
-      /// Locales: en, zh
-      static func notYetStarted(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("notYetStarted", tableName: "LibreStates", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "LibreStates", preferredLanguages: preferredLanguages) else {
-          return "notYetStarted"
-        }
-
-        return NSLocalizedString("notYetStarted", tableName: "LibreStates", bundle: bundle, comment: "")
-      }
-
-      /// en translation: ready
-      ///
-      /// Locales: en, zh
-      static func ready(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("ready", tableName: "LibreStates", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "LibreStates", preferredLanguages: preferredLanguages) else {
-          return "ready"
-        }
-
-        return NSLocalizedString("ready", tableName: "LibreStates", bundle: bundle, comment: "")
-      }
-
-      /// en translation: shut down
-      ///
-      /// Locales: en, zh
-      static func shutdown(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("shutdown", tableName: "LibreStates", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "LibreStates", preferredLanguages: preferredLanguages) else {
-          return "shutdown"
-        }
-
-        return NSLocalizedString("shutdown", tableName: "LibreStates", bundle: bundle, comment: "")
-      }
-
-      /// en translation: starting
-      ///
-      /// Locales: en, zh
-      static func starting(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("starting", tableName: "LibreStates", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "LibreStates", preferredLanguages: preferredLanguages) else {
-          return "starting"
-        }
-
-        return NSLocalizedString("starting", tableName: "LibreStates", bundle: bundle, comment: "")
-      }
-
-      /// en translation: unknown
-      ///
-      /// Locales: en, zh
-      static func unknown(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("unknown", tableName: "LibreStates", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "LibreStates", preferredLanguages: preferredLanguages) else {
-          return "unknown"
-        }
-
-        return NSLocalizedString("unknown", tableName: "LibreStates", bundle: bundle, comment: "")
-      }
-
-      fileprivate init() {}
-    }
-
-    /// This `R.string.main` struct is generated, and contains static references to 7 localization keys.
-    struct main {
-      /// en translation: Bluetooth
-      ///
-      /// Locales: en, zh
-      static let sgTP5HUtTitle = Rswift.StringResource(key: "sgT-p5-hUt.title", tableName: "Main", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: First View
-      ///
-      /// Locales: en, zh
-      static let kqz1wVlDText = Rswift.StringResource(key: "KQZ-1w-vlD.text", tableName: "Main", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Home
-      ///
-      /// Locales: en, zh
-      static let acWDTCKfTitle = Rswift.StringResource(key: "acW-dT-cKf.title", tableName: "Main", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Loaded by FirstViewController
-      ///
-      /// Locales: en, zh
-      static let a5M7J77LText = Rswift.StringResource(key: "A5M-7J-77L.text", tableName: "Main", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Loaded by SecondViewController
-      ///
-      /// Locales: en, zh
-      static let nDkCvGanText = Rswift.StringResource(key: "NDk-cv-Gan.text", tableName: "Main", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Second View
-      ///
-      /// Locales: en, zh
-      static let zEqFUWV5Text = Rswift.StringResource(key: "zEq-FU-wV5.text", tableName: "Main", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Settings
-      ///
-      /// Locales: en, zh
-      static let cPaGyQ4nTitle = Rswift.StringResource(key: "cPa-gy-q4n.title", tableName: "Main", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-
-      /// en translation: Bluetooth
-      ///
-      /// Locales: en, zh
-      static func sgTP5HUtTitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("sgT-p5-hUt.title", tableName: "Main", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Main", preferredLanguages: preferredLanguages) else {
-          return "sgT-p5-hUt.title"
-        }
-
-        return NSLocalizedString("sgT-p5-hUt.title", tableName: "Main", bundle: bundle, comment: "")
-      }
-
-      /// en translation: First View
-      ///
-      /// Locales: en, zh
-      static func kqz1wVlDText(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("KQZ-1w-vlD.text", tableName: "Main", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Main", preferredLanguages: preferredLanguages) else {
-          return "KQZ-1w-vlD.text"
-        }
-
-        return NSLocalizedString("KQZ-1w-vlD.text", tableName: "Main", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Home
-      ///
-      /// Locales: en, zh
-      static func acWDTCKfTitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("acW-dT-cKf.title", tableName: "Main", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Main", preferredLanguages: preferredLanguages) else {
-          return "acW-dT-cKf.title"
-        }
-
-        return NSLocalizedString("acW-dT-cKf.title", tableName: "Main", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Loaded by FirstViewController
-      ///
-      /// Locales: en, zh
-      static func a5M7J77LText(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("A5M-7J-77L.text", tableName: "Main", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Main", preferredLanguages: preferredLanguages) else {
-          return "A5M-7J-77L.text"
-        }
-
-        return NSLocalizedString("A5M-7J-77L.text", tableName: "Main", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Loaded by SecondViewController
-      ///
-      /// Locales: en, zh
-      static func nDkCvGanText(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("NDk-cv-Gan.text", tableName: "Main", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Main", preferredLanguages: preferredLanguages) else {
-          return "NDk-cv-Gan.text"
-        }
-
-        return NSLocalizedString("NDk-cv-Gan.text", tableName: "Main", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Second View
-      ///
-      /// Locales: en, zh
-      static func zEqFUWV5Text(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("zEq-FU-wV5.text", tableName: "Main", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Main", preferredLanguages: preferredLanguages) else {
-          return "zEq-FU-wV5.text"
-        }
-
-        return NSLocalizedString("zEq-FU-wV5.text", tableName: "Main", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Settings
-      ///
-      /// Locales: en, zh
-      static func cPaGyQ4nTitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("cPa-gy-q4n.title", tableName: "Main", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Main", preferredLanguages: preferredLanguages) else {
-          return "cPa-gy-q4n.title"
-        }
-
-        return NSLocalizedString("cPa-gy-q4n.title", tableName: "Main", bundle: bundle, comment: "")
-      }
-
-      fileprivate init() {}
-    }
-
-    /// This `R.string.nightScoutTestResult` struct is generated, and contains static references to 8 localization keys.
-    struct nightScoutTestResult {
-      /// en translation: Please check the URL and other inputs.  Error code: %d
-      ///
-      /// Locales: en, zh
-      static let dialog_msg_nightScoutResult_verification_failed = Rswift.StringResource(key: "dialog_msg_nightScoutResult_verification_failed", tableName: "NightScoutTestResult", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Please wait a moment
-      ///
-      /// Locales: en, zh
-      static let nightScoutAPIKeyAndURLStartedBody = Rswift.StringResource(key: "nightScoutAPIKeyAndURLStartedBody", tableName: "NightScoutTestResult", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: URL responds OK but authentication method is missing and cannot be checked
-      ///
-      /// Locales: en, zh
-      static let nightScoutResult_no_auth_method = Rswift.StringResource(key: "nightScoutResult_no_auth_method", tableName: "NightScoutTestResult", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Verification Error
-      ///
-      /// Locales: en, zh
-      static let dialog_title_nightScoutResult_verification_failed = Rswift.StringResource(key: "dialog_title_nightScoutResult_verification_failed", tableName: "NightScoutTestResult", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Verification Successful
-      ///
-      /// Locales: en, zh
-      static let nightscouttestresult_verificationsuccessfulalerttitle = Rswift.StringResource(key: "nightscouttestresult_verificationsuccessfulalerttitle", tableName: "NightScoutTestResult", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Verifying...
-      ///
-      /// Locales: en, zh
-      static let nightScoutAPIKeyAndURLStartedTitle = Rswift.StringResource(key: "nightScoutAPIKeyAndURLStartedTitle", tableName: "NightScoutTestResult", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Your Nightscout URL (and optionally API-Secret or Token) must be set before you can run the test
-      ///
-      /// Locales: en, zh
-      static let warningAPIKeyOrURLIsnil = Rswift.StringResource(key: "warningAPIKeyOrURLIsnil", tableName: "NightScoutTestResult", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Your Nightscout site was verified successfully
-      ///
-      /// Locales: en, zh
-      static let nightscouttestresult_verificationsuccessfulalertbody = Rswift.StringResource(key: "nightscouttestresult_verificationsuccessfulalertbody", tableName: "NightScoutTestResult", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-
-      /// en translation: Please check the URL and other inputs.  Error code: %d
-      ///
-      /// Locales: en, zh
-      static func dialog_msg_nightScoutResult_verification_failed(_ value1: Int, preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          let format = NSLocalizedString("dialog_msg_nightScoutResult_verification_failed", tableName: "NightScoutTestResult", bundle: hostingBundle, comment: "")
-          return String(format: format, locale: applicationLocale, value1)
-        }
-
-        guard let (locale, bundle) = localeBundle(tableName: "NightScoutTestResult", preferredLanguages: preferredLanguages) else {
-          return "dialog_msg_nightScoutResult_verification_failed"
-        }
-
-        let format = NSLocalizedString("dialog_msg_nightScoutResult_verification_failed", tableName: "NightScoutTestResult", bundle: bundle, comment: "")
-        return String(format: format, locale: locale, value1)
-      }
-
-      /// en translation: Please wait a moment
-      ///
-      /// Locales: en, zh
-      static func nightScoutAPIKeyAndURLStartedBody(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("nightScoutAPIKeyAndURLStartedBody", tableName: "NightScoutTestResult", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "NightScoutTestResult", preferredLanguages: preferredLanguages) else {
-          return "nightScoutAPIKeyAndURLStartedBody"
-        }
-
-        return NSLocalizedString("nightScoutAPIKeyAndURLStartedBody", tableName: "NightScoutTestResult", bundle: bundle, comment: "")
-      }
-
-      /// en translation: URL responds OK but authentication method is missing and cannot be checked
-      ///
-      /// Locales: en, zh
-      static func nightScoutResult_no_auth_method(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("nightScoutResult_no_auth_method", tableName: "NightScoutTestResult", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "NightScoutTestResult", preferredLanguages: preferredLanguages) else {
-          return "nightScoutResult_no_auth_method"
-        }
-
-        return NSLocalizedString("nightScoutResult_no_auth_method", tableName: "NightScoutTestResult", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Verification Error
-      ///
-      /// Locales: en, zh
-      static func dialog_title_nightScoutResult_verification_failed(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("dialog_title_nightScoutResult_verification_failed", tableName: "NightScoutTestResult", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "NightScoutTestResult", preferredLanguages: preferredLanguages) else {
-          return "dialog_title_nightScoutResult_verification_failed"
-        }
-
-        return NSLocalizedString("dialog_title_nightScoutResult_verification_failed", tableName: "NightScoutTestResult", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Verification Successful
-      ///
-      /// Locales: en, zh
-      static func nightscouttestresult_verificationsuccessfulalerttitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("nightscouttestresult_verificationsuccessfulalerttitle", tableName: "NightScoutTestResult", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "NightScoutTestResult", preferredLanguages: preferredLanguages) else {
-          return "nightscouttestresult_verificationsuccessfulalerttitle"
-        }
-
-        return NSLocalizedString("nightscouttestresult_verificationsuccessfulalerttitle", tableName: "NightScoutTestResult", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Verifying...
-      ///
-      /// Locales: en, zh
-      static func nightScoutAPIKeyAndURLStartedTitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("nightScoutAPIKeyAndURLStartedTitle", tableName: "NightScoutTestResult", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "NightScoutTestResult", preferredLanguages: preferredLanguages) else {
-          return "nightScoutAPIKeyAndURLStartedTitle"
-        }
-
-        return NSLocalizedString("nightScoutAPIKeyAndURLStartedTitle", tableName: "NightScoutTestResult", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Your Nightscout URL (and optionally API-Secret or Token) must be set before you can run the test
-      ///
-      /// Locales: en, zh
-      static func warningAPIKeyOrURLIsnil(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("warningAPIKeyOrURLIsnil", tableName: "NightScoutTestResult", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "NightScoutTestResult", preferredLanguages: preferredLanguages) else {
-          return "warningAPIKeyOrURLIsnil"
-        }
-
-        return NSLocalizedString("warningAPIKeyOrURLIsnil", tableName: "NightScoutTestResult", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Your Nightscout site was verified successfully
-      ///
-      /// Locales: en, zh
-      static func nightscouttestresult_verificationsuccessfulalertbody(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("nightscouttestresult_verificationsuccessfulalertbody", tableName: "NightScoutTestResult", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "NightScoutTestResult", preferredLanguages: preferredLanguages) else {
-          return "nightscouttestresult_verificationsuccessfulalertbody"
-        }
-
-        return NSLocalizedString("nightscouttestresult_verificationsuccessfulalertbody", tableName: "NightScoutTestResult", bundle: bundle, comment: "")
-      }
-
-      fileprivate init() {}
-    }
-
-    /// This `R.string.notes` struct is generated, and contains static references to 3 localization keys.
-    struct notes {
-      /// en translation: Add a Note
-      ///
-      /// Locales: en, zh
-      static let dialog_title_add_note = Rswift.StringResource(key: "dialog_title_add_note", tableName: "Notes", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Alarms and Notes will show here
-      ///
-      /// Locales: en, zh
-      static let emptyview_msg_no_notes = Rswift.StringResource(key: "emptyview_msg_no_notes", tableName: "Notes", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: No Alarms or Notes
-      ///
-      /// Locales: en, zh
-      static let emptyview_title_no_notes = Rswift.StringResource(key: "emptyview_title_no_notes", tableName: "Notes", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-
-      /// en translation: Add a Note
-      ///
-      /// Locales: en, zh
-      static func dialog_title_add_note(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("dialog_title_add_note", tableName: "Notes", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Notes", preferredLanguages: preferredLanguages) else {
-          return "dialog_title_add_note"
-        }
-
-        return NSLocalizedString("dialog_title_add_note", tableName: "Notes", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Alarms and Notes will show here
-      ///
-      /// Locales: en, zh
-      static func emptyview_msg_no_notes(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("emptyview_msg_no_notes", tableName: "Notes", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Notes", preferredLanguages: preferredLanguages) else {
-          return "emptyview_msg_no_notes"
-        }
-
-        return NSLocalizedString("emptyview_msg_no_notes", tableName: "Notes", bundle: bundle, comment: "")
-      }
-
-      /// en translation: No Alarms or Notes
-      ///
-      /// Locales: en, zh
-      static func emptyview_title_no_notes(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("emptyview_title_no_notes", tableName: "Notes", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Notes", preferredLanguages: preferredLanguages) else {
-          return "emptyview_title_no_notes"
-        }
-
-        return NSLocalizedString("emptyview_title_no_notes", tableName: "Notes", bundle: bundle, comment: "")
-      }
-
-      fileprivate init() {}
-    }
-
-    /// This `R.string.settingsViews` struct is generated, and contains static references to 117 localization keys.
-    struct settingsViews {
-      /// en translation: 5 Mins per Dot
-      ///
-      /// Locales: en, zh
-      static let settingsviews_chartDots5MinsApart = Rswift.StringResource(key: "settingsviews_chartDots5MinsApart", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: API Secret
-      ///
-      /// Locales: en, zh
-      static let settingsviews_nightScoutAPIKey = Rswift.StringResource(key: "settingsviews_nightScoutAPIKey", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: About %@
-      ///
-      /// Locales: en, zh
-      static let settingsviews_sectiontitleAbout = Rswift.StringResource(key: "settingsviews_sectiontitleAbout", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Account Name
-      ///
-      /// Locales: en, zh
-      static let settingsviews_dexcomShareAccountName = Rswift.StringResource(key: "settingsviews_dexcomShareAccountName", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Alarm Types
-      ///
-      /// Locales: en, zh
-      static let settingsviews_row_alert_types = Rswift.StringResource(key: "settingsviews_row_alert_types", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Alarms
-      ///
-      /// Locales: en, zh
-      static let settingsviews_row_alerts = Rswift.StringResource(key: "settingsviews_row_alerts", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Alarms
-      ///
-      /// Locales: en, zh
-      static let settingsviews_sectiontitlealerting = Rswift.StringResource(key: "settingsviews_sectiontitlealerting", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Already the latest version
-      ///
-      /// Locales: en, zh
-      static let toast_no_newer_app_version = Rswift.StringResource(key: "toast_no_newer_app_version", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: An alarm sound is now being played with the same volume that will be used for an Alarm Type with 'Override Mute' = Off  (Also used always for Missed Reading alarms which use the iOS volume.)  Press one of the volume buttons to stop the sound, then change the volume with the volume buttons to the desired volume and test again.
-      ///
-      /// Locales: en, zh
-      static let volumeTestiOSSoundExplanation = Rswift.StringResource(key: "volumeTestiOSSoundExplanation", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: An alarm sound is now being played with the same volume that will be used for an Alarm Type with 'Override Mute' = On  (Used for all alarms except Missed Reading alerts which always use the iOS volume.)  Change the volume with the volume buttons and press OK when done.
-      ///
-      /// Locales: en, zh
-      static let volumeTestSoundPlayerExplanation = Rswift.StringResource(key: "volumeTestSoundPlayerExplanation", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Apple Health
-      ///
-      /// Locales: en, zh
-      static let settingsviews_sectiontitlehealthkit = Rswift.StringResource(key: "settingsviews_sectiontitlehealthkit", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Apple Watch
-      ///
-      /// Locales: en, zh
-      static let appleWatchSectionTitle = Rswift.StringResource(key: "appleWatchSectionTitle", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Blood Glucose Units
-      ///
-      /// Locales: en, zh
-      static let settingsviews_selectbgunit = Rswift.StringResource(key: "settingsviews_selectbgunit", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Build
-      ///
-      /// Locales: en, zh
-      static let settingsviews_build = Rswift.StringResource(key: "settingsviews_build", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Calendar Events
-      ///
-      /// Locales: en, zh
-      static let calendarEventsSectionTitle = Rswift.StringResource(key: "calendarEventsSectionTitle", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Calendar to Use
-      ///
-      /// Locales: en, zh
-      static let calenderId = Rswift.StringResource(key: "calenderId", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Change 
-      ///
-      /// Locales: en, zh
-      static let editScheduleTimePickerSubtitle = Rswift.StringResource(key: "editScheduleTimePickerSubtitle", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Chart Height
-      ///
-      /// Locales: en, zh
-      static let settingsviews_chartHeight = Rswift.StringResource(key: "settingsviews_chartHeight", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Chart Height can not be smaller than Urgent High Value
-      ///
-      /// Locales: en, zh
-      static let toast_chart_height_smaller_than_urgent_high = Rswift.StringResource(key: "toast_chart_height_smaller_than_urgent_high", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Check App Verison
-      ///
-      /// Locales: en, zh
-      static let check_app_version = Rswift.StringResource(key: "check_app_version", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Common Settings
-      ///
-      /// Locales: en, zh
-      static let commonSettings = Rswift.StringResource(key: "commonSettings", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Create Calendar Events
-      ///
-      /// Locales: en, zh
-      static let createCalendarEvent = Rswift.StringResource(key: "createCalendarEvent", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Days to Calculate
-      ///
-      /// Locales: en, zh
-      static let settingsviews_daysToUseStatisticsTitle = Rswift.StringResource(key: "settingsviews_daysToUseStatisticsTitle", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Developer Settings
-      ///
-      /// Locales: en, zh
-      static let developerSettings = Rswift.StringResource(key: "developerSettings", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Dexcom Share
-      ///
-      /// Locales: en, zh
-      static let settingsviews_sectiontitledexcomshare = Rswift.StringResource(key: "settingsviews_sectiontitledexcomshare", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Display Delta
-      ///
-      /// Locales: en, zh
-      static let displayDeltaInCalendarEvent = Rswift.StringResource(key: "displayDeltaInCalendarEvent", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Display Trend
-      ///
-      /// Locales: en, zh
-      static let settingsviews_displayTrendInCalendarEvent = Rswift.StringResource(key: "settingsviews_displayTrendInCalendarEvent", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Display Unit
-      ///
-      /// Locales: en, zh
-      static let displayUnitInCalendarEvent = Rswift.StringResource(key: "displayUnitInCalendarEvent", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Enable Nightscout
-      ///
-      /// Locales: en, zh
-      static let settingsviews_nightScoutEnabled = Rswift.StringResource(key: "settingsviews_nightScoutEnabled", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Enter Dexcom Share Account Name
-      ///
-      /// Locales: en, zh
-      static let settingsviews_giveDexcomShareAccountName = Rswift.StringResource(key: "settingsviews_giveDexcomShareAccountName", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Enter Transmitter ID
-      ///
-      /// Locales: en, zh
-      static let settingsviews_givetransmitterid = Rswift.StringResource(key: "settingsviews_givetransmitterid", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Enter the Dexcom Receiver Serial Number
-      ///
-      /// Locales: en, zh
-      static let settingsviews_giveDexcomShareSerialNumber = Rswift.StringResource(key: "settingsviews_giveDexcomShareSerialNumber", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Enter your API Secret
-      ///
-      /// Locales: en, zh
-      static let settingsviews_giveNightScoutAPIKey = Rswift.StringResource(key: "settingsviews_giveNightScoutAPIKey", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Enter your NightScout URL
-      ///
-      /// Locales: en, zh
-      static let settingsviews_giveNightScoutUrl = Rswift.StringResource(key: "settingsviews_giveNightScoutUrl", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Explain why you need to send the trace file with as much detail as possible. If you have already reported your problem in the Facebook support group '%@', then mention your facebook name in the e-mail
-      ///
-      /// Locales: en, zh
-      static let describeProblem = Rswift.StringResource(key: "describeProblem", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Failed to Send Email
-      ///
-      /// Locales: en
-      static let failedToSendEmail = Rswift.StringResource(key: "failedToSendEmail", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Follower
-      ///
-      /// Locales: en, zh
-      static let settingsviews_follower = Rswift.StringResource(key: "settingsviews_follower", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: General
-      ///
-      /// Locales: en, zh
-      static let settingsviews_sectiontitlegeneral = Rswift.StringResource(key: "settingsviews_sectiontitlegeneral", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Give Dexcom Share Password
-      ///
-      /// Locales: en, zh
-      static let settingsviews_giveDexcomSharePassword = Rswift.StringResource(key: "settingsviews_giveDexcomSharePassword", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: HbA1c in mmols/mol
-      ///
-      /// Locales: en, zh
-      static let settingsviews_useIFCCA1C = Rswift.StringResource(key: "settingsviews_useIFCCA1C", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Health Data Integration Notice
-      ///
-      /// Locales: en, zh
-      static let settingsviews_healthkit_title = Rswift.StringResource(key: "settingsviews_healthkit_title", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Help & Documentation
-      ///
-      /// Locales: en
-      static let settingsviews_sectiontitlehelp = Rswift.StringResource(key: "settingsviews_sectiontitlehelp", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: High Value
-      ///
-      /// Locales: en, zh
-      static let settingsviews_highValue = Rswift.StringResource(key: "settingsviews_highValue", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Home Screen
-      ///
-      /// Locales: en, zh
-      static let settingsviews_sectiontitlehomescreen = Rswift.StringResource(key: "settingsviews_sectiontitlehomescreen", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Include Debug Level
-      ///
-      /// Locales: en
-      static let debugLevel = Rswift.StringResource(key: "debugLevel", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Interval
-      ///
-      /// Locales: en, zh
-      static let settingsviews_IntervalTitle = Rswift.StringResource(key: "settingsviews_IntervalTitle", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Issue Reporting
-      ///
-      /// Locales: en
-      static let sectionTitleTrace = Rswift.StringResource(key: "sectionTitleTrace", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Language
-      ///
-      /// Locales: en, zh
-      static let settingsviews_speakBgReadingslanguage = Rswift.StringResource(key: "settingsviews_speakBgReadingslanguage", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: License
-      ///
-      /// Locales: en
-      static let settingsviews_license = Rswift.StringResource(key: "settingsviews_license", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Low Value
-      ///
-      /// Locales: en, zh
-      static let settingsviews_lowValue = Rswift.StringResource(key: "settingsviews_lowValue", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Manual Calibration
-      ///
-      /// Locales: en, zh
-      static let settingsviews_manualcalibration = Rswift.StringResource(key: "settingsviews_manualcalibration", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Master
-      ///
-      /// Locales: en, zh
-      static let settingsviews_master = Rswift.StringResource(key: "settingsviews_master", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Master/Follower
-      ///
-      /// Locales: en, zh
-      static let settingsviews_masterorfollower = Rswift.StringResource(key: "settingsviews_masterorfollower", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Maximum days we should try to use to calculate the statistics?  (Enter 0 to calculate today since midnight)
-      ///
-      /// Locales: en, zh
-      static let settingsviews_daysToUseStatisticsMessage = Rswift.StringResource(key: "settingsviews_daysToUseStatisticsMessage", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Minimum interval between two readings
-      ///
-      /// Locales: en, zh
-      static let settingsviews_IntervalMessage = Rswift.StringResource(key: "settingsviews_IntervalMessage", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: More
-      ///
-      /// Locales: en, zh
-      static let sectionTitleMore = Rswift.StringResource(key: "sectionTitleMore", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: More Settings
-      ///
-      /// Locales: en, zh
-      static let moreSettings = Rswift.StringResource(key: "moreSettings", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Multi-point Calibration
-      ///
-      /// Locales: en, zh
-      static let settingsviews_labelNonFixed = Rswift.StringResource(key: "settingsviews_labelNonFixed", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Multi-point Calibration
-      ///
-      /// Locales: en, zh
-      static let settingsviews_nonfixedtransmitter = Rswift.StringResource(key: "settingsviews_nonfixedtransmitter", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Multiply App Badge Reading by 10?
-      ///
-      /// Locales: en
-      static let settingsviews_multipleAppBadgeValueWith10 = Rswift.StringResource(key: "settingsviews_multipleAppBadgeValueWith10", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: New Version (%@), please update
-      ///
-      /// Locales: en, zh
-      static let newer_app_version = Rswift.StringResource(key: "newer_app_version", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: NightScout
-      ///
-      /// Locales: en, zh
-      static let settingsviews_sectiontitlenightscout = Rswift.StringResource(key: "settingsviews_sectiontitlenightscout", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: OSLog
-      ///
-      /// Locales: en, zh
-      static let oslog = Rswift.StringResource(key: "oslog", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: On/Off Time Schedule for 
-      ///
-      /// Locales: en
-      static let timeScheduleViewTitle = Rswift.StringResource(key: "timeScheduleViewTitle", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Open Online Help?
-      ///
-      /// Locales: en
-      static let settingsviews_showOnlineHelp = Rswift.StringResource(key: "settingsviews_showOnlineHelp", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Please input URL first
-      ///
-      /// Locales: en, zh
-      static let dialog_ns_input_url_before_test = Rswift.StringResource(key: "dialog_ns_input_url_before_test", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Port
-      ///
-      /// Locales: en, zh
-      static let nightScoutPort = Rswift.StringResource(key: "nightScoutPort", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Problem Description: 
-      ///
-      /// Locales: en
-      static let emailbodyText = Rswift.StringResource(key: "emailbodyText", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Receiver Serial Number
-      ///
-      /// Locales: en, zh
-      static let settingsviews_dexcomShareSerialNumber = Rswift.StringResource(key: "settingsviews_dexcomShareSerialNumber", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Reset Transmitter
-      ///
-      /// Locales: en, zh
-      static let settingsviews_resettransmitter = Rswift.StringResource(key: "settingsviews_resettransmitter", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Schedule
-      ///
-      /// Locales: en
-      static let schedule = Rswift.StringResource(key: "schedule", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Select Language
-      ///
-      /// Locales: en, zh
-      static let settingsviews_speakreadingslanguageselection = Rswift.StringResource(key: "settingsviews_speakreadingslanguageselection", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Send Issue Report
-      ///
-      /// Locales: en
-      static let sendTraceFile = Rswift.StringResource(key: "sendTraceFile", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Sensor Countdown
-      ///
-      /// Locales: en
-      static let settingsviews_sectiontitlesensorcountdown = Rswift.StringResource(key: "settingsviews_sectiontitlesensorcountdown", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Service Integration
-      ///
-      /// Locales: en, zh
-      static let serviceIntegration = Rswift.StringResource(key: "serviceIntegration", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Settings
-      ///
-      /// Locales: en, zh
-      static let settingsviews_settingstitle = Rswift.StringResource(key: "settingsviews_settingstitle", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Show BG in Notifications?
-      ///
-      /// Locales: en, zh
-      static let settingsviews_showReadingInNotification = Rswift.StringResource(key: "settingsviews_showReadingInNotification", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Show BG in the App Badge?
-      ///
-      /// Locales: en, zh
-      static let settingsviews_labelShowReadingInAppBadge = Rswift.StringResource(key: "settingsviews_labelShowReadingInAppBadge", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Show Colored Lines
-      ///
-      /// Locales: en, zh
-      static let settingsviews_showcoloredobjectives = Rswift.StringResource(key: "settingsviews_showcoloredobjectives", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Show Objectives in Graph
-      ///
-      /// Locales: en, zh
-      static let settingsviews_useobjectives = Rswift.StringResource(key: "settingsviews_useobjectives", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Show Sensor Countdown
-      ///
-      /// Locales: en
-      static let settingsviews_showSensorCountdown = Rswift.StringResource(key: "settingsviews_showSensorCountdown", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Show Statistics
-      ///
-      /// Locales: en, zh
-      static let settingsviews_showStatistics = Rswift.StringResource(key: "settingsviews_showStatistics", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Smooth Glucose Values
-      ///
-      /// Locales: en, zh
-      static let smoothBgValues = Rswift.StringResource(key: "smoothBgValues", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Speak BG Readings
-      ///
-      /// Locales: en, zh
-      static let settingsviews_speakBgReadings = Rswift.StringResource(key: "settingsviews_speakBgReadings", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Speak Delta
-      ///
-      /// Locales: en, zh
-      static let settingsviews_speakDelta = Rswift.StringResource(key: "settingsviews_speakDelta", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Speak Only When High or Low
-      ///
-      /// Locales: en, zh
-      static let settingsviews_speakWhenOutOfRange = Rswift.StringResource(key: "settingsviews_speakWhenOutOfRange", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Speak Trend
-      ///
-      /// Locales: en, zh
-      static let settingsviews_speakTrend = Rswift.StringResource(key: "settingsviews_speakTrend", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Statistics
-      ///
-      /// Locales: en, zh
-      static let settingsviews_sectiontitlestatistics = Rswift.StringResource(key: "settingsviews_sectiontitlestatistics", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Switching from master to follower will stop your current sensor. Do you want to continue?
-      ///
-      /// Locales: en, zh
-      static let warningChangeFromMasterToFollower = Rswift.StringResource(key: "warningChangeFromMasterToFollower", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Test Connection (Follower Mode)
-      ///
-      /// Locales: en, zh
-      static let testUrlAndAPIKeyInFollowerMode = Rswift.StringResource(key: "testUrlAndAPIKeyInFollowerMode", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Test Connection (Master Mode)
-      ///
-      /// Locales: en, zh
-      static let testUrlAndAPIKeyInMasterMode = Rswift.StringResource(key: "testUrlAndAPIKeyInMasterMode", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Test Volume (Current iPhone Volume)
-      ///
-      /// Locales: en, zh
-      static let volumeTestiOSSound = Rswift.StringResource(key: "volumeTestiOSSound", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Test Volume (if Override Mute On)
-      ///
-      /// Locales: en, zh
-      static let volumeTestSoundPlayer = Rswift.StringResource(key: "volumeTestSoundPlayer", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: This app supports writing your blood glucose data to Apple Health (HealthKit), allowing you to manage your health data in one place via the Health app. We will only access and write data with your explicit permission, and all data is securely stored on your device.
-      ///
-      /// Locales: en, zh
-      static let settingsviews_healthkit_detail = Rswift.StringResource(key: "settingsviews_healthkit_detail", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Token
-      ///
-      /// Locales: en, zh
-      static let nightScoutToken = Rswift.StringResource(key: "nightScoutToken", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Translate Automatically?
-      ///
-      /// Locales: en
-      static let settingsviews_translateOnlineHelp = Rswift.StringResource(key: "settingsviews_translateOnlineHelp", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Transmitter
-      ///
-      /// Locales: en, zh
-      static let settingsviews_sectiontitletransmitter = Rswift.StringResource(key: "settingsviews_sectiontitletransmitter", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Transmitter ID
-      ///
-      /// Locales: en, zh
-      static let settingsviews_transmitterid = Rswift.StringResource(key: "settingsviews_transmitterid", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Transmitter ID
-      ///
-      /// Locales: en, zh
-      static let settingsviews_transmitterid_text_for_button = Rswift.StringResource(key: "settingsviews_transmitterid_text_for_button", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Transmitter Type
-      ///
-      /// Locales: en, zh
-      static let settingsviews_transmittertype = Rswift.StringResource(key: "settingsviews_transmittertype", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: URL
-      ///
-      /// Locales: en, zh
-      static let settingsviews_nightScoutUrl = Rswift.StringResource(key: "settingsviews_nightScoutUrl", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Update Available
-      ///
-      /// Locales: en, zh
-      static let dialog_title_update_available = Rswift.StringResource(key: "dialog_title_update_available", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Upload Sensor Start Time
-      ///
-      /// Locales: en, zh
-      static let uploadSensorStartTime = Rswift.StringResource(key: "uploadSensorStartTime", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Upload to Dexcom Share
-      ///
-      /// Locales: en, zh
-      static let settingsviews_uploadReadingstoDexcomShare = Rswift.StringResource(key: "settingsviews_uploadReadingstoDexcomShare", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Urgent High Value
-      ///
-      /// Locales: en, zh
-      static let settingsviews_urgentHighValue = Rswift.StringResource(key: "settingsviews_urgentHighValue", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Urgent Low Value
-      ///
-      /// Locales: en, zh
-      static let settingsviews_urgentLowValue = Rswift.StringResource(key: "settingsviews_urgentLowValue", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Use Alternative Graphics
-      ///
-      /// Locales: en
-      static let settingsviews_showSensorCountdownAlternativeGraphics = Rswift.StringResource(key: "settingsviews_showSensorCountdownAlternativeGraphics", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Use Dexcom US Servers
-      ///
-      /// Locales: en, zh
-      static let settingsviews_useUSDexcomShareurl = Rswift.StringResource(key: "settingsviews_useUSDexcomShareurl", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Use Standard Range
-      ///
-      /// Locales: en, zh
-      static let settingsviews_useStandardStatisticsRange = Rswift.StringResource(key: "settingsviews_useStandardStatisticsRange", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Use Upload Schedule
-      ///
-      /// Locales: en
-      static let settingsviews_useSchedule = Rswift.StringResource(key: "settingsviews_useSchedule", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Version
-      ///
-      /// Locales: en, zh
-      static let settingsviews_Version = Rswift.StringResource(key: "settingsviews_Version", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Voice
-      ///
-      /// Locales: en, zh
-      static let settingsviews_sectiontitlespeak = Rswift.StringResource(key: "settingsviews_sectiontitlespeak", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Write Data to Apple Health
-      ///
-      /// Locales: en, zh
-      static let settingsviews_healthkit = Rswift.StringResource(key: "settingsviews_healthkit", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: You cannot give authorization to %@ to access your calendar. This is possibly due to active restrictions such as parental controls being in place.
-      ///
-      /// Locales: en, zh
-      static let infoCalendarAccessRestricted = Rswift.StringResource(key: "infoCalendarAccessRestricted", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: You must configure an e-mail account on your iOS device.
-      ///
-      /// Locales: en
-      static let emailNotConfigured = Rswift.StringResource(key: "emailNotConfigured", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: You previously denied access to your Calendar.  To enable it go to your device settings, privacy, calendars and enable it.
-      ///
-      /// Locales: en, zh
-      static let infoCalendarAccessDeniedByUser = Rswift.StringResource(key: "infoCalendarAccessDeniedByUser", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: zDrip or Transmitter Algorithm
-      ///
-      /// Locales: en, zh
-      static let settingsviews_labelWebOOP = Rswift.StringResource(key: "settingsviews_labelWebOOP", tableName: "SettingsViews", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-
-      /// en translation: 5 Mins per Dot
-      ///
-      /// Locales: en, zh
-      static func settingsviews_chartDots5MinsApart(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_chartDots5MinsApart", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_chartDots5MinsApart"
-        }
-
-        return NSLocalizedString("settingsviews_chartDots5MinsApart", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: API Secret
-      ///
-      /// Locales: en, zh
-      static func settingsviews_nightScoutAPIKey(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_nightScoutAPIKey", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_nightScoutAPIKey"
-        }
-
-        return NSLocalizedString("settingsviews_nightScoutAPIKey", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: About %@
-      ///
-      /// Locales: en, zh
-      static func settingsviews_sectiontitleAbout(_ value1: String, preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          let format = NSLocalizedString("settingsviews_sectiontitleAbout", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-          return String(format: format, locale: applicationLocale, value1)
-        }
-
-        guard let (locale, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_sectiontitleAbout"
-        }
-
-        let format = NSLocalizedString("settingsviews_sectiontitleAbout", tableName: "SettingsViews", bundle: bundle, comment: "")
-        return String(format: format, locale: locale, value1)
-      }
-
-      /// en translation: Account Name
-      ///
-      /// Locales: en, zh
-      static func settingsviews_dexcomShareAccountName(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_dexcomShareAccountName", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_dexcomShareAccountName"
-        }
-
-        return NSLocalizedString("settingsviews_dexcomShareAccountName", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Alarm Types
-      ///
-      /// Locales: en, zh
-      static func settingsviews_row_alert_types(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_row_alert_types", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_row_alert_types"
-        }
-
-        return NSLocalizedString("settingsviews_row_alert_types", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Alarms
-      ///
-      /// Locales: en, zh
-      static func settingsviews_row_alerts(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_row_alerts", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_row_alerts"
-        }
-
-        return NSLocalizedString("settingsviews_row_alerts", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Alarms
-      ///
-      /// Locales: en, zh
-      static func settingsviews_sectiontitlealerting(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_sectiontitlealerting", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_sectiontitlealerting"
-        }
-
-        return NSLocalizedString("settingsviews_sectiontitlealerting", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Already the latest version
-      ///
-      /// Locales: en, zh
-      static func toast_no_newer_app_version(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("toast_no_newer_app_version", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "toast_no_newer_app_version"
-        }
-
-        return NSLocalizedString("toast_no_newer_app_version", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: An alarm sound is now being played with the same volume that will be used for an Alarm Type with 'Override Mute' = Off  (Also used always for Missed Reading alarms which use the iOS volume.)  Press one of the volume buttons to stop the sound, then change the volume with the volume buttons to the desired volume and test again.
-      ///
-      /// Locales: en, zh
-      static func volumeTestiOSSoundExplanation(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("volumeTestiOSSoundExplanation", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "volumeTestiOSSoundExplanation"
-        }
-
-        return NSLocalizedString("volumeTestiOSSoundExplanation", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: An alarm sound is now being played with the same volume that will be used for an Alarm Type with 'Override Mute' = On  (Used for all alarms except Missed Reading alerts which always use the iOS volume.)  Change the volume with the volume buttons and press OK when done.
-      ///
-      /// Locales: en, zh
-      static func volumeTestSoundPlayerExplanation(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("volumeTestSoundPlayerExplanation", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "volumeTestSoundPlayerExplanation"
-        }
-
-        return NSLocalizedString("volumeTestSoundPlayerExplanation", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Apple Health
-      ///
-      /// Locales: en, zh
-      static func settingsviews_sectiontitlehealthkit(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_sectiontitlehealthkit", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_sectiontitlehealthkit"
-        }
-
-        return NSLocalizedString("settingsviews_sectiontitlehealthkit", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Apple Watch
-      ///
-      /// Locales: en, zh
-      static func appleWatchSectionTitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("appleWatchSectionTitle", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "appleWatchSectionTitle"
-        }
-
-        return NSLocalizedString("appleWatchSectionTitle", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Blood Glucose Units
-      ///
-      /// Locales: en, zh
-      static func settingsviews_selectbgunit(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_selectbgunit", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_selectbgunit"
-        }
-
-        return NSLocalizedString("settingsviews_selectbgunit", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Build
-      ///
-      /// Locales: en, zh
-      static func settingsviews_build(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_build", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_build"
-        }
-
-        return NSLocalizedString("settingsviews_build", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Calendar Events
-      ///
-      /// Locales: en, zh
-      static func calendarEventsSectionTitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("calendarEventsSectionTitle", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "calendarEventsSectionTitle"
-        }
-
-        return NSLocalizedString("calendarEventsSectionTitle", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Calendar to Use
-      ///
-      /// Locales: en, zh
-      static func calenderId(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("calenderId", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "calenderId"
-        }
-
-        return NSLocalizedString("calenderId", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Change 
-      ///
-      /// Locales: en, zh
-      static func editScheduleTimePickerSubtitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("editScheduleTimePickerSubtitle", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "editScheduleTimePickerSubtitle"
-        }
-
-        return NSLocalizedString("editScheduleTimePickerSubtitle", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Chart Height
-      ///
-      /// Locales: en, zh
-      static func settingsviews_chartHeight(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_chartHeight", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_chartHeight"
-        }
-
-        return NSLocalizedString("settingsviews_chartHeight", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Chart Height can not be smaller than Urgent High Value
-      ///
-      /// Locales: en, zh
-      static func toast_chart_height_smaller_than_urgent_high(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("toast_chart_height_smaller_than_urgent_high", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "toast_chart_height_smaller_than_urgent_high"
-        }
-
-        return NSLocalizedString("toast_chart_height_smaller_than_urgent_high", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Check App Verison
-      ///
-      /// Locales: en, zh
-      static func check_app_version(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("check_app_version", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "check_app_version"
-        }
-
-        return NSLocalizedString("check_app_version", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Common Settings
-      ///
-      /// Locales: en, zh
-      static func commonSettings(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("commonSettings", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "commonSettings"
-        }
-
-        return NSLocalizedString("commonSettings", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Create Calendar Events
-      ///
-      /// Locales: en, zh
-      static func createCalendarEvent(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("createCalendarEvent", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "createCalendarEvent"
-        }
-
-        return NSLocalizedString("createCalendarEvent", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Days to Calculate
-      ///
-      /// Locales: en, zh
-      static func settingsviews_daysToUseStatisticsTitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_daysToUseStatisticsTitle", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_daysToUseStatisticsTitle"
-        }
-
-        return NSLocalizedString("settingsviews_daysToUseStatisticsTitle", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Developer Settings
-      ///
-      /// Locales: en, zh
-      static func developerSettings(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("developerSettings", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "developerSettings"
-        }
-
-        return NSLocalizedString("developerSettings", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Dexcom Share
-      ///
-      /// Locales: en, zh
-      static func settingsviews_sectiontitledexcomshare(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_sectiontitledexcomshare", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_sectiontitledexcomshare"
-        }
-
-        return NSLocalizedString("settingsviews_sectiontitledexcomshare", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Display Delta
-      ///
-      /// Locales: en, zh
-      static func displayDeltaInCalendarEvent(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("displayDeltaInCalendarEvent", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "displayDeltaInCalendarEvent"
-        }
-
-        return NSLocalizedString("displayDeltaInCalendarEvent", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Display Trend
-      ///
-      /// Locales: en, zh
-      static func settingsviews_displayTrendInCalendarEvent(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_displayTrendInCalendarEvent", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_displayTrendInCalendarEvent"
-        }
-
-        return NSLocalizedString("settingsviews_displayTrendInCalendarEvent", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Display Unit
-      ///
-      /// Locales: en, zh
-      static func displayUnitInCalendarEvent(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("displayUnitInCalendarEvent", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "displayUnitInCalendarEvent"
-        }
-
-        return NSLocalizedString("displayUnitInCalendarEvent", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Enable Nightscout
-      ///
-      /// Locales: en, zh
-      static func settingsviews_nightScoutEnabled(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_nightScoutEnabled", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_nightScoutEnabled"
-        }
-
-        return NSLocalizedString("settingsviews_nightScoutEnabled", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Enter Dexcom Share Account Name
-      ///
-      /// Locales: en, zh
-      static func settingsviews_giveDexcomShareAccountName(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_giveDexcomShareAccountName", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_giveDexcomShareAccountName"
-        }
-
-        return NSLocalizedString("settingsviews_giveDexcomShareAccountName", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Enter Transmitter ID
-      ///
-      /// Locales: en, zh
-      static func settingsviews_givetransmitterid(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_givetransmitterid", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_givetransmitterid"
-        }
-
-        return NSLocalizedString("settingsviews_givetransmitterid", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Enter the Dexcom Receiver Serial Number
-      ///
-      /// Locales: en, zh
-      static func settingsviews_giveDexcomShareSerialNumber(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_giveDexcomShareSerialNumber", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_giveDexcomShareSerialNumber"
-        }
-
-        return NSLocalizedString("settingsviews_giveDexcomShareSerialNumber", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Enter your API Secret
-      ///
-      /// Locales: en, zh
-      static func settingsviews_giveNightScoutAPIKey(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_giveNightScoutAPIKey", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_giveNightScoutAPIKey"
-        }
-
-        return NSLocalizedString("settingsviews_giveNightScoutAPIKey", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Enter your NightScout URL
-      ///
-      /// Locales: en, zh
-      static func settingsviews_giveNightScoutUrl(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_giveNightScoutUrl", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_giveNightScoutUrl"
-        }
-
-        return NSLocalizedString("settingsviews_giveNightScoutUrl", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Explain why you need to send the trace file with as much detail as possible. If you have already reported your problem in the Facebook support group '%@', then mention your facebook name in the e-mail
-      ///
-      /// Locales: en, zh
-      static func describeProblem(_ value1: String, preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          let format = NSLocalizedString("describeProblem", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-          return String(format: format, locale: applicationLocale, value1)
-        }
-
-        guard let (locale, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "describeProblem"
-        }
-
-        let format = NSLocalizedString("describeProblem", tableName: "SettingsViews", bundle: bundle, comment: "")
-        return String(format: format, locale: locale, value1)
-      }
-
-      /// en translation: Failed to Send Email
-      ///
-      /// Locales: en
-      static func failedToSendEmail(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("failedToSendEmail", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "failedToSendEmail"
-        }
-
-        return NSLocalizedString("failedToSendEmail", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Follower
-      ///
-      /// Locales: en, zh
-      static func settingsviews_follower(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_follower", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_follower"
-        }
-
-        return NSLocalizedString("settingsviews_follower", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: General
-      ///
-      /// Locales: en, zh
-      static func settingsviews_sectiontitlegeneral(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_sectiontitlegeneral", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_sectiontitlegeneral"
-        }
-
-        return NSLocalizedString("settingsviews_sectiontitlegeneral", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Give Dexcom Share Password
-      ///
-      /// Locales: en, zh
-      static func settingsviews_giveDexcomSharePassword(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_giveDexcomSharePassword", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_giveDexcomSharePassword"
-        }
-
-        return NSLocalizedString("settingsviews_giveDexcomSharePassword", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: HbA1c in mmols/mol
-      ///
-      /// Locales: en, zh
-      static func settingsviews_useIFCCA1C(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_useIFCCA1C", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_useIFCCA1C"
-        }
-
-        return NSLocalizedString("settingsviews_useIFCCA1C", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Health Data Integration Notice
-      ///
-      /// Locales: en, zh
-      static func settingsviews_healthkit_title(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_healthkit_title", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_healthkit_title"
-        }
-
-        return NSLocalizedString("settingsviews_healthkit_title", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Help & Documentation
-      ///
-      /// Locales: en
-      static func settingsviews_sectiontitlehelp(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_sectiontitlehelp", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_sectiontitlehelp"
-        }
-
-        return NSLocalizedString("settingsviews_sectiontitlehelp", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: High Value
-      ///
-      /// Locales: en, zh
-      static func settingsviews_highValue(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_highValue", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_highValue"
-        }
-
-        return NSLocalizedString("settingsviews_highValue", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Home Screen
-      ///
-      /// Locales: en, zh
-      static func settingsviews_sectiontitlehomescreen(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_sectiontitlehomescreen", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_sectiontitlehomescreen"
-        }
-
-        return NSLocalizedString("settingsviews_sectiontitlehomescreen", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Include Debug Level
-      ///
-      /// Locales: en
-      static func debugLevel(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("debugLevel", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "debugLevel"
-        }
-
-        return NSLocalizedString("debugLevel", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Interval
-      ///
-      /// Locales: en, zh
-      static func settingsviews_IntervalTitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_IntervalTitle", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_IntervalTitle"
-        }
-
-        return NSLocalizedString("settingsviews_IntervalTitle", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Issue Reporting
-      ///
-      /// Locales: en
-      static func sectionTitleTrace(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("sectionTitleTrace", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "sectionTitleTrace"
-        }
-
-        return NSLocalizedString("sectionTitleTrace", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Language
-      ///
-      /// Locales: en, zh
-      static func settingsviews_speakBgReadingslanguage(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_speakBgReadingslanguage", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_speakBgReadingslanguage"
-        }
-
-        return NSLocalizedString("settingsviews_speakBgReadingslanguage", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: License
-      ///
-      /// Locales: en
-      static func settingsviews_license(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_license", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_license"
-        }
-
-        return NSLocalizedString("settingsviews_license", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Low Value
-      ///
-      /// Locales: en, zh
-      static func settingsviews_lowValue(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_lowValue", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_lowValue"
-        }
-
-        return NSLocalizedString("settingsviews_lowValue", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Manual Calibration
-      ///
-      /// Locales: en, zh
-      static func settingsviews_manualcalibration(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_manualcalibration", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_manualcalibration"
-        }
-
-        return NSLocalizedString("settingsviews_manualcalibration", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Master
-      ///
-      /// Locales: en, zh
-      static func settingsviews_master(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_master", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_master"
-        }
-
-        return NSLocalizedString("settingsviews_master", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Master/Follower
-      ///
-      /// Locales: en, zh
-      static func settingsviews_masterorfollower(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_masterorfollower", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_masterorfollower"
-        }
-
-        return NSLocalizedString("settingsviews_masterorfollower", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Maximum days we should try to use to calculate the statistics?  (Enter 0 to calculate today since midnight)
-      ///
-      /// Locales: en, zh
-      static func settingsviews_daysToUseStatisticsMessage(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_daysToUseStatisticsMessage", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_daysToUseStatisticsMessage"
-        }
-
-        return NSLocalizedString("settingsviews_daysToUseStatisticsMessage", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Minimum interval between two readings
-      ///
-      /// Locales: en, zh
-      static func settingsviews_IntervalMessage(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_IntervalMessage", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_IntervalMessage"
-        }
-
-        return NSLocalizedString("settingsviews_IntervalMessage", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: More
-      ///
-      /// Locales: en, zh
-      static func sectionTitleMore(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("sectionTitleMore", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "sectionTitleMore"
-        }
-
-        return NSLocalizedString("sectionTitleMore", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: More Settings
-      ///
-      /// Locales: en, zh
-      static func moreSettings(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("moreSettings", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "moreSettings"
-        }
-
-        return NSLocalizedString("moreSettings", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Multi-point Calibration
-      ///
-      /// Locales: en, zh
-      static func settingsviews_labelNonFixed(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_labelNonFixed", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_labelNonFixed"
-        }
-
-        return NSLocalizedString("settingsviews_labelNonFixed", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Multi-point Calibration
-      ///
-      /// Locales: en, zh
-      static func settingsviews_nonfixedtransmitter(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_nonfixedtransmitter", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_nonfixedtransmitter"
-        }
-
-        return NSLocalizedString("settingsviews_nonfixedtransmitter", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Multiply App Badge Reading by 10?
-      ///
-      /// Locales: en
-      static func settingsviews_multipleAppBadgeValueWith10(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_multipleAppBadgeValueWith10", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_multipleAppBadgeValueWith10"
-        }
-
-        return NSLocalizedString("settingsviews_multipleAppBadgeValueWith10", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: New Version (%@), please update
-      ///
-      /// Locales: en, zh
-      static func newer_app_version(_ value1: String, preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          let format = NSLocalizedString("newer_app_version", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-          return String(format: format, locale: applicationLocale, value1)
-        }
-
-        guard let (locale, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "newer_app_version"
-        }
-
-        let format = NSLocalizedString("newer_app_version", tableName: "SettingsViews", bundle: bundle, comment: "")
-        return String(format: format, locale: locale, value1)
-      }
-
-      /// en translation: NightScout
-      ///
-      /// Locales: en, zh
-      static func settingsviews_sectiontitlenightscout(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_sectiontitlenightscout", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_sectiontitlenightscout"
-        }
-
-        return NSLocalizedString("settingsviews_sectiontitlenightscout", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: OSLog
-      ///
-      /// Locales: en, zh
-      static func oslog(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("oslog", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "oslog"
-        }
-
-        return NSLocalizedString("oslog", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: On/Off Time Schedule for 
-      ///
-      /// Locales: en
-      static func timeScheduleViewTitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("timeScheduleViewTitle", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "timeScheduleViewTitle"
-        }
-
-        return NSLocalizedString("timeScheduleViewTitle", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Open Online Help?
-      ///
-      /// Locales: en
-      static func settingsviews_showOnlineHelp(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_showOnlineHelp", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_showOnlineHelp"
-        }
-
-        return NSLocalizedString("settingsviews_showOnlineHelp", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Please input URL first
-      ///
-      /// Locales: en, zh
-      static func dialog_ns_input_url_before_test(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("dialog_ns_input_url_before_test", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "dialog_ns_input_url_before_test"
-        }
-
-        return NSLocalizedString("dialog_ns_input_url_before_test", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Port
-      ///
-      /// Locales: en, zh
-      static func nightScoutPort(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("nightScoutPort", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "nightScoutPort"
-        }
-
-        return NSLocalizedString("nightScoutPort", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Problem Description: 
-      ///
-      /// Locales: en
-      static func emailbodyText(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("emailbodyText", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "emailbodyText"
-        }
-
-        return NSLocalizedString("emailbodyText", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Receiver Serial Number
-      ///
-      /// Locales: en, zh
-      static func settingsviews_dexcomShareSerialNumber(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_dexcomShareSerialNumber", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_dexcomShareSerialNumber"
-        }
-
-        return NSLocalizedString("settingsviews_dexcomShareSerialNumber", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Reset Transmitter
-      ///
-      /// Locales: en, zh
-      static func settingsviews_resettransmitter(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_resettransmitter", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_resettransmitter"
-        }
-
-        return NSLocalizedString("settingsviews_resettransmitter", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Schedule
-      ///
-      /// Locales: en
-      static func schedule(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("schedule", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "schedule"
-        }
-
-        return NSLocalizedString("schedule", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Select Language
-      ///
-      /// Locales: en, zh
-      static func settingsviews_speakreadingslanguageselection(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_speakreadingslanguageselection", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_speakreadingslanguageselection"
-        }
-
-        return NSLocalizedString("settingsviews_speakreadingslanguageselection", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Send Issue Report
-      ///
-      /// Locales: en
-      static func sendTraceFile(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("sendTraceFile", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "sendTraceFile"
-        }
-
-        return NSLocalizedString("sendTraceFile", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Sensor Countdown
-      ///
-      /// Locales: en
-      static func settingsviews_sectiontitlesensorcountdown(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_sectiontitlesensorcountdown", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_sectiontitlesensorcountdown"
-        }
-
-        return NSLocalizedString("settingsviews_sectiontitlesensorcountdown", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Service Integration
-      ///
-      /// Locales: en, zh
-      static func serviceIntegration(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("serviceIntegration", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "serviceIntegration"
-        }
-
-        return NSLocalizedString("serviceIntegration", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Settings
-      ///
-      /// Locales: en, zh
-      static func settingsviews_settingstitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_settingstitle", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_settingstitle"
-        }
-
-        return NSLocalizedString("settingsviews_settingstitle", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Show BG in Notifications?
-      ///
-      /// Locales: en, zh
-      static func settingsviews_showReadingInNotification(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_showReadingInNotification", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_showReadingInNotification"
-        }
-
-        return NSLocalizedString("settingsviews_showReadingInNotification", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Show BG in the App Badge?
-      ///
-      /// Locales: en, zh
-      static func settingsviews_labelShowReadingInAppBadge(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_labelShowReadingInAppBadge", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_labelShowReadingInAppBadge"
-        }
-
-        return NSLocalizedString("settingsviews_labelShowReadingInAppBadge", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Show Colored Lines
-      ///
-      /// Locales: en, zh
-      static func settingsviews_showcoloredobjectives(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_showcoloredobjectives", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_showcoloredobjectives"
-        }
-
-        return NSLocalizedString("settingsviews_showcoloredobjectives", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Show Objectives in Graph
-      ///
-      /// Locales: en, zh
-      static func settingsviews_useobjectives(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_useobjectives", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_useobjectives"
-        }
-
-        return NSLocalizedString("settingsviews_useobjectives", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Show Sensor Countdown
-      ///
-      /// Locales: en
-      static func settingsviews_showSensorCountdown(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_showSensorCountdown", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_showSensorCountdown"
-        }
-
-        return NSLocalizedString("settingsviews_showSensorCountdown", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Show Statistics
-      ///
-      /// Locales: en, zh
-      static func settingsviews_showStatistics(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_showStatistics", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_showStatistics"
-        }
-
-        return NSLocalizedString("settingsviews_showStatistics", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Smooth Glucose Values
-      ///
-      /// Locales: en, zh
-      static func smoothBgValues(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("smoothBgValues", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "smoothBgValues"
-        }
-
-        return NSLocalizedString("smoothBgValues", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Speak BG Readings
-      ///
-      /// Locales: en, zh
-      static func settingsviews_speakBgReadings(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_speakBgReadings", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_speakBgReadings"
-        }
-
-        return NSLocalizedString("settingsviews_speakBgReadings", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Speak Delta
-      ///
-      /// Locales: en, zh
-      static func settingsviews_speakDelta(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_speakDelta", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_speakDelta"
-        }
-
-        return NSLocalizedString("settingsviews_speakDelta", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Speak Only When High or Low
-      ///
-      /// Locales: en, zh
-      static func settingsviews_speakWhenOutOfRange(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_speakWhenOutOfRange", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_speakWhenOutOfRange"
-        }
-
-        return NSLocalizedString("settingsviews_speakWhenOutOfRange", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Speak Trend
-      ///
-      /// Locales: en, zh
-      static func settingsviews_speakTrend(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_speakTrend", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_speakTrend"
-        }
-
-        return NSLocalizedString("settingsviews_speakTrend", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Statistics
-      ///
-      /// Locales: en, zh
-      static func settingsviews_sectiontitlestatistics(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_sectiontitlestatistics", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_sectiontitlestatistics"
-        }
-
-        return NSLocalizedString("settingsviews_sectiontitlestatistics", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Switching from master to follower will stop your current sensor. Do you want to continue?
-      ///
-      /// Locales: en, zh
-      static func warningChangeFromMasterToFollower(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("warningChangeFromMasterToFollower", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "warningChangeFromMasterToFollower"
-        }
-
-        return NSLocalizedString("warningChangeFromMasterToFollower", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Test Connection (Follower Mode)
-      ///
-      /// Locales: en, zh
-      static func testUrlAndAPIKeyInFollowerMode(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("testUrlAndAPIKeyInFollowerMode", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "testUrlAndAPIKeyInFollowerMode"
-        }
-
-        return NSLocalizedString("testUrlAndAPIKeyInFollowerMode", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Test Connection (Master Mode)
-      ///
-      /// Locales: en, zh
-      static func testUrlAndAPIKeyInMasterMode(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("testUrlAndAPIKeyInMasterMode", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "testUrlAndAPIKeyInMasterMode"
-        }
-
-        return NSLocalizedString("testUrlAndAPIKeyInMasterMode", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Test Volume (Current iPhone Volume)
-      ///
-      /// Locales: en, zh
-      static func volumeTestiOSSound(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("volumeTestiOSSound", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "volumeTestiOSSound"
-        }
-
-        return NSLocalizedString("volumeTestiOSSound", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Test Volume (if Override Mute On)
-      ///
-      /// Locales: en, zh
-      static func volumeTestSoundPlayer(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("volumeTestSoundPlayer", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "volumeTestSoundPlayer"
-        }
-
-        return NSLocalizedString("volumeTestSoundPlayer", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: This app supports writing your blood glucose data to Apple Health (HealthKit), allowing you to manage your health data in one place via the Health app. We will only access and write data with your explicit permission, and all data is securely stored on your device.
-      ///
-      /// Locales: en, zh
-      static func settingsviews_healthkit_detail(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_healthkit_detail", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_healthkit_detail"
-        }
-
-        return NSLocalizedString("settingsviews_healthkit_detail", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Token
-      ///
-      /// Locales: en, zh
-      static func nightScoutToken(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("nightScoutToken", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "nightScoutToken"
-        }
-
-        return NSLocalizedString("nightScoutToken", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Translate Automatically?
-      ///
-      /// Locales: en
-      static func settingsviews_translateOnlineHelp(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_translateOnlineHelp", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_translateOnlineHelp"
-        }
-
-        return NSLocalizedString("settingsviews_translateOnlineHelp", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Transmitter
-      ///
-      /// Locales: en, zh
-      static func settingsviews_sectiontitletransmitter(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_sectiontitletransmitter", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_sectiontitletransmitter"
-        }
-
-        return NSLocalizedString("settingsviews_sectiontitletransmitter", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Transmitter ID
-      ///
-      /// Locales: en, zh
-      static func settingsviews_transmitterid(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_transmitterid", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_transmitterid"
-        }
-
-        return NSLocalizedString("settingsviews_transmitterid", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Transmitter ID
-      ///
-      /// Locales: en, zh
-      static func settingsviews_transmitterid_text_for_button(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_transmitterid_text_for_button", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_transmitterid_text_for_button"
-        }
-
-        return NSLocalizedString("settingsviews_transmitterid_text_for_button", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Transmitter Type
-      ///
-      /// Locales: en, zh
-      static func settingsviews_transmittertype(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_transmittertype", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_transmittertype"
-        }
-
-        return NSLocalizedString("settingsviews_transmittertype", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: URL
-      ///
-      /// Locales: en, zh
-      static func settingsviews_nightScoutUrl(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_nightScoutUrl", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_nightScoutUrl"
-        }
-
-        return NSLocalizedString("settingsviews_nightScoutUrl", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Update Available
-      ///
-      /// Locales: en, zh
-      static func dialog_title_update_available(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("dialog_title_update_available", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "dialog_title_update_available"
-        }
-
-        return NSLocalizedString("dialog_title_update_available", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Upload Sensor Start Time
-      ///
-      /// Locales: en, zh
-      static func uploadSensorStartTime(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("uploadSensorStartTime", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "uploadSensorStartTime"
-        }
-
-        return NSLocalizedString("uploadSensorStartTime", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Upload to Dexcom Share
-      ///
-      /// Locales: en, zh
-      static func settingsviews_uploadReadingstoDexcomShare(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_uploadReadingstoDexcomShare", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_uploadReadingstoDexcomShare"
-        }
-
-        return NSLocalizedString("settingsviews_uploadReadingstoDexcomShare", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Urgent High Value
-      ///
-      /// Locales: en, zh
-      static func settingsviews_urgentHighValue(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_urgentHighValue", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_urgentHighValue"
-        }
-
-        return NSLocalizedString("settingsviews_urgentHighValue", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Urgent Low Value
-      ///
-      /// Locales: en, zh
-      static func settingsviews_urgentLowValue(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_urgentLowValue", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_urgentLowValue"
-        }
-
-        return NSLocalizedString("settingsviews_urgentLowValue", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Use Alternative Graphics
-      ///
-      /// Locales: en
-      static func settingsviews_showSensorCountdownAlternativeGraphics(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_showSensorCountdownAlternativeGraphics", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_showSensorCountdownAlternativeGraphics"
-        }
-
-        return NSLocalizedString("settingsviews_showSensorCountdownAlternativeGraphics", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Use Dexcom US Servers
-      ///
-      /// Locales: en, zh
-      static func settingsviews_useUSDexcomShareurl(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_useUSDexcomShareurl", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_useUSDexcomShareurl"
-        }
-
-        return NSLocalizedString("settingsviews_useUSDexcomShareurl", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Use Standard Range
-      ///
-      /// Locales: en, zh
-      static func settingsviews_useStandardStatisticsRange(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_useStandardStatisticsRange", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_useStandardStatisticsRange"
-        }
-
-        return NSLocalizedString("settingsviews_useStandardStatisticsRange", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Use Upload Schedule
-      ///
-      /// Locales: en
-      static func settingsviews_useSchedule(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_useSchedule", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_useSchedule"
-        }
-
-        return NSLocalizedString("settingsviews_useSchedule", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Version
-      ///
-      /// Locales: en, zh
-      static func settingsviews_Version(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_Version", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_Version"
-        }
-
-        return NSLocalizedString("settingsviews_Version", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Voice
-      ///
-      /// Locales: en, zh
-      static func settingsviews_sectiontitlespeak(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_sectiontitlespeak", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_sectiontitlespeak"
-        }
-
-        return NSLocalizedString("settingsviews_sectiontitlespeak", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Write Data to Apple Health
-      ///
-      /// Locales: en, zh
-      static func settingsviews_healthkit(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_healthkit", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_healthkit"
-        }
-
-        return NSLocalizedString("settingsviews_healthkit", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: You cannot give authorization to %@ to access your calendar. This is possibly due to active restrictions such as parental controls being in place.
-      ///
-      /// Locales: en, zh
-      static func infoCalendarAccessRestricted(_ value1: String, preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          let format = NSLocalizedString("infoCalendarAccessRestricted", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-          return String(format: format, locale: applicationLocale, value1)
-        }
-
-        guard let (locale, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "infoCalendarAccessRestricted"
-        }
-
-        let format = NSLocalizedString("infoCalendarAccessRestricted", tableName: "SettingsViews", bundle: bundle, comment: "")
-        return String(format: format, locale: locale, value1)
-      }
-
-      /// en translation: You must configure an e-mail account on your iOS device.
-      ///
-      /// Locales: en
-      static func emailNotConfigured(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("emailNotConfigured", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "emailNotConfigured"
-        }
-
-        return NSLocalizedString("emailNotConfigured", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: You previously denied access to your Calendar.  To enable it go to your device settings, privacy, calendars and enable it.
-      ///
-      /// Locales: en, zh
-      static func infoCalendarAccessDeniedByUser(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("infoCalendarAccessDeniedByUser", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "infoCalendarAccessDeniedByUser"
-        }
-
-        return NSLocalizedString("infoCalendarAccessDeniedByUser", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      /// en translation: zDrip or Transmitter Algorithm
-      ///
-      /// Locales: en, zh
-      static func settingsviews_labelWebOOP(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("settingsviews_labelWebOOP", tableName: "SettingsViews", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SettingsViews", preferredLanguages: preferredLanguages) else {
-          return "settingsviews_labelWebOOP"
-        }
-
-        return NSLocalizedString("settingsviews_labelWebOOP", tableName: "SettingsViews", bundle: bundle, comment: "")
-      }
-
-      fileprivate init() {}
-    }
-
-    /// This `R.string.snooze` struct is generated, and contains static references to 2 localization keys.
-    struct snooze {
-      /// en translation: Not snoozed
-      ///
-      /// Locales: en, zh
-      static let not_snoozed = Rswift.StringResource(key: "not_snoozed", tableName: "Snooze", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Snoozed until
-      ///
-      /// Locales: en, zh
-      static let snoozed_until = Rswift.StringResource(key: "snoozed_until", tableName: "Snooze", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-
-      /// en translation: Not snoozed
-      ///
-      /// Locales: en, zh
-      static func not_snoozed(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("not_snoozed", tableName: "Snooze", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Snooze", preferredLanguages: preferredLanguages) else {
-          return "not_snoozed"
-        }
-
-        return NSLocalizedString("not_snoozed", tableName: "Snooze", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Snoozed until
-      ///
-      /// Locales: en, zh
-      static func snoozed_until(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("snoozed_until", tableName: "Snooze", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Snooze", preferredLanguages: preferredLanguages) else {
-          return "snoozed_until"
-        }
-
-        return NSLocalizedString("snoozed_until", tableName: "Snooze", bundle: bundle, comment: "")
-      }
-
-      fileprivate init() {}
-    }
-
-    /// This `R.string.speakReading` struct is generated, and contains static references to 14 localization keys.
-    struct speakReading {
-      /// en translation: Difference from last reading is
-      ///
-      /// Locales: en, zh
-      static let currentdelta = Rswift.StringResource(key: "currentdelta", tableName: "SpeakReading", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: It's trending
-      ///
-      /// Locales: en, zh
-      static let currenttrend = Rswift.StringResource(key: "currenttrend", tableName: "SpeakReading", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: Your current blood glucose is
-      ///
-      /// Locales: en, zh
-      static let currentglucose = Rswift.StringResource(key: "currentglucose", tableName: "SpeakReading", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: down
-      ///
-      /// Locales: en, zh
-      static let trendfortyfivedown = Rswift.StringResource(key: "trendfortyfivedown", tableName: "SpeakReading", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: dramatically downward
-      ///
-      /// Locales: en, zh
-      static let trenddoubledown = Rswift.StringResource(key: "trenddoubledown", tableName: "SpeakReading", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: dramatically upward
-      ///
-      /// Locales: en, zh
-      static let trenddoubleup = Rswift.StringResource(key: "trenddoubleup", tableName: "SpeakReading", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: flat
-      ///
-      /// Locales: en, zh
-      static let trendflat = Rswift.StringResource(key: "trendflat", tableName: "SpeakReading", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: high
-      ///
-      /// Locales: en, zh
-      static let high = Rswift.StringResource(key: "high", tableName: "SpeakReading", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: low
-      ///
-      /// Locales: en, zh
-      static let low = Rswift.StringResource(key: "low", tableName: "SpeakReading", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: non computable
-      ///
-      /// Locales: en, zh
-      static let deltanoncomputable = Rswift.StringResource(key: "deltanoncomputable", tableName: "SpeakReading", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: non computable
-      ///
-      /// Locales: en, zh
-      static let trendnoncomputable = Rswift.StringResource(key: "trendnoncomputable", tableName: "SpeakReading", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: significantly downward
-      ///
-      /// Locales: en, zh
-      static let trendsingledown = Rswift.StringResource(key: "trendsingledown", tableName: "SpeakReading", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: significantly upward
-      ///
-      /// Locales: en, zh
-      static let trendsingleup = Rswift.StringResource(key: "trendsingleup", tableName: "SpeakReading", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-      /// en translation: up
-      ///
-      /// Locales: en, zh
-      static let trendfortyfiveup = Rswift.StringResource(key: "trendfortyfiveup", tableName: "SpeakReading", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-
-      /// en translation: Difference from last reading is
-      ///
-      /// Locales: en, zh
-      static func currentdelta(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("currentdelta", tableName: "SpeakReading", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SpeakReading", preferredLanguages: preferredLanguages) else {
-          return "currentdelta"
-        }
-
-        return NSLocalizedString("currentdelta", tableName: "SpeakReading", bundle: bundle, comment: "")
-      }
-
-      /// en translation: It's trending
-      ///
-      /// Locales: en, zh
-      static func currenttrend(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("currenttrend", tableName: "SpeakReading", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SpeakReading", preferredLanguages: preferredLanguages) else {
-          return "currenttrend"
-        }
-
-        return NSLocalizedString("currenttrend", tableName: "SpeakReading", bundle: bundle, comment: "")
-      }
-
-      /// en translation: Your current blood glucose is
-      ///
-      /// Locales: en, zh
-      static func currentglucose(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("currentglucose", tableName: "SpeakReading", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SpeakReading", preferredLanguages: preferredLanguages) else {
-          return "currentglucose"
-        }
-
-        return NSLocalizedString("currentglucose", tableName: "SpeakReading", bundle: bundle, comment: "")
-      }
-
-      /// en translation: down
-      ///
-      /// Locales: en, zh
-      static func trendfortyfivedown(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("trendfortyfivedown", tableName: "SpeakReading", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SpeakReading", preferredLanguages: preferredLanguages) else {
-          return "trendfortyfivedown"
-        }
-
-        return NSLocalizedString("trendfortyfivedown", tableName: "SpeakReading", bundle: bundle, comment: "")
-      }
-
-      /// en translation: dramatically downward
-      ///
-      /// Locales: en, zh
-      static func trenddoubledown(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("trenddoubledown", tableName: "SpeakReading", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SpeakReading", preferredLanguages: preferredLanguages) else {
-          return "trenddoubledown"
-        }
-
-        return NSLocalizedString("trenddoubledown", tableName: "SpeakReading", bundle: bundle, comment: "")
-      }
-
-      /// en translation: dramatically upward
-      ///
-      /// Locales: en, zh
-      static func trenddoubleup(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("trenddoubleup", tableName: "SpeakReading", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SpeakReading", preferredLanguages: preferredLanguages) else {
-          return "trenddoubleup"
-        }
-
-        return NSLocalizedString("trenddoubleup", tableName: "SpeakReading", bundle: bundle, comment: "")
-      }
-
-      /// en translation: flat
-      ///
-      /// Locales: en, zh
-      static func trendflat(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("trendflat", tableName: "SpeakReading", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SpeakReading", preferredLanguages: preferredLanguages) else {
-          return "trendflat"
-        }
-
-        return NSLocalizedString("trendflat", tableName: "SpeakReading", bundle: bundle, comment: "")
-      }
-
-      /// en translation: high
-      ///
-      /// Locales: en, zh
-      static func high(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("high", tableName: "SpeakReading", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SpeakReading", preferredLanguages: preferredLanguages) else {
-          return "high"
-        }
-
-        return NSLocalizedString("high", tableName: "SpeakReading", bundle: bundle, comment: "")
-      }
-
-      /// en translation: low
-      ///
-      /// Locales: en, zh
-      static func low(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("low", tableName: "SpeakReading", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SpeakReading", preferredLanguages: preferredLanguages) else {
-          return "low"
-        }
-
-        return NSLocalizedString("low", tableName: "SpeakReading", bundle: bundle, comment: "")
-      }
-
-      /// en translation: non computable
-      ///
-      /// Locales: en, zh
-      static func deltanoncomputable(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("deltanoncomputable", tableName: "SpeakReading", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SpeakReading", preferredLanguages: preferredLanguages) else {
-          return "deltanoncomputable"
-        }
-
-        return NSLocalizedString("deltanoncomputable", tableName: "SpeakReading", bundle: bundle, comment: "")
-      }
-
-      /// en translation: non computable
-      ///
-      /// Locales: en, zh
-      static func trendnoncomputable(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("trendnoncomputable", tableName: "SpeakReading", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SpeakReading", preferredLanguages: preferredLanguages) else {
-          return "trendnoncomputable"
-        }
-
-        return NSLocalizedString("trendnoncomputable", tableName: "SpeakReading", bundle: bundle, comment: "")
-      }
-
-      /// en translation: significantly downward
-      ///
-      /// Locales: en, zh
-      static func trendsingledown(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("trendsingledown", tableName: "SpeakReading", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SpeakReading", preferredLanguages: preferredLanguages) else {
-          return "trendsingledown"
-        }
-
-        return NSLocalizedString("trendsingledown", tableName: "SpeakReading", bundle: bundle, comment: "")
-      }
-
-      /// en translation: significantly upward
-      ///
-      /// Locales: en, zh
-      static func trendsingleup(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("trendsingleup", tableName: "SpeakReading", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SpeakReading", preferredLanguages: preferredLanguages) else {
-          return "trendsingleup"
-        }
-
-        return NSLocalizedString("trendsingleup", tableName: "SpeakReading", bundle: bundle, comment: "")
-      }
-
-      /// en translation: up
-      ///
-      /// Locales: en, zh
-      static func trendfortyfiveup(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("trendfortyfiveup", tableName: "SpeakReading", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SpeakReading", preferredLanguages: preferredLanguages) else {
-          return "trendfortyfiveup"
-        }
-
-        return NSLocalizedString("trendfortyfiveup", tableName: "SpeakReading", bundle: bundle, comment: "")
-      }
-
-      fileprivate init() {}
-    }
-
-    /// This `R.string.watlaaView` struct is generated, and contains static references to 1 localization keys.
-    struct watlaaView {
-      /// en translation: Watlaa
-      ///
-      /// Locales: en, zh
-      static let watlaaViewscreenTitle = Rswift.StringResource(key: "watlaaViewscreenTitle", tableName: "WatlaaView", bundle: R.hostingBundle, locales: ["en", "zh"], comment: nil)
-
-      /// en translation: Watlaa
-      ///
-      /// Locales: en, zh
-      static func watlaaViewscreenTitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("watlaaViewscreenTitle", tableName: "WatlaaView", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "WatlaaView", preferredLanguages: preferredLanguages) else {
-          return "watlaaViewscreenTitle"
-        }
-
-        return NSLocalizedString("watlaaViewscreenTitle", tableName: "WatlaaView", bundle: bundle, comment: "")
-      }
-
-      fileprivate init() {}
-    }
-
-    fileprivate init() {}
-  }
-
-  fileprivate struct intern: Rswift.Validatable {
-    fileprivate static func validate() throws {
-      try _R.validate()
-    }
-
-    fileprivate init() {}
-  }
-
-  fileprivate class Class {}
-
-  fileprivate init() {}
-}
-
-struct _R: Rswift.Validatable {
-  static func validate() throws {
-    #if os(iOS) || os(tvOS)
-    try storyboard.validate()
-    #endif
-  }
-
-  #if os(iOS) || os(tvOS)
-  struct nib {
-    struct _StatisticsView: Rswift.NibResourceType {
-      let bundle = R.hostingBundle
-      let name = "StatisticsView"
-
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-      }
-
-      fileprivate init() {}
-    }
-
-    fileprivate init() {}
-  }
-  #endif
-
-  #if os(iOS) || os(tvOS)
-  struct storyboard: Rswift.Validatable {
-    static func validate() throws {
-      #if os(iOS) || os(tvOS)
-      try launchScreen.validate()
-      #endif
-      #if os(iOS) || os(tvOS)
-      try main.validate()
-      #endif
-    }
-
-    #if os(iOS) || os(tvOS)
-    struct launchScreen: Rswift.StoryboardResourceType, Rswift.Validatable {
-      let bundle = R.hostingBundle
       let name = "LaunchScreen"
-
-      static func validate() throws {
-        if UIKit.UIImage(named: "logo-launchScreen.png", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'logo-launchScreen.png' is used in storyboard 'LaunchScreen', but couldn't be loaded.") }
-        if #available(iOS 11.0, tvOS 11.0, *) {
-        }
+      func validate() throws {
+        if UIKit.UIImage(named: "logo-launchScreen.png", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'logo-launchScreen.png' is used in storyboard 'LaunchScreen', but couldn't be loaded.") }
       }
-
-      fileprivate init() {}
     }
-    #endif
 
-    #if os(iOS) || os(tvOS)
-    struct main: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+    /// Storyboard `Main`.
+    struct main: RswiftResources.StoryboardReference, RswiftResources.InitialControllerContainer {
       typealias InitialController = InitViewController
 
-      let bluetoothPeripheral = StoryboardViewControllerResource<BluetoothPeripheralViewController>(identifier: "BluetoothPeripheral")
-      let bundle = R.hostingBundle
-      let dailyTrend = StoryboardViewControllerResource<DailyTrendViewController>(identifier: "DailyTrend")
-      let mainTabBarController = StoryboardViewControllerResource<MainTabBarController>(identifier: "MainTabBarController")
+      let bundle: Foundation.Bundle
+
       let name = "Main"
-      let snoozeAlarms = StoryboardViewControllerResource<SnoozeViewController>(identifier: "snoozeAlarms")
-      let totalAlertSettingsViewController = StoryboardViewControllerResource<TotalAlertSettingsViewController>(identifier: "TotalAlertSettingsViewController")
 
-      func bluetoothPeripheral(_: Void = ()) -> BluetoothPeripheralViewController? {
-        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: bluetoothPeripheral)
+      var bluetoothPeripheral: RswiftResources.StoryboardViewControllerIdentifier<BluetoothPeripheralViewController> { .init(identifier: "BluetoothPeripheral", storyboard: name, bundle: bundle) }
+      var dailyTrend: RswiftResources.StoryboardViewControllerIdentifier<DailyTrendViewController> { .init(identifier: "DailyTrend", storyboard: name, bundle: bundle) }
+      var mainTabBarController: RswiftResources.StoryboardViewControllerIdentifier<MainTabBarController> { .init(identifier: "MainTabBarController", storyboard: name, bundle: bundle) }
+      var snoozeAlarms: RswiftResources.StoryboardViewControllerIdentifier<SnoozeViewController> { .init(identifier: "snoozeAlarms", storyboard: name, bundle: bundle) }
+      var totalAlertSettingsViewController: RswiftResources.StoryboardViewControllerIdentifier<TotalAlertSettingsViewController> { .init(identifier: "TotalAlertSettingsViewController", storyboard: name, bundle: bundle) }
+
+      func validate() throws {
+        if UIKit.UIImage(named: "ic_alarm", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'ic_alarm' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ic_calibrate", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'ic_calibrate' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ic_clock", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'ic_clock' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ic_pushpin_unlock", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'ic_pushpin_unlock' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ic_statistics", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'ic_statistics' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ic_tab_bloodsugar", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'ic_tab_bloodsugar' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ic_tab_bloodsugar_h", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'ic_tab_bloodsugar_h' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ic_tab_notes", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'ic_tab_notes' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ic_tab_notes_h", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'ic_tab_notes_h' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ic_tab_settings", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'ic_tab_settings' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ic_tab_settings_h", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'ic_tab_settings_h' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ic_to_landscape", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'ic_to_landscape' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "logo-launchScreen.png", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'logo-launchScreen.png' is used in storyboard 'Main', but couldn't be loaded.") }
+        if bluetoothPeripheral() == nil { throw RswiftResources.ValidationError("[R.swift] ViewController with identifier 'bluetoothPeripheral' could not be loaded from storyboard 'Main' as 'BluetoothPeripheralViewController'.") }
+        if dailyTrend() == nil { throw RswiftResources.ValidationError("[R.swift] ViewController with identifier 'dailyTrend' could not be loaded from storyboard 'Main' as 'DailyTrendViewController'.") }
+        if mainTabBarController() == nil { throw RswiftResources.ValidationError("[R.swift] ViewController with identifier 'mainTabBarController' could not be loaded from storyboard 'Main' as 'MainTabBarController'.") }
+        if totalAlertSettingsViewController() == nil { throw RswiftResources.ValidationError("[R.swift] ViewController with identifier 'totalAlertSettingsViewController' could not be loaded from storyboard 'Main' as 'TotalAlertSettingsViewController'.") }
+        if snoozeAlarms() == nil { throw RswiftResources.ValidationError("[R.swift] ViewController with identifier 'snoozeAlarms' could not be loaded from storyboard 'Main' as 'SnoozeViewController'.") }
       }
-
-      func dailyTrend(_: Void = ()) -> DailyTrendViewController? {
-        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: dailyTrend)
-      }
-
-      func mainTabBarController(_: Void = ()) -> MainTabBarController? {
-        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: mainTabBarController)
-      }
-
-      func snoozeAlarms(_: Void = ()) -> SnoozeViewController? {
-        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: snoozeAlarms)
-      }
-
-      func totalAlertSettingsViewController(_: Void = ()) -> TotalAlertSettingsViewController? {
-        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: totalAlertSettingsViewController)
-      }
-
-      static func validate() throws {
-        if UIKit.UIImage(named: "ic_alarm", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_alarm' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ic_calibrate", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_calibrate' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ic_clock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_clock' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ic_pushpin_unlock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_pushpin_unlock' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ic_statistics", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_statistics' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ic_tab_bloodsugar", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_bloodsugar' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ic_tab_bloodsugar_h", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_bloodsugar_h' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ic_tab_notes", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_notes' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ic_tab_notes_h", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_notes_h' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ic_tab_settings", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_settings' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ic_tab_settings_h", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_tab_settings_h' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ic_to_landscape", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ic_to_landscape' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "logo-launchScreen.png", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'logo-launchScreen.png' is used in storyboard 'Main', but couldn't be loaded.") }
-        if #available(iOS 11.0, tvOS 11.0, *) {
-        }
-        if _R.storyboard.main().bluetoothPeripheral() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'bluetoothPeripheral' could not be loaded from storyboard 'Main' as 'BluetoothPeripheralViewController'.") }
-        if _R.storyboard.main().dailyTrend() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'dailyTrend' could not be loaded from storyboard 'Main' as 'DailyTrendViewController'.") }
-        if _R.storyboard.main().mainTabBarController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'mainTabBarController' could not be loaded from storyboard 'Main' as 'MainTabBarController'.") }
-        if _R.storyboard.main().totalAlertSettingsViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'totalAlertSettingsViewController' could not be loaded from storyboard 'Main' as 'TotalAlertSettingsViewController'.") }
-        if _R.storyboard.main().snoozeAlarms() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'snoozeAlarms' could not be loaded from storyboard 'Main' as 'SnoozeViewController'.") }
-      }
-
-      fileprivate init() {}
     }
-    #endif
-
-    fileprivate init() {}
   }
-  #endif
-
-  fileprivate init() {}
 }

@@ -10,16 +10,16 @@ import UIKit
 
 /// defines data typically available in a view that allows user to pick from a list : list of items, selected item, title, cancel lable, ok or add label, function to call when pressing cancel, function to call button when pressing add button
 public class DatePickerData {
-    private (set) var title: String?
-    private (set) var subTitle: String?
-    private (set) var datePickerMode: UIDatePicker.Mode
-    private (set) var date: Date?
-    private (set) var minimumDate: Date?
-    private (set) var maximumDate: Date?
-    private (set) var actionTitle: String?
-    private (set) var actionHandler: ((_ date: Date) -> Void)
-    private (set) var cancelHandler: (() -> Void)?
-    private (set) var didSelectRowHandler: ((Int) -> Void)?
+    private(set) var title: String?
+    private(set) var subTitle: String?
+    private(set) var datePickerMode: UIDatePicker.Mode
+    private(set) var date: Date?
+    private(set) var minimumDate: Date?
+    private(set) var maximumDate: Date?
+    private(set) var actionTitle: String?
+    private(set) var actionHandler: ((_ date: Date) -> Void)
+    private(set) var cancelHandler: (() -> Void)?
+    private(set) var didSelectRowHandler: ((Int) -> Void)?
     
     public init(withTitle title: String?,
                 withSubTitle subTitle: String?,

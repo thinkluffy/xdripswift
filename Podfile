@@ -7,7 +7,7 @@ target 'xdrip' do
   pod "ActionClosurable", :git => 'https://github.com/takasek/ActionClosurable.git'
   pod 'CryptoSwift', '1.4.0'
   pod 'PieCharts', '0.0.7'
-  pod 'R.swift', '5.4.0'
+  pod 'R.swift', '7.8.0'
   pod 'SnapKit', '5.0.1'
   pod 'CocoaLumberjack/Swift', '3.7.0'
   pod 'SwiftyJSON', '4.3.0'

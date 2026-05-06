@@ -584,26 +584,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		E53D045A27438C5F00CA548E /* PBXContainerItemProxy */ = {
+		7586F87D2F7BD038003D76EC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F8AC425221ADEBD60078C348 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = E53D045727438C5F00CA548E;
-			remoteInfo = "xDripWatch WatchKit Extension";
+			remoteGlobalIDString = F870D3D025126A49008967B0;
+			remoteInfo = "xDrip4iOS Widget";
 		};
-		E53D046E27438C6100CA548E /* PBXContainerItemProxy */ = {
+		7586F87F2F7BD03C003D76EC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F8AC425221ADEBD60078C348 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = E53D044F27438C5D00CA548E;
 			remoteInfo = xDripWatch;
 		};
-		F870D3DB25126A49008967B0 /* PBXContainerItemProxy */ = {
+		E53D045A27438C5F00CA548E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F8AC425221ADEBD60078C348 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = F870D3D025126A49008967B0;
-			remoteInfo = "xDrip4iOS Widget";
+			remoteGlobalIDString = E53D045727438C5F00CA548E;
+			remoteInfo = "xDripWatch WatchKit Extension";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -2854,8 +2854,8 @@
 			buildRules = (
 			);
 			dependencies = (
-				F870D3DC25126A49008967B0 /* PBXTargetDependency */,
-				E53D046F27438C6100CA548E /* PBXTargetDependency */,
+				7586F8802F7BD03C003D76EC /* PBXTargetDependency */,
+				7586F87E2F7BD038003D76EC /* PBXTargetDependency */,
 			);
 			name = xdrip;
 			productName = xdrip;
@@ -3166,7 +3166,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [ $ACTION != \"indexbuild\" ]; then\n  \"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R.generated.swift\"\nfi\n";
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R.generated.swift\"\n";
 		};
 		E95BFBBCCD8F2D55529701C3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3625,20 +3625,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		7586F87E2F7BD038003D76EC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F870D3D025126A49008967B0 /* xDrip4iOS Widget */;
+			targetProxy = 7586F87D2F7BD038003D76EC /* PBXContainerItemProxy */;
+		};
+		7586F8802F7BD03C003D76EC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E53D044F27438C5D00CA548E /* xDripWatch */;
+			targetProxy = 7586F87F2F7BD03C003D76EC /* PBXContainerItemProxy */;
+		};
 		E53D045B27438C5F00CA548E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E53D045727438C5F00CA548E /* xDripWatch WatchKit Extension */;
 			targetProxy = E53D045A27438C5F00CA548E /* PBXContainerItemProxy */;
-		};
-		E53D046F27438C6100CA548E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E53D044F27438C5D00CA548E /* xDripWatch */;
-			targetProxy = E53D046E27438C6100CA548E /* PBXContainerItemProxy */;
-		};
-		F870D3DC25126A49008967B0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F870D3D025126A49008967B0 /* xDrip4iOS Widget */;
-			targetProxy = F870D3DB25126A49008967B0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -3859,7 +3859,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10405;
+				CURRENT_PROJECT_VERSION = 10407;
 				DEVELOPMENT_ASSET_PATHS = "\"xDripWatch WatchKit Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
@@ -3874,7 +3874,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.5;
+				MARKETING_VERSION = 1.4.7;
 				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -3892,7 +3892,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10405;
+				CURRENT_PROJECT_VERSION = 10407;
 				DEVELOPMENT_ASSET_PATHS = "\"xDripWatch WatchKit Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
@@ -3907,7 +3907,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.5;
+				MARKETING_VERSION = 1.4.7;
 				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -3928,7 +3928,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "$(XDRIP_CODE_SIGN_IDENTITY_DEBUG)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10405;
+				CURRENT_PROJECT_VERSION = 10407;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = NO;
@@ -3941,7 +3941,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.5;
+				MARKETING_VERSION = 1.4.7;
 				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip.watchkitapp;
 				PRODUCT_NAME = zDrip;
 				SDKROOT = watchos;
@@ -3964,7 +3964,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "$(XDRIP_CODE_SIGN_IDENTITY_RELEASE)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10405;
+				CURRENT_PROJECT_VERSION = 10407;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
 				GCC_WARN_INHIBIT_ALL_WARNINGS = NO;
@@ -3977,7 +3977,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.5;
+				MARKETING_VERSION = 1.4.7;
 				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip.watchkitapp;
 				PRODUCT_NAME = zDrip;
 				SDKROOT = watchos;
@@ -3997,7 +3997,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(XDRIP_WIDGET_ENTITLEMENTS_DEBUG)";
 				CODE_SIGN_IDENTITY = "$(XDRIP_CODE_SIGN_IDENTITY_DEBUG)";
 				CODE_SIGN_STYLE = "$(XDRIP_CODE_SIGN_STYLE)";
-				CURRENT_PROJECT_VERSION = 10405;
+				CURRENT_PROJECT_VERSION = 10407;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "xDrip4iOS Widget/Info.plist";
@@ -4007,7 +4007,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.5;
+				MARKETING_VERSION = 1.4.7;
 				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip.Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4023,7 +4023,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(XDRIP_WIDGET_ENTITLEMENTS_RELEASE)";
 				CODE_SIGN_IDENTITY = "$(XDRIP_CODE_SIGN_IDENTITY_RELEASE)";
 				CODE_SIGN_STYLE = "$(XDRIP_CODE_SIGN_STYLE)";
-				CURRENT_PROJECT_VERSION = 10405;
+				CURRENT_PROJECT_VERSION = 10407;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "xDrip4iOS Widget/Info.plist";
@@ -4033,7 +4033,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.5;
+				MARKETING_VERSION = 1.4.7;
 				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip.Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4176,7 +4176,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(XDRIP_ENTITLEMENTS_DEBUG)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10405;
+				CURRENT_PROJECT_VERSION = 10407;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/xdrip/Supporting Files/Info.plist";
@@ -4186,7 +4186,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.5;
+				MARKETING_VERSION = 1.4.7;
 				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4207,7 +4207,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(XDRIP_ENTITLEMENTS_RELEASE)";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10405;
+				CURRENT_PROJECT_VERSION = 10407;
 				DEVELOPMENT_TEAM = VR4VF2C8TC;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/xdrip/Supporting Files/Info.plist";
@@ -4217,7 +4217,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.5;
+				MARKETING_VERSION = 1.4.7;
 				PRODUCT_BUNDLE_IDENTIFIER = bg.cgm.zdrip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

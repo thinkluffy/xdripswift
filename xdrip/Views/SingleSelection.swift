@@ -37,7 +37,7 @@ class SingleSelection: UIStackView {
     
     weak var delegate: SingleSelectionDelegate?
     
-    private (set) var selectedItem: SingleSelectionItem?
+    private(set) var selectedItem: SingleSelectionItem?
     
     required init(coder: NSCoder) {
         super.init(coder: coder)

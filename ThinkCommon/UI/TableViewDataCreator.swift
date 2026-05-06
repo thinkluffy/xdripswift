@@ -88,17 +88,17 @@ fileprivate class TableViewCellOperation: BaseTableViewCell {
 
 public struct TableConfigure {
 
-    public fileprivate (set) var cellBackgroundColor: UIColor?
+    public fileprivate(set) var cellBackgroundColor: UIColor?
 
-    public fileprivate (set) var titleTextColor: UIColor?
-    public fileprivate (set) var detailTextColor: UIColor?
+    public fileprivate(set) var titleTextColor: UIColor?
+    public fileprivate(set) var detailTextColor: UIColor?
 
-    public fileprivate (set) var toggleButtonThumbColorOn: UIColor?
-    public fileprivate (set) var toggleButtonThumbColorOff: UIColor?
-    public fileprivate (set) var toggleButtonBgColorOn: UIColor?
+    public fileprivate(set) var toggleButtonThumbColorOn: UIColor?
+    public fileprivate(set) var toggleButtonThumbColorOff: UIColor?
+    public fileprivate(set) var toggleButtonBgColorOn: UIColor?
 
-    public fileprivate (set) var sectionVerticalMargin: CGFloat?
-    public fileprivate (set) var sectionHeaderColor: UIColor?
+    public fileprivate(set) var sectionVerticalMargin: CGFloat?
+    public fileprivate(set) var sectionHeaderColor: UIColor?
 }
 
 public class TableSection {
@@ -106,7 +106,7 @@ public class TableSection {
     public let headerTitle: String?
     public let footerTitle: String?
 
-    public fileprivate (set) var cells: [TableCell] = []
+    public fileprivate(set) var cells: [TableCell] = []
 
     public init(headerTitle: String? = nil, footerTitle: String? = nil) {
         self.headerTitle = headerTitle
@@ -203,8 +203,8 @@ public class TableCellToggle: TableCell {
 
 public class TableData: NSObject {
 
-    public fileprivate (set) var configure = TableConfigure()
-    public fileprivate (set) var sections: [TableSection] = []
+    public fileprivate(set) var configure = TableConfigure()
+    public fileprivate(set) var sections: [TableSection] = []
 
     private var cellIdToCell = [Int: TableCell]()
 
@@ -375,14 +375,27 @@ public class TableDataBuilder {
 
     private var data = TableData()
 
-    public func configure(cellBackgroundColor: UIColor? = nil,
-                          titleTextColor: UIColor? = nil,
-                          detailTextColor: UIColor? = nil,
-                          toggleButtonThumbColorOn: UIColor? = nil,
-                          toggleButtonThumbColorOff: UIColor? = nil,
-                          toggleButtonBgColorOn: UIColor? = nil,
-                          sectionVerticalMargin: CGFloat? = 0,
-                          sectionHeaderColor: UIColor? = nil) -> TableDataBuilder {
+    public func configure(titleTextColor: UIColor?,
+                          detailTextColor: UIColor?,
+                          sectionHeaderColor: UIColor?) -> TableDataBuilder {
+        configure(cellBackgroundColor: nil,
+                  titleTextColor: titleTextColor,
+                  detailTextColor: detailTextColor,
+                  toggleButtonThumbColorOn: nil,
+                  toggleButtonThumbColorOff: nil,
+                  toggleButtonBgColorOn: nil,
+                  sectionVerticalMargin: 0,
+                  sectionHeaderColor: sectionHeaderColor)
+    }
+
+    public func configure(cellBackgroundColor: UIColor?,
+                          titleTextColor: UIColor?,
+                          detailTextColor: UIColor?,
+                          toggleButtonThumbColorOn: UIColor?,
+                          toggleButtonThumbColorOff: UIColor?,
+                          toggleButtonBgColorOn: UIColor?,
+                          sectionVerticalMargin: CGFloat?,
+                          sectionHeaderColor: UIColor?) -> TableDataBuilder {
         data.configure.cellBackgroundColor = cellBackgroundColor
 
         data.configure.titleTextColor = titleTextColor

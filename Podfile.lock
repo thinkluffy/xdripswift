@@ -142,9 +142,7 @@ PODS:
   - PopupDialog (1.1.1):
     - DynamicBlurView (~> 4.0)
   - PromisesObjC (2.4.0)
-  - R.swift (5.4.0):
-    - R.swift.Library (~> 5.3.0)
-  - R.swift.Library (5.3.0)
+  - R.swift (7.8.0)
   - SnapKit (5.0.1)
   - SwiftEventBus (5.0.0)
   - SwiftyJSON (4.3.0)
@@ -161,7 +159,7 @@ DEPENDENCIES:
   - FSCalendar (= 2.8.2)
   - PieCharts (= 0.0.7)
   - PopupDialog (from `https://github.com/thinkluffy/PopupDialog.git`, tag `1.1.1-th`)
-  - R.swift (= 5.4.0)
+  - R.swift (= 7.8.0)
   - SnapKit (= 5.0.1)
   - SwiftEventBus (from `https://github.com/cesarferreira/SwiftEventBus.git`, tag `5.0.1`)
   - SwiftyJSON (= 4.3.0)
@@ -189,7 +187,6 @@ SPEC REPOS:
     - PieCharts
     - PromisesObjC
     - R.swift
-    - R.swift.Library
     - SnapKit
     - SwiftyJSON
 
@@ -244,12 +241,11 @@ SPEC CHECKSUMS:
   PieCharts: 30e50dfa7dc19e5b84e9878d32089673ef5d0453
   PopupDialog: 720c92befd8bc23c13442254945213db5612f149
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
-  R.swift: c533450b0f7dc494e0993f5f1a1db925d84c3006
-  R.swift.Library: 0fc583cb55a99e28901299cc451614cad1161962
+  R.swift: f573269ca45b2ab066c082e363dd4c2b297b0d71
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftEventBus: b30f617a6aca5a9336464b4d3f5931034762f2d5
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: cfebdbe6ea260da6b54be1437b6938feba3ed7fc
+PODFILE CHECKSUM: 77ad29e1eda4815532425ee6ea930a3e366ee112
 
 COCOAPODS: 1.16.2

@@ -16,15 +16,15 @@ public enum PickerViewPriority {
 
 /// defines data typically available in a view that allows user to pick from a list : list of items, selected item, title, cancel lable, ok or add label, function to call when pressing cancel, function to call button when pressing add button
 public class PickerViewData {
-    private (set) var title: String?
-    private (set) var subTitle: String?
-    private (set) var data: [String]
-    private (set) var selectedRow: Int
-    private (set) var actionTitle: String?
-    private (set) var actionHandler: ((_ index: Int, _ rowData: String) -> Void)
-    private (set) var cancelHandler: (() -> Void)?
-    private (set) var didSelectRowHandler: ((Int) -> Void)?
-    private (set) var priority: PickerViewPriority?
+    private(set) var title: String?
+    private(set) var subTitle: String?
+    private(set) var data: [String]
+    private(set) var selectedRow: Int
+    private(set) var actionTitle: String?
+    private(set) var actionHandler: ((_ index: Int, _ rowData: String) -> Void)
+    private(set) var cancelHandler: (() -> Void)?
+    private(set) var didSelectRowHandler: ((Int) -> Void)?
+    private(set) var priority: PickerViewPriority?
     
     public init(withTitle title: String?,
                 withSubTitle subTitle: String?,
