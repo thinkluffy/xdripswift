@@ -175,8 +175,8 @@ extension AlertsSettingsViewController:UITableViewDataSource, UITableViewDelegat
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        // we're having one section per alertkind, so the number = the size of the array alertsEntriesPerAlertKind
-        return alertEntriesPerAlertKind.count
+        // we're having one section per alertkind in display order
+        return AlertKind.displayOrder.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -2678,9 +2678,23 @@ struct _R {
       var warningChangeFromMasterToFollower: RswiftResources.StringResource { .init(key: "warningChangeFromMasterToFollower", tableName: "SettingsViews", source: source, developmentValue: "Switching from master to follower will stop your current sensor. Do you want to continue?", comment: nil) }
     }
 
-    /// This `_R.string.snooze` struct is generated, and contains static references to 2 localization keys.
+    /// This `_R.string.snooze` struct is generated, and contains static references to 10 localization keys.
     struct snooze {
       let source: RswiftResources.StringResource.Source
+
+      /// en translation: This will cancel every alarm snooze shown here.
+      ///
+      /// Key: confirm_unsnooze_all_message
+      ///
+      /// Locales: en, zh
+      var confirm_unsnooze_all_message: RswiftResources.StringResource { .init(key: "confirm_unsnooze_all_message", tableName: "Snooze", source: source, developmentValue: "This will cancel every alarm snooze shown here.", comment: nil) }
+
+      /// en translation: Cancel All Snoozes?
+      ///
+      /// Key: confirm_unsnooze_all_title
+      ///
+      /// Locales: en, zh
+      var confirm_unsnooze_all_title: RswiftResources.StringResource { .init(key: "confirm_unsnooze_all_title", tableName: "Snooze", source: source, developmentValue: "Cancel All Snoozes?", comment: nil) }
 
       /// en translation: Not snoozed
       ///
@@ -2689,12 +2703,54 @@ struct _R {
       /// Locales: en, zh
       var not_snoozed: RswiftResources.StringResource { .init(key: "not_snoozed", tableName: "Snooze", source: source, developmentValue: "Not snoozed", comment: nil) }
 
+      /// en translation: All %d alarms will restart with the selected snooze time.
+      ///
+      /// Key: snooze_all_picker_subtitle_format
+      ///
+      /// Locales: en, zh
+      var snooze_all_picker_subtitle_format: RswiftResources.StringResource1<Int> { .init(key: "snooze_all_picker_subtitle_format", tableName: "Snooze", source: source, developmentValue: "All %d alarms will restart with the selected snooze time.", comment: nil) }
+
+      /// en translation: Snooze All Alarms Together
+      ///
+      /// Key: snooze_all_title
+      ///
+      /// Locales: en, zh
+      var snooze_all_title: RswiftResources.StringResource { .init(key: "snooze_all_title", tableName: "Snooze", source: source, developmentValue: "Snooze All Alarms Together", comment: nil) }
+
+      /// en translation: Snoozed Alarms %d/%d
+      ///
+      /// Key: snooze_screen_title_format
+      ///
+      /// Locales: en, zh
+      var snooze_screen_title_format: RswiftResources.StringResource2<Int, Int> { .init(key: "snooze_screen_title_format", tableName: "Snooze", source: source, developmentValue: "Snoozed Alarms %d/%d", comment: nil) }
+
+      /// en translation: Choose a snooze time for alarms without an active snooze (%d). Existing snoozes stay unchanged.
+      ///
+      /// Key: snooze_unsnoozed_picker_subtitle_format
+      ///
+      /// Locales: en, zh
+      var snooze_unsnoozed_picker_subtitle_format: RswiftResources.StringResource1<Int> { .init(key: "snooze_unsnoozed_picker_subtitle_format", tableName: "Snooze", source: source, developmentValue: "Choose a snooze time for alarms without an active snooze (%d). Existing snoozes stay unchanged.", comment: nil) }
+
+      /// en translation: Snooze Unsnoozed Alarms
+      ///
+      /// Key: snooze_unsnoozed_title
+      ///
+      /// Locales: en, zh
+      var snooze_unsnoozed_title: RswiftResources.StringResource { .init(key: "snooze_unsnoozed_title", tableName: "Snooze", source: source, developmentValue: "Snooze Unsnoozed Alarms", comment: nil) }
+
       /// en translation: Snoozed until
       ///
       /// Key: snoozed_until
       ///
       /// Locales: en, zh
       var snoozed_until: RswiftResources.StringResource { .init(key: "snoozed_until", tableName: "Snooze", source: source, developmentValue: "Snoozed until", comment: nil) }
+
+      /// en translation: Cancel All Snoozes
+      ///
+      /// Key: unsnooze_all_title
+      ///
+      /// Locales: en, zh
+      var unsnooze_all_title: RswiftResources.StringResource { .init(key: "unsnooze_all_title", tableName: "Snooze", source: source, developmentValue: "Cancel All Snoozes", comment: nil) }
     }
 
     /// This `_R.string.speakReading` struct is generated, and contains static references to 14 localization keys.

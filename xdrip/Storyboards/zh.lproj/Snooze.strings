@@ -7,3 +7,12 @@
 
 /// row text for overview snooze. Snoozed alarm, until .. followed by timestamp
 "snoozed_until" = "延后到";
+
+"snooze_screen_title_format" = "延后报警 %d/%d";
+"snooze_unsnoozed_title" = "延后未延后的报警";
+"snooze_all_title" = "统一延后全部报警";
+"unsnooze_all_title" = "取消全部延后";
+"snooze_unsnoozed_picker_subtitle_format" = "选择 %d 个未延后报警的延后时长，已延后的报警保持不变。";
+"snooze_all_picker_subtitle_format" = "全部 %d 个报警会使用所选延后时长，并从现在重新计时。";
+"confirm_unsnooze_all_title" = "取消全部延后？";
+"confirm_unsnooze_all_message" = "这会取消这里显示的所有报警延后。";

@@ -4,6 +4,11 @@ import UserNotifications
 import AudioToolbox
 import SwiftEventBus
 
+enum SnoozeBulkMode {
+    case onlyNotSnoozed
+    case overwriteAll
+}
+
 /// has a function to check if an alert needs to be raised, and also raised the alert notification if needed.
 ///
 /// has all the logic but should be not or almost not aware of the kind of alerts that exists. The logic that is different per type of alert is defined in type AlertKind.
@@ -231,9 +236,6 @@ class AlertManager: NSObject {
 
                     snooze(alertKind: alertKind, snoozePeriodInMinutes: Int(currentAlertEntry.alertType.snoozeperiod), response: response)
 
-                    // save changes in coredata
-                    CoreDataManager.shared.saveChanges()
-
                 case UNNotificationDefaultActionIdentifier:
 
                     trace("in userNotificationCenter, received actionIdentifier : UNNotificationDefaultActionIdentifier (user clicked the notification which opens the app, but not the snooze action in this notification)", log: self.log, category: ConstantsLog.categoryAlertManager, type: .info)
@@ -249,8 +251,6 @@ class AlertManager: NSObject {
                     // if it's a missed reading alert, let's replan it in 5 minutes
                     if alertKind == .missedreading {
                         snooze(alertKind: .missedreading, snoozePeriodInMinutes: 5, response: response)
-                        // save changes in coredata
-                        CoreDataManager.shared.saveChanges()
                     }
 
                 default:
@@ -278,6 +278,71 @@ class AlertManager: NSObject {
             }
         }
         return false
+    }
+
+    func snoozeSummary(alertKinds: [AlertKind] = AlertKind.displayOrder) -> (snoozed: Int, total: Int) {
+        var snoozed = 0
+        for alertKind in alertKinds {
+            if getSnoozeParameters(alertKind: alertKind).getSnoozeValue().isSnoozed {
+                snoozed += 1
+            }
+        }
+        return (snoozed: snoozed, total: alertKinds.count)
+    }
+
+    @discardableResult func snoozeAlerts(mode: SnoozeBulkMode,
+                                         snoozePeriodInMinutes: Int,
+                                         alertKinds: [AlertKind] = AlertKind.displayOrder) -> Int {
+        guard snoozePeriodInMinutes > 0 else {
+            return 0
+        }
+
+        let alertKindsToSnooze = uniqueAlertKinds(from: alertKinds).filter { alertKind in
+            switch mode {
+            case .onlyNotSnoozed:
+                return !getSnoozeParameters(alertKind: alertKind).getSnoozeValue().isSnoozed
+            case .overwriteAll:
+                return true
+            }
+        }
+
+        guard !alertKindsToSnooze.isEmpty else {
+            return 0
+        }
+
+        for alertKind in alertKindsToSnooze {
+            updateSnoozeParameters(alertKind: alertKind, snoozePeriodInMinutes: snoozePeriodInMinutes)
+        }
+
+        persistAndNotifySnoozeStatusChanged(snoozePeriodInMinutes: snoozePeriodInMinutes)
+
+        if alertKindsToSnooze.contains(.missedreading) {
+            refreshMissedReadingAlert(snoozePeriodInMinutes: snoozePeriodInMinutes, content: nil)
+        }
+
+        return alertKindsToSnooze.count
+    }
+
+    @discardableResult func unSnoozeAll(alertKinds: [AlertKind] = AlertKind.displayOrder) -> Int {
+        let alertKindsToUnSnooze = uniqueAlertKinds(from: alertKinds).filter { alertKind in
+            hasStoredSnoozeParameters(alertKind: alertKind)
+        }
+
+        guard !alertKindsToUnSnooze.isEmpty else {
+            return 0
+        }
+
+        for alertKind in alertKindsToUnSnooze {
+            clearSnoozeParameters(alertKind: alertKind)
+        }
+
+        persistAndNotifySnoozeStatusChanged()
+
+        if alertKindsToUnSnooze.contains(.missedreading) {
+            refreshMissedReadingAlert(snoozePeriodInMinutes: nil, content: nil)
+        }
+
+        return alertKindsToUnSnooze.count
     }
 
     /// Function to be called that receives the notification actions. Will handle the response. completionHandler will not necessarily be called. Only if the identifier (response.notification.request.identifier) is one of the alert notification identifers, then it will handle the response and also call completionhandler.
@@ -310,13 +375,13 @@ class AlertManager: NSObject {
     /// to unSnooze an already snoozed alert
     func unSnooze(alertKind: AlertKind) {
 
-        // unSnooze
-        getSnoozeParameters(alertKind: alertKind).unSnooze()
+        clearSnoozeParameters(alertKind: alertKind)
 
-        // save changes in coredata
-        CoreDataManager.shared.saveChanges()
+        persistAndNotifySnoozeStatusChanged()
 
-        SwiftEventBus.post(EventBusEvents.snoozeAlertsStatusChanged)
+        if alertKind == .missedreading {
+            refreshMissedReadingAlert(snoozePeriodInMinutes: nil, content: nil)
+        }
     }
 
     /// creates PickerViewData which allows user to snooze an alert.
@@ -350,31 +415,7 @@ class AlertManager: NSObject {
             let snoozePeriod = self.snoozeValueMinutes[snoozeIndex]
 
             // snooze
-            AlertManager.log.i("Snoozing alert \(alertKind.descriptionForLogging()) for \(snoozePeriod.description) minutes")
-            self.getSnoozeParameters(alertKind: alertKind).snooze(snoozePeriodInMinutes: snoozePeriod)
-
-            // save changes in coredata
-            CoreDataManager.shared.saveChanges()
-
-            SwiftEventBus.post(EventBusEvents.snoozeAlertsStatusChanged)
-
-            // add 2 seconds to make sure the status is changed
-            Timer.scheduledTimer(withTimeInterval: Double(snoozePeriod * 60 + 2), repeats: false) { _ in
-                SwiftEventBus.post(EventBusEvents.snoozeAlertsStatusChanged)
-            }
-
-            // if it's a missed reading alert, then cancel any planned missed reading alerts and reschedule
-            // if content is not nil, then it means a missed reading alert went off, the user clicked it, app opens, user clicks snooze, snoozing must be set
-            // if content is nil, then this is an alert snoozed via presnooze button, missed reading alert needs to recalculated.
-            if alertKind == .missedreading {
-                if let content = content {
-                    // schedule missed reading alert with same content
-                    self.scheduleMissedReadingAlert(snoozePeriodInMinutes: snoozePeriod, content: content)
-
-                } else {
-                    _ = self.checkAlertAndFire(alertKind: .missedreading, lastBgReading: nil, lastButOneBgReading: nil, lastCalibration: nil, transmitterBatteryInfo: nil)
-                }
-            }
+            self.applySnooze(alertKind: alertKind, snoozePeriodInMinutes: snoozePeriod, missedReadingContent: content)
 
             // if actionHandler supplied by caller not nil, then execute it
             actionHandler?()
@@ -403,27 +444,17 @@ class AlertManager: NSObject {
     ///     - snoozePeriodInMinutes
     ///     - response  the UNNotificationResponse received from iOS when user clicks the notification
     public func snooze(alertKind: AlertKind, snoozePeriodInMinutes: Int, response: UNNotificationResponse?) {
-        // if it's a missedreading alert, then reschedule the alert with a delay of snoozePeriodInMinutes, repeating, with same content
         if alertKind == .missedreading {
-            if let response = response {
-                scheduleMissedReadingAlert(snoozePeriodInMinutes: snoozePeriodInMinutes, content: response.notification.request.content)
+            if let content = response?.notification.request.content {
+                scheduleMissedReadingAlert(snoozePeriodInMinutes: snoozePeriodInMinutes, content: content)
             }
 
-        } else {
-            // any other type of alert, set it to snoozed
-            getSnoozeParameters(alertKind: alertKind).snooze(snoozePeriodInMinutes: snoozePeriodInMinutes)
-            AlertManager.log.i("Snoozing alert \(alertKind.descriptionForLogging()) for \(snoozePeriodInMinutes) minutes")
-
-            // save changes in coredata
-            CoreDataManager.shared.saveChanges()
-
-            SwiftEventBus.post(EventBusEvents.snoozeAlertsStatusChanged)
-
-            // add 2 seconds to make sure the status is changed
-            Timer.scheduledTimer(withTimeInterval: Double(snoozePeriodInMinutes * 60 + 2), repeats: false) { _ in
-                SwiftEventBus.post(EventBusEvents.snoozeAlertsStatusChanged)
-            }
+            return
         }
+
+        applySnooze(alertKind: alertKind,
+                    snoozePeriodInMinutes: snoozePeriodInMinutes,
+                    missedReadingContent: response?.notification.request.content)
     }
 
     // MARK: - overriden functions
@@ -445,19 +476,7 @@ class AlertManager: NSObject {
 
                     // user changed a missed reading alert setting, so we're going to call checkAlertAndFire for .missedreading, which will replan or cancel any existing missed reading alert
 
-                    // get last bgreading, ignore sensor, because it must also work for follower mode
-                    // to check missed reading alert, we only need one reading
-                    let latestBgReadings = bgReadingsAccessor.getLatestBgReadings(limit: 1, howOld: nil, forSensor: nil, ignoreRawData: true, ignoreCalculatedValue: false)
-
-                    if latestBgReadings.count > 0 {
-
-                        // first of all remove all existing missedreading notifications
-                        uNUserNotificationCenter.removeDeliveredNotifications(withIdentifiers: [AlertKind.missedreading.notificationIdentifier()])
-                        uNUserNotificationCenter.removePendingNotificationRequests(withIdentifiers: [AlertKind.missedreading.notificationIdentifier()])
-
-                        _ = checkAlertAndFire(alertKind: .missedreading, lastBgReading: latestBgReadings[0], lastButOneBgReading: nil, lastCalibration: nil, transmitterBatteryInfo: nil)
-
-                    }
+                    refreshMissedReadingAlert(snoozePeriodInMinutes: nil, content: nil)
 
                     UserDefaults.standard.missedReadingAlertChanged = false
 
@@ -469,6 +488,79 @@ class AlertManager: NSObject {
     }
 
     // MARK: - private helper functions
+
+    private func uniqueAlertKinds(from alertKinds: [AlertKind]) -> [AlertKind] {
+        var seenRawValues = Set<Int>()
+        return alertKinds.filter { alertKind in
+            seenRawValues.insert(alertKind.rawValue).inserted
+        }
+    }
+
+    private func hasStoredSnoozeParameters(alertKind: AlertKind) -> Bool {
+        let snoozeParameter = getSnoozeParameters(alertKind: alertKind)
+        return snoozeParameter.snoozePeriodInMinutes > 0 || snoozeParameter.snoozeTimeStamp != nil
+    }
+
+    private func updateSnoozeParameters(alertKind: AlertKind, snoozePeriodInMinutes: Int) {
+        getSnoozeParameters(alertKind: alertKind).snooze(snoozePeriodInMinutes: snoozePeriodInMinutes)
+        AlertManager.log.i("Snoozing alert \(alertKind.descriptionForLogging()) for \(snoozePeriodInMinutes) minutes")
+    }
+
+    private func clearSnoozeParameters(alertKind: AlertKind) {
+        getSnoozeParameters(alertKind: alertKind).unSnooze()
+    }
+
+    private func persistAndNotifySnoozeStatusChanged(snoozePeriodInMinutes: Int? = nil) {
+        CoreDataManager.shared.saveChanges()
+
+        SwiftEventBus.post(EventBusEvents.snoozeAlertsStatusChanged)
+
+        guard let snoozePeriodInMinutes = snoozePeriodInMinutes, snoozePeriodInMinutes > 0 else {
+            return
+        }
+
+        // add 2 seconds to make sure the status is changed
+        Timer.scheduledTimer(withTimeInterval: Double(snoozePeriodInMinutes * 60 + 2), repeats: false) { _ in
+            SwiftEventBus.post(EventBusEvents.snoozeAlertsStatusChanged)
+        }
+    }
+
+    private func applySnooze(alertKind: AlertKind, snoozePeriodInMinutes: Int, missedReadingContent: UNNotificationContent?) {
+        updateSnoozeParameters(alertKind: alertKind, snoozePeriodInMinutes: snoozePeriodInMinutes)
+
+        persistAndNotifySnoozeStatusChanged(snoozePeriodInMinutes: snoozePeriodInMinutes)
+
+        if alertKind == .missedreading {
+            refreshMissedReadingAlert(snoozePeriodInMinutes: snoozePeriodInMinutes, content: missedReadingContent)
+        }
+    }
+
+    private func refreshMissedReadingAlert(snoozePeriodInMinutes: Int?, content: UNNotificationContent?) {
+        if let content = content, let snoozePeriodInMinutes = snoozePeriodInMinutes, snoozePeriodInMinutes > 0 {
+            removeMissedReadingNotifications()
+            scheduleMissedReadingAlert(snoozePeriodInMinutes: snoozePeriodInMinutes, content: content)
+        } else {
+            replanMissedReadingAlertWithLatestReading()
+        }
+    }
+
+    private func removeMissedReadingNotifications() {
+        uNUserNotificationCenter.removeDeliveredNotifications(withIdentifiers: [AlertKind.missedreading.notificationIdentifier()])
+        uNUserNotificationCenter.removePendingNotificationRequests(withIdentifiers: [AlertKind.missedreading.notificationIdentifier()])
+    }
+
+    private func replanMissedReadingAlertWithLatestReading() {
+        let latestBgReadings = bgReadingsAccessor.getLatestBgReadings(limit: 1, howOld: nil, forSensor: nil, ignoreRawData: true, ignoreCalculatedValue: false)
+
+        if latestBgReadings.count > 0 {
+            removeMissedReadingNotifications()
+            _ = checkAlertAndFire(alertKind: .missedreading,
+                                  lastBgReading: latestBgReadings[0],
+                                  lastButOneBgReading: nil,
+                                  lastCalibration: nil,
+                                  transmitterBatteryInfo: nil)
+        }
+    }
 
     /// Checks group of alerts - Not to be used for alerts with delay (ie missedreading)
     /// - parameters:

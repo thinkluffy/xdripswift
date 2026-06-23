@@ -17,31 +17,34 @@ public enum AlertKind: Int, CaseIterable {
     case fastdrop = 7
     case fastrise = 8
 
+    static let displayOrder: [AlertKind] = {
+        let displayOrder: [AlertKind] = [
+            .verylow,
+            .low,
+            .fastdrop,
+            .high,
+            .veryhigh,
+            .fastrise,
+            .missedreading,
+            .calibration,
+            .batterylow
+        ]
+
+        assert(
+            Set(displayOrder) == Set(AlertKind.allCases) && displayOrder.count == AlertKind.allCases.count,
+            "AlertKind.displayOrder must include each AlertKind exactly once"
+        )
+
+        return displayOrder
+    }()
+
     /// this is used for presentation in UI table view. It allows to order the alert kinds in the view, different than they case ordering, and so allows to add new cases
     init?(forSection section: Int) {
-        switch section {
-        case 0:
-            self = .verylow
-        case 1:
-            self = .low
-        case 2:
-            self = .fastdrop
-        case 3:
-            self = .high
-        case 4:
-            self = .veryhigh
-        case 5:
-            self = .fastrise
-        case 6:
-            self = .missedreading
-        case 7:
-            self = .calibration
-        case 8:
-            self = .batterylow
-            
-        default:
-            fatalError("in AlertKind initializer init(forRowAt row: Int), there's no case for the rownumber")
+        guard AlertKind.displayOrder.indices.contains(section) else {
+            return nil
         }
+
+        self = AlertKind.displayOrder[section]
     }
     
     var isBgRelated: Bool {
@@ -50,29 +53,11 @@ public enum AlertKind: Int, CaseIterable {
     
     /// gives the raw value of the alertkind for a specific section in a uitableview, is the opposite of the initializer
     static func alertKindRawValue(forSection section: Int) -> Int {
-        
-        switch section {
-        case 0://very low
-            return 0
-        case 1:// low
-            return 1
-        case 2:// fast drop
-            return 7
-        case 3:// high
-            return 2
-        case 4://very high
-            return 3
-        case 5://fast rise
-            return 8
-        case 6://missed reading
-            return 4
-        case 7://calibration
-            return 5
-        case 8://battery low
-            return 6
-        default:
+        guard let alertKind = AlertKind(forSection: section) else {
             fatalError("in alertKindRawValue, unknown case")
         }
+
+        return alertKind.rawValue
     }
     
     /// if true, then this type of alert will (if raised) create an immediate notification which will have the current reading as text - simply means there's no need to create an additional notification with the current reading

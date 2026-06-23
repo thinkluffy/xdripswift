@@ -35,19 +35,21 @@ class SnoozeParametersAccessor {
             }
         }
         
-        // snoozeParameters are ordered by alertKind so goes from 0 to highest value
-        // but maybe some (or all) are missing
-        // if some are missing, then it's either because it's the first time this app runs
-        // or it's because new alertKind's have been added, in which case it's at the end of the range they are added
-        for index in snoozeParameterArray.count ..< AlertKind.allCases.count {
-            if let alertKind = AlertKind(rawValue: index) {
-                snoozeParameterArray.append(SnoozeParameters(alertKind: alertKind,
-                                                             snoozePeriodInMinutes: 0,
-                                                             snoozeTimeStamp: nil,
-                                                             nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext))
-                
-            }
+        var snoozeParametersByAlertKind = [Int16: SnoozeParameters]()
+        for snoozeParameter in snoozeParameterArray where snoozeParametersByAlertKind[snoozeParameter.alertKind] == nil {
+            snoozeParametersByAlertKind[snoozeParameter.alertKind] = snoozeParameter
         }
-        return snoozeParameterArray
+
+        return AlertKind.allCases.map { alertKind in
+            let alertKindRawValue = Int16(alertKind.rawValue)
+            if let snoozeParameter = snoozeParametersByAlertKind[alertKindRawValue] {
+                return snoozeParameter
+            }
+
+            return SnoozeParameters(alertKind: alertKind,
+                                    snoozePeriodInMinutes: 0,
+                                    snoozeTimeStamp: nil,
+                                    nsManagedObjectContext: CoreDataManager.shared.mainManagedObjectContext)
+        }
     }
 }

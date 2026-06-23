@@ -1,2 +1,10 @@
 "not_snoozed" = "Not snoozed";
 "snoozed_until" = "Snoozed until";
+"snooze_screen_title_format" = "Snoozed Alarms %d/%d";
+"snooze_unsnoozed_title" = "Snooze Unsnoozed Alarms";
+"snooze_all_title" = "Snooze All Alarms Together";
+"unsnooze_all_title" = "Cancel All Snoozes";
+"snooze_unsnoozed_picker_subtitle_format" = "Choose a snooze time for alarms without an active snooze (%d). Existing snoozes stay unchanged.";
+"snooze_all_picker_subtitle_format" = "All %d alarms will restart with the selected snooze time.";
+"confirm_unsnooze_all_title" = "Cancel All Snoozes?";
+"confirm_unsnooze_all_message" = "This will cancel every alarm snooze shown here.";
